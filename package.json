@@ -1,0 +1,68 @@
+{
+  "name": "design-system",
+  "version": "0.0.1",
+  "description": "React implemented Design System",
+  "scripts": {
+    "build": "npx rollup -c",
+    "storybook": "start-storybook -p 6006 --no-dll",
+    "build-storybook": "build-storybook --no-dll"
+  },
+  "main": "build/index.cjs.js",
+  "module": "build/index.esm.js",
+  "browser": "build/index.js",
+  "style": "build/index.css",
+  "files": [
+    "build",
+    "styles"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:amfoss/startup/design-system.git"
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "component-library",
+    "ui"
+  ],
+  "contributors": [
+    "aswinshenoy <aswinshenoy65@gmail.com>"
+  ],
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-image": "^2.0.5",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-url": "^5.0.1",
+    "@storybook/addon-essentials": "^6.0.28",
+    "@storybook/addon-knobs": "^6.0.28",
+    "@storybook/react": "^6.0.28",
+    "@storybook/theming": "^6.0.28",
+    "babel-loader": "^8.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-is": "^17.0.1",
+    "rollup": "^2.33.1",
+    "rollup-plugin-filesize": "^9.0.2",
+    "rollup-plugin-postcss": "^3.1.8"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.1.1",
+    "@emotion/styled": "^10.0.27",
+    "emotion": "^10.0.27"
+  }
+}

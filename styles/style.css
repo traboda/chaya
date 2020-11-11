@@ -1,0 +1,15 @@
+
+
+.plain-link {
+    color: inherit!important;
+}
+.plain-link:hover {
+    text-decoration: none!important
+}
+.plain-button {
+    background: none!important;
+    border: none;
+}
+.plain-button:focus {
+    outline: none!important
+}
