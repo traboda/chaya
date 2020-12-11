@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from "shortid";
 import styled from '@emotion/styled';
+import { ThemeContext } from '../../utils/theme';
 
 const emptyFunc = () => {};
+
+const TextContainer = styled.div`
+  background-color: ${({bg}) => bg ? bg : null};
+  padding: 0.25rem;
+  input {
+    color: ${({color}) => color ? color : null};
+  }
+`;
 
 const StyledTextInput = styled.input`
     background: transparent;
@@ -33,6 +42,8 @@ const TextInput = ({
   const inputID = id && id.length > 1 ? id : `${name}-input-${shortid.generate()}`;
 
   const [isTyping, setTyping] = useState(false);
+
+  const theme = useContext(ThemeContext);
 
   const [value, setValue] = useState(val !== null ? val : '');
   useEffect(() => { setValue(val) },[val]);
@@ -81,20 +92,27 @@ const TextInput = ({
     style: inputStyle,
   };
 
-  return <div className={className} style={style}>
+  const getTextInputBg = (theme) => {
+      return theme?.inputBackground ? theme?.inputBackground : null;
+  }
+
+  return <TextContainer bg={getTextInputBg(theme)} color={theme.color} className={className} style={style}>
     <div className="row mx-0">
       <div className="col-8 px-0">
         <label
           htmlFor={inputID}
           aria-hidden={false}
-          style={{ opacity: (value?.length > 0) ? 1 : 0 }}
-          className={'font-weight-bold text-primary small mb-0'}
+          style={{ opacity: (value?.length > 0) ? 1 : 0, color: theme.color }}
+          className={'font-weight-bold small mb-0'}
         >
           {label}
         </label>
       </div>
       {(value?.length > 0 && isTyping && charLimit > 0) &&
-      <div className="col-4 px-1 d-flex justify-content-end small">
+      <div
+        className="col-4 px-1 d-flex justify-content-end small"
+        style={{ color: theme.color }}
+      >
         {value?.length}/{charLimit}
       </div>}
     </div>
@@ -115,7 +133,7 @@ const TextInput = ({
     <div style={{ fontSize: '10px' }}>
       {description}
     </div>}
-  </div>
+  </TextContainer>
 
 };
 

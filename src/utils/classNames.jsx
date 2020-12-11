@@ -5,10 +5,11 @@ export const getFlexClassNames = ({
 }) => {
     if(flexCenter) return 'd-flex align-items-center justify-content-center';
     else {
-       let cls = 'd-flex ';
+       let cls = '';
+       if(flexHR || flexHC || flexVC) cls += 'd-flex'
        if(flexHC) cls += 'justify-content-center ';
-       else if(flexHR) cls += 'justify-content-end';
-       if(flexVC) cls += 'align-items-center';
+       else if(flexHR) cls += 'justify-content-end ';
+       if(flexVC) cls += 'align-items-center ';
        return cls;
     }
 }

@@ -11,7 +11,8 @@ const themes = {
     secondary: '#FFD600',
     secondaryTextColor: 'black',
     foreground: "#000000",
-    background: "white"
+    background: "white",
+    inputBackground: "rgba(255,255,255,0.5)",
   },
   dark: {
     primary: '#212121',
@@ -19,7 +20,8 @@ const themes = {
     secondary: '#FFD600',
     secondaryTextColor: 'black',
     color: "white",
-    background: "rgba(0,0,30,0.5)"
+    background: "rgba(0,0,30,0.5)",
+    inputBackground: "rgba(0,0,30,0.5)",
   }
 };
 
