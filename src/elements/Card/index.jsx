@@ -1,58 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { getFlexClassNames, getMarginClassName, getPaddingClassName, getShadowClassName } from '../../utils/classNames';
+import { ThemeContext } from '../../utils/theme';
+import { getBorderRadiusStyle } from '../../utils/styles';
+
 const Card = ({
   children, className, style, transparent = false,
-  shadow, round, flexCenter, minHeight, bg,
-  p = null, px = null, py = null, m = null, mx = null, my = null,
+  shadow, round, minHeight, bg, color,
+  flexCenter = false, flexHC = false, flexHR = false, flexVC = false,
+  p = null, px = null, py = null,
+  m = null, mx = null, my = null,
   onClick = () => {},
 }) => {
 
-  const borderRadius = (() => {
-    switch (round) {
-      case 1: return '0.15rem';
-      case 2: return '0.25rem';
-      case 3: return '0.5rem';
-      case 4: return '1rem';
-      case 5: return '2rem';
-      default: return 0;
-    }
-  })();
-
-  const shadowClass = (() => {
-    switch (shadow) {
-      case 0: return 'shadow-none';
-      case 1: return 'shadow-sm';
-      case 2: return 'shadow';
-      case 3: return 'shadow-lg';
-      default: return null;
-    }
-  })();
+  const theme = useContext(ThemeContext);
 
   return (
     <div
       className={classNames(
-        { 'bg-white': !transparent && !bg },
-        { 'text-dark': !transparent && !bg },
         { 'bg-none': transparent },
-        shadowClass,
-        p != null ? `p-${p}` : null,
-        px != null ? `px-${px}` : null,
-        py != null ? `py-${py}` : null,
-        m != null && (mx == null && my == null) ? `m-${m}` : mx != null ? `mx-${mx}` : my != null ? `my-${my}` : null,
-        { 'd-flex align-items-center justify-content-center': flexCenter },
+        getPaddingClassName({ p, px, py }),
+        getMarginClassName({ m, mx, my }),
+        getFlexClassNames({ flexCenter, flexVC, flexHC, flexHR }),
+        getShadowClassName(shadow),
         className
       )}
       onClick={onClick}
-      style={{ borderRadius, minHeight, background: !transparent && bg, ...style, }}
+      style={{
+        borderRadius: getBorderRadiusStyle(round), minHeight,
+        background: !transparent && (bg ? bg : theme?.cardBg ? theme.cardBg : theme?.background ? theme.background : null),
+        color: (color ? color : (theme?.color ? theme.color : null)),
+        ...style
+      }}
     >
       {children}
     </div>
   );
 };
 
-Card.propTypes = {
+const props = {
   /**
    * padding for the card
    */
@@ -65,6 +53,13 @@ Card.propTypes = {
    * vertical padding
    */
   py: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
+  /**
+   * flex center content of the card
+   */
+  flexCenter: PropTypes.bool,
+  flexHC: PropTypes.bool,
+  flexVC: PropTypes.bool,
+  flexHR: PropTypes.bool,
   /**
    * margin for the card
    */
@@ -94,6 +89,10 @@ Card.propTypes = {
    */
   bg: PropTypes.string,
   /**
+   * color for the text in the card
+   */
+  color: PropTypes.string,
+  /**
    * additional custom class names for the card
    */
   className: PropTypes.string,
@@ -106,10 +105,6 @@ Card.propTypes = {
    */
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   /**
-   * flex center content of the card
-   */
-  flexCenter: PropTypes.bool,
-  /**
    * is the card transparent, on default it has a white background
    */
   transparent: PropTypes.bool,
@@ -118,5 +113,7 @@ Card.propTypes = {
    */
   onClick: PropTypes.func,
 };
+
+Card.propTypes = props;
 
 export default Card;

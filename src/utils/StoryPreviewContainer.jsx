@@ -1,13 +1,15 @@
 import React from 'react';
 import StyleProvider from './StyleProvider';
 
-const StoryPreviewContainer = ({ children, width = '450px' }) => {
+const StoryPreviewContainer = ({ children, width = '450px', theme, }) => {
   return (
-    <div className="d-flex align-items-center justify-content-center bg-light p-2">
-      <div style={{ width, maxWidth: '100%' }}>
-        <StyleProvider>{children}</StyleProvider>
+    <StyleProvider theme={theme}>
+      <div className="d-flex align-items-center justify-content-center bg-light p-2">
+        <div style={{ width, maxWidth: '100%' }}>
+          {children}
+        </div>
       </div>
-    </div>
+    </StyleProvider>
   );
 };
 

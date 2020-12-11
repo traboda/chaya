@@ -10,7 +10,7 @@ import pkg from './package.json';
 
 const INPUT_FILE_PATH = 'src/index.js';
 
-const OUTPUT_NAME = 'SQUADEGY_DESIGN_SYSTEM';
+const OUTPUT_NAME = 'TRABODA_DESIGN_SYSTEM';
 
 const GLOBALS = {
     react: 'React',

@@ -1,5 +1,6 @@
-
-
+html {
+    font-size: 12px;
+}
 .plain-link {
     color: inherit!important;
 }
