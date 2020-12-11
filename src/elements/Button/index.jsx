@@ -27,8 +27,10 @@ const StyledButton = styled.button`
     border-radius: ${({ borderRadius }) => borderRadius ? borderRadius : null};
     background: ${({ transparent, bg }) => !transparent ? bg : 'transparent!important' };
     color: ${({ color }) => color ? color : null };
+    text-decoration: none!important;
     &:hover, &:focus {
         outline: none!important;
+        text-decoration: none!important;
         background: ${({ color }) => color ? color : null };
         color: ${({ transparent, bg }) => !transparent ? bg : 'transparent!important' };
     }

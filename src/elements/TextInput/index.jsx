@@ -9,9 +9,13 @@ const emptyFunc = () => {};
 
 const TextContainer = styled.div`
   background-color: ${({bg}) => bg ? bg : null};
-  padding: 0.25rem;
+  padding: 0.5rem;
   input {
     color: ${({color}) => color ? color : null};
+    &::placeholder {
+      color: ${({color}) => color ? color : null};
+      opacity: 0.8;
+    }
   }
 `;
 
@@ -32,9 +36,9 @@ const StyledTextInput = styled.input`
 
 const TextInput = ({
    id, label, name, placeholder, value: val, charLimit,
-   className, style,
+   className, style, hideLabel = false, alwaysShowLabel = false,
    isRequired = false, isDisabled = false, autoFocus = false,
-   rows, spellCheck, autoComplete, autoCorrect, autoCapitalize,
+   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize,
    inputStyle, inputClassName, type, errorText, description,
    onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc
 }) => {
@@ -97,17 +101,19 @@ const TextInput = ({
   }
 
   return <TextContainer bg={getTextInputBg(theme)} color={theme.color} className={className} style={style}>
+    {(!((isTyping || value?.length > 0) && !hideLabel) && !alwaysShowLabel) && <div style={{ height: '0.75rem' }} />}
     <div className="row mx-0">
-      <div className="col-8 px-0">
+      {(((isTyping || value?.length > 0) && !hideLabel) || alwaysShowLabel ) &&
+      <div className="col-8 px-0" style={{ height: '1.5rem' }}>
         <label
           htmlFor={inputID}
           aria-hidden={false}
-          style={{ opacity: (value?.length > 0) ? 1 : 0, color: theme.color }}
+          style={{ color: theme.secondary }}
           className={'font-weight-bold small mb-0'}
         >
           {label}
         </label>
-      </div>
+      </div>}
       {(value?.length > 0 && isTyping && charLimit > 0) &&
       <div
         className="col-4 px-1 d-flex justify-content-end small"
@@ -133,6 +139,7 @@ const TextInput = ({
     <div style={{ fontSize: '10px' }}>
       {description}
     </div>}
+    {(!((isTyping || value?.length > 0) && !hideLabel) && !alwaysShowLabel) && <div style={{ height: '0.75rem' }} />}
   </TextContainer>
 
 };
@@ -153,6 +160,8 @@ TextInput.propTypes  = {
   charLimit: PropTypes.number,
   errorText: PropTypes.string,
   description: PropTypes.string,
+  hideLabel: PropTypes.bool,
+  alwaysShowLabel: PropTypes.bool,
   spellCheck: PropTypes.oneOf(["off", "on"]),
   autoComplete: PropTypes.oneOf(["off", "on", "email", "current-password", "username"]),
   autoCorrect: PropTypes.oneOf(["off", "on"]),
