@@ -18,7 +18,7 @@ const StyledButton = styled.button`
     align-items: center;
     justify-content: center;
     position: relative;
-    cursor: pointer;
+    cursor: ${({ disabled }) => !disabled ? "pointer": "not-allowed"};
     font-size: 1.35rem;
     line-height: 1;
     text-align: center;
