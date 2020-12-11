@@ -42,7 +42,7 @@ const Button = ({
   m = null, mx = null, my = null,
   transparent, variant = 'primary', shadow, round = 2,
   disableRipple = false, fw = false,
-  className, style,
+  className, style, inverseColors = false,
   onClick = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc,
 }) => {
 
@@ -63,8 +63,8 @@ const Button = ({
       onFocus={onFocus}
       fw={fw}
       transparent={transparent}
-      bg={getColorByVariant(variant, theme)}
-      color={transparent ? getTextColorByVariant(variant, theme) : getTextColorByVariant(variant, theme)}
+      bg={inverseColors ? getTextColorByVariant(variant, theme) : getColorByVariant(variant, theme)}
+      color={transparent || inverseColors ? getColorByVariant(variant, theme) : getTextColorByVariant(variant, theme)}
       borderRadius={getBorderRadiusStyle(round)}
       className={classNames(
         getPaddingClassName({ p, px, py }),
@@ -102,6 +102,7 @@ Button.propTypes = {
   className: PropTypes.string,
   transparent: PropTypes.bool,
   disableRipple: PropTypes.bool,
+  inverseColors: PropTypes.bool,
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
 };
 

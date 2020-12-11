@@ -1,6 +1,6 @@
 {
   "name": "@traboda/dsr",
-  "version": "0.0.51",
+  "version": "0.0.54",
   "description": "React implemented Design System",
   "scripts": {
     "build": "npx rollup -c",
