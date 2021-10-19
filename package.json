@@ -3,13 +3,12 @@
   "version": "0.0.58",
   "description": "React implemented Design System",
   "scripts": {
-    "build": "npx rollup -c",
+    "build": "rollup -c",
     "storybook": "start-storybook -p 6006 --no-dll",
     "build-storybook": "build-storybook --no-dll"
   },
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
-  "browser": "build/index.js",
   "style": "build/index.css",
   "files": [
     "build",
@@ -29,24 +28,19 @@
     "aswinshenoy <aswinshenoy65@gmail.com>"
   ],
   "license": "UNLICENSED",
-  "peerDependencies": {
-    "classnames": "^2.2.6",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "shortid": "^2.2.16"
-  },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-export-default-from": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@rollup/plugin-babel": "^5.2.1",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^8.3.0",
     "@rollup/plugin-url": "^5.0.1",
     "@storybook/addon-essentials": "^6.1.10",
     "@storybook/addon-knobs": "^6.1.10",
@@ -56,14 +50,22 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
-    "rollup": "^2.33.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.57.0",
     "rollup-plugin-filesize": "^9.0.2",
-    "rollup-plugin-postcss": "^3.1.8"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^3.1.8",
+    "rollup-plugin-terser": "^7.0.2",
+    "tailwindcss": "^2.2.7",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@emotion/core": "^10.1.1",
-    "@emotion/styled": "^10.0.27",
-    "emotion": "^10.0.27",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.3.0",
+    "classnames": "2.3.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "shortid": "^2.2.16"
   }
 }

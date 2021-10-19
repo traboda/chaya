@@ -1,6 +1,5 @@
 import React from 'react';
 
-import '../../styles/bootstrap.min.css';
 import '../../styles/style.css';
 import { ThemeProvider } from './theme';
 
