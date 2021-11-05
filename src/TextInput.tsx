@@ -1,7 +1,74 @@
-import { useEffect, useState } from 'react';
-import shortid from 'shortid'
+import React, { useEffect, useState } from 'react';
+import shortid from 'shortid';
+import styled from '@emotion/styled';
 
 const emptyFunc = () => {};
+
+const TextContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+
+  label {
+    opacity: 0.75;
+    font-size: 1.2rem;
+
+    .required-marker {
+      margin-left: 0.25rem;
+      color: #F99;
+      font-size: 15px;
+    }
+  }
+
+  input, textarea {
+    color: ${({ theme }) => theme.color};
+
+    &::placeholder {
+      color: ${({ theme }) => theme.color};
+      opacity: 0.5;
+    }
+  }
+`;
+
+type StyledTextInput = {
+    hasErrors: boolean
+}
+
+const StyledTextInput = styled('input')<StyledTextInput>`
+  display: block;
+  width: 100%;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.color};
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 2px solid hsla(0, 0%, 40%, .7);
+
+  &:hover {
+    border-color: hsla(0, 0%, 80%, .8);
+  }
+
+  &:focus {
+    outline: none !important;
+    border: 2px solid ${({ theme }) => theme.secondary}
+  }
+`;
+
+const PostFixIcon = styled('div')`
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.background};
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin: 2px;
+  max-height: 90%;
+`;
 
 type TextInput = {
     label: string
@@ -13,9 +80,9 @@ type TextInput = {
     required?: boolean
     disabled?: boolean
     inputClassName?: string
-    inputStyle?: any
+    inputStyle?: React.CSSProperties
     rows?: number
-    charLimit?: number
+    charLimit?: number | null
     errorText?: string
     description?: string
     hideLabel?: boolean
@@ -29,17 +96,17 @@ type TextInput = {
     onKeyDown?: (e: any) => void,
     onChange?: (value: any) => void
     className?: string
-    style?: any
+    style?: React.CSSProperties
     autoFocus?: boolean,
-    postfixRenderer?: any
+    postfixRenderer?: React.ReactElement
 };
 
 
 const TextInput = ({
-   id, label, name, placeholder, value: val, charLimit = 0,
+   id, label, name, placeholder, value: val, charLimit = null,
    className, style, hideLabel = false,
    required = false, disabled = false, autoFocus = false,
-   spellCheck, autoComplete, autoCorrect, autoCapitalize,
+   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize,
    inputStyle, inputClassName, type, errorText, description, postfixRenderer,
    onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc
 }: TextInput) => {
@@ -97,7 +164,7 @@ const TextInput = ({
         style: inputStyle,
     };
 
-    return <div className={className} style={style}>
+    return <TextContainer className={className} style={style}>
         <div className="w-full py-1">
             {(!hideLabel) &&
             <div className="flex flex-wrap mb-2 px-1 mx-0">
@@ -107,30 +174,33 @@ const TextInput = ({
                         {required && <span className="required-marker">*</span>}
                     </label>
                 </div>
-                {((typeof value !== 'number' && value?.length > 0) && isTyping && charLimit > 0) &&
+                {((typeof value !== 'number' && value?.length > 0) && isTyping && charLimit !== null && charLimit > 0) &&
                 <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">
                     {value?.length}/{charLimit}
                 </div>}
             </div>}
             <div className="relative">
-                {/* @ts-ignore */}
-                <input
+                <StyledTextInput
+                    as={type === 'textarea' ? 'textarea' : 'input'}
+                    // @ts-ignore
+                    rows={type === 'textarea' ? rows : null}
                     {...props}
+                    hasErrors={!!errorText}
                     className={inputClassName}
                     onKeyDown={onKeyDown}
                 />
-                {postfixRenderer && <div>{postfixRenderer}</div>}
+                {postfixRenderer && <PostFixIcon>{postfixRenderer}</PostFixIcon>}
             </div>
             {errorText &&
             <div className="text-red-400 mt-1">
                 {errorText}
             </div>}
             {description &&
-            <div className="mt-2" style={{opacity: 0.75, fontSize: '10px'}}>
+            <div className="mt-2" style={{ opacity: 0.75, fontSize: '10px' }}>
                 {description}
             </div>}
         </div>
-    </div>;
+    </TextContainer>;
 
 };
 
