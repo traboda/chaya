@@ -6,6 +6,7 @@
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "typings": "./lib/esm/index.d.ts",
+  "license": "MIT",
   "files": [
     "lib"
   ],
