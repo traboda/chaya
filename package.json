@@ -1,41 +1,26 @@
 {
   "name": "@traboda/dsr",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Design System of Traboda",
   "private": false,
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "typings": "./lib/esm/index.d.ts",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "lib"
+    "dist"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs"
-  },
-  "contributors": [
-    "aswinshenoy <aswinshenoy65@gmail.com>",
-    "Advaith A J <advaitharunjeena@gmail.com>"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.com:amfoss/traboda/design-system.git"
-  },
-  "devDependencies": {
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "@types/color": "^3.0.2",
-    "@types/react": "^17.0.34",
-    "@types/react-dom": "^17.0.11",
-    "@types/shortid": "^0.0.29",
-    "classnames": "^2.3.1",
-    "color": "^4.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "shortid": "^2.2.16",
-    "typescript": "^4.4.4"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "@emotion/react": "^11.5.0",
@@ -46,9 +31,57 @@
     "react-dom": "^17.0.2",
     "shortid": "^2.2.16"
   },
-  "dependencies": {
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "contributors": [
+    "aswinshenoy <aswinshenoy65@gmail.com>",
+    "Advaith A J <advaitharunjeena@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:amfoss/traboda/design-system.git"
+  },
+  "module": "dist/ds.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/ds.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/ds.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@size-limit/preset-small-lib": "^6.0.4",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addons": "^6.3.12",
+    "@storybook/react": "^6.3.12",
+    "@types/react": "^17.0.34",
+    "@types/react-dom": "^17.0.11",
     "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.2.3",
+    "classnames": "^2.3.1",
+    "husky": "^7.0.4",
+    "nanoid": "^3.1.30",
     "postcss": "^8.3.11",
-    "tailwindcss": "^2.2.19"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.1",
+    "size-limit": "^6.0.4",
+    "tailwindcss": "^2.2.19",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4"
   }
 }

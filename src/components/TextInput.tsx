@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid'
 import styled from '@emotion/styled';
 
 const emptyFunc = () => {};
@@ -111,7 +111,7 @@ const TextInput = ({
    onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc
 }: TextInput) => {
 
-    const inputID = id && id.length > 1 ? id : `${name}-input-${shortid.generate()}`;
+    const inputID = id && id.length > 1 ? id : `${name}-input-${nanoid()}`;
 
     const [isTyping, setTyping] = useState(false);
 

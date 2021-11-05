@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import styled from '@emotion/styled';
 import { Theme, useTheme } from '@emotion/react';
 
-import { getBorderRadiusStyle, getColorByVariant, getTextColorByVariant } from './utils/styles';
-import { getMarginClassName, getPaddingClassName, getShadowClassName } from './utils/classnames';
+import { getBorderRadiusStyle, getColorByVariant, getTextColorByVariant } from '../utils/styles';
+import { getMarginClassName, getPaddingClassName, getShadowClassName } from '../utils/classnames';
 
 type RippleContainer = {
     duration?: number,
@@ -103,7 +103,8 @@ type StyledButton = {
     fw?: boolean
     borderRadius?: (string | number)
     transparent?: boolean
-    bg?: string
+    bg?: string,
+    color?: string
 }
 
 const StyledButton = styled('button')<StyledButton>`
@@ -124,7 +125,7 @@ const StyledButton = styled('button')<StyledButton>`
   width: ${({fw}) => fw ? '100%' : null};
   border-radius: ${({borderRadius}) => borderRadius ? borderRadius : null};
   background: ${({transparent, bg}) => !transparent ? bg : 'transparent!important'};
-  color: ${({color}) => color ? color : null};
+  color: ${({ color }) => color ? color : null};
   text-decoration: none !important;
 
   &:hover, &:focus {
@@ -186,6 +187,7 @@ const Button = ({
 
     return (
         <StyledButton
+            // @ts-ignore
             as={link != null ? 'a' : 'button'}
             aria-label={label}
             type={type}
