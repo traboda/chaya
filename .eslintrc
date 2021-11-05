@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
+    "react/jsx-first-prop-new-line": ["warn", "multiline"],
+    "react/jsx-max-props-per-line": ["warn", { "when": "multiline" }],
+    "react/jsx-no-duplicate-props": "warn",
+    "react/jsx-closing-bracket-location": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "no-cond-assign": "error",
+    "no-constant-condition": "error",
+    "no-unreachable": "error",
+    "no-lonely-if": "error",
+    "no-unneeded-ternary": "error",
+    "no-lone-blocks": "error",
+    "no-console": [ "warn", { "allow": ["warn", "error"] }],
+    "array-bracket-spacing": "warn",
+    "jsx-quotes": ["warn", "prefer-double"],
+    "no-var": "warn",
+    "prefer-const": "warn",
+    "quotes": ["warn", "single", "avoid-escape"],
+    "semi": ["warn", "always"],
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "keyword-spacing": ["warn",
+      { "overrides": {
+        "if": { "after": false },
+        "for": { "after": false },
+        "while": { "after": false }
+      }
+      }
+    ],
+    "import/order": ["warn", {
+      "groups": ["builtin", "external", "parent", "sibling", "index"],
+      "newlines-between": "always"
+    }]
+  }
+}
