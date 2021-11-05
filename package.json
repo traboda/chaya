@@ -2,15 +2,25 @@
   "name": "@traboda/dsr",
   "version": "0.1.0",
   "description": "Design System of Traboda",
+  "private": false,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "typings": "./lib/esm/index.d.ts",
-  "author": "Advaith A J",
-  "private": false,
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs"
+  },
+  "contributors": [
+    "aswinshenoy <aswinshenoy65@gmail.com>",
+    "Advaith A J <advaitharunjeena@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:amfoss/traboda/design-system.git"
   },
   "devDependencies": {
     "@emotion/react": "^11.5.0",
@@ -29,8 +39,5 @@
     "shortid": "^2.2.16",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0"
-  },
-  "files": [
-    "lib"
-  ]
+  }
 }
