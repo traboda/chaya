@@ -1,0 +1,33 @@
+/// <reference types="react" />
+declare type TextInput = {
+    label: string;
+    name: string;
+    id?: string;
+    placeholder?: string;
+    type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url');
+    value: (string | number);
+    required?: boolean;
+    disabled?: boolean;
+    inputClassName?: string;
+    inputStyle?: any;
+    rows?: number;
+    charLimit?: number;
+    errorText?: string;
+    description?: string;
+    hideLabel?: boolean;
+    alwaysShowLabel?: boolean;
+    spellCheck?: ('off' | 'on');
+    autoComplete?: ('off' | 'on' | 'email' | 'current-password' | 'username');
+    autoCorrect?: ('off' | 'on');
+    autoCapitalize?: ('off' | 'on');
+    onFocus?: () => void;
+    onBlur?: () => void;
+    onKeyDown?: (e: any) => void;
+    onChange?: (value: any) => void;
+    className?: string;
+    style?: any;
+    autoFocus?: boolean;
+    postfixRenderer?: any;
+};
+declare const TextInput: ({ id, label, name, placeholder, value: val, charLimit, className, style, hideLabel, required, disabled, autoFocus, spellCheck, autoComplete, autoCorrect, autoCapitalize, inputStyle, inputClassName, type, errorText, description, postfixRenderer, onChange, onFocus, onBlur, onKeyDown }: TextInput) => JSX.Element;
+export default TextInput;
