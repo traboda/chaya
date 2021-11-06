@@ -25,7 +25,7 @@ export default meta;
 
 const Template: Story = args => (
     <ToolTip
-        children={<div style={{ color: 'white' }}>Hover Here</div>}
+        children={<div className="text-white">Hover Here</div>}
         overlay={<div>Tool Tip</div>}
         {...args}
     />
