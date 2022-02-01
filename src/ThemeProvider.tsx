@@ -2,6 +2,7 @@ import React from 'react';
 import {ThemeProvider} from '@emotion/react';
 
 export type AppThemeType = {
+    isDarkTheme: boolean
     primary: string
     primaryTextColor: string
     secondary: string
@@ -12,6 +13,7 @@ export type AppThemeType = {
 };
 
 const defaultTheme: AppThemeType = {
+    isDarkTheme: false,
     primary: '#019e4b',
     primaryTextColor: 'white',
     secondary: '#019e4b',

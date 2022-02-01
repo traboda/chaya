@@ -1,7 +1,7 @@
 import { Theme } from "@emotion/react";
 
 export const getBorderRadiusStyle = (round: number) => {
-    switch (round) {
+    switch (parseInt(round.toString())) {
         case 1: return '0.15rem';
         case 2: return '0.25rem';
         case 3: return '0.5rem';

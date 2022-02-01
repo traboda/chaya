@@ -12,9 +12,6 @@ const TextContainer = styled.div`
   overflow: hidden;
 
   label {
-    opacity: 0.75;
-    font-size: 1.2rem;
-
     .required-marker {
       margin-left: 0.25rem;
       color: #F99;
@@ -169,7 +166,7 @@ const TextInput = ({
             {(!hideLabel) &&
             <div className="flex flex-wrap mb-2 px-1 mx-0">
                 <div className="w-2/3 px-0">
-                    <label htmlFor={inputID} aria-hidden={false}>
+                    <label className="text-lg opacity-80" htmlFor={inputID} aria-hidden={false}>
                         {label}
                         {required && <span className="required-marker">*</span>}
                     </label>

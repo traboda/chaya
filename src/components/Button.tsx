@@ -105,11 +105,11 @@ type StyledButton = {
     transparent?: boolean
     bg?: string,
     color?: string
-}
+};
 
 const StyledButton = styled('button')<StyledButton>`
-  font-family: 'Rajdhani', sans-serif !important;
-  font-weight: bold;
+  font-family: ${({ theme }) => theme.fontFamily};
+  font-weight: 600;
   border: none !important;
   display: inline-flex;
   align-items: center;

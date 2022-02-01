@@ -24,11 +24,13 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <ToolTip
-        children={<div className="text-white">Hover Here</div>}
-        overlay={<div>Tool Tip</div>}
-        {...args}
-    />
+    <div className="flex justify-center items-center" style={{ minHeight: '100vh' }}>
+      <ToolTip
+          children={<div className="text-white">Hover Here</div>}
+          overlay={<div>Tool Tip</div>}
+          {...args}
+      />
+    </div>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

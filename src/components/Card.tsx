@@ -6,8 +6,7 @@ type Card = {
 
 const Card = styled('div')<Card>`
   padding: 1.35rem;
-  background: ${({ background }) => background ? background : 'rgba(0, 0, 30, 0.25)'
-};
+  background: ${({ background, theme }) => background ? background : theme.isDarkTheme ? 'rgba(237, 237, 237, 0.25)' : 'rgba(237, 237, 237, 0.75)' };
   border-radius: 8px;
   height: 100%;
 `;

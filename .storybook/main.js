@@ -4,6 +4,9 @@ module.exports = {
   stories: [
       '../stories/**/*.stories.@(ts|tsx|js|jsx)'
   ],
+  features: {
+    emotionAlias: false,
+  },
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -17,11 +20,7 @@ module.exports = {
             plugins: {
               tailwindcss: {
                 important: true,
-                mode: 'jit',
-                purge: [
-                  './src/**/*.{js,jsx,ts,tsx}',
-                  './stories/*.stories.tsx'
-                ],
+                purge: false,
                 variants: {
                   extend: {
                     zIndex: ['hover'],
