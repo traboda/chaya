@@ -24,7 +24,7 @@ export type TabSwitcher = {
     items: TabItemObject[]
     disabled?: boolean
     onClickDisabled?: (arg) => void,
-    onChange: (key: string) => void,
+    onChange?: (key: string) => void,
     tabSelectorClassName?: string,
     initialKey?: string,
     linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
@@ -206,6 +206,9 @@ const TabSwitcher = ({
             <HorizontalTabSelector className={tabSelectorClassName}>
                 {render_menu_options()}
             </HorizontalTabSelector>
+            <div className="py-3">
+                {render_active_tab()}
+            </div>
         </div>
     );
 
