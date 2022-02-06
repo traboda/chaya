@@ -13,6 +13,30 @@ const meta: Meta = {
                 type: 'text',
             },
         },
+        maxWidth: {
+            control: {
+                type: 'range',
+                min: 0,
+                max: 1000,
+                step: 10,
+            },
+        },
+        minHeight: {
+            control: {
+                type: 'range',
+                min: 0,
+                max: 500,
+                step: 10,
+            },
+        },
+        maxHeight: {
+            control: {
+                type: 'range',
+                min: 0,
+                max: 500,
+                step: 10,
+            },
+        },
     },
     parameters: {
         controls: { expanded: true },
@@ -29,23 +53,36 @@ const lorem = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad arch
             voluptas! Consequatur, deleniti dolore eius eligendi eos excepturi fugit illum magnam molestias mollitia natus
             nemo non pariatur provident quas, reiciendis saepe similique temporibus veritatis.`;
 
-const Template: Story = args => (
-    <ThemeContext>
-        {Array(8).fill(lorem).map(l => <p>{l}</p>)}
+const Template: Story = args => {
 
-        {/* @ts-ignore */}
-        <Modal {...args}>
-            <h1>Hello World</h1>
-            <p>{lorem}</p>
-        </Modal>
-    </ThemeContext>
-);
+    const [isOpen, setIsOpen] = React.useState(args.isOpen);
 
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
+    React.useEffect(() => {
+        setIsOpen(args.isOpen);
+    }, [args.isOpen]);
+
+    return (
+        <ThemeContext>
+            {Array(8).fill(lorem).map(l => <p>{l}</p>)}
+            {/* @ts-ignore */}
+            <Modal
+                {...args}
+                isOpen={isOpen}
+                onClose={() => {
+                    setIsOpen(false)
+                }}
+            >
+                <h1>Hello World</h1>
+                <p>{lorem}</p>
+            </Modal>
+        </ThemeContext>
+    );
+}
+
 export const Default = Template.bind({});
 
 Default.args = {
     isOpen: true,
+    onClose: () => {},
     contentClassName: 'p-4'
 };

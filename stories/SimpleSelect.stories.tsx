@@ -30,18 +30,58 @@ const Template: Story = args => {
     );
 }
 
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
+export const Basic = Template.bind({});
 
 let value;
 
-Default.args = {
-    label: 'Options for you',
+Basic.args = {
+    label: 'Category',
     required: true,
     value, onChange: v => value = v,
     options: [
-        { label: 'First option', value: 'first' },
-        { label: 'Second option', value: 'second' }
+        { label: 'Cryptography', value: 'crypto' },
+        { label: 'Forensics', value: 'forensics' },
+        { label: 'Pwn', value: 'pwn' },
+        { label: 'Reversing', value: 'reversing' },
+        { label: 'Web', value: 'web' },
     ]
 };
+
+
+export const SelectWithGroups: Story = args => {
+    return (
+        <ThemeContext>
+            {/* @ts-ignore */}
+            <SimpleSelect {...args} />
+        </ThemeContext>
+    );
+}
+
+let country;
+
+SelectWithGroups.args = {
+    label: 'Region',
+    required: true,
+    value: country, onChange: v => country = v,
+    options: [
+        {
+            group: 'Asia',
+            options: [
+                { label: 'India', value: 'india'},
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+                { label: 'Korea', value: 'korea' },
+            ],
+        },
+        {
+            group: 'Europe',
+            options: [
+                { label: 'France', value: 'france' },
+                { label: 'Germany', value: 'germany' },
+                { label: 'Italy', value: 'italy' },
+                { label: 'Spain', value: 'spain' },
+            ],
+        }
+    ]
+};
+
