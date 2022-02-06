@@ -15,7 +15,7 @@ const PageHeaderSection = styled.section`
         max-width: 1200px;
     }
     h1 {
-        font-size: calc(1.5rem + 2.25vw);
+        font-size: calc(1.5rem + 2vw);
         font-weight: 600;
     }
     p {

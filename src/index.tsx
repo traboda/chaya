@@ -9,3 +9,4 @@ export { default as TabSwitcher } from './components/TabSwitcher';
 export { default as TagSelector } from './components/TagSelector';
 export { default as TextInput } from './components/TextInput';
 export { default as ToolTip } from './components/ToolTip';
+export { default as LinkWrapperContext } from './contexts/LinkWrapperContext';

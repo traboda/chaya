@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
+import {defaultLinkWrapper} from "../utils/misc";
 
 export type TabItemObject =  {
     name?: string
@@ -85,7 +86,7 @@ const VerticalTabSelector = styled(TabBase)`
 
 const TabSwitcher = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
- linkWrapper, alignCenter, tabSelectorClassName, onChange = () => {}
+ linkWrapper = defaultLinkWrapper, alignCenter, tabSelectorClassName, onChange = () => {}
 }: TabSwitcher) => {
 
     const tabItems =  items?.length > 0 ?
