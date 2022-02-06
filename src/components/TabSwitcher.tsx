@@ -203,7 +203,7 @@ const TabSwitcher = ({
             </div>
         </div>
     ) : (
-        <div className={alignCenter ? 'justify-center flex' : 'px-0'}>
+        <div className={alignCenter ? 'flex flex-col items-center' : 'px-0'}>
             <HorizontalTabSelector className={tabSelectorClassName}>
                 {render_menu_options()}
             </HorizontalTabSelector>
