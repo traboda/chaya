@@ -1,13 +1,13 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Waypoint } from 'react-waypoint';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import { throttle } from 'lodash';
 
 import Button from '../Button';
 
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
-import {defaultLinkWrapper} from "../../utils/misc";
+import { defaultLinkWrapper } from "../../utils/misc";
 import styled from "@emotion/styled";
 
 
@@ -83,7 +83,7 @@ const ItemLister = ({
         }, 200);
 
         // setting event listeners
-        if(element) {
+        if (element) {
             element.addEventListener('scroll', handleScroll, false);
             return () => element.removeEventListener('scroll', handleScroll);
         }
@@ -92,9 +92,9 @@ const ItemLister = ({
 
     return <div>
         {labels?.description &&
-        <div className="mb-2 py-3 px-1">
-            {labels?.description}
-        </div>}
+            <div className="mb-2 py-3 px-1">
+                {labels?.description}
+            </div>}
         {(!isLoading && items?.length === 0) ? (
             <div>
                 {customTopBarRenderer()}
@@ -126,48 +126,46 @@ const ItemLister = ({
                             titleTopRef={TitleTopRef}
                         />
                     </TitleBarContainer>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col" style={{ width: 'fit-content' }}>
                         {items?.length > 0 && items.map((i, index) =>
-                            <div key={i.id ? i.id : nanoid()}>
-                                <ItemListerItem
-                                    isShaded={index%2==0}
-                                    properties={properties}
-                                    item={i}
-                                    itemIndex={index}
-                                    linkWrapper={linkWrapper}
-                                />
-                            </div>
+                            <ItemListerItem
+                                key={i.id ? i.id : nanoid()}
+                                isShaded={index % 2 === 0}
+                                properties={properties}
+                                item={i}
+                                itemIndex={index}
+                                linkWrapper={linkWrapper}
+                            />
                         )}
-                        {isLoading && Array.from({length: 10}).map((_n, index) =>
-                            <div key={nanoid()} className="pr-2">
-                                <ItemListerItem
-                                    isShaded={index%2==0}
-                                    properties={properties}
-                                    isLoading
-                                    linkWrapper={linkWrapper}
-                                />
-                            </div>
+                        {isLoading && Array(10).fill(0).map((_n, index) =>
+                            <ItemListerItem
+                                key={nanoid()}
+                                isShaded={index % 2 === 0}
+                                properties={properties}
+                                isLoading
+                                linkWrapper={linkWrapper}
+                            />
                         )}
                     </div>
                     {loadable && (canLoadMore ?
-                    <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
-                        <div>
-                            {!isLoading &&
-                            <div className="mb-6">
-                                <div className="flex justify-center items-center text-center pt-4">
-                                    <Button inverseColors m={1} onClick={onLoadMore}>
-                                        Load more
-                                    </Button>
-                                </div>
-                            </div>}
-                        </div>
-                    </Waypoint> :
-                    <div className="my-4 text-center" style={{ opacity: 0.8 }}>
-                        {labels.endOfList}
-                    </div>)}
+                        <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
+                            <div>
+                                {!isLoading &&
+                                    <div className="mb-6">
+                                        <div className="flex justify-center items-center text-center pt-4">
+                                            <Button inverseColors m={1} onClick={onLoadMore}>
+                                                Load more
+                                            </Button>
+                                        </div>
+                                    </div>}
+                            </div>
+                        </Waypoint> :
+                        <div className="my-4 text-center" style={{ opacity: 0.8 }}>
+                            {labels.endOfList}
+                        </div>)}
                 </div>
-        </div>
-    )}
+            </div>
+        )}
     </div>;
 
 };

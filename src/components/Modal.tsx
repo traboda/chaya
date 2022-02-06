@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useTheme } from "@emotion/react";
+import '../styles/animations.css';
 
 type ModalProps = {
     isOpen: boolean,
@@ -24,7 +25,7 @@ const Modal = ({ isOpen, children, onClose, contentClassName = '', maxWidth = 72
             onClick={onClose}
         >
             <div
-                className="relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full"
+                className="relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in"
                 style={{ background, color }}
                 onClick={e => e.stopPropagation()}
             >
