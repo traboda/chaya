@@ -4,22 +4,14 @@ import { nanoid } from "nanoid";
 import { useTheme } from "@emotion/react";
 
 const StyledLabel = styled.label`
-  display: inline-block;
   font-size: 20px;
   background: #BDB9A6;
-  border-radius: 360px;
-  
-  input {
-    position: absolute;
-    opacity: 0;
-  }
 
-  div {
-    border-radius: 360px;
-    background: #FFF;
-    box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
-    transition: all 300ms;
-  }
+  &.bg-primary { background: ${({ theme }) => theme.primary}; }
+  &.bg-secondary { background: ${({ theme }) => theme.secondary}; }
+
+  .border-primary { border-color: ${({ theme }) => theme.primary}; }
+  .border-secondary { border-color: ${({ theme }) => theme.secondary}; }
 
   input:checked + div {
     transform: translate3d(100%, 0, 0);
@@ -31,10 +23,12 @@ type SwitchProps = {
     onChange: (v: boolean) => void,
     size?: number,
     label?: string,
-    required?: boolean
+    required?: boolean,
+    variant?: 'success' | 'primary' | 'secondary' | 'danger' | 'warning',
+    disabled?: boolean
 }
 
-const Switch = ({ value, onChange, size = 24, label, required }: SwitchProps) => {
+const Switch = ({ value, onChange, size = 24, label, required, variant = 'success', disabled = false }: SwitchProps) => {
 
     const { color } = useTheme();
     const checkbox = useRef(null);
@@ -43,6 +37,16 @@ const Switch = ({ value, onChange, size = 24, label, required }: SwitchProps) =>
     useEffect(() => {
         checkbox.current.checked = value;
     }, [value]);
+
+    const getSelectionColor = () => {
+        switch (variant) {
+            case "primary": return 'primary';
+            case "secondary": return 'secondary';
+            case "success": return 'green-500';
+            case "warning": return 'yellow-400';
+            case "danger": return 'red-500';
+        }
+    }
 
     return (
         <div className="w-full flex flex-col">
@@ -54,7 +58,7 @@ const Switch = ({ value, onChange, size = 24, label, required }: SwitchProps) =>
             )}
 
             <StyledLabel
-                className={value && 'bg-green-500'}
+                className={`inline-block rounded-full shadow-inner bg-${value && getSelectionColor()} ${disabled && 'cursor-not-allowed'}`}
                 htmlFor={inputID}
                 style={{ height: size, width: size * 2 }}
             >
@@ -62,9 +66,14 @@ const Switch = ({ value, onChange, size = 24, label, required }: SwitchProps) =>
                     id={inputID}
                     ref={checkbox}
                     type="checkbox"
+                    disabled={disabled}
+                    className="absolute opacity-0"
                     onChange={({ target }) => onChange(target.checked)}
                 />
-                <div style={{ height: size, width: size }} />
+                <div
+                    className={`rounded-full bg-white transition shadow-md border border-${value && getSelectionColor()}`}
+                    style={{ height: size, width: size }}
+                />
             </StyledLabel>
         </div>
     );
