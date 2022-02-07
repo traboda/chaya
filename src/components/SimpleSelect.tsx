@@ -2,6 +2,7 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import styled from "@emotion/styled";
 import Color from 'color';
+import { useTheme } from "@emotion/react";
 
 const StyledSelect = styled.select`
   color: ${({ theme }) => theme.color};
@@ -55,14 +56,14 @@ const SimpleSelect = ({
   required = false, name, options, labels: _labels
 }: SimpleSelectProps) => {
 
+    const { color } = useTheme();
     const labels = { ...defaultLabels, ..._labels };
-
     const inputID = `${name}-input-${nanoid()}`;
 
     return (
         <div className="w-full">
             {labels?.label?.length > 0 && (
-                <label className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false}>
+                <label className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false} style={{ color }}>
                     {labels?.label}
                     {required && <span className="ml-1 text-red-500">*</span>}
                 </label>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
-import { CodeInput } from '../src';
+import { Switch } from '../src';
 import ThemeContext from "../src/ThemeProvider";
 addDecorator((story) => (
     <ThemeContext>
@@ -10,8 +10,8 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Code Input',
-    component: CodeInput,
+    title: 'Switch',
+    component: Switch,
     parameters: {
         controls: { expanded: true },
     },
@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-    const [value, setValue] = useState(args.value ?? '');
+    const [value, setValue] = useState(args.value ?? false);
 
     useEffect(() => {
         setValue(args.value);
@@ -28,10 +28,14 @@ const Template: Story = args => {
 
     return (
         // @ts-ignore
-        <CodeInput {...args} value={value} onChange={setValue} />
+        <Switch {...args} value={value} onChange={setValue} />
     );
 }
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+    value: false,
+    label: 'Do you want this?',
+    required: true
+};
