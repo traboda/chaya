@@ -4,99 +4,41 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Traboda Design System
 
-## Commands
 
-The recommended workflow is to run TSDX in one terminal:
+## Conventions & Guidelines
 
-```bash
-npm start # or yarn start
-```
+### Colors
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+Always use colors from the `emotion-js` theme context either from styled components or via useTheme().
 
-Then run either Storybook or the example playground:
+There is an attribute `isDarkTheme` available in theme properties, which can be used to determine whether
+the component will be shown to a dark or light theme.
 
-### Storybook
+Don't color unnecessarily.
 
-Run inside another terminal:
+### Font Sizes
 
-```bash
-yarn storybook
-```
+To provide font-sizes to various elements & components, always use tailwind classes.
 
-This loads the stories from `./stories`.
+A good choice for most places would be `text-lg`.
 
-### Example
+Strictly do not use manually defined font-sizes (be it in `rem`, `vh/vw`, `calc()`, or `px` forms).
 
-Then run the example inside another:
+### User Input Components
 
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
-```
+Any user input component must have the following props
+   - `value` - the value of the input
+   - `onChange: (value) => void` - a callback function that gives the new value when changed
+   - `required`  - boolean, whether the field input is required for form submission. Default to `false`
+   - `disabled`  - boolean, disables user interaction but whatever pre-existing values exist can remain. Default to `false`
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, we use [Parcel's aliasing](https://parceljs.org/module_resolution.html#aliases).
+Optionally, these can have
+   - `autoFocus` - boolean, whether the input should be focused on load. Default to `false`
+   - `invalid` - to mark when the input given by the user is invalid. Usually outline the input with red color when this is set.
+   -  `type` - when a variety of types of input are accepted by a field, this can be used to restrict it to specific type.
 
-To do a one-off build, use `npm run build` or `yarn build`.
+Input components should support a `labels` props, which can have the following props
+   - `label` - the label of the input
+   -  `placeholder` - a placeholder text for the input
 
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle analysis
-
-Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [size-limit](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
-```
-
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
-
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Named Exports
-
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+Kindly, do not directly add `label` & `placeholder` as props to the input component.
