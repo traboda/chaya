@@ -27,15 +27,15 @@ const OTPInput = styled.input<OTPInputWrapProps>`
   }
 `;
 
-const PinDigit = ({ type = 'text', value, onKeyDown, placeholder, isInvalid, isDisabled, className }) => (
+const PinDigit = ({ type = 'text', value, onKeyDown, placeholder, invalid, disabled, className }) => (
     <OTPInput
         className={`text-lg p-2 text-center rounded-lg w-full ${className}`}
         type={type}
         value={value}
-        onKeyDown={(e) => !isDisabled ? onKeyDown(e) : null}
+        onKeyDown={(e) => !disabled ? onKeyDown(e) : null}
         placeholder={placeholder}
-        isInvalid={isInvalid}
-        isDisabled={isDisabled}
+        isInvalid={invalid}
+        isDisabled={disabled}
     />
 );
 

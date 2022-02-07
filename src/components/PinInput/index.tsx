@@ -12,19 +12,23 @@ type PinInputProps = {
     digits?: number,
     label?: string,
     type?: ('password' | 'text' | 'number'),
-    // placeholder code - make sure it has same length as `digits`
-    placeholder?: string,
-    isInvalid?: boolean,
-    isDisabled?: boolean,
-    isRequired?: boolean,
+    invalid?: boolean,
+    disabled?: boolean,
+    required?: boolean,
     autoFocus?: boolean,
     className?: string,
     digitClassName?: string,
-}
+    labels?: {
+        label?: string,
+        placeholder?: string,
+        invalidLength?: string,
+    }
+};
+
 
 const PinInput = ({
-   value = '', onChange = () => {}, digits = 6, type = 'text', label, placeholder,
-   isInvalid = false, isDisabled = false, isRequired = false, autoFocus = false,
+   value = '', onChange = () => {}, digits = 6, type = 'text', labels,
+   invalid = false, disabled = false, required = false, autoFocus = false,
    className, digitClassName,
 }: PinInputProps) => {
 
@@ -75,38 +79,40 @@ const PinInput = ({
         return () => document.removeEventListener('paste', onPaste);
     }, []);
 
-    return <div>
-        {label && (
-            <label className="block text-lg opacity-80 mb-1" aria-hidden={false} style={{ color }}>
-                {label}
-                {isRequired && <span className="ml-1 text-red-500">*</span>}
-            </label>
-        )}
-        <div
-            ref={inputs}
-            className={`py-2 grid gap-2 ${className}`}
-            style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
-            onFocus={() => setInvalidLength(false)}
-            onBlur={() => value?.length < digits ? setInvalidLength(true) : setInvalidLength(false)}
-        >
-            {Array(digits).fill(null).map((_, i) => (
-                <PinDigit
-                    key={i}
-                    type={type}
-                    value={value[i] ?? ''}
-                    onKeyDown={e => onKeyDown(e, i)}
-                    placeholder={placeholder?.[i] ?? ' '}
-                    isInvalid={isInvalid}
-                    isDisabled={isDisabled}
-                    className={digitClassName}
-                />
-            ))}
-        </div>
-        {(invalidLength && value?.length < digits && !isDisabled) &&
+    return (
+        <div>
+            {labels?.label && (
+                <label className="block text-lg opacity-80 mb-1" aria-hidden={false} style={{ color }}>
+                    {labels?.label}
+                    {required && <span className="ml-1 text-red-500">*</span>}
+                </label>
+            )}
+            <div
+                ref={inputs}
+                className={`py-2 grid gap-2 ${className}`}
+                style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
+                onFocus={() => setInvalidLength(false)}
+                onBlur={() => value?.length < digits ? setInvalidLength(true) : setInvalidLength(false)}
+            >
+                {Array(digits).fill(null).map((_, i) => (
+                    <PinDigit
+                        key={i}
+                        type={type}
+                        value={value[i] ?? ''}
+                        onKeyDown={e => onKeyDown(e, i)}
+                        placeholder={labels?.placeholder?.[i] ?? ' '}
+                        invalid={invalid}
+                        disabled={disabled}
+                        className={digitClassName}
+                    />
+                ))}
+            </div>
+            {(invalidLength && value?.length < digits && !disabled) &&
             <div className="text-red-600 text-base">
-                The code should be {digits} digits.
+                {labels?.invalidLength ?? `The code should be ${digits} digits.`}
             </div>}
-    </div>;
+        </div>
+    );
 
 };
 
