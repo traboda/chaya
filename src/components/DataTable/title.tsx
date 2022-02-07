@@ -53,7 +53,7 @@ const ItemListerTitleBar = ({
                         <div className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
                             {p?.allowSort ? (
                                 <div className={classNames('flex items-center', p?.labelClassName)}>
-                                    <div className="pl-3 pr-2" style={{ width: 'auto', fontWeight: 600 }}>
+                                    <div className="px-2" style={{ width: 'auto', fontWeight: 600 }}>
                                         {p.label}
                                     </div>
                                     <div style={{ width: '30px', opacity: 0.75, fontSize: '90%' }}>

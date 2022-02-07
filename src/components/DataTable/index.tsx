@@ -8,19 +8,7 @@ import Button from '../Button';
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
 import { defaultLinkWrapper } from "../../utils/misc";
-import styled from "@emotion/styled";
-
-
-const TitleBarContainer = styled('div')`
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  
-  .custom-top-bar {
-    background: ${({ theme }) => theme.background};
-  }
-`;
+import { useTheme } from "@emotion/react";
 
 const defaultLabels = {
     'endOfList': 'You have reached the end of this list.'
@@ -60,6 +48,8 @@ const ItemLister = ({
     stickyRow = null, linkWrapper = defaultLinkWrapper
 }: ItemListerProps) => {
 
+    const { background } = useTheme();
+
     const labels = { ...defaultLabels, ...labelProps };
 
     const TitleBarRef = useRef(null);
@@ -81,8 +71,10 @@ const ItemLister = ({
         let lastScrollTop = 0;
         const handleScroll = throttle(() => {
             const st = element.scrollTop;
-            setScrollDir(st > lastScrollTop ? 'down' : 'up');
-            lastScrollTop = Math.max(st, 0);
+            if (st !== lastScrollTop) { // not horizontal scrolling
+                setScrollDir(st > lastScrollTop ? 'down' : 'up');
+                lastScrollTop = Math.max(st, 0);
+            }
         }, 200);
 
         // setting event listeners
@@ -105,19 +97,19 @@ const ItemLister = ({
             </div>
         ) : (
             <div style={{ overflowX: maxHeight ? 'auto' : null, maxHeight: maxHeight }}>
-                <TitleBarContainer ref={TitleBarRef}>
-                    <div
-                        className="custom-top-bar transition-opacity"
-                        ref={TitleTopRef}
-                        style={{
-                            pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
-                            opacity: scrollDir === 'up' ? 1 : 0,
-                            width: TitleBarRef.current?.scrollWidth
-                        }}
-                    >
-                        {customTopBarRenderer()}
-                    </div>
+                <div
+                    ref={TitleTopRef}
+                    className="transition-opacity sticky left-0 top-0"
+                    style={{
+                        background,
+                        pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
+                        opacity: scrollDir === 'up' ? 1 : 0
+                    }}
+                >
+                    {customTopBarRenderer()}
+                </div>
 
+                <div className="sticky z-50" style={{ top: TitleTopRef.current?.clientHeight ?? 0 }} ref={TitleBarRef}>
                     <ItemListerTitleBar
                         properties={properties}
                         onSort={onSort}
@@ -127,7 +119,7 @@ const ItemLister = ({
                         scrollDir={scrollDir}
                         titleTopRef={TitleTopRef}
                     />
-                </TitleBarContainer>
+                </div>
 
                 <div className="flex flex-col">
                     {items?.length > 0 && items.map((i, index) =>
