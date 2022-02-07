@@ -28,7 +28,7 @@ const Template: Story = args => {
 
     return (
         // @ts-ignore
-        <CodeInput value={value} onChange={setValue} {...args} />
+        <CodeInput {...args} value={value} onChange={setValue} />
     );
 }
 

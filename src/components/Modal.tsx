@@ -1,7 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { ButtonProps } from "./Button";
+import useDelayUnmount from '../hooks/DelayUnmount';
 
 type ModalProps = {
     isOpen: boolean,
@@ -55,26 +56,6 @@ const ModalContainer = styled.div`
     animation: 500ms crunch ease-out;
   }
 `;
-
-const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
-
-    const [shouldRender, setShouldRender] = useState(false);
-
-    useEffect(() => {
-        let timeoutId: any;
-        if (isMounted && !shouldRender) {
-            setShouldRender(true);
-        } else if (!isMounted && shouldRender) {
-            timeoutId = setTimeout(
-                () => setShouldRender(false),
-                delayTime
-            );
-        }
-        return () => clearTimeout(timeoutId);
-    }, [isMounted, delayTime, shouldRender]);
-    return shouldRender;
-
-};
 
 const Modal = ({
    isOpen, children, onClose, title, iconClassName, bgClassName = '', contentClassName = '',
