@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import { addDecorator, Meta, Story } from '@storybook/react';
 import { DataTable } from '../src';
+
 import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
 
 const meta: Meta = {
     title: 'DataTable',
@@ -165,82 +171,80 @@ const ITEMS = [
 export default meta;
 
 const Template: Story = args => (
-    <ThemeContext>
-        <DataTable
-            customTopBarRenderer={() => <div>Custom top bar</div>}
-            items={ITEMS}
-            maxHeight="60vh"
-            properties={[
-                {
-                    'id': 'name',
-                    'label': 'Name',
-                    'space': '6',
-                    'fontSize': '1.5rem',
-                    'link': (i) => `/challenge/${i.id}`,
-                    'value': (i) => <div>
-                        {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
-                        {i.name}
-                    </div>,
-                    'className': 'rajdhani',
-                    'allowSort': true,
-                },
-                {
-                    'id': 'category',
-                    'label': 'Category',
-                    'value': (i) => i.category?.name,
-                    'className': 'rajdhani',
-                    'allowSort': true,
-                },
-                {
-                    'id': 'difficultyLevel',
-                    'label': 'Difficulty',
-                    'className': 'rajdhani',
-                    'value': (i) => i?.difficultyLevel?.label,
-                    'allowSort': true,
-                },
-                {
-                    'id': 'points',
-                    'label': 'Points',
-                    'fontSize': '1.75rem',
-                    'className': 'rajdhani',
-                    'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                    'allowSort': true,
-                },
-                {
-                    'id': 'difficultyLevel',
-                    'label': 'Difficulty',
-                    'className': 'rajdhani',
-                    'value': (i) => i?.difficultyLevel?.label,
-                    'allowSort': true,
-                },
-                {
-                    'id': 'points',
-                    'label': 'Points',
-                    'fontSize': '1.75rem',
-                    'className': 'rajdhani',
-                    'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                    'allowSort': true,
-                },
-                {
-                    'id': 'difficultyLevel',
-                    'label': 'Difficulty',
-                    'className': 'rajdhani',
-                    'value': (i) => i?.difficultyLevel?.label,
-                    'allowSort': true,
-                },
-                {
-                    'id': 'points',
-                    'space': '5',
-                    'label': 'Points',
-                    'fontSize': '1.75rem',
-                    'className': 'rajdhani',
-                    'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                    'allowSort': true,
-                },
-            ]}
-            {...args}
-        />
-    </ThemeContext>
+    <DataTable
+        customTopBarRenderer={() => <div>Custom top bar</div>}
+        items={ITEMS}
+        maxHeight="60vh"
+        properties={[
+            {
+                'id': 'name',
+                'label': 'Name',
+                'space': '6',
+                'fontSize': '1.5rem',
+                'link': (i) => `/challenge/${i.id}`,
+                'value': (i) => <div>
+                    {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
+                    {i.name}
+                </div>,
+                'className': 'rajdhani',
+                'allowSort': true,
+            },
+            {
+                'id': 'category',
+                'label': 'Category',
+                'value': (i) => i.category?.name,
+                'className': 'rajdhani',
+                'allowSort': true,
+            },
+            {
+                'id': 'difficultyLevel',
+                'label': 'Difficulty',
+                'className': 'rajdhani',
+                'value': (i) => i?.difficultyLevel?.label,
+                'allowSort': true,
+            },
+            {
+                'id': 'points',
+                'label': 'Points',
+                'fontSize': '1.75rem',
+                'className': 'rajdhani',
+                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+                'allowSort': true,
+            },
+            {
+                'id': 'difficultyLevel',
+                'label': 'Difficulty',
+                'className': 'rajdhani',
+                'value': (i) => i?.difficultyLevel?.label,
+                'allowSort': true,
+            },
+            {
+                'id': 'points',
+                'label': 'Points',
+                'fontSize': '1.75rem',
+                'className': 'rajdhani',
+                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+                'allowSort': true,
+            },
+            {
+                'id': 'difficultyLevel',
+                'label': 'Difficulty',
+                'className': 'rajdhani',
+                'value': (i) => i?.difficultyLevel?.label,
+                'allowSort': true,
+            },
+            {
+                'id': 'points',
+                'space': '5',
+                'label': 'Points',
+                'fontSize': '1.75rem',
+                'className': 'rajdhani',
+                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+                'allowSort': true,
+            },
+        ]}
+        {...args}
+    />
 );
 
 export const Default = Template.bind({});

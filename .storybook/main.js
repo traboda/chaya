@@ -4,9 +4,6 @@ module.exports = {
   stories: [
       '../stories/**/*.stories.@(ts|tsx|js|jsx)'
   ],
-  features: {
-    emotionAlias: false,
-  },
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

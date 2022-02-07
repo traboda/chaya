@@ -1,8 +1,15 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import { addDecorator, Meta, Story } from '@storybook/react';
 import { Modal } from '../src';
+
 import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
+
 
 const meta: Meta = {
     title: 'Modal',
@@ -62,7 +69,7 @@ const Template: Story = args => {
     }, [args.isOpen]);
 
     return (
-        <ThemeContext>
+        <div>
             <button onClick={() => setIsOpen(true)}>
                 open
             </button>
@@ -77,7 +84,7 @@ const Template: Story = args => {
             >
                 <p>{lorem}</p>
             </Modal>
-        </ThemeContext>
+        </div>
     );
 }
 

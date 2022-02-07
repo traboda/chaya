@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import {addDecorator, Meta, Story} from '@storybook/react';
 import { TagSelector } from "../src";
+
 import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
 
 const meta: Meta = {
     title: 'Tag Selector',
@@ -15,10 +21,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <ThemeContext>
-        {/*// @ts-ignore*/}
-        <TagSelector {...args} />
-    </ThemeContext>
+    // @ts-ignore
+    <TagSelector {...args} />
 );
 
 export const Default = Template.bind({});

@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import { addDecorator, Meta, Story } from '@storybook/react';
 import { PageHeader } from '../src';
+
 import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
 
 const meta: Meta = {
     title: 'Page Header',
@@ -15,9 +21,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <ThemeContext>
-        <PageHeader {...args} />
-    </ThemeContext>
+    <PageHeader {...args} />
 );
 
 export const Default = Template.bind({});

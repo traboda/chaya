@@ -1,7 +1,14 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import { addDecorator, Meta, Story } from '@storybook/react';
 import { TabSwitcher } from "../src";
+
+import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
 
 const meta: Meta = {
     title: 'Tab Switcher',

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Meta, Story } from '@storybook/react';
 import { ConfirmationDialog } from '../src';
+import ThemeContext from "../src/ThemeProvider";
 
 const meta: Meta = {
     title: 'Confirmation Dialog',
@@ -19,7 +20,7 @@ const Template: Story = args => {
     }, [args.isOpen]);
 
     return (
-        <div>
+        <ThemeContext>
             <button onClick={() => setIsOpen(true)}>Open</button>
             <ConfirmationDialog
                 isOpen={isOpen}
@@ -27,7 +28,7 @@ const Template: Story = args => {
                 onConfirm={() => setIsOpen(false)}
                 {...args}
             />
-        </div>
+        </ThemeContext>
     );
 }
 

@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { Meta, Story } from '@storybook/react';
+import { addDecorator, Meta, Story } from '@storybook/react';
 import { SimpleSelect } from '../src';
+
 import ThemeContext from "../src/ThemeProvider";
+addDecorator((story) => (
+    <ThemeContext>
+        {story()}
+    </ThemeContext>
+));
 
 const meta: Meta = {
     title: 'Simple Select',
@@ -21,14 +27,8 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => {
-    return (
-        <ThemeContext>
-            {/* @ts-ignore */}
-            <SimpleSelect {...args} />
-        </ThemeContext>
-    );
-}
+// @ts-ignore
+const Template: Story = args => <SimpleSelect {...args} />;
 
 export const Basic = Template.bind({});
 
@@ -51,14 +51,7 @@ Basic.args = {
 };
 
 
-export const SelectWithGroups: Story = args => {
-    return (
-        <ThemeContext>
-            {/* @ts-ignore */}
-            <SimpleSelect {...args} />
-        </ThemeContext>
-    );
-}
+export const SelectWithGroups: Story = Template
 
 let country;
 
@@ -90,4 +83,47 @@ SelectWithGroups.args = {
         }
     ]
 };
+
+
+export const DarkTheme: Story = (args) => (
+    <ThemeContext isDarkTheme>
+        <div className="bg-gray-900 p-4 h-36">
+            {/*// @ts-ignore*/}
+            <SimpleSelect {...args} />
+        </div>
+    </ThemeContext>
+);
+
+let country2;
+
+DarkTheme.args = {
+    labels: {
+        label: 'Region',
+        placeholder: 'Pick a Region',
+    },
+    required: true,
+    isDarkTheme: true,
+    value: country2, onChange: v => country2 = v,
+    options: [
+        {
+            group: 'Asia',
+            options: [
+                { label: 'India', value: 'india'},
+                { label: 'China', value: 'china' },
+                { label: 'Japan', value: 'japan' },
+                { label: 'Korea', value: 'korea' },
+            ],
+        },
+        {
+            group: 'Europe',
+            options: [
+                { label: 'France', value: 'france' },
+                { label: 'Germany', value: 'germany' },
+                { label: 'Italy', value: 'italy' },
+                { label: 'Spain', value: 'spain' },
+            ],
+        }
+    ]
+};
+
 
