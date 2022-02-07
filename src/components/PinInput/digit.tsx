@@ -8,10 +8,7 @@ type OTPInputWrapProps = {
 
 const OTPInput = styled.input<OTPInputWrapProps>`
   background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
-  text-align: center;
   border: 0;
-  width: 100%;
-  border-radius: 7px;
   color: ${({ theme }) => theme.color};
   outline: ${({ isInvalid }) => isInvalid ? '2px solid red' : null};
 
@@ -32,7 +29,7 @@ const OTPInput = styled.input<OTPInputWrapProps>`
 
 const PinDigit = ({ type = 'text', value, onKeyDown, placeholder, isInvalid, isDisabled, className }) => (
     <OTPInput
-        className={`text-lg p-2 ${className}`}
+        className={`text-lg p-2 text-center rounded-lg w-full ${className}`}
         type={type}
         value={value}
         onKeyDown={(e) => !isDisabled ? onKeyDown(e) : null}

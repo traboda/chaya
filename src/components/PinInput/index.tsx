@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import PinDigit from './digit';
+import { useTheme } from "@emotion/react";
 
 type PinInputProps = {
     // current value
@@ -9,26 +10,25 @@ type PinInputProps = {
     onChange: (string) => void,
     // number of digits in the code
     digits?: number,
-    labels?: {
-        // title label for the input box
-        title: string
-    },
+    label?: string,
+    type?: ('password' | 'text' | 'number'),
     // placeholder code - make sure it has same length as `digits`
-    type?: ('password'|'text'|'number'),
     placeholder?: string,
     isInvalid?: boolean,
     isDisabled?: boolean,
+    isRequired?: boolean,
     autoFocus?: boolean,
     className?: string,
     digitClassName?: string,
 }
 
 const PinInput = ({
-   value = '', onChange = () => {}, digits = 6, type = 'text', labels, placeholder,
-   isInvalid = false, isDisabled = false, autoFocus = false,
+   value = '', onChange = () => {}, digits = 6, type = 'text', label, placeholder,
+   isInvalid = false, isDisabled = false, isRequired = false, autoFocus = false,
    className, digitClassName,
 }: PinInputProps) => {
 
+    const { color } = useTheme();
     const inputs = useRef(null);
     const [invalidLength, setInvalidLength] = useState(false);
 
@@ -36,11 +36,12 @@ const PinInput = ({
         const elems = inputs.current.children;
 
         if (
+            (type === 'number' ? false : (event.keyCode >= 65 && event.keyCode <= 90)) || // type letters
             (event.keyCode >= 48 && event.keyCode <= 57) ||
-            (event.keyCode >= 65 && event.keyCode <= 90) ||
+            (event.keyCode >= 96 && event.keyCode <= 105) ||
             event.keyCode === 8
         ) {
-            const char = event.keyCode === 8 ? '' : event.key;
+            const char = event.keyCode === 8 ? '' : `${event.key}`;
             const newValue = value.substr(0, index) + (char[char.length - 1] ?? '') + value.substr(index + 1);
             onChange(newValue.trim().slice(0, digits));
 
@@ -75,8 +76,12 @@ const PinInput = ({
     }, []);
 
     return <div>
-        {labels?.title &&
-        <label className="text-lg mb-1">{labels.title}</label>}
+        {label && (
+            <label className="block text-lg opacity-80 mb-1" aria-hidden={false} style={{ color }}>
+                {label}
+                {isRequired && <span className="ml-1 text-red-500">*</span>}
+            </label>
+        )}
         <div
             ref={inputs}
             className={`py-2 grid gap-2 ${className}`}
@@ -98,9 +103,9 @@ const PinInput = ({
             ))}
         </div>
         {(invalidLength && value?.length < digits && !isDisabled) &&
-        <div className="text-red-600 text-base">
-            The code should be {digits} digits.
-        </div>}
+            <div className="text-red-600 text-base">
+                The code should be {digits} digits.
+            </div>}
     </div>;
 
 };
