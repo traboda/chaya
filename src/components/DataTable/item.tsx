@@ -7,8 +7,13 @@ import {defaultLinkWrapper} from "../../utils/misc";
 const ListItem = styled.div`
   display: grid;
   align-items: center;
-  background: rgba(0, 0, 30, 0.25);
-  &[data-shaded='true'] {
+  
+  & > * {
+    height: 100%;
+    background: rgba(0, 0, 30, 0.25);
+  }
+
+  &[data-shaded='true'] > * {
     background: rgba(100, 100, 150, 0.1);
   }
   
@@ -17,7 +22,7 @@ const ListItem = styled.div`
     text-decoration: none !important;
   }
 
-  &:hover {
+  &:hover > * {
     background: rgba(100, 100, 150, 0.35);
   }
 `;

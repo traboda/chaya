@@ -174,7 +174,7 @@ const Template: Story = args => (
     <DataTable
         customTopBarRenderer={() => <div>Custom top bar</div>}
         items={ITEMS}
-        maxHeight="60vh"
+        maxHeight="380px"
         properties={[
             {
                 'id': 'name',

@@ -11,8 +11,12 @@ const TitleBar = styled.div`
   display: grid;
   width: 100%;
   color: ${({ theme }) => theme.primaryTextColor};
-  background: ${({ theme }) => theme.primary};
   transition: transform 200ms ease;
+
+  & > * {
+    height: 100%;
+    background: ${({ theme }) => theme.primary};
+  }
 `;
 
 type ItemListerTitleBarProps = {
@@ -32,47 +36,53 @@ const ItemListerTitleBar = ({
     const generateTitleStyle = () => {
         const _divide = properties.filter((p) => !p.isHidden);
         let cols = '';
-        for(const _col of _divide)
+        for (const _col of _divide)
             cols += `minmax(${_col.minWidth || ((Number(_col.space) || 1) * 100) + 'px'}, ${_col.space || 1}fr) `;
 
         return { gridTemplateColumns: cols };
     };
 
     return (
-        <div style={{ transform: `translateY(-${scrollDir === 'down' ? titleTopRef.current?.clientHeight : 0}px)` }}>
+        <div
+            className="transition-transform"
+            style={{ transform: `translateY(-${scrollDir === 'down' ? titleTopRef.current?.clientHeight : 0}px)` }}
+        >
             <TitleBar style={generateTitleStyle()}>
-                {properties?.length > 0 &&
-                properties.filter((p) => !p.isHidden).map((p) =>
-                    <div className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
-                        {p?.allowSort ?
-                            <div className={classNames('flex items-center', p?.labelClassName)}>
-                                <div className="pl-3 pr-2" style={{ width: 'auto', fontWeight: 600 }}>
+                {properties?.length > 0 && (
+                    properties.filter((p) => !p.isHidden).map((p) =>
+                        <div className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
+                            {p?.allowSort ? (
+                                <div className={classNames('flex items-center', p?.labelClassName)}>
+                                    <div className="pl-3 pr-2" style={{ width: 'auto', fontWeight: 600 }}>
+                                        {p.label}
+                                    </div>
+                                    <div style={{ width: '30px', opacity: 0.75, fontSize: '90%' }}>
+                                        <SortButton
+                                            attribute={p.id}
+                                            currentAttribute={currentSortAttribute}
+                                            currentOrder={sortOrder}
+                                            onSort={onSort}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className={classNames('px-3', p?.labelClassName)}
+                                     style={{ width: 'auto', fontWeight: 600 }}>
                                     {p.label}
                                 </div>
-                                <div style={{ width: '30px', opacity: 0.75, fontSize: '90%' }}>
-                                    <SortButton
-                                        attribute={p.id}
-                                        currentAttribute={currentSortAttribute}
-                                        currentOrder={sortOrder}
-                                        onSort={onSort}
-                                    />
-                                </div>
-                            </div> :
-                            <div className={classNames('px-3', p?.labelClassName)} style={{ width: 'auto', fontWeight: 600 }}>
-                                {p.label}
-                            </div>
-                        }
-                    </div>
-                )}
+                            )}
+                        </div>
+                    ))}
             </TitleBar>
-            {stickyRow &&
-            <ItemListerItem
-                isShaded={false}
-                properties={properties}
-                item={stickyRow}
-                itemIndex={-1}
-                style={{ background: '#191c2d' }}
-            />}
+            {stickyRow && (
+                <ItemListerItem
+                    isShaded={false}
+                    properties={properties}
+                    item={stickyRow}
+                    itemIndex={-1}
+                    style={{ background: '#191c2d' }}
+                />
+            )}
         </div>
     );
 

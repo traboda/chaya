@@ -1,7 +1,7 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button, {ButtonProps} from "./Button";
+import Button, { ButtonProps } from "./Button";
 
 type ModalProps = {
     isOpen: boolean,
@@ -21,7 +21,7 @@ type ModalProps = {
 const ModalContainer = styled.div`
   section {
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 10000;
   }
 
   @keyframes expand {
@@ -58,14 +58,13 @@ const ModalContainer = styled.div`
 
 const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
 
-    const [ shouldRender, setShouldRender ] = useState(false);
+    const [shouldRender, setShouldRender] = useState(false);
 
     useEffect(() => {
         let timeoutId: any;
         if (isMounted && !shouldRender) {
             setShouldRender(true);
-        }
-        else if(!isMounted && shouldRender) {
+        } else if (!isMounted && shouldRender) {
             timeoutId = setTimeout(
                 () => setShouldRender(false),
                 delayTime
@@ -75,7 +74,7 @@ const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
     }, [isMounted, delayTime, shouldRender]);
     return shouldRender;
 
-}
+};
 
 const Modal = ({
    isOpen, children, onClose, title, iconClassName, bgClassName = '', contentClassName = '',
@@ -103,7 +102,13 @@ const Modal = ({
                     onClick={e => e.stopPropagation()}
                 >
                     <div className="absolute top-0 right-0 pr-2">
-                        <button title="close" className="font-mono outline-none font-bold text-2xl" onClick={onClose}>x</button>
+                        <button
+                            title="close"
+                            className="font-mono outline-none font-bold text-2xl"
+                            onClick={onClose}
+                        >
+                            x
+                        </button>
                     </div>
                     {title && <h2 className="text-2xl pt-4 pb-2 px-4 font-semibold">
                         {iconClassName && <i className={iconClassName} />}
@@ -116,27 +121,15 @@ const Modal = ({
                         {children}
                     </div>
                     {(primaryButton || secondaryButton) && (
-                        <div className="flex items-center justify-end py-2 px-3">
-                            {secondaryButton &&
-                            <div className="mr-2">
-                                <Button
-                                    {...secondaryButton}
-                                    py={1} px={3}
-                                />
-                            </div>}
-                            {primaryButton &&
-                            <div>
-                                <Button
-                                    {...primaryButton}
-                                    py={1} px={3}
-                                />
-                            </div>}
+                        <div className="flex items-center justify-end py-2 px-3 gap-2">
+                            {secondaryButton && <Button {...secondaryButton} py={1} px={3}/>}
+                            {primaryButton && <Button {...primaryButton} py={1} px={3}/>}
                         </div>
                     )}
                 </div>
             </section>
         </ModalContainer>
-    ) : <div />;
+    ) : <div/>;
 };
 
 export default Modal;
