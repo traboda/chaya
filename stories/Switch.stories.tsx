@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Switch',
+    title: 'User Inputs/Switch',
     component: Switch,
     parameters: {
         controls: { expanded: true },

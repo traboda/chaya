@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Pin Input',
+    title: 'User Inputs/Pin Input',
     component: PinInput,
     parameters: {
         controls: { expanded: true },

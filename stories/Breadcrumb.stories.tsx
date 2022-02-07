@@ -9,7 +9,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Breadcrumb',
+    title: 'Basic Elements/Breadcrumb',
     component: Breadcrumb,
     parameters: {
         controls: { expanded: true },

@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Drawer',
+    title: 'Overlays/Drawer',
     component: Drawer,
     parameters: {
         controls: { expanded: true },

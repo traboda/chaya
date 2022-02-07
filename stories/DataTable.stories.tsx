@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'DataTable',
+    title: 'Content Handlers/Data Table',
     component: DataTable,
     argTypes: {
         children: {

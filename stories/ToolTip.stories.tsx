@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-  title: 'ToolTip',
+  title: 'Basic Elements/ToolTip',
   component: ToolTip,
   argTypes: {
     children: {

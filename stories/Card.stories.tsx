@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Card',
+    title: 'Basic Elements/Card',
     component: Card,
     argTypes: {
         children: {

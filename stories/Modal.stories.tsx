@@ -12,7 +12,7 @@ addDecorator((story) => (
 
 
 const meta: Meta = {
-    title: 'Modal',
+    title: 'Overlays/Modal',
     component: Modal,
     argTypes: {
         children: {

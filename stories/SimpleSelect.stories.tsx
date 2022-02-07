@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Simple Select',
+    title: 'User Inputs/Simple Select',
     component: SimpleSelect,
     argTypes: {
         children: {

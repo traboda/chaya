@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Tag Selector',
+    title: 'User Inputs/Tag Selector',
     component: TagSelector,
     parameters: {
         controls: { expanded: true },

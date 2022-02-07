@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Page Header',
+    title: 'Layouts/Page Header',
     component: PageHeader,
     parameters: {
         controls: { expanded: true },

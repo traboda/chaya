@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Alert',
+    title: 'Content Handlers/Alert',
     component: Alert,
     argTypes: {
         children: {

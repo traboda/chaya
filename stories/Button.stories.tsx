@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-  title: 'Button',
+  title: 'Basic Elements/Button',
   component: Button,
   argTypes: {
     children: {

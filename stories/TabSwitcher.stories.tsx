@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Tab Switcher',
+    title: 'Content Handlers/Tab Switcher',
     component: TabSwitcher,
     parameters: {
         controls: { expanded: true },

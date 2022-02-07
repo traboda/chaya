@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { AccordionGroup } from '../src';
 
 const meta: Meta = {
-    title: 'Accordion Group',
+    title: 'Content Handlers/Accordion Group',
     component: AccordionGroup,
     parameters: {
         controls: { expanded: true },

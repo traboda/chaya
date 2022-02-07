@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Avatar',
+    title: 'Basic Elements/Avatar',
     component: Avatar,
     parameters: {
         controls: { expanded: true },

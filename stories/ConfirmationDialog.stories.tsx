@@ -9,7 +9,7 @@ addDecorator((story) => (
     </ThemeContext>
 ));
 const meta: Meta = {
-    title: 'Confirmation Dialog',
+    title: 'Overlays/Confirmation Dialog',
     component: ConfirmationDialog,
 };
 

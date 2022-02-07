@@ -12,7 +12,7 @@ addDecorator((story) => (
 
 
 const meta: Meta = {
-  title: 'Text Input',
+  title: 'User Inputs/Text Input',
   component: TextInput,
   argTypes: {
     children: {
