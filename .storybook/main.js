@@ -2,7 +2,7 @@ const postcss = require("postcss");
 
 module.exports = {
   stories: [
-      '../stories/**/*.stories.@(ts|tsx|js|jsx)'
+      '../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)'
   ],
   addons: [
     '@storybook/addon-links',

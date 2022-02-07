@@ -20,8 +20,9 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    // @ts-ignore
-    <AccordionGroup {...args} />
+    <div className="flex justify-center items-center bg-gray-200 w-full" style={{ minHeight: '95vh' }}>
+        <AccordionGroup {...args} />
+    </div>
 );
 
 export const Default = Template.bind({});
@@ -44,7 +45,8 @@ Default.args = {
             title: 'Item 41',
             text: 'This is a text'
         }
-    ]
+    ],
+    className: "w-72"
 };
 
 
@@ -71,5 +73,34 @@ KeepExpanded.args = {
             title: 'Item 41',
             text: 'This is a text'
         }
-    ]
+    ],
+    className: 'md:w-3/4 sm:w-full lg:w-1/2',
+    accordionClassName: 'bg-red-300'
+};
+
+export const Custmoized = Template.bind({});
+
+Custmoized.args = {
+    items: [
+        {
+            title: 'Item 1',
+            text: 'This is a text'
+        },
+        {
+            title: 'Item 21',
+            text: 'This is a text'
+        },
+        {
+            title: 'Item 31',
+            text: 'This is a text'
+        },
+        {
+            title: 'Item 41',
+            text: 'This is a text'
+        }
+    ],
+    className: 'md:w-3/4 sm:w-full lg:w-1/2',
+    titleClassName: 'text-red-400 bg-indigo-200',
+    accordionClassName: 'bg-blue-800',
+    bodyClassName: 'text-white'
 };
