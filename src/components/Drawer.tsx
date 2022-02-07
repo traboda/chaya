@@ -36,7 +36,7 @@ type DrawerProps = {
 
 const Drawer = ({
     isOpen, onClose, position = 'bottom', children,
-    minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%'
+    minWidth = '15vw', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%'
 }: DrawerProps) => {
 
     const { background, color } = useTheme();
