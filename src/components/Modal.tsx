@@ -1,6 +1,7 @@
 import React, {ReactNode, useEffect, useState} from 'react';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
+import Button, {ButtonProps} from "./Button";
 
 type ModalProps = {
     isOpen: boolean,
@@ -13,6 +14,8 @@ type ModalProps = {
     maxWidth?: number | string,
     minHeight?: number | string,
     maxHeight?: number | string,
+    primaryButton?: ButtonProps,
+    secondaryButton?: ButtonProps,
 };
 
 const ModalContainer = styled.div`
@@ -76,7 +79,7 @@ const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
 
 const Modal = ({
    isOpen, children, onClose, title, iconClassName, bgClassName = '', contentClassName = '',
-   maxWidth = 720, minHeight, maxHeight,
+   maxWidth = 720, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
     const { background, color } = useTheme();
@@ -101,16 +104,34 @@ const Modal = ({
                     <div className="absolute top-0 right-0 pr-2">
                         <button title="close" className="font-mono outline-none font-bold text-2xl" onClick={onClose}>x</button>
                     </div>
+                    {title && <h2 className="text-2xl pt-4 pb-2 px-4 font-semibold">
+                        {iconClassName && <i className={iconClassName} />}
+                        {title}
+                    </h2>}
                     <div
-                        className={`${contentClassName} overflow-y-auto`}
+                        className={`${contentClassName} overflow-auto`}
                         style={{ maxWidth, minHeight, maxHeight }}
                     >
-                        {title && <h2 className="text-2xl font-semibold mb-3">
-                            {iconClassName && <i className={iconClassName} />}
-                            {title}
-                        </h2>}
                         {children}
                     </div>
+                    {(primaryButton || secondaryButton) && (
+                        <div className="flex items-center justify-end py-2 px-3">
+                            {secondaryButton &&
+                            <div className="mr-2">
+                                <Button
+                                    {...secondaryButton}
+                                    py={1} px={3}
+                                />
+                            </div>}
+                            {primaryButton &&
+                            <div>
+                                <Button
+                                    {...primaryButton}
+                                    py={1} px={3}
+                                />
+                            </div>}
+                        </div>
+                    )}
                 </div>
             </section>
         </ModalContainer>

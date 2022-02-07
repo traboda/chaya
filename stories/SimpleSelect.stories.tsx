@@ -5,7 +5,7 @@ import { SimpleSelect } from '../src';
 import ThemeContext from "../src/ThemeProvider";
 
 const meta: Meta = {
-    title: 'SimpleSelect',
+    title: 'Simple Select',
     component: SimpleSelect,
     argTypes: {
         children: {

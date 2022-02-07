@@ -61,7 +61,7 @@ const SimpleSelect = ({
 
     return (
         <div className="w-full">
-            {(labels?.label || required) && (
+            {labels?.label?.length > 0 && (
                 <label className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false}>
                     {labels?.label}
                     {required && <span className="ml-1 text-red-500">*</span>}

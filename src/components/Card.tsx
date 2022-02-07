@@ -5,6 +5,7 @@ type Card = {
     children: (React.ReactNode|React.ReactChildren);
     title?: string,
     description?: string,
+    titleClassName?: string,
     iconClassName?: string,
     background?: string,
     className?: string,
@@ -19,27 +20,25 @@ const CardContainer = styled('div')<CardContainer>`
   background: ${({ background, theme }) => background ? background : theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
   border-radius: 8px;
   height: 100%;
+  h3 {
+    color: ${({ theme }) => theme.secondary};
+  }
 `;
 
-const Card = ({
-  title, description, iconClassName, background, className, children
-}: Card) => {
+const Card = ({ title, description, titleClassName, iconClassName, background, className, children }: Card) =>  (
+    <CardContainer background={background} className={className}>
+        {(title || description) &&
+        <div className="px-2 pt-2">
+            {title &&
+            <h3 className={`text-3xl mb-1 font-semibold ${titleClassName}`}>
+                {iconClassName && <i className={`${iconClassName} mr-2`} />}
+                {title}
+            </h3>}
+            {description && <p className="text-lg opacity-90 mb-2">{description}</p>}
+        </div>}
+        {children}
+    </CardContainer>
+);
 
-    return (
-        <CardContainer background={background} className={className}>
-            {(title || description) &&
-            <div className="px-2 pt-2">
-                {title &&
-                <h3 className="text-2xl mb-1 font-semibold">
-                    {iconClassName && <i className={iconClassName} />}
-                    {title}
-                </h3>}
-                {description && <p className="text-lg opacity-90 mb-2">{description}</p>}
-            </div>}
-            {children}
-        </CardContainer>
-    );
-
-};
 
 export default Card;

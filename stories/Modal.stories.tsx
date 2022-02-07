@@ -89,3 +89,25 @@ Default.args = {
     title: 'Create Challenge',
     contentClassName: 'p-4'
 };
+
+export const WithButtons = Template.bind({});
+
+WithButtons.args = {
+    isOpen: true,
+    onClose: () => {},
+    title: 'Create Challenge',
+    contentClassName: 'p-4',
+    primaryButton: {
+        text: 'Create',
+        onClick: () => {
+            console.log('create')
+        }
+    },
+    secondaryButton: {
+        text: 'Cancel',
+        onClick: () => {
+            console.log('cancel')
+        }
+    }
+};
+

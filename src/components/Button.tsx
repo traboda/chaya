@@ -136,7 +136,7 @@ const StyledButton = styled('button')<StyledButton>`
   }
 `;
 
-type Button = {
+export type ButtonProps = {
     variant?: ('primary' | 'secondary' | 'dark' | 'light' | 'success' | 'danger' | 'warning')
     shadow?: (0 | 1 | 2 | 3)
     round?: (0 | 1 | 2 | 3 | 4 | 5)
@@ -178,7 +178,7 @@ const Button = ({
     disableRipple = false, fw = false,
     className, style, inverseColors = false,
     onClick = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc,
-}: Button) => {
+}: ButtonProps) => {
 
     const theme: Theme = useTheme();
 

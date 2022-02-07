@@ -165,10 +165,11 @@ const TextInput = ({
         {(!hideLabel) &&
         <div className="flex flex-wrap mb-1 px-1 mx-0">
             <div className={showLimit ? 'w-2/3 px-0' : 'w-full px-0'}>
+                {label &&
                 <label className="text-lg opacity-80" htmlFor={inputID} aria-hidden={false}>
                     {label}
                     {required && <span className="required-marker">*</span>}
-                </label>
+                </label>}
             </div>
             {(showLimit && typeof value !== 'number') &&
             <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">

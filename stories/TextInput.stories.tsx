@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { TextInput } from '../src';
 
 const meta: Meta = {
-  title: 'TextInput',
+  title: 'Text Input',
   component: TextInput,
   argTypes: {
     children: {
