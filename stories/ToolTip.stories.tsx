@@ -31,7 +31,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="flex justify-center items-center" style={{ minHeight: '100vh' }}>
+    <div className="flex justify-center items-center" style={{ minHeight: '25vh' }}>
       <ToolTip
           children={<div className="text-white">Hover Here</div>}
           overlay={<div>Tool Tip</div>}

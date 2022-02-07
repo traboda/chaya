@@ -1,13 +1,7 @@
 import React from 'react';
 
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import { AccordionGroup } from '../src';
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
 
 const meta: Meta = {
     title: 'Accordion Group',
