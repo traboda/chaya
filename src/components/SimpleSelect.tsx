@@ -1,11 +1,12 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import styled from "@emotion/styled";
+import Color from 'color';
 
 const StyledSelect = styled.select`
   color: ${({ theme }) => theme.color};
   border: 2px solid hsla(0, 0%, 40%, .7);
-  background: ${({ theme }) => theme.background } url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='${({ theme }) => theme.color}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat calc(100% - 0.75rem) center;
+  background: ${({ theme }) => theme.background } url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='${({ theme }) => Color(theme.color || theme.isDarkTheme ? '#fff' : '#000').rgb().string()}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat calc(100% - 0.75rem) center;
   padding: 0.5rem;
   &:hover {
     border-color: hsla(0, 0%, 80%, .8);
@@ -37,29 +38,38 @@ type SimpleSelectProps = {
     name: string,
     options: Array<OptionType | GroupType>,
     onChange?: (v: string) => void,
-    label?: string,
     required?: boolean,
-    placeholder?: string,
+    labels?: {
+        label?: string,
+        placeholder?: string
+    }
 }
 
+const defaultLabels = {
+    label: null,
+    placeholder: 'Select an Option'
+};
+
 const SimpleSelect = ({
-  label = null, value = null, onChange = () => {},
-  required = false, name, options, placeholder = 'Select an option'
+  value = null, onChange = () => {},
+  required = false, name, options, labels: _labels
 }: SimpleSelectProps) => {
+
+    const labels = { ...defaultLabels, ..._labels };
 
     const inputID = `${name}-input-${nanoid()}`;
 
     return (
         <div className="w-full">
-            {(label || required) && (
-                <label className="block text-lg opacity-80 mb-2" htmlFor={inputID} aria-hidden={false}>
-                    {label}
+            {(labels?.label || required) && (
+                <label className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false}>
+                    {labels?.label}
                     {required && <span className="ml-1 text-red-500">*</span>}
                 </label>
             )}
             <div className="w-full">
                 <StyledSelect
-                    className="w-full rounded-lg appearance-none"
+                    className="w-full text-lg rounded-lg appearance-none"
                     name={name}
                     id={inputID}
                     value={value}
@@ -70,7 +80,7 @@ const SimpleSelect = ({
                         disabled={required}
                         value={null}
                     >
-                        {placeholder}
+                        {labels?.placeholder}
                     </option>
                     {options?.length > 0 &&
                     options.map((option) =>

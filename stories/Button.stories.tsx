@@ -20,9 +20,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => <Button px={5} py={4} {...args} />;
+const Template: Story = args => <Button px={5} py={3} {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  children: 'Hello World!'
+};
 

@@ -35,7 +35,10 @@ export const Basic = Template.bind({});
 let value;
 
 Basic.args = {
-    label: 'Category',
+    labels: {
+        label: 'Category',
+        placeholder: 'Select a category',
+    },
     required: true,
     value, onChange: v => value = v,
     options: [
@@ -60,7 +63,10 @@ export const SelectWithGroups: Story = args => {
 let country;
 
 SelectWithGroups.args = {
-    label: 'Region',
+    labels: {
+        label: 'Region',
+        placeholder: 'Pick a Region',
+    },
     required: true,
     value: country, onChange: v => country = v,
     options: [

@@ -26,7 +26,10 @@ export type TabSwitcher = {
     disabled?: boolean
     onClickDisabled?: (arg) => void,
     onChange?: (key: string) => void,
-    tabSelectorClassName?: string,
+    className?: string,
+    bodyClassName?: string,
+    menuClassName?: string,
+    menuButtonClassName?: string,
     initialKey?: string,
     linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
     isVertical?: boolean,
@@ -38,8 +41,6 @@ const TabBase = styled.div`
   a, button {
     border: none !important;
     background: none;
-    font-size: 18px;
-    padding: 0.75rem 1.25rem;
     color: ${({ theme }) => theme.color };
     text-decoration: none!important;
     border-radius: 7px;
@@ -55,9 +56,6 @@ const TabBase = styled.div`
     &.active-tab {
       background: ${({ theme }) => theme.primary };
       color: ${({ theme }) => theme.primaryTextColor };
-    }
-    a, button {
-      font-weight: 600;
     }
   }
 `;
@@ -86,7 +84,8 @@ const VerticalTabSelector = styled(TabBase)`
 
 const TabSwitcher = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
- linkWrapper = defaultLinkWrapper, alignCenter, tabSelectorClassName, onChange = () => {}
+ className, menuButtonClassName, menuClassName, bodyClassName,
+ linkWrapper = defaultLinkWrapper, alignCenter,  onChange = () => {}
 }: TabSwitcher) => {
 
     const tabItems =  items?.length > 0 ?
@@ -136,6 +135,10 @@ const TabSwitcher = ({
         ) : <div />;
     };
 
+    const _menu_button_className = (key) => {
+        return `text-lg font-semibold px-5 py-2 ${currentTab === key ? 'active-tab' : ''} ${menuButtonClassName}`;
+    }
+
     const render_menu_options = () => (
         <div>
             {tabItems.filter((t) => !t.hidden).map((t) =>
@@ -143,7 +146,7 @@ const TabSwitcher = ({
                     <button
                         key={nanoid()}
                         onClick={() => t.onClick()}
-                        className={t.key === currentTab ? 'active-tab' : null}
+                        className={_menu_button_className(t.key)}
                     >
                         {render_option(t)}
                     </button>
@@ -152,7 +155,7 @@ const TabSwitcher = ({
                     <button
                         key={nanoid()}
                         onClick={() => onClickDisabled(t.key)}
-                        className={t.key === currentTab ? 'active-tab' : null}
+                        className={_menu_button_className(t.key)}
                     >
                         {render_option(t)}
                     </button>
@@ -165,7 +168,7 @@ const TabSwitcher = ({
                     <a
                         key={nanoid()}
                         href={t.url}
-                        className={t.key === currentTab ? 'active-tab' : null}
+                        className={_menu_button_className(t.key)}
                     >
                         {render_option(t)}
                     </a>
@@ -174,7 +177,7 @@ const TabSwitcher = ({
                     <h5
                         key={nanoid()}
                         style={{ opacity: 0.9 }}
-                        className="text-left font-semibold mt-2 p-2 w-full"
+                        className={_menu_button_className(t.key)}
                     >
                         {t.name}
                     </h5>
@@ -182,7 +185,7 @@ const TabSwitcher = ({
                     <button
                         key={nanoid()}
                         onClick={() => setTab(t.key)}
-                        className={t.key === currentTab ? 'active-tab' : null}
+                        className={_menu_button_className(t.key)}
                     >
                         {render_option(t)}
                     </button>
@@ -192,22 +195,22 @@ const TabSwitcher = ({
     );
 
     return isVertical ? (
-        <div className="flex flex-wrap  mx-0">
+        <div className={`flex flex-wrap mx-0 ${className}`}>
             <div className="md:w-1/5 p-0">
-                <VerticalTabSelector className={`sticky top-0 ${tabSelectorClassName}`}>
+                <VerticalTabSelector className={`sticky top-0 ${menuClassName}`}>
                     {render_menu_options()}
                 </VerticalTabSelector>
             </div>
-            <div className="md:w-4/5 pr-4 pl-4">
+            <div className={`md:w-4/5 pr-4 pl-4 ${bodyClassName}`}>
                 {render_active_tab()}
             </div>
         </div>
     ) : (
-        <div className={alignCenter ? 'flex flex-col items-center' : 'px-0'}>
-            <HorizontalTabSelector className={tabSelectorClassName}>
+        <div className={`${alignCenter ? 'flex flex-col items-center' : 'px-0'} ${className}`}>
+            <HorizontalTabSelector className={menuClassName}>
                 {render_menu_options()}
             </HorizontalTabSelector>
-            <div className="py-3">
+            <div className={`py-3 ${bodyClassName}`}>
                 {render_active_tab()}
             </div>
         </div>

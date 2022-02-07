@@ -7,7 +7,6 @@ const BreadcrumbWrapper = styled.ul`
     padding: 0;
     display: flex;
     align-items: center;
-    font-size: calc(1.2rem + 0.15vw);
     li {
         opacity: 0.75;
         list-style: none;
@@ -32,13 +31,17 @@ type Breadcrumb = {
         title?: string,
         isActive?: boolean
     }[],
+    className?: string,
+    homeIconClassName?: string,
     linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
 };
 
-const Breadcrumb = ({ items, linkWrapper = defaultLinkWrapper }: Breadcrumb) => (
-    <BreadcrumbWrapper>
+const Breadcrumb = ({ items, className, linkWrapper = defaultLinkWrapper, homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
+    <BreadcrumbWrapper className={`text-lg ${className}`}>
         <li>
-            {linkWrapper('/',  <a aria-label="Home"><i className="fa fa-home" /></a>)}
+            {linkWrapper('/',
+                <i title="home" className={homeIconClassName} />
+            )}
         </li>
         {items.length > 0 &&
         items.map((i) =>

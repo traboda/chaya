@@ -6,6 +6,8 @@ type ModalProps = {
     isOpen: boolean,
     children: ReactNode,
     onClose: () => void,
+    title?: string,
+    iconClassName?: string,
     bgClassName?: string,
     contentClassName?: string,
     maxWidth?: number | string,
@@ -14,6 +16,11 @@ type ModalProps = {
 };
 
 const ModalContainer = styled.div`
+  section {
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
   @keyframes expand {
     0% { height: 0; opacity: 0.5; overflow: hidden; }
     35% { height: 35%; opacity: 0.75; overflow: hidden}
@@ -24,25 +31,25 @@ const ModalContainer = styled.div`
     0%  { opacity: 1 }
     25% { height: 50%; overflow: hidden }
     50% { height: 0; opacity: 0; overflow: hidden }
-    100% { opacity: 0 }
+    100% { height: 0; opacity: 0; overflow: hidden }
   }
 
   .animate-fade-in {
-    animation: 300ms expand linear;
+    animation: 100ms expand linear;
   }
 
   @keyframes bg-fadeout {
-    0%  { background: rgba(0, 0, 0, 0.5); }
-    50% { background: rgba(0, 0, 0, 0.25); opacity: 0.5; }
-    100% { background: rgba(0, 0, 0, 0); opacity: 0; }
+    0%  { background: rgba(0, 0, 0, 0.5)!important; --tw-backdrop-blur: 1px!important; }
+    50% { background: rgba(0, 0, 0, 0.25)!important; opacity: 0.5; --tw-backdrop-blur: 0!important;}
+    100% { background: rgba(0, 0, 0, 0)!important; opacity: 0; height: 0; }
   }
 
   .animate-fade-out {
-    animation: 500ms bg-fadeout linear;
+    animation: 350ms bg-fadeout ease-out;
   }
 
   .animate-crunch {
-    animation: 500ms crunch linear;
+    animation: 500ms crunch ease-out;
   }
 `;
 
@@ -68,12 +75,12 @@ const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
 }
 
 const Modal = ({
-   isOpen, children, onClose, bgClassName = '', contentClassName = '',
+   isOpen, children, onClose, title, iconClassName, bgClassName = '', contentClassName = '',
    maxWidth = 720, minHeight, maxHeight,
 }: ModalProps) => {
 
     const { background, color } = useTheme();
-    const shouldRenderChild = useDelayUnmount(isOpen, 500);
+    const shouldRenderChild = useDelayUnmount(isOpen, 300);
 
     useEffect(() => {
         if (shouldRenderChild) document.body.style.overflow = 'hidden';
@@ -81,26 +88,31 @@ const Modal = ({
     }, [shouldRenderChild]);
 
     return shouldRenderChild ? (
-        <ModalContainer
-            className={`fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? `animate-fade-out` : ''}`}
-            style={{ background: 'rgba(0, 0, 0, 0.5)', zIndex: 10000 }}
-            onClick={onClose}
-        >
-            <div
-                className={`${bgClassName} relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
-                style={{ background, color }}
-                onClick={e => e.stopPropagation()}
+        <ModalContainer>
+            <section
+                className={`fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
+                onClick={onClose}
             >
-                <div className="absolute top-0 right-0 pr-2">
-                    <button title="close" className="font-mono outline-none font-bold text-2xl" onClick={onClose}>x</button>
-                </div>
                 <div
-                    className={`${contentClassName} overflow-y-auto`}
-                    style={{ maxWidth, minHeight, maxHeight }}
+                    className={`${bgClassName} relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
+                    style={{ background, color }}
+                    onClick={e => e.stopPropagation()}
                 >
-                    {children}
+                    <div className="absolute top-0 right-0 pr-2">
+                        <button title="close" className="font-mono outline-none font-bold text-2xl" onClick={onClose}>x</button>
+                    </div>
+                    <div
+                        className={`${contentClassName} overflow-y-auto`}
+                        style={{ maxWidth, minHeight, maxHeight }}
+                    >
+                        {title && <h2 className="text-2xl font-semibold mb-3">
+                            {iconClassName && <i className={iconClassName} />}
+                            {title}
+                        </h2>}
+                        {children}
+                    </div>
                 </div>
-            </div>
+            </section>
         </ModalContainer>
     ) : <div />;
 };

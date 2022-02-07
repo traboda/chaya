@@ -21,11 +21,9 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
+    // @ts-ignore
     <Card {...args}>
       <h1>Hello World</h1>
-      <p>
-        lorem ipsum blah blah blah blah blah blah blah blah blah blah blah
-      </p>
     </Card>
 );
 
@@ -33,4 +31,7 @@ const Template: Story = args => (
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+    title: 'Contest Settings',
+    description: 'The following settings can be customized to make the contest even more awesome.'
+};

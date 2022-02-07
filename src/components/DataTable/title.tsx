@@ -12,12 +12,7 @@ const TitleBar = styled.div`
   width: 100%;
   color: ${({ theme }) => theme.primaryTextColor};
   background: ${({ theme }) => theme.primary};
-  font-size: 1.35rem;
   transition: transform 200ms ease;
-`;
-
-const PropertyWrapper = styled.div`
-  padding: 1.35rem 0;
 `;
 
 type ItemListerTitleBarProps = {
@@ -48,7 +43,7 @@ const ItemListerTitleBar = ({
             <TitleBar style={generateTitleStyle()}>
                 {properties?.length > 0 &&
                 properties.filter((p) => !p.isHidden).map((p) =>
-                    <PropertyWrapper key={p.id} style={{ textAlign: p.textAlign }}>
+                    <div className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
                         {p?.allowSort ?
                             <div className={classNames('flex items-center', p?.labelClassName)}>
                                 <div className="pl-3 pr-2" style={{ width: 'auto', fontWeight: 600 }}>
@@ -67,7 +62,7 @@ const ItemListerTitleBar = ({
                                 {p.label}
                             </div>
                         }
-                    </PropertyWrapper>
+                    </div>
                 )}
             </TitleBar>
             {stickyRow &&

@@ -114,11 +114,8 @@ const StyledButton = styled('button')<StyledButton>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0.25rem;
-  padding: 0.5rem 1.5rem;
   position: relative;
   cursor: ${({disabled}) => !disabled ? 'pointer' : 'not-allowed'};
-  font-size: 1.35rem;
   line-height: 1;
   text-align: center;
   overflow: hidden;
@@ -212,7 +209,7 @@ const Button = ({
                 getPaddingClassName({p, px, py}),
                 getMarginClassName({m, mx, my}),
                 getShadowClassName(shadow),
-                className,
+                `text-lg ${className}`,
             )}
             style={style}
         >

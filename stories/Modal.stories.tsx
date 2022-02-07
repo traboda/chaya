@@ -63,6 +63,9 @@ const Template: Story = args => {
 
     return (
         <ThemeContext>
+            <button onClick={() => setIsOpen(true)}>
+                open
+            </button>
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
             {/* @ts-ignore */}
             <Modal
@@ -72,7 +75,6 @@ const Template: Story = args => {
                     setIsOpen(false)
                 }}
             >
-                <h1>Hello World</h1>
                 <p>{lorem}</p>
             </Modal>
         </ThemeContext>
@@ -84,5 +86,6 @@ export const Default = Template.bind({});
 Default.args = {
     isOpen: true,
     onClose: () => {},
+    title: 'Create Challenge',
     contentClassName: 'p-4'
 };

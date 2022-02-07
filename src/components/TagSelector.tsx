@@ -11,13 +11,11 @@ const TagSelectorContainer = styled.div`
     .tag {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 7px;
-      padding: 0.5rem 1rem;
       color: ${({theme}) => theme.color};
       cursor: pointer;
       margin: 0.35rem;
       transition: all 250ms ease;
-      font-size: 1.35rem;
-      box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.15)!important;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1)!important;
       border: 1px solid ${({ theme }) => theme.color};
       
       &.small {
@@ -41,19 +39,6 @@ const TagSelectorContainer = styled.div`
       }
     }
   }
-
-  &.fullWidth .tag-container {
-    flex-direction: column;
-    border-radius: 5px;
-    overflow: hidden;
-
-    .tag {
-      width: 100%;
-      margin: 0;
-      padding: 0.75rem 1rem;
-      border-radius: 0;
-    }
-  }
 `;
 
 type TagSelectorProps = {
@@ -63,6 +48,8 @@ type TagSelectorProps = {
     },
     value: any,
     onChange: (any) => void,
+    className?: string,
+    tagClassName?: string,
     small?: boolean,
     options: {
         value: (string|number),
@@ -71,7 +58,6 @@ type TagSelectorProps = {
     }[],
     isClearable?: boolean,
     multiple?: boolean,
-    fullWidth?: boolean
 }
 
 const TagSelector = (props: TagSelectorProps) => {
@@ -108,14 +94,13 @@ const TagSelector = (props: TagSelectorProps) => {
 
     const generateClassName = ({ value }) => {
         let _class = props.small ? 'small' : '';
-        if(!props.fullWidth) _class += ' shadow-sm';
         if(props.multiple && tags.includes(value)) _class += ' active';
         if(!props.multiple && tag?.value === value) _class += ' active';
 
         return _class;
     };
 
-    return <TagSelectorContainer className={props.fullWidth ? 'fullWidth' : ''}>
+    return <TagSelectorContainer className={props?.className}>
         {props?.labels &&
         <div className="flex flex-wrap  mx-0">
             {props.labels?.title &&
@@ -132,11 +117,11 @@ const TagSelector = (props: TagSelectorProps) => {
                 </ToolTip>
             </div>}
         </div>}
-        <div className={`tag-container ${props.fullWidth ? 'shadow-sm' : ''}`}>
+        <div className={`tag-container`}>
             {props.options.map(opt =>
                 <div
                     key={opt.value}
-                    className={`tag ${generateClassName(opt)}`}
+                    className={`tag px-4 py-1 text-lg ${generateClassName(opt)} ${props?.tagClassName}`}
                     onClick={() => handleTagClick(opt)}
                     style={opt.color ? { color: opt.color } : null}
                 >

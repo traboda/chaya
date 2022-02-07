@@ -7,7 +7,6 @@ import {defaultLinkWrapper} from "../../utils/misc";
 const ListItem = styled.div`
   display: grid;
   align-items: center;
-  font-size: 1.25rem;
   background: rgba(0, 0, 30, 0.25);
   &[data-shaded='true'] {
     background: rgba(100, 100, 150, 0.1);
@@ -27,24 +26,6 @@ const LinkWrap = styled.a`
   &:hover {
     color: ${({ theme }) => theme.secondary} !important;
     text-decoration: underline;
-  }
-`;
-
-const ItemProperty = styled.div`
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-
-  .fa-external-link {
-    display: none;
-    opacity: 0.75;
-    font-size: 13px;
-  }
-
-  &:hover {
-    .fa-external-link {
-      display: block;
-    }
   }
 `;
 
@@ -91,9 +72,9 @@ const ItemListerItem = ({
         properties.filter((p) => !p.isHidden).map((p) => {
             const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
             const renderer =
-                <ItemProperty
+                <div
                     key={link ? null : p.id}
-                    className={p?.className}
+                    className={`p-2 flex items-center ${p?.className}`}
                     style={{
                         textAlign: p.textAlign,
                         fontSize: p.fontSize
@@ -101,7 +82,7 @@ const ItemListerItem = ({
                 >
                     {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                     {link && <i className="fa fa-external-link ml-2" />}
-                </ItemProperty>;
+                </div>;
             return link ? linkWrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer;
         })}
     </ListItem>;
