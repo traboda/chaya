@@ -235,7 +235,6 @@ const Template: Story = args => (
             },
             {
                 'id': 'points',
-                'space': '5',
                 'label': 'Points',
                 'fontSize': '1.75rem',
                 'className': 'rajdhani',
