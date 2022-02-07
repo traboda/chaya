@@ -36,8 +36,10 @@ const Template: Story = args => {
 
     return (
         <div>
+            <button onClick={() => setIsOpen(true)}>
+                open
+            </button>
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
-
             {/* @ts-ignore */}
             <Drawer {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 {Array(1).fill(lorem).map(l => <p>{l}</p>)}
@@ -48,4 +50,8 @@ const Template: Story = args => {
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+    isOpen: true,
+    position: 'right',
+    maxWidth: '300px',
+};

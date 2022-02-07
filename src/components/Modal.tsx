@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { ButtonProps } from "./Button";
-import useDelayUnmount from '../hooks/DelayUnmount';
+import useDelayUnmount from '../hooks/useDelayUnmount';
 
 type ModalProps = {
     isOpen: boolean,

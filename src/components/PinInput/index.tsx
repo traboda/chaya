@@ -1,14 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from '@emotion/styled';
 
-import CodeInputText from './input';
+import PinDigit from './digit';
 
-const OTPLabel = styled.label`
-  font-size: calc(1rem + 0.15vw);
-  opacity: 0.8;
-`;
-
-type CodeInputProps = {
+type PinInputProps = {
     // current value
     value: string,
     // callback function when input is changed
@@ -20,14 +14,20 @@ type CodeInputProps = {
         title: string
     },
     // placeholder code - make sure it has same length as `digits`
+    type?: ('password'|'text'|'number'),
     placeholder?: string,
-    hasError?: boolean,
-    autoFocus?: boolean
+    isInvalid?: boolean,
+    isDisabled?: boolean,
+    autoFocus?: boolean,
+    className?: string,
+    digitClassName?: string,
 }
 
-const CodeInput = ({
-   value = '', onChange = () => {}, digits = 6, labels, placeholder, hasError = false, autoFocus = false,
-}: CodeInputProps) => {
+const PinInput = ({
+   value = '', onChange = () => {}, digits = 6, type = 'text', labels, placeholder,
+   isInvalid = false, isDisabled = false, autoFocus = false,
+   className, digitClassName,
+}: PinInputProps) => {
 
     const inputs = useRef(null);
     const [invalidLength, setInvalidLength] = useState(false);
@@ -75,30 +75,34 @@ const CodeInput = ({
     }, []);
 
     return <div>
-        {labels?.title && <OTPLabel>{labels.title}</OTPLabel>}
+        {labels?.title &&
+        <label className="text-lg mb-1">{labels.title}</label>}
         <div
             ref={inputs}
-            className="py-3 grid gap-4"
+            className={`py-2 grid gap-2 ${className}`}
             style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
             onFocus={() => setInvalidLength(false)}
             onBlur={() => value?.length < digits ? setInvalidLength(true) : setInvalidLength(false)}
         >
             {Array(digits).fill(null).map((_, i) => (
-                <CodeInputText
+                <PinDigit
                     key={i}
+                    type={type}
                     value={value[i] ?? ''}
                     onKeyDown={e => onKeyDown(e, i)}
                     placeholder={placeholder?.[i] ?? ' '}
-                    hasError={hasError}
+                    isInvalid={isInvalid}
+                    isDisabled={isDisabled}
+                    className={digitClassName}
                 />
             ))}
         </div>
-        {(invalidLength && value?.length < digits) &&
-            <div className="text-red-600 mt-2">
-                The code should be {digits} digits. Please verify.
-            </div>}
+        {(invalidLength && value?.length < digits && !isDisabled) &&
+        <div className="text-red-600 text-base">
+            The code should be {digits} digits.
+        </div>}
     </div>;
 
 };
 
-export default CodeInput;
+export default PinInput;

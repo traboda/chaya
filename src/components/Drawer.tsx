@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import useDelayUnmount from "../hooks/DelayUnmount";
+import useDelayUnmount from "../hooks/useDelayUnmount";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
@@ -35,7 +35,7 @@ type DrawerProps = {
 }
 
 const Drawer = ({
-    isOpen, onClose, position = 'bottom', children,
+    isOpen, onClose, position = 'right', children,
     minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%'
 }: DrawerProps) => {
 
