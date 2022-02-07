@@ -88,6 +88,7 @@ const Modal = ({
     useEffect(() => {
         if (shouldRenderChild) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = null;
+        return () => document.body.style.overflow = null;
     }, [shouldRenderChild]);
 
     return shouldRenderChild ? (
