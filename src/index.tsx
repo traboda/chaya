@@ -16,6 +16,7 @@ export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
 export { default as TabSwitcher } from './components/TabSwitcher';
 export { default as TagSelector } from './components/TagSelector';
+export { default as ProgressBar } from './components/ProgressBar';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as AccordionGroup } from './components/AccordionGroup';
