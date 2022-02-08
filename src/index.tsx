@@ -6,6 +6,7 @@ export { default as Avatar } from './components/Avatar';
 export { default as Drawer } from './components/Drawer';
 export { default as Button } from './components/Button';
 export { default as ToolTip } from './components/ToolTip';
+export { default as Dropdown } from './components/Dropdown';
 export { default as Accordion } from './components/Accordion';
 export { default as PinInput } from './components/PinInput';
 export { default as DataTable } from './components/DataTable';
