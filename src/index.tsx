@@ -12,6 +12,7 @@ export { default as PinInput } from './components/PinInput';
 export { default as DataTable } from './components/DataTable';
 export { default as TextInput } from './components/TextInput';
 export { default as SearchBox } from './components/SearchBox';
+export { default as StarRating } from './components/StarRating';
 export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
 export { default as TabSwitcher } from './components/TabSwitcher';
