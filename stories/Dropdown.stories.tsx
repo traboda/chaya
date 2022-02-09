@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Dropdown',
+    title: 'Content Handlers/Dropdown',
     component: Dropdown,
     parameters: {
         controls: { expanded: true },

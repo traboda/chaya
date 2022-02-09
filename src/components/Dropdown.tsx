@@ -10,11 +10,11 @@ type DropdownMenuProps = {
         onClick?: () => void,
         link?: string,
         renderer?: () => React.ReactNode,
-    }[]
+    }[],
     isOpen?: boolean,
     onClose?: () => void,
     className?: string,
-    linkWrapper: (link: string, component: React.ReactNode) => React.ReactNode,
+    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
 }
 
 const DropDownMenu = styled('div')`
@@ -27,8 +27,6 @@ const DropDownMenu = styled('div')`
     display: block;
     padding: 0.5rem 1rem;
     color: ${({theme}) => theme.color};
-    font-family: 'Rajdhani', sans-serif;
-    font-size: calc(1.35rem + 0.25vw);
     text-decoration: none !important;
     background: none;
     border: none;
@@ -51,28 +49,27 @@ const DropDownMenu = styled('div')`
   }
 `;
 
-const DropdownMenu = ({ className, items = [], isOpen, onClose, showOnHover, linkWrapper = defaultLinkWrapper }:DropdownMenuProps) => isOpen ? (
+const DropdownMenu = ({
+  items = [], isOpen, onClose = () => {}, className, linkWrapper = defaultLinkWrapper
+}:DropdownMenuProps) =>
+isOpen ? (
     <DropDownMenu role="navigation" className={className}>
-        <div role="menu" onMouseLeave={() => showOnHover && onClose()}>
-            { items.length>0 && items.map((n,i) => {
-                const content = (
+        <div role="menu" onMouseLeave={onClose}>
+            {items.length > 0 && items.map((n,i) => {
+                const content = n?.renderer ? n.renderer() : (
                     <div>
-                        {n?.iconClassName && <i className={n.iconClassName} />}
+                        {n?.iconClassName && <i className={`${n.iconClassName} mr-2`} />}
                         {n?.title}
                     </div>
                 );
                 return (
                     <div role="menuitem" key={i} className={n?.className}>
-                        { n?.link ?
-                            linkWrapper(n.link,content) :
-                                n?.renderer ?
-                                    <button>{n.renderer()}</button> :
-                                        <button onClick={n?.onClick}>{content}</button>
-                        }
+                        { n?.link ? linkWrapper(n.link,content) : <button onClick={n?.onClick}>{content}</button>}
                     </div>
                 );
             })}
         </div>
-    </DropDownMenu>) : <div />;
+    </DropDownMenu>
+) : <div />;
 
 export default DropdownMenu;
