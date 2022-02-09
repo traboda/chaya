@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Basic Elements/Progress Bar',
+    title: 'Visualization/Progress Bar',
     component: ProgressBar,
     parameters: {
         controls: { expanded: true },
@@ -20,18 +20,16 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-        <div className='bg-gray-200 flex justify-center items-center h-72'>
-            <ProgressBar {...args} />
-        </div>
+    <div style={{ width: '450px', maxWidth: '100%' }}>
+        {/*// @ts-ignore*/}
+        <ProgressBar {...args} />
+    </div>
 );
 
 export const Default = Template.bind({});
 
 Default.args = {
-    className: 'w-1/2 border-blue-700 bg-blue-900',
-    childClassName: 'bg-red-300 rounded-l',
+    value: 30,
     minVal: 1,
     maxVal: 100,
-    stripsNone: true,
-    percent: 30
 }

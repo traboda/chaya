@@ -6,14 +6,14 @@ type StarRatingStarProps = {
     value: 0 | 0.5 | 1,
     onChange: (v) => void,
     onPreview: (v) => void,
-    allowHalfRating: boolean
+    enableHalf: boolean
 }
 
-const StarRatingStar = ({ size, value, onChange, onPreview, allowHalfRating }: StarRatingStarProps) => {
+const StarRatingStar = ({ size, value, onChange, onPreview, enableHalf }: StarRatingStarProps) => {
     const { color } = useTheme();
 
     const computeValue = ({ target, clientX }) => {
-        if (!allowHalfRating) return 1;
+        if (!enableHalf) return 1;
         const { left, width } = target.getBoundingClientRect();
         return width / 2 > clientX - left ? 0.5 : 1;
     }

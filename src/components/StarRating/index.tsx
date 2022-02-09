@@ -3,32 +3,33 @@ import StarRatingStar from "./star";
 import { useTheme } from "@emotion/react";
 
 type StarRatingProps = {
-    onChange: (value: number) => void,
     value: number,
-    iconsCount?: number,
+    onChange?: (value: number) => void,
+    stars?: number,
     size?: number | string,
+    enableHalf?: boolean,
     tooltipDefaultText?: string,
     tooltipArray?: string[],
     labelClassName?: string,
-    allowHalfRating?: boolean
+    className?: string,
 }
 
 const StarRating = ({
-    onChange, value, iconsCount = 5, size = 30, tooltipDefaultText = '', tooltipArray = [], labelClassName = '',
-    allowHalfRating = true
+    value, onChange = () => {}, stars = 5, size = 30, className,  enableHalf = false,
+    tooltipDefaultText = '', tooltipArray = [], labelClassName = ''
 }: StarRatingProps) => {
 
     const { color } = useTheme();
-    const [rating, setRating] = useState(Array(iconsCount).fill(0));
+    const [rating, setRating] = useState(Array(stars).fill(0));
     const [hover, setHover] = useState(null);
 
     const onRatingChange = (value, index) => onChange([...Array(index).fill(1), value].reduce((acc, c) => acc + c, 0));
     const onPreview = (value, index) => {
-        setRating([...Array(index).fill(1), value, ...Array(iconsCount).fill(0)]);
+        setRating([...Array(index).fill(1), value, ...Array(stars).fill(0)]);
         setHover(index);
     }
 
-    const updateRating = () => setRating(Array(iconsCount).fill(0).map((_, i) => Math.max(Math.min(value - i, 1), 0)));
+    const updateRating = () => setRating(Array(stars).fill(0).map((_, i) => Math.max(Math.min(value - i, 1), 0)));
     const onMouseLeave = () => {
         updateRating();
         setHover(null);
@@ -37,22 +38,21 @@ const StarRating = ({
     useEffect(() => updateRating(), [value]);
 
     return (
-        <div className="w-full flex flex-col justify-center items-center gap-2">
+        <div className={`w-full flex flex-col justify-center items-center gap-2 ${className}`}>
             <div className="flex gap-1" onMouseLeave={onMouseLeave}>
-                {Array(iconsCount).fill(0).map((_, i) => (
+                {Array(stars).fill(0).map((_, i) => (
                     <StarRatingStar
                         size={size}
                         value={rating[i]}
-                        allowHalfRating={allowHalfRating}
+                        enableHalf={enableHalf}
                         onChange={v => onRatingChange(v, i)}
                         onPreview={v => onPreview(v, i)}
                     />
                 ))}
             </div>
-
             {!!(tooltipDefaultText || tooltipArray.length) && (
                 <div className={labelClassName} style={{ color }}>
-                    {hover === null ? tooltipDefaultText : tooltipArray[hover]}
+                    {hover === null || !(tooltipArray?.length > 0) ? tooltipDefaultText : tooltipArray[hover]}
                 </div>
             )}
         </div>

@@ -39,9 +39,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
     value: 0,
-    size: 50,
-    tooltipDefaultText: 'This is the default text',
-    tooltipArray: ['Very easy', 'Easy', 'Medium', 'Hard', 'Very Hard']
+    size: 50
 };
 
 export const DarkTheme: Story = (args) => {

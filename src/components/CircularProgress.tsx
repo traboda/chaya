@@ -1,168 +1,92 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
+import {useTheme} from "@emotion/react";
 
-const CircularProgressContainer = styled.div`
-  .progress {
-    width: 150px;
-    height: 150px !important;
-    float: left;
-    line-height: 150px;
-    background: none;
-    margin: 20px;
-    box-shadow: none;
-    position: relative
-  }
-
-  .progress:after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border-width: 75px;
-    border-color: ${({progressBgColor})=> progressBgColor || '#fff'};
-    position: absolute;
-    top: 0;
-    left: 0
-  }
-
-  .progress>span {
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    z-index: 1
-  }
-
-  .progress .progress-left {
-    left: 0
-  }
-
-  .progress .progress-bar {
-    width: 100%;
-    height: 100%;
-    background: none;
-    border-width: 40px;
-    border-style: solid;
-    position: absolute;
-    top: 0
-  }
-
-  .progress .progress-left .progress-bar {
-    left: 100%;
-    border-top-right-radius: 80px;
-    border-bottom-right-radius: 80px;
-    border-left: 0;
-    -webkit-transform-origin: center left;
-    transform-origin: center left
-  }
-
-  .progress .progress-right {
-    right: 0
-  }
-
-  .progress .progress-right .progress-bar {
-    left: -100%;
-    border-top-left-radius: 80px;
-    border-bottom-left-radius: 80px;
-    border-right: 0;
-    -webkit-transform-origin: center right;
-    transform-origin: center right;
-  }
-
-  .progress .progress-value {
-    width: ${({pbwidth})=>`${pbwidth}%`};
-    height: ${({pbwidth})=>`${pbwidth}%`};
-    border-radius: 50%;
-    background: #000;
-    font-size: 24px;
-    color: #fff;
-    line-height: 135px;
-    text-align: center;
-    position: absolute;
-    z-index: 1000;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .progress .progress-bar {
-    border-color: #1923AE;
-  }
-
-  .animate-l-bar{
-    animation: loading-2 1.5s linear forwards 1.5s
-  }
-
-  .animate-r-bar{
-    animation: loading-1 1.5s linear forwards
-  }
-
-  .transform-l-bar{
-    transform: rotate(${({ percent }) => percent[1]}deg)
-  }
-
-  .transform-r-bar{
-    transform: rotate(${({ percent }) => percent[0]}deg)
-  }
-
-  @keyframes loading-1 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg)
-    }
-
-    100% {
-      -webkit-transform: rotate(${({ percent }) => percent[0]}deg);
-      transform: rotate(${({ percent }) => percent[0]}deg)
-    }
-  }
-
-  @keyframes loading-2 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg)
-    }
-
-    100% {
-      -webkit-transform: rotate(${({ percent }) => percent[1]}deg);
-      transform: rotate(${({ percent }) => percent[1]}deg)
-    }
-  }
+const BackgroundCircle = styled('circle')`
+  stroke: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
 `;
 
 type CircularProgressProps = {
-    progressBarWidth?: ( 2 | 3 | 4 | 5 | 6 )
-    label?: string,
-    animate?: boolean,
-    progressBarColor?: string,
-    progressBackgroundColor?: string,
-    innerCircleColor?: string,
-    labelClassName?: string,
-    percent: number
+    value: number,
+    size?: ('xs'|'sm'|'md'|'lg'|'xl'),
+    thickness?: ('xs'|'sm'|'md'|'lg'|'xl'),
+    strokeColor?: string,
+    minVal?: number,
+    maxVal?: number,
+    height?: number,
+    className?: string,
 };
 
-const CircularProgress = ({ label, animate = false, progressBarColor, progressBackgroundColor, innerCircleColor, labelClassName, progressBarWidth = 6, percent}:CircularProgressProps) => {
-    const progressBarSize = [40,50,60,70,80,90];
-    const convertTo180 = (val) => Math.floor(val * 18 / 5);
-    const calcPercent = () => (percent < 50) ? [convertTo180(percent), 0] : [180, convertTo180(percent - 50)];
-    return(
-        <CircularProgressContainer  progressBgColor={progressBackgroundColor} percent={calcPercent()} pbwidth={progressBarSize[progressBarWidth-1]}>
-            <div className="progress">
-                <span className="progress-left">
-                    <span className={`progress-bar ${animate?'animate-l-bar':'transform-l-bar'}`} style={{borderColor: progressBarColor}}/>
-                </span>
-                <span className="progress-right">
-                    <span className={`progress-bar ${animate?'animate-r-bar':'transform-r-bar'}`} style={{borderColor: progressBarColor}}/>
-                </span>
-                <div className={`progress-value z-100 ${labelClassName}`} style={{background: innerCircleColor}}>
-                    <div className='h-full w-full items-center flex justify-center'>
-                        {label}
-                    </div>
-                </div>
-            </div>
-        </CircularProgressContainer>
-    )
+const sizes = {
+    xs: '45px',
+    sm: '72px',
+    md: '100px',
+    lg: '150px',
+    xl: '200px',
+}
+
+const thicknesses = {
+    xs: 6,
+    sm: 9,
+    md: 12,
+    lg: 16,
+    xl: 18,
+};
+
+const radius_options = {
+    xs: 42,
+    sm: 40,
+    md: 38,
+    lg: 36,
+    xl: 34
+};
+
+const offset_options = {
+    xs: 66,
+    sm: 75,
+    md: 85,
+    lg: 92,
+    xl: 103,
+}
+
+const CircularProgress = ({
+    value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className, strokeColor,
+}:CircularProgressProps) => {
+
+    const theme = useTheme();
+
+    return (
+        <div
+            role="progressbar"
+            aria-valuenow={(value/100)*maxVal}
+            aria-valuemin={minVal}
+            aria-valuemax={maxVal}
+            className={className}
+        >
+            <svg
+                viewBox="0 0 100 100"
+                height={height ?? sizes[size]}
+            >
+                <BackgroundCircle
+                    cx={50}
+                    cy={50}
+                    r={radius_options[thickness]}
+                    fill="transparent"
+                    strokeWidth={thicknesses[thickness]}
+                />
+                <circle
+                    cx={50}
+                    cy={50}
+                    r={radius_options[thickness]}
+                    fill="transparent"
+                    stroke={strokeColor ?? theme?.primary}
+                    strokeWidth={thicknesses[thickness]}
+                    strokeDashoffset={offset_options[thickness]}
+                    strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}
+                />
+            </svg>
+        </div>
+    );
 }
 
 export default CircularProgress;
