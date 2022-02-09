@@ -39,7 +39,7 @@ const sizes = {
     xl: '3rem',
 }
 
-const ProgressBar = ({ value, striped = false, size = 'md', className, minVal = 0, maxVal = 100, height }: ProgressBar) => (
+const ProgressBar = ({ value, striped = false, size = 'md', className = '', minVal = 0, maxVal = 100, height }: ProgressBar) => (
     <ProgressBarContainer
         height={height ?? sizes[size]}
         striped={striped}

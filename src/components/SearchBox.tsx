@@ -43,7 +43,7 @@ type SearchBox = {
 };
 
 const SearchBox = ({
-   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = null,
+   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = '',
    labels: labelProps, onSearch = () => {}, onKeyDown = () => () => {},
    autoFocus = false, iconClassName = 'far fa-search',
 }: SearchBox) => {

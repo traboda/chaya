@@ -38,7 +38,6 @@ const ItemListerTitleBar = ({
         let cols = '';
         for (const _col of _divide)
             cols += `minmax(${_col.minWidth || ((Number(_col.space) || 1) * 100) + 'px'}, ${_col.space || 1}fr) `;
-
         return { gridTemplateColumns: cols };
     };
 

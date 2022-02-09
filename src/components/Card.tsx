@@ -25,7 +25,7 @@ const CardContainer = styled('div')<CardContainer>`
   }
 `;
 
-const Card = ({ title, description, titleClassName, iconClassName, background, className, children }: Card) =>  (
+const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', background, children }: Card) =>  (
     <CardContainer background={background} className={className}>
         {(title || description) &&
         <div className="px-2 pt-2">

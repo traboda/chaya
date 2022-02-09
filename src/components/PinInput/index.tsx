@@ -29,7 +29,7 @@ type PinInputProps = {
 const PinInput = ({
    value = '', onChange = () => {}, digits = 6, type = 'text', labels,
    invalid = false, disabled = false, required = false, autoFocus = false,
-   className, digitClassName,
+   className = '', digitClassName = '',
 }: PinInputProps) => {
 
     const { color } = useTheme();

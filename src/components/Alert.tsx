@@ -25,7 +25,7 @@ const AlertContainer = styled('div')<AlertContainer>`
 
 
 const Alert = ({
-    type = 'info', className, title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
+    type = 'info', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
     primaryButton, secondaryButton,
 }: Alert) => {
 

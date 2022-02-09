@@ -12,11 +12,13 @@ type StarRatingProps = {
     tooltipArray?: string[],
     labelClassName?: string,
     className?: string,
+    activeColor?: string,
+    inactiveColor?: string,
 }
 
 const StarRating = ({
-    value, onChange = () => {}, stars = 5, size = 30, className,  enableHalf = false,
-    tooltipDefaultText = '', tooltipArray = [], labelClassName = ''
+    value, onChange = () => {}, stars = 5, size = 30, className = '',  enableHalf = false,
+    tooltipDefaultText = '', tooltipArray = [], labelClassName = '', activeColor = '#fbbf24', inactiveColor = null
 }: StarRatingProps) => {
 
     const { color } = useTheme();
@@ -47,6 +49,8 @@ const StarRating = ({
                         enableHalf={enableHalf}
                         onChange={v => onRatingChange(v, i)}
                         onPreview={v => onPreview(v, i)}
+                        activeColor={activeColor}
+                        inactiveColor={inactiveColor}
                     />
                 ))}
             </div>

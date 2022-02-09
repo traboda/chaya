@@ -17,7 +17,7 @@ type AccordionProps = {
 };
 
 const AccordionGroup = ({
-   items, initialIndex, keepExpanded = false, className, accordionClassName, titleClassName, bodyClassName
+   items, initialIndex, keepExpanded = false, className = '', accordionClassName = '', titleClassName = '', bodyClassName = ''
 }: AccordionProps) => {
     const [active, setActive] = useState(initialIndex ?? 0);
 

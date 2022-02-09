@@ -50,7 +50,7 @@ const offset_options = {
 }
 
 const CircularProgress = ({
-    value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className, strokeColor,
+    value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
 }:CircularProgressProps) => {
 
     const theme = useTheme();

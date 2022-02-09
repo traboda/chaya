@@ -20,7 +20,7 @@ const StyledLabel = styled.label`
 
 type SwitchProps = {
     value: boolean,
-    onChange: (v: boolean) => void,
+    onChange?: (v: boolean) => void,
     size?: number,
     label?: string,
     required?: boolean,
@@ -28,7 +28,7 @@ type SwitchProps = {
     disabled?: boolean
 }
 
-const Switch = ({ value, onChange, size = 24, label, required, variant = 'success', disabled = false }: SwitchProps) => {
+const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', disabled = false }: SwitchProps) => {
 
     const { color } = useTheme();
     const checkbox = useRef(null);

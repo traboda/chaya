@@ -58,7 +58,7 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = ({
-   isOpen, children, onClose, title, iconClassName, bgClassName = '', contentClassName = '',
+   isOpen, children, onClose, title, iconClassName = '', bgClassName = '', contentClassName = '',
    maxWidth = 720, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 

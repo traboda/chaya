@@ -6,11 +6,15 @@ type StarRatingStarProps = {
     value: 0 | 0.5 | 1,
     onChange: (v) => void,
     onPreview: (v) => void,
-    enableHalf: boolean
+    enableHalf: boolean,
+    activeColor?: string,
+    inactiveColor?: string,
 }
 
-const StarRatingStar = ({ size, value, onChange, onPreview, enableHalf }: StarRatingStarProps) => {
-    const { color } = useTheme();
+const StarRatingStar = ({
+    size, value, onChange, onPreview, enableHalf, activeColor, inactiveColor,
+}: StarRatingStarProps) => {
+    const theme = useTheme();
 
     const computeValue = ({ target, clientX }) => {
         if (!enableHalf) return 1;
@@ -27,11 +31,11 @@ const StarRatingStar = ({ size, value, onChange, onPreview, enableHalf }: StarRa
             focusable="false"
             data-prefix="fas"
             data-icon="star"
-            role="img"
+            role="button"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"
-            style={{ width: size, color: value > 0 ? '#fbbf24' : color }}
-            className="cursor-pointer"
+            style={{ width: size, color: value > 0 ? (activeColor ?? theme?.secondary) : (inactiveColor || theme?.color) }}
+            className={`cursor-pointer ${value > 0.5 ? 'full' : value > 0 ? 'half' : ''}`}
             onClick={onClick}
             onMouseMove={onHover}
         >

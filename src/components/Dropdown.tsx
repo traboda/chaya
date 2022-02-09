@@ -50,7 +50,7 @@ const DropDownMenu = styled('div')`
 `;
 
 const DropdownMenu = ({
-  items = [], isOpen, onClose = () => {}, className, linkWrapper = defaultLinkWrapper
+  items = [], isOpen, onClose = () => {}, className = '', linkWrapper = defaultLinkWrapper
 }:DropdownMenuProps) =>
 isOpen ? (
     <DropDownMenu role="navigation" className={className}>

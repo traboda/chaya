@@ -37,7 +37,7 @@ type PageHeader = {
 }
 
 const PageHeader = ({
-    title, description, className, headingClassName,
+    title, description, className = '', headingClassName = '',
     breadcrumbItems = [],
     customRender = () => <div />,
     titleBottomRenderer = () => <div />,

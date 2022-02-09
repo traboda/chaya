@@ -84,7 +84,7 @@ const VerticalTabSelector = styled(TabBase)`
 
 const TabSwitcher = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
- className, menuButtonClassName, menuClassName, bodyClassName,
+ className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
  linkWrapper = defaultLinkWrapper, alignCenter,  onChange = () => {}
 }: TabSwitcher) => {
 

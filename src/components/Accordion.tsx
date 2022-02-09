@@ -40,7 +40,7 @@ type AccordionProps = {
 };
 
 const Accordion = ({
-   title, renderer, text, isOpen: _isOpen, onChange = () => {}, className, titleClassName, bodyClassName
+   title, renderer, text, isOpen: _isOpen, onChange = () => {}, className = '', titleClassName = '', bodyClassName = ''
 }: AccordionProps) => {
 
     const [isOpen, setOpen] = useState(_isOpen ?? false);

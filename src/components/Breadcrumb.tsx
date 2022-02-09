@@ -36,7 +36,7 @@ type Breadcrumb = {
     linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
 };
 
-const Breadcrumb = ({ items, className, linkWrapper = defaultLinkWrapper, homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
+const Breadcrumb = ({ items, className = '', linkWrapper = defaultLinkWrapper, homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
     <BreadcrumbWrapper className={`text-lg ${className}`}>
         <li>
             {linkWrapper('/',
