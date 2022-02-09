@@ -21,5 +21,6 @@ export { default as ProgressBar } from './components/ProgressBar';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as AccordionGroup } from './components/AccordionGroup';
+export { default as CircularProgress } from './components/CircularProgress'
 export { default as LinkWrapperContext } from './contexts/LinkWrapperContext';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
