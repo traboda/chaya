@@ -15,6 +15,7 @@ export { default as SearchBox } from './components/SearchBox';
 export { default as StarRating } from './components/StarRating';
 export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
+export { default as Pagination } from './components/Pagination';
 export { default as TabSwitcher } from './components/TabSwitcher';
 export { default as TagSelector } from './components/TagSelector';
 export { default as ProgressBar } from './components/ProgressBar';
