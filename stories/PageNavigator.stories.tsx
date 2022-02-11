@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-
 import { Meta, Story, addDecorator } from '@storybook/react';
-import { Pagination } from '../src';
+
+import {PageNavigator} from '../src';
 import ThemeContext from "../src/ThemeProvider";
+
 addDecorator((story) => (
     <ThemeContext>
         {story()}
@@ -10,8 +11,8 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Basic Elements/Pagination',
-    component: Pagination,
+    title: 'Basic Elements/Page Navigator',
+    component: PageNavigator,
     parameters: {
         controls: { expanded: true },
     },
@@ -20,11 +21,11 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-    const [page, setPage] = useState(args.page ?? 1)
-    const [itemsPerPage, setItemsPerPage] = useState(20);
+    const [page, setPage] = useState(args.page ?? 11)
+    const [itemsPerPage, setItemsPerPage] = useState(10);
     return (
         <div className="flex flex-col justify-center items-center bg-gray-100 p-30" style={{minHeight: '35vh'}}>
-            <Pagination
+            <PageNavigator
                 page={page}
                 setPage={setPage}
                 itemsPerPage={itemsPerPage}
@@ -41,7 +42,6 @@ export const Default = Template.bind({});
 
 Default.args = {
     totalCount: 200,
-    hideItemsPerPage: true,
-    btnClassName: 'bg-blue-900 text-white font-bold',
-    activeBtnClassName: 'border-2 border-blue-900 text-blue-900 hover:bg-gray-300'
+    itemsPerPage: 10
 }
+

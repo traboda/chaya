@@ -1,27 +1,39 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import {useState} from "react";
+import useInterval from './useInterval'
 
-interface ReturnType {
-    count: number
-    increment: () => void
-    decrement: () => void
-    reset: () => void
-    setCount: Dispatch<SetStateAction<number>>
+interface UseCountdownType {
+  initialValue?: number
+  interval?: number
+  isIncrement?: boolean
 }
 
-function useCounter(initialValue?: number): ReturnType {
-    const [count, setCount] = useState(initialValue || 0)
-
-    const increment = () => setCount(x => x + 1)
-    const decrement = () => setCount(x => x - 1)
-    const reset = () => setCount(initialValue || 0)
-
-    return {
-        count,
-        increment,
-        decrement,
-        reset,
-        setCount,
-    }
+interface CountdownHelpers {
+  start: () => void
+  stop: () => void
+  reset: () => void
 }
 
-export default useCounter
+const useCountdown = ({ initialValue = 0, interval = 1000, isIncrement }: UseCountdownType): [number, CountdownHelpers] => {
+
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => setCount(x => x + 1);
+  const decrement = () => setCount(x => x - 1);
+
+  const [isCounting, setCounting] = useState(true);
+
+  const start = () => setCounting(true);
+  const stop = () => setCounting(false);
+
+  const reset = () => {
+    stop();
+    setCount(initialValue);
+  };
+
+  useInterval(isIncrement ? increment : decrement, isCounting ? interval : null);
+
+  return [count, { start, stop, reset }];
+
+}
+
+export default useCountdown

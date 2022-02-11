@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
-import { TabSwitcher } from "../src";
+import { Tabs } from "../src";
 
 import ThemeContext from "../src/ThemeProvider";
 addDecorator((story) => (
@@ -11,8 +11,8 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Content Handlers/Tab Switcher',
-    component: TabSwitcher,
+    title: 'Content Handlers/Tabs',
+    component: Tabs,
     parameters: {
         controls: { expanded: true },
     },
@@ -22,7 +22,7 @@ export default meta;
 
 const Template: Story = args => (
     // @ts-ignore
-    <TabSwitcher {...args} />
+    <Tabs {...args} />
 );
 
 export const Default = Template.bind({});

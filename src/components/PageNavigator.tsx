@@ -4,13 +4,11 @@ import styled from '@emotion/styled';
 import Button from './Button';
 
 const StyledSelect = styled.select`
-  padding: 2.5px 3px;
+  padding: 3.5px 5px;
   border-radius: 5px;
   font-weight: 600;
-  margin-right: 5px;
-  font-size: 15px;
+  margin-right: 7px;
   text-align: center;
-  color: black;
   &:focus {
       outline: none;
   }
@@ -23,11 +21,12 @@ type Pagination = {
     hideItemsPerPage?: boolean
     page: number,
     setPage: (no: number) => void,
-    btnClassName?: string,
-    activeBtnClassName?: string
+    className?: string,
 }
 
-const Pagination = ({ totalCount, itemsPerPage, setItemsPerPage, btnClassName, activeBtnClassName, hideItemsPerPage = false, page, setPage }: Pagination) => {
+const Pagination = ({
+    totalCount, itemsPerPage, setItemsPerPage, className = '', hideItemsPerPage = false, page, setPage
+}: Pagination) => {
 
     const length = Math.floor(((totalCount + itemsPerPage-1) / itemsPerPage));
 
@@ -40,7 +39,7 @@ const Pagination = ({ totalCount, itemsPerPage, setItemsPerPage, btnClassName, a
         let list = [];
         if(length > 1) {
             if(length < 6)
-                Array.from({ length }, (item, i) => {
+                Array.from({ length }, (_item, i) => {
                     list.push(i+1);
                 });
             else if(page > 2 && page + 2 < length)
@@ -58,26 +57,25 @@ const Pagination = ({ totalCount, itemsPerPage, setItemsPerPage, btnClassName, a
     };
 
     return (
-        <div className="flex items-center justify-center text-center pt-4">
+        <div className={`flex items-center justify-center text-center pt-4 ${className}`}>
             <div style={{ userSelect: 'none' }}>
                 {page > 2 && (
-                    <Button variant="warning" className={btnClassName} inverseColors onClick={() => setPage(1)} m={1}>
-                        <i className="fas fa-chevron-double-left" />
+                    <Button className="w-12" inverseColors onClick={() => setPage(1)} m={1}>
+                        {`❮❮`}
                     </Button>
                 )}
                 {page > 1 && (
-                    <Button variant="warning" className={btnClassName} inverseColors onClick={() => setPage(page - 1)} m={1}>
-                        <i className="fas fa-chevron-left" />
+                    <Button className="w-16" inverseColors onClick={() => setPage(page - 1)} m={1}>
+                        {`❮`}
                     </Button>)}
                 {length > 1 && (
                     <React.Fragment>
-                        {getPageNo().map((item) =>
+                        {getPageNo().map((item, index) =>
                             <Button
-                                key={item}
-                                variant={page === item ? 'primary' : 'warning'}
-                                inverseColors
+                                key={`page_${item}_${index}`}
+                                inverseColors={page !== item}
                                 m={1}
-                                className={page === item ? activeBtnClassName : btnClassName }
+                                className={`w-12 ${page === item ? 'active' : ''}`}
                                 onClick={() => setPage(item)}
                             >
                                 {item}
@@ -86,17 +84,17 @@ const Pagination = ({ totalCount, itemsPerPage, setItemsPerPage, btnClassName, a
                     </React.Fragment>
                 )}
                 {!(page + 1 >= length) && (
-                    <Button variant="warning" className={btnClassName} inverseColors onClick={() => setPage(page + 1)} m={1}>
-                        <i className="fas fa-chevron-right" />
+                    <Button className="w-16" inverseColors onClick={() => setPage(page + 1)} m={1}>
+                        {`❯`}
                     </Button>
                 )}
                 {(page + 1 < length) && (
-                    <Button variant="warning" className={btnClassName} inverseColors onClick={() => setPage(length)} m={1}>
-                        <i className="fas fa-chevron-double-right" />
+                    <Button className="w-12" inverseColors onClick={() => setPage(length)} m={1}>
+                        {`❯❯`}
                     </Button>
                 )}
                 {!hideItemsPerPage &&
-                <div className="pt-6">
+                <div className="mt-3">
                     <StyledSelect
                         value={itemsPerPage}
                         onChange={(e) => {setItems(e); itemsPerPage = Number(e.target.value);}}
