@@ -87,7 +87,7 @@ SelectWithGroups.args = {
 
 export const DarkTheme: Story = (args) => (
     <ThemeContext isDarkTheme>
-        <div className="bg-gray-900 p-4 h-36">
+        <div className="bg-gray-900 flex items-center p-4 h-36">
             {/*// @ts-ignore*/}
             <SimpleSelect {...args} />
         </div>

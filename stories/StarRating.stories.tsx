@@ -48,7 +48,7 @@ export const DarkTheme: Story = (args) => {
 
     return (
         <ThemeContext isDarkTheme>
-            <div className="bg-gray-900 p-4 h-36">
+            <div className="bg-gray-900 p-4 flex items-center h-36">
                 {/*// @ts-ignore*/}
                 <StarRating {...args} value={value} onChange={setValue} />
             </div>
@@ -59,6 +59,29 @@ export const DarkTheme: Story = (args) => {
 DarkTheme.args = {
     value: 0,
     size: 50,
+    tooltipDefaultText: 'This is the default text',
+    tooltipArray: ['Very easy', 'Easy', 'Medium', 'Hard', 'Very Hard']
+};
+
+
+export const FormSubmission: Story = (args) => {
+    const [value, setValue] = useState(args.value);
+    useEffect(() => setValue(args.value), [args.value]);
+
+    return (
+        <form onSubmit={(e) => { e.preventDefault(); console.log('rating submitted'); }}>
+            {/*// @ts-ignore*/}
+            <StarRating {...args} value={value} onChange={setValue} />
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+    );
+}
+
+FormSubmission.args = {
+    size: 50,
+    required: true,
     tooltipDefaultText: 'This is the default text',
     tooltipArray: ['Very easy', 'Easy', 'Medium', 'Hard', 'Very Hard']
 };

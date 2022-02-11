@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react'
 
 import { Meta, Story, addDecorator } from '@storybook/react';
-import { useCountdown } from '../src';
+import { useCounter } from '../src';
 import ThemeContext from "../src/ThemeProvider";
 addDecorator((story) => (
     <ThemeContext>
@@ -10,7 +10,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Hooks / useCountdown',
+    title: 'Hooks/useCounter',
     parameters: {
         controls: { expanded: true },
     },
@@ -21,8 +21,8 @@ export default meta;
 const Template: Story = args => {
 
     const [intervalValue, setIntervalValue] = useState<number>(500)
-    const [count, { start, stop, reset }] = useCountdown({
-        seconds: args.seconds,
+    const [count, { start, stop, reset }] = useCounter({
+        initialValue: args.seconds,
         interval: args.interval,
         isIncrement: args.isIncrement,
     })
@@ -54,6 +54,6 @@ export const Default = Template.bind({});
 
 Default.args = {
     seconds: 60,
-    interval: 500,
+    interval: 1000,
     isIncrement: false
 }

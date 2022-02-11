@@ -1,18 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from "@emotion/styled";
 import { nanoid } from "nanoid";
 import { useTheme } from "@emotion/react";
 
-const StyledLabel = styled.label`
-  font-size: 20px;
-  background: #BDB9A6;
-
-  &.bg-primary { background: ${({ theme }) => theme.primary}; }
-  &.bg-secondary { background: ${({ theme }) => theme.secondary}; }
-
-  .border-primary { border-color: ${({ theme }) => theme.primary}; }
-  .border-secondary { border-color: ${({ theme }) => theme.secondary}; }
-
+const SwitchContainer = styled.label`
+  background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)' };
   input:checked + div {
     transform: translate3d(100%, 0, 0);
   }
@@ -24,9 +16,18 @@ type SwitchProps = {
     size?: number,
     label?: string,
     required?: boolean,
-    variant?: 'success' | 'primary' | 'secondary' | 'danger' | 'warning',
+    variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
     disabled?: boolean
 }
+
+const variants = {
+    "primary": 'primary',
+    "secondary": 'secondary',
+    "success": 'green-500',
+    "danger": 'red-500',
+    "warning": 'yellow-400',
+    "transparent": 'inherit'
+};
 
 const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', disabled = false }: SwitchProps) => {
 
@@ -34,47 +35,43 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
     const checkbox = useRef(null);
     const inputID = `switch-input-${nanoid()}`;
 
-    useEffect(() => {
-        checkbox.current.checked = value;
-    }, [value]);
-
-    const getSelectionColor = () => {
-        switch (variant) {
-            case "primary": return 'primary';
-            case "secondary": return 'secondary';
-            case "success": return 'green-500';
-            case "warning": return 'yellow-400';
-            case "danger": return 'red-500';
-        }
-    }
-
     return (
         <div className="w-full flex flex-col">
             {label && (
-                <label className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false} style={{ color }}>
+                <label
+                    className="block text-lg opacity-80 mb-1"
+                    htmlFor={inputID}
+                    id={`${inputID}-label`}
+                    aria-hidden={false}
+                    style={{ color }}
+                >
                     {label}
                     {required && <span className="text-red-500 ml-1">*</span>}
                 </label>
             )}
-
-            <StyledLabel
-                className={`inline-block rounded-full shadow-inner bg-${value && getSelectionColor()} ${disabled && 'cursor-not-allowed'}`}
-                htmlFor={inputID}
+            <SwitchContainer
+                className={`inline-block rounded-full shadow-inner ${value && `bg-${variants[variant]}`} ${disabled && 'cursor-not-allowed'}`}
                 style={{ height: size, width: size * 2 }}
             >
                 <input
                     id={inputID}
                     ref={checkbox}
                     type="checkbox"
+                    aria-labelledby={`${inputID}-label`}
+                    aria-required={required}
+                    aria-readonly={disabled}
+                    aria-checked={value}
                     disabled={disabled}
                     className="absolute opacity-0"
+                    required={required}
+                    checked={value}
                     onChange={({ target }) => onChange(target.checked)}
                 />
                 <div
-                    className={`rounded-full bg-white transition shadow-md border border-${value && getSelectionColor()}`}
+                    className={`rounded-full bg-white transition shadow-md border ${value && `border-${variants[variant]}`}`}
                     style={{ height: size, width: size }}
                 />
-            </StyledLabel>
+            </SwitchContainer>
         </div>
     );
 };

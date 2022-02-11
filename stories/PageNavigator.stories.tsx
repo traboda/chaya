@@ -11,7 +11,7 @@ addDecorator((story) => (
 ));
 
 const meta: Meta = {
-    title: 'Basic Elements/Page Navigator',
+    title: 'Layouts/Page Navigator',
     component: PageNavigator,
     parameters: {
         controls: { expanded: true },

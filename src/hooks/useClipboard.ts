@@ -4,7 +4,8 @@ type CopiedValue = string | null
 type CopyFn = (text: string) => Promise<boolean> // Return success
 type IsSupportedType = () => boolean
 
-function useClipboard(): [CopiedValue, CopyFn, IsSupportedType] {
+const useClipboard = (): [CopiedValue, CopyFn, IsSupportedType] => {
+
     const [copiedText, setCopiedText] = useState<CopiedValue>(null)
 
     const isSupported: IsSupportedType = () => {
@@ -35,7 +36,8 @@ function useClipboard(): [CopiedValue, CopyFn, IsSupportedType] {
         }
     }
 
-    return [copiedText, copy, isSupported]
+    return [copiedText, copy, isSupported];
+
 }
 
-export default useClipboard
+export default useClipboard;

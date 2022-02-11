@@ -28,7 +28,7 @@ const Template: Story = args => {
     }, [args.isOpen]);
 
     return (
-        <div className='bg-gray-200 flex pt-10 items-center flex-col' style={{minHeight: "90vh"}}>
+        <div className='bg-gray-200 flex pt-10 items-center flex-col' style={{minHeight: "50vh"}}>
             <button
                 onMouseEnter={()=> args.showOnHover && setIsOpen(true)}
                 onClick={() => setIsOpen(!isOpen)}

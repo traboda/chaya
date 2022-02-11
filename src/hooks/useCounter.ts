@@ -1,24 +1,25 @@
 import {useState} from "react";
 import useInterval from './useInterval'
 
-interface UseCountdownType {
+interface useCounterType {
   initialValue?: number
   interval?: number
-  isIncrement?: boolean
+  isIncrement?: boolean,
+  allowNegative?: boolean
 }
 
-interface CountdownHelpers {
+interface CounterHelpers {
   start: () => void
   stop: () => void
   reset: () => void
 }
 
-const useCountdown = ({ initialValue = 0, interval = 1000, isIncrement }: UseCountdownType): [number, CountdownHelpers] => {
+const useCounter = ({ initialValue = 0, interval = 1000, isIncrement = true, allowNegative = true }: useCounterType): [number, CounterHelpers] => {
 
   const [count, setCount] = useState(initialValue);
 
   const increment = () => setCount(x => x + 1);
-  const decrement = () => setCount(x => x - 1);
+  const decrement = () => (count > 0 || allowNegative) ? setCount(x => x - 1) : null;
 
   const [isCounting, setCounting] = useState(true);
 
@@ -36,4 +37,4 @@ const useCountdown = ({ initialValue = 0, interval = 1000, isIncrement }: UseCou
 
 }
 
-export default useCountdown
+export default useCounter;

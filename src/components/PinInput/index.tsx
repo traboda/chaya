@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import PinDigit from './digit';
 import { useTheme } from "@emotion/react";
+import {nanoid} from "nanoid";
 
 type PinInputProps = {
     // current value
@@ -11,7 +12,8 @@ type PinInputProps = {
     // number of digits in the code
     digits?: number,
     label?: string,
-    type?: ('password' | 'text' | 'number'),
+    type?: ('text' | 'number'),
+    mask?: boolean,
     invalid?: boolean,
     disabled?: boolean,
     required?: boolean,
@@ -27,7 +29,7 @@ type PinInputProps = {
 
 
 const PinInput = ({
-   value = '', onChange = () => {}, digits = 6, type = 'text', labels,
+   value = '', onChange: _onChange = () => {}, digits = 6, type = 'text', mask = false, labels,
    invalid = false, disabled = false, required = false, autoFocus = false,
    className = '', digitClassName = '',
 }: PinInputProps) => {
@@ -35,6 +37,13 @@ const PinInput = ({
     const { color } = useTheme();
     const inputs = useRef(null);
     const [invalidLength, setInvalidLength] = useState(false);
+    const [_isInvalid, setInvalid] = useState(invalid);
+    const inputID = `pin-input-${nanoid()}`;
+
+    const onChange = (val) => {
+        _onChange(val);
+        setInvalid(false);
+    };
 
     const onKeyDown = (event, index) => {
         const elems = inputs.current.children;
@@ -82,7 +91,12 @@ const PinInput = ({
     return (
         <div>
             {labels?.label && (
-                <label className="block text-lg opacity-80 mb-1" aria-hidden={false} style={{ color }}>
+                <label
+                    id={`${inputID}-label`}
+                    className="block text-lg opacity-80 mb-1"
+                    aria-hidden={false}
+                    style={{ color }}
+                >
                     {labels?.label}
                     {required && <span className="ml-1 text-red-500">*</span>}
                 </label>
@@ -92,17 +106,21 @@ const PinInput = ({
                 className={`py-2 grid gap-2 ${className}`}
                 style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
                 onFocus={() => setInvalidLength(false)}
-                onBlur={() => value?.length < digits ? setInvalidLength(true) : setInvalidLength(false)}
+                onBlur={() => setInvalidLength(value?.length < digits)}
             >
                 {Array(digits).fill(null).map((_, i) => (
                     <PinDigit
+                        id={`${inputID}-${i}`}
                         key={i}
                         type={type}
+                        mask={mask}
+                        ariaLabelledBy={`${inputID}-label`}
                         value={value[i] ?? ''}
                         onKeyDown={e => onKeyDown(e, i)}
-                        placeholder={labels?.placeholder?.[i] ?? ' '}
-                        invalid={invalid}
+                        placeholder={labels?.placeholder?.[i] ?? ''}
+                        invalid={_isInvalid}
                         disabled={disabled}
+                        required={required}
                         className={digitClassName}
                     />
                 ))}

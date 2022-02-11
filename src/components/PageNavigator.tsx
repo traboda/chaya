@@ -14,7 +14,7 @@ const StyledSelect = styled.select`
   }
 `;
 
-type Pagination = {
+type PageNavigator = {
     totalCount: number,
     itemsPerPage: number,
     setItemsPerPage: (count: number) => void,
@@ -24,9 +24,9 @@ type Pagination = {
     className?: string,
 }
 
-const Pagination = ({
+const PageNavigator = ({
     totalCount, itemsPerPage, setItemsPerPage, className = '', hideItemsPerPage = false, page, setPage
-}: Pagination) => {
+}: PageNavigator) => {
 
     const length = Math.floor(((totalCount + itemsPerPage-1) / itemsPerPage));
 
@@ -115,4 +115,4 @@ const Pagination = ({
     );
 };
 
-export default Pagination;
+export default PageNavigator;

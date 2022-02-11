@@ -140,11 +140,9 @@ const Tabs = ({
         </div>
     )) : <div />;
 
-    const _menu_button_className = (key) => {
-        return `text-lg font-semibold px-5 py-2 ${currentTab === key ? 'active-tab' : ''} ${menuButtonClassName}`;
-    }
+    const _menu_button_className = (key) => `text-lg font-semibold px-5 py-2 ${currentTab === key ? 'active-tab' : ''} ${menuButtonClassName}`;
 
-    const render_menu_options = () => (
+    const render_tabs = () => (
         tabItems.filter((t) => !t.hidden).map((t) => (
             <li className={isVertical ? "w-full" : null} role="presentation">
                 {t?.onClick && typeof t.onClick === "function" ? (
@@ -224,7 +222,7 @@ const Tabs = ({
         <div className={`flex flex-wrap mx-0 ${className}`}>
             <div className="md:w-1/5 p-0">
                 <VerticalTabSelector role="tablist" aria-orientation="vertical" className={`sticky list-none top-0 ${menuClassName}`}>
-                    {render_menu_options()}
+                    {render_tabs()}
                 </VerticalTabSelector>
             </div>
             <div className={`md:w-4/5 pr-4 pl-4 ${bodyClassName}`}>
@@ -234,7 +232,7 @@ const Tabs = ({
     ) : (
         <div className={`${alignCenter ? 'flex flex-col items-center' : 'px-0'} ${className}`}>
             <HorizontalTabSelector role="tablist" aria-orientation="horizontal" className={`list-none ${menuClassName}`}>
-                {render_menu_options()}
+                {render_tabs()}
             </HorizontalTabSelector>
             <div className={`py-3 ${bodyClassName}`}>
                 {render_panels()}

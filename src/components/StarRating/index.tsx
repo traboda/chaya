@@ -5,6 +5,7 @@ import { useTheme } from "@emotion/react";
 type StarRatingProps = {
     value: number,
     onChange?: (value: number) => void,
+    required?: boolean,
     stars?: number,
     size?: number | string,
     enableHalf?: boolean,
@@ -17,7 +18,7 @@ type StarRatingProps = {
 }
 
 const StarRating = ({
-    value, onChange = () => {}, stars = 5, size = 30, className = '',  enableHalf = false,
+    value = null, onChange = () => {}, stars = 5, size = 30, className = '',  enableHalf = false, required = false,
     tooltipDefaultText = '', tooltipArray = [], labelClassName = '', activeColor = '#fbbf24', inactiveColor = null
 }: StarRatingProps) => {
 
@@ -40,8 +41,8 @@ const StarRating = ({
     useEffect(() => updateRating(), [value]);
 
     return (
-        <div className={`w-full flex flex-col justify-center items-center gap-2 ${className}`}>
-            <div className="flex gap-1" onMouseLeave={onMouseLeave}>
+        <div className={`w-full flex relative flex-col justify-center items-center gap-2 ${className}`}>
+            <div className="flex relative gap-1" onMouseLeave={onMouseLeave}>
                 {Array(stars).fill(0).map((_, i) => (
                     <StarRatingStar
                         size={size}
@@ -54,6 +55,14 @@ const StarRating = ({
                     />
                 ))}
             </div>
+            <input
+                className="opacity-0 absolute mx-auto top-0"
+                aria-hidden="true"
+                aria-required={required}
+                value={value > 0 ? value : null}
+                required={required}
+                autoComplete="off"
+            />
             {!!(tooltipDefaultText || tooltipArray.length) && (
                 <div className={labelClassName} style={{ color }}>
                     {hover === null || !(tooltipArray?.length > 0) ? tooltipDefaultText : tooltipArray[hover]}
