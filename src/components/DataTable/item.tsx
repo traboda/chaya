@@ -79,7 +79,7 @@ const ItemListerItem = ({
             const renderer =
                 <div
                     key={link ? null : p.id}
-                    className={`p-2 flex items-center ${p?.className}`}
+                    className={`py-2 px-3 flex items-center ${p?.className}`}
                     style={{
                         textAlign: p.textAlign,
                         fontSize: p.fontSize

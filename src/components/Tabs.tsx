@@ -131,7 +131,6 @@ const Tabs = ({
             role="tabpanel"
             id={`${tabID}-${t.key}-panel`}
             aria-labelledby={`${tabID}-${t.key}-tab`}
-            className={t.key === currentTab ? "py-3" : null}
         >
             {t.key === currentTab && (
                 t?.renderer ? t.renderer :
