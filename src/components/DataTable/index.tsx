@@ -55,34 +55,32 @@ const ItemLister = ({
     const TitleBarRef = useRef(null);
     const TitleTopRef = useRef(null);
     const scrollElement = useRef(null);
+    const lastScrollTop = useRef(0);
     const [titleTopHeight, setTitleTopHeight] = useState(0);
     const [scrollDir, setScrollDir] = useState('up');
 
-    // @ts-ignore
     useEffect(() => {
-        // detect the scroll direction
-        let lastScrollTop = 0;
         const handleScroll = throttle(() => {
             const st = scrollElement.current.scrollTop;
-            if (st !== lastScrollTop) { // not horizontal scrolling
-                setScrollDir(st > lastScrollTop ? 'down' : 'up');
-                lastScrollTop = Math.max(st, 0);
+            if (st !== lastScrollTop.current) { // not horizontal scrolling
+                setScrollDir(st > lastScrollTop.current ? 'down' : 'up');
+                lastScrollTop.current = Math.max(st, 0);
             }
         }, 200);
 
-        // setting event listeners
-        if (scrollElement.current) {
-            scrollElement.current.addEventListener('scroll', handleScroll, false);
-            return () => scrollElement.current.removeEventListener('scroll', handleScroll);
+        scrollElement.current.addEventListener('scroll', handleScroll, false);
+
+        const resize_ob = new ResizeObserver(entries => setTitleTopHeight(entries[0].contentRect.height));
+        if (TitleTopRef.current) {
+            setTitleTopHeight(TitleTopRef.current.clientHeight);
+            resize_ob.observe(TitleTopRef.current);
         }
 
-    }, [customTopBarRenderer]);
-
-    useEffect(() => {
-        setTitleTopHeight(TitleTopRef.current.clientHeight);
-        const resize_ob = new ResizeObserver(entries => setTitleTopHeight(entries[0].contentRect.height));
-        resize_ob.observe(TitleTopRef.current);
-    }, []);
+        return () => {
+            if (scrollElement.current) scrollElement.current.removeEventListener('scroll', handleScroll);
+            if (TitleTopRef.current) resize_ob.unobserve(TitleBarRef.current);
+        }
+    }, [!isLoading && items?.length === 0]);
 
     return <div>
         {labels?.description &&
