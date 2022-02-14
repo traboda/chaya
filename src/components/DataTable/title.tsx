@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from '@emotion/styled';
 import classNames from 'classnames';
 
@@ -24,13 +24,11 @@ type ItemListerTitleBarProps = {
     onSort: (attribute: string, order: ('asc' | 'desc' | null)) => void,
     currentSortAttribute: string,
     sortOrder: 'asc' | 'desc' | null,
-    stickyRow: object,
-    titleTopRef: any,
-    scrollDir: string
+    stickyRow: object
 }
 
 const ItemListerTitleBar = ({
-    properties, currentSortAttribute, sortOrder, onSort = () => null, scrollDir, stickyRow, titleTopRef
+    properties, currentSortAttribute, sortOrder, onSort = () => null, stickyRow
 }: ItemListerTitleBarProps) => {
 
     const generateTitleStyle = () => {
@@ -42,10 +40,7 @@ const ItemListerTitleBar = ({
     };
 
     return (
-        <div
-            className="transition-transform"
-            style={{ transform: `translateY(-${scrollDir === 'down' ? titleTopRef.current?.clientHeight : 0}px)` }}
-        >
+        <Fragment>
             <TitleBar style={generateTitleStyle()}>
                 {properties?.length > 0 && (
                     properties.filter((p) => !p.isHidden).map((p) =>
@@ -82,7 +77,7 @@ const ItemListerTitleBar = ({
                     style={{ background: '#191c2d' }}
                 />
             )}
-        </div>
+        </Fragment>
     );
 
 };

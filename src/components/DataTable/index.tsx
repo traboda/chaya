@@ -54,23 +54,16 @@ const ItemLister = ({
 
     const TitleBarRef = useRef(null);
     const TitleTopRef = useRef(null);
+    const scrollElement = useRef(null);
+    const [titleTopHeight, setTitleTopHeight] = useState(0);
     const [scrollDir, setScrollDir] = useState('up');
 
     // @ts-ignore
     useEffect(() => {
-        // getting scroll parent
-        const getScrollParent = (node) => {
-            if (node == null) return null;
-            if (node.scrollHeight > node.clientHeight)
-                return node;
-            return getScrollParent(node.parentNode);
-        };
-        const element = getScrollParent(TitleBarRef.current);
-
         // detect the scroll direction
         let lastScrollTop = 0;
         const handleScroll = throttle(() => {
-            const st = element.scrollTop;
+            const st = scrollElement.current.scrollTop;
             if (st !== lastScrollTop) { // not horizontal scrolling
                 setScrollDir(st > lastScrollTop ? 'down' : 'up');
                 lastScrollTop = Math.max(st, 0);
@@ -78,11 +71,17 @@ const ItemLister = ({
         }, 200);
 
         // setting event listeners
-        if (element) {
-            element.addEventListener('scroll', handleScroll, false);
-            return () => element.removeEventListener('scroll', handleScroll);
+        if (scrollElement.current) {
+            scrollElement.current.addEventListener('scroll', handleScroll, false);
+            return () => scrollElement.current.removeEventListener('scroll', handleScroll);
         }
 
+    }, [customTopBarRenderer]);
+
+    useEffect(() => {
+        setTitleTopHeight(TitleTopRef.current.clientHeight);
+        const resize_ob = new ResizeObserver(entries => setTitleTopHeight(entries[0].contentRect.height));
+        resize_ob.observe(TitleTopRef.current);
     }, []);
 
     return <div>
@@ -96,10 +95,10 @@ const ItemLister = ({
                 {emptyListRenderer()}
             </div>
         ) : (
-            <div style={{ overflowX: maxHeight ? 'auto' : null, maxHeight: maxHeight }}>
+            <div style={{ overflowX: maxHeight ? 'auto' : null, maxHeight: maxHeight }} ref={scrollElement}>
                 <div
                     ref={TitleTopRef}
-                    className="transition-opacity sticky left-0 top-0"
+                    className="transition-opacity sticky left-0 top-0 z-40"
                     style={{
                         background,
                         pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
@@ -109,56 +108,58 @@ const ItemLister = ({
                     {customTopBarRenderer()}
                 </div>
 
-                <div className="sticky z-50" style={{ top: TitleTopRef.current?.clientHeight ?? 0 }} ref={TitleBarRef}>
-                    <ItemListerTitleBar
-                        properties={properties}
-                        onSort={onSort}
-                        currentSortAttribute={currentSortAttribute}
-                        sortOrder={sortOrder}
-                        stickyRow={stickyRow}
-                        scrollDir={scrollDir}
-                        titleTopRef={TitleTopRef}
-                    />
-                </div>
-
-                <div className="flex flex-col">
-                    {items?.length > 0 && items.map((i, index) =>
-                        <ItemListerItem
-                            key={i.id ? i.id : nanoid()}
-                            isShaded={index % 2 === 0}
+                <div
+                    className="transition-transform"
+                    style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : null }}
+                >
+                    <div className="sticky z-50" ref={TitleBarRef} style={{ top: titleTopHeight }}>
+                        <ItemListerTitleBar
                             properties={properties}
-                            item={i}
-                            itemIndex={index}
-                            linkWrapper={linkWrapper}
+                            onSort={onSort}
+                            currentSortAttribute={currentSortAttribute}
+                            sortOrder={sortOrder}
+                            stickyRow={stickyRow}
                         />
-                    )}
-                    {isLoading && Array(10).fill(0).map((_n, index) =>
-                        <ItemListerItem
-                            key={nanoid()}
-                            isShaded={index % 2 === 0}
-                            properties={properties}
-                            isLoading
-                            linkWrapper={linkWrapper}
-                        />
-                    )}
-                </div>
-                {loadable && (canLoadMore ?
-                    <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
-                        <div>
-                            {!isLoading &&
-                                <div className="mb-6">
-                                    <div className="flex justify-center items-center text-center pt-4">
-                                        <Button inverseColors m={1} onClick={onLoadMore}>
-                                            Load more
-                                        </Button>
-                                    </div>
-                                </div>}
-                        </div>
-                    </Waypoint> :
-                    <div className="my-4 text-center" style={{ opacity: 0.8 }}>
-                        {labels.endOfList}
                     </div>
-                )}
+
+                    <div className="flex flex-col">
+                        {items?.length > 0 && items.map((i, index) =>
+                            <ItemListerItem
+                                key={i.id ? i.id : nanoid()}
+                                isShaded={index % 2 === 0}
+                                properties={properties}
+                                item={i}
+                                itemIndex={index}
+                                linkWrapper={linkWrapper}
+                            />
+                        )}
+                        {isLoading && Array(10).fill(0).map((_n, index) =>
+                            <ItemListerItem
+                                key={nanoid()}
+                                isShaded={index % 2 === 0}
+                                properties={properties}
+                                isLoading
+                                linkWrapper={linkWrapper}
+                            />
+                        )}
+                    </div>
+                    {loadable && (canLoadMore ?
+                        <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
+                            <div>
+                                {!isLoading &&
+                                    <div className="mb-6">
+                                        <div className="flex justify-center items-center text-center pt-4">
+                                            <Button inverseColors m={1} onClick={onLoadMore}>
+                                                Load more
+                                            </Button>
+                                        </div>
+                                    </div>}
+                            </div>
+                        </Waypoint> :
+                        <div className="my-4 text-center" style={{ opacity: 0.8 }}>
+                            {labels.endOfList}
+                        </div>
+                    )}</div>
             </div>
         )}
     </div>;

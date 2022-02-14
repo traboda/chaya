@@ -4,6 +4,7 @@ import { addDecorator, Meta, Story } from '@storybook/react';
 import { DataTable } from '../src';
 
 import ThemeContext from "../src/ThemeProvider";
+
 addDecorator((story) => (
     <ThemeContext>
         {story()}
@@ -166,13 +167,20 @@ const ITEMS = [
             "slug": "programming"
         }
     }
-]
+];
 
 export default meta;
 
 const Template: Story = args => (
     <DataTable
-        customTopBarRenderer={() => <div>Custom top bar</div>}
+        customTopBarRenderer={() => <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
+            dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
+            temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
+            expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
+            debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
+            temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
+            vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
+            pariatur rem reprehenderit repudiandae velit voluptate.</div>}
         items={ITEMS}
         maxHeight="380px"
         properties={[
@@ -183,7 +191,7 @@ const Template: Story = args => (
                 'fontSize': '1.5rem',
                 'link': (i) => `/challenge/${i.id}`,
                 'value': (i) => <div>
-                    {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
+                    {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}
                     {i.name}
                 </div>,
                 'className': 'rajdhani',
@@ -212,14 +220,14 @@ const Template: Story = args => (
                 'allowSort': true,
             },
             {
-                'id': 'difficultyLevel',
+                'id': 'difficultyLevel1',
                 'label': 'Difficulty',
                 'className': 'rajdhani',
                 'value': (i) => i?.difficultyLevel?.label,
                 'allowSort': true,
             },
             {
-                'id': 'points',
+                'id': 'points2',
                 'label': 'Points',
                 'fontSize': '1.75rem',
                 'className': 'rajdhani',
@@ -227,14 +235,14 @@ const Template: Story = args => (
                 'allowSort': true,
             },
             {
-                'id': 'difficultyLevel',
+                'id': 'difficultyLevel3',
                 'label': 'Difficulty',
                 'className': 'rajdhani',
                 'value': (i) => i?.difficultyLevel?.label,
                 'allowSort': true,
             },
             {
-                'id': 'points',
+                'id': 'points4',
                 'label': 'Points',
                 'fontSize': '1.75rem',
                 'className': 'rajdhani',
