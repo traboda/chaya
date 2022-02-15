@@ -68,7 +68,7 @@ const ItemLister = ({
             }
         }, 200);
 
-        scrollElement.current.addEventListener('scroll', handleScroll, false);
+        if (scrollElement.current) scrollElement.current.addEventListener('scroll', handleScroll, false);
 
         const resize_ob = new ResizeObserver(entries => setTitleTopHeight(entries[0].contentRect.height));
         if (TitleTopRef.current) {

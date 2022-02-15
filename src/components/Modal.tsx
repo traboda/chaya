@@ -20,7 +20,7 @@ type ModalProps = {
 };
 
 const ModalContainer = styled.div`
-  section {
+  .modal-section {
     background: rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
@@ -74,7 +74,7 @@ const Modal = ({
     return shouldRenderChild ? (
         <ModalContainer>
             <section
-                className={`fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
+                className={`modal-section fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
                 onClick={onClose}
             >
                 <div
@@ -85,7 +85,7 @@ const Modal = ({
                     <div className="absolute top-0 right-0 pr-2">
                         <button
                             title="close"
-                            className="font-mono outline-none font-bold text-2xl"
+                            className="font-mono outline-none font-bold text-2xl p-0"
                             onClick={onClose}
                         >
                             x
