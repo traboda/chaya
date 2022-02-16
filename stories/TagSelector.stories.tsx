@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {addDecorator, Meta, Story} from '@storybook/react';
 import { TagSelector } from "../src";
@@ -20,14 +20,23 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => (
-    // @ts-ignore
-    <TagSelector {...args} />
-);
+const Template: Story = args => {
+    const [value, setValue] = useState(args.value);
+
+    useEffect(() => {
+        setValue(args.value);
+    }, [args.value])
+
+    return (
+        // @ts-ignore
+        <TagSelector {...args} value={value} onChange={setValue} />
+    );
+};
 
 export const Default = Template.bind({});
 
 Default.args = {
+    value: null,
     options: [
         {
             label: 'Item 1',

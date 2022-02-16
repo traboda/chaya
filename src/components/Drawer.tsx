@@ -6,7 +6,7 @@ import { useTheme } from "@emotion/react";
 const DrawerContainer = styled.div`
   section {
     background: rgba(0, 0, 0, 0.5);
-    z-index: 10000;
+    z-index: 6000;
   }
 
   @keyframes fade {

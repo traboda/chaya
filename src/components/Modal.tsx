@@ -22,7 +22,7 @@ type ModalProps = {
 const ModalContainer = styled.div`
   .modal-section {
     background: rgba(0, 0, 0, 0.5);
-    z-index: 10000;
+    z-index: 6200;
   }
 
   @keyframes expand {

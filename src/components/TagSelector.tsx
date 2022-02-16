@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import ToolTip from './ToolTip';
@@ -61,14 +61,24 @@ type TagSelectorProps = {
 }
 
 const TagSelector = (props: TagSelectorProps) => {
-    let _default = props.options[0];
-    if(props.value && !Array.isArray(props.value))
-        for(const opt of props.options)
-            if(JSON.stringify(props.value) === JSON.stringify(opt.value))
-                _default = opt;
+    const getValue = () => {
+        if(props.value && !Array.isArray(props.value))
+            for(const opt of props.options)
+                if(JSON.stringify(props.value) === JSON.stringify(opt.value))
+                    return opt;
 
-    const [tag, setTag] = useState(_default);
+        return props.options[0];
+    }
+
+    const [tag, setTag] = useState(getValue());
     const [tags, setTags] = useState([]);
+
+    useEffect(() => {
+        if (!props.multiple && props.value) {
+            if (typeof props.value === 'string') setTag(getValue());
+            else setTag(props.value);
+        }
+    }, [props.value]);
 
     const handleTagClick = (_tag) => {
         if(props.multiple) {
@@ -83,13 +93,8 @@ const TagSelector = (props: TagSelectorProps) => {
                 setTags(_tags);
                 props.onChange(_tags);
             }
-        } else if(props.isClearable && _tag.value === tag?.value) {
-            setTag(props.options[0]);
-            props.onChange(props.options[0]);
-        } else {
-            setTag(_tag);
-            props.onChange(_tag);
-        }
+        } else if(props.isClearable && _tag.value === tag?.value) props.onChange(props.options[0]);
+        else props.onChange(_tag);
     };
 
     const generateClassName = ({ value }) => {
