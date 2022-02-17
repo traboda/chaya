@@ -6,7 +6,7 @@ import { useTheme } from "@emotion/react";
 const DrawerContainer = styled.div`
   section {
     background: rgba(0, 0, 0, 0.5);
-    z-index: 6000;
+    z-index: 7000;
   }
 
   @keyframes fade {
@@ -66,6 +66,15 @@ const Drawer = ({
         return () => document.body.style.overflow = null;
     }, [shouldRenderChild]);
 
+    const onKeyDown = ({ keyCode }) => {
+        if (keyCode === 27) onClose();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, []);
+
     return  shouldRenderChild ? (
         <DrawerContainer>
             <section
@@ -82,6 +91,7 @@ const Drawer = ({
                 >
                     <div className="absolute top-0 right-0 pr-2">
                         <button
+                            type="button"
                             title="close"
                             className="font-mono outline-none font-bold text-2xl"
                             onClick={onClose}

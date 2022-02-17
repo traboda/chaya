@@ -22,7 +22,7 @@ type ModalProps = {
 const ModalContainer = styled.div`
   .modal-section {
     background: rgba(0, 0, 0, 0.5);
-    z-index: 6200;
+    z-index: 7200;
   }
 
   @keyframes expand {
@@ -71,6 +71,15 @@ const Modal = ({
         return () => document.body.style.overflow = null;
     }, [shouldRenderChild]);
 
+    const onKeyDown = ({ keyCode }) => {
+        if (keyCode === 27) onClose();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, []);
+
     return shouldRenderChild ? (
         <ModalContainer>
             <section
@@ -84,6 +93,7 @@ const Modal = ({
                 >
                     <div className="absolute top-0 right-0 pr-2">
                         <button
+                            type="button"
                             title="close"
                             className="font-mono outline-none font-bold text-2xl p-0"
                             onClick={onClose}

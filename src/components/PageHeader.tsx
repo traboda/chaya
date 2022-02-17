@@ -46,8 +46,8 @@ const PageHeader = ({
     linkWrapper = defaultLinkWrapper
 } : PageHeader) => (
     <PageHeaderSection className={className}>
-        <div className="container">
-            <div className="flex flex-wrap mx-0">
+        <div className="container mx-auto">
+            <div className="flex flex-wrap">
                 <div className="md:w-2/3 py-2">
                     <div className="px-2 mb-4">
                         <Breadcrumb linkWrapper={linkWrapper} items={breadcrumbItems} />
