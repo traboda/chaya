@@ -30,8 +30,7 @@
     "color": "3.2.1",
     "nanoid": "^3.1.30",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-waypoint": "^9.0.3"
+    "react-dom": "^17.0.2"
   },
   "husky": {
     "hooks": {
@@ -83,7 +82,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
-    "react-waypoint": "^9.0.3",
     "rollup-plugin-postcss": "^4.0.1",
     "size-limit": "^6.0.4",
     "tailwindcss": "^2.2.19",

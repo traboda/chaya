@@ -1,18 +1,12 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { Waypoint } from 'react-waypoint';
 import { nanoid } from 'nanoid';
 import { throttle } from 'lodash';
 
-import Button from '../Button';
-
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
+import InfiniteLoader from "../InfiniteLoader";
 import { defaultLinkWrapper } from "../../utils/misc";
 import { useTheme } from "@emotion/react";
-
-const defaultLabels = {
-    'endOfList': 'You have reached the end of this list.'
-};
 
 type ItemListerProps = {
     properties: ItemListerProperty[],
@@ -39,7 +33,7 @@ type ItemListerProps = {
 
 const ItemLister = ({
     properties = [],
-    items = [], labels: labelProps,
+    items = [], labels,
     emptyListRenderer = () => <div />,
     isLoading = false, canLoadMore = false,
     onLoadMore = () => {}, maxHeight = null,
@@ -49,8 +43,6 @@ const ItemLister = ({
 }: ItemListerProps) => {
 
     const { background } = useTheme();
-
-    const labels = { ...defaultLabels, ...labelProps };
 
     const TitleBarRef = useRef(null);
     const TitleTopRef = useRef(null);
@@ -141,23 +133,14 @@ const ItemLister = ({
                             />
                         )}
                     </div>
-                    {loadable && (canLoadMore ?
-                        <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
-                            <div>
-                                {!isLoading &&
-                                    <div className="mb-6">
-                                        <div className="flex justify-center items-center text-center pt-4">
-                                            <Button inverseColors m={1} onClick={onLoadMore}>
-                                                Load more
-                                            </Button>
-                                        </div>
-                                    </div>}
-                            </div>
-                        </Waypoint> :
-                        <div className="my-4 text-center" style={{ opacity: 0.8 }}>
-                            {labels.endOfList}
-                        </div>
-                    )}</div>
+
+                    <InfiniteLoader
+                        loadable={loadable}
+                        canLoadMore={canLoadMore}
+                        isLoading={isLoading}
+                        onLoadMore={onLoadMore}
+                    />
+                </div>
             </div>
         )}
     </div>;
