@@ -63,7 +63,13 @@ const SimpleSelect = ({
     return (
         <div className="w-full">
             {labels?.label?.length > 0 && (
-                <label id={`${inputID}-label`} className="block text-lg opacity-80 mb-1" htmlFor={inputID} aria-hidden={false} style={{ color }}>
+                <label
+                    id={`${inputID}-label`}
+                    className="block text-lg opacity-80 mb-1"
+                    htmlFor={inputID}
+                    aria-hidden={false}
+                    style={{ color }}
+                >
                     {labels?.label}
                     {required && <span className="ml-1 text-red-500">*</span>}
                 </label>
@@ -79,7 +85,7 @@ const SimpleSelect = ({
                     onChange={({ target }) => onChange(target.value)}
                 >
                     <option
-                        selected
+                        selected={value === null}
                         disabled={required}
                         value={null}
                     >
@@ -90,11 +96,21 @@ const SimpleSelect = ({
                         (option as GroupType)?.group ? (
                             <optgroup label={(option as GroupType).group}>
                                 {(option as GroupType).options.map((opt: OptionType) => (
-                                    <option key={opt.value} value={opt.value} selected={value === opt.value}>{opt.label}</option>
+                                    <option
+                                        key={opt.value}
+                                        value={opt.value}
+                                        selected={value === opt.value}
+                                    >
+                                        {opt.label}
+                                    </option>
                                 ))}
                             </optgroup>
                         ) : (
-                        <option value={(option as OptionType).value} key={(option as OptionType).value} selected={value === (option as OptionType).value}>
+                        <option
+                            value={(option as OptionType).value}
+                            key={(option as OptionType).value}
+                            selected={value === (option as OptionType).value}
+                        >
                             {(option as OptionType).label}
                         </option>
                     ))}

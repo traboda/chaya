@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Button from "./Button";
 import Card from "./Card";
@@ -8,11 +8,11 @@ import TextInput from "./TextInput";
 
 type ConfirmationDialog = {
   labels?: {
-    title: string,
-    description: string,
-    confirm: string,
-    cancel: string,
-    confirmationText: string,
+    title?: string,
+    description?: string,
+    confirm?: string,
+    cancel?: string,
+    confirmationText?: string,
   },
   isOpen?: boolean,
   requirePassword?: boolean,
@@ -36,7 +36,7 @@ const ConfirmationDialog = ({
   onConfirm = () => {}, onCancel = () => {},
 }: ConfirmationDialog) => {
 
-    const labels = {...defaultLabels, _labels};
+    const labels = {...defaultLabels, ..._labels};
     const theme = useTheme();
 
     const [confirmText, setConfirmText] = useState('');
@@ -50,6 +50,8 @@ const ConfirmationDialog = ({
             return;
         onConfirm({ password });
     }
+
+    useEffect(() => setPassword(''), [isOpen]);
 
     return (
       <Modal isOpen={isOpen} onClose={onCancel}>
