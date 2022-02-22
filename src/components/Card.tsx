@@ -30,7 +30,7 @@ const Card = ({ title, description,  className = '', titleClassName = '', iconCl
         {(title || description) &&
         <div className="px-2 pt-2">
             {title &&
-            <h3 className={`text-3xl mb-1 font-semibold ${titleClassName}`}>
+            <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>
                 {iconClassName && <i className={`${iconClassName} mr-2`} />}
                 {title}
             </h3>}

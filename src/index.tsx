@@ -18,6 +18,7 @@ export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
 export { default as TagSelector } from './components/TagSelector';
 export { default as ProgressBar } from './components/ProgressBar';
+export { default as SelectorButton } from './components/SelectorButton';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as PageNavigator } from './components/PageNavigator';

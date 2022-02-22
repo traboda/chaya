@@ -20,6 +20,7 @@ const meta: Meta = {
                 type: 'text',
             },
         },
+        onSelect: { action: 'select' },
     },
     parameters: {
         controls: { expanded: true },
@@ -173,79 +174,70 @@ export default meta;
 
 const Template: Story = args => (
     <DataTable
-        customTopBarRenderer={() => <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
+        customTopBarRenderer={() => <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
             dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
             temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
             expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
             debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
             temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
             vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
-            pariatur rem reprehenderit repudiandae velit voluptate.</div>}
+            pariatur rem reprehenderit repudiandae velit voluptate.
+        </div>}
         items={ITEMS}
         maxHeight="380px"
+        allowSelection
         properties={[
             {
                 'id': 'name',
                 'label': 'Name',
                 'space': '6',
-                'fontSize': '1.5rem',
                 'link': (i) => `/challenge/${i.id}`,
                 'value': (i) => <div>
                     {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}
                     {i.name}
                 </div>,
-                'className': 'rajdhani',
                 'allowSort': true,
             },
             {
                 'id': 'category',
                 'label': 'Category',
                 'value': (i) => i.category?.name,
-                'className': 'rajdhani',
                 'allowSort': true,
             },
             {
                 'id': 'difficultyLevel',
                 'label': 'Difficulty',
-                'className': 'rajdhani',
                 'value': (i) => i?.difficultyLevel?.label,
                 'allowSort': true,
             },
             {
                 'id': 'points',
                 'label': 'Points',
-                'fontSize': '1.75rem',
-                'className': 'rajdhani',
                 'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
                 'allowSort': true,
             },
             {
                 'id': 'difficultyLevel1',
                 'label': 'Difficulty',
-                'className': 'rajdhani',
                 'value': (i) => i?.difficultyLevel?.label,
                 'allowSort': true,
             },
             {
                 'id': 'points2',
                 'label': 'Points',
-                'fontSize': '1.75rem',
-                'className': 'rajdhani',
                 'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
                 'allowSort': true,
             },
             {
                 'id': 'difficultyLevel3',
                 'label': 'Difficulty',
-                'className': 'rajdhani',
                 'value': (i) => i?.difficultyLevel?.label,
                 'allowSort': true,
             },
             {
                 'id': 'points4',
                 'label': 'Points',
-                'fontSize': '1.75rem',
-                'className': 'rajdhani',
                 'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
                 'allowSort': true,
             },

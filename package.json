@@ -1,6 +1,6 @@
 {
   "name": "@traboda/dsr",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Design System of Traboda",
   "private": false,
   "main": "dist/index.js",
@@ -21,6 +21,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
+    "storybook-legacy": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider  start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
@@ -76,6 +77,7 @@
     "babel-loader": "^8.2.3",
     "classnames": "^2.3.1",
     "color": "3.2.1",
+    "cross-env": "^7.0.3",
     "husky": "^7.0.4",
     "nanoid": "^3.1.30",
     "postcss": "^8.3.11",

@@ -34,10 +34,12 @@ type GroupType = {
     options: OptionType[]
 };
 
-type SimpleSelectProps = {
+export type SimpleSelectOptionType = Array<OptionType | GroupType>;
+
+export type SimpleSelectProps = {
     value: string,
     name: string,
-    options: Array<OptionType | GroupType>,
+    options: SimpleSelectOptionType,
     onChange?: (v: string) => void,
     required?: boolean,
     labels?: {

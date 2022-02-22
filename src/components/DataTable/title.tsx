@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useContext} from 'react';
 import styled from '@emotion/styled';
 import classNames from 'classnames';
 
 import SortButton from './SortButton';
 
 import ItemListerItem, { ItemListerProperty } from './item';
+import SelectionContext from "./SelectionContext";
 
 
 const TitleBar = styled.div`
@@ -31,8 +32,14 @@ const ItemListerTitleBar = ({
     properties, currentSortAttribute, sortOrder, onSort = () => null, stickyRow
 }: ItemListerTitleBarProps) => {
 
+    const { isEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext)
+
     const generateTitleStyle = () => {
-        const _divide = properties.filter((p) => !p.isHidden);
+        let _divide = [];
+        if(isEnabled)
+            _divide = [{ space: '1', }]
+        const propConfigs = properties.filter((p) => !p.isHidden)
+        _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
         let cols = '';
         for (const _col of _divide)
             cols += `minmax(${_col.minWidth || ((Number(_col.space) || 1) * 100) + 'px'}, ${_col.space || 1}fr) `;
@@ -42,6 +49,16 @@ const ItemListerTitleBar = ({
     return (
         <Fragment>
             <TitleBar style={generateTitleStyle()}>
+                {isEnabled &&
+                    <div className="py-3">
+                    <div className="flex justify-center h-full items-center text-center">
+                        <input
+                            type="checkbox"
+                            checked={isAllSelected()}
+                            onChange={() => isAllSelected() ? deselectAll() : selectAll()}
+                        />
+                    </div>
+                </div>}
                 {properties?.length > 0 && (
                     properties.filter((p) => !p.isHidden).map((p) =>
                         <div className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
