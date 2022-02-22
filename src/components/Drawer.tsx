@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import useDelayUnmount from "../hooks/useDelayUnmount";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
+import DocumentPortal from "../utils/Portal";
 
 const DrawerContainer = styled.div`
   section {
@@ -76,34 +77,36 @@ const Drawer = ({
     }, []);
 
     return  shouldRenderChild ? (
-        <DrawerContainer>
-            <section
-                className={`
-                    fixed top-0 left-0 w-screen h-screen flex backdrop-filter backdrop-blur-sm 
-                    ${getPositionAlignmentParent()} ${!isOpen ? 'animate-fade-out' : ''}
-                `.trim()}
-                onClick={onClose}
-            >
-                <div
-                    className={`relative shadow-lg sm:w-auto w-full animate-fade-in ${getPositionAlignmentChild()} ${!isOpen ? 'animate-crunch' : ''}`}
-                    style={{ background, color, minHeight, maxHeight, maxWidth, minWidth }}
-                    onClick={e => e.stopPropagation()}
+        <DocumentPortal>
+            <DrawerContainer>
+                <section
+                    className={`
+                        fixed top-0 left-0 w-screen h-screen flex backdrop-filter backdrop-blur-sm 
+                        ${getPositionAlignmentParent()} ${!isOpen ? 'animate-fade-out' : ''}
+                    `.trim()}
+                    onClick={onClose}
                 >
-                    <div className="absolute top-0 right-0 pr-2">
-                        <button
-                            type="button"
-                            title="close"
-                            className="font-mono outline-none font-bold text-2xl"
-                            onClick={onClose}
-                        >
-                            x
-                        </button>
-                    </div>
+                    <div
+                        className={`relative shadow-lg sm:w-auto w-full animate-fade-in ${getPositionAlignmentChild()} ${!isOpen ? 'animate-crunch' : ''}`}
+                        style={{ background, color, minHeight, maxHeight, maxWidth, minWidth }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="absolute top-0 right-0 pr-2">
+                            <button
+                                type="button"
+                                title="close"
+                                className="font-mono outline-none font-bold text-2xl"
+                                onClick={onClose}
+                            >
+                                x
+                            </button>
+                        </div>
 
-                    <div>{children}</div>
-                </div>
-            </section>
-        </DrawerContainer>
+                        <div>{children}</div>
+                    </div>
+                </section>
+            </DrawerContainer>
+        </DocumentPortal>
     ) : <div />;
 };
 

@@ -1,66 +1,63 @@
-export const getFlexClassNames = ({
-    flexCenter = false, flexHC = false, flexHR = false, flexVC = false
-}) => {
-    if (flexCenter) return 'flex items-center justify-center';
-    else {
-        let cls = '';
-        if (flexHR || flexHC || flexVC) cls += 'flex ';
-        if (flexHC) cls += 'justify-center ';
-        else if (flexHR) cls += 'justify-end ';
-        if (flexVC) cls += 'items-center ';
-        return cls;
-    }
-};
+export type colorType = ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast');
+export type variantType = ('solid' | 'outline' | 'minimal' | 'link');
 
-type getPaddingClassName = {
-    p: number | null,
-    px: number | null,
-    py: number | null
+export const resolveColor = (color: colorType) => {
+    switch(color) {
+        case 'success': return 'green-500';
+        case 'danger': return 'red-500';
+        case 'warning': return 'yellow-500';
+        default: return color;
+    }
 }
 
-export const getPaddingClassName = ({ p = null, px = null, py = null }: getPaddingClassName) => {
-    if (p != null && (px == null && py == null)) return `p-${p}`;
-    else {
-        let cls = '';
-        if (px != null) cls += `px-${px} `;
-        if (py != null) cls += `py-${py} `;
-        return cls;
+export class classNameBuilder {
+    _class = ['transition-all'];
+
+    constructor(_class) {
+        this._class.push(_class);
+    }
+
+    add(_class) {
+        this._class.push(_class);
+        return this;
+    }
+
+    toString() {
+        return this._class.join(' ');
     }
 };
 
-type getMarginClassName = {
-    m: number | null,
-    mx: number | null,
-    my: number | null,
-    mt?: number | null,
-    mb?: number | null,
-}
+export const resolveClassName = (variant, color, className) => {
+    let _class = new classNameBuilder(className);
 
-export const getMarginClassName = ({ m = null, mx = null, my = null, mt = null, mb = null }: getMarginClassName) => {
-    if (m != null && (mx == null && my == null)) return `m-${m}`;
-    else {
-        let cls = '';
-        if (mx != null) cls += `mx-${mx} `;
-        if (my != null) cls += `my-${my} `;
-        else {
-            if (mt != null) cls += `mt-${mt} `;
-            if (mb != null) cls += `mb-${mb} `;
-        }
-        return cls;
-    }
-};
+    switch (variant) {
+        case 'solid':
+            _class
+                .add(`bg-${resolveColor(color)}`)
+                .add(`border-${resolveColor(color)}`)
+                .add(`hover:text-${resolveColor(color)}`);
 
-export const getShadowClassName = (shadow?: number) => {
-    switch (shadow) {
-        case 0:
-            return 'shadow-none';
-        case 1:
-            return 'shadow-sm';
-        case 2:
-            return 'shadow';
-        case 3:
-            return 'shadow-lg';
-        default:
-            return null;
+            if (color === 'contrast') _class.add('text-contrast-negative');
+            break;
+        case 'link':
+            _class
+                .add('border-transparent')
+                .add(`text-${resolveColor(color)}`);
+            break;
+        case 'minimal':
+            _class
+                .add('border-transparent')
+                .add(`text-${resolveColor(color)}`);
+            break;
+        case 'outline':
+            _class
+                .add(`border-${resolveColor(color)}`)
+                .add(`text-${resolveColor(color)}`)
+                .add(`hover:bg-${resolveColor(color)}`);
+
+            if (color === 'contrast') _class.add('hover:text-contrast-negative');
+            break;
     }
+
+    return _class.toString();
 };

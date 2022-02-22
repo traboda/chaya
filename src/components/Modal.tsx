@@ -3,6 +3,7 @@ import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { ButtonProps } from "./Button";
 import useDelayUnmount from '../hooks/useDelayUnmount';
+import DocumentPortal from "../utils/Portal";
 
 type ModalProps = {
     isOpen: boolean,
@@ -81,45 +82,47 @@ const Modal = ({
     }, []);
 
     return shouldRenderChild ? (
-        <ModalContainer>
-            <section
-                className={`modal-section fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
-                onClick={onClose}
-            >
-                <div
-                    className={`${bgClassName} relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
-                    style={{ background, color }}
-                    onClick={e => e.stopPropagation()}
+        <DocumentPortal>
+            <ModalContainer>
+                <section
+                    className={`modal-section fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
+                    onClick={onClose}
                 >
-                    <div className="absolute top-0 right-0 pr-2">
-                        <button
-                            type="button"
-                            title="close"
-                            className="font-mono outline-none font-bold text-2xl p-0"
-                            onClick={onClose}
-                        >
-                            x
-                        </button>
-                    </div>
-                    {title && <h2 className="text-2xl pt-4 pb-2 px-4 font-semibold">
-                        {iconClassName && <i className={iconClassName} />}
-                        {title}
-                    </h2>}
                     <div
-                        className={`${contentClassName} overflow-auto`}
-                        style={{ maxWidth, minHeight, maxHeight }}
+                        className={`${bgClassName} relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
+                        style={{ background, color }}
+                        onClick={e => e.stopPropagation()}
                     >
-                        {children}
-                    </div>
-                    {(primaryButton || secondaryButton) && (
-                        <div className="flex items-center justify-end py-2 px-3 gap-2">
-                            {secondaryButton && <Button {...secondaryButton} py={1} px={3}/>}
-                            {primaryButton && <Button {...primaryButton} py={1} px={3}/>}
+                        <div className="absolute top-0 right-0 pr-2">
+                            <button
+                                type="button"
+                                title="close"
+                                className="font-mono outline-none font-bold text-2xl p-0"
+                                onClick={onClose}
+                            >
+                                x
+                            </button>
                         </div>
-                    )}
-                </div>
-            </section>
-        </ModalContainer>
+                        {title && <h2 className="text-2xl pt-4 pb-2 px-4 font-semibold">
+                            {iconClassName && <i className={iconClassName} />}
+                            {title}
+                        </h2>}
+                        <div
+                            className={`${contentClassName} overflow-auto`}
+                            style={{ maxWidth, minHeight, maxHeight }}
+                        >
+                            {children}
+                        </div>
+                        {(primaryButton || secondaryButton) && (
+                            <div className="flex items-center justify-end py-2 px-3 gap-2">
+                                {secondaryButton && <Button {...secondaryButton} py={1} px={3}/>}
+                                {primaryButton && <Button {...primaryButton} py={1} px={3}/>}
+                            </div>
+                        )}
+                    </div>
+                </section>
+            </ModalContainer>
+        </DocumentPortal>
     ) : <div/>;
 };
 
