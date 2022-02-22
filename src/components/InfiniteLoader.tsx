@@ -1,4 +1,5 @@
-import React, { Fragment, ReactNode, useEffect, useRef } from 'react';
+import React, { Fragment, ReactNode } from 'react';
+import { Waypoint } from "react-waypoint";
 
 import Button from './Button';
 
@@ -21,43 +22,27 @@ const InfiniteLoader = ({
     labels = defaultLabels,
     renderer = () => <div />
 }: InfiniteLoaderProps) => {
-    const waypoint = useRef(null);
-
-    useEffect(() => {
-        let observer;
-
-        const handleIntersect = (entries) => entries[0].isIntersecting && !isLoading ? onLoadMore() : null;
-
-        if (waypoint.current) {
-            observer = new IntersectionObserver(handleIntersect, { threshold: 0 });
-            observer.observe(waypoint.current);
-        }
-
-        return () => {
-            if (waypoint.current) observer.unobserve(waypoint.current);
-        };
-    }, [isLoading, loadable && canLoadMore]);
-
     return (
         <Fragment>
             {renderer()}
 
-            {loadable && canLoadMore ? (
-                <div ref={waypoint}>
+            {loadable && (canLoadMore ? (
+                <Waypoint onEnter={() => !isLoading ? onLoadMore() : null}>
                     <div>
-                        {!isLoading &&
+                        {!isLoading && (
                             <div className="flex justify-center items-center text-center my-4">
                                 <Button inverseColors m={2} onClick={onLoadMore} px={4} py={2}>
                                     Load more
                                 </Button>
-                            </div>}
+                            </div>
+                        )}
                     </div>
-                </div>
+                </Waypoint>
             ) : (
                 <div className="my-4 text-center" style={{ opacity: 0.8 }}>
                     {labels.endOfList}
                 </div>
-            )}
+            ))}
         </Fragment>
     );
 };

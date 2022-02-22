@@ -12,7 +12,7 @@ const SelectionHelper = ({ isEnabled = false, children, onSelect }: SelectionHel
     const [selectedIDs, setSelected] = useState([]);
     const [excludedIDs, setExcluded] = useState([]);
 
-    const isAllSelected = () => !!(selectedIDs?.length === 1 && selectedIDs[0] === '-1');
+    const isAllSelected = () => selectedIDs?.length === 1 && selectedIDs[0] === '-1';
     const isExcluded = (id) => excludedIDs.filter((s) => s === id).length > 0;
 
     const isSelected = (id) => {
