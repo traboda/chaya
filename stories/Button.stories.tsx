@@ -42,7 +42,7 @@ Default.args = {
 
 const Vars: Story = args => (
     <div className="flex flex-col justify-center items-center bg-gray-200 gap-4 py-4" style={{ minHeight: '25vh' }}>
-        <div className="flex gap-4">
+        <div className="flex gap-2">
             <Button {...args} variant="solid" color="primary"/>
             <Button {...args} variant="solid" color="secondary"/>
             <Button {...args} variant="solid" color="success"/>
@@ -50,8 +50,7 @@ const Vars: Story = args => (
             <Button {...args} variant="solid" color="danger"/>
             <Button {...args} variant="solid" color="contrast"/>
         </div>
-
-        <div className="flex gap-4">
+        <div className="flex gap-2">
             <Button {...args} variant="outline" color="primary"/>
             <Button {...args} variant="outline" color="secondary"/>
             <Button {...args} variant="outline" color="success"/>
@@ -60,7 +59,7 @@ const Vars: Story = args => (
             <Button {...args} variant="outline" color="contrast"/>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-2">
             <Button {...args} variant="minimal" color="primary"/>
             <Button {...args} variant="minimal" color="secondary"/>
             <Button {...args} variant="minimal" color="success"/>
@@ -69,7 +68,7 @@ const Vars: Story = args => (
             <Button {...args} variant="minimal" color="contrast"/>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-2">
             <Button {...args} variant="link" color="primary"/>
             <Button {...args} variant="link" color="secondary"/>
             <Button {...args} variant="link" color="success"/>
@@ -86,4 +85,24 @@ export const ColorVariants = Vars.bind({});
 ColorVariants.args = {
     children: "Press here",
     className: 'px-4 py-3'
+};
+
+
+const SizeVars: Story = args => (
+    <div className="flex flex-col justify-center items-center bg-gray-200 gap-4 py-4" style={{ minHeight: '25vh' }}>
+        <div>
+            <Button {...args} size="xs" />
+            <Button {...args} size="sm" />
+            <Button {...args} size="md" />
+            <Button {...args} size="lg" />
+            <Button {...args} size="xl" />
+        </div>
+    </div>
+);
+
+export const SizeVariants = SizeVars.bind({});
+
+
+SizeVariants.args = {
+    children: "Press here",
 };

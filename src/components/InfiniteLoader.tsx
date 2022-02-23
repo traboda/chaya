@@ -31,7 +31,7 @@ const InfiniteLoader = ({
                     <div>
                         {!isLoading && (
                             <div className="flex justify-center items-center text-center my-4">
-                                <Button inverseColors m={2} onClick={onLoadMore} px={4} py={2}>
+                                <Button onClick={onLoadMore}>
                                     Load more
                                 </Button>
                             </div>

@@ -37,9 +37,7 @@ const SelectorButton = ({ name, className, options, onSubmit = () => {}, labels 
                 required
             />
             <Button
-                variant="secondary"
-                px={3}
-                py={2}
+                variant="solid"
                 className="ml-2 mr-0 h-full"
                 type="submit"
             >

@@ -73,7 +73,6 @@ const SearchBox = ({
                         <>
                             {keyword.length > 0 && (
                                 <Button
-                                    p={1}
                                     className="ml-0 mr-1 text-red-600"
                                     type="button"
                                     onClick={() => {
@@ -84,7 +83,7 @@ const SearchBox = ({
                                     <i className="far fa-times" />
                                 </Button>
                             )}
-                            <Button label={`${name} button`} type="submit" py={3} px={1}>
+                            <Button label={`${name} button`} type="submit">
                                 <i className={iconClassName} />
                             </Button>
                         </>

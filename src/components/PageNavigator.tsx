@@ -60,12 +60,12 @@ const PageNavigator = ({
         <div className={`flex items-center justify-center text-center pt-4 ${className}`}>
             <div style={{ userSelect: 'none' }}>
                 {page > 2 && (
-                    <Button className="w-12" inverseColors onClick={() => setPage(1)} m={1}>
+                    <Button className="w-12" onClick={() => setPage(1)}>
                         {`❮❮`}
                     </Button>
                 )}
                 {page > 1 && (
-                    <Button className="w-16" inverseColors onClick={() => setPage(page - 1)} m={1}>
+                    <Button className="w-16" onClick={() => setPage(page - 1)}>
                         {`❮`}
                     </Button>)}
                 {length > 1 && (
@@ -73,8 +73,6 @@ const PageNavigator = ({
                         {getPageNo().map((item, index) =>
                             <Button
                                 key={`page_${item}_${index}`}
-                                inverseColors={page !== item}
-                                m={1}
                                 className={`w-12 ${page === item ? 'active' : ''}`}
                                 onClick={() => setPage(item)}
                             >
@@ -84,12 +82,12 @@ const PageNavigator = ({
                     </React.Fragment>
                 )}
                 {!(page + 1 >= length) && (
-                    <Button className="w-16" inverseColors onClick={() => setPage(page + 1)} m={1}>
+                    <Button className="w-16" onClick={() => setPage(page + 1)}>
                         {`❯`}
                     </Button>
                 )}
                 {(page + 1 < length) && (
-                    <Button className="w-12" inverseColors onClick={() => setPage(length)} m={1}>
+                    <Button className="w-12" onClick={() => setPage(length)}>
                         {`❯❯`}
                     </Button>
                 )}

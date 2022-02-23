@@ -1,9 +1,12 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button, { ButtonProps } from "./Button";
+
 import useDelayUnmount from '../hooks/useDelayUnmount';
 import DocumentPortal from "../utils/Portal";
+
+import Button, { ButtonProps } from "./Button";
+
 
 type ModalProps = {
     isOpen: boolean,
@@ -115,8 +118,8 @@ const Modal = ({
                         </div>
                         {(primaryButton || secondaryButton) && (
                             <div className="flex items-center justify-end py-2 px-3 gap-2">
-                                {secondaryButton && <Button {...secondaryButton} py={1} px={3}/>}
-                                {primaryButton && <Button {...primaryButton} py={1} px={3}/>}
+                                {secondaryButton && <Button {...secondaryButton} />}
+                                {primaryButton && <Button {...primaryButton} />}
                             </div>
                         )}
                     </div>
