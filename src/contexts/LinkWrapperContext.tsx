@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 
-const defaultLinkWrapper = (link, component) => (
-    <a href={link}>
+const defaultLinkWrapper = (link, component, options) => (
+    <a href={link} target={options?.target}>
         {component}
     </a>
 );

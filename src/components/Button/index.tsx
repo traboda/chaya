@@ -50,14 +50,18 @@ const Button = ({
                                 color === 'contrast' ?  theme.color :
                                     color === 'shade' ?
                                         theme?.isDarkTheme ?
-                                            Color(theme.background || '#000').lighten(0.2).fade(0.3).rgb().string() :
-                                            Color(theme.background || '#FFF').darken(0.15).rgb().fade(0.3).string()
+                                            Color(theme.background || '#000').negate().fade(0.85).rgb().string() :
+                                            Color(theme.background || '#FFF').darken(0.2).rgb().fade(0.35).string()
                                     : null
         )
     })();
 
-    const _lightBg = (() => {
-        return theme?.isDarkTheme ? Color(_color).fade(0.8).darken(0.15).rgb().string() : Color(_color).fade(0.8).rgb().string() ;
+    const _lighterBg = (() => {
+        return theme?.isDarkTheme ? Color(_color).fade(color === 'shade' ? 0.3 : 0.8).rgb().string() : Color(_color).fade(0.8).rgb().string() ;
+    })();
+
+    const _darkerBg = (() => {
+        return theme?.isDarkTheme ? Color(_color).darken(0.25).rgb().string() : Color(_color).darken(0.25).rgb().string() ;
     })();
 
     const _text_color = (() => {
@@ -69,8 +73,8 @@ const Button = ({
                             color === 'warning' ? 'black' :
                                 color === 'contrast' ?  theme.background :
                                     color === 'shade' ?  theme?.isDarkTheme ?
-                                        Color(theme.background || '#000').lighten(0.3).rgb().string() :
-                                        Color(theme.background || '#FFF').darken(0.25).rgb().string()
+                                        Color(theme.background || '#000').negate().fade(0.15).rgb().string() :
+                                        Color(theme.background || '#FFF').darken(0.6).rgb().string()
                                     : null
         )
     })();
@@ -92,7 +96,7 @@ const Button = ({
                 color: variant ==='solid' || color === 'shade' ? _text_color : _color,
                 background: variant === 'solid' ? _color : 'transparent',
                 outline: variant === 'outline' ? `1px solid` : 'none',
-                hoverBg: variant === 'outline' || variant === 'minimal' ? _lightBg : null
+                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
             }}
             as={link ? 'a' : 'button'}
             aria-label={label}
