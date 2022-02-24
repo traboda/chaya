@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { defaultLinkWrapper } from "../utils/misc";
+import { link_wrapper } from "../utils/misc";
 
 type DropdownMenuProps = {
     items?: {
@@ -14,7 +14,6 @@ type DropdownMenuProps = {
     isOpen?: boolean,
     onClose?: () => void,
     className?: string,
-    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
 }
 
 const DropDownMenu = styled('div')`
@@ -49,9 +48,7 @@ const DropDownMenu = styled('div')`
   }
 `;
 
-const DropdownMenu = ({
-  items = [], isOpen, onClose = () => {}, className = '', linkWrapper = defaultLinkWrapper
-}:DropdownMenuProps) =>
+const DropdownMenu = ({ items = [], isOpen, onClose = () => {}, className = '' } : DropdownMenuProps) =>
 isOpen ? (
     <DropDownMenu role="navigation" className={className}>
         <div role="menu" onMouseLeave={onClose}>
@@ -64,7 +61,7 @@ isOpen ? (
                 );
                 return (
                     <div role="menuitem" key={i} className={n?.className}>
-                        { n?.link ? linkWrapper(n.link,content) : <button onClick={n?.onClick}>{content}</button>}
+                        {n?.link ? link_wrapper(n.link, <>{content}</>) : <button onClick={n?.onClick}>{content}</button>}
                     </div>
                 );
             })}

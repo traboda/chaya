@@ -1,5 +1,5 @@
 import React from "react";
-import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
+import {LinkRelType, LinkTargetType} from "../../utils/misc";
 
 export type ButtonProps = {
     variant?: ('solid' | 'outline' | 'minimal' | 'link'),
@@ -7,20 +7,18 @@ export type ButtonProps = {
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
     children?: React.ReactNode
     className?: string,
-    style?: React.CSSProperties
+    style?: React.CSSProperties,
+    disableRipple?: boolean
 
     link?: string
-    onClick?: (e: React.MouseEvent) => void
+    target?: LinkTargetType,
+    rel?: LinkRelType,
 
     disabled?: boolean,
-    linkWrapper?: LinkWrapperFunction,
-
+    onClick?: (e: React.MouseEvent) => void
+    type?: ('button' | 'submit' | 'reset')
     onBlur?: () => void
     onFocus?: () => void
-    disableRipple?: boolean
-    type?: ('button' | 'submit' | 'reset')
     label?: string
     title?: string
-    target?: ('self' | 'blank' | any),
-    rel?: string,
 };

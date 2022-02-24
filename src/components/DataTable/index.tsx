@@ -5,10 +5,8 @@ import { throttle } from 'lodash';
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
 import InfiniteLoader from "../InfiniteLoader";
-import { defaultLinkWrapper } from "../../utils/misc";
 import { useTheme } from "@emotion/react";
 import SelectionHelper from "./SelectionHelper";
-import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
 
 type ItemListerProps = {
     properties: ItemListerProperty[],
@@ -32,7 +30,6 @@ type ItemListerProps = {
     customTopBarRenderer?: () => React.ReactElement,
     loadable?: boolean,
     stickyRow?: object,
-    linkWrapper?: LinkWrapperFunction
 }
 
 const ItemLister = ({
@@ -44,7 +41,7 @@ const ItemLister = ({
     onLoadMore = () => {}, maxHeight = null,
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
-    stickyRow = null, linkWrapper = defaultLinkWrapper
+    stickyRow = null,
 }: ItemListerProps) => {
 
     const { background } = useTheme();
@@ -125,7 +122,6 @@ const ItemLister = ({
                                         properties={properties}
                                         item={i}
                                         itemIndex={index}
-                                        linkWrapper={linkWrapper}
                                     />
                                 )}
                                 {isLoading && Array(10).fill(0).map((_n, index) =>
@@ -134,7 +130,6 @@ const ItemLister = ({
                                         isShaded={index % 2 === 0}
                                         properties={properties}
                                         isLoading
-                                        linkWrapper={linkWrapper}
                                     />
                                 )}
                             </div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
-import {defaultLinkWrapper} from "../utils/misc";
+import { link_wrapper } from "../utils/misc";
 
 export type TabItemObject =  {
     name?: string
@@ -31,7 +31,6 @@ export type Tabs = {
     menuClassName?: string,
     menuButtonClassName?: string,
     initialKey?: string,
-    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
     isVertical?: boolean,
     alignCenter?: boolean
 };
@@ -85,7 +84,7 @@ const VerticalTabSelector = styled(TabBase)`
 const Tabs = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
- linkWrapper = defaultLinkWrapper, alignCenter,  onChange = () => {}
+ alignCenter,  onChange = () => {}
 }: Tabs) => {
 
     const tabID = `tab-${nanoid()}`;
@@ -174,7 +173,7 @@ const Tabs = ({
                     ) :
                     t.link ? (
                         <React.Fragment key={nanoid()}>
-                            {linkWrapper(t.link, render_option(t))}
+                            {link_wrapper(t.link, render_option(t))}
                         </React.Fragment>
                     ) :
                     t.url ? (

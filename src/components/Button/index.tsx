@@ -5,7 +5,7 @@ import {useTheme} from "@emotion/react";
 
 import { ButtonProps } from "./type";
 import Ripple from "./Ripple";
-import {defaultLinkWrapper} from "../../utils/misc";
+import { link_wrapper } from "../../utils/misc";
 
 type StyledButton = {
     attributes: {
@@ -21,6 +21,7 @@ const StyledButton = styled('button')<StyledButton>`
   color: ${({ attributes }) => attributes?.color};
   border: ${({ attributes }) => attributes?.outline};
   border-radius: 7px;
+  display: inline-block;
   position: relative;
   &:disabled {
     opacity: 0.95;
@@ -33,7 +34,7 @@ const StyledButton = styled('button')<StyledButton>`
 
 const Button = ({
     variant = 'solid', color = 'primary', size = 'md',
-    children, link, onClick = () => {}, linkWrapper = defaultLinkWrapper,
+    children, link, onClick = () => {},
     className, style, label, disableRipple = false,
     target, type, rel, disabled,
 }: ButtonProps) => {
@@ -73,7 +74,7 @@ const Button = ({
                             color === 'warning' ? 'black' :
                                 color === 'contrast' ?  theme.background :
                                     color === 'shade' ?  theme?.isDarkTheme ?
-                                        Color(theme.background || '#000').negate().fade(0.15).rgb().string() :
+                                        Color(theme.background || '#000').negate().fade(0.1).rgb().string() :
                                         Color(theme.background || '#FFF').darken(0.6).rgb().string()
                                     : null
         )
@@ -90,7 +91,22 @@ const Button = ({
         return classNames;
     })();
 
-    const renderer = (
+    const renderer = () => (
+        <StyledButton
+            as="div"
+            attributes={{
+                color: variant ==='solid' || color === 'shade' ? _text_color : _color,
+                background: variant === 'solid' ? _color : 'transparent',
+                outline: variant === 'outline' ? `1px solid` : 'none',
+                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
+            }}
+        >
+            {(!disableRipple && !disabled) && <Ripple/>}
+            {children}
+        </StyledButton>
+    )
+
+    const buttonRenderer = () => (
         <StyledButton
             attributes={{
                 color: variant ==='solid' || color === 'shade' ? _text_color : _color,
@@ -98,10 +114,7 @@ const Button = ({
                 outline: variant === 'outline' ? `1px solid` : 'none',
                 hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
             }}
-            as={link ? 'a' : 'button'}
             aria-label={label}
-            // @ts-ignore
-            href={link ? link : null}
             type={type}
             onClick={e => {
                 e.stopPropagation();
@@ -111,15 +124,15 @@ const Button = ({
             aria-disabled={disabled}
             className={_className}
             style={style}
-            target={link ? '_blank' : ''}
-            rel={rel}
         >
             {(!disableRipple && !disabled) && <Ripple/>}
             {children}
         </StyledButton>
     );
 
-    return link ? linkWrapper(link, renderer, { target }) : renderer;
+    return link ?
+        link_wrapper(link, renderer(), { target, rel, className, style, label })
+    : buttonRenderer();
 
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {nanoid} from "nanoid";
-import {defaultLinkWrapper} from "../utils/misc";
+import { link_wrapper } from "../utils/misc";
 
 const BreadcrumbWrapper = styled.ul`
     padding: 0;
@@ -33,20 +33,17 @@ type Breadcrumb = {
     }[],
     className?: string,
     homeIconClassName?: string,
-    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
 };
 
-const Breadcrumb = ({ items, className = '', linkWrapper = defaultLinkWrapper, homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
+const Breadcrumb = ({ items, className = '', homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
     <BreadcrumbWrapper className={`text-lg ${className}`}>
         <li>
-            {linkWrapper('/',
-                <i title="home" className={homeIconClassName} />
-            )}
+            {link_wrapper('/', <i title="home" className={homeIconClassName} />)}
         </li>
         {items.length > 0 &&
         items.map((i) =>
             <li key={nanoid()}>
-                {linkWrapper(i?.link || '#', i.title)}
+                {link_wrapper(i?.link || '#', <>{i.title}</>)}
             </li>
         )}
     </BreadcrumbWrapper>

@@ -2,9 +2,8 @@ import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 
 import SkeletonItem from '../SkeletonItem';
-import {defaultLinkWrapper} from "../../utils/misc";
+import { link_wrapper } from "../../utils/misc";
 import SelectionContext from "./SelectionContext";
-import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
 
 const ListItem = styled.div`
   display: grid;
@@ -58,11 +57,10 @@ type ItemListerItemProps = {
     isShaded?: boolean,
     isLoading?: boolean,
     style?: object,
-    linkWrapper?: LinkWrapperFunction
 };
 
 const ItemListerItem = ({
-    properties, item, itemIndex, isShaded = false, isLoading = false, style = {}, linkWrapper = defaultLinkWrapper
+    properties, item, itemIndex, isShaded = false, isLoading = false, style = {}
 }: ItemListerItemProps) => {
 
     const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext)
@@ -107,7 +105,7 @@ const ItemListerItem = ({
                     {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                     {link && <i className="fa fa-external-link ml-2" />}
                 </div>;
-            return link ? linkWrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer;
+            return link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer;
         })}
     </ListItem>;
 
