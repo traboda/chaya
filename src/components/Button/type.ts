@@ -1,8 +1,9 @@
 import React from "react";
+import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
 
 export type ButtonProps = {
     variant?: ('solid' | 'outline' | 'minimal' | 'link'),
-    color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast'),
+    color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
     children?: React.ReactNode
     className?: string,
@@ -11,9 +12,8 @@ export type ButtonProps = {
     link?: string
     onClick?: (e: React.MouseEvent) => void
 
-    disabled?: boolean
-    fw?: boolean
-
+    disabled?: boolean,
+    linkWrapper?: LinkWrapperFunction,
 
     onBlur?: () => void
     onFocus?: () => void
@@ -21,6 +21,6 @@ export type ButtonProps = {
     type?: ('button' | 'submit' | 'reset')
     label?: string
     title?: string
-    target?: ('self' | 'blank' | any)
+    target?: ('self' | 'blank' | any),
     rel?: string,
 };

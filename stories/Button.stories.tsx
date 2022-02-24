@@ -41,7 +41,7 @@ Default.args = {
 
 
 const Vars: Story = args => (
-    <div className="flex flex-col justify-center items-center bg-gray-200 gap-4 py-4" style={{ minHeight: '25vh' }}>
+    <div className="flex flex-col justify-center items-center gap-4 py-4">
         <div className="flex gap-2">
             <Button {...args} variant="solid" color="primary"/>
             <Button {...args} variant="solid" color="secondary"/>
@@ -49,6 +49,7 @@ const Vars: Story = args => (
             <Button {...args} variant="solid" color="warning"/>
             <Button {...args} variant="solid" color="danger"/>
             <Button {...args} variant="solid" color="contrast"/>
+            <Button {...args} variant="solid" color="shade"/>
         </div>
         <div className="flex gap-2">
             <Button {...args} variant="outline" color="primary"/>
@@ -57,6 +58,7 @@ const Vars: Story = args => (
             <Button {...args} variant="outline" color="warning"/>
             <Button {...args} variant="outline" color="danger"/>
             <Button {...args} variant="outline" color="contrast"/>
+            <Button {...args} variant="outline" color="shade"/>
         </div>
 
         <div className="flex gap-2">
@@ -66,6 +68,7 @@ const Vars: Story = args => (
             <Button {...args} variant="minimal" color="warning"/>
             <Button {...args} variant="minimal" color="danger"/>
             <Button {...args} variant="minimal" color="contrast"/>
+            <Button {...args} variant="minimal" color="shade"/>
         </div>
 
         <div className="flex gap-2">
@@ -75,6 +78,7 @@ const Vars: Story = args => (
             <Button {...args} variant="link" color="warning"/>
             <Button {...args} variant="link" color="danger"/>
             <Button {...args} variant="link" color="contrast"/>
+            <Button {...args} variant="link" color="shade"/>
         </div>
     </div>
 );

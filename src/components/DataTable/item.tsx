@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import SkeletonItem from '../SkeletonItem';
 import {defaultLinkWrapper} from "../../utils/misc";
 import SelectionContext from "./SelectionContext";
+import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
 
 const ListItem = styled.div`
   display: grid;
@@ -57,7 +58,7 @@ type ItemListerItemProps = {
     isShaded?: boolean,
     isLoading?: boolean,
     style?: object,
-    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
+    linkWrapper?: LinkWrapperFunction
 };
 
 const ItemListerItem = ({

@@ -8,6 +8,7 @@ import InfiniteLoader from "../InfiniteLoader";
 import { defaultLinkWrapper } from "../../utils/misc";
 import { useTheme } from "@emotion/react";
 import SelectionHelper from "./SelectionHelper";
+import {LinkWrapperFunction} from "../../contexts/LinkWrapperContext";
 
 type ItemListerProps = {
     properties: ItemListerProperty[],
@@ -31,7 +32,7 @@ type ItemListerProps = {
     customTopBarRenderer?: () => React.ReactElement,
     loadable?: boolean,
     stickyRow?: object,
-    linkWrapper?: (link: string, component: React.ReactNode) => React.ReactNode,
+    linkWrapper?: LinkWrapperFunction
 }
 
 const ItemLister = ({

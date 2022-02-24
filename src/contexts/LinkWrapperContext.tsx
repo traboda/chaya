@@ -6,7 +6,13 @@ const defaultLinkWrapper = (link, component) => (
     </a>
 );
 
-export type LinkWrapperFunction = (link: string, component: React.ReactNode) => React.ReactNode;
+export type LinkWrapperFunction = (
+    link: string,
+    component: React.ReactElement,
+    options?: {
+        target: ('_blank' | '_self' | '_parent' | '_top'),
+    }
+) => React.ReactElement;
 
 const LinkWrapperContext = createContext<LinkWrapperFunction>(defaultLinkWrapper);
 

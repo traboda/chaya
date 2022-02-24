@@ -80,23 +80,23 @@ const ConfirmationDialog = ({
                           required
                       />
                   )}
-                  <div className="flex justify-end mt-4 px-2">
+                  <div className="flex justify-end px-2">
                       <Button
-                          variant="success"
+                          color="success"
+                          size="lg"
                           onClick={onCancel}
-                          text={labels?.cancel}
-                          px={6}
-                          py={2}
                           type="button"
-                          className="mr-3"
-                      />
+                          className="mr-2"
+                      >
+                          {labels?.cancel}
+                      </Button>
                       <Button
-                          variant="danger"
+                          size="lg"
+                          color="danger"
                           type="submit"
-                          text={labels?.confirm}
-                          px={6}
-                          py={2}
-                      />
+                      >
+                          {labels?.confirm}
+                      </Button>
                   </div>
               </form>
           </Card>

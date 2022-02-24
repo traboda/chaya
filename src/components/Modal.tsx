@@ -14,7 +14,7 @@ type ModalProps = {
     onClose: () => void,
     title?: string,
     iconClassName?: string,
-    bgClassName?: string,
+    hideBg?: boolean,
     contentClassName?: string,
     maxWidth?: number | string,
     minHeight?: number | string,
@@ -62,8 +62,8 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = ({
-   isOpen, children, onClose, title, iconClassName = '', bgClassName = '', contentClassName = '',
-   maxWidth = 720, minHeight, maxHeight, primaryButton, secondaryButton,
+   isOpen, children, onClose, title, iconClassName = '', contentClassName = '',
+   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
     const { background, color } = useTheme();
@@ -92,8 +92,8 @@ const Modal = ({
                     onClick={onClose}
                 >
                     <div
-                        className={`${bgClassName} relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
-                        style={{ background, color }}
+                        className={`relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full animate-fade-in ${!isOpen ? 'animate-crunch' : ''}`}
+                        style={{ background: !hideBg ? background : null, color }}
                         onClick={e => e.stopPropagation()}
                     >
                         <div className="absolute top-0 right-0 pr-2">
@@ -118,8 +118,12 @@ const Modal = ({
                         </div>
                         {(primaryButton || secondaryButton) && (
                             <div className="flex items-center justify-end py-2 px-3 gap-2">
-                                {secondaryButton && <Button {...secondaryButton} />}
-                                {primaryButton && <Button {...primaryButton} />}
+                                {secondaryButton && (
+                                    <Button {...secondaryButton} />
+                                )}
+                                {primaryButton && (
+                                    <Button {...primaryButton} />
+                                )}
                             </div>
                         )}
                     </div>

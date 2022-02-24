@@ -56,8 +56,7 @@ const Alert = ({
                     <div className="mr-2">
                         <Button
                             {...primaryButton}
-                            variant="primary"
-                            px={3} py={1}
+                            color="primary"
                             className="text-base"
                         />
                     </div>}
@@ -65,8 +64,7 @@ const Alert = ({
                     <div>
                         <Button
                             {...secondaryButton}
-                            variant="secondary"
-                            px={3} py={1}
+                            color="secondary"
                             className="text-base"
                         />
                     </div>}

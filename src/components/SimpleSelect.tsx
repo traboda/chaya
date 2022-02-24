@@ -42,6 +42,7 @@ export type SimpleSelectProps = {
     options: SimpleSelectOptionType,
     onChange?: (v: string) => void,
     required?: boolean,
+    disabled?: boolean,
     labels?: {
         label?: string,
         placeholder?: string
@@ -55,7 +56,7 @@ const defaultLabels = {
 
 const SimpleSelect = ({
   value = null, onChange = () => {},
-  required = false, name, options, labels: _labels
+  required = false, disabled = false, name, options, labels: _labels
 }: SimpleSelectProps) => {
 
     const { color } = useTheme();
@@ -84,6 +85,7 @@ const SimpleSelect = ({
                     aria-labelledby={`${inputID}-label`}
                     value={value}
                     required={required}
+                    disabled={disabled}
                     onChange={({ target }) => onChange(target.value)}
                 >
                     <option

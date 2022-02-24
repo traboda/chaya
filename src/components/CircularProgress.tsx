@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "@emotion/styled";
-import {useTheme} from "@emotion/react";
+import { useTheme } from "@emotion/react";
 
 const BackgroundCircle = styled('circle')`
   stroke: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
@@ -51,7 +51,7 @@ const offset_options = {
 
 const CircularProgress = ({
     value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
-}:CircularProgressProps) => {
+}: CircularProgressProps) => {
 
     const theme = useTheme();
 
