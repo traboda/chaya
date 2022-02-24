@@ -16,8 +16,9 @@ type StyledButton = {
     }
 }
 
-const StyledButton = styled('button')<StyledButton>`
-  &, a, button {
+const ButtonContainer = styled('div')<StyledButton>`
+  display: inline-block;
+  a, button {
     background: ${({ attributes }) => attributes?.background};
     color: ${({ attributes }) => attributes?.color};
     border: ${({ attributes }) => attributes?.outline};
@@ -94,28 +95,14 @@ const Button = ({
     })();
 
     const renderer = () => (
-        <StyledButton
-            as="div"
-            attributes={{
-                color: variant ==='solid' || color === 'shade' ? _text_color : _color,
-                background: variant === 'solid' ? _color : 'transparent',
-                outline: variant === 'outline' ? `1px solid` : 'none',
-                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
-            }}
-        >
+        <React.Fragment>
             {(!disableRipple && !disabled) && <Ripple/>}
             {children}
-        </StyledButton>
+        </React.Fragment>
     )
 
     const buttonRenderer = () => (
-        <StyledButton
-            attributes={{
-                color: variant ==='solid' || color === 'shade' ? _text_color : _color,
-                background: variant === 'solid' ? _color : 'transparent',
-                outline: variant === 'outline' ? `1px solid` : 'none',
-                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
-            }}
+        <button
             aria-label={label}
             type={type}
             onClick={e => {
@@ -129,12 +116,21 @@ const Button = ({
         >
             {(!disableRipple && !disabled) && <Ripple/>}
             {children}
-        </StyledButton>
+        </button>
     );
 
-    return link ?
-        link_wrapper(link, renderer(), { target, rel, className, style, label })
-    : buttonRenderer();
+    return (
+        <ButtonContainer
+            attributes={{
+                color: variant ==='solid' || color === 'shade' ? _text_color : _color,
+                background: variant === 'solid' ? _color : 'transparent',
+                outline: variant === 'outline' ? `1px solid` : 'none',
+                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
+            }}
+        >
+            {link ? link_wrapper(link, renderer(), { target, rel, className, style, label }) : buttonRenderer()}
+        </ButtonContainer>
+    );
 
 }
 
