@@ -39,13 +39,12 @@ type SearchBox = {
     onSearch?: (keyword: string) => void,
     onKeyDown?: (e) => void,
     inputStyle?: React.CSSProperties,
-    iconClassName?: string
 };
 
 const SearchBox = ({
    keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = '',
    labels: labelProps, onSearch = () => {}, onKeyDown = () => () => {},
-   autoFocus = false, iconClassName = 'far fa-search',
+   autoFocus = false,
 }: SearchBox) => {
 
     const labels = {...defaultLabels, ...labelProps};
@@ -70,23 +69,33 @@ const SearchBox = ({
                     hideLabel={hideLabel}
                     onKeyDown={onKeyDown}
                     postfixRenderer={
-                        <>
+                        <div className="flex items-center">
                             {keyword.length > 0 && (
                                 <Button
-                                    className="ml-0 mr-1 text-red-600"
+                                    size="md"
+                                    variant="link"
+                                    color="danger"
                                     type="button"
+                                    className="px-1 py-3 mr-1"
                                     onClick={() => {
                                         setKeyword('');
                                         onSearch('');
                                     }}
                                 >
-                                    <i className="far fa-times" />
+                                    ❌
                                 </Button>
                             )}
-                            <Button label={`${name} button`} type="submit">
-                                <i className={iconClassName} />
+                            <Button
+                                size="md"
+                                variant="link"
+                                color="primary"
+                                className="px-1 py-3"
+                                label={`${name} button`}
+                                type="submit"
+                            >
+                                🔍
                             </Button>
-                        </>
+                        </div>
                     }
                 />
             </SearchBoxContainer>

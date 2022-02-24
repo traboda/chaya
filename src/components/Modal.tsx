@@ -25,7 +25,7 @@ type ModalProps = {
 
 type ModalContainer = {
     hideBg?: boolean
-}
+};
 
 const ModalContainer = styled.div<ModalContainer>`
   .modal-section {
@@ -120,7 +120,7 @@ const Modal = ({
                         >
                             {children}
                         </div>
-                        {(primaryButton || secondaryButton) && (
+                        {(primaryButton && secondaryButton) ? (
                             <div className="flex items-center justify-end py-2 px-3 gap-2">
                                 {secondaryButton && (
                                     <Button {...secondaryButton} />
@@ -129,6 +129,14 @@ const Modal = ({
                                     <Button {...primaryButton} />
                                 )}
                             </div>
+                        ) : primaryButton && (
+                            <Button
+                                variant="solid"
+                                color="primary"
+                                size="lg"
+                                className={`w-full mt-2 ${primaryButton?.className || ''}`}
+                                {...primaryButton}
+                            />
                         )}
                     </div>
                 </section>

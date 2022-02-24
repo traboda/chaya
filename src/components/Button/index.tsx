@@ -24,6 +24,8 @@ const ButtonContainer = styled('span')<StyledButton>`
     border-radius: 7px;
     display: inline-block;
     position: relative;
+    overflow: hidden;
+    text-align: center;
     &:disabled {
       opacity: 0.95;
       cursor: not-allowed;
@@ -37,7 +39,7 @@ const ButtonContainer = styled('span')<StyledButton>`
 const Button = ({
     variant = 'solid', color = 'primary', size = 'md',
     children, link, onClick = () => {},
-    className, style, label, disableRipple = false,
+    className = '', style, label, disableRipple = false,
     target, type, rel, disabled,
 }: ButtonProps) => {
 
@@ -88,10 +90,11 @@ const Button = ({
 
     const _className = (() => {
         let classNames = 'font-semibold ';
-        if(variant !== link)
+
+        if(variant !== link && !(className && className.match(/px-\d+|py-\d+|p-\d+/)))
             classNames += `${size === 'xs' ? 'px-1 py-0' : size === 'sm' ? 'px-2 py-1' : size === 'md' ? 'px-3 py-2' : size === 'lg' ? 'px-4 py-3' : size === 'xl' ? 'px-5 py-4' : ''} `;
         classNames += `text-${size} `;
-        if(variant === 'link')
+        if(variant === 'link' && link)
             classNames += `hover:underline `;
         classNames += className;
         return classNames;
