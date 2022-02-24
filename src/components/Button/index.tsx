@@ -17,18 +17,20 @@ type StyledButton = {
 }
 
 const StyledButton = styled('button')<StyledButton>`
-  background: ${({ attributes }) => attributes?.background};
-  color: ${({ attributes }) => attributes?.color};
-  border: ${({ attributes }) => attributes?.outline};
-  border-radius: 7px;
-  display: inline-block;
-  position: relative;
-  &:disabled {
-    opacity: 0.95;
-    cursor: not-allowed;
-  }
-  &:focus, &:hover {
-    background: ${({ attributes }) => attributes?.hoverBg};
+  &, a, button {
+    background: ${({ attributes }) => attributes?.background};
+    color: ${({ attributes }) => attributes?.color};
+    border: ${({ attributes }) => attributes?.outline};
+    border-radius: 7px;
+    display: inline-block;
+    position: relative;
+    &:disabled {
+      opacity: 0.95;
+      cursor: not-allowed;
+    }
+    &:focus, &:hover {
+      background: ${({ attributes }) => attributes?.hoverBg};
+    }
   }
 `;
 
