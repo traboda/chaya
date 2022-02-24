@@ -16,8 +16,7 @@ type StyledButton = {
     }
 }
 
-const ButtonContainer = styled('div')<StyledButton>`
-  display: inline-block;
+const ButtonContainer = styled('span')<StyledButton>`
   a, button {
     background: ${({ attributes }) => attributes?.background};
     color: ${({ attributes }) => attributes?.color};
@@ -61,7 +60,11 @@ const Button = ({
     })();
 
     const _lighterBg = (() => {
-        return theme?.isDarkTheme ? Color(_color).fade(color === 'shade' ? 0.3 : 0.8).rgb().string() : Color(_color).fade(0.8).rgb().string() ;
+        return Color(_color).fade(color === 'shade' ? 0.5 : 0.85).rgb().string();
+    })();
+
+    const _lighterHoverBg = (() => {
+        return Color(_color).fade(color === 'shade' ? 0.2 : 0.75).rgb().string();
     })();
 
     const _darkerBg = (() => {
@@ -84,7 +87,7 @@ const Button = ({
     })();
 
     const _className = (() => {
-        let classNames = '';
+        let classNames = 'font-semibold ';
         if(variant !== link)
             classNames += `${size === 'xs' ? 'px-1 py-0' : size === 'sm' ? 'px-2 py-1' : size === 'md' ? 'px-3 py-2' : size === 'lg' ? 'px-4 py-3' : size === 'xl' ? 'px-5 py-4' : ''} `;
         classNames += `text-${size} `;
@@ -123,12 +126,12 @@ const Button = ({
         <ButtonContainer
             attributes={{
                 color: variant ==='solid' || color === 'shade' ? _text_color : _color,
-                background: variant === 'solid' ? _color : 'transparent',
+                background: variant === 'link' || variant === 'outline' ? 'transparent' : variant === 'solid' ? _color : _lighterBg,
                 outline: variant === 'outline' ? `1px solid` : 'none',
-                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterBg
+                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterHoverBg
             }}
         >
-            {link ? link_wrapper(link, renderer(), { target, rel, className, style, label }) : buttonRenderer()}
+            {link ? link_wrapper(link, renderer(), { target, rel, className: _className, style, label }) : buttonRenderer()}
         </ButtonContainer>
     );
 

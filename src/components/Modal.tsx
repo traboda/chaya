@@ -23,9 +23,13 @@ type ModalProps = {
     secondaryButton?: ButtonProps,
 };
 
-const ModalContainer = styled.div`
+type ModalContainer = {
+    hideBg?: boolean
+}
+
+const ModalContainer = styled.div<ModalContainer>`
   .modal-section {
-    background: rgba(0, 0, 0, 0.5);
+    background: ${({ theme, hideBg }) =>  `rgba(${theme.isDarkTheme ? `0, 0, 0,` : `255, 255, 255,`}${hideBg ? 0.75 : 0.5})`};
     z-index: 7200;
   }
 
@@ -86,7 +90,7 @@ const Modal = ({
 
     return shouldRenderChild ? (
         <DocumentPortal>
-            <ModalContainer>
+            <ModalContainer hideBg={hideBg}>
                 <section
                     className={`modal-section fixed top-0 left-0 w-screen h-screen flex justify-center items-end sm:items-center backdrop-filter backdrop-blur-sm ${!isOpen ? 'animate-fade-out' : ''}`}
                     onClick={onClose}

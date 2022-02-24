@@ -91,6 +91,43 @@ Default.args = {
     contentClassName: 'p-4'
 };
 
+
+const DarkTemplate: Story = args => {
+
+    const [isOpen, setIsOpen] = React.useState(args.isOpen);
+
+    React.useEffect(() => {
+        setIsOpen(args.isOpen);
+    }, [args.isOpen]);
+
+    return (
+        <ThemeContext isDarkTheme>
+            <div className="bg-gray-900 text-white flex justify-center items-center p-4">
+                <div>
+                    <button onClick={() => setIsOpen(true)}>
+                        open
+                    </button>
+                    {Array(8).fill(lorem).map(l => <p>{l}</p>)}
+                    {/* @ts-ignore */}
+                    <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                        <p>{lorem}</p>
+                    </Modal>
+                </div>
+            </div>
+        </ThemeContext>
+    );
+}
+
+export const DarkTheme = DarkTemplate.bind({});
+
+DarkTheme.args = {
+    isOpen: true,
+    onClose: () => {},
+    title: 'Create Challenge',
+    contentClassName: 'p-4'
+};
+
+
 export const WithButtons = Template.bind({});
 
 WithButtons.args = {
@@ -99,13 +136,13 @@ WithButtons.args = {
     title: 'Create Challenge',
     contentClassName: 'p-4',
     primaryButton: {
-        text: 'Create',
+        children: 'Create',
         onClick: () => {
             console.log('create')
         }
     },
     secondaryButton: {
-        text: 'Cancel',
+        children: 'Cancel',
         onClick: () => {
             console.log('cancel')
         }
