@@ -11,20 +11,20 @@ const ListItem = styled.div`
   
   & > * {
     height: 100%;
-    background: rgba(0, 0, 30, 0.25);
-  }
-
-  &[data-shaded='true'] > * {
-    background: rgba(100, 100, 150, 0.1);
+    color: ${({theme}) => theme.color}
   }
   
+  &.shaded > * {
+    background: ${({theme}) => theme?.isDarkTheme ? `rgba(255, 255, 255, 0.5)!important` : `rgba(100, 100, 100, 0.15)!important`};
+  }
+
   a {
     color: inherit;
     text-decoration: none !important;
   }
 
   &:hover > * {
-    background: rgba(100, 100, 150, 0.35);
+    background: rgba(100, 100, 100, 0.2);
   }
 `;
 
@@ -78,15 +78,16 @@ const ItemListerItem = ({
         return { gridTemplateColumns: cols, ...style };
     };
 
-    return <ListItem data-shaded={isShaded} style={generateItemStyle()}>
+    return <ListItem className={isShaded ? `shaded` : ''} style={generateItemStyle()}>
         {isEnabled && (
             <div className="px-2">
                 <div className="flex justify-center w-full py-3 text-center">
+                    {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> :
                     <input
                         type="checkbox"
                         checked={isSelected(item?.id)}
                         onChange={() => isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id)}
-                    />
+                    />}
                 </div>
             </div>
         )}
