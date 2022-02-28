@@ -13,9 +13,9 @@ const ListItem = styled.div`
     height: 100%;
     color: ${({theme}) => theme.color}
   }
-  
+
   &.shaded > * {
-    background: ${({theme}) => theme?.isDarkTheme ? `rgba(255, 255, 255, 0.5)!important` : `rgba(100, 100, 100, 0.15)!important`};
+    background: ${({theme}) => theme?.isDarkTheme ? `rgba(255, 255, 255, 0.1)!important` : `rgba(100, 100, 100, 0.15)!important`};
   }
 
   a {
@@ -24,7 +24,7 @@ const ListItem = styled.div`
   }
 
   &:hover > * {
-    background: rgba(100, 100, 100, 0.2);
+    background: ${({theme}) => theme?.isDarkTheme ? 'rgba(255, 255, 255, 0.2)!important' : 'rgba(100, 100, 100, 0.25)!important'};
   }
 `;
 
@@ -81,7 +81,7 @@ const ItemListerItem = ({
     return <ListItem className={isShaded ? `shaded` : ''} style={generateItemStyle()}>
         {isEnabled && (
             <div className="px-2">
-                <div className="flex justify-center w-full py-3 text-center">
+                <div className="flex justify-center h-full items-center w-full py-3 text-center">
                     {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> :
                     <input
                         type="checkbox"
