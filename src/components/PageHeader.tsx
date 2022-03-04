@@ -5,14 +5,8 @@ import styled from '@emotion/styled';
 import Breadcrumb from './Breadcrumb';
 
 const PageHeaderSection = styled.section`
-    padding: 5vh 5vw;
+    padding: 3.5vh 3.5vw;
     background: ${({ theme }) => theme?.isDarkTheme ? Color(theme.background || '#000').lighten(0.2).hex() : Color(theme.background || '#FFF').darken(0.15).hex() };
-    display: flex;
-    align-items: center;
-    .container {
-        min-width: 75%;
-        max-width: 1200px;
-    }
     p {
         font-size: calc(1rem + 0.25vw);
     }
@@ -43,7 +37,7 @@ const PageHeader = ({
     customTitle = null,
 } : PageHeader) => (
     <PageHeaderSection className={className}>
-        <div className="container mx-auto">
+        <div>
             <div className="flex flex-wrap">
                 <div className="md:w-2/3 py-2">
                     <div className="px-2 mb-4">
