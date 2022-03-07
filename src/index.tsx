@@ -2,6 +2,7 @@ export { default as Tabs } from './components/Tabs';
 export { default as Card } from './components/Card';
 export { default as Alert } from './components/Alert';
 export { default as Modal } from './components/Modal';
+export { default as Badge } from './components/Badge';
 export { default as Switch } from './components/Switch';
 export { default as Avatar } from './components/Avatar';
 export { default as Drawer } from './components/Drawer';
