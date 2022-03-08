@@ -10,8 +10,6 @@ const ToolTipContainer = styled('div')`
 const ToolTipWrapper = styled('div')`
   position: absolute;
   border-radius: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
   padding: 0.5rem;
   color: black;
   background: white;
@@ -21,7 +19,6 @@ const ToolTipWrapper = styled('div')`
 
   &::before {
     content: " ";
-    left: 50%;
     border: 0.5rem solid transparent;
     position: absolute;
     pointer-events: none;
@@ -47,18 +44,22 @@ const ToolTipWrapper = styled('div')`
 
   &.left {
     left: calc(3.5rem * -1);
+    transform: translateX(-50%);
 
     &::before {
-      left: 100%;
+      left:100%;
       border-bottom-color: white;
+      transform: rotate(90deg);
     }
   }
 
   &.right {
     right: calc(3.5rem * -1);
+    transform: translateX(50%);
 
     &::before {
       right: 100%;
+      transform: rotate(-90deg);
       border-bottom-color: white;
     }
   }
