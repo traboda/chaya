@@ -8,57 +8,53 @@ type BadgeProps = {
     color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
     className?: string,
-    borderRadius?: string,
     style?: React.CSSProperties,
-    text?: string
+    onClick?: () => void,
+    children: React.ReactNode
 };
 
 type StyledBadge = {
     attributes: {
         color: string,
         background: string,
-        borderRadius: string,
         outline: string,
     }
 }
 
 const BadgeContainer = styled('span')<StyledBadge>`
-  div {
     background: ${({ attributes }) => attributes?.background};
     color: ${({ attributes }) => attributes?.color};
     border: ${({ attributes }) => attributes?.outline};
-    border-radius: ${({ attributes }) => attributes?.borderRadius};
     display: inline-block;
     white-space: nowrap;
+    line-height: 1;
     vertical-align: middle;
     position: relative;
     overflow: hidden;
     text-align: center;
-  }
+    user-select: none;
 `;
 
 const Badge = ({
-                   variant = 'minimal', color = 'primary', size = 'sm',
-                   className = '', style, text = 'New', borderRadius = '3px'
-               }: BadgeProps) => {
+   children, variant = 'minimal', color = 'primary', size = 'sm',
+   className = '', style, onClick = () => {}
+}: BadgeProps) => {
 
     const theme = useTheme();
 
-    const _color = (() => {
-        return (
-            color === 'primary' ? theme.primary :
-                color === 'secondary' ? theme.secondary :
-                    color === 'success' ? '#28a745' :
-                        color === 'danger' ? '#dc3545' :
-                            color === 'warning' ? '#ffc107' :
-                                color === 'contrast' ?  theme.color :
-                                    color === 'shade' ?
-                                        theme?.isDarkTheme ?
-                                            Color(theme.background || '#000').negate().fade(0.85).rgb().string() :
-                                            Color(theme.background || '#FFF').darken(0.2).rgb().fade(0.35).string()
-                                        : null
-        )
-    })();
+    const _color = (() => (
+        color === 'primary' ? theme.primary :
+        color === 'secondary' ? theme.secondary :
+        color === 'success' ? '#28a745' :
+        color === 'danger' ? '#dc3545' :
+        color === 'warning' ? '#ffc107' :
+        color === 'contrast' ?  theme.color :
+        color === 'shade' ?
+            theme?.isDarkTheme ?
+                Color(theme.background || '#000').negate().fade(0.85).rgb().string() :
+                Color(theme.background || '#FFF').darken(0.2).rgb().fade(0.35).string()
+        : null
+    ))();
 
     const _lighterBg = (() => {
         return Color(_color).fade(color === 'shade' ? 0.5 : 0.85).rgb().string();
@@ -80,12 +76,12 @@ const Badge = ({
     })();
 
     const _className = (() => {
-        let classNames = '';
-
+        let classNames = 'rounded ';
         if(!(className && className.match(/px-\d+|py-\d+|p-\d+/)))
-            classNames += `${size === 'xs' ? 'px-1 py-0' : size === 'sm' ? 'px-2 py-1' : size === 'md' ? 'px-3 py-2' : size === 'lg' ? 'px-4 py-3' : size === 'xl' ? 'px-5 py-4' : ''} `;
+            classNames += `${size === 'xs' ? 'px-1' : size === 'sm' ? 'px-2 py-0' : size === 'md' ? 'px-3 py-1' : size === 'lg' ? 'px-3 py-1' : size === 'xl' ? 'px-5 py-2' : ''} `;
         classNames += `text-${size} `;
-        classNames += className;
+        if(className?.length)
+            classNames += className;
         return classNames;
     })();
 
@@ -95,15 +91,12 @@ const Badge = ({
                 color: variant ==='solid' || color === 'shade' ? _text_color : _color,
                 background: variant === 'outline' ? 'transparent' : variant === 'solid' ? _color : _lighterBg,
                 outline: variant === 'outline' ? `1px solid` : 'none',
-                borderRadius: borderRadius
             }}
+            className={_className}
+            style={style}
+            onClick={onClick}
         >
-            <div
-                className={_className}
-                style={style}
-            >
-                {text}
-            </div>
+            {children}
         </BadgeContainer>
     );
 

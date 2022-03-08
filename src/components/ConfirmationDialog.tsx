@@ -58,7 +58,9 @@ const ConfirmationDialog = ({
           <Card background={theme.background}>
               <div className="p-2">
                   <h2 className="font-semibold text-2xl mb-2">{labels?.title}</h2>
-                  <p className="text-lg">{labels?.description}</p>
+                  <p style={{ width: '450px', maxWidth: '100%' }} className="text-lg">
+                      {labels?.description}
+                  </p>
               </div>
               <form className="py-2" onSubmit={confirmAction}>
                   {requireConfirmationText && (
@@ -71,18 +73,20 @@ const ConfirmationDialog = ({
                       />
                   )}
                   {requirePassword && (
-                      <TextInput
-                          label="Enter Your Password"
-                          name="password"
-                          type="password"
-                          value={password}
-                          onChange={setPassword}
-                          required
-                      />
+                      <div className="mb-3">
+                          <TextInput
+                              label="Enter Your Password"
+                              name="password"
+                              type="password"
+                              value={password}
+                              onChange={setPassword}
+                              required
+                          />
+                      </div>
                   )}
-                  <div className="flex justify-end px-2">
+                  <div className="flex justify-end">
                       <Button
-                          color="success"
+                          color="shade"
                           size="lg"
                           onClick={onCancel}
                           type="button"
@@ -92,7 +96,6 @@ const ConfirmationDialog = ({
                       </Button>
                       <Button
                           size="lg"
-                          color="danger"
                           type="submit"
                       >
                           {labels?.confirm}

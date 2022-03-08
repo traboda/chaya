@@ -22,7 +22,9 @@ export default meta;
 
 const Template: Story = args => (
     <div className="flex justify-center items-center">
-        <Badge {...args}/>
+        <Badge {...args}>
+            Badge
+        </Badge>
     </div>
 );
 
@@ -66,7 +68,7 @@ const Vars: Story = args => (
 export const ColorVariants = Vars.bind({});
 
 ColorVariants.args = {
-    text: "Hey",
+    children: "Hey",
     style: {margin: '5px'}
 };
 
@@ -113,7 +115,7 @@ export const DarkThemeVariants = DarkVars.bind({});
 
 
 DarkThemeVariants.args = {
-    text: "Hello",
+    children: "Hello",
     style: {margin: '5px'}
 };
 
@@ -134,6 +136,6 @@ export const SizeVariants = SizeVars.bind({});
 
 
 SizeVariants.args = {
-    text: "New",
+    children: "New",
     style: {margin: '5px'}
 };
