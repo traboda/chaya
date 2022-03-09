@@ -1,5 +1,3 @@
-const postcss = require("postcss");
-
 module.exports = {
   stories: [
       '../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)'
@@ -13,22 +11,6 @@ module.exports = {
       options: {
         postcssLoaderOptions: {
           implementation: require('postcss'),
-          postcssOptions: {
-            plugins: {
-              tailwindcss: {
-                important: true,
-                purge: false,
-                variants: {
-                  extend: {
-                    zIndex: ['hover'],
-                    filter: ['hover']
-                  },
-                },
-                plugins: [],
-              },
-              autoprefixer: {},
-            },
-          },
         },
       },
     },
