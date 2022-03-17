@@ -3,6 +3,7 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
+  prefix: 'dsr-',
   theme: {
     extend: {},
   },
