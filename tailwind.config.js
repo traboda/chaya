@@ -1,11 +1,14 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}','./stories/*.stories.tsx'],
-  corePlugins: {
-    preflight: false,
-  },
-  prefix: 'dsr-',
-  theme: {
-    extend: {},
+  important: true,
+  mode: 'jit',
+  purge: [
+    './src/**/*.{js,jsx,ts,tsx}',
+  ],
+  variants: {
+    extend: {
+      zIndex: ['hover'],
+      filter: ['hover']
+    },
   },
   plugins: [],
-}
+};

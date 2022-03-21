@@ -37,10 +37,11 @@ type GroupType = {
 export type SimpleSelectOptionType = Array<OptionType | GroupType>;
 
 export type SimpleSelectProps = {
-    value: string,
+    value: (string|number),
     name: string,
+    className?: string,
     options: SimpleSelectOptionType,
-    onChange?: (v: string) => void,
+    onChange?: (v: (string|number)) => void,
     required?: boolean,
     disabled?: boolean,
     labels?: {
@@ -55,7 +56,7 @@ const defaultLabels = {
 };
 
 const SimpleSelect = ({
-  value = null, onChange = () => {},
+  value = null, onChange = () => {}, className = '',
   required = false, disabled = false, name, options, labels: _labels
 }: SimpleSelectProps) => {
 
@@ -79,7 +80,7 @@ const SimpleSelect = ({
             )}
             <div className="w-full">
                 <StyledSelect
-                    className="w-full text-lg rounded-lg appearance-none"
+                    className={`w-full text-lg rounded-lg appearance-none ${className}`}
                     name={name}
                     id={inputID}
                     aria-labelledby={`${inputID}-label`}
