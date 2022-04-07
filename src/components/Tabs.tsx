@@ -17,6 +17,7 @@ export type TabItemObject =  {
     url?: string
     link?: string
     iconClassName?: string
+    iconRenderer?: React.ReactElement,
     labelClassName?: string
     onActive?: () => void
 };
@@ -120,6 +121,7 @@ const Tabs = ({
             {t.iconClassName && (
                 <i className={t.iconClassName} style={{ marginRight: '8px' }} />
             )}
+            {t.iconRenderer || null}
             <span className={t.labelClassName}>{t.label}</span>
         </React.Fragment>
     );

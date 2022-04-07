@@ -7,6 +7,7 @@ type Card = {
     description?: string,
     titleClassName?: string,
     iconClassName?: string,
+    iconRenderer?: React.ReactElement,
     background?: string,
     className?: string,
 }
@@ -25,13 +26,14 @@ const CardContainer = styled('div')<CardContainer>`
   }
 `;
 
-const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', background, children }: Card) =>  (
+const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', iconRenderer = null, background, children }: Card) =>  (
     <CardContainer background={background} className={className}>
         {(title || description) &&
         <div className="px-2 pt-2">
             {title &&
             <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>
                 {iconClassName && <i className={`${iconClassName} mr-2`} />}
+                {iconRenderer}
                 {title}
             </h3>}
             {description && <p className="text-lg opacity-90 mb-2">{description}</p>}

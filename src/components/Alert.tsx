@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button, { ButtonProps } from "./Button";
 
 type Alert = {
-  type?: "success" | "info" | "warning" | "danger";
+  type?: "success" | "info" | "warning" | "danger" | "default";
   className?: string,
   title?: string
   description?: string;
@@ -15,17 +15,57 @@ type Alert = {
 };
 
 type AlertContainer = {
-    type: "success" | "info" | "warning" | "danger";
+    type: "success" | "info" | "warning" | "danger" | "default";
+}
+
+const get_bg_by_type = (type, isDark) => {
+    if(isDark) {
+        switch (type) {
+            case 'success': return '#025f2b';
+            case 'info': return '#024c6a';
+            case 'warning': return '#907400';
+            case 'danger': return '#7b0707';
+            default: return '#333';
+        }
+    } else {
+        switch (type) {
+            case 'success': return '#dff0d8';
+            case 'info': return '#d9edf7';
+            case 'warning': return '#fcf8e3';
+            case 'danger': return '#fddede';
+            default: return '#eee';
+        }
+    }
+}
+
+const get_color_by_type = (type, isDark) => {
+    if(isDark) {
+        switch (type) {
+            case 'success': return '#B5FFD9';
+            case 'info': return '#90E0EF';
+            case 'warning': return '#ffeedb';
+            case 'danger': return '#fac8df';
+            default: return '#eee';
+        }
+    } else {
+        switch (type) {
+            case 'success': return '#3c763d';
+            case 'info': return '#31708f';
+            case 'warning': return '#8a6d3b';
+            case 'danger': return '#c20101';
+            default: return '#333';
+        }
+    }
 }
 
 const AlertContainer = styled('div')<AlertContainer>`
-  background-color: ${props => props.type === "success" ? "#dff0d8" : props.type === "info" ? "#d9edf7" : props.type === "warning" ? "#fcf8e3" : "#f2dede"};
-  color: ${props => props.type === "success" ? "#3c763d" : props.type === "info" ? "#31708f" : props.type === "warning" ? "#8a6d3b" : "#a94442"};
+  background-color: ${({ theme, type }) => get_bg_by_type(type, theme.isDarkTheme)};
+  color: ${({ theme, type }) => get_color_by_type(type, theme.isDarkTheme)};
 `;
 
 
 const Alert = ({
-    type = 'info', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
+    type = 'default', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
     primaryButton, secondaryButton,
 }: Alert) => {
 

@@ -6,7 +6,7 @@ type SelectorButton = {
     name: string,
     className?: string,
     options: SimpleSelectOptionType,
-    onSubmit?: (value: string) => void,
+    onSubmit?: (value: string|number) => void,
     disabled?: boolean,
     labels?: {
         button: string,
@@ -21,7 +21,7 @@ const SelectorButton = ({ name, className = '', options, disabled = false, onSub
 
     const _labels = {...defaultLabels, labels};
 
-    const [value, setValue] = useState<string>(null);
+    const [value, setValue] = useState<string|number>(null);
 
     const _onSubmit = (e) => {
         e.preventDefault();

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
-import {Alert} from '../src';
+import {Alert, Modal} from '../src';
 import ThemeContext from "../src/ThemeProvider";
 addDecorator((story) => (
     <ThemeContext>
@@ -43,16 +43,43 @@ WithButton.args = {
     variant: 'warning',
     allowDismissal: true,
     primaryButton: {
-        text: 'Renew',
+        children: 'Renew',
         onClick: () => {
             alert('Renew clicked');
         },
     },
     secondaryButton: {
-        text: 'Cancel',
+        children: 'Cancel',
         onClick: () => {
             alert('Cancel clicked');
         },
     },
 };
 
+const DarkTemplate: Story = args => (
+    <ThemeContext isDarkTheme>
+        <div style={{ background: 'black', padding: '2rem' }}>
+            <Alert {...args} />
+        </div>
+    </ThemeContext>
+);
+
+export const DarkTheme = DarkTemplate.bind({});
+
+DarkTheme.args = {
+    title: 'Your account is about to expire. Renew your subscription now!',
+    variant: 'warning',
+    allowDismissal: true,
+    primaryButton: {
+        children: 'Renew',
+        onClick: () => {
+            alert('Renew clicked');
+        },
+    },
+    secondaryButton: {
+        children: 'Cancel',
+        onClick: () => {
+            alert('Cancel clicked');
+        },
+    },
+};
