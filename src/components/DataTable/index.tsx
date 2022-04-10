@@ -133,7 +133,6 @@ const ItemLister = ({
                                     />
                                 )}
                             </div>
-
                             <InfiniteLoader
                                 loadable={loadable}
                                 canLoadMore={canLoadMore}

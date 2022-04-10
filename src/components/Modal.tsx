@@ -21,6 +21,10 @@ type ModalProps = {
     maxHeight?: number | string,
     primaryButton?: ButtonProps,
     secondaryButton?: ButtonProps,
+    icons?: {
+        title?: React.ReactElement,
+        close?: React.ReactElement
+    }
 };
 
 type ModalContainer = {
@@ -65,13 +69,20 @@ const ModalContainer = styled.div<ModalContainer>`
   }
 `;
 
+const defaultIcons = {
+    close: <>x</>,
+    title: <i />
+}
+
 const Modal = ({
    isOpen, children, onClose, title, iconClassName = '', contentClassName = '',
-   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
+   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, icons: _icons = null,
 }: ModalProps) => {
 
     const { background, color } = useTheme();
     const shouldRenderChild = useDelayUnmount(isOpen, 300);
+    const icons = {...defaultIcons, ..._icons};
+
 
     useEffect(() => {
         if (shouldRenderChild) document.body.style.overflow = 'hidden';
@@ -107,10 +118,11 @@ const Modal = ({
                                 className="font-mono outline-none font-bold text-2xl p-0"
                                 onClick={onClose}
                             >
-                                x
+                                {icons.close}
                             </button>
                         </div>
                         {title && <h2 className="text-2xl pt-4 pb-2 px-4 font-semibold">
+                            {icons?.title}
                             {iconClassName && <i className={iconClassName} />}
                             {title}
                         </h2>}

@@ -8,15 +8,33 @@ type PageNavigator = {
     itemsPerPage: number,
     setItemsPerPage: (count: number) => void,
     hideItemsPerPage?: boolean
+    showControls?: boolean,
+    showEdges?: boolean,
     page: number,
     setPage: (no: number) => void,
     className?: string,
+    icons?: {
+        next?: React.ReactElement,
+        prev?: React.ReactElement,
+        start?: React.ReactElement,
+        end?: React.ReactElement,
+    }
+}
+
+const defaultIcons = {
+    prev: <>❮</>,
+    next: <>❯</>,
+    start: <>❮❮</>,
+    end: <>❯❯</>,
 }
 
 const PageNavigator = ({
-    totalCount, itemsPerPage, setItemsPerPage, className = '', hideItemsPerPage = false, page, setPage
+    totalCount, itemsPerPage, setItemsPerPage, className = '', hideItemsPerPage = false, page, setPage,
+    icons: _icons = null, showControls = true, showEdges = true,
 }: PageNavigator) => {
 
+
+    const icons = {...defaultIcons, ..._icons};
     const length = Math.floor(((totalCount + itemsPerPage-1) / itemsPerPage));
 
     const getPageNo = () => {
@@ -43,15 +61,16 @@ const PageNavigator = ({
     return (
         <div className={`flex items-center justify-center text-center pt-4 ${className}`}>
             <div style={{ userSelect: 'none' }}>
-                {page > 2 && (
+                {(showEdges && page > 2) && (
                     <Button className="w-12 mx-1" onClick={() => setPage(1)}>
-                        {`❮❮`}
+                        {icons?.start}
                     </Button>
                 )}
-                {page > 1 && (
+                {(showControls && page > 1) && (
                     <Button className="w-16 mx-1" onClick={() => setPage(page - 1)}>
-                        {`❮`}
-                    </Button>)}
+                        {icons?.prev}
+                    </Button>
+                )}
                 <React.Fragment>
                     {getPageNo().map((item, index) =>
                         <Button
@@ -66,14 +85,14 @@ const PageNavigator = ({
                         </Button>
                     )}
                 </React.Fragment>
-                {!(page + 1 >= length) && (
+                {(showControls && !(page + 1 >= length)) && (
                     <Button className="w-16 mx-1" onClick={() => setPage(page + 1)}>
-                        {`❯`}
+                        {icons?.next}
                     </Button>
                 )}
-                {(page + 1 < length) && (
+                {(showEdges && (page + 1 < length)) && (
                     <Button className="w-12 mx-1" onClick={() => setPage(length)}>
-                        {`❯❯`}
+                        {icons?.end}
                     </Button>
                 )}
                 {!hideItemsPerPage &&

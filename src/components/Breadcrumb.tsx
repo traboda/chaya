@@ -25,28 +25,40 @@ const BreadcrumbWrapper = styled.ul`
     }
 `;
 
-type Breadcrumb = {
+export type BreadcrumbPropType = {
     items: {
         link?: string,
         title?: string,
         isActive?: boolean
     }[],
     className?: string,
-    homeIconClassName?: string,
+    icons?: {
+        home?: React.ReactElement,
+    }
 };
 
-const Breadcrumb = ({ items, className = '', homeIconClassName = 'fa fa-home' }: Breadcrumb) => (
-    <BreadcrumbWrapper className={`text-lg ${className}`}>
-        <li>
-            {link_wrapper('/', <i title="home" className={homeIconClassName} />)}
-        </li>
-        {items.length > 0 &&
-        items.map((i) =>
-            <li key={nanoid()}>
-                {link_wrapper(i?.link || '#', <>{i.title}</>)}
+const defaultIcons = {
+    home: <>🏠</>
+};
+
+
+const Breadcrumb = ({ items, className = '', icons: _icons = null }: BreadcrumbPropType) => {
+
+    const icons = {...defaultIcons, ..._icons};
+
+    return (
+        <BreadcrumbWrapper className={`text-lg ${className}`}>
+            <li>
+                {link_wrapper('/', icons?.home)}
             </li>
-        )}
-    </BreadcrumbWrapper>
-);
+            {items.length > 0 &&
+                items.map((i) =>
+                    <li key={nanoid()}>
+                        {link_wrapper(i?.link || '#', <>{i.title}</>)}
+                    </li>
+                )}
+        </BreadcrumbWrapper>
+    );
+}
 
 export default Breadcrumb;

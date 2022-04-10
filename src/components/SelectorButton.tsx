@@ -30,7 +30,7 @@ const SelectorButton = ({ name, className = '', options, disabled = false, onSub
 
     return (
         <form className={`flex items-center ${className}`} onSubmit={_onSubmit}>
-            <div className="w-5/6">
+            <div className="w-4/5">
                 <SimpleSelect
                     value={value}
                     onChange={setValue}
@@ -40,11 +40,11 @@ const SelectorButton = ({ name, className = '', options, disabled = false, onSub
                     required
                 />
             </div>
-            <div className="w-1/6">
+            <div className="w-1/5 pl-1">
                 <Button
                     variant="solid"
                     size="md"
-                    className="ml-1 mr-0 block w-full h-full"
+                    className="mr-0 block py-3 w-full h-full"
                     type="submit"
                     disabled={disabled}
                 >

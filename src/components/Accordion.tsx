@@ -37,15 +37,26 @@ type AccordionProps = {
     className?: string,
     titleClassName?: string,
     bodyClassName?: string,
+    icons?: {
+        opened?: React.ReactElement,
+        closed?: React.ReactElement
+    }
+};
+
+const defaultIcons = {
+    opened: <span style={{ transform: 'rotate(-90deg)' }}>⮞</span>,
+    closed: <span style={{ transform: 'rotate(90deg)' }}>⮞</span>
 };
 
 const Accordion = ({
-   title, renderer, text, isOpen: _isOpen, onChange = () => {}, className = '', titleClassName = '', bodyClassName = ''
+   title, renderer, text, isOpen: _isOpen, onChange = () => {}, className = '', titleClassName = '', bodyClassName = '', icons: _icons = null,
 }: AccordionProps) => {
 
     const [isOpen, setOpen] = useState(_isOpen ?? false);
 
     useEffect(() => { setOpen(_isOpen ?? false) }, [_isOpen]);
+
+    const icons = {...defaultIcons, ..._icons};
 
     return (
         <AccordionContainer className={`accordion ${className}`}>
@@ -57,7 +68,7 @@ const Accordion = ({
                 }}
             >
                 {title}
-                <i className={`fas fa-caret-down transform transition ${isOpen ? 'rotate-180' : ''}`} />
+                {isOpen ? icons?.opened : icons?.closed}
             </button>
             <div className={`accordion-body text-lg ${isOpen ? bodyClassName + ' active p-3' : ''}`}>
                 {isOpen && renderer ? renderer() : text}
