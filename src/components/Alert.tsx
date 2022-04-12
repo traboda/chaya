@@ -13,6 +13,10 @@ type Alert = {
   onDismiss?: () => void,
   primaryButton?: ButtonProps,
   secondaryButton?: ButtonProps,
+  icons?: {
+    title?: React.ReactElement,
+    close?: React.ReactElement
+  }
 };
 
 type AlertContainer = {
@@ -68,11 +72,18 @@ const AlertContainer = styled('div')<AlertContainer>`
   background-color: ${({ theme, type, variant }) => variant === "filled" ? get_bg_by_type(type, theme.isDarkTheme) : null};
 `;
 
+const defaultIcons = {
+    close: <>x</>,
+    title: <i />
+}
+
+
 const Alert = ({
     type = 'default', variant = 'filled', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
-    primaryButton, secondaryButton,
+    primaryButton, secondaryButton, icons: _icons = null,
 }: Alert) => {
 
+    const icons = {...defaultIcons, ..._icons};
     const [hide, setHide] = useState(false);
 
     return !hide ? (
@@ -90,6 +101,7 @@ const Alert = ({
             )}
             {title &&
             <h4 className={`${description ? 'text-xl font-semibold' : 'text-lg'}`}>
+                {icons?.title}
                 {iconClassName && <i className={iconClassName} />}
                 {title}
             </h4>}

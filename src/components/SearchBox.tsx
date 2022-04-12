@@ -39,14 +39,23 @@ type SearchBox = {
     onSearch?: (keyword: string) => void,
     onKeyDown?: (e) => void,
     inputStyle?: React.CSSProperties,
+    icons?: {
+        search?: React.ReactElement,
+        clear?: React.ReactElement
+    }
+};
+
+const defaultIcons = {
+    search: <>🔍</>,
+    clear: <>❌</>
 };
 
 const SearchBox = ({
    keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = '',
-   labels: labelProps, onSearch = () => {}, onKeyDown = () => () => {},
-   autoFocus = false,
+   labels: labelProps, onSearch = () => {}, onKeyDown = () => () => {}, icons: _icons = null, autoFocus = false,
 }: SearchBox) => {
 
+    const icons = {...defaultIcons, ..._icons};
     const labels = {...defaultLabels, ...labelProps};
 
     return (
@@ -82,7 +91,7 @@ const SearchBox = ({
                                         onSearch('');
                                     }}
                                 >
-                                    ❌
+                                    {icons.clear}
                                 </Button>
                             )}
                             <Button
@@ -93,7 +102,7 @@ const SearchBox = ({
                                 label={`${name} button`}
                                 type="submit"
                             >
-                                🔍
+                                {icons.search}
                             </Button>
                         </div>
                     }

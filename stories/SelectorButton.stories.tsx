@@ -28,8 +28,13 @@ const meta: Meta = {
 
 export default meta;
 
-// @ts-ignore
-const Template: Story = args => <SelectorButton {...args} />;
+
+const Template: Story = args => (
+    <div style={{ width: '220px' }}>
+        {/*// @ts-ignore*/}
+        <SelectorButton {...args} />
+    </div>
+);
 
 export const Basic = Template.bind({});
 

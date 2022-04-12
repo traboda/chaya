@@ -11,7 +11,8 @@ interface InfiniteLoaderProps {
     isLoading?: boolean,
     onLoadMore?: () => void,
     labels?: { endOfList?: string },
-    renderer?: () => ReactNode
+    renderer?: () => ReactNode,
+    showEndOfListMessage?: boolean,
 }
 
 const InfiniteLoader = ({
@@ -20,7 +21,8 @@ const InfiniteLoader = ({
     isLoading = false,
     onLoadMore = () => {},
     labels = defaultLabels,
-    renderer = () => <div />
+    renderer = () => <div />,
+    showEndOfListMessage = false,
 }: InfiniteLoaderProps) => {
     return (
         <Fragment>
@@ -38,11 +40,11 @@ const InfiniteLoader = ({
                         )}
                     </div>
                 </Waypoint>
-            ) : (
+            ) : showEndOfListMessage ? (
                 <div className="my-4 text-center" style={{ opacity: 0.8 }}>
                     {labels.endOfList}
                 </div>
-            ))}
+            ) : <div />)}
         </Fragment>
     );
 };

@@ -33,13 +33,21 @@ type DrawerProps = {
     minHeight?: string | number,
     maxWidth?: string | number,
     maxHeight?: string | number,
+    icons?: {
+        close?: React.ReactElement,
+    }
+};
+
+const defaultIcons = {
+    close: <>x</>
 }
 
 const Drawer = ({
     isOpen, onClose, position = 'right', children,
-    minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%'
+    minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', icons: _icons = null,
 }: DrawerProps) => {
 
+    const icons = {...defaultIcons, ..._icons};
     const { background, color } = useTheme();
     const shouldRenderChild = useDelayUnmount(isOpen, 300);
 
@@ -98,10 +106,9 @@ const Drawer = ({
                                 className="font-mono outline-none font-bold text-2xl"
                                 onClick={onClose}
                             >
-                                x
+                                {icons?.close}
                             </button>
                         </div>
-
                         <div>{children}</div>
                     </div>
                 </section>

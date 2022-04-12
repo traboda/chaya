@@ -14,8 +14,11 @@ const meta: Meta = {
     title: 'Layouts/Page Navigator',
     component: PageNavigator,
     parameters: {
-        controls: { expanded: true },
-    },
+        controls: {
+            expanded: true,
+            sort: 'requiredFirst'
+        },
+    }
 };
 
 export default meta;

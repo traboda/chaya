@@ -14,10 +14,14 @@ type AccordionProps = {
     accordionClassName?: string,
     titleClassName?: string,
     bodyClassName?: string,
+    icons?: {
+        opened?: React.ReactElement,
+        closed?: React.ReactElement
+    }
 };
 
 const AccordionGroup = ({
-   items, initialIndex, keepExpanded = false, className = '', accordionClassName = '', titleClassName = '', bodyClassName = ''
+   items, initialIndex, keepExpanded = false, className = '', accordionClassName = '', titleClassName = '', bodyClassName = '', icons = null,
 }: AccordionProps) => {
     const [active, setActive] = useState(initialIndex ?? 0);
 
@@ -35,10 +39,10 @@ const AccordionGroup = ({
                             setActive(active === index ? -1 : index)
                         }
                     }}
+                    icons={icons}
                     title={item.title}
                     text={item.text}
                     renderer={item.renderer}
-
                 />
             ))}
         </div>
