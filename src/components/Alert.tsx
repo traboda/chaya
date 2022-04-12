@@ -4,6 +4,7 @@ import Button, { ButtonProps } from "./Button";
 
 type Alert = {
   type?: "success" | "info" | "warning" | "danger" | "default";
+  variant?: "filled" | "outline";
   className?: string,
   title?: string
   description?: string;
@@ -16,6 +17,7 @@ type Alert = {
 
 type AlertContainer = {
     type: "success" | "info" | "warning" | "danger" | "default";
+    variant: "filled" | "outline";
 }
 
 const get_bg_by_type = (type, isDark) => {
@@ -59,20 +61,22 @@ const get_color_by_type = (type, isDark) => {
 }
 
 const AlertContainer = styled('div')<AlertContainer>`
-  background-color: ${({ theme, type }) => get_bg_by_type(type, theme.isDarkTheme)};
   color: ${({ theme, type }) => get_color_by_type(type, theme.isDarkTheme)};
+  border-color:  ${({ theme, type, variant }) => variant === "outline" ? get_color_by_type(type, theme.isDarkTheme) : null};
+  border-style: ${({ variant }) => variant === "outline" ? `solid` : null};
+  border-width: ${({ variant }) => variant === "outline" ? '1px' : null};
+  background-color: ${({ theme, type, variant }) => variant === "filled" ? get_bg_by_type(type, theme.isDarkTheme) : null};
 `;
 
-
 const Alert = ({
-    type = 'default', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
+    type = 'default', variant = 'filled', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
     primaryButton, secondaryButton,
 }: Alert) => {
 
     const [hide, setHide] = useState(false);
 
     return !hide ? (
-        <AlertContainer type={type} className={`${description ? 'px-3 py-4' : 'px-3 py-2'} relative rounded-lg ${className}`}>
+        <AlertContainer type={type} variant = {variant} className={`${description ? 'px-3 py-4' : 'px-3 py-2'} relative rounded-lg ${className}`}>
             {allowDismissal && (
                 <div className="absolute top-0 right-0 pr-3">
                     <button
