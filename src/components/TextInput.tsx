@@ -50,6 +50,8 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   }
 `;
 
+
+
 const PostFixIcon = styled('div')`
   position: absolute;
   top: 0;
@@ -82,6 +84,8 @@ type TextInput = {
     description?: string
     hideLabel?: boolean
     alwaysShowLabel?: boolean
+    min?: number
+    max?: number
     spellCheck?: ('off' | 'on')
     autoComplete?: ('off' | 'on' | 'email' | 'current-password' | 'username')
     autoCorrect?: ('off' | 'on')
@@ -101,9 +105,9 @@ const TextInput = ({
    id, label, name, placeholder, value: val, charLimit = null,
    className, style, hideLabel = false,
    required = false, disabled = false, autoFocus = false,
-   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize,
+   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min = null, max = null,
    inputStyle, inputClassName, type, errorText, description, postfixRenderer,
-   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc
+   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
 }: TextInput) => {
 
     const inputID = id && id.length > 1 ? id : `${name}-input-${nanoid()}`;
@@ -149,6 +153,8 @@ const TextInput = ({
         autoComplete,
         autoCorrect,
         autoCapitalize,
+        min,
+        max,
         autoFocus: autoFocus ? 'true' : null,
         required: required,
         disabled: disabled,
