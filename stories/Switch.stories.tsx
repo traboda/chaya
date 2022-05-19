@@ -50,7 +50,7 @@ export const DarkTheme: Story = (args) => {
 
     return (
         <ThemeContext isDarkTheme>
-            <div className="bg-gray-900 p-4">
+            <div className="bg-gray-900 p-4" style={{ background: 'black', padding: '1rem' }}>
                 {/*// @ts-ignore*/}
                 <Switch {...args} value={value} onChange={setValue}  />
             </div>

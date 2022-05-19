@@ -7,7 +7,7 @@ type OTPInputWrapProps = {
 };
 
 const OTPInput = styled.input<OTPInputWrapProps>`
-  background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
+  background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)' };
   border: 0;
   color: ${({ theme }) => theme.color};
   outline: ${({ isInvalid }) => isInvalid ? '2px solid red' : null};

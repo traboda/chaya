@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 
 const AccordionContainer = styled.div`
-  background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.3)' : 'rgba(237, 237, 237, 0.75)' };
+  background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'};
   width: 100%;
   border-radius: 7px;
   padding: 0.5rem;

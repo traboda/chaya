@@ -48,7 +48,7 @@ export const DarkTheme: Story = (args) => {
 
     return (
         <ThemeContext isDarkTheme>
-            <div className="bg-gray-900 p-4 flex items-center h-36">
+            <div className="bg-gray-900 p-4 flex items-center h-36" style={{ background: '#333', padding: '1rem' }}>
                 {/*// @ts-ignore*/}
                 <StarRating {...args} value={value} onChange={setValue} />
             </div>

@@ -44,7 +44,7 @@ export const DarkTheme: Story = (args) => {
     return (
         <ThemeContext isDarkTheme>
             <div className="bg-gray-900 p-4 flex justify-center items-center h-36">
-                <div style={{ width: '450px', maxWidth: '100%' }}>
+                <div style={{ width: '450px', maxWidth: '100%', background: '#333', padding: '1rem'  }}>
                     {/*// @ts-ignore*/}
                     <PinInput {...args} value={value} onChange={setValue} />
                 </div>

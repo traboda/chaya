@@ -18,13 +18,17 @@ type CardContainer = {
 
 const CardContainer = styled('div')<CardContainer>`
   padding: 1rem;
-  background: ${({ background, theme }) => background ? background : theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
+  background: ${({ background, theme }) => 
+      background ? background : 
+      theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'
+  };
   border-radius: 8px;
   height: 100%;
   h3 {
     color: ${({ theme }) => theme.secondary};
   }
 `;
+
 
 const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', iconRenderer = null, background, children }: Card) =>  (
     <CardContainer background={background} className={className}>

@@ -31,6 +31,12 @@ const Template: Story = args => (
     // @ts-ignore
     <Card {...args}>
         {args.children}
+        <Card>
+            <h1>Child Card</h1>
+            <Card>
+                <h1>Grand Child Card</h1>
+            </Card>
+        </Card>
     </Card>
 );
 
@@ -41,6 +47,31 @@ Default.args = {
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     className: 'm-10'
 }
+
+const DarkVars: Story = args => (
+    <ThemeContext isDarkTheme>
+        <div style={{ padding: '1rem', background: '#333' }}>
+            <Card {...args}>
+                {args.children}
+                <Card>
+                    <h1>Child Card</h1>
+                    <Card>
+                        <h1>Grand Child Card</h1>
+                    </Card>
+                </Card>
+            </Card>
+        </div>
+    </ThemeContext>
+);
+
+export const DarkThemeVariants = DarkVars.bind({});
+
+
+DarkThemeVariants.args = {
+    title: 'Hello World',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    className: 'm-10'
+};
 
 const DesignTemplate: Story = args => (
     // @ts-ignore
