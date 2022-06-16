@@ -87,7 +87,7 @@ const SimpleSelect = ({
                     value={value}
                     required={required}
                     disabled={disabled}
-                    onChange={({ target }) => onChange(target.value)}
+                    onChange={({ target }) => onChange(target.value===labels?.placeholder ? null : target.value)}
                 >
                     <option
                         selected={value === null}
