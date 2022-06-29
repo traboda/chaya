@@ -15,7 +15,6 @@ const TagSelectorContainer = styled.div`
       cursor: pointer;
       margin: 0.35rem;
       transition: all 250ms ease;
-      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1)!important;
       border: 1px solid ${({ theme }) => theme.color};
       
       &.small {
