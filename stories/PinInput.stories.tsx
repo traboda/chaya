@@ -29,6 +29,7 @@ const Template: Story = args => {
 
     return (
         <div style={{ width: '450px', maxWidth: '100%' }}>
+            <h1 className="mb-3">Pin: {value}</h1>
             {/*// @ts-ignore*/}
             <PinInput {...args} value={value} onChange={setValue} />
         </div>
@@ -45,6 +46,7 @@ export const DarkTheme: Story = (args) => {
         <ThemeContext isDarkTheme>
             <div className="bg-gray-900 p-4 flex justify-center items-center h-36">
                 <div style={{ width: '450px', maxWidth: '100%' }}>
+                    <h1 className="mb-3">Pin: {value}</h1>
                     {/*// @ts-ignore*/}
                     <PinInput {...args} value={value} onChange={setValue} />
                 </div>
@@ -63,6 +65,7 @@ export const FormSubmission: Story = (args) => {
     return (
         <form onSubmit={(e) => { e.preventDefault(); console.log('pin submitted'); }}>
             <div style={{ width: '450px', maxWidth: '100%' }}>
+                <h1 className="mb-3">Pin: {value}</h1>
                 {/*// @ts-ignore*/}
                 <PinInput {...args} value={value} onChange={setValue} />
                 <button type="submit">
