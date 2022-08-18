@@ -1,6 +1,6 @@
 {
   "name": "@traboda/dsr",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "description": "Design System of Traboda",
   "private": false,
   "main": "dist/index.js",
@@ -76,8 +76,6 @@
     "@types/react-dom": "^17.0.11",
     "@types/resize-observer-browser": "^0.1.7",
     "babel-loader": "^8.2.3",
-    "classnames": "^2.3.1",
-    "color": "3.2.1",
     "cross-env": "^7.0.3",
     "husky": "^7.0.4",
     "nanoid": "3.3.4",
@@ -93,6 +91,8 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.0",
+    "classnames": "^2.3.1",
+    "color": "3.2.1",
     "postcss": "8.3.11",
     "tailwindcss": "2.2.19"
   }
