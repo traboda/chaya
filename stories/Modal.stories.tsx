@@ -72,7 +72,9 @@ const Template: Story = args => {
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
             {/* @ts-ignore */}
             <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <p>{lorem}</p>
+                <div style={{ padding: '1rem' }}>
+                    <p>{lorem}</p>
+                </div>
             </Modal>
         </div>
     );
@@ -83,7 +85,7 @@ export const Default = Template.bind({});
 Default.args = {
     isOpen: true,
     onClose: () => {},
-    title: 'Create Challenge',
+    title: 'Some Notice',
     contentClassName: 'p-4'
 };
 
@@ -93,12 +95,13 @@ export const WithButtons = Template.bind({});
 WithButtons.args = {
     isOpen: true,
     onClose: () => {},
-    title: 'Create Challenge',
+    title: 'Delete Challenge',
     contentClassName: 'p-4',
     primaryButton: {
-        children: 'Create',
+        children: 'Delete',
+        color: 'danger',
         onClick: () => {
-            console.log('create')
+            console.log('delete')
         }
     },
     secondaryButton: {

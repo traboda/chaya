@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled';
+import Color from "color";
 
 import SkeletonItem from '../SkeletonItem';
 import { link_wrapper } from "../../utils/misc";
@@ -13,14 +14,15 @@ const ListItem = styled.tr<ListItem>`
   display: grid;
   align-items: center;
   
+  & > td {
+    border-right: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
+    border-bottom: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
+  }
+  
   & > * {
     height: 100%;
     color: ${({ theme }) => theme.color};
     background: ${({theme, isPinned }) => isPinned ? theme.background : null}
-  }
-
-  &.shaded > * {
-    background: ${({theme}) => theme?.isDarkTheme ? `rgba(255, 255, 255, 0.1)!important` : `rgba(100, 100, 100, 0.15)!important`};
   }
 
   a {

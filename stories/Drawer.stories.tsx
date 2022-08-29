@@ -39,7 +39,9 @@ const Template: Story = args => {
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
             {/* @ts-ignore */}
             <Drawer {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                {Array(1).fill(lorem).map(l => <p>{l}</p>)}
+                <div style={{ padding: '1rem' }}>
+                    {Array(1).fill(lorem).map(l => <p>{l}</p>)}
+                </div>
             </Drawer>
         </div>
     );

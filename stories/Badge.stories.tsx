@@ -65,6 +65,7 @@ export const ColorVariants = Vars.bind({});
 
 ColorVariants.args = {
     children: "Hey",
+    size: "md",
     style: {margin: '5px'}
 };
 
@@ -81,7 +82,6 @@ const SizeVars: Story = args => (
 );
 
 export const SizeVariants = SizeVars.bind({});
-
 
 SizeVariants.args = {
     children: "New",

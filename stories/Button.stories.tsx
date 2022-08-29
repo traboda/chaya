@@ -38,7 +38,7 @@ Default.args = {
 
 const Vars: Story = args => (
     <div className="flex flex-col justify-center items-center gap-4 py-4">
-        <div className="flex gap-2">
+        <div className="flex" style={{ margin: '1rem' }}>
             <Button {...args} variant="solid" color="primary"/>
             <Button {...args} variant="solid" color="secondary"/>
             <Button {...args} variant="solid" color="success"/>
@@ -47,7 +47,7 @@ const Vars: Story = args => (
             <Button {...args} variant="solid" color="contrast"/>
             <Button {...args} variant="solid" color="shade"/>
         </div>
-        <div className="flex gap-2">
+        <div className="flex" style={{ margin: '1rem' }}>
             <Button {...args} variant="outline" color="primary"/>
             <Button {...args} variant="outline" color="secondary"/>
             <Button {...args} variant="outline" color="success"/>
@@ -57,7 +57,7 @@ const Vars: Story = args => (
             <Button {...args} variant="outline" color="shade"/>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex" style={{ margin: '1rem' }}>
             <Button {...args} variant="minimal" color="primary"/>
             <Button {...args} variant="minimal" color="secondary"/>
             <Button {...args} variant="minimal" color="success"/>
@@ -66,8 +66,7 @@ const Vars: Story = args => (
             <Button {...args} variant="minimal" color="contrast"/>
             <Button {...args} variant="minimal" color="shade"/>
         </div>
-
-        <div className="flex gap-2">
+        <div className="flex" style={{ margin: '1rem' }}>
             <Button {...args} variant="link" color="primary"/>
             <Button {...args} variant="link" color="secondary"/>
             <Button {...args} variant="link" color="success"/>
@@ -83,11 +82,13 @@ export const ColorVariants = Vars.bind({});
 
 
 ColorVariants.args = {
+    size: "lg",
     children: "Press here",
+    style: { margin: '0.25rem' }
 };
 
 const SizeVars: Story = args => (
-    <div className="flex flex-col justify-center items-center bg-gray-200 gap-4 py-4" style={{ minHeight: '25vh' }}>
+    <div className="flex justify-center items-center py-4" style={{ minHeight: '25vh', columnGap: '1rem' }}>
         <div>
             <Button {...args} size="xs" />
             <Button {...args} size="sm" />
@@ -103,4 +104,5 @@ export const SizeVariants = SizeVars.bind({});
 
 SizeVariants.args = {
     children: "Press here",
+    style: { margin: '0.25rem' }
 };
