@@ -171,7 +171,7 @@ const columns = [
     {
         'id': 'name',
         'label': 'Name',
-        'space': 6,
+        width: 350,
         'link': (i) => `#${i.id}`,
         'value': (i) => <div>
             {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}
@@ -182,14 +182,14 @@ const columns = [
     {
         'id': 'category',
         'label': 'Category',
-        'space': 3,
+        width: 150,
         'value': (i) => i.category?.name,
         'allowSort': true,
     },
     {
         'id': 'difficultyLevel',
         'label': 'Difficulty',
-        space: 3,
+        width: 150,
         'value': (i) => i?.difficultyLevel?.label,
         'allowSort': true,
     },
@@ -266,7 +266,6 @@ export const ContainedTable = ContainedTableTemplate.bind({});
 
 ContainedTable.args = {};
 
-
 const StickyRowTemplate: Story = args => (
     <DataTable
         items={ITEMS}
@@ -294,3 +293,31 @@ const StickyRowTemplate: Story = args => (
 export const StickyRow = StickyRowTemplate.bind({});
 
 StickyRow.args = {};
+
+const OverflowTemplate: Story = args => (
+    <DataTable
+        items={ITEMS}
+        maxHeight="380px"
+        allowSelection
+        properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))}
+        stickyRow={{
+            "id": "55",
+            "name": "Attack matter ball budget pattern.",
+            "points": 150,
+            "difficultyLevel": {
+                "label": "Beginner",
+                "level": 1
+            },
+            "category": {
+                "id": "11",
+                "name": "Hardware",
+                "slug": "hardware"
+            }
+        }}
+        {...args}
+    />
+);
+
+export const Overflow = OverflowTemplate.bind({});
+
+Overflow.args = {};

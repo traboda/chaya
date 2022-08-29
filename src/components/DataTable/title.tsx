@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 import classNames from 'classnames';
+import Color from 'color';
 
 import SortButton from './SortButton';
 
@@ -11,12 +12,14 @@ import SelectionContext from "./SelectionContext";
 const TitleBar = styled.tr`
   display: grid;
   width: 100%;
-  color: ${({ theme }) => theme.primaryTextColor};
   transition: transform 200ms ease;
 
-  & > * {
+  & > th {
     height: 100%;
     background: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primaryTextColor};
+    border-right: 2px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
+    border-bottom: 2px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
   }
 `;
 
@@ -25,28 +28,17 @@ type ItemListerTitleBarProps = {
     onSort: (attribute: string, order: ('asc' | 'desc' | null)) => void,
     currentSortAttribute: string,
     sortOrder: 'asc' | 'desc' | null,
+    gridTemplate: React.CSSProperties
 }
 
 const ItemListerTitleBar = ({
-    properties, currentSortAttribute, sortOrder, onSort = () => null
+    properties, currentSortAttribute, sortOrder, gridTemplate, onSort = () => null,
 }: ItemListerTitleBarProps) => {
 
     const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext)
 
-    const generateTitleStyle = () => {
-        let _divide = [];
-        if(isSelectEnabled)
-            _divide = [{ space: '1', }]
-        const propConfigs = properties.filter((p) => !p.isHidden)
-        _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
-        let cols = '';
-        for (const _col of _divide)
-            cols += `minmax(${_col.minWidth || ((Number(_col.space) || 1) * 100) + 'px'}, ${_col.space || 1}fr) `;
-        return { gridTemplateColumns: cols };
-    };
-
     return (
-        <TitleBar style={generateTitleStyle()}>
+        <TitleBar style={gridTemplate}>
             {isSelectEnabled && (
                 <th className="py-3">
                     <div className="flex justify-center h-full items-center text-center">

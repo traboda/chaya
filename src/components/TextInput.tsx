@@ -41,7 +41,7 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   border: 2px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
   
   &:invalid {
-    border-color: crimson!important;
+    border: 2px solid crimson!important;
   }
   
   &:hover {
@@ -50,7 +50,7 @@ const StyledTextInput = styled('input')<StyledTextInput>`
 
   &:focus {
     outline: none!important;
-    border: 2px solid ${({ theme }) => theme.secondary}
+    border: 2px solid ${({ theme }) => theme.secondary}!important;
   }
 `;
 

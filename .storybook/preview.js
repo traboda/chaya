@@ -11,7 +11,7 @@ export const parameters = {
     },
   },
   darkMode: {
-    current: 'dark',
+    current: 'light',
     dark: { ...themes.dark },
     light: { ...themes.light }
   }

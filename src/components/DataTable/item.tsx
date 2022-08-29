@@ -17,12 +17,9 @@ const ListItem = styled.tr<ListItem>`
   & > td {
     border-right: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     border-bottom: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
-  }
-  
-  & > * {
     height: 100%;
     color: ${({ theme }) => theme.color};
-    background: ${({theme, isPinned }) => isPinned ? theme.background : null}
+    background: ${({theme, isPinned }) => isPinned ? theme.background : null};
   }
 
   a {
@@ -47,8 +44,7 @@ export type ItemListerProperty = {
     label: (String | React.ReactNode | React.ReactChildren | React.ReactElement),
     labelClassName?: string,
     value: (self: any, index?: number) => String | React.ReactNode | React.ReactChildren | React.ReactElement,
-    space?: (string|number),
-    minWidth?: string,
+    width?: number,
     link?: (self: any) => string,
     className?: string,
     textAlign?: 'center' | 'left' | 'right',
@@ -61,33 +57,19 @@ type ItemListerItemProps = {
     properties: ItemListerProperty[],
     item?: Partial<{ id: string }>,
     itemIndex?: number,
-    isShaded?: boolean,
     isLoading?: boolean,
     isPinned?: boolean,
-    style?: object,
+    gridTemplate: React.CSSProperties
 };
 
 const ItemListerItem = ({
-    properties, item, itemIndex, isShaded = false, isLoading = false, style = {}, isPinned = false
+    properties, item, itemIndex, gridTemplate, isLoading = false, isPinned = false
 }: ItemListerItemProps) => {
 
     const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext)
 
-    const generateItemStyle = () => {
-        let _divide = [];
-        if(isEnabled)
-            _divide = [{ space: '1', }]
-        const propConfigs = properties.filter((p) => !p.isHidden)
-        _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
-        let cols = '';
-        for(const _col of _divide)
-            cols += `minmax(${_col.minWidth || ((Number(_col.space) || 1) * 100) + 'px'}, ${_col.space || 1}fr) `;
-
-        return { gridTemplateColumns: cols, ...style };
-    };
-
     return (
-        <ListItem isPinned={isPinned} className={isShaded ? `shaded` : ''} style={generateItemStyle()}>
+        <ListItem isPinned={isPinned} style={gridTemplate}>
             {isEnabled && (
                 <td className="px-2">
                     <div className="flex justify-center h-full items-center w-full py-3 text-center">
