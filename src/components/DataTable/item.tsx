@@ -5,13 +5,18 @@ import SkeletonItem from '../SkeletonItem';
 import { link_wrapper } from "../../utils/misc";
 import SelectionContext from "./SelectionContext";
 
-const ListItem = styled.div`
+type ListItem = {
+    isPinned?: boolean,
+};
+
+const ListItem = styled.tr<ListItem>`
   display: grid;
   align-items: center;
   
   & > * {
     height: 100%;
-    color: ${({theme}) => theme.color}
+    color: ${({ theme }) => theme.color};
+    background: ${({theme, isPinned }) => isPinned ? theme.background : null}
   }
 
   &.shaded > * {
@@ -24,7 +29,7 @@ const ListItem = styled.div`
   }
 
   &:hover > * {
-    background: ${({theme}) => theme?.isDarkTheme ? 'rgba(255, 255, 255, 0.2)!important' : 'rgba(100, 100, 100, 0.25)!important'};
+    background: ${({theme, isPinned }) => isPinned ? theme.background : theme?.isDarkTheme ? 'rgba(255, 255, 255, 0.2)!important' : 'rgba(100, 100, 100, 0.25)!important'};
   }
 `;
 
@@ -40,7 +45,7 @@ export type ItemListerProperty = {
     label: (String | React.ReactNode | React.ReactChildren | React.ReactElement),
     labelClassName?: string,
     value: (self: any, index?: number) => String | React.ReactNode | React.ReactChildren | React.ReactElement,
-    space?: string,
+    space?: (string|number),
     minWidth?: string,
     link?: (self: any) => string,
     className?: string,
@@ -56,11 +61,12 @@ type ItemListerItemProps = {
     itemIndex?: number,
     isShaded?: boolean,
     isLoading?: boolean,
+    isPinned?: boolean,
     style?: object,
 };
 
 const ItemListerItem = ({
-    properties, item, itemIndex, isShaded = false, isLoading = false, style = {}
+    properties, item, itemIndex, isShaded = false, isLoading = false, style = {}, isPinned = false
 }: ItemListerItemProps) => {
 
     const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext)
@@ -78,37 +84,43 @@ const ItemListerItem = ({
         return { gridTemplateColumns: cols, ...style };
     };
 
-    return <ListItem className={isShaded ? `shaded` : ''} style={generateItemStyle()}>
-        {isEnabled && (
-            <div className="px-2">
-                <div className="flex justify-center h-full items-center w-full py-3 text-center">
-                    {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> :
-                    <input
-                        type="checkbox"
-                        checked={isSelected(item?.id)}
-                        onChange={() => isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id)}
-                    />}
-                </div>
-            </div>
-        )}
-        {properties?.length > 0 &&
-        properties.filter((p) => !p.isHidden).map((p) => {
-            const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
-            const renderer =
-                <div
-                    key={link ? null : p.id}
-                    className={`py-2 px-3 flex items-center ${p?.className}`}
-                    style={{
-                        textAlign: p.textAlign,
-                        fontSize: p.fontSize
-                    }}
-                >
-                    {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
-                    {link && <i className="fa fa-external-link ml-2" />}
-                </div>;
-            return link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer;
-        })}
-    </ListItem>;
+    return (
+        <ListItem isPinned={isPinned} className={isShaded ? `shaded` : ''} style={generateItemStyle()}>
+            {isEnabled && (
+                <td className="px-2">
+                    <div className="flex justify-center h-full items-center w-full py-3 text-center">
+                        {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> :
+                        <input
+                            type="checkbox"
+                            checked={isSelected(item?.id)}
+                            onChange={() => isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id)}
+                        />}
+                    </div>
+                </td>
+            )}
+            {properties?.length > 0 &&
+            properties.filter((p) => !p.isHidden).map((p) => {
+                const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
+                const renderer = (
+                    <div className={`py-2 px-3 flex items-center ${p?.className}`}>
+                        {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
+                        {link && <i className="fa fa-external-link ml-2" />}
+                    </div>
+                );
+                return (
+                    <td
+                        key={link ? null : p.id}
+                        style={{
+                            textAlign: p.textAlign,
+                            fontSize: p.fontSize,
+                        }}
+                    >
+                        {link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer}
+                    </td>
+                );
+            })}
+        </ListItem>
+    );
 
 };
 

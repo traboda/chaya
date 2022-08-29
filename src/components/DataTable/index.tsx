@@ -101,8 +101,8 @@ const ItemLister = ({
                         >
                             {customTopBarRenderer()}
                         </div>
-                        <div
-                            className="transition-transform"
+                        <table
+                            className="flex flex-col transition-transform"
                             style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : null }}
                         >
                             <div className="sticky z-50" ref={TitleBarRef} style={{ top: titleTopHeight }}>
@@ -111,10 +111,18 @@ const ItemLister = ({
                                     onSort={onSort}
                                     currentSortAttribute={currentSortAttribute}
                                     sortOrder={sortOrder}
-                                    stickyRow={stickyRow}
                                 />
+                                {stickyRow && (
+                                    <ItemListerItem
+                                        isPinned
+                                        isShaded={false}
+                                        properties={properties}
+                                        item={stickyRow}
+                                        itemIndex={-1}
+                                    />
+                                )}
                             </div>
-                            <div className="flex flex-col">
+                            <tbody>
                                 {items?.length > 0 && items.map((i, index) =>
                                     <ItemListerItem
                                         key={i.id ? i.id : nanoid()}
@@ -124,22 +132,22 @@ const ItemLister = ({
                                         itemIndex={index}
                                     />
                                 )}
-                                {isLoading && Array(10).fill(0).map((_n, index) =>
-                                    <ItemListerItem
-                                        key={nanoid()}
-                                        isShaded={index % 2 === 0}
-                                        properties={properties}
-                                        isLoading
-                                    />
-                                )}
-                            </div>
+                            </tbody>
+                            {isLoading && Array(10).fill(0).map((_n, index) =>
+                                <ItemListerItem
+                                    key={nanoid()}
+                                    isShaded={index % 2 === 0}
+                                    properties={properties}
+                                    isLoading
+                                />
+                            )}
                             <InfiniteLoader
                                 loadable={loadable}
                                 canLoadMore={canLoadMore}
                                 isLoading={isLoading}
                                 onLoadMore={onLoadMore}
                             />
-                        </div>
+                        </table>
                     </div>
                 )}
             </div>

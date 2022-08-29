@@ -3,12 +3,9 @@ import React from 'react';
 import { Meta, Story, addDecorator } from '@storybook/react';
 import { Card } from '../src';
 import Button from "../src/components/Button";
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+import ThemeContextDecorator from "../src/themeDecorator";
+
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Basic Elements/Card',
@@ -48,36 +45,11 @@ Default.args = {
     className: 'm-10'
 }
 
-const DarkVars: Story = args => (
-    <ThemeContext isDarkTheme>
-        <div style={{ padding: '1rem', background: '#333' }}>
-            <Card {...args}>
-                {args.children}
-                <Card>
-                    <h1>Child Card</h1>
-                    <Card>
-                        <h1>Grand Child Card</h1>
-                    </Card>
-                </Card>
-            </Card>
-        </div>
-    </ThemeContext>
-);
-
-export const DarkThemeVariants = DarkVars.bind({});
-
-
-DarkThemeVariants.args = {
-    title: 'Hello World',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    className: 'm-10'
-};
-
 const DesignTemplate: Story = args => (
     // @ts-ignore
     <Card {...args}>
         {args.children}
-        <Button className="mt-10" variant='primary'>Press here</Button>
+        <Button className="mt-10" color="primary">Press here</Button>
     </Card>
 );
 

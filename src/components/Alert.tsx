@@ -51,7 +51,7 @@ const get_color_by_type = (type, isDark) => {
             case 'info': return '#90E0EF';
             case 'warning': return '#ffeedb';
             case 'danger': return '#fac8df';
-            default: return '#eee';
+            default: return '#FFF';
         }
     } else {
         switch (type) {
@@ -59,7 +59,7 @@ const get_color_by_type = (type, isDark) => {
             case 'info': return '#31708f';
             case 'warning': return '#8a6d3b';
             case 'danger': return '#c20101';
-            default: return '#333';
+            default: return '#111';
         }
     }
 }

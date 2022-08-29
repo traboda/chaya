@@ -1,3 +1,4 @@
+import { themes } from '@storybook/theming';
 import "../src/index.css"
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
@@ -9,6 +10,9 @@ export const parameters = {
       order: ['Intro','*'],
     },
   },
+  darkMode: {
+    current: 'dark',
+    dark: { ...themes.dark },
+    light: { ...themes.light }
+  }
 };
-
-

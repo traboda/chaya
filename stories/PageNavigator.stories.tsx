@@ -2,13 +2,9 @@ import React, {useState} from 'react';
 import { Meta, Story, addDecorator } from '@storybook/react';
 
 import {PageNavigator} from '../src';
-import ThemeContext from "../src/ThemeProvider";
+import ThemeContextDecorator from "../src/themeDecorator";
 
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Layouts/Page Navigator',

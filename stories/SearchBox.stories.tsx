@@ -2,13 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { SearchBox } from '../src';
-import ThemeContext from "../src/ThemeProvider";
+import ThemeContextDecorator from "../src/themeDecorator";
 
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'User Inputs/SearchBox',
