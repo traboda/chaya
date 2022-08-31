@@ -2,12 +2,14 @@ import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
 import { link_wrapper } from "../utils/misc";
+import Badge from "./Badge";
 
 export type TabItemObject =  {
     name?: string
     label?: string
     key?: string,
     type?: ('section')
+    badge?: string,
     isInitial?: boolean
     renderer?: React.ReactElement
     rendererFunc?: () => React.ReactElement
@@ -117,13 +119,16 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <React.Fragment>
-            {t.iconClassName && (
-                <i className={t.iconClassName} style={{ marginRight: '8px' }} />
-            )}
-            {t.iconRenderer || null}
-            <span className={t.labelClassName}>{t.label}</span>
-        </React.Fragment>
+        <div className="flex-col">
+            <div className="float-left">
+                {t.iconClassName && (
+                    <i className={t.iconClassName} style={{ marginRight: '8px' }} />
+                )}
+                {t.iconRenderer || null}
+                <span className={t.labelClassName}>{t.label}</span>
+            </div>
+            <Badge className="ml-1.5 rounded-xl" color={t?.key === currentTab ? "contrast" : "primary"} variant="minimal">{t.badge}</Badge>
+        </div>
     );
 
     const render_panels = () => tabItems?.length > 0 ?
