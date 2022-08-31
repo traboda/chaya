@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
 import { link_wrapper } from "../utils/misc";
+import SimpleSelect from "./SimpleSelect";
 import Badge from "./Badge";
 
 export type TabItemObject =  {
@@ -35,6 +36,7 @@ export type Tabs = {
     menuButtonClassName?: string,
     initialKey?: string,
     isVertical?: boolean,
+    disableResponsive?: boolean,
     alignCenter?: boolean
 };
 
@@ -87,7 +89,7 @@ const VerticalTabSelector = styled(TabBase)`
 const Tabs = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
- alignCenter,  onChange = () => {}
+ alignCenter,  onChange = () => {}, disableResponsive = false,
 }: Tabs) => {
 
     const tabID = `tab-${nanoid()}`;
@@ -223,22 +225,80 @@ const Tabs = ({
         ))
     );
 
+    const VerticalSelector = () => (
+        <VerticalTabSelector
+            role="tablist"
+            aria-orientation="vertical"
+            className={`sticky list-none top-0 ${menuClassName}`}
+        >
+            {render_tabs()}
+        </VerticalTabSelector>
+    );
+
+    const HorizontalSelector = () => (
+        <HorizontalTabSelector
+            role="tablist"
+            aria-orientation="horizontal"
+            className={`list-none ${menuClassName}`}
+        >
+            {render_tabs()}
+        </HorizontalTabSelector>
+    );
+
+    const ResponsiveSelector = () => (
+        <SimpleSelect
+            labels={{
+                placeholder: 'Select Tab'
+            }}
+            required
+            className="mb-3 border-4 font-semibold rounded-lg"
+            value={currentTab}
+            name="tab"
+            options={tabItems.filter((t) => !t.hidden).map((t) => ({value: t.key, label: t.label}))}
+            onChange={(key) => {
+                const tab = tabItems.find((t) => t.key === key);
+                if (tab?.onClick && typeof tab.onClick === "function") {
+                    tab.onClick()
+                }
+                setTab(key.toString());
+            }}
+        />
+    )
+
     return isVertical ? (
         <div className={`flex flex-wrap mx-0 ${className}`}>
-            <div className="md:w-1/5 p-0">
-                <VerticalTabSelector role="tablist" aria-orientation="vertical" className={`sticky list-none top-0 ${menuClassName}`}>
-                    {render_tabs()}
-                </VerticalTabSelector>
+            <div className="w-full md:w-1/5 p-0">
+                {!disableResponsive ? (
+                    <React.Fragment>
+                        <div className="hidden md:block">
+                            <VerticalSelector />
+                        </div>
+                        <div className="block md:hidden">
+                            <ResponsiveSelector />
+                        </div>
+                    </React.Fragment>
+                ) : (
+                    <VerticalSelector />
+                )}
             </div>
-            <div className={`md:w-4/5 pr-4 pl-4 ${bodyClassName}`}>
+            <div className={`w-full md:w-4/5 pr-4 pl-4 ${bodyClassName}`}>
                 {render_panels()}
             </div>
         </div>
     ) : (
         <div className={`${alignCenter ? 'flex flex-col items-center' : 'px-0'} ${className}`}>
-            <HorizontalTabSelector role="tablist" aria-orientation="horizontal" className={`list-none ${menuClassName}`}>
-                {render_tabs()}
-            </HorizontalTabSelector>
+            {!disableResponsive ? (
+                <React.Fragment>
+                    <div className="hidden md:block">
+                        <HorizontalSelector />
+                    </div>
+                    <div className="block md:hidden">
+                        <ResponsiveSelector />
+                    </div>
+                </React.Fragment>
+            ) : (
+                <HorizontalSelector />
+            )}
             <div className={`py-3 ${bodyClassName}`}>
                 {render_panels()}
             </div>

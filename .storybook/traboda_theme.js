@@ -1,7 +1,7 @@
 import { create } from '@storybook/theming';
 
 export default create({
-    base: 'light',
+    base: 'dark',
     brandTitle: 'Traboda DSR',
-    brandUrl: 'https://app.traboda.com',
+    brandUrl: 'https://dsr.traboda.com',
 });

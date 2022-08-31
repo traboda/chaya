@@ -30,6 +30,7 @@ type ItemListerProps = {
     customTopBarRenderer?: () => React.ReactElement,
     loadable?: boolean,
     stickyRow?: object,
+    widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
 }
 
 const ItemLister = ({
@@ -41,7 +42,7 @@ const ItemLister = ({
     onLoadMore = () => {}, maxHeight = null,
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
-    stickyRow = null,
+    stickyRow = null, widthUnit = 'px'
 }: ItemListerProps) => {
 
     const { background } = useTheme();
@@ -76,6 +77,18 @@ const ItemLister = ({
         }
     }, [!isLoading && items?.length === 0]);
 
+    const gridTemplate = (() => {
+        let _divide = [];
+        if(allowSelection) _divide.push({ width: 60, });
+        const propConfigs = properties.filter((p) => !p.isHidden)
+        _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
+        let cols = '';
+        for(const _col of _divide)
+            cols += _col?.width ? `${_col.width}${widthUnit} ` : '100px ';
+
+        return { gridTemplateColumns: cols };
+    })();
+
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
             <div>
@@ -101,8 +114,8 @@ const ItemLister = ({
                         >
                             {customTopBarRenderer()}
                         </div>
-                        <div
-                            className="transition-transform"
+                        <table
+                            className="flex flex-col transition-transform"
                             style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : null }}
                         >
                             <div className="sticky z-50" ref={TitleBarRef} style={{ top: titleTopHeight }}>
@@ -111,35 +124,44 @@ const ItemLister = ({
                                     onSort={onSort}
                                     currentSortAttribute={currentSortAttribute}
                                     sortOrder={sortOrder}
-                                    stickyRow={stickyRow}
+                                    gridTemplate={gridTemplate}
                                 />
+                                {stickyRow && (
+                                    <ItemListerItem
+                                        isPinned
+                                        properties={properties}
+                                        item={stickyRow}
+                                        itemIndex={-1}
+                                        gridTemplate={gridTemplate}
+                                    />
+                                )}
                             </div>
-                            <div className="flex flex-col">
+                            <tbody>
                                 {items?.length > 0 && items.map((i, index) =>
                                     <ItemListerItem
                                         key={i.id ? i.id : nanoid()}
-                                        isShaded={index % 2 === 0}
                                         properties={properties}
                                         item={i}
                                         itemIndex={index}
+                                        gridTemplate={gridTemplate}
                                     />
                                 )}
-                                {isLoading && Array(10).fill(0).map((_n, index) =>
-                                    <ItemListerItem
-                                        key={nanoid()}
-                                        isShaded={index % 2 === 0}
-                                        properties={properties}
-                                        isLoading
-                                    />
-                                )}
-                            </div>
+                            </tbody>
+                            {isLoading && Array(10).fill(0).map((_n) =>
+                                <ItemListerItem
+                                    key={nanoid()}
+                                    properties={properties}
+                                    isLoading
+                                    gridTemplate={gridTemplate}
+                                />
+                            )}
                             <InfiniteLoader
                                 loadable={loadable}
                                 canLoadMore={canLoadMore}
                                 isLoading={isLoading}
                                 onLoadMore={onLoadMore}
                             />
-                        </div>
+                        </table>
                     </div>
                 )}
             </div>

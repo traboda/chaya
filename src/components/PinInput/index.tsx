@@ -45,32 +45,47 @@ const PinInput = ({
         setInvalid(false);
     };
 
-    const onKeyDown = (event, index) => {
+    const selectDigit = (index) => {
         const elems = inputs.current.children;
+        elems[index].focus();
+        elems[index].select()
+    }
 
-        if (
-            (type === 'number' ? false : (event.keyCode >= 65 && event.keyCode <= 90)) || // type letters
-            (event.keyCode >= 48 && event.keyCode <= 57) ||
-            (event.keyCode >= 96 && event.keyCode <= 105) ||
-            event.keyCode === 8
-        ) {
-            const char = event.keyCode === 8 ? '' : `${event.key}`;
-            const newValue = value.substr(0, index) + (char[char.length - 1] ?? '') + value.substr(index + 1);
-            onChange(newValue.trim().slice(0, digits));
-
-            if (char[char.length - 1] && index !== elems.length - 1)
-                elems[index + 1].focus();
+    const onChangeVal = (_val = '', index) => {
+        if(_val && typeof value === 'string') {
+            const newVal = value.split('');
+            newVal[index] = (index === digits-1) ? _val[_val.length-1] : _val[0];
+            onChange(newVal.join('').trim().slice(0, digits));
+            if (_val && index !== digits-1)
+                selectDigit(index + 1);
         }
+    };
 
+    const onKeyDown = (event, index) => {
         if (event.key === 'Backspace') {
-            if (index === 0) elems[index].focus();
-            else elems[index - 1].focus();
+            // remove current digit
+            const newValue = value.substr(0, index) + value.substr(index + 1);
+            onChange(newValue.trim().slice(0, digits));
+            // focus back to previous digit
+            if (index === 0) selectDigit(index);
+            else selectDigit(index - 1);
+        } else if (event.key === 'Delete') {
+            // current next digit, no change in focus
+            const newValue = value.substr(0, index+1) + value.substr(index + 2);
+            onChange(newValue.trim().slice(0, digits));
         } else if (event.key === 'ArrowLeft') {
-            if (index === 0) elems[elems.length - 1].focus();
-            else elems[index - 1].focus();
+            if(typeof value === 'string' && index - 1 < value.length) {
+                if (index === 0 && value.length === digits) {
+                    selectDigit(digits-1);
+                } else {
+                    selectDigit(index-1);
+                }
+            }
         } else if (event.key === 'ArrowRight') {
-            if (index === elems.length - 1) elems[0].focus();
-            else elems[index + 1].focus();
+            if(typeof value === 'string' && value?.length > index) {
+                if (index === digits-1) selectDigit(0);
+                else selectDigit(index + 1);
+            }
         }
     };
 
@@ -116,6 +131,7 @@ const PinInput = ({
                         mask={mask}
                         ariaLabelledBy={`${inputID}-label`}
                         value={value[i] ?? ''}
+                        onChange={(value) => onChangeVal(value,i)}
                         onKeyDown={e => onKeyDown(e, i)}
                         placeholder={labels?.placeholder?.[i] ?? ''}
                         invalid={_isInvalid}

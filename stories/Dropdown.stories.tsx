@@ -2,12 +2,9 @@ import React, {useState} from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { Dropdown } from '../src';
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+import ThemeContextDecorator from "../src/themeDecorator";
+
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Content Handlers/Dropdown',

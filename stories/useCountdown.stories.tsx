@@ -2,13 +2,9 @@ import React, {useEffect} from 'react'
 
 import { Meta, Story, addDecorator } from '@storybook/react';
 import {useCountdown} from '../src';
-import ThemeContext from "../src/ThemeProvider";
+import ThemeContextDecorator from "../src/themeDecorator";
 
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Hooks/useCountdown',

@@ -2,13 +2,9 @@ import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { Modal } from '../src';
+import ThemeContextDecorator from "../src/themeDecorator";
 
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 
 const meta: Meta = {
@@ -76,7 +72,9 @@ const Template: Story = args => {
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
             {/* @ts-ignore */}
             <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <p>{lorem}</p>
+                <div style={{ padding: '1rem' }}>
+                    <p>{lorem}</p>
+                </div>
             </Modal>
         </div>
     );
@@ -87,43 +85,7 @@ export const Default = Template.bind({});
 Default.args = {
     isOpen: true,
     onClose: () => {},
-    title: 'Create Challenge',
-    contentClassName: 'p-4'
-};
-
-
-const DarkTemplate: Story = args => {
-
-    const [isOpen, setIsOpen] = React.useState(args.isOpen);
-
-    React.useEffect(() => {
-        setIsOpen(args.isOpen);
-    }, [args.isOpen]);
-
-    return (
-        <ThemeContext isDarkTheme>
-            <div className="bg-gray-900 text-white flex justify-center items-center p-4">
-                <div>
-                    <button onClick={() => setIsOpen(true)}>
-                        open
-                    </button>
-                    {Array(8).fill(lorem).map(l => <p>{l}</p>)}
-                    {/* @ts-ignore */}
-                    <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                        <p>{lorem}</p>
-                    </Modal>
-                </div>
-            </div>
-        </ThemeContext>
-    );
-}
-
-export const DarkTheme = DarkTemplate.bind({});
-
-DarkTheme.args = {
-    isOpen: true,
-    onClose: () => {},
-    title: 'Create Challenge',
+    title: 'Some Notice',
     contentClassName: 'p-4'
 };
 
@@ -133,12 +95,13 @@ export const WithButtons = Template.bind({});
 WithButtons.args = {
     isOpen: true,
     onClose: () => {},
-    title: 'Create Challenge',
+    title: 'Delete Challenge',
     contentClassName: 'p-4',
     primaryButton: {
-        children: 'Create',
+        children: 'Delete',
+        color: 'danger',
         onClick: () => {
-            console.log('create')
+            console.log('delete')
         }
     },
     secondaryButton: {

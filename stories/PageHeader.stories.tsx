@@ -2,12 +2,9 @@ import React from 'react';
 
 import { Meta, Story, addDecorator } from '@storybook/react';
 import { PageHeader, Button } from '../src';
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+import ThemeContextDecorator from "../src/themeDecorator";
+
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Layouts/Page Header',

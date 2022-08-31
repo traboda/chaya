@@ -28,7 +28,7 @@ const TextContainer = styled.div`
 `;
 
 type StyledTextInput = {
-    hasErrors: boolean
+    invalid?: boolean
 }
 
 const StyledTextInput = styled('input')<StyledTextInput>`
@@ -38,15 +38,19 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   color: ${({ theme }) => theme.color};
   padding: 0.5rem;
   border-radius: 8px;
-  border: 2px solid hsla(0, 0%, 40%, .7);
-
+  border: 2px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
+  
+  &:invalid {
+    border: 2px solid crimson!important;
+  }
+  
   &:hover {
     border-color: hsla(0, 0%, 80%, .8);
   }
 
   &:focus {
-    outline: none !important;
-    border: 2px solid ${({ theme }) => theme.secondary}
+    outline: none!important;
+    border: 2px solid ${({ theme }) => theme.secondary}!important;
   }
 `;
 
@@ -76,6 +80,7 @@ type TextInput = {
     value: (string | number)
     required?: boolean
     disabled?: boolean
+    invalid?: boolean
     inputClassName?: string
     inputStyle?: React.CSSProperties
     rows?: number
@@ -83,7 +88,6 @@ type TextInput = {
     errorText?: string
     description?: string
     hideLabel?: boolean
-    alwaysShowLabel?: boolean
     min?: number
     max?: number
     spellCheck?: ('off' | 'on')
@@ -104,7 +108,7 @@ type TextInput = {
 const TextInput = ({
    id, label, name, placeholder, value: val, charLimit = null,
    className, style, hideLabel = false,
-   required = false, disabled = false, autoFocus = false,
+   required = false, disabled = false, invalid = false, autoFocus = false,
    rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min = null, max = null,
    inputStyle, inputClassName, type, errorText, description, postfixRenderer,
    onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
@@ -188,7 +192,7 @@ const TextInput = ({
                 // @ts-ignore
                 rows={type === 'textarea' ? rows : null}
                 {...props}
-                hasErrors={!!errorText}
+                invalid={invalid || !!errorText}
                 className={`text-lg ${inputClassName}`}
                 onKeyDown={onKeyDown}
             />

@@ -21,12 +21,12 @@ type SwitchProps = {
 }
 
 const variants = {
-    "primary": 'primary',
-    "secondary": 'secondary',
-    "success": 'green-500',
-    "danger": 'red-500',
-    "warning": 'yellow-400',
-    "transparent": 'inherit'
+    "primary": 'bg-primary',
+    "secondary": 'bg-secondary',
+    "success": 'bg-green-500',
+    "danger": 'bg-red-500',
+    "warning": 'bg-yellow-400',
+    "transparent": 'bg-inherit'
 };
 
 const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', disabled = false }: SwitchProps) => {
@@ -50,7 +50,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                 </label>
             )}
             <SwitchContainer
-                className={`inline-block rounded-full shadow-inner ${value && `bg-${variants[variant]}`} ${disabled && 'cursor-not-allowed'}`}
+                className={`inline-block rounded-full shadow-inner ${value && variants[variant]} ${disabled && 'cursor-not-allowed'}`}
                 style={{ height: size, width: size * 2 }}
             >
                 <input

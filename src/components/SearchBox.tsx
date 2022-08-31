@@ -36,6 +36,7 @@ type SearchBox = {
         label?: string,
         placeholder?: string
     },
+    onClear?: () => void,
     onSearch?: (keyword: string) => void,
     onKeyDown?: (e) => void,
     inputStyle?: React.CSSProperties,
@@ -52,7 +53,8 @@ const defaultIcons = {
 
 const SearchBox = ({
    keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = '',
-   labels: labelProps, onSearch = () => {}, onKeyDown = () => () => {}, icons: _icons = null, autoFocus = false,
+   labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
+   icons: _icons = null, autoFocus = false,
 }: SearchBox) => {
 
     const icons = {...defaultIcons, ..._icons};
@@ -89,6 +91,7 @@ const SearchBox = ({
                                     onClick={() => {
                                         setKeyword('');
                                         onSearch('');
+                                        onClear();
                                     }}
                                 >
                                     {icons.clear}

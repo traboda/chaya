@@ -10,10 +10,10 @@ const OTPInput = styled.input<OTPInputWrapProps>`
   background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)' };
   border: 0;
   color: ${({ theme }) => theme.color};
-  outline: ${({ isInvalid }) => isInvalid ? '2px solid red' : null};
+  outline: 2px solid ${({ isInvalid }) => isInvalid ? 'red' : 'hsla(0, 0%, 40%, .7)'};
 
   &:focus {
-    outline: ${({ theme, isDisabled }) => !isDisabled ? `2px solid ${theme.secondary}` : 'none'};
+    outline-color: ${({ theme, isDisabled }) => !isDisabled ? `${theme.secondary}` : 'hsla(0, 0%, 40%, .7)'};
   }
 
   &::-webkit-outer-spin-button,
@@ -27,7 +27,10 @@ const OTPInput = styled.input<OTPInputWrapProps>`
   }
 `;
 
-const PinDigit = ({ type = 'text', id, ariaLabelledBy, mask, value, onKeyDown, placeholder, invalid, disabled, required, className }) => (
+const PinDigit = ({
+  type = 'text', id, ariaLabelledBy, mask, value, onChange,
+  onKeyDown, placeholder, invalid, disabled, required, className
+}) => (
     <OTPInput
         id={id}
         autoComplete="off"
@@ -36,6 +39,7 @@ const PinDigit = ({ type = 'text', id, ariaLabelledBy, mask, value, onKeyDown, p
         type={mask ? "password" : type}
         inputMode={type === 'number' ? 'numeric' : 'text'}
         value={value}
+        onChange={(e) => onChange(e.currentTarget.value)}
         onKeyDown={(e) => !disabled ? onKeyDown(e) : null}
         placeholder={placeholder}
         isInvalid={invalid}
