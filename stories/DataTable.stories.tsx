@@ -299,7 +299,7 @@ const OverflowTemplate: Story = args => (
         items={ITEMS}
         maxHeight="380px"
         allowSelection
-        properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))}
+        properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 'auto' : c?.width }))}
         stickyRow={{
             "id": "55",
             "name": "Attack matter ball budget pattern.",

@@ -83,9 +83,14 @@ const ItemLister = ({
         const propConfigs = properties.filter((p) => !p.isHidden)
         _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
         let cols = '';
-        for(const _col of _divide)
-            cols += _col?.width ? `${_col.width}${widthUnit} ` : '100px ';
-
+        let flag = true;
+        for(const _col of _divide) {
+            if(flag && _col?.width==='auto') {
+                cols += 'auto ';
+                flag = false;
+            }else
+                cols += _col?.width ? `${_col.width}${widthUnit} ` : '100px ';
+        }
         return { gridTemplateColumns: cols };
     })();
 
