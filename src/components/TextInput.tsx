@@ -39,11 +39,12 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   padding: 0.5rem;
   border-radius: 8px;
   border: 2px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
-  
-  &:invalid {
+
+  &:not(:focus):is([type="number"]):not(:placeholder-shown):invalid, 
+  &:not(:focus):not([type="number"]):not([value=""]):not(:placeholder-shown):invalid{
     border: 2px solid crimson!important;
   }
-  
+
   &:hover {
     border-color: hsla(0, 0%, 80%, .8);
   }
@@ -192,7 +193,7 @@ const TextInput = ({
                 // @ts-ignore
                 rows={type === 'textarea' ? rows : null}
                 {...props}
-                invalid={value !== '' && (invalid || !!errorText)}
+                invalid={invalid || !!errorText}
                 className={`text-lg ${inputClassName}`}
                 onKeyDown={onKeyDown}
             />
