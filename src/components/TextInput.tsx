@@ -192,7 +192,7 @@ const TextInput = ({
                 // @ts-ignore
                 rows={type === 'textarea' ? rows : null}
                 {...props}
-                invalid={invalid || !!errorText}
+                invalid={value !== '' && (invalid || !!errorText)}
                 className={`text-lg ${inputClassName}`}
                 onKeyDown={onKeyDown}
             />
