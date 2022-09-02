@@ -9,8 +9,8 @@ export type TabItemObject =  {
     name?: string
     label?: string
     key?: string,
-    type?: ('section')
-    badge?: string,
+    type?: ('section'),
+    badge?: (isTabActive: boolean) => Badge,
     isInitial?: boolean
     renderer?: React.ReactElement
     rendererFunc?: () => React.ReactElement
@@ -121,16 +121,14 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <div className="flex-col">
-            <div className="float-left">
-                {t.iconClassName && (
-                    <i className={t.iconClassName} style={{ marginRight: '8px' }} />
-                )}
-                {t.iconRenderer || null}
-                <span className={t.labelClassName}>{t.label}</span>
-            </div>
-            <Badge className="ml-1.5 rounded-xl" color={t?.key === currentTab ? "contrast" : "primary"} variant="minimal">{t.badge}</Badge>
-        </div>
+        <React.Fragment>
+            {t.iconClassName && (
+                <i className={t.iconClassName} style={{ marginRight: '8px' }} />
+            )}
+            {t.iconRenderer || null}
+            <span className={t.labelClassName}>{t.label}</span>
+            {t.badge && t.badge(t?.key == currentTab)}
+        </React.Fragment>
     );
 
     const render_panels = () => tabItems?.length > 0 ?
