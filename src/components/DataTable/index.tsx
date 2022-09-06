@@ -84,7 +84,7 @@ const ItemLister = ({
         _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
         let cols = '';
         for(const _col of _divide)
-            cols += _col?.width ? `${_col.width}${widthUnit} ` : '100px ';
+            cols += _col?.width ? `${_col.width}${widthUnit} ` : _col?.fill ? 'auto' : '100px ';
 
         return { gridTemplateColumns: cols };
     })();

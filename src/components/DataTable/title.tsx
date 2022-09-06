@@ -18,7 +18,6 @@ const TitleBar = styled.tr`
     height: 100%;
     background: ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.primaryTextColor};
-    border-right: 2px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     border-bottom: 2px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
   }
 `;

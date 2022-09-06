@@ -15,7 +15,6 @@ const ListItem = styled.tr<ListItem>`
   align-items: center;
   
   & > td {
-    border-right: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     border-bottom: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     height: 100%;
     color: ${({ theme }) => theme.color};
@@ -45,6 +44,7 @@ export type ItemListerProperty = {
     labelClassName?: string,
     value: (self: any, index?: number) => String | React.ReactNode | React.ReactChildren | React.ReactElement,
     width?: number,
+    fill?: boolean,
     link?: (self: any) => string,
     className?: string,
     textAlign?: 'center' | 'left' | 'right',
@@ -86,14 +86,15 @@ const ItemListerItem = ({
             properties.filter((p) => !p.isHidden).map((p) => {
                 const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
                 const renderer = (
-                    <div className={`py-2 px-3 flex items-center ${p?.className}`}>
+                    <React.Fragment>
                         {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                         {link && <i className="fa fa-external-link ml-2" />}
-                    </div>
+                    </React.Fragment>
                 );
                 return (
                     <td
                         key={link ? null : p.id}
+                        className={`py-2 px-3 flex items-center ${p?.className}`}
                         style={{
                             textAlign: p.textAlign,
                             fontSize: p.fontSize,
