@@ -171,7 +171,7 @@ const columns = [
     {
         'id': 'name',
         'label': 'Name',
-        width: 350,
+        fill: true,
         'link': (i) => `#${i.id}`,
         'value': (i) => <div>
             {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}

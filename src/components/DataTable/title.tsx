@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import styled from '@emotion/styled';
 import classNames from 'classnames';
 import Color from 'color';
@@ -27,17 +27,24 @@ type ItemListerTitleBarProps = {
     onSort: (attribute: string, order: ('asc' | 'desc' | null)) => void,
     currentSortAttribute: string,
     sortOrder: 'asc' | 'desc' | null,
-    gridTemplate: React.CSSProperties
+    gridTemplate: React.CSSProperties,
+    setWidth?: (_width: number) => void
 }
 
 const ItemListerTitleBar = ({
-    properties, currentSortAttribute, sortOrder, gridTemplate, onSort = () => null,
+    properties, currentSortAttribute, sortOrder, gridTemplate, onSort = () => null, setWidth = (_w) => {}
 }: ItemListerTitleBarProps) => {
 
     const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext)
 
+    const barRef = useRef<HTMLTableRowElement>();
+
+    useEffect(() => {
+        setWidth(barRef.current.offsetWidth);
+    }, [barRef])
+
     return (
-        <TitleBar style={gridTemplate}>
+        <TitleBar ref={barRef} style={gridTemplate}>
             {isSelectEnabled && (
                 <th className="py-3">
                     <div className="flex justify-center h-full items-center text-center">
