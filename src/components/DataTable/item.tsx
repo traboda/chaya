@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 import Color from "color";
+import classNames from 'classnames';
 
 import SkeletonItem from '../SkeletonItem';
 import { link_wrapper } from "../../utils/misc";
@@ -19,6 +20,12 @@ const ListItem = styled.tr<ListItem>`
     height: 100%;
     color: ${({ theme }) => theme.color};
     background: ${({theme, isPinned }) => isPinned ? theme.background : null};
+    a {
+      &:hover {
+        color: ${({ theme }) => theme.secondary} !important;
+        text-decoration: underline;
+      }
+    }
   }
 
   a {
@@ -28,13 +35,6 @@ const ListItem = styled.tr<ListItem>`
 
   &:hover > * {
     background: ${({theme, isPinned }) => isPinned ? theme.background : theme?.isDarkTheme ? 'rgba(255, 255, 255, 0.2)!important' : 'rgba(100, 100, 100, 0.25)!important'};
-  }
-`;
-
-const LinkWrap = styled.a`
-  &:hover {
-    color: ${({ theme }) => theme.secondary} !important;
-    text-decoration: underline;
   }
 `;
 
@@ -86,21 +86,21 @@ const ItemListerItem = ({
             properties.filter((p) => !p.isHidden).map((p) => {
                 const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
                 const renderer = (
-                    <React.Fragment>
+                    <span className="flex items-center">
                         {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                         {link && <i className="fa fa-external-link ml-2" />}
-                    </React.Fragment>
+                    </span>
                 );
                 return (
                     <td
                         key={link ? null : p.id}
-                        className={`py-2 px-3 flex items-center ${p?.className}`}
+                        className={classNames('py-2 px-3 flex items-center', p?.className)}
                         style={{
                             textAlign: p.textAlign,
                             fontSize: p.fontSize,
                         }}
                     >
-                        {link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer}
+                        {link ? link_wrapper(link, renderer) : renderer}
                     </td>
                 );
             })}

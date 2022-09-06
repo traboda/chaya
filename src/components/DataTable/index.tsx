@@ -86,7 +86,7 @@ const ItemLister = ({
             if (!property.fill)
                 usedWidth += property?.width ? property.width : 100;
         });
-        return tableWidth - usedWidth;
+        return Math.max(tableWidth - usedWidth, 200);
     }
 
     const gridTemplate = (() => {
