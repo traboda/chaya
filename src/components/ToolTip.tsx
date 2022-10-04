@@ -10,9 +10,9 @@ const ToolTipContainer = styled('div')`
 const ToolTipWrapper = styled('div')`
   position: absolute;
   border-radius: 0.75rem;
-  padding: 0.5rem;
-  color: black;
-  background: white;
+  padding: 0.75rem;
+  color: ${({theme}) => theme.color};
+  background: ${({theme}) => theme.background};
   z-index: 9000;
   white-space: nowrap;
   opacity: 1 !important;

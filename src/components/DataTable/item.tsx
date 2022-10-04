@@ -28,11 +28,14 @@ const ListItem = styled.div`
   }
 `;
 
-const LinkWrap = styled.a`
-  &:hover {
-    color: ${({ theme }) => theme.secondary} !important;
-    text-decoration: underline;
+const CellRenderer = styled('div')`
+  a {
+    &:hover {
+      color: ${({ theme }) => theme.secondary} !important;
+      text-decoration: underline;
+    }
   }
+
 `;
 
 export type ItemListerProperty = {
@@ -94,10 +97,9 @@ const ItemListerItem = ({
         {properties?.length > 0 &&
         properties.filter((p) => !p.isHidden).map((p) => {
             const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
-            const renderer =
+            const renderer = (
                 <div
-                    key={link ? null : p.id}
-                    className={`py-2 px-3 flex items-center ${p?.className}`}
+                    className={`py-2 px-3 inline-flex items-center ${p?.className || ''}`}
                     style={{
                         textAlign: p.textAlign,
                         fontSize: p.fontSize
@@ -105,8 +107,20 @@ const ItemListerItem = ({
                 >
                     {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                     {link && <i className="fa fa-external-link ml-2" />}
-                </div>;
-            return link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer;
+                </div>
+            );
+            return (
+                <CellRenderer
+                    key={link ? null : p.id}
+                    onClick={() => {
+                        if(isEnabled) {
+                            isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id);
+                        }
+                    }}
+                >
+                    {link ? link_wrapper(link, renderer) : renderer}
+                </CellRenderer>
+            );
         })}
     </ListItem>;
 
