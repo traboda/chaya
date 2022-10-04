@@ -83,7 +83,7 @@ const ItemLister = ({
         let usedWidth = 0;
         if(allowSelection) usedWidth += 60;
         properties.forEach((property) => {
-            if (!property.fill)
+            if (!property.fill && !property?.isHidden)
                 usedWidth += property?.width ? property.width : 100;
         });
         return Math.max(tableWidth - usedWidth, 200);
