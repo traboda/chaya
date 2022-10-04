@@ -100,8 +100,6 @@ const ItemLister = ({
         return { gridTemplateColumns: cols };
     })();
 
-    console.log(tableWidth);
-
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
             <div>

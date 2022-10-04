@@ -74,8 +74,10 @@ const ItemListerTitleBar = ({
                                 </div>
                             </div>
                         ) : (
-                            <div className={classNames('px-3', p?.labelClassName)}
-                                 style={{ width: 'auto', fontWeight: 600 }}>
+                            <div
+                                className={classNames('flex items-center px-3', p?.labelClassName)}
+                                style={{ width: 'auto', fontWeight: 600 }}
+                            >
                                 {p.label}
                             </div>
                         )}
