@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { Drawer } from '../src';
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+import ThemeContextDecorator from "../src/themeDecorator";
+
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Overlays/Drawer',
@@ -42,7 +39,9 @@ const Template: Story = args => {
             {Array(8).fill(lorem).map(l => <p>{l}</p>)}
             {/* @ts-ignore */}
             <Drawer {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                {Array(1).fill(lorem).map(l => <p>{l}</p>)}
+                <div style={{ padding: '1rem' }}>
+                    {Array(1).fill(lorem).map(l => <p>{l}</p>)}
+                </div>
             </Drawer>
         </div>
     );

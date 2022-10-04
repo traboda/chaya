@@ -2,14 +2,9 @@ import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { DataTable } from '../src';
+import ThemeContextDecorator from "../src/themeDecorator";
 
-import ThemeContext from "../src/ThemeProvider";
-
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Content Handlers/Data Table',
@@ -172,6 +167,64 @@ const ITEMS = [
 
 export default meta;
 
+const columns = [
+    {
+        'id': 'name',
+        'label': 'Name',
+        fill: true,
+        'link': (i) => `#${i.id}`,
+        'value': (i) => <div>
+            {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}
+            {i.name}
+        </div>,
+        'allowSort': true,
+    },
+    {
+        'id': 'category',
+        'label': 'Category',
+        width: 150,
+        'value': (i) => i.category?.name,
+        'allowSort': true,
+    },
+    {
+        'id': 'difficultyLevel',
+        'label': 'Difficulty',
+        width: 150,
+        'value': (i) => i?.difficultyLevel?.label,
+        'allowSort': true,
+    },
+    {
+        'id': 'points',
+        'label': 'Points',
+        'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+        'allowSort': true,
+    },
+    {
+        'id': 'difficultyLevel1',
+        'label': 'Difficulty',
+        'value': (i) => i?.difficultyLevel?.label,
+        'allowSort': true,
+    },
+    {
+        'id': 'points2',
+        'label': 'Points',
+        'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+        'allowSort': true,
+    },
+    {
+        'id': 'difficultyLevel3',
+        'label': 'Difficulty',
+        'value': (i) => i?.difficultyLevel?.label,
+        'allowSort': true,
+    },
+    {
+        'id': 'points4',
+        'label': 'Points',
+        'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+        'allowSort': true,
+    }
+];
+
 const Template: Story = args => (
     <DataTable
         customTopBarRenderer={() => <div>
@@ -187,61 +240,7 @@ const Template: Story = args => (
         items={ITEMS}
         maxHeight="380px"
         allowSelection
-        properties={[
-            {
-                'id': 'name',
-                'label': 'Name',
-                'space': '6',
-                'link': (i) => `/challenge/${i.id}`,
-                'value': (i) => <div>
-                    {i?.isSolved && <i className="fa fa-check text-green-500 mr-2"/>}
-                    {i.name}
-                </div>,
-                'allowSort': true,
-            },
-            {
-                'id': 'category',
-                'label': 'Category',
-                'value': (i) => i.category?.name,
-                'allowSort': true,
-            },
-            {
-                'id': 'difficultyLevel',
-                'label': 'Difficulty',
-                'value': (i) => i?.difficultyLevel?.label,
-                'allowSort': true,
-            },
-            {
-                'id': 'points',
-                'label': 'Points',
-                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                'allowSort': true,
-            },
-            {
-                'id': 'difficultyLevel1',
-                'label': 'Difficulty',
-                'value': (i) => i?.difficultyLevel?.label,
-                'allowSort': true,
-            },
-            {
-                'id': 'points2',
-                'label': 'Points',
-                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                'allowSort': true,
-            },
-            {
-                'id': 'difficultyLevel3',
-                'label': 'Difficulty',
-                'value': (i) => i?.difficultyLevel?.label,
-                'allowSort': true,
-            },
-            {
-                'id': 'points4',
-                'label': 'Points',
-                'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
-                'allowSort': true,
-            },
-        ]}
+        properties={columns}
         {...args}
     />
 );
@@ -249,3 +248,76 @@ const Template: Story = args => (
 export const Default = Template.bind({});
 
 Default.args = {};
+
+
+const ContainedTableTemplate: Story = args => (
+    <div style={{ width: '500px', height: '720px' }}>
+        <DataTable
+            items={ITEMS}
+            maxHeight="380px"
+            allowSelection
+            properties={columns}
+            {...args}
+        />
+    </div>
+);
+
+export const ContainedTable = ContainedTableTemplate.bind({});
+
+ContainedTable.args = {};
+
+const StickyRowTemplate: Story = args => (
+    <DataTable
+        items={ITEMS}
+        maxHeight="380px"
+        allowSelection
+        properties={columns}
+        stickyRow={{
+            "id": "55",
+            "name": "Attack matter ball budget pattern.",
+            "points": 150,
+            "difficultyLevel": {
+                "label": "Beginner",
+                "level": 1
+            },
+            "category": {
+                "id": "11",
+                "name": "Hardware",
+                "slug": "hardware"
+            }
+        }}
+        {...args}
+    />
+);
+
+export const StickyRow = StickyRowTemplate.bind({});
+
+StickyRow.args = {};
+
+const OverflowTemplate: Story = args => (
+    <DataTable
+        items={ITEMS}
+        maxHeight="380px"
+        allowSelection
+        properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))}
+        stickyRow={{
+            "id": "55",
+            "name": "Attack matter ball budget pattern.",
+            "points": 150,
+            "difficultyLevel": {
+                "label": "Beginner",
+                "level": 1
+            },
+            "category": {
+                "id": "11",
+                "name": "Hardware",
+                "slug": "hardware"
+            }
+        }}
+        {...args}
+    />
+);
+
+export const Overflow = OverflowTemplate.bind({});
+
+Overflow.args = {};

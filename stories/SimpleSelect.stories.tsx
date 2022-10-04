@@ -2,13 +2,9 @@ import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { SimpleSelect } from '../src';
+import ThemeContextDecorator from "../src/themeDecorator";
 
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'User Inputs/Simple Select',
@@ -62,48 +58,6 @@ SelectWithGroups.args = {
     },
     required: true,
     value: country, onChange: v => country = v,
-    options: [
-        {
-            group: 'Asia',
-            options: [
-                { label: 'India', value: 'india'},
-                { label: 'China', value: 'china' },
-                { label: 'Japan', value: 'japan' },
-                { label: 'Korea', value: 'korea' },
-            ],
-        },
-        {
-            group: 'Europe',
-            options: [
-                { label: 'France', value: 'france' },
-                { label: 'Germany', value: 'germany' },
-                { label: 'Italy', value: 'italy' },
-                { label: 'Spain', value: 'spain' },
-            ],
-        }
-    ]
-};
-
-
-export const DarkTheme: Story = (args) => (
-    <ThemeContext isDarkTheme>
-        <div style={{ background: 'black', padding: '1rem' }} className="flex items-center">
-            {/*// @ts-ignore*/}
-            <SimpleSelect {...args} />
-        </div>
-    </ThemeContext>
-);
-
-let country2;
-
-DarkTheme.args = {
-    labels: {
-        label: 'Region',
-        placeholder: 'Pick a Region',
-    },
-    required: true,
-    isDarkTheme: true,
-    value: country2, onChange: v => country2 = v,
     options: [
         {
             group: 'Asia',

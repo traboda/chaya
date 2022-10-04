@@ -2,13 +2,9 @@ import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { Tabs } from "../src";
+import ThemeContextDecorator from "../src/themeDecorator";
 
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Content Handlers/Tabs',

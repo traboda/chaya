@@ -2,12 +2,9 @@ import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { ProgressBar } from '../src';
-import ThemeContext from "../src/ThemeProvider";
-addDecorator((story) => (
-    <ThemeContext>
-        {story()}
-    </ThemeContext>
-));
+import ThemeContextDecorator from "../src/themeDecorator";
+
+addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
     title: 'Visualization/Progress Bar',

@@ -65,7 +65,7 @@ const ConfirmationDialog = ({
               <form className="py-2" onSubmit={confirmAction}>
                   {requireConfirmationText && (
                       <TextInput
-                          label={`Enter "${labels?.confirmationText} to confirm"`}
+                          label={`Enter "${labels?.confirmationText}" to confirm`}
                           name="confirmationText"
                           value={confirmText}
                           onChange={setConfirmText}

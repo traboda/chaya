@@ -1,3 +1,5 @@
+import { useDarkMode } from 'storybook-dark-mode';
+
 import React from 'react';
 import {ThemeProvider as TP} from "emotion-theming";
 import { ThemeProvider } from "@emotion/react";
@@ -35,12 +37,12 @@ const darkTheme: AppThemeType = {
     backgroundDark: '#000'
 };
 
-const ThemeContext = ({ children, isDarkTheme = false }) => (
-    <TP theme={isDarkTheme ? darkTheme : defaultTheme}>
-        <ThemeProvider theme={isDarkTheme ? darkTheme : defaultTheme}>
-            {children}
+const ThemeContextDecorator = storyFn => (
+    <TP theme={useDarkMode() ? darkTheme : defaultTheme}>
+        <ThemeProvider theme={useDarkMode() ? darkTheme : defaultTheme}>
+            {storyFn()}
         </ThemeProvider>
     </TP>
 );
 
-export default ThemeContext;
+export default ThemeContextDecorator;
