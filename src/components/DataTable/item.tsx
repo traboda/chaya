@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 import Color from "color";
+import classNames from 'classnames';
 
 import SkeletonItem from '../SkeletonItem';
 import { link_wrapper } from "../../utils/misc";
@@ -15,11 +16,16 @@ const ListItem = styled.tr<ListItem>`
   align-items: center;
   
   & > td {
-    border-right: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     border-bottom: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
     height: 100%;
     color: ${({ theme }) => theme.color};
     background: ${({theme, isPinned }) => isPinned ? theme.background : null};
+    a {
+      &:hover {
+        color: ${({ theme }) => theme.secondary} !important;
+        text-decoration: underline;
+      }
+    }
   }
 
   a {
@@ -32,19 +38,13 @@ const ListItem = styled.tr<ListItem>`
   }
 `;
 
-const LinkWrap = styled.a`
-  &:hover {
-    color: ${({ theme }) => theme.secondary} !important;
-    text-decoration: underline;
-  }
-`;
-
 export type ItemListerProperty = {
     id: string,
     label: (String | React.ReactNode | React.ReactChildren | React.ReactElement),
     labelClassName?: string,
     value: (self: any, index?: number) => String | React.ReactNode | React.ReactChildren | React.ReactElement,
     width?: number,
+    fill?: boolean,
     link?: (self: any) => string,
     className?: string,
     textAlign?: 'center' | 'left' | 'right',
@@ -86,7 +86,7 @@ const ItemListerItem = ({
             properties.filter((p) => !p.isHidden).map((p) => {
                 const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
                 const renderer = (
-                    <div className={`py-2 px-3 inline-flex items-center ${p?.className}`}>
+                    <div className="inline-flex items-center">
                         {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
                         {link && <i className="fa fa-external-link ml-2" />}
                     </div>
@@ -94,12 +94,18 @@ const ItemListerItem = ({
                 return (
                     <td
                         key={link ? null : p.id}
+                        className={classNames('py-2 px-3 flex items-center', p?.className)}
                         style={{
                             textAlign: p.textAlign,
                             fontSize: p.fontSize,
                         }}
+                        onClick={() => {
+                            if(isEnabled) {
+                                isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id);
+                            }
+                        }}
                     >
-                        {link ? link_wrapper(link, <LinkWrap href={link}>{renderer}</LinkWrap>) : renderer}
+                        {link ? link_wrapper(link, renderer) : renderer}
                     </td>
                 );
             })}

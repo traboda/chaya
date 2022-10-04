@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import { nanoid } from 'nanoid';
 import { throttle } from 'lodash';
 
@@ -51,8 +51,10 @@ const ItemLister = ({
     const TitleTopRef = useRef(null);
     const scrollElement = useRef(null);
     const lastScrollTop = useRef(0);
+
     const [titleTopHeight, setTitleTopHeight] = useState(0);
     const [scrollDir, setScrollDir] = useState('up');
+    const [tableWidth, setTableWidth] = useState(1000);
 
     useEffect(() => {
         const handleScroll = throttle(() => {
@@ -77,6 +79,16 @@ const ItemLister = ({
         }
     }, [!isLoading && items?.length === 0]);
 
+    const calculateRemainingWidth = () => {
+        let usedWidth = 0;
+        if(allowSelection) usedWidth += 60;
+        properties.forEach((property) => {
+            if (!property.fill)
+                usedWidth += property?.width ? property.width : 100;
+        });
+        return Math.max(tableWidth - usedWidth, 200);
+    }
+
     const gridTemplate = (() => {
         let _divide = [];
         if(allowSelection) _divide.push({ width: 60, });
@@ -84,10 +96,11 @@ const ItemLister = ({
         _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
         let cols = '';
         for(const _col of _divide)
-            cols += _col?.width ? `${_col.width}${widthUnit} ` : '100px ';
-
+            cols += _col?.width ? `${_col.width}${widthUnit} ` : _col?.fill ?  `${calculateRemainingWidth()}px ` : '100px ';
         return { gridTemplateColumns: cols };
     })();
+
+    console.log(tableWidth);
 
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
@@ -125,6 +138,7 @@ const ItemLister = ({
                                     currentSortAttribute={currentSortAttribute}
                                     sortOrder={sortOrder}
                                     gridTemplate={gridTemplate}
+                                    setWidth={setTableWidth}
                                 />
                                 {stickyRow && (
                                     <ItemListerItem
