@@ -5,12 +5,15 @@ const ToolTipContainer = styled('div')`
   display: inline-block;
   position: relative;
   opacity: 1 !important;
+  cursor: help;
+
 `;
 
 const ToolTipWrapper = styled('div')`
   position: absolute;
-  border-radius: 0.75rem;
   padding: 0.75rem;
+  min-width: 7.5vw;
+  border-radius: 0.5rem;
   color: ${({theme}) => theme.color};
   background: ${({theme}) => theme.background};
   z-index: 9000;
@@ -29,7 +32,7 @@ const ToolTipWrapper = styled('div')`
 
     &::before {
       top: 100%;
-      border-top-color: white;
+      border-top-color: ${({theme}) => theme.background};
     }
   }
 
@@ -38,7 +41,7 @@ const ToolTipWrapper = styled('div')`
 
     &::before {
       bottom: 100%;
-      border-bottom-color: white;
+      border-bottom-color: ${({theme}) => theme.background};
     }
   }
 
@@ -48,7 +51,7 @@ const ToolTipWrapper = styled('div')`
 
     &::before {
       left:100%;
-      border-bottom-color: white;
+      border-bottom-color: ${({theme}) => theme.background};
       transform: rotate(90deg);
     }
   }
@@ -60,7 +63,7 @@ const ToolTipWrapper = styled('div')`
     &::before {
       right: 100%;
       transform: rotate(-90deg);
-      border-bottom-color: white;
+      border-bottom-color: ${({theme}) => theme.background};
     }
   }
 `;
