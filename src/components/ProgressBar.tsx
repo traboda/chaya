@@ -13,7 +13,7 @@ const ProgressBarContainer = styled.div<ProgressBarContainer>`
     width: 100%;
   	height: ${({ height }) => height};
   	div {
-      background-color: ${({theme}) => theme.secondary};
+      background-color: ${({theme, color}) => color ? color : theme.secondary};
 	  height: 100%;
       border-radius: inherit;
       background-image: ${({ striped }) => striped ? 'linear-gradient( 45deg, rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%, rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%, transparent 75%,transparent )' : null};
@@ -24,6 +24,7 @@ const ProgressBarContainer = styled.div<ProgressBarContainer>`
 type ProgressBar = {
     value: number,
     striped?: boolean,
+    color?: string,
     size?: ('xs'|'sm'|'md'|'lg'|'xl'),
     className?: string,
     height?: string,
@@ -39,11 +40,12 @@ const sizes = {
     xl: '3rem',
 }
 
-const ProgressBar = ({ value, striped = false, size = 'md', className = '', minVal = 0, maxVal = 100, height }: ProgressBar) => (
+const ProgressBar = ({ value, striped = false, color = null, size = 'md', className = '', minVal = 0, maxVal = 100, height }: ProgressBar) => (
     <ProgressBarContainer
         height={height ?? sizes[size]}
         striped={striped}
         className={className}
+        color={color}
     >
         <div
             role="progressbar"
