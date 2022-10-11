@@ -55,7 +55,7 @@ const ConfirmationDialog = ({
 
     return (
       <Modal isOpen={isOpen} onClose={onCancel}>
-          <Card background={theme.background}>
+          <Card className="confirmation-dialog" background={theme.background}>
               <div className="p-2">
                   <h2 className="font-semibold text-2xl mb-2">{labels?.title}</h2>
                   <p style={{ width: '450px', maxWidth: '100%' }} className="text-lg">

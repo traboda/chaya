@@ -39,6 +39,7 @@ export type SimpleSelectOptionType = Array<OptionType | GroupType>;
 export type SimpleSelectProps = {
     value: (string|number),
     name: string,
+    id?: string,
     className?: string,
     options: SimpleSelectOptionType,
     onChange?: (v: (string|number)) => void,
@@ -56,13 +57,13 @@ const defaultLabels = {
 };
 
 const SimpleSelect = ({
-  value = null, onChange = () => {}, className = '',
+  value = null, onChange = () => {}, id, className = '',
   required = false, disabled = false, name, options, labels: _labels
 }: SimpleSelectProps) => {
 
     const { color } = useTheme();
     const labels = { ...defaultLabels, ..._labels };
-    const inputID = `${name}-input-${nanoid()}`;
+    const inputID = id ? id : `${name}-input-${nanoid()}`;
 
     return (
         <div className="w-full">

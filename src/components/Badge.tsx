@@ -7,6 +7,7 @@ type BadgeProps = {
     variant?: ('solid' | 'outline' | 'minimal'),
     color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
+    id?: string,
     className?: string,
     style?: React.CSSProperties,
     onClick?: () => void,
@@ -37,7 +38,7 @@ const BadgeContainer = styled('span')<StyledBadge>`
 
 const Badge = ({
    children, variant = 'minimal', color = 'primary', size = 'sm',
-   className = '', style, onClick = () => {}
+   id, className = '', style, onClick = () => {}
 }: BadgeProps) => {
 
     const theme = useTheme();
@@ -92,6 +93,7 @@ const Badge = ({
                 background: variant === 'outline' ? 'transparent' : variant === 'solid' ? _color : _lighterBg,
                 outline: variant === 'outline' ? `1px solid` : 'none',
             }}
+            id={id}
             className={_className}
             style={style}
             onClick={onClick}

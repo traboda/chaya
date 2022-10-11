@@ -31,6 +31,7 @@ type SearchBox = {
     name?: string,
     hideLabel?: boolean,
     autoFocus?: boolean,
+    id?: string,
     className?: string,
     labels?: {
         label?: string,
@@ -52,7 +53,7 @@ const defaultIcons = {
 };
 
 const SearchBox = ({
-   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, className = '',
+   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = null, id, className = '',
    labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
    icons: _icons = null, autoFocus = false,
 }: SearchBox) => {
@@ -62,6 +63,7 @@ const SearchBox = ({
 
     return (
         <form
+            id={id}
             className={className}
             onSubmit={(e) => {
                 e.preventDefault();

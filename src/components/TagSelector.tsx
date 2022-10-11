@@ -47,6 +47,7 @@ type TagSelectorProps = {
     },
     value: any,
     onChange: (any) => void,
+    id?: string,
     className?: string,
     tagClassName?: string,
     small?: boolean,
@@ -104,36 +105,38 @@ const TagSelector = (props: TagSelectorProps) => {
         return _class;
     };
 
-    return <TagSelectorContainer className={props?.className}>
-        {props?.labels &&
-        <div className="flex flex-wrap  mx-0">
-            {props.labels?.title &&
-            <div className="w-4/5 p-1">
-                <div className="text-lg opacity-80">{props.labels.title}</div>
+    return (
+        <TagSelectorContainer id={props?.id} className={props?.className}>
+            {props?.labels &&
+            <div className="flex flex-wrap  mx-0">
+                {props.labels?.title &&
+                <div className="w-4/5 p-1">
+                    <div className="text-lg opacity-80">{props.labels.title}</div>
+                </div>}
+                {props.labels.helpText &&
+                <div className="w-1/5 flex items-center justify-end p-1">
+                    <ToolTip placement="top" overlay={props.labels.helpText}>
+                        <i
+                            style={{ fontSize: '1.35rem', opacity: 0.8, fontWeight: 300 }}
+                            className="far fa-info-circle"
+                        />
+                    </ToolTip>
+                </div>}
             </div>}
-            {props.labels.helpText &&
-            <div className="w-1/5 flex items-center justify-end p-1">
-                <ToolTip placement="top" overlay={props.labels.helpText}>
-                    <i
-                        style={{ fontSize: '1.35rem', opacity: 0.8, fontWeight: 300 }}
-                        className="far fa-info-circle"
-                    />
-                </ToolTip>
-            </div>}
-        </div>}
-        <div className={`tag-container`}>
-            {props.options.map(opt =>
-                <div
-                    key={opt.value}
-                    className={`tag px-4 py-1 text-lg ${generateClassName(opt)} ${props?.tagClassName}`}
-                    onClick={() => handleTagClick(opt)}
-                    style={opt.color ? { color: opt.color } : null}
-                >
-                    {opt.label}
-                </div>
-            )}
-        </div>
-    </TagSelectorContainer>;
+            <div className="tag-container">
+                {props.options.map(opt =>
+                    <div
+                        key={opt.value}
+                        className={`tag px-4 py-1 text-lg ${generateClassName(opt)} ${props?.tagClassName}`}
+                        onClick={() => handleTagClick(opt)}
+                        style={opt.color ? { color: opt.color } : null}
+                    >
+                        {opt.label}
+                    </div>
+                )}
+            </div>
+        </TagSelectorContainer>
+    );
 };
 
 export default TagSelector;

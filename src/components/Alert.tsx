@@ -5,6 +5,7 @@ import Button, { ButtonProps } from "./Button";
 type Alert = {
   type?: "success" | "info" | "warning" | "danger" | "default";
   variant?: "filled" | "outline";
+  id?: string,
   className?: string,
   title?: string
   description?: string;
@@ -79,15 +80,20 @@ const defaultIcons = {
 
 
 const Alert = ({
-    type = 'default', variant = 'filled', className = '', title, description, iconClassName, allowDismissal = false, onDismiss = () => {},
-    primaryButton, secondaryButton, icons: _icons = null,
+    type = 'default', variant = 'filled', id, className = '', title, description, iconClassName, allowDismissal = false,
+    onDismiss = () => {}, primaryButton, secondaryButton, icons: _icons = null,
 }: Alert) => {
 
     const icons = {...defaultIcons, ..._icons};
     const [hide, setHide] = useState(false);
 
     return !hide ? (
-        <AlertContainer type={type} variant = {variant} className={`${description ? 'px-3 py-4' : 'px-3 py-2'} relative rounded-lg ${className}`}>
+        <AlertContainer
+            id={id}
+            type={type}
+            variant = {variant}
+            className={`${description ? 'px-3 py-4' : 'px-3 py-2'} relative rounded-lg ${className}`}
+        >
             {allowDismissal && (
                 <div className="absolute top-0 right-0 pr-3">
                     <button

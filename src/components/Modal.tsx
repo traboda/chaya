@@ -115,7 +115,7 @@ const Modal = ({
                             <button
                                 type="button"
                                 title="close"
-                                className="font-mono outline-none font-bold text-2xl p-0"
+                                className="font-mono outline-none font-bold text-2xl close-button p-0"
                                 onClick={onClose}
                             >
                                 {icons.close}

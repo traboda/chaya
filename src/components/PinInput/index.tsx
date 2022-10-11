@@ -18,6 +18,7 @@ type PinInputProps = {
     disabled?: boolean,
     required?: boolean,
     autoFocus?: boolean,
+    id?: string,
     className?: string,
     digitClassName?: string,
     labels?: {
@@ -30,7 +31,7 @@ type PinInputProps = {
 
 const PinInput = ({
    value = '', onChange: _onChange = () => {}, digits = 6, type = 'text', mask = false, labels,
-   invalid = false, disabled = false, required = false, autoFocus = false,
+   invalid = false, disabled = false, required = false, autoFocus = false, id,
    className = '', digitClassName = '',
 }: PinInputProps) => {
 
@@ -38,7 +39,7 @@ const PinInput = ({
     const inputs = useRef(null);
     const [invalidLength, setInvalidLength] = useState(false);
     const [_isInvalid, setInvalid] = useState(invalid);
-    const inputID = `pin-input-${nanoid()}`;
+    const inputID = id ? id : `pin-input-${nanoid()}`;
 
     const onChange = (val) => {
         _onChange(val);
@@ -118,7 +119,7 @@ const PinInput = ({
             )}
             <div
                 ref={inputs}
-                className={`py-2 grid gap-2 ${className}`}
+                className={`py-2 grid gap-2 pin-input ${className}`}
                 style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
                 onFocus={() => setInvalidLength(false)}
                 onBlur={() => setInvalidLength(value?.length < digits)}

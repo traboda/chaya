@@ -34,6 +34,7 @@ type AccordionProps = {
     isOpen?: boolean,
     onChange?: () => void,
     keepExpanded?: boolean
+    id?: string,
     className?: string,
     titleClassName?: string,
     bodyClassName?: string,
@@ -49,7 +50,8 @@ const defaultIcons = {
 };
 
 const Accordion = ({
-   title, renderer, text, isOpen: _isOpen, onChange = () => {}, className = '', titleClassName = '', bodyClassName = '', icons: _icons = null,
+   title, renderer, text, isOpen: _isOpen, onChange = () => {}, id,
+   className = '', titleClassName = '', bodyClassName = '', icons: _icons = null,
 }: AccordionProps) => {
 
     const [isOpen, setOpen] = useState(_isOpen ?? false);
@@ -59,7 +61,7 @@ const Accordion = ({
     const icons = {...defaultIcons, ..._icons};
 
     return (
-        <AccordionContainer className={`accordion ${className}`}>
+        <AccordionContainer id={id} className={`accordion ${className}`}>
             <button
                 className={`flex text-xl justify-between ${titleClassName}`}
                 onClick={() => {

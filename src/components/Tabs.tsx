@@ -28,6 +28,7 @@ export type Tabs = {
     disabled?: boolean
     onClickDisabled?: (arg) => void,
     onChange?: (key: string) => void,
+    id?: string,
     className?: string,
     bodyClassName?: string,
     menuClassName?: string,
@@ -85,12 +86,12 @@ const VerticalTabSelector = styled(TabBase)`
 `;
 
 const Tabs = ({
- isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey,
+ isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey, id,
  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
  alignCenter,  onChange = () => {}, disableResponsive = false,
 }: Tabs) => {
 
-    const tabID = `tab-${nanoid()}`;
+    const tabID = id ? id : `tab-${nanoid()}`;
 
     const tabItems =  items?.length > 0 ?
         items.map((t, index) => { return { key: `tab_${index}`, ...t }; }) : [];
@@ -222,9 +223,10 @@ const Tabs = ({
 
     const VerticalSelector = () => (
         <VerticalTabSelector
+            id={tabID}
             role="tablist"
             aria-orientation="vertical"
-            className={`sticky list-none top-0 ${menuClassName}`}
+            className={`sticky list-none top-0 tab-selector vertical-selector ${menuClassName}`}
         >
             {render_tabs()}
         </VerticalTabSelector>
@@ -232,9 +234,10 @@ const Tabs = ({
 
     const HorizontalSelector = () => (
         <HorizontalTabSelector
+            id={tabID}
             role="tablist"
             aria-orientation="horizontal"
-            className={`list-none ${menuClassName}`}
+            className={`list-none tab-selector horizontal-tabs ${menuClassName}`}
         >
             {render_tabs()}
         </HorizontalTabSelector>

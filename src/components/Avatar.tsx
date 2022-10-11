@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 type AvatarProps = {
     alt: string,
     src: string,
-    size?: number | string
+    size?: number | string,
+    id?: string,
+    className?: string,
+    title?: string,
 };
 
-const Avatar = ({ alt, src, size = null }: AvatarProps) => {
+const Avatar = ({ alt, src, size = null, id, className = '', title }: AvatarProps) => {
 
     const [show, setShow] = useState(false);
 
@@ -20,7 +23,8 @@ const Avatar = ({ alt, src, size = null }: AvatarProps) => {
 
     const renderPlaceholder = () => (
         <svg
-            className="rounded-lg"
+            id={id}
+            className={`rounded-lg ${className}`}
             width={size}
             height={size}
             viewBox="0 0 75 75"
@@ -45,9 +49,11 @@ const Avatar = ({ alt, src, size = null }: AvatarProps) => {
 
     return !(src?.length) || show ? renderPlaceholder() : (
         <img
-            className="rounded-lg"
+            className={`rounded-lg ${className}`}
             height={size}
             width={size}
+            title={title}
+            id={id}
             alt={alt}
             draggable="false"
             src={src}

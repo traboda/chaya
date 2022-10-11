@@ -10,6 +10,7 @@ type AccordionProps = {
     }[],
     initialIndex?: number,
     keepExpanded?: boolean
+    id?: string,
     className?: string,
     accordionClassName?: string,
     titleClassName?: string,
@@ -21,12 +22,12 @@ type AccordionProps = {
 };
 
 const AccordionGroup = ({
-   items, initialIndex, keepExpanded = false, className = '', accordionClassName = '', titleClassName = '', bodyClassName = '', icons = null,
+   items, initialIndex, keepExpanded = false, id, className = '', accordionClassName = '', titleClassName = '', bodyClassName = '', icons = null,
 }: AccordionProps) => {
     const [active, setActive] = useState(initialIndex ?? 0);
 
     return (
-        <div className={className}>
+        <div id={id} className={`accordion-group ${className}`}>
             {items.map((item, index) => (
                 <Accordion
                     isOpen={!keepExpanded ? active === index : (initialIndex === index || item?.isOpen)}

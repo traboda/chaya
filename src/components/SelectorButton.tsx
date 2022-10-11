@@ -4,6 +4,7 @@ import Button from "./Button";
 
 type SelectorButton = {
     name: string,
+    id?: string,
     className?: string,
     options: SimpleSelectOptionType,
     onSubmit?: (value: string|number) => void,
@@ -17,7 +18,7 @@ const defaultLabels = {
     button: 'Go'
 };
 
-const SelectorButton = ({ name, className = '', options, disabled = false, onSubmit = () => {}, labels }: SelectorButton) => {
+const SelectorButton = ({ name, id, className = '', options, disabled = false, onSubmit = () => {}, labels }: SelectorButton) => {
 
     const _labels = {...defaultLabels, labels};
 
@@ -29,7 +30,7 @@ const SelectorButton = ({ name, className = '', options, disabled = false, onSub
     };
 
     return (
-        <form className={`flex items-center ${className}`} onSubmit={_onSubmit}>
+        <form id={id} className={`flex items-center ${className}`} onSubmit={_onSubmit}>
             <div className="w-3/4">
                 <SimpleSelect
                     value={value}

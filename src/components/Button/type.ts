@@ -6,6 +6,7 @@ export type ButtonProps = {
     color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
     children?: React.ReactNode
+    id?: string,
     className?: string,
     style?: React.CSSProperties,
     disableRipple?: boolean

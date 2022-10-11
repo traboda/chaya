@@ -9,6 +9,7 @@ type Card = {
     iconClassName?: string,
     iconRenderer?: React.ReactElement,
     background?: string,
+    id?: string,
     className?: string,
 }
 
@@ -30,8 +31,8 @@ const CardContainer = styled('div')<CardContainer>`
 `;
 
 
-const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', iconRenderer = null, background, children }: Card) =>  (
-    <CardContainer background={background} className={className}>
+const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', iconRenderer = null, background, id, children }: Card) =>  (
+    <CardContainer id={id} background={background} className={className}>
         {(title || description) &&
         <div className="px-2 pt-2">
             {title &&

@@ -12,6 +12,7 @@ type PageNavigator = {
     showEdges?: boolean,
     page: number,
     setPage: (no: number) => void,
+    id?: string,
     className?: string,
     icons?: {
         next?: React.ReactElement,
@@ -29,7 +30,7 @@ const defaultIcons = {
 }
 
 const PageNavigator = ({
-    totalCount, itemsPerPage, setItemsPerPage, className = '', hideItemsPerPage = false, page, setPage,
+    totalCount, itemsPerPage, setItemsPerPage, id, className = '', hideItemsPerPage = false, page, setPage,
     icons: _icons = null, showControls = true, showEdges = true,
 }: PageNavigator) => {
 
@@ -59,7 +60,7 @@ const PageNavigator = ({
     };
 
     return (
-        <div className={`flex items-center justify-center text-center pt-4 ${className}`}>
+        <div id={id} className={`flex items-center justify-center text-center pt-4 page-navigator ${className}`}>
             <div style={{ userSelect: 'none' }}>
                 {(showEdges && page > 2) && (
                     <Button className="w-12 mx-1" onClick={() => setPage(1)}>

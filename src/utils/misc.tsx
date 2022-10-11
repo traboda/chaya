@@ -10,6 +10,7 @@ export type LinkRelType =  (
 export type LinkOptions = {
     target?: LinkTargetType;
     rel?: LinkRelType;
+    id?: string,
     className?: string;
     label?: string,
     style?: React.CSSProperties;
@@ -21,6 +22,7 @@ export const link_wrapper = (link: string, component: React.ReactElement, option
             return linkWrapper(
                 link,
                 <a
+                    id={options?.id}
                     href={link}
                     target={options?.target}
                     rel={options?.rel}

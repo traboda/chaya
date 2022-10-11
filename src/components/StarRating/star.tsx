@@ -35,7 +35,7 @@ const StarRatingStar = ({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"
             style={{ width: size, color: value > 0 ? (activeColor ?? theme?.secondary) : (inactiveColor || theme?.color) }}
-            className={`cursor-pointer ${value > 0.5 ? 'full' : value > 0 ? 'half' : ''}`}
+            className={`cursor-pointer rating-star ${value > 0.5 ? 'full' : value > 0 ? 'half' : ''}`}
             onClick={onClick}
             onMouseMove={onHover}
         >

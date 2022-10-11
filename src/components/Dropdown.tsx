@@ -13,6 +13,7 @@ type DropdownMenuProps = {
     }[],
     isOpen?: boolean,
     onClose?: () => void,
+    id?: string,
     className?: string,
 }
 
@@ -48,9 +49,9 @@ const DropDownMenu = styled('div')`
   }
 `;
 
-const DropdownMenu = ({ items = [], isOpen, onClose = () => {}, className = '' } : DropdownMenuProps) =>
+const DropdownMenu = ({ items = [], isOpen, onClose = () => {}, id, className = '' } : DropdownMenuProps) =>
 isOpen ? (
-    <DropDownMenu role="navigation" className={className}>
+    <DropDownMenu id={id} role="navigation" className={className}>
         <div role="menu" onMouseLeave={onClose}>
             {items.length > 0 && items.map((n,i) => {
                 const content = n?.renderer ? n.renderer() : (

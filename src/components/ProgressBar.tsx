@@ -25,6 +25,7 @@ type ProgressBar = {
     value: number,
     striped?: boolean,
     size?: ('xs'|'sm'|'md'|'lg'|'xl'),
+    id?: string,
     className?: string,
     height?: string,
     minVal?: number,
@@ -39,8 +40,9 @@ const sizes = {
     xl: '3rem',
 }
 
-const ProgressBar = ({ value, striped = false, size = 'md', className = '', minVal = 0, maxVal = 100, height }: ProgressBar) => (
+const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, minVal = 0, maxVal = 100, height }: ProgressBar) => (
     <ProgressBarContainer
+        id={id}
         height={height ?? sizes[size]}
         striped={striped}
         className={className}

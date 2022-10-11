@@ -40,7 +40,7 @@ const Button = ({
     variant = 'solid', color = 'primary', size = 'md',
     children, link, onClick = () => {},
     className = '', style, label, disableRipple = false,
-    target, type, rel, disabled,
+    target, type, rel, disabled, id,
 }: ButtonProps) => {
 
     const theme = useTheme();
@@ -109,6 +109,7 @@ const Button = ({
 
     const buttonRenderer = () => (
         <button
+            id={id}
             aria-label={label}
             type={type}
             onClick={e => {
@@ -134,7 +135,7 @@ const Button = ({
                 hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterHoverBg
             }}
         >
-            {link ? link_wrapper(link, renderer(), { target, rel, className: _className, style, label }) : buttonRenderer()}
+            {link ? link_wrapper(link, renderer(), { target, rel, id, className: _className, style, label }) : buttonRenderer()}
         </ButtonContainer>
     );
 

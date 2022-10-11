@@ -15,6 +15,8 @@ type SwitchProps = {
     onChange?: (v: boolean) => void,
     size?: number,
     label?: string,
+    id?: string,
+    className?: string,
     required?: boolean,
     variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
     disabled?: boolean
@@ -29,11 +31,11 @@ const variants = {
     "transparent": 'bg-inherit'
 };
 
-const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', disabled = false }: SwitchProps) => {
+const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', id, className = '', disabled = false }: SwitchProps) => {
 
     const { color } = useTheme();
     const checkbox = useRef(null);
-    const inputID = `switch-input-${nanoid()}`;
+    const inputID = id ? id : `switch-input-${nanoid()}`;
 
     return (
         <div className="w-full flex flex-col">
@@ -50,7 +52,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                 </label>
             )}
             <SwitchContainer
-                className={`inline-block rounded-full shadow-inner ${value && variants[variant]} ${disabled && 'cursor-not-allowed'}`}
+                className={`inline-block rounded-full shadow-inner ${value && variants[variant]} ${disabled && 'cursor-not-allowed'} ${className}`}
                 style={{ height: size, width: size * 2 }}
             >
                 <input

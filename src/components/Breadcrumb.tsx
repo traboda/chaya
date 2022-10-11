@@ -47,7 +47,7 @@ const Breadcrumb = ({ items, className = '', icons: _icons = null }: BreadcrumbP
     const icons = {...defaultIcons, ..._icons};
 
     return (
-        <BreadcrumbWrapper className={`text-lg ${className}`}>
+        <BreadcrumbWrapper className={`text-lg breadcrumb ${className}`}>
             <li>
                 {link_wrapper('/', icons?.home)}
             </li>

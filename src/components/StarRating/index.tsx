@@ -12,13 +12,14 @@ type StarRatingProps = {
     tooltipDefaultText?: string,
     tooltipArray?: string[],
     labelClassName?: string,
+    id?: string,
     className?: string,
     activeColor?: string,
     inactiveColor?: string,
 }
 
 const StarRating = ({
-    value = null, onChange = () => {}, stars = 5, size = 30, className = '',  enableHalf = false, required = false,
+    value = null, onChange = () => {}, stars = 5, size = 30, id, className = '',  enableHalf = false, required = false,
     tooltipDefaultText = '', tooltipArray = [], labelClassName = '', activeColor = '#fbbf24', inactiveColor = null
 }: StarRatingProps) => {
 
@@ -41,7 +42,7 @@ const StarRating = ({
     useEffect(() => updateRating(), [value]);
 
     return (
-        <div className={`w-full flex relative flex-col justify-center items-center gap-2 ${className}`}>
+        <div id={id} className={`w-full flex relative flex-col justify-center items-center gap-2 star-rating ${className}`}>
             <div className="flex relative gap-1" onMouseLeave={onMouseLeave}>
                 {Array(stars).fill(0).map((_, i) => (
                     <StarRatingStar

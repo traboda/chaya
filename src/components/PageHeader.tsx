@@ -16,6 +16,7 @@ type PageHeader = {
     title?: string,
     customTitle?: React.ReactElement,
     description?: string,
+    id?: string,
     className?: string,
     headingClassName?: string,
     breadcrumb?: BreadcrumbPropType,
@@ -30,14 +31,14 @@ type PageHeader = {
 }
 
 const PageHeader = ({
-    title, description, className = '', headingClassName = '',
+    title, description, className = '', headingClassName = '', id,
     breadcrumbItems = [],
     customRender = () => <div />,
     titleBottomRenderer = () => <div />,
     sidebarRenderer = () => <div />,
     customTitle = null, breadcrumb = null
 } : PageHeader) => (
-    <PageHeaderSection className={className}>
+    <PageHeaderSection id={id} className={`page-header ${className}`}>
         <div>
             <div className="flex flex-wrap">
                 <div className="md:w-2/3 py-2">
