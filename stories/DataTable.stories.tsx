@@ -241,6 +241,14 @@ const Template: Story = args => (
         maxHeight="380px"
         allowSelection
         properties={columns}
+        isAccordion={true}
+        accordionRenderer={(c) => (
+            <div className="p-4">
+                <div className="text-sm text-gray-500">
+                    {c?.name}
+                </div>
+            </div>
+        )}
         {...args}
     />
 );
@@ -297,6 +305,7 @@ StickyRow.args = {};
 const OverflowTemplate: Story = args => (
     <DataTable
         items={ITEMS}
+        isAccordion={true}
         maxHeight="380px"
         allowSelection
         properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))}

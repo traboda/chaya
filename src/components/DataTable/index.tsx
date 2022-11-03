@@ -31,6 +31,8 @@ type ItemListerProps = {
     loadable?: boolean,
     stickyRow?: object,
     widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
+    isAccordion?: boolean,
+    accordionRenderer?: (c) => ReactNode,
 }
 
 const ItemLister = ({
@@ -42,6 +44,8 @@ const ItemLister = ({
     onLoadMore = () => {}, maxHeight = null,
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
+    isAccordion = true,
+    accordionRenderer = (_) => <div />,
     stickyRow = null, widthUnit = 'px'
 }: ItemListerProps) => {
 
@@ -55,6 +59,7 @@ const ItemLister = ({
     const [titleTopHeight, setTitleTopHeight] = useState(0);
     const [scrollDir, setScrollDir] = useState('up');
     const [tableWidth, setTableWidth] = useState(1000);
+    const [activeIndex, setActiveIndex] = useState([]);
 
     useEffect(() => {
         const handleScroll = throttle(() => {
@@ -91,7 +96,8 @@ const ItemLister = ({
 
     const gridTemplate = (() => {
         let _divide = [];
-        if(allowSelection) _divide.push({ width: 60, });
+        if(isAccordion) _divide.push({ width: 60, });
+        if(allowSelection) _divide.push({ ..._divide, width: 60 });
         const propConfigs = properties.filter((p) => !p.isHidden)
         _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
         let cols = '';
@@ -99,6 +105,11 @@ const ItemLister = ({
             cols += _col?.width ? `${_col.width}${widthUnit} ` : _col?.fill ?  `${calculateRemainingWidth()}px ` : '100px ';
         return { gridTemplateColumns: cols };
     })();
+
+    const toggleAccordion = (index) => {
+        if(activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
+        else  setActiveIndex([...activeIndex, index])
+    }
 
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
@@ -137,6 +148,13 @@ const ItemLister = ({
                                     sortOrder={sortOrder}
                                     gridTemplate={gridTemplate}
                                     setWidth={setTableWidth}
+                                    isAccordion={isAccordion}
+                                    activeIndex={activeIndex}
+                                    toggleOpen={() =>
+                                        activeIndex.length ?
+                                            setActiveIndex([]) :
+                                                setActiveIndex(Array.from(Array(10).keys())
+                                    )}
                                 />
                                 {stickyRow && (
                                     <ItemListerItem
@@ -145,18 +163,40 @@ const ItemLister = ({
                                         item={stickyRow}
                                         itemIndex={-1}
                                         gridTemplate={gridTemplate}
+                                        isAccordion={isAccordion}
                                     />
                                 )}
                             </div>
                             <tbody>
                                 {items?.length > 0 && items.map((i, index) =>
-                                    <ItemListerItem
-                                        key={i.id ? i.id : nanoid()}
-                                        properties={properties}
-                                        item={i}
-                                        itemIndex={index}
-                                        gridTemplate={gridTemplate}
-                                    />
+                                    isAccordion ?
+                                        <div className="accordion">
+                                            <div className="accordion-item">
+                                                <div>
+                                                    <ItemListerItem
+                                                        key={i.id ? i.id : nanoid()}
+                                                        properties={properties}
+                                                        item={i}
+                                                        itemIndex={index}
+                                                        gridTemplate={gridTemplate}
+                                                        isAccordion={isAccordion}
+                                                        isAccordionOpen={activeIndex.includes(index)}
+                                                        onClick={() => toggleAccordion(index)}
+                                                    />
+                                                </div>
+                                                {activeIndex.includes(index) && <div className="accordion-content">
+                                                    {accordionRenderer(i)}
+                                                </div>}
+                                            </div>
+                                        </div>
+                                        :
+                                        <ItemListerItem
+                                            key={i.id ? i.id : nanoid()}
+                                            properties={properties}
+                                            item={i}
+                                            itemIndex={index}
+                                            gridTemplate={gridTemplate}
+                                        />
                                 )}
                             </tbody>
                             {isLoading && Array(10).fill(0).map((_n) =>
