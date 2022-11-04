@@ -227,28 +227,9 @@ const columns = [
 
 const Template: Story = args => (
     <DataTable
-        customTopBarRenderer={() => <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
-            dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
-            temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
-            expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
-            debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
-            temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
-            vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
-            pariatur rem reprehenderit repudiandae velit voluptate.
-        </div>}
         items={ITEMS}
         maxHeight="380px"
-        allowSelection
         properties={columns}
-        isAccordion={true}
-        accordionRenderer={(c) => (
-            <div className="p-4">
-                <div className="text-sm text-gray-500">
-                    {c?.name}
-                </div>
-            </div>
-        )}
         {...args}
     />
 );
@@ -257,13 +238,45 @@ export const Default = Template.bind({});
 
 Default.args = {};
 
+export const SelectableTable = Template.bind({});
+SelectableTable.args = {
+    allowSelection: true
+};
+
+export const AccordionTable = Template.bind({});
+AccordionTable.args = {
+    canExpand: true,
+    accordionRenderer: (c) => (
+        <div className="p-4">
+            <div className="text-sm text-gray-500">
+                {c?.name}
+            </div>
+        </div>
+    )
+};
+
+
+export const WithTopBar = Template.bind({});
+WithTopBar.args = {
+    customTopBarRenderer: () => (
+    <div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
+        dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
+        temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
+        expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
+        debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
+        temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
+        vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
+        pariatur rem reprehenderit repudiandae velit voluptate.
+    </div>)
+};
+
 
 const ContainedTableTemplate: Story = args => (
     <div style={{ width: '500px', height: '720px' }}>
         <DataTable
             items={ITEMS}
             maxHeight="380px"
-            allowSelection
             properties={columns}
             {...args}
         />
@@ -274,59 +287,26 @@ export const ContainedTable = ContainedTableTemplate.bind({});
 
 ContainedTable.args = {};
 
-const StickyRowTemplate: Story = args => (
-    <DataTable
-        items={ITEMS}
-        maxHeight="380px"
-        allowSelection
-        properties={columns}
-        stickyRow={{
-            "id": "55",
-            "name": "Attack matter ball budget pattern.",
-            "points": 150,
-            "difficultyLevel": {
-                "label": "Beginner",
-                "level": 1
-            },
-            "category": {
-                "id": "11",
-                "name": "Hardware",
-                "slug": "hardware"
-            }
-        }}
-        {...args}
-    />
-);
 
-export const StickyRow = StickyRowTemplate.bind({});
+export const StickyRowTemplate = Template.bind({});
+StickyRowTemplate.args = {
+    stickyRow: {
+        "id": "55",
+        "name": "This Row Sticks",
+        "points": 150,
+        "difficultyLevel": {
+            "label": "Beginner",
+            "level": 1
+        },
+        "category": {
+            "id": "11",
+            "name": "Hardware",
+            "slug": "hardware"
+        }
+    }
+};
 
-StickyRow.args = {};
-
-const OverflowTemplate: Story = args => (
-    <DataTable
-        items={ITEMS}
-        isAccordion={true}
-        maxHeight="380px"
-        allowSelection
-        properties={columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))}
-        stickyRow={{
-            "id": "55",
-            "name": "Attack matter ball budget pattern.",
-            "points": 150,
-            "difficultyLevel": {
-                "label": "Beginner",
-                "level": 1
-            },
-            "category": {
-                "id": "11",
-                "name": "Hardware",
-                "slug": "hardware"
-            }
-        }}
-        {...args}
-    />
-);
-
-export const Overflow = OverflowTemplate.bind({});
-
-Overflow.args = {};
+export const OverflowTemplate = Template.bind({});
+OverflowTemplate.args = {
+    properties: columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width }))
+};

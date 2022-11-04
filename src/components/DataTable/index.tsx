@@ -8,7 +8,7 @@ import InfiniteLoader from "../InfiniteLoader";
 import { useTheme } from "@emotion/react";
 import SelectionHelper from "./SelectionHelper";
 
-type ItemListerProps = {
+type DataTableProps = {
     properties: ItemListerProperty[],
     items: {
         id: string
@@ -16,6 +16,10 @@ type ItemListerProps = {
     labels?: {
         description?: string,
         endOfList?: string
+    },
+    icons?: {
+        accordionOpened?: React.ReactElement,
+        accordionClosed?: React.ReactElement
     },
     maxHeight?: string,
     isLoading?: boolean,
@@ -31,25 +35,31 @@ type ItemListerProps = {
     loadable?: boolean,
     stickyRow?: object,
     widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
-    isAccordion?: boolean,
+    canExpand?: boolean,
     accordionRenderer?: (c) => ReactNode,
 }
 
-const ItemLister = ({
+const defaultIcons = {
+    accordionOpened: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▶</span>,
+    accordionClosed: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▼</span>
+};
+
+const DataTable = ({
     properties = [],
-    items = [], labels,
+    items = [], labels, icons: _icons,
     emptyListRenderer = () => <div />,
     isLoading = false, canLoadMore = false,
     allowSelection = false, onSelect = () => {},
     onLoadMore = () => {}, maxHeight = null,
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
-    isAccordion = true,
-    accordionRenderer = (_) => <div />,
+    canExpand = false, accordionRenderer = (_) => <div />,
     stickyRow = null, widthUnit = 'px'
-}: ItemListerProps) => {
+}: DataTableProps) => {
 
     const { background } = useTheme();
+
+    const icons = { ...defaultIcons, ..._icons};
 
     const TitleBarRef = useRef(null);
     const TitleTopRef = useRef(null);
@@ -96,7 +106,7 @@ const ItemLister = ({
 
     const gridTemplate = (() => {
         let _divide = [];
-        if(isAccordion) _divide.push({ width: 60, });
+        if(canExpand) _divide.push({ width: 60, });
         if(allowSelection) _divide.push({ ..._divide, width: 60 });
         const propConfigs = properties.filter((p) => !p.isHidden)
         _divide =  _divide?.length > 0 ? [..._divide, ...propConfigs] : propConfigs;
@@ -148,13 +158,11 @@ const ItemLister = ({
                                     sortOrder={sortOrder}
                                     gridTemplate={gridTemplate}
                                     setWidth={setTableWidth}
-                                    isAccordion={isAccordion}
-                                    activeIndex={activeIndex}
-                                    toggleOpen={() =>
-                                        activeIndex.length ?
-                                            setActiveIndex([]) :
-                                                setActiveIndex(Array.from(Array(10).keys())
-                                    )}
+                                    icons={icons}
+                                    isAccordionsOpen={canExpand ? activeIndex.length > 0 : null}
+                                    toggleAccordions={(open) =>
+                                        setActiveIndex(open ? items.map((_, i) => i) : [])
+                                    }
                                 />
                                 {stickyRow && (
                                     <ItemListerItem
@@ -162,14 +170,15 @@ const ItemLister = ({
                                         properties={properties}
                                         item={stickyRow}
                                         itemIndex={-1}
+                                        icons={icons}
                                         gridTemplate={gridTemplate}
-                                        isAccordion={isAccordion}
+                                        supportAccordion={canExpand}
                                     />
                                 )}
                             </div>
                             <tbody>
                                 {items?.length > 0 && items.map((i, index) =>
-                                    isAccordion ?
+                                    canExpand ? (
                                         <div className="accordion">
                                             <div className="accordion-item">
                                                 <div>
@@ -178,10 +187,11 @@ const ItemLister = ({
                                                         properties={properties}
                                                         item={i}
                                                         itemIndex={index}
+                                                        icons={icons}
                                                         gridTemplate={gridTemplate}
-                                                        isAccordion={isAccordion}
-                                                        isAccordionOpen={activeIndex.includes(index)}
                                                         onClick={() => toggleAccordion(index)}
+                                                        supportAccordion={canExpand}
+                                                        isAccordionOpen={activeIndex.includes(index)}
                                                     />
                                                 </div>
                                                 {activeIndex.includes(index) && <div className="accordion-content">
@@ -189,14 +199,16 @@ const ItemLister = ({
                                                 </div>}
                                             </div>
                                         </div>
-                                        :
+                                    ) : (
                                         <ItemListerItem
                                             key={i.id ? i.id : nanoid()}
                                             properties={properties}
                                             item={i}
                                             itemIndex={index}
                                             gridTemplate={gridTemplate}
+                                            icons={icons}
                                         />
+                                    )
                                 )}
                             </tbody>
                             {isLoading && Array(10).fill(0).map((_n) =>
@@ -205,6 +217,7 @@ const ItemLister = ({
                                     properties={properties}
                                     isLoading
                                     gridTemplate={gridTemplate}
+                                    icons={icons}
                                 />
                             )}
                             <InfiniteLoader
@@ -222,4 +235,4 @@ const ItemLister = ({
 
 };
 
-export default ItemLister;
+export default DataTable;

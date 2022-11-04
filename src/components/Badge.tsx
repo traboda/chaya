@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Color from 'color';
 import {useTheme} from "@emotion/react";
 
-type BadgeProps = {
+export type BadgeProps = {
     variant?: ('solid' | 'outline' | 'minimal'),
     color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
     size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')

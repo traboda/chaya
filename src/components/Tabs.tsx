@@ -3,11 +3,14 @@ import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
 import { link_wrapper } from "../utils/misc";
 import SimpleSelect from "./SimpleSelect";
+import Badge, {BadgeProps} from "./Badge";
 
 export type TabItemObject =  {
     name?: string
     label?: string
     key?: string,
+    count?: React.ReactElement,
+    countBadgeProps?: BadgeProps,
     type?: ('section')
     isInitial?: boolean
     renderer?: React.ReactElement
@@ -29,6 +32,7 @@ export type Tabs = {
     onClickDisabled?: (arg) => void,
     onChange?: (key: string) => void,
     id?: string,
+    countBadgeProps?: BadgeProps,
     className?: string,
     bodyClassName?: string,
     menuClassName?: string,
@@ -88,7 +92,7 @@ const VerticalTabSelector = styled(TabBase)`
 const Tabs = ({
  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey, id,
  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
- alignCenter,  onChange = () => {}, disableResponsive = false,
+ alignCenter,  onChange = () => {}, disableResponsive = false, countBadgeProps = null,
 }: Tabs) => {
 
     const tabID = id ? id : `tab-${nanoid()}`;
@@ -120,13 +124,18 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <React.Fragment>
+        <div className="flex items-center">
             {t.iconClassName && (
                 <i className={t.iconClassName} style={{ marginRight: '8px' }} />
             )}
             {t.iconRenderer || null}
             <span className={t.labelClassName}>{t.label}</span>
-        </React.Fragment>
+            {countBadgeProps && (
+                <div className="ml-2">
+                    <Badge {...{...countBadgeProps, ...t?.countBadgeProps}}>{t?.count}</Badge>
+                </div>
+            )}
+        </div>
     );
 
     const render_panels = () => tabItems?.length > 0 ?

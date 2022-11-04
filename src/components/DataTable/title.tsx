@@ -29,35 +29,32 @@ type ItemListerTitleBarProps = {
     sortOrder: 'asc' | 'desc' | null,
     gridTemplate: React.CSSProperties,
     setWidth?: (_width: number) => void
-    activeIndex?: any[],
-    toggleOpen?: (_) => void,
-    isAccordion?: boolean,
+    isAccordionsOpen?: boolean,
+    toggleAccordions?: (state: boolean) => void,
+    icons: {
+        accordionOpened: React.ReactNode,
+        accordionClosed: React.ReactNode,
+    }
 }
 
 const ItemListerTitleBar = ({
-    properties, currentSortAttribute, sortOrder, isAccordion = false, activeIndex = [], toggleOpen = () => {}, gridTemplate, onSort = () => null, setWidth = (_w) => {}
+    properties, currentSortAttribute, sortOrder, icons, isAccordionsOpen = null, toggleAccordions = (_) => {},
+    gridTemplate, onSort = () => null, setWidth = (_w) => {}
 }: ItemListerTitleBarProps) => {
 
     const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext)
 
     const barRef = useRef<HTMLTableRowElement>();
 
-    useEffect(() => {
-        setWidth(barRef.current.offsetWidth);
-    }, [barRef])
+    useEffect(() => setWidth(barRef.current.offsetWidth), [barRef.current]);
 
     return (
         <TitleBar ref={barRef} style={gridTemplate}>
-            {isAccordion && (
-                <th
-                    className="py-3 cursor-pointer"
-                    onClick={toggleOpen}
-                >
-                    <div className="flex justify-center h-full items-center text-center relative">
-                        <span style={{ transform: `rotate(${activeIndex?.length ? '90deg' : '0'})`, fontSize: 35, top: -7.5, position: "absolute", lineHeight: 1 }}>
-                            &#129170;
-                        </span>
-                    </div>
+            {isAccordionsOpen != null && (
+                <th className="flex justify-center h-full items-center text-center relative">
+                    <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
+                        {isAccordionsOpen ? icons.accordionOpened : icons.accordionClosed}
+                    </button>
                 </th>
             )}
             {isSelectEnabled && (

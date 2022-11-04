@@ -60,29 +60,28 @@ type ItemListerItemProps = {
     isLoading?: boolean,
     isPinned?: boolean,
     gridTemplate: React.CSSProperties
-    isAccordion?: boolean,
+    supportAccordion?: boolean,
     isAccordionOpen?: boolean,
     onClick?: () => void,
-};
-
-const defaultIcons = {
-    opened: <span style={{ fontSize: 40, lineHeight: 1, transform: 'rotate(90deg)' }}>&#129170;</span>,
-    closed: <span style={{ fontSize: 40, lineHeight: 1 }}>&#129170;</span>
+    icons: {
+        accordionOpened: React.ReactNode,
+        accordionClosed: React.ReactNode,
+    }
 };
 
 const ItemListerItem = ({
-    properties, item, itemIndex, gridTemplate, isAccordion = false, isAccordionOpen = false, onClick = () => {}, isLoading = false, isPinned = false
+    properties, item, itemIndex, icons, gridTemplate, supportAccordion = false, isAccordionOpen = false, onClick = () => {}, isLoading = false, isPinned = false
 }: ItemListerItemProps) => {
 
     const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext)
 
     return (
         <ListItem isPinned={isPinned} style={gridTemplate}>
-            {isAccordion && (
-                <td className="px-2 cursor-pointer" onClick={onClick}>
-                    <div className="flex justify-center h-full items-center w-full py-3 text-center">
-                        {isAccordionOpen ? defaultIcons.opened : defaultIcons.closed}
-                    </div>
+            {supportAccordion && (
+                <td className="px-2 flex justify-center h-full items-center w-full text-center">
+                    <button onClick={onClick}>
+                        {isAccordionOpen ? icons.accordionOpened : icons.accordionClosed}
+                    </button>
                 </td>
             )}
             {isEnabled && (
