@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 type Card = {
     children: (React.ReactNode|React.ReactChildren);
+    variant?: 'shaded'|'outline';
     title?: string,
     description?: string,
     titleClassName?: string,
@@ -19,21 +20,29 @@ type CardContainer = {
 
 const CardContainer = styled('div')<CardContainer>`
   padding: 1rem;
-  background: ${({ background, theme }) => 
-      background ? background : 
-      theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'
-  };
   border-radius: 8px;
   height: 100%;
   h3 {
     color: ${({ theme }) => theme.secondary};
   }
+  &.card-shaded {
+    background: ${({ background, theme }) =>
+        background ? background :
+        theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'
+    };
+  }
+  &.card-outline {
+    border: 1px solid ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 100%, 0.15)' : 'hsla(0, 0%, 0%, 0.15)'};
+  }
 `;
 
 
-const Card = ({ title, description,  className = '', titleClassName = '', iconClassName = '', iconRenderer = null, background, id, children }: Card) =>  (
-    <CardContainer id={id} background={background} className={className}>
-        {(title || description) &&
+const Card = ({
+    id, children, title, description, variant = 'shaded',
+    className = '', titleClassName = '', iconClassName = '', iconRenderer = null,
+    background,
+}: Card) =>  (
+    <CardContainer id={id} background={background} className={`card card-${variant} ${className}`}>
         <div className="px-2 pt-2">
             {title &&
             <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>
@@ -42,8 +51,8 @@ const Card = ({ title, description,  className = '', titleClassName = '', iconCl
                 {title}
             </h3>}
             {description && <p className="text-lg opacity-90 mb-2">{description}</p>}
-        </div>}
-        {children}
+            {children}
+        </div>
     </CardContainer>
 );
 

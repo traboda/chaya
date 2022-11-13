@@ -259,16 +259,17 @@ AccordionTable.args = {
 export const WithTopBar = Template.bind({});
 WithTopBar.args = {
     customTopBarRenderer: () => (
-    <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
-        dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
-        temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
-        expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
-        debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
-        temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
-        vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
-        pariatur rem reprehenderit repudiandae velit voluptate.
-    </div>)
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
+            dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
+            temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
+            expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
+            debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
+            temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
+            vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
+            pariatur rem reprehenderit repudiandae velit voluptate.
+        </div>
+    )
 };
 
 

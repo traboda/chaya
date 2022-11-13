@@ -53,13 +53,19 @@ const DesignTemplate: Story = args => (
     </Card>
 );
 
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Example_Design = DesignTemplate.bind({});
+export const Shaded_Card = DesignTemplate.bind({});
 
-Example_Design.args = {
+Shaded_Card.args = {
     title: 'Card Design',
     description: 'The following settings can be customized to make the card even more awesome.',
     className: 'bg-red-300 px-20 py-12 m-10',
-    iconClassName: 'fas fa-address-card h-30 w-30'
+};
+
+export const Bordered_Card = DesignTemplate.bind({});
+
+Bordered_Card.args = {
+    title: 'Card Design',
+    variant: 'outline',
+    description: 'The following settings can be customized to make the card even more awesome.',
+    className: 'bg-red-300 px-20 py-12 m-10',
 };

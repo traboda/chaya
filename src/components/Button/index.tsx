@@ -131,7 +131,7 @@ const Button = ({
             attributes={{
                 color: variant ==='solid' || color === 'shade' ? _text_color : _color,
                 background: variant === 'link' || variant === 'outline' ? 'transparent' : variant === 'solid' ? _color : _lighterBg,
-                outline: variant === 'outline' ? `1px solid` : 'none',
+                outline: (variant === 'outline' || variant === 'minimal') ? `1px solid` : 'none',
                 hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterHoverBg
             }}
         >
