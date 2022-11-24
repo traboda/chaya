@@ -1,6 +1,6 @@
 {
   "name": "@traboda/dsr",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Design System of Traboda",
   "private": false,
   "main": "dist/index.js",
