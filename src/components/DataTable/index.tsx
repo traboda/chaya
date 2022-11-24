@@ -33,6 +33,7 @@ type DataTableProps = {
     widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
     canExpand?: boolean,
     accordionRenderer?: (c) => ReactNode,
+    showTopBarOnEmpty?: boolean
 }
 
 const defaultIcons = {
@@ -50,7 +51,7 @@ const DataTable = ({
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
     canExpand = false, accordionRenderer = (_) => <div />,
-    stickyRow = null, widthUnit = 'px'
+    stickyRow = null, widthUnit = 'px', showTopBarOnEmpty = false
 }: DataTableProps) => {
 
     const { background } = useTheme();
@@ -120,7 +121,7 @@ const DataTable = ({
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
             <div>
-                {(!isLoading && items?.length === 0 && typeof emptyListRenderer === "function") ? (
+                {(!isLoading && items?.length === 0 && typeof emptyListRenderer === "function" && !showTopBarOnEmpty) ? (
                     <div>
                         {emptyListRenderer()}
                     </div>
