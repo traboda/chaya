@@ -5,9 +5,6 @@ import TextInput from './TextInput';
 import Button from './Button';
 
 const SearchBoxContainer = styled.div`
-    display: flex;
-    width: 100%;
-    padding: 0;
     button {
         color: ${({ theme }) => theme.color};
         background: transparent;
@@ -70,7 +67,7 @@ const SearchBox = ({
                 onSearch(keyword);
             }}
         >
-            <SearchBoxContainer>
+            <SearchBoxContainer className="flex w-full p-0">
                 <TextInput
                     name={name}
                     label={labels.label}

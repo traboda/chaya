@@ -8,7 +8,6 @@ const StyledSelect = styled.select`
   color: ${({ theme }) => theme.color};
   border: 2px solid hsla(0, 0%, 40%, .7);
   background: ${({ theme }) => theme.background } url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='${({ theme }) => Color(theme.color || theme.isDarkTheme ? '#fff' : '#000').rgb().string()}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat calc(100% - 0.75rem) center;
-  padding: 0.5rem;
   &:hover {
     border-color: hsla(0, 0%, 80%, .8);
   }
@@ -81,7 +80,7 @@ const SimpleSelect = ({
             )}
             <div className="w-full">
                 <StyledSelect
-                    className={`w-full text-lg rounded-lg appearance-none ${className}`}
+                    className={`w-full text-lg rounded-lg p-2 appearance-none ${className}`}
                     name={name}
                     id={inputID}
                     aria-labelledby={`${inputID}-label`}

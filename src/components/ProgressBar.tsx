@@ -7,15 +7,10 @@ type ProgressBarContainer = {
 }
 
 const ProgressBarContainer = styled.div<ProgressBarContainer>`
-    border-radius: 7px;
     background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)' };
-    padding: 0;
-    width: 100%;
   	height: ${({ height }) => height};
   	div {
       background-color: ${({theme}) => theme.secondary};
-	  height: 100%;
-      border-radius: inherit;
       background-image: ${({ striped }) => striped ? 'linear-gradient( 45deg, rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%, rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%, transparent 75%,transparent )' : null};
       background-size: 1rem 1rem;
     }
@@ -45,10 +40,11 @@ const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, 
         id={id}
         height={height ?? sizes[size]}
         striped={striped}
-        className={className}
+        className={`progress-bar-container rounded-lg w-full p-0 ${className}`}
     >
         <div
             role="progressbar"
+            className="progress-bar rounded-lg h-full"
             style={{ width: `${value||0}%` }}
             aria-valuenow={(value/100)*maxVal}
             aria-valuemin={minVal}

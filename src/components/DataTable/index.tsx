@@ -40,8 +40,8 @@ type DataTableProps = {
 }
 
 const defaultIcons = {
-    accordionOpened: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▶</span>,
-    accordionClosed: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▼</span>
+    accordionOpened: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▼</span>,
+    accordionClosed: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▶</span>
 };
 
 const DataTable = ({

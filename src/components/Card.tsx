@@ -19,9 +19,6 @@ type CardContainer = {
 }
 
 const CardContainer = styled('div')<CardContainer>`
-  padding: 1rem;
-  border-radius: 8px;
-  height: 100%;
   h3 {
     color: ${({ theme }) => theme.secondary};
   }
@@ -36,13 +33,12 @@ const CardContainer = styled('div')<CardContainer>`
   }
 `;
 
-
 const Card = ({
     id, children, title, description, variant = 'shaded',
     className = '', titleClassName = '', iconClassName = '', iconRenderer = null,
     background,
 }: Card) =>  (
-    <CardContainer id={id} background={background} className={`card card-${variant} ${className}`}>
+    <CardContainer id={id} background={background} className={`card card-${variant} rounded-lg p-4 h-full ${className}`}>
         <div className="px-2 pt-2">
             {title &&
             <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>

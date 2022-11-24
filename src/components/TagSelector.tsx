@@ -5,18 +5,11 @@ import ToolTip from './ToolTip';
 
 const TagSelectorContainer = styled.div`
   .tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     .tag {
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 7px;
       color: ${({theme}) => theme.color};
-      cursor: pointer;
-      margin: 0.35rem;
       transition: all 250ms ease;
       border: 1px solid ${({ theme }) => theme.color};
-      
       &.small {
         padding: 0.25rem 1rem;
       }
@@ -123,16 +116,16 @@ const TagSelector = (props: TagSelectorProps) => {
                     </ToolTip>
                 </div>}
             </div>}
-            <div className="tag-container">
+            <div className="tag-container flex flex-wrap items-center">
                 {props.options.map(opt =>
-                    <div
+                    <button
                         key={opt.value}
-                        className={`tag px-4 py-1 text-lg ${generateClassName(opt)} ${props?.tagClassName}`}
+                        className={`tag px-4 py-1 rounded-lg m-1 text-lg ${generateClassName(opt)} ${props?.tagClassName}`}
                         onClick={() => handleTagClick(opt)}
                         style={opt.color ? { color: opt.color } : null}
                     >
                         {opt.label}
-                    </div>
+                    </button>
                 )}
             </div>
         </TagSelectorContainer>

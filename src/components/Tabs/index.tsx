@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
-import { link_wrapper } from "../utils/misc";
-import SimpleSelect from "./SimpleSelect";
-import Badge, {BadgeProps} from "./Badge";
+import { link_wrapper } from "../../utils/misc";
+import SimpleSelect from "../SimpleSelect";
+import Badge, {BadgeProps} from "../Badge";
 
 export type TabItemObject =  {
     name?: string
@@ -124,7 +124,7 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <div className="flex items-center">
+        <div className="flex justify-between items-center">
             {t.iconClassName && (
                 <i className={t.iconClassName} style={{ marginRight: '8px' }} />
             )}

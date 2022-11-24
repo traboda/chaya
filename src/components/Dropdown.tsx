@@ -19,7 +19,6 @@ type DropdownMenuProps = {
 
 const DropDownMenu = styled('div')`
   margin-top: 0.5rem;
-  border-radius: 7px;
   padding: 5px;
   background: #f6f6f6;
 
@@ -51,7 +50,7 @@ const DropDownMenu = styled('div')`
 
 const DropdownMenu = ({ items = [], isOpen, onClose = () => {}, id, className = '' } : DropdownMenuProps) =>
 isOpen ? (
-    <DropDownMenu id={id} role="navigation" className={className}>
+    <DropDownMenu id={id} role="navigation" className={`rounded-lg ${className}`}>
         <div role="menu" onMouseLeave={onClose}>
             {items.length > 0 && items.map((n,i) => {
                 const content = n?.renderer ? n.renderer() : (
