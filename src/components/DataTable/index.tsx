@@ -1,11 +1,11 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import { nanoid } from 'nanoid';
 import { throttle } from 'lodash';
+import { useTheme } from "@emotion/react";
 
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
 import InfiniteLoader from "../InfiniteLoader";
-import { useTheme } from "@emotion/react";
 import SelectionHelper from "./SelectionHelper";
 
 type DataTableProps = {
@@ -13,10 +13,6 @@ type DataTableProps = {
     items: {
         id: string
     }[],
-    labels?: {
-        description?: string,
-        endOfList?: string
-    },
     icons?: {
         accordionOpened?: React.ReactElement,
         accordionClosed?: React.ReactElement
@@ -46,7 +42,7 @@ const defaultIcons = {
 
 const DataTable = ({
     properties = [],
-    items = [], labels, icons: _icons,
+    items = [], icons: _icons,
     emptyListRenderer = () => <div />,
     isLoading = false, canLoadMore = false,
     allowSelection = false, onSelect = () => {},
@@ -124,13 +120,8 @@ const DataTable = ({
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
             <div>
-                {labels?.description &&
-                    <div className="mb-2 py-3 px-1">
-                        {labels?.description}
-                    </div>}
-                {(!isLoading && items?.length === 0) ? (
+                {(!isLoading && items?.length === 0 && typeof emptyListRenderer === "function") ? (
                     <div>
-                        {customTopBarRenderer()}
                         {emptyListRenderer()}
                     </div>
                 ) : (

@@ -124,15 +124,17 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <div className="flex justify-between items-center">
-            {t.iconClassName && (
-                <i className={t.iconClassName} style={{ marginRight: '8px' }} />
-            )}
-            {t.iconRenderer || null}
-            <span className={t.labelClassName}>{t.label}</span>
+        <div className="flex w-full justify-between items-center">
+            <div className="text-left">
+                {t.iconClassName && (
+                    <i className={t.iconClassName} style={{ marginRight: '8px' }} />
+                )}
+                {t.iconRenderer || null}
+                <span className={t.labelClassName}>{t.label}</span>
+            </div>
             {countBadgeProps && (
-                <div className="ml-2">
-                    <Badge {...{...countBadgeProps, ...t?.countBadgeProps}}>{t?.count}</Badge>
+                <div>
+                    <Badge className="py-2 px-3" {...{...countBadgeProps, ...t?.countBadgeProps}}>{t?.count}</Badge>
                 </div>
             )}
         </div>
