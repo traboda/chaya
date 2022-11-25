@@ -172,44 +172,44 @@ const TextInput = ({
 
     const showLimit = ((typeof value !== 'number' && value?.length > 0) && isTyping && charLimit !== null && charLimit > 0);
 
-    return (
-        <TextContainer className={className} style={style}>
-            {(!hideLabel) &&
-            <div className="flex flex-wrap mb-1 px-1 mx-0">
-                <div className={showLimit ? 'w-2/3 px-0' : 'w-full px-0'}>
-                    {label &&
-                    <label className="text-lg opacity-80" htmlFor={inputID} aria-hidden={false}>
-                        {label}
-                        {required && <span className="required-marker">*</span>}
-                    </label>}
-                </div>
-                {(showLimit && typeof value !== 'number') &&
-                <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">
-                    {value?.length}/{charLimit}
-                </div>}
-            </div>}
-            <div className="relative">
-                <StyledTextInput
-                    as={type === 'textarea' ? 'textarea' : 'input'}
-                    // @ts-ignore
-                    rows={type === 'textarea' ? rows : null}
-                    {...props}
-                    invalid={invalid || !!errorText}
-                    className={`text-lg ${inputClassName}`}
-                    onKeyDown={onKeyDown}
-                />
-                {postfixRenderer && <PostFixIcon>{postfixRenderer}</PostFixIcon>}
+    return <TextContainer className={className} style={style}>
+        {(!hideLabel) &&
+        <div className="flex flex-wrap mb-1 px-1 mx-0">
+            <div className={showLimit ? 'w-2/3 px-0' : 'w-full px-0'}>
+                {label &&
+                <label className="text-lg opacity-80" htmlFor={inputID} aria-hidden={false}>
+                    {label}
+                    {required && <span className="required-marker">*</span>}
+                </label>}
             </div>
-            {errorText &&
-            <div className="text-red-400 mt-1">
-                {errorText}
+            {(showLimit && typeof value !== 'number') &&
+            <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">
+                {value?.length}/{charLimit}
             </div>}
-            {description &&
-            <div className="mt-2" style={{ opacity: 0.75, fontSize: '10px' }}>
-                {description}
-            </div>}
-        </TextContainer>
-    );
+        </div>}
+        <div className="relative">
+            <StyledTextInput
+                as={type === 'textarea' ? 'textarea' : 'input'}
+                // @ts-ignore
+                rows={type === 'textarea' ? rows : null}
+                {...props}
+                invalid={invalid || !!errorText}
+                minLength={min}
+                maxLength={max}
+                className={`text-lg ${inputClassName}`}
+                onKeyDown={onKeyDown}
+            />
+            {postfixRenderer && <PostFixIcon>{postfixRenderer}</PostFixIcon>}
+        </div>
+        {errorText &&
+        <div className="text-red-400 mt-1">
+            {errorText}
+        </div>}
+        {description &&
+        <div className="mt-2" style={{ opacity: 0.75, fontSize: '10px' }}>
+            {description}
+        </div>}
+    </TextContainer>;
 
 };
 
