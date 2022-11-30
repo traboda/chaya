@@ -4,14 +4,7 @@ import styled from '@emotion/styled';
 
 const AccordionContainer = styled.div`
   background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'};
-  width: 100%;
-  border-radius: 7px;
-  padding: 0.5rem;
   button {
-    width: 100%;
-    font-weight: 600;
-    padding: 0.75rem;
-    border-radius: 7px;
     color: ${({ theme }) => theme.secondary};
     background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.2)' : 'rgba(255, 255, 255, 0.9)' };
   }
@@ -61,9 +54,9 @@ const Accordion = ({
     const icons = {...defaultIcons, ..._icons};
 
     return (
-        <AccordionContainer id={id} className={`accordion ${className}`}>
+        <AccordionContainer id={id} className={`accordion p-3 rounded-lg ${className}`}>
             <button
-                className={`flex text-xl justify-between ${titleClassName}`}
+                className={`accordion-selection-button w-full p-3 font-semibold flex rounded-lg text-xl justify-between ${titleClassName}`}
                 onClick={() => {
                     setOpen(!isOpen);
                     onChange();

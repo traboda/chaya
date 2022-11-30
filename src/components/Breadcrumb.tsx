@@ -4,9 +4,6 @@ import {nanoid} from "nanoid";
 import { link_wrapper } from "../utils/misc";
 
 const BreadcrumbWrapper = styled.ul`
-    padding: 0;
-    display: flex;
-    align-items: center;
     li {
         opacity: 0.75;
         list-style: none;
@@ -47,16 +44,15 @@ const Breadcrumb = ({ items, className = '', icons: _icons = null }: BreadcrumbP
     const icons = {...defaultIcons, ..._icons};
 
     return (
-        <BreadcrumbWrapper className={`text-lg breadcrumb ${className}`}>
+        <BreadcrumbWrapper className={`text-lg flex items-center breadcrumb ${className}`}>
             <li>
                 {link_wrapper('/', icons?.home)}
             </li>
-            {items.length > 0 &&
-                items.map((i) =>
-                    <li key={nanoid()}>
-                        {link_wrapper(i?.link || '#', <>{i.title}</>)}
-                    </li>
-                )}
+            {items.length > 0 && items.map((i) => (
+                <li key={nanoid()}>
+                    {link_wrapper(i?.link || '#', <>{i.title}</>)}
+                </li>
+            ))}
         </BreadcrumbWrapper>
     );
 }

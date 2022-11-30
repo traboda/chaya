@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {nanoid} from "nanoid";
 import styled from "@emotion/styled";
-import { link_wrapper } from "../utils/misc";
-import SimpleSelect from "./SimpleSelect";
-import Badge, {BadgeProps} from "./Badge";
+import { link_wrapper } from "../../utils/misc";
+import SimpleSelect from "../SimpleSelect";
+import Badge, {BadgeProps} from "../Badge";
 
 export type TabItemObject =  {
     name?: string
@@ -124,15 +124,17 @@ const Tabs = ({
     }, [currentTab]);
 
     const render_option = (t) => (
-        <div className="flex items-center">
-            {t.iconClassName && (
-                <i className={t.iconClassName} style={{ marginRight: '8px' }} />
-            )}
-            {t.iconRenderer || null}
-            <span className={t.labelClassName}>{t.label}</span>
+        <div className="flex w-full justify-between items-center">
+            <div className="text-left">
+                {t.iconClassName && (
+                    <i className={t.iconClassName} style={{ marginRight: '8px' }} />
+                )}
+                {t.iconRenderer || null}
+                <span className={t.labelClassName}>{t.label}</span>
+            </div>
             {countBadgeProps && (
-                <div className="ml-2">
-                    <Badge {...{...countBadgeProps, ...t?.countBadgeProps}}>{t?.count}</Badge>
+                <div>
+                    <Badge className="py-2 px-3" {...{...countBadgeProps, ...t?.countBadgeProps}}>{t?.count}</Badge>
                 </div>
             )}
         </div>

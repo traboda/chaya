@@ -77,7 +77,7 @@ const Badge = ({
     })();
 
     const _className = (() => {
-        let classNames = 'rounded ';
+        let classNames = 'rounded-lg ';
         if(!(className && className.match(/px-\d+|py-\d+|p-\d+/)))
             classNames += `${size === 'xs' ? 'px-1' : size === 'sm' ? 'px-2 py-0' : size === 'md' ? 'px-3 py-1' : size === 'lg' ? 'px-3 py-1' : size === 'xl' ? 'px-5 py-2' : ''} `;
         classNames += `text-${size} `;

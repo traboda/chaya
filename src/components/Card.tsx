@@ -33,14 +33,13 @@ const CardContainer = styled('div')<CardContainer>`
   }
 `;
 
-
 const Card = ({
     id, children, title, description, variant = 'shaded',
     className = '', titleClassName = '', iconClassName = '', iconRenderer = null,
     background,
 }: Card) =>  (
-    <CardContainer id={id} background={background} className={`card card-${variant} ${className}`}>
-        <div className="px-2 pt-2">
+    <CardContainer id={id} background={background} className={`card card-${variant} rounded-lg p-4 ${className}`}>
+        <div>
             {title &&
             <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>
                 {iconClassName && <i className={`${iconClassName} mr-2`} />}

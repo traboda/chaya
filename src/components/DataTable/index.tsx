@@ -1,11 +1,11 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
 import { nanoid } from 'nanoid';
 import { throttle } from 'lodash';
+import { useTheme } from "@emotion/react";
 
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
 import InfiniteLoader from "../InfiniteLoader";
-import { useTheme } from "@emotion/react";
 import SelectionHelper from "./SelectionHelper";
 
 type DataTableProps = {
@@ -13,10 +13,6 @@ type DataTableProps = {
     items: {
         id: string
     }[],
-    labels?: {
-        description?: string,
-        endOfList?: string
-    },
     icons?: {
         accordionOpened?: React.ReactElement,
         accordionClosed?: React.ReactElement
@@ -37,16 +33,17 @@ type DataTableProps = {
     widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
     canExpand?: boolean,
     accordionRenderer?: (c) => ReactNode,
+    showTopBarOnEmpty?: boolean
 }
 
 const defaultIcons = {
-    accordionOpened: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▶</span>,
-    accordionClosed: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▼</span>
+    accordionOpened: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▼</span>,
+    accordionClosed: <span style={{ fontSize: 13, lineHeight: 1, opacity: 0.9 }}>▶</span>
 };
 
 const DataTable = ({
     properties = [],
-    items = [], labels, icons: _icons,
+    items = [], icons: _icons,
     emptyListRenderer = () => <div />,
     isLoading = false, canLoadMore = false,
     allowSelection = false, onSelect = () => {},
@@ -54,7 +51,7 @@ const DataTable = ({
     currentSortAttribute, sortOrder, onSort = () => null,
     customTopBarRenderer = () => <div />, loadable = true,
     canExpand = false, accordionRenderer = (_) => <div />,
-    stickyRow = null, widthUnit = 'px'
+    stickyRow = null, widthUnit = 'px', showTopBarOnEmpty = false
 }: DataTableProps) => {
 
     const { background } = useTheme();
@@ -124,13 +121,8 @@ const DataTable = ({
     return (
         <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
             <div>
-                {labels?.description &&
-                    <div className="mb-2 py-3 px-1">
-                        {labels?.description}
-                    </div>}
-                {(!isLoading && items?.length === 0) ? (
+                {(!isLoading && items?.length === 0 && typeof emptyListRenderer === "function" && !showTopBarOnEmpty) ? (
                     <div>
-                        {customTopBarRenderer()}
                         {emptyListRenderer()}
                     </div>
                 ) : (
@@ -177,39 +169,44 @@ const DataTable = ({
                                 )}
                             </div>
                             <tbody>
-                                {items?.length > 0 && items.map((i, index) =>
-                                    canExpand ? (
-                                        <div className="accordion">
-                                            <div className="accordion-item">
-                                                <div>
-                                                    <ItemListerItem
-                                                        key={i.id ? i.id : nanoid()}
-                                                        properties={properties}
-                                                        item={i}
-                                                        itemIndex={index}
-                                                        icons={icons}
-                                                        gridTemplate={gridTemplate}
-                                                        onClick={() => toggleAccordion(index)}
-                                                        supportAccordion={canExpand}
-                                                        isAccordionOpen={activeIndex.includes(index)}
-                                                    />
+                                {items?.length > 0 ?
+                                    items.map((i, index) =>
+                                        canExpand ? (
+                                            <div className="accordion">
+                                                <div className="accordion-item">
+                                                    <div>
+                                                        <ItemListerItem
+                                                            key={i.id ? i.id : nanoid()}
+                                                            properties={properties}
+                                                            item={i}
+                                                            itemIndex={index}
+                                                            icons={icons}
+                                                            gridTemplate={gridTemplate}
+                                                            onClick={() => toggleAccordion(index)}
+                                                            supportAccordion={canExpand}
+                                                            isAccordionOpen={activeIndex.includes(index)}
+                                                        />
+                                                    </div>
+                                                    {activeIndex.includes(index) && <div className="accordion-content">
+                                                        {accordionRenderer(i)}
+                                                    </div>}
                                                 </div>
-                                                {activeIndex.includes(index) && <div className="accordion-content">
-                                                    {accordionRenderer(i)}
-                                                </div>}
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <ItemListerItem
+                                                key={i.id ? i.id : nanoid()}
+                                                properties={properties}
+                                                item={i}
+                                                itemIndex={index}
+                                                gridTemplate={gridTemplate}
+                                                icons={icons}
+                                            />
+                                        )
                                     ) : (
-                                        <ItemListerItem
-                                            key={i.id ? i.id : nanoid()}
-                                            properties={properties}
-                                            item={i}
-                                            itemIndex={index}
-                                            gridTemplate={gridTemplate}
-                                            icons={icons}
-                                        />
-                                    )
-                                )}
+                                        <div>
+                                            {(!isLoading && items?.length === 0 && typeof emptyListRenderer === "function") ? emptyListRenderer() : <div />}
+                                        </div>
+                                    )}
                             </tbody>
                             {isLoading && Array(10).fill(0).map((_n) =>
                                 <ItemListerItem
