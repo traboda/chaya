@@ -6,9 +6,6 @@ import Breadcrumb, { BreadcrumbPropType } from './Breadcrumb';
 
 const PageHeaderSection = styled.section`
     background: ${({ theme }) => theme?.isDarkTheme ? Color(theme.background || '#000').lighten(0.2).hex() : Color(theme.background || '#FFF').darken(0.15).hex() };
-    p {
-        font-size: calc(1rem + 0.25vw);
-    }
     &.page-header-lg {
       padding: 3.5vh 3.5vw;
     }
@@ -55,8 +52,8 @@ const PageHeader = ({
                             className={`${size == "sm" ? "text-sm mb-0" : ''}`}
                         />
                     </div>
-                    {customTitle ? customTitle : <h1 aria-level={1} className={`${size == 'lg' ? `text-6xl` : 'text-3xl'}  font-semibold ${headingClassName}`} role="heading">{title}</h1>}
-                    {description?.length > 0 && <p className="text-lg opacity-80 mt-3">{description}</p>}
+                    {customTitle ? customTitle : <h1 aria-level={1} className={`${size == 'lg' ? `text-6xl` : 'text-3xl'} mt-1 font-semibold ${headingClassName}`} role="heading">{title}</h1>}
+                    {description?.length > 0 && <p style={{ width: '600px', maxWidth: '100%' }} className="text-md opacity-80 mt-2">{description}</p>}
                     {titleBottomRenderer()}
                 </div>
                 <div className="md:w-1/3 py-2 flex justify-end items-center">

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
 import { Dropdown } from '../src';
@@ -17,29 +17,13 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    React.useEffect(() => {
-        setIsOpen(args.isOpen);
-    }, [args.isOpen]);
-
     return (
         <div className='bg-gray-200 flex pt-10 items-center flex-col' style={{minHeight: "50vh"}}>
-            <button
-                onMouseEnter={()=> args.showOnHover && setIsOpen(true)}
-                onClick={() => setIsOpen(!isOpen)}
-                className='py-1 rounded-md px-3 bg-blue-700 text-white font-bold'
-            >
-                open
-            </button>
-            <Dropdown
-                isOpen={isOpen}
-                onClose={() => {
-                    setIsOpen(false)
-                }}
-                {...args}
-            />
+            <Dropdown {...args}>
+                <div className="text-lg font-semibold py-2 px-3" style={{ color: 'white', background: '#333' }}>
+                    open
+                </div>
+            </Dropdown>
         </div>
 )};
 
