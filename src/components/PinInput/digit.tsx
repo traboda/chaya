@@ -10,7 +10,7 @@ const OTPInput = styled.input<OTPInputWrapProps>`
   background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)' };
   border: 0;
   color: ${({ theme }) => theme.color};
-  outline: 2px solid ${({ isInvalid }) => isInvalid ? 'red' : 'hsla(0, 0%, 40%, .7)'};
+  outline: 1px solid ${({ isInvalid }) => isInvalid ? 'red' : 'hsla(0, 0%, 40%, .7)'};
 
   &:focus {
     outline-color: ${({ theme, isDisabled }) => !isDisabled ? `${theme.secondary}` : 'hsla(0, 0%, 40%, .7)'};

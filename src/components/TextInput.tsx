@@ -38,11 +38,11 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   color: ${({ theme }) => theme.color};
   padding: 0.5rem;
   border-radius: 8px;
-  border: 2px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
+  border: 1px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
 
   &:not(:focus):is([type="number"]):not(:placeholder-shown):invalid, 
   &:not(:focus):not([type="number"]):not([value=""]):not(:placeholder-shown):invalid{
-    border: 2px solid crimson!important;
+    border: 1px solid crimson!important;
   }
 
   &:hover {
@@ -51,7 +51,7 @@ const StyledTextInput = styled('input')<StyledTextInput>`
 
   &:focus {
     outline: none!important;
-    border: 2px solid ${({ theme }) => theme.secondary}!important;
+    border: 1px solid ${({ theme }) => theme.secondary}!important;
   }
 `;
 
