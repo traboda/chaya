@@ -69,7 +69,7 @@ const SimpleSelect = ({
             {labels?.label?.length > 0 && (
                 <label
                     id={`${inputID}-label`}
-                    className="block text-lg opacity-80 mb-1"
+                    className="block text-base opacity-80 mb-1"
                     htmlFor={inputID}
                     aria-hidden={false}
                     style={{ color }}
@@ -80,7 +80,7 @@ const SimpleSelect = ({
             )}
             <div className="w-full">
                 <StyledSelect
-                    className={`w-full text-lg rounded-lg p-2 appearance-none ${className}`}
+                    className={`w-full text-lg rounded-lg px-2 py-1.5 appearance-none ${className}`}
                     name={name}
                     id={inputID}
                     aria-labelledby={`${inputID}-label`}

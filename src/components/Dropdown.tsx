@@ -98,7 +98,7 @@ const DropdownMenu = ({
                     <div role="menu" onMouseLeave={() => setOpen(false)}>
                         {items.length > 0 && items.map((n,i) => {
                             const content = n?.renderer ? n.renderer() : (
-                                <div>
+                                <div className="flex items-center">
                                     {n?.iconClassName && <i className={`${n.iconClassName} mr-2`} />}
                                     {typeof n?.icon == "function" && <div className="inline-block mr-2">{n.icon()}</div>}
                                     {n?.title}

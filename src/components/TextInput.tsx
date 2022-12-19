@@ -50,7 +50,6 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   width: 100%;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.color};
-  padding: 0.35rem 0.5rem;
   border-radius: 8px;
   border: 1px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
 
@@ -79,7 +78,6 @@ const TextFix = styled('div')`
   color: ${({ theme }) => theme.color};
   background: ${({ theme }) => Color(theme.background).darken(theme?.isDarkTheme ? 0.3 : 0.15).hex()};
   align-items: center;
-  padding: 0.3rem 0.5rem;
   border: 1px solid hsla(0, 0%, 40%, .7);
 `;
 
@@ -211,26 +209,27 @@ const TextInput = ({
                         {required && <span className="required-marker">*</span>}
                     </label>}
                 </div>
-                {(showLimit && typeof value !== 'number') &&
-                <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">
-                    {value?.length}/{charLimit}
-                </div>}
+                {(showLimit && typeof value !== 'number') && (
+                    <div className="w-1/3 opacity-80 px-1 flex items-end justify-end">
+                        {value?.length}/{charLimit}
+                    </div>
+                )}
             </div>}
             <div className="relative text-input-box">
-                {prefixRenderer && <PreFixIcon className="text-input-prefix">{prefixRenderer}</PreFixIcon>}
+                {prefixRenderer && <PreFixIcon className="text-input-prefix px-2 py-1.5">{prefixRenderer}</PreFixIcon>}
                 <StyledTextInput
                     as={type === 'textarea' ? 'textarea' : 'input'}
                     // @ts-ignore
                     rows={type === 'textarea' ? rows : null}
                     {...props}
                     invalid={invalid || !!errorText}
-                    className={`text-lg ${inputClassName}`}
+                    className={`text-lg px-2 py-1.5 ${inputClassName}`}
                     style={{
                         paddingLeft: prefixRenderer ? '5.5rem' : '0.5rem',
                     }}
                     onKeyDown={onKeyDown}
                 />
-                {postfixRenderer && <PostFixIcon className="text-input-postfix">{postfixRenderer}</PostFixIcon>}
+                {postfixRenderer && <PostFixIcon className="text-input-postfix px-2 py-1.5">{postfixRenderer}</PostFixIcon>}
             </div>
             {errorText &&
             <div className="text-red-400 mt-1">
