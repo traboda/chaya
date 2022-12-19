@@ -20,6 +20,7 @@ type PageHeader = {
     description?: string,
     id?: string,
     size?: ('lg'|'sm')
+    fill?: boolean,
     className?: string,
     headingClassName?: string,
     breadcrumb?: BreadcrumbPropType,
@@ -35,14 +36,14 @@ type PageHeader = {
 
 const PageHeader = ({
     title, description, className = '', headingClassName = '', id,
-    breadcrumbItems = [], size = 'lg',
+    breadcrumbItems = [], size = 'lg', fill = false,
     customRender = () => <div />,
     titleBottomRenderer = () => <div />,
     sidebarRenderer = () => <div />,
     customTitle = null, breadcrumb = null
 } : PageHeader) => (
-    <PageHeaderSection id={id} className={`page-header page-header-${size} ${className}`}>
-        <div>
+    <PageHeaderSection id={id} className={`page-header page-header-${size} ${className} ${!fill ? 'flex items-center justify-center' : ''}`}>
+        <div style={!fill ? { width: '1333px', maxWidth: '100%' } : null}>
             <div className="flex flex-wrap">
                 <div className="md:w-2/3 py-2">
                     <div className={size == "lg" ? "px-2 mb-4" : "mb-2" }>
