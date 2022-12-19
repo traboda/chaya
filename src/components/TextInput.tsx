@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid'
 import styled from '@emotion/styled';
+import Color from 'color';
 
 const emptyFunc = () => {};
 
@@ -25,6 +26,19 @@ const TextContainer = styled.div`
       opacity: 0.5;
     }
   }
+  
+  .text-input-box {
+    &:hover {
+      .text-input-postfix, .text-input-prefix {
+        border-color: hsla(0, 0%, 80%, .8);
+      }
+    }
+    &:focus-within {
+      .text-input-postfix, .text-input-prefix {
+        border: 1px solid ${({ theme }) => theme.secondary}!important;
+      }
+    }
+  }
 `;
 
 type StyledTextInput = {
@@ -36,7 +50,7 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   width: 100%;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.color};
-  padding: 0.5rem;
+  padding: 0.35rem 0.5rem;
   border-radius: 8px;
   border: 1px solid ${({ invalid }) => invalid ? 'crimson' : 'hsla(0, 0%, 40%, .7)'};
 
@@ -48,6 +62,7 @@ const StyledTextInput = styled('input')<StyledTextInput>`
   &:hover {
     border-color: hsla(0, 0%, 80%, .8);
   }
+  
 
   &:focus {
     outline: none!important;
@@ -56,20 +71,32 @@ const StyledTextInput = styled('input')<StyledTextInput>`
 `;
 
 
-
-const PostFixIcon = styled('div')`
+const TextFix = styled('div')`
   position: absolute;
   top: 0;
   right: 0;
+  height: 100%;
   color: ${({ theme }) => theme.color};
-  background: ${({ theme }) => theme.background};
-  display: flex;
+  background: ${({ theme }) => Color(theme.background).darken(theme?.isDarkTheme ? 0.3 : 0.15).hex()};
   align-items: center;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid hsla(0, 0%, 40%, .7);
+`;
+
+
+const PostFixIcon = styled(TextFix)`
+  right: 0;
+  display: flex;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  margin: 2px;
-  max-height: 90%;
+`;
+
+const PreFixIcon = styled(TextFix)`
+  left: 0;
+  display: inline-flex;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  max-width: 5rem;
 `;
 
 type TextInput = {
@@ -103,6 +130,7 @@ type TextInput = {
     style?: React.CSSProperties
     autoFocus?: boolean,
     postfixRenderer?: React.ReactElement
+    prefixRenderer?: React.ReactElement
 };
 
 
@@ -111,7 +139,7 @@ const TextInput = ({
    className, style, hideLabel = false,
    required = false, disabled = false, invalid = false, autoFocus = false,
    rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min = null, max = null,
-   inputStyle, inputClassName, type, errorText, description, postfixRenderer,
+   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
    onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
 }: TextInput) => {
 
@@ -178,7 +206,7 @@ const TextInput = ({
             <div className="flex flex-wrap mb-1 px-1 mx-0">
                 <div className={showLimit ? 'w-2/3 px-0' : 'w-full px-0'}>
                     {label &&
-                    <label className="text-lg opacity-80" htmlFor={inputID} aria-hidden={false}>
+                    <label className="text-base opacity-80" htmlFor={inputID} aria-hidden={false}>
                         {label}
                         {required && <span className="required-marker">*</span>}
                     </label>}
@@ -188,7 +216,8 @@ const TextInput = ({
                     {value?.length}/{charLimit}
                 </div>}
             </div>}
-            <div className="relative">
+            <div className="relative text-input-box">
+                {prefixRenderer && <PreFixIcon className="text-input-prefix">{prefixRenderer}</PreFixIcon>}
                 <StyledTextInput
                     as={type === 'textarea' ? 'textarea' : 'input'}
                     // @ts-ignore
@@ -196,9 +225,12 @@ const TextInput = ({
                     {...props}
                     invalid={invalid || !!errorText}
                     className={`text-lg ${inputClassName}`}
+                    style={{
+                        paddingLeft: prefixRenderer ? '5.5rem' : '0.5rem',
+                    }}
                     onKeyDown={onKeyDown}
                 />
-                {postfixRenderer && <PostFixIcon>{postfixRenderer}</PostFixIcon>}
+                {postfixRenderer && <PostFixIcon className="text-input-postfix">{postfixRenderer}</PostFixIcon>}
             </div>
             {errorText &&
             <div className="text-red-400 mt-1">

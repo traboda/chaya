@@ -32,6 +32,13 @@ export const Default = Template.bind({});
 
 Default.args = {};
 
+export const WithPostfix = Template.bind({});
+
+WithPostfix.args = {
+    prefixRenderer: 'Points',
+    postfixRenderer: 'pts'
+};
+
 const InvalidInputsTemplate: Story = args => (
   <div style={{ width: '720px', maxWidth: '100%' }}>
     <div style={{ paddingBottom: '1rem' }}>

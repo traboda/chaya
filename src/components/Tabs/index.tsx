@@ -143,6 +143,7 @@ const Tabs = ({
     const render_panels = () => tabItems?.length > 0 ?
     tabItems.map((t) => (
         <div
+            key={t?.key ? `tab_panel_${t.key}` : nanoid()}
             role="tabpanel"
             id={`${tabID}-${t.key}-panel`}
             aria-labelledby={`${tabID}-${t.key}-tab`}
@@ -158,10 +159,13 @@ const Tabs = ({
 
     const render_tabs = () => (
         tabItems.filter((t) => !t.hidden).map((t) => (
-            <li className={isVertical ? "w-full" : null} role="presentation">
+            <li
+                key={t?.key ? `tab_selector_${t?.key}` : nanoid()}
+                className={isVertical ? "w-full" : null}
+                role="presentation"
+            >
                 {t?.onClick && typeof t.onClick === "function" ? (
                         <button
-                            key={nanoid()}
                             onClick={() => t.onClick()}
                             className={_menu_button_className(t.key)}
                             role="tab"
@@ -175,7 +179,6 @@ const Tabs = ({
                     ) :
                     disabled ? (
                         <button
-                            key={nanoid()}
                             onClick={() => onClickDisabled(t.key)}
                             className={_menu_button_className(t.key)}
                             role="tab"
@@ -188,13 +191,12 @@ const Tabs = ({
                         </button>
                     ) :
                     t.link ? (
-                        <React.Fragment key={nanoid()}>
+                        <React.Fragment>
                             {link_wrapper(t.link, render_option(t))}
                         </React.Fragment>
                     ) :
                     t.url ? (
                         <a
-                            key={nanoid()}
                             href={t.url}
                             className={_menu_button_className(t.key)}
                             role="tab"
@@ -208,7 +210,6 @@ const Tabs = ({
                     ) :
                     t.type === 'section' ? (
                         <h5
-                            key={nanoid()}
                             style={{ opacity: 0.9 }}
                             className={_menu_button_className(t.key)}
                         >
@@ -216,7 +217,6 @@ const Tabs = ({
                         </h5>
                     ) : (
                         <button
-                            key={nanoid()}
                             onClick={() => setTab(t.key)}
                             className={_menu_button_className(t.key)}
                             role="tab"
