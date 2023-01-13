@@ -178,6 +178,7 @@ const TextInput = ({
         'aria-label': label,
         'aria-required': required,
         id: inputID,
+        name,
         value,
         placeholder: placeholder || label,
         spellCheck,
