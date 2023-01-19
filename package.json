@@ -1,100 +1,48 @@
 {
-  "name": "@traboda/dsr",
-  "version": "0.9.22",
-  "description": "Design System of Traboda",
-  "private": false,
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "design-system",
+  "version": "1.0.0",
+  "description": "Traboda Design System",
+  "scripts": {
+    "rollup": "rollup -c",
+    "lint": "eslint src/*",
+    "lint-fix": "eslint --fix src/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/traboda/design-system.git"
+  },
+  "keywords": [
+    "design-system",
+    "traboda"
+  ],
+  "author": "Advaith A J",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/traboda/design-system/issues"
+  },
+  "homepage": "https://github.com/traboda/design-system#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.26",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-react": "^7.32.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.10.0",
+    "rollup-plugin-dts": "^5.1.1",
+    "typescript": "^4.9.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build-tailwind": "npx tailwindcss -o ./dist/tailwind.css --minify",
-    "build": "tsdx build && yarn build-tailwind",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build && yarn build-tailwind",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "storybook": "start-storybook -p 6006",
-    "storybook-legacy": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider  start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "peerDependencies": {
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "classnames": "^2.3.1",
-    "color": "3.2.1",
-    "nanoid": "3.3.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-waypoint": "^10.1.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "contributors": [
-    "aswinshenoy <aswinshenoy65@gmail.com>",
-    "Advaith A J <advaitharunjeena@gmail.com>",
-    "Abhiram Krishna <abhikrishnaram88@gmail.com>"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.com:amfoss/traboda/design-system.git"
-  },
-  "module": "dist/ds.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/ds.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/ds.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "@size-limit/preset-small-lib": "^6.0.4",
-    "@storybook/addon-a11y": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addons": "^6.4.18",
-    "@storybook/react": "^6.3.12",
-    "@storybook/theming": "^6.4.18",
-    "@types/react": "^17.0.34",
-    "@types/react-dom": "^17.0.11",
-    "@types/resize-observer-browser": "^0.1.7",
-    "babel-loader": "^8.2.3",
-    "cross-env": "^7.0.3",
-    "husky": "^7.0.4",
-    "nanoid": "3.3.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-is": "^17.0.2",
-    "react-waypoint": "^10.1.0",
-    "rollup-plugin-postcss": "^4.0.1",
-    "size-limit": "^6.0.4",
-    "storybook-dark-mode": "^1.1.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "autoprefixer": "10.4.0",
-    "classnames": "^2.3.1",
-    "color": "3.2.1",
-    "postcss": "8.3.11",
-    "tailwindcss": "2.2.19"
-  }
+  "types": "dist/index.d.ts",
+  "type": "module"
 }
