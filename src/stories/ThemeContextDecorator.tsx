@@ -3,23 +3,26 @@ import { useDarkMode } from 'storybook-dark-mode';
 import { DSRContextProvider } from '../index';
 
 const defaultTheme = {
-  primary: '#019e4b',
-  secondary: '#019e4b',
+  primary: '#0f51c3',
+  secondary: '#77019e',
   color: '#333',
-  background: '#FFF',
+  background: '#fff',
 };
 
 const darkTheme = {
-  primary: '#019e4b',
-  secondary: '#019e4b',
+  primary: '#1d66e5',
+  secondary: '#b64fd7',
   color: '#FFF',
-  background: '#111',
+  background: '#222',
 };
 
 export default (storyFn: () => ReactNode) => {
+  const theme = useDarkMode() ? darkTheme : defaultTheme;
   return (
-      <DSRContextProvider theme={useDarkMode() ? darkTheme : defaultTheme}>
-          {storyFn()}
+      <DSRContextProvider theme={theme}>
+          <div style={{ background: theme.background, color: theme.color }}>
+              {storyFn()}
+          </div>
       </DSRContextProvider>
   );
 };

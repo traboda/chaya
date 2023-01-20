@@ -104,5 +104,5 @@ export const SizeVariants = SizeVars.bind({});
 
 SizeVariants.args = {
   children: 'Press here',
-  style: { margin: '0.25rem' },
+  style: { margin: '0.25rem', marginLeft: '1rem' },
 };

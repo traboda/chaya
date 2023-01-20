@@ -8,12 +8,14 @@ export type LinkRelType =  (
 );
 
 export type LinkOptions = {
-  target?: LinkTargetType;
-  rel?: LinkRelType;
+  target?: LinkTargetType,
+  rel?: LinkRelType,
   id?: string,
-  className?: string;
+  className?: string,
   label?: string,
-  style?: React.CSSProperties;
+  style?: React.CSSProperties,
+  onMouseEnter: () => void,
+  onMouseLeave: () => void,
 };
 
 export const LinkWrapper = (link: string, component: React.ReactElement, options: LinkOptions | null = null) => (
