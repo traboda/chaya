@@ -3,9 +3,15 @@ import { Theme } from '../types/theme';
 
 export type LinkWrapper = (link: string, component: ReactElement) => ReactElement;
 
+export type IconSet = {
+  chevronDown?: ReactElement,
+  chevronUp?: ReactElement
+};
+
 export type DSRContextType = {
   theme?: Theme,
   linkWrapper?: LinkWrapper,
+  iconSet?: IconSet
 };
 
 const DSRContext = createContext<DSRContextType>({});
