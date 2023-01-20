@@ -1,0 +1,19 @@
+name: Lint
+
+on:
+  pull_request:
+      branches:
+      - v1
+  workflow_dispatch:
+    branches:
+      - v1
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn
+      - name: Run ESLint
+        run: eslint . --ext .js,.jsx,.ts,.tsx
