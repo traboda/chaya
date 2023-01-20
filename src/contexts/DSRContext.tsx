@@ -11,7 +11,8 @@ export type IconSet = {
 export type DSRContextType = {
   theme?: Theme,
   linkWrapper?: LinkWrapper,
-  iconSet?: IconSet
+  iconSet?: IconSet,
+  isDarkTheme?: boolean
 };
 
 const DSRContext = createContext<DSRContextType>({});

@@ -6,7 +6,7 @@ const defaultTheme = {
   primary: '#0f51c3',
   secondary: '#77019e',
   color: '#333',
-  background: '#fff',
+  background: '#eee',
 };
 
 const darkTheme = {
@@ -18,11 +18,12 @@ const darkTheme = {
 
 export default (storyFn: () => ReactNode) => {
   const theme = useDarkMode() ? darkTheme : defaultTheme;
+
   return (
-      <DSRContextProvider theme={theme}>
-          <div style={{ background: theme.background, color: theme.color }}>
+      <div className="dsr-p-4 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
+          <DSRContextProvider theme={theme} >
               {storyFn()}
-          </div>
-      </DSRContextProvider>
+          </DSRContextProvider>
+      </div>
   );
 };

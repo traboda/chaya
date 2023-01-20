@@ -7,7 +7,7 @@
     "build-components": "rm -rf dist && rollup -c",
     "build-tailwind": "npm run tailwind -- --minify",
     "build": "npm run build-components && npm run build-tailwind",
-    "lint": "eslint src/*",
+    "lint": "eslint src/**/*.tsx",
     "lint-fix": "eslint --fix src/*",
     "watch-tailwind": "npm run tailwind -- --watch",
     "storybook": "concurrently \"npm run watch-tailwind\" \"start-storybook -p 6006\"",

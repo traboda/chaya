@@ -26,9 +26,7 @@ const Accordion = ({
 
   useEffect(() => { setOpen(_isOpen ?? false); }, [_isOpen]);
 
-  const { iconSet, theme } = useContext(DSRContext);
-
-  const isDarkTheme = Color(theme?.background).isDark();
+  const { iconSet, isDarkTheme } = useContext(DSRContext);
 
   return (
       <div

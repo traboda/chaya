@@ -33,7 +33,7 @@ const Button = ({
   target, type, rel, disabled, id,
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
-  const { theme } = useContext(DSRContext);
+  const { theme, isDarkTheme } = useContext(DSRContext);
 
   const activeColor = useMemo(() => {
     const background = Color(theme?.background);
@@ -45,7 +45,7 @@ const Button = ({
       danger: tailwindColors.red['500'],
       warning: tailwindColors.yellow['500'],
       contrast: background.negate().toString(),
-      shade: background.isDark() ? background.lighten(3).toString() : background.darken(0.6).toString(),
+      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
     };
 
     return colors[color];
@@ -57,7 +57,7 @@ const Button = ({
       outline: 'rgba(0, 0, 0, 0)',
       minimal: Color(RGBAtoRGB(
         Color(activeColor).fade(0.70),
-        Color(theme?.background).isDark() ? 40 : 255,
+        isDarkTheme ? 40 : 255,
       )).toString(),
       link: 'rgba(0, 0, 0, 0)',
     };
