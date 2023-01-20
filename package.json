@@ -9,7 +9,8 @@
     "build": "npm run build-components && npm run build-tailwind",
     "lint": "eslint src/*",
     "lint-fix": "eslint --fix src/*",
-    "storybook": "npm run tailwind -- --watch & start-storybook -p 6006",
+    "watch-tailwind": "npm run tailwind -- --watch",
+    "storybook": "concurrently \"npm run watch-tailwind\" \"start-storybook -p 6006\"",
     "build-storybook": "build-storybook"
   },
   "repository": {
@@ -47,6 +48,7 @@
     "babel-loader": "^8.3.0",
     "clsx": "^1.2.1",
     "color": "^4.2.3",
+    "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.32.0",
     "eslint-config-airbnb-typescript": "^17.0.0",

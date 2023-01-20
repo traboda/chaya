@@ -46,7 +46,7 @@ const Ripple = () => {
   };
 
   return (
-      <div className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
+      <div className={clsx(['dsr-absolute dsr-inset-0', style.ripple])} onMouseDown={addRipple}>
           {rippleArray.length > 0 && rippleArray.map((ripple, index) => (
               <span
                   className={clsx([
