@@ -1,11 +1,14 @@
-import { createContext, ReactElement } from 'react';
+import { createContext, ReactElement, ReactNode } from 'react';
 import { Theme } from '../types/theme';
 
 export type LinkWrapper = (link: string, component: ReactElement) => ReactElement;
 
+export type Icon = (size?: { width?: number, height?: number }) => ReactNode;
 export type IconSet = {
-  chevronDown?: ReactElement,
-  chevronUp?: ReactElement
+  chevronDown?: Icon,
+  chevronUp?: Icon,
+  search?: Icon,
+  times?: Icon,
 };
 
 export type DSRContextType = {

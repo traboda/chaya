@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
-import Color from 'color';
 import { nanoid } from 'nanoid';
 
 type AccordionProps = {
@@ -52,8 +51,9 @@ const Accordion = ({
               }}
           >
               {title}
-              {isOpen ? iconSet?.chevronUp : iconSet?.chevronDown}
+              {isOpen ? iconSet?.chevronUp?.({ width: 18, height: 18 }) : iconSet?.chevronDown?.({ width: 18, height: 18 })}
           </button>
+
           <div
               id={`${id}_content`}
               aria-hidden={!isOpen}
