@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Button, { ButtonProps } from './Button';
 import DSRContext from '../contexts/DSRContext';
 import clsx from 'clsx';
+import Icon, { IconInputType } from './Icon';
 
 
 type Alert = {
@@ -11,12 +12,11 @@ type Alert = {
   className?: string,
   title?: string
   description?: string;
-  iconClassName?: string,
   allowDismissal?: boolean,
   onDismiss?: () => void,
   primaryButton?: ButtonProps,
   secondaryButton?: ButtonProps,
-
+  icon?: IconInputType,
 };
 
 const getBgByType = (type: string, isDarkTheme?: boolean) => {
@@ -60,21 +60,14 @@ const getColorByType = (type: string, isDarkTheme?: boolean) => {
 };
 
 const Alert = ({
-  type = 'default', variant = 'filled', id, className = '', title, description, iconClassName, allowDismissal = false,
-  onDismiss = () => {}, primaryButton, secondaryButton,
+  type = 'default', variant = 'filled', id, className = '', title, description,  allowDismissal = false,
+  onDismiss = () => {}, primaryButton, secondaryButton, icon,
 }: Alert) => {
-
-  const { iconSet }  = useContext(DSRContext);
   const [hide, setHide] = useState(false);
   const { isDarkTheme } = useContext(DSRContext);
-  const color = getColorByType(type, isDarkTheme);
-  const borderColor = variant === 'outline' ? getColorByType(type, isDarkTheme ) : undefined;
-  const borderStyle = variant === 'outline' ? 'solid' : undefined;
-  const borderWidth = variant === 'outline' ? '1px' : undefined;
-  const backgroundColor = variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined;
   const computedClassName = clsx([
-    description ? 'dsr-py-4' : 'dsr-py-2',
-    'dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2',
+    description ? 'dsr-py-4' : 'dsr-py-3',
+    'dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2 ',
     className,
   ]);
 
@@ -82,7 +75,13 @@ const Alert = ({
       <div
           id={id}
           className={computedClassName}
-          style={{ color, borderColor, backgroundColor, borderStyle, borderWidth }}
+          style={{
+            color: getColorByType(type, isDarkTheme),
+            borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme ) : undefined,
+            borderStyle: variant === 'outline' ? 'solid' : undefined,
+            borderWidth: variant === 'outline' ? '1px' : undefined,
+            backgroundColor: variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined,
+          }}
       >
           {allowDismissal && (
               <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
@@ -91,14 +90,13 @@ const Alert = ({
                       className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
                       onClick={() => { setHide(true); onDismiss(); }}
                   >
-                      {iconSet?.times?.({ width: 18, height: 18 })}
+                      <Icon icon="times" size={16} />
                   </button>
               </div>
           )}
           {title && (
               <h4 className={description ? 'dsr-text-xl dsr-font-semibold' : 'dsr-text-lg'}>
-                  {iconSet?.title?.({ width: 18, height: 18 })}
-                  {iconClassName && <i className={iconClassName} />}
+                  {icon ? <Icon icon={icon} /> : null}
                   {title}
               </h4>
           )}
