@@ -3,8 +3,8 @@ import DSRContext from '../contexts/DSRContext';
 
 type CircularProgressProps = {
   value: number,
-  size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl'),
-  thickness?: ('xs' | 'sm' | 'md' | 'lg' | 'xl'),
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
+  thickness?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
   strokeColor?: string,
   minVal?: number,
   maxVal?: number,
@@ -48,7 +48,6 @@ const CircularProgress = ({
   value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
 }: CircularProgressProps) => {
   const { theme, isDarkTheme } = useContext(DSRContext);
-  const BackgroundCircle = 'circle';
 
   return (
       <div
@@ -62,14 +61,15 @@ const CircularProgress = ({
               viewBox="0 0 100 100"
               height={height ?? sizes[size]}
           >
-              <BackgroundCircle
-                  stroke={isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)'}
+              <circle
+                  stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
                   cx={50}
                   cy={50}
                   r={radiusOptions[thickness]}
                   fill="transparent"
                   strokeWidth={thicknesses[thickness]}
               />
+
               <circle
                   cx={50}
                   cy={50}

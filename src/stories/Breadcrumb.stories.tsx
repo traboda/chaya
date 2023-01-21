@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="flex flex-col justify-center items-center bg-gray-100 p-30" style={{ minHeight: '25vh' }}>
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center" style={{ minHeight: '25vh' }}>
         {/*// @ts-ignore*/}
         <Breadcrumb {...args} />
     </div>

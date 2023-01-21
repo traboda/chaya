@@ -21,7 +21,7 @@ export default (storyFn: () => ReactNode) => {
   const theme = useDarkMode() ? darkTheme : defaultTheme;
 
   return (
-      <div className="dsr-p-4 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
+      <div className="dsr-p-1 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
           <DSRContextProvider
               theme={theme}
               iconWrapper={(icon, props) => ({
@@ -30,7 +30,7 @@ export default (storyFn: () => ReactNode) => {
                 chevronUp: <ChevronUp {...props} />,
                 chevronDown: <ChevronDown {...props} />,
                 home: <Home {...props} />,
-              })[icon]}
+              })[icon] ?? <>n/a</>}
           >
               {storyFn()}
           </DSRContextProvider>

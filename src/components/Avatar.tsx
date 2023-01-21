@@ -15,11 +15,11 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
   const [show, setShow] = useState(false);
 
   const getName = () => {
-    const Alter = (alt?.trim() || '');
-    const words = Alter.split(' ');
-    if (words.length > 1) return Alter[0] + words[words.length - 1][0];
-    else if (Alter.length > 1) return Alter[0] + Alter[1];
-    return Alter[0] || '';
+    const altText = alt?.trim() || '';
+    const words = altText.split(' ');
+    if (words.length > 1) return altText[0] + words[words.length - 1][0];
+    else if (altText.length > 1) return altText[0] + altText[1];
+    return altText[0] || '';
   };
 
   const renderPlaceholder = () => (

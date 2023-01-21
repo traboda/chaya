@@ -103,7 +103,7 @@ const Alert = ({
           {description && <p className="dsr-text-lg">{description}</p>}
           {(primaryButton || secondaryButton) && (
               <div className="dsr-flex dsr-items-center">
-                  {primaryButton &&
+                  {primaryButton && (
                       <div className="dsr-mr-2">
                           <Button
                               {...primaryButton}
@@ -111,8 +111,8 @@ const Alert = ({
                               className="dsr-text-base"
                           />
                       </div>
-                  }
-                  {secondaryButton &&
+                  )}
+                  {secondaryButton && (
                       <div>
                           <Button
                               {...secondaryButton}
@@ -120,7 +120,7 @@ const Alert = ({
                               className="dsr-text-base"
                           />
                       </div>
-                  }
+                  )}
               </div>
           )}
       </div>
