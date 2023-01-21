@@ -18,7 +18,7 @@ export type LinkOptions = {
   onMouseLeave: () => void,
 };
 
-export const LinkWrapper = (link: string, component: React.ReactElement, options: LinkOptions | null = null) => (
+export const LinkWrapper = (link: string, component: React.ReactNode, options: LinkOptions | null = null) => (
     <DSRContext.Consumer>
         {({ linkWrapper }) => {
           return linkWrapper ? linkWrapper(
