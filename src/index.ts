@@ -14,6 +14,7 @@ export { default as SearchBox } from './components/SearchBox';
 export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as CircularProgress } from './components/CircularProgress';
+export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 
 // hooks
 export { default as useCounter } from './hooks/useCounter';
