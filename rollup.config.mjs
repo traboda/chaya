@@ -5,6 +5,7 @@ import terser from '@rollup/plugin-terser';
 
 import dts from 'rollup-plugin-dts';
 import scss from 'rollup-plugin-scss';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 import packageJson from './package.json' assert { type: 'json' };
 
@@ -29,7 +30,9 @@ export default [
       typescript({ tsconfig: './tsconfig.json' }),
       scss({ output: false }),
       terser(),
+      nodePolyfills(),
     ],
+    external: ["react", "react-dom"]
   },
   {
     input: 'dist/esm/types/index.d.ts',

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
-import { nanoid } from 'nanoid';
+import hyperid from 'hyperid';
+import Icon from './Icon';
+const generateId = hyperid();
 
-type AccordionProps = {
+export type AccordionProps = {
   title: string,
   renderer?: () => React.ReactNode,
   text?: (string | React.ReactNode),
@@ -17,7 +19,7 @@ type AccordionProps = {
 };
 
 const Accordion = ({
-  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = nanoid(),
+  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = generateId(),
   className = '', titleClassName = '', bodyClassName = '',
 }: AccordionProps) => {
 
@@ -25,7 +27,7 @@ const Accordion = ({
 
   useEffect(() => { setOpen(_isOpen ?? false); }, [_isOpen]);
 
-  const { iconSet, isDarkTheme } = useContext(DSRContext);
+  const { isDarkTheme } = useContext(DSRContext);
 
   return (
       <div
@@ -51,7 +53,7 @@ const Accordion = ({
               }}
           >
               {title}
-              {isOpen ? iconSet?.chevronUp?.({ width: 18, height: 18 }) : iconSet?.chevronDown?.({ width: 18, height: 18 })}
+              <Icon icon={isOpen ? 'chevronUp' : 'chevronDown'} size={18} />
           </button>
 
           <div

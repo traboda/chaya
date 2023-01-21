@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
 import Color from 'color';
+import hyperid from 'hyperid';
+const generateId = hyperid();
 
 const emptyFunc = () => {};
 
-type TextInput = {
+export type TextInputProps = {
   label: string
   name: string
   id?: string
@@ -40,7 +41,6 @@ type TextInput = {
   prefixRenderer?: React.ReactElement
 };
 
-
 const TextInput = ({
   id, label, name, placeholder, value: val, charLimit = null,
   className, style, hideLabel = false,
@@ -48,11 +48,11 @@ const TextInput = ({
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
-}: TextInput) => {
+}: TextInputProps) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
-  const inputID = id && id.length > 1 ? id : `${name}-input-${nanoid()}`;
+  const inputID = id && id.length > 1 ? id : `${name}-input-${generateId()}`;
 
   const [isTyping, setTyping] = useState(false);
 

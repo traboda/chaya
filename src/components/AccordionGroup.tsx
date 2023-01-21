@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import Accordion from './Accordion';
 import clsx from 'clsx';
 
-type AccordionProps = {
+export type AccordionGroupProps = {
   items: {
     title: string,
     text?: string,
@@ -21,7 +21,7 @@ type AccordionProps = {
 const AccordionGroup = ({
   items, initialIndex, keepExpanded = false, id, className = '', accordionClassName = '',
   titleClassName = '', bodyClassName = '',
-}: AccordionProps) => {
+}: AccordionGroupProps) => {
   const [active, setActive] = useState(initialIndex ?? 0);
 
   return (

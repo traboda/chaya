@@ -1,20 +1,15 @@
-import { createContext, ReactElement, ReactNode } from 'react';
+import { createContext, ReactElement } from 'react';
 import { Theme } from '../types/theme';
+import { IconProps, Icons } from '../components/Icon';
 
 export type LinkWrapper = (link: string, component: ReactElement) => ReactElement;
 
-export type Icon = (size?: { width?: number, height?: number }) => ReactNode;
-export type IconSet = {
-  chevronDown?: Icon,
-  chevronUp?: Icon,
-  search?: Icon,
-  times?: Icon,
-};
+export type IconWrapperType = (icon: Icons, props?: IconProps) => ReactElement;
 
 export type DSRContextType = {
   theme?: Theme,
   linkWrapper?: LinkWrapper,
-  iconSet?: IconSet,
+  iconWrapper?: IconWrapperType,
   isDarkTheme?: boolean
 };
 

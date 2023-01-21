@@ -1,15 +1,15 @@
-import React, { useContext, KeyboardEvent } from 'react';
+import React, { KeyboardEvent } from 'react';
 
 import TextInput from './TextInput';
 import Button from './Button';
-import DSRContext from '../contexts/DSRContext';
+import Icon from './Icon';
 
 const defaultLabels = {
   'label': 'Search',
   'placeholder': 'Enter a keyword to search',
 };
 
-type SearchBox = {
+export type SearchBoxProps = {
   keyword: string,
   setKeyword: (keyword: string) => void,
   name?: string,
@@ -37,9 +37,8 @@ const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
   labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
   autoFocus = false,
-}: SearchBox) => {
+}: SearchBoxProps) => {
 
-  const { iconSet } = useContext(DSRContext);
   const labels = { ...defaultLabels, ...labelProps };
 
   return (
@@ -77,7 +76,7 @@ const SearchBox = ({
                                     onClear();
                                   }}
                               >
-                                  {iconSet?.times?.({ width: 18, height: 18 })}
+                                  <Icon icon="times" size={18} />
                               </Button>
                           )}
                           <Button
@@ -88,7 +87,7 @@ const SearchBox = ({
                               label={`${name} button`}
                               type="submit"
                           >
-                              {iconSet?.search?.({ width: 18, height: 18 })}
+                              <Icon icon="search" size={18} />
                           </Button>
                       </div>
                     }

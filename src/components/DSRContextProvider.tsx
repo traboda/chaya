@@ -1,14 +1,14 @@
 import React, { ReactElement, ReactNode, useEffect } from 'react';
-import DSRContext, { IconSet, LinkWrapper } from '../contexts/DSRContext';
+import DSRContext, { IconWrapperType, LinkWrapper } from '../contexts/DSRContext';
 import { Theme } from '../types/theme';
 import Color from 'color';
 
 const defaultLinkWrapper = (link: string, component: ReactElement) => <a href={link}>{component}</a>;
 
-const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme, iconSet }: {
+const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme, iconWrapper }: {
   children: ReactNode,
   linkWrapper?: LinkWrapper,
-  iconSet?: IconSet,
+  iconWrapper?: IconWrapperType,
   theme: Theme
 }) => {
   useEffect(() => {
@@ -21,8 +21,8 @@ const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme,
       <DSRContext.Provider
           value={{
             linkWrapper,
+            iconWrapper,
             theme,
-            iconSet,
             isDarkTheme: Color(theme?.background).isDark(),
           }}
       >

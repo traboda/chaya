@@ -24,12 +24,12 @@ export default (storyFn: () => ReactNode) => {
       <div className="dsr-p-4 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
           <DSRContextProvider
               theme={theme}
-              iconSet={{
-                search: size => <Search {...size} />,
-                times: size => <X {...size} />,
-                chevronUp: size => <ChevronUp {...size} />,
-                chevronDown: size => <ChevronDown {...size} />,
-              }}
+              iconWrapper={(icon, props) => ({
+                search: <Search {...props} />,
+                times: <X {...props} />,
+                chevronUp: <ChevronUp {...props} />,
+                chevronDown: <ChevronDown {...props} />,
+              })[icon]}
           >
               {storyFn()}
           </DSRContextProvider>
