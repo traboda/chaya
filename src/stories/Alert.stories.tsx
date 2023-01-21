@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { addDecorator, Meta, Story } from '@storybook/react';
-import Alert from '../components/Alert';
+import { Alert } from '../index';
 import ThemeContextDecorator from './ThemeContextDecorator';
 addDecorator(ThemeContextDecorator);
 

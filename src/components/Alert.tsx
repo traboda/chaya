@@ -16,7 +16,7 @@ type Alert = {
   onDismiss?: () => void,
   primaryButton?: ButtonProps,
   secondaryButton?: ButtonProps,
-  icon?: IconInputType,
+  titleIcon?: IconInputType,
 };
 
 const getBgByType = (type: string, isDarkTheme?: boolean) => {
@@ -61,7 +61,7 @@ const getColorByType = (type: string, isDarkTheme?: boolean) => {
 
 const Alert = ({
   type = 'default', variant = 'filled', id, className = '', title, description,  allowDismissal = false,
-  onDismiss = () => {}, primaryButton, secondaryButton, icon,
+  onDismiss = () => {}, primaryButton, secondaryButton, titleIcon,
 }: Alert) => {
   const [hide, setHide] = useState(false);
   const { isDarkTheme } = useContext(DSRContext);
@@ -96,30 +96,32 @@ const Alert = ({
           )}
           {title && (
               <h4 className={description ? 'dsr-text-xl dsr-font-semibold' : 'dsr-text-lg'}>
-                  {icon ? <Icon icon={icon} /> : null}
+                  {titleIcon ? <Icon icon={titleIcon} /> : null}
                   {title}
               </h4>
           )}
           {description && <p className="dsr-text-lg">{description}</p>}
           {(primaryButton || secondaryButton) && (
-          <div className="dsr-flex dsr-items-center">
-              {primaryButton &&
-              <div className="dsr-mr-2">
-                  <Button
-                      {...primaryButton}
-                      color="primary"
-                      className="dsr-text-base"
-                  />
-              </div>}
-              {secondaryButton &&
-              <div>
-                  <Button
-                      {...secondaryButton}
-                      color="secondary"
-                      className="dsr-text-base"
-                  />
-              </div>}
-          </div>
+              <div className="dsr-flex dsr-items-center">
+                  {primaryButton &&
+                      <div className="dsr-mr-2">
+                          <Button
+                              {...primaryButton}
+                              color="primary"
+                              className="dsr-text-base"
+                          />
+                      </div>
+                  }
+                  {secondaryButton &&
+                      <div>
+                          <Button
+                              {...secondaryButton}
+                              color="secondary"
+                              className="dsr-text-base"
+                          />
+                      </div>
+                  }
+              </div>
           )}
       </div>
   ) : <div />;
