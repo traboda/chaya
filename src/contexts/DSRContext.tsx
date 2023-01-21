@@ -9,6 +9,7 @@ export type IconSet = {
   chevronUp?: Icon,
   search?: Icon,
   times?: Icon,
+  title?: Icon,
 };
 
 export type DSRContextType = {
