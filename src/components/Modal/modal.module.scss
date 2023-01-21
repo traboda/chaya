@@ -1,0 +1,19 @@
+@keyframes expand {
+  from { transform: scale(0.5); opacity: 0; overflow: hidden; }
+  80% { transform: scale(1.1); overflow: hidden; }
+  to { transform: scale(1); opacity: 1; overflow: hidden; }
+}
+
+@keyframes expand-reverse {
+  from { transform: scale(1); opacity: 1; overflow: hidden; }
+  20% { transform: scale(1.2); overflow: hidden; }
+  to { transform: scale(0.5); opacity: 0; overflow: hidden; }
+}
+
+.animateIn {
+  animation: 250ms expand ease-in;
+}
+
+.animateOut {
+  animation: 250ms expand-reverse ease-out forwards;
+}

@@ -4,6 +4,9 @@ export { default as DSRContextProvider } from './components/DSRContextProvider';
 // components
 export { default as Icon } from './components/Icon';
 export { default as Card } from './components/Card';
+export { default as Modal } from './components/Modal';
+export { default as Alert } from './components/Alert';
+export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
