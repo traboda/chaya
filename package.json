@@ -7,11 +7,12 @@
     "build-components": "rm -rf dist && rollup -c",
     "build-tailwind": "npm run tailwind -- --minify",
     "build": "npm run build-components && npm run build-tailwind",
-    "lint": "eslint src/**/*.tsx",
-    "lint-fix": "eslint --fix src/*",
+    "lint": "eslint src/**/*.{tsx,ts}",
+    "lint-fix": "eslint --fix src/**/*.{tsx,ts}",
     "watch-tailwind": "npm run tailwind -- --watch",
     "storybook": "concurrently \"npm run watch-tailwind\" \"start-storybook -p 6006\"",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "repository": {
     "type": "git",

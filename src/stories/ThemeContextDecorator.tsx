@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import { DSRContextProvider } from '../index';
-import { ChevronDown, ChevronUp, Search, X } from 'react-feather';
+import { ChevronDown, ChevronUp, Home, Search, X } from 'react-feather';
 
 const defaultTheme = {
   primary: '#0f51c3',
@@ -21,7 +21,7 @@ export default (storyFn: () => ReactNode) => {
   const theme = useDarkMode() ? darkTheme : defaultTheme;
 
   return (
-      <div className="dsr-p-4 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
+      <div className="dsr-p-1 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
           <DSRContextProvider
               theme={theme}
               iconWrapper={(icon, props) => ({
@@ -29,7 +29,8 @@ export default (storyFn: () => ReactNode) => {
                 times: <X {...props} />,
                 chevronUp: <ChevronUp {...props} />,
                 chevronDown: <ChevronDown {...props} />,
-              })[icon]}
+                home: <Home {...props} />,
+              })[icon] ?? <>n/a</>}
           >
               {storyFn()}
           </DSRContextProvider>
