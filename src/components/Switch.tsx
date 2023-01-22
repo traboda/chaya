@@ -34,15 +34,15 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
   return (
       <div className="dsr-w-full dsr-flex dsr-flex-col">
           {label && (
-          <label
-              className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
-              htmlFor={inputID}
-              id={`${inputID}-label`}
-              aria-hidden={false}
-          >
-              {label}
-              {required && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
-          </label>
+              <label
+                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
+                  htmlFor={inputID}
+                  id={`${inputID}-label`}
+                  aria-hidden={false}
+              >
+                  {label}
+                  {required && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
+              </label>
           )}
           <label
               className={clsx([
