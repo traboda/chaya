@@ -15,6 +15,7 @@ export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
+export { default as Switch } from './components/Switch';
 
 // hooks
 export { default as useCounter } from './hooks/useCounter';
