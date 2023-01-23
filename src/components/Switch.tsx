@@ -17,6 +17,15 @@ type SwitchProps = {
   disabled?: boolean
 };
 
+const borders = {
+  'primary': 'dsr-border-primary',
+  'secondary': 'dsr-border-secondary',
+  'success': 'dsr-border-green-500',
+  'danger': 'dsr-border-red-500',
+  'warning': 'dsr-border-yellow-400',
+  'transparent': 'dsr-border-inherit',
+};
+
 const variants = {
   'primary': 'dsr-bg-primary',
   'secondary': 'dsr-bg-secondary',
@@ -75,7 +84,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
               <div
                   className={clsx([
                     'dsr-rounded-full dsr-bg-white dsr-transition dsr-shadow-md dsr-border',
-                    value && `dsr-border-${variants[variant]}`,
+                    value && borders[variant],
                     value && 'dsr-translate-x-full',
                   ])}
                   style={{ height: size, width: size }}
