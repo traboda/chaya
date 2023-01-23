@@ -1,7 +1,8 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import hyperid from 'hyperid';
 import DSRContext from '../contexts/DSRContext';
 import clsx from 'clsx';
+
 const generateId = hyperid();
 
 type SwitchProps = {
@@ -17,19 +18,19 @@ type SwitchProps = {
 };
 
 const variants = {
-  'primary': 'bg-primary',
-  'secondary': 'bg-secondary',
-  'success': 'bg-green-500',
-  'danger': 'bg-red-500',
-  'warning': 'bg-yellow-400',
-  'transparent': 'bg-inherit',
+  'primary': 'dsr-bg-primary',
+  'secondary': 'dsr-bg-secondary',
+  'success': 'dsr-bg-green-500',
+  'danger': 'dsr-bg-red-500',
+  'warning': 'dsr-bg-yellow-400',
+  'transparent': 'dsr-bg-inherit',
 };
 
 const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', id, className = '', disabled = false }: SwitchProps) => {
 
   const isDarkTheme = useContext(DSRContext);
   const checkbox = useRef(null);
-  const inputID = id ? id : `switch-input-${generateId()}`;
+  const inputID = useMemo(() => id ?? `switch-input-${generateId()}`, [id]);
 
   return (
       <div className="dsr-w-full dsr-flex dsr-flex-col">
@@ -47,11 +48,15 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
           <label
               className={clsx([
                 'dsr-inline-block dsr-rounded-full dsr-shadow-inner',
-                value && `dsr-${variants[variant]}`,
+                value && variants[variant],
                 className,
                 disabled && 'dsr-cursor-not-allowed',
               ])}
-              style={{ height: size, width: size * 2, background: value ? '' : isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)' }}
+              style={{
+                height: size,
+                width: size * 2,
+                background: value ? '' : isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)',
+              }}
           >
               <input
                   id={inputID}
