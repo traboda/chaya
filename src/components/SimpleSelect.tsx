@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import hyperID from 'hyperid';
 import clsx from 'clsx';
 import Color from 'color';
+import hyperID from 'hyperid';
 import DSRContext from '../contexts/DSRContext';
+const generateId = hyperID();
 
 type OptionType = {
   value: (string | number),
@@ -36,21 +37,15 @@ const defaultLabels = {
 };
 
 const SimpleSelect = ({
-  value, onChange = () => {
-  }, className = '',
-  required = false, disabled = false, name, options, labels: _labels,
+  value, onChange = () => {}, className = '', required = false, disabled = false, name, options, labels: propLabels,
 }: SimpleSelectProps) => {
 
-  const labels = { ...defaultLabels, ..._labels };
-  const inputID = `${name}-input-${hyperID()}`;
+  const labels = { ...defaultLabels, ...propLabels };
+  const inputID = `${name}-input-${generateId}`;
   const { isDarkTheme } = useContext(DSRContext);
 
-  if ('group' in options[0]) {
-    options[0] = options[0] as GroupType;
-  }
-
   return (
-      <div className="w-full">
+      <div className="dsr-w-full">
           {labels?.label && labels?.label?.length > 0 && (
           <label
               id={`${inputID}-label`}
@@ -62,7 +57,7 @@ const SimpleSelect = ({
               {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
           </label>
           )}
-          <div className="w-full">
+          <div className="dsr-w-full">
               <select
                   className={clsx([
                     'dsr-w-full dsr-text-lg dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color dsr-border dsr-border-gray-500/70 dsr-bg-background',
