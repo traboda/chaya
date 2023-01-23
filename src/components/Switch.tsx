@@ -45,7 +45,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
       <div className="dsr-w-full dsr-flex dsr-flex-col">
           {label && (
               <label
-                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
+                  className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1"
                   htmlFor={inputID}
                   id={`${inputID}-label`}
                   aria-hidden={false}
