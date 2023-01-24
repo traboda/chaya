@@ -14,6 +14,7 @@ export { default as Accordion } from './components/Accordion';
 export { default as DataTable } from './components/DataTable';
 export { default as SearchBox } from './components/SearchBox';
 export { default as Breadcrumb } from './components/Breadcrumb';
+export { default as PageHeader } from './components/PageHeader';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as SkeletonItem } from './components/skeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
