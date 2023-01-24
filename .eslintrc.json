@@ -11,6 +11,7 @@
     "import/no-extraneous-dependencies": "off", // have to check it against production
 
     // jsx rules
+    "jsx-quotes": [2, "prefer-double"],
     "react/jsx-indent": 2,
     "react/jsx-indent-props": 2,
     "react/jsx-closing-bracket-location": 2,

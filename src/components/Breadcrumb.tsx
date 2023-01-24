@@ -23,10 +23,10 @@ const Breadcrumb = ({ items, className = '' }: BreadcrumbPropType) => {
           <li>
               /
           </li>
-          {items.length > 0 && items.map((i) => (
+          {items.length > 0 && items.map(item => (
               <ul className="dsr-flex dsr-gap-2 dsr-text-color hover:dsr-text-secondary">
                   <li key={generateId()}>
-                      {LinkWrapper(i?.link || '#', i?.title)}
+                      {LinkWrapper(item?.link || '#', item?.title)}
                   </li>
                   <li>
                       /

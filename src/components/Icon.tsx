@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import DSRContext from '../contexts/DSRContext';
 import { useContext } from 'react';
 
-export type Icons = 'chevronDown' | 'chevronUp' | 'search' | 'times' | 'home' | string;
+export type Icons = 'chevronDown' | 'chevronUp' | 'chevronRight' | 'search' | 'times' | 'home' | 'externalLink' | string;
 export type IconProps = {
   size?: number,
   width?: number,

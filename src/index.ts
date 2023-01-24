@@ -11,12 +11,14 @@ export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
+export { default as DataTable } from './components/DataTable';
 export { default as SearchBox } from './components/SearchBox';
 export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as SkeletonItem } from './components/skeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as AccordionGroup } from './components/AccordionGroup';
+export { default as InfiniteLoader } from './components/InfiniteLoader';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 
