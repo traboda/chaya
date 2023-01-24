@@ -14,11 +14,11 @@ export type LinkOptions = {
   className?: string,
   label?: string,
   style?: React.CSSProperties,
-  onMouseEnter: () => void,
-  onMouseLeave: () => void,
+  onMouseEnter?: () => void,
+  onMouseLeave?: () => void,
 };
 
-export const LinkWrapper = (link: string, component: React.ReactNode, options: LinkOptions | null = null) => (
+export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (
     <DSRContext.Consumer>
         {({ linkWrapper }) => {
           return linkWrapper ? linkWrapper(

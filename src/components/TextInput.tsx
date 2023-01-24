@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
 import Color from 'color';
@@ -32,7 +32,7 @@ export type TextInputProps = {
   autoCapitalize?: ('off' | 'on')
   onFocus?: () => void
   onBlur?: () => void
-  onKeyDown?: (e: any) => void,
+  onKeyDown?: (e: KeyboardEvent) => void,
   onChange?: (value: any) => void
   className?: string
   style?: React.CSSProperties
@@ -52,7 +52,7 @@ const TextInput = ({
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
-  const inputID = id && id.length > 1 ? id : `${name}-input-${generateId()}`;
+  const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${generateId()}`, [id, name]);
 
   const [isTyping, setTyping] = useState(false);
 
