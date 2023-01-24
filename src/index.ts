@@ -13,8 +13,9 @@ export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
 export { default as SearchBox } from './components/SearchBox';
 export { default as Breadcrumb } from './components/Breadcrumb';
-export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as ProgressBar } from './components/ProgressBar';
+export { default as SimpleSelect } from './components/SimpleSelect';
+export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 
