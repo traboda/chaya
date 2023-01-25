@@ -37,8 +37,8 @@ Default.args = {
 
 
 const Vars: Story = args => (
-    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-gap-4 dsr-py-4">
-        <div className="dsr-flex" style={{ margin: '1rem' }}>
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-gap-1 dsr-py-1">
+        <div className="dsr-flex dsr-gap-2 dsr-py-1">
             <Button {...args} variant="solid" color="primary" />
             <Button {...args} variant="solid" color="secondary" />
             <Button {...args} variant="solid" color="success" />
@@ -47,7 +47,7 @@ const Vars: Story = args => (
             <Button {...args} variant="solid" color="contrast" />
             <Button {...args} variant="solid" color="shade" />
         </div>
-        <div className="dsr-flex" style={{ margin: '1rem' }}>
+        <div className="dsr-flex dsr-gap-2 dsr-py-1">
             <Button {...args} variant="outline" color="primary" />
             <Button {...args} variant="outline" color="secondary" />
             <Button {...args} variant="outline" color="success" />
@@ -56,8 +56,7 @@ const Vars: Story = args => (
             <Button {...args} variant="outline" color="contrast" />
             <Button {...args} variant="outline" color="shade" />
         </div>
-
-        <div className="dsr-flex" style={{ margin: '1rem' }}>
+        <div className="dsr-flex dsr-gap-2 dsr-py-1">
             <Button {...args} variant="minimal" color="primary" />
             <Button {...args} variant="minimal" color="secondary" />
             <Button {...args} variant="minimal" color="success" />
@@ -66,7 +65,7 @@ const Vars: Story = args => (
             <Button {...args} variant="minimal" color="contrast" />
             <Button {...args} variant="minimal" color="shade" />
         </div>
-        <div className="dsr-flex" style={{ margin: '1rem' }}>
+        <div className="dsr-flex dsr-gap-2 dsr-py-1">
             <Button {...args} variant="link" color="primary" />
             <Button {...args} variant="link" color="secondary" />
             <Button {...args} variant="link" color="success" />
@@ -84,11 +83,10 @@ export const ColorVariants = Vars.bind({});
 ColorVariants.args = {
   size: 'lg',
   children: 'Press here',
-  style: { margin: '0.25rem' },
 };
 
 const SizeVars: Story = args => (
-    <div className="dsr-flex dsr-justify-center dsr-items-center dsr-py-4" style={{ minHeight: '25vh', columnGap: '1rem' }}>
+    <div className="dsr-flex dsr-justify-center dsr-items-center" style={{ minHeight: '25vh', columnGap: '0.25rem' }}>
         <div>
             <Button {...args} size="xs" />
             <Button {...args} size="sm" />

@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center" style={{ minHeight: '25vh' }}>
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center" style={{ minHeight: '5vh' }}>
         {/*// @ts-ignore*/}
         <Breadcrumb {...args} />
     </div>
@@ -26,7 +26,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   items: [
-    { link:'#/', title:'home' },
     { link:'#/abc', title:'abc' },
     { link:'#/abc/efg', title:'efg' },
   ],

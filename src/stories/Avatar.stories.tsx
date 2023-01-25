@@ -18,7 +18,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-bg-gray-100 dsr-p-30" style={{ minHeight: '35vh' }}>
+    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
         {/*// @ts-ignore*/}
         <Avatar {...args} />
     </div>
