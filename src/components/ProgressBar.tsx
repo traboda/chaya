@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import clsx from 'clsx';
+
 import DSRContext from '../contexts/DSRContext';
 
 type ProgressBar = {

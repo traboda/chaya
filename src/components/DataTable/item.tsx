@@ -1,12 +1,13 @@
 import React, { ReactNode, useContext } from 'react';
 import Color from 'color';
+import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
-import SelectionContext from './SelectionContext';
-import clsx from 'clsx';
 import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
-import SkeletonItem from '../skeletonItem';
+import SkeletonItem from '../SkeletonItem';
+
+import SelectionContext from './SelectionContext';
 
 export type ItemListerProperty<Type> = {
   id: string,

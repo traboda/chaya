@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import clsx from 'clsx';
 import Color from 'color';
 import hyperID from 'hyperid';
+
 import DSRContext from '../contexts/DSRContext';
 const generateId = hyperID();
 

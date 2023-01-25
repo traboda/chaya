@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
-import Button, { ButtonProps } from './Button';
-import DSRContext from '../contexts/DSRContext';
 import clsx from 'clsx';
+
+import DSRContext from '../contexts/DSRContext';
+
+import Button, { ButtonProps } from './Button';
 import Icon, { IconInputType } from './Icon';
 
 

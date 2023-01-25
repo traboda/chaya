@@ -1,8 +1,9 @@
 import React from 'react';
-
 import { Meta, Story, addDecorator } from '@storybook/react';
-import ThemeContextDecorator from './ThemeContextDecorator';
+
 import { Button, PageHeader } from '../index';
+
+import ThemeContextDecorator from './ThemeContextDecorator';
 
 
 addDecorator(ThemeContextDecorator);
@@ -56,12 +57,12 @@ CustomDesign.args = {
   className: 'dsr-bg-blue-700 dsr-text-white dsr-rounded-xl',
   headingClassName: 'dsr-border-l-8 dsr-border-green-400 dsr-pl-4',
   customRender: () => (
-      <div className='dsr-flex dsr-flex-row dsr-items-center'>
-          <div className='dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900'>Item 1</div>
+      <div className="dsr-flex dsr-flex-row dsr-items-center">
+          <div className="dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900">Item 1</div>
           -
-          <div className='dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900'>Item 2</div>
+          <div className="dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900">Item 2</div>
           -
-          <div className='dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900'>Item 3</div>
+          <div className="dsr-bg-white dsr-rounded dsr-py-1 dsr-cursor-pointer dsr-px-3 dsr-text-blue-900 dsr-font-bold dsr-border-2 dsr-border-blue-900">Item 3</div>
       </div>),
   sidebarRenderer: () => (
       <div>

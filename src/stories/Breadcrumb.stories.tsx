@@ -1,7 +1,9 @@
 import React from 'react';
 import { Meta, Story, addDecorator } from '@storybook/react';
-import ThemeContextDecorator from './ThemeContextDecorator';
+
 import { Breadcrumb } from '../index';
+
+import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);
 

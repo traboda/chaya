@@ -1,8 +1,10 @@
 import React, { ReactNode } from 'react';
 import hyperid from 'hyperid';
-import Icon from './Icon';
-import { LinkWrapper } from '../utils/misc';
 import clsx from 'clsx';
+
+import { LinkWrapper } from '../utils/misc';
+
+import Icon from './Icon';
 const generateId = hyperid();
 
 export type BreadcrumbItemProps = {

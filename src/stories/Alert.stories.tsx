@@ -1,7 +1,8 @@
 import React from 'react';
-
 import { addDecorator, Meta, Story } from '@storybook/react';
+
 import { Alert } from '../index';
+
 import ThemeContextDecorator from './ThemeContextDecorator';
 addDecorator(ThemeContextDecorator);
 
@@ -35,39 +36,39 @@ Default.args = {
 
 const TypesTemplate: Story = args => (
     <div>
-      <Alert
-          {...args}
-          title="Just letting you know that this is a default alert."
-          className="dsr-my-2"
-      />
-      <Alert
-          {...args}
-          title="Your purchase is successful. Thank you for your purchase!"
-          type="success"
-          className="dsr-my-2"
-      />
-      <Alert
-          {...args}
-          title="Your subscription is about to expire. Please recharge to continue using our services."
-          type="danger"
-          className="dsr-my-2"
-      />
-      <Alert
-          {...args}
-          title="We have detected an unusual activity in your account. Review your account activity."
-          type="warning"
-          className="dsr-my-2"
-      />
-      <Alert
-          {...args}
-          title="We have launched a new region to deploy your application - Mumbai. Please check the documentation for more details."
-          type="info"
-          className="dsr-my-2"
-      />
+        <Alert
+            {...args}
+            title="Just letting you know that this is a default alert."
+            className="dsr-my-2"
+        />
+        <Alert
+            {...args}
+            title="Your purchase is successful. Thank you for your purchase!"
+            type="success"
+            className="dsr-my-2"
+        />
+        <Alert
+            {...args}
+            title="Your subscription is about to expire. Please recharge to continue using our services."
+            type="danger"
+            className="dsr-my-2"
+        />
+        <Alert
+            {...args}
+            title="We have detected an unusual activity in your account. Review your account activity."
+            type="warning"
+            className="dsr-my-2"
+        />
+        <Alert
+            {...args}
+            title="We have launched a new region to deploy your application - Mumbai. Please check the documentation for more details."
+            type="info"
+            className="dsr-my-2"
+        />
     </div>
 );
 
-TypesTemplate.args = {}
+TypesTemplate.args = {};
 export const FilledTypes = TypesTemplate.bind({});
 
 const OutlineTypesTemplate: Story = args => (
@@ -109,7 +110,7 @@ const OutlineTypesTemplate: Story = args => (
     </div>
 );
 
-OutlineTypesTemplate.args = {}
+OutlineTypesTemplate.args = {};
 
 export const OutlinedTypes = OutlineTypesTemplate.bind({});
 

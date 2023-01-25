@@ -1,7 +1,8 @@
 import React, { useContext, useMemo, useRef } from 'react';
 import hyperid from 'hyperid';
-import DSRContext from '../contexts/DSRContext';
 import clsx from 'clsx';
+
+import DSRContext from '../contexts/DSRContext';
 
 const generateId = hyperid();
 

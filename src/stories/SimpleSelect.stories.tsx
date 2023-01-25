@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { addDecorator, Meta, Story } from '@storybook/react';
 
 import { SimpleSelect } from '../index';

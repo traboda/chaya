@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react';
-import Accordion from './Accordion';
 import clsx from 'clsx';
+
+import Accordion from './Accordion';
 
 export type AccordionGroupProps = {
   items: {

@@ -90,7 +90,7 @@ const SearchBox = ({
                               <Icon icon="search" size={18} />
                           </Button>
                       </div>
-                    }
+                  }
               />
           </div>
       </form>

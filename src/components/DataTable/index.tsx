@@ -2,9 +2,10 @@ import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import hyperid from 'hyperid';
  
+import InfiniteLoader from '../InfiniteLoader';
+
 import ItemListerTitleBar from './title';
 import ItemListerItem, { ItemListerProperty } from './item';
-import InfiniteLoader from '../InfiniteLoader';
 import SelectionHelper from './SelectionHelper';
 
 const generateId = hyperid();

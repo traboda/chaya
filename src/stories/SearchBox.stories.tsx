@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import { addDecorator, Meta, Story } from '@storybook/react';
+
 import { SearchBox } from '../index';
+
 import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);

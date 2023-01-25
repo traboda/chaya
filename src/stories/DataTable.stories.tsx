@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React from 'react';
-
 import { addDecorator, Meta, Story } from '@storybook/react';
+
 import { DataTable } from '../index';
+
 import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);

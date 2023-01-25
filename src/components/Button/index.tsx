@@ -1,13 +1,14 @@
 import React, { useContext, useMemo, useState } from 'react';
 import Color from 'color';
 import tailwindColors from 'tailwindcss/colors';
-import buttonStyle from './button.module.scss';
+import clsx from 'clsx';
 
-import { ButtonProps } from './type';
-import Ripple from './Ripple';
 import { LinkWrapper } from '../../utils/misc';
 import DSRContext from '../../contexts/DSRContext';
-import clsx from 'clsx';
+
+import buttonStyle from './button.module.scss';
+import { ButtonProps } from './type';
+import Ripple from './Ripple';
 
 const RGBAtoRGB = (color: Color, by: number) => {
   const a = color.alpha();
@@ -82,7 +83,7 @@ const Button = ({
     }
   }, [activeColor]);
 
-  const renderer = () => (
+  const linkRenderer = () => (
       <React.Fragment>
           {(!disableRipple && !disabled) && <Ripple />}
           {children}
@@ -125,7 +126,7 @@ const Button = ({
       </button>
   );
 
-  return link ? LinkWrapper(link, renderer(), {
+  return link ? LinkWrapper(link, linkRenderer(), {
     target, rel, id, label,
     className: computedClassName,
     style: computedStyle,

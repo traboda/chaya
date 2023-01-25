@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { addDecorator, Meta, Story } from '@storybook/react';
-import ThemeContextDecorator from './ThemeContextDecorator';
+
 import { Switch } from '../index';
+
+import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);
 

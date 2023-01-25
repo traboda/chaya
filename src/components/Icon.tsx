@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
-import DSRContext from '../contexts/DSRContext';
 import { useContext } from 'react';
+
+import DSRContext from '../contexts/DSRContext';
 
 export type Icons = 'chevronDown' | 'chevronUp' | 'chevronRight' | 'search' | 'times' | 'home' | 'externalLink' | string;
 export type IconProps = {

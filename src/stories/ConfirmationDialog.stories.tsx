@@ -1,7 +1,8 @@
 import React from 'react';
-
 import { Meta, Story, addDecorator } from '@storybook/react';
+
 import { ConfirmationDialog } from '../index';
+
 import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);

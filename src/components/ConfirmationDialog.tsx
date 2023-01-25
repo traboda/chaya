@@ -1,9 +1,11 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react';
+
+import DSRContext from '../contexts/DSRContext';
+
 import Modal from './Modal';
 import Button from './Button';
 import Card from './Card';
 import TextInput from './TextInput';
-import DSRContext from '../contexts/DSRContext';
 
 type ConfirmationDialog = {
   labels?: {

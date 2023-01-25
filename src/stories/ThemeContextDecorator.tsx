@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
-import { DSRContextProvider } from '../index';
 import { ChevronDown, ChevronRight, ChevronUp, ExternalLink, Home, Search, X } from 'react-feather';
+
+import { DSRContextProvider } from '../index';
 
 const defaultTheme = {
   primary: '#0f51c3',

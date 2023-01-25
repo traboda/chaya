@@ -1,8 +1,9 @@
 import React from 'react';
-
 import { addDecorator, Meta, Story } from '@storybook/react';
-import ThemeContextDecorator from './ThemeContextDecorator';
+
 import { ProgressBar } from '../index';
+
+import ThemeContextDecorator from './ThemeContextDecorator';
 
 addDecorator(ThemeContextDecorator);
 

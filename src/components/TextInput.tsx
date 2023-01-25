@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState, KeyboardEvent } from 'react';
 import clsx from 'clsx';
-import DSRContext from '../contexts/DSRContext';
 import Color from 'color';
 import hyperid from 'hyperid';
+
+import DSRContext from '../contexts/DSRContext';
 const generateId = hyperid();
 
 const emptyFunc = () => {};
@@ -127,7 +128,7 @@ const TextInput = ({
           ])}
           style={style}
       >
-          {(!hideLabel) &&
+          {(!hideLabel) && (
           <div className="dsr-flex dsr-flex-wrap dsr-mb-1 dsr-mx-0">
               <div className={showLimit ? 'dsr-w-2/3 dsr-px-0' : 'dsr-w-full dsr-px-0'}>
                   {label &&
@@ -143,7 +144,8 @@ const TextInput = ({
                   {charLimit}
               </div>
               )}
-          </div>}
+          </div>
+          )}
           <div className="dsr-relative dsr-group">
               {prefixRenderer && (
                   <div
@@ -156,7 +158,6 @@ const TextInput = ({
                       {prefixRenderer}
                   </div>
               )}
-
               {type === 'textarea' ? (
                   <textarea
                       rows={rows}
@@ -167,7 +168,7 @@ const TextInput = ({
                       }}
                       onKeyDown={onKeyDown}
                       {...props}
-                  ></textarea>
+                  />
               ) : (
                   <input
                       type={type}
@@ -180,7 +181,6 @@ const TextInput = ({
                       {...props}
                   />
               )}
-
               {postfixRenderer && (
                   <div
                       className={clsx([
@@ -193,14 +193,16 @@ const TextInput = ({
                   </div>
               )}
           </div>
-          {errorText &&
+          {errorText && (
           <div className="text-red-400 mt-1">
               {errorText}
-          </div>}
-          {description &&
+          </div>
+          )}
+          {description && (
           <div className="mt-2" style={{ opacity: 0.75, fontSize: '10px' }}>
               {description}
-          </div>}
+          </div>
+          )}
       </div>
   );
 

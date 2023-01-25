@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import clsx from 'clsx';
+import Color from 'color';
+
+import DSRContext from '../contexts/DSRContext';
 
 import Breadcrumb, { BreadcrumbPropType } from './Breadcrumb';
-import clsx from 'clsx';
-import DSRContext from '../contexts/DSRContext';
-import Color from 'color';
 
 type PageHeader = {
   title?: string,

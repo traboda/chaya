@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import DSRContext from '../contexts/DSRContext';
 import hyperid from 'hyperid';
+
+import DSRContext from '../contexts/DSRContext';
+
 import Icon from './Icon';
 const generateId = hyperid();
 
@@ -33,14 +35,14 @@ const Accordion = ({
       <div
           id={id}
           className={clsx([
-            'dsr-p-3 dsr-rounded-lg',
+            'accordion dsr-p-3 dsr-rounded-lg',
             className,
           ])}
           style={{ background: isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)' }}
       >
           <button
               className={clsx([
-                'dsr-w-full dsr-p-3 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-xl',
+                'accordion-button dsr-w-full dsr-p-3 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-xl',
                 'dsr-justify-between dsr-text-color',
                 titleClassName,
               ])}
@@ -55,12 +57,11 @@ const Accordion = ({
               {title}
               <Icon icon={isOpen ? 'chevronUp' : 'chevronDown'} size={18} />
           </button>
-
           <div
               id={`${id}_content`}
               aria-hidden={!isOpen}
               className={clsx([
-                'dsr-text-lg dsr-transition-all dsr-opacity-0 dsr-h-0 dsr-text-color dsr-px-3',
+                'accordion-content dsr-text-lg dsr-transition-all dsr-opacity-0 dsr-h-0 dsr-text-color dsr-px-3',
                 isOpen ? clsx([bodyClassName, 'dsr-opacity-100 dsr-h-auto dsr-py-3']) : '',
               ])}
           >

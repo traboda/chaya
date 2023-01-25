@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import useInterval from './useInterval';
  
 interface UseCounterType {

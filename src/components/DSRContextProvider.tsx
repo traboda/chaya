@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useEffect } from 'react';
+import Color from 'color';
+
 import DSRContext, { IconWrapperType, LinkWrapper } from '../contexts/DSRContext';
 import { Theme } from '../types/theme';
-import Color from 'color';
 
 const defaultLinkWrapper = (link: string, component: ReactElement) => <a href={link}>{component}</a>;
 
