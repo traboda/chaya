@@ -1,145 +1,138 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React, { useContext, useMemo, useState } from 'react';
 import Color from 'color';
-import {useTheme} from "@emotion/react";
+import tailwindColors from 'tailwindcss/colors';
+import buttonStyle from './button.module.scss';
 
-import { ButtonProps } from "./type";
-import Ripple from "./Ripple";
-import { link_wrapper } from "../../utils/misc";
+import { ButtonProps } from './type';
+import Ripple from './Ripple';
+import { LinkWrapper } from '../../utils/misc';
+import DSRContext from '../../contexts/DSRContext';
+import clsx from 'clsx';
 
-type StyledButton = {
-    attributes: {
-        color: string,
-        background: string,
-        hoverBg: string,
-        outline: string,
-    }
-}
+const RGBAtoRGB = (color: Color, by: number) => {
+  const a = color.alpha();
+  return [
+    Math.round(((1 - a) * by) + (a * color.red())),
+    Math.round(((1 - a) * by) + (a * color.green())),
+    Math.round(((1 - a) * by) + (a * color.blue())),
+  ];
+};
 
-const ButtonContainer = styled('span')<StyledButton>`
-  a, button {
-    background: ${({ attributes }) => attributes?.background};
-    color: ${({ attributes }) => attributes?.color};
-    border: ${({ attributes }) => attributes?.outline};
-    border-radius: 7px;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    &:disabled {
-      opacity: 0.95;
-      cursor: not-allowed;
-    }
-    &:focus, &:hover {
-      background: ${({ attributes }) => attributes?.hoverBg};
-    }
-  }
-`;
+const paddings = {
+  xs: 'dsr-px-1 dsr-py-0',
+  sm: 'dsr-px-2 dsr-py-1',
+  md: 'dsr-px-3 dsr-py-2',
+  lg: 'dsr-px-4 dsr-py-3',
+  xl: 'dsr-px-5 dsr-py-4',
+};
 
 const Button = ({
-    variant = 'solid', color = 'primary', size = 'md',
-    children, link, onClick = () => {},
-    className = '', style, label, disableRipple = false,
-    target, type, rel, disabled, id,
+  variant = 'solid', color = 'primary', size = 'md',
+  children, link, onClick = () => {},
+  className = '', style, label, disableRipple = false,
+  target, type, rel, disabled, id,
 }: ButtonProps) => {
+  const [hover, setHover] = useState(false);
+  const { theme, isDarkTheme } = useContext(DSRContext);
 
-    const theme = useTheme();
+  const activeColor = useMemo(() => {
+    const background = Color(theme?.background);
 
-    const _color = (() => {
-        return (
-            color === 'primary' ? theme.primary :
-                color === 'secondary' ? theme.secondary :
-                    color === 'success' ? '#28a745' :
-                        color === 'danger' ? '#dc3545' :
-                            color === 'warning' ? '#ffc107' :
-                                color === 'contrast' ?  theme.color :
-                                    color === 'shade' ?
-                                        theme?.isDarkTheme ?
-                                            Color(theme.background || '#000').negate().fade(0.85).rgb().string() :
-                                            Color(theme.background || '#FFF').darken(0.2).rgb().fade(0.35).string()
-                                    : null
-        )
-    })();
+    const colors = {
+      primary: theme?.primary,
+      secondary: theme?.secondary,
+      success: tailwindColors.green['600'],
+      danger: tailwindColors.red['500'],
+      warning: tailwindColors.yellow['500'],
+      contrast: background.negate().toString(),
+      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
+    };
 
-    const _lighterBg = (() => {
-        return Color(_color).fade(color === 'shade' ? 0.5 : 0.85).rgb().string();
-    })();
+    return colors[color];
+  }, [theme, color]);
 
-    const _lighterHoverBg = (() => {
-        return Color(_color).fade(color === 'shade' ? 0.2 : 0.75).rgb().string();
-    })();
+  const backgroundColor = useMemo(() => {
+    const backgroundColors = {
+      solid: activeColor,
+      outline: 'rgba(0, 0, 0, 0)',
+      minimal: Color(RGBAtoRGB(
+        Color(activeColor).fade(0.70),
+        isDarkTheme ? 40 : 255,
+      )).toString(),
+      link: 'rgba(0, 0, 0, 0)',
+    };
 
-    const _darkerBg = (() => {
-        return theme?.isDarkTheme ? Color(_color).darken(0.25).rgb().string() : Color(_color).darken(0.25).rgb().string() ;
-    })();
+    return backgroundColors[variant];
+  }, [activeColor, variant]);
 
-    const _text_color = (() => {
-        return (
-            color === 'primary' ? theme.primaryTextColor :
-                color === 'secondary' ? theme.secondaryTextColor :
-                    color === 'success' ? 'white' :
-                        color === 'danger' ? 'white' :
-                            color === 'warning' ? 'black' :
-                                color === 'contrast' ?  theme.background :
-                                    color === 'shade' ?  theme?.isDarkTheme ?
-                                        Color(theme.background || '#000').negate().fade(0.1).rgb().string() :
-                                        Color(theme.background || '#FFF').darken(0.6).rgb().string()
-                                    : null
-        )
-    })();
+  const textColor = useMemo(
+    () => {
+      if (variant === 'solid' || (variant === 'outline' && hover)) return Color(activeColor).isDark() ? '#fff' : '#333';
+      else if (variant === 'minimal' && color === 'contrast') return Color(backgroundColor).isDark() ? '#fff' : '#333';
+      return activeColor;
+    },
+    [activeColor, variant, hover],
+  );
 
-    const _className = (() => {
-        let classNames = 'font-semibold ';
+  const hoverColor = useMemo(() => {
+    switch (variant) {
+      case 'solid': return Color(activeColor).darken(0.2).toString();
+      case 'outline': return activeColor;
+      case 'minimal': return Color(backgroundColor).darken(0.1).toString();
+    }
+  }, [activeColor]);
 
-        if(variant !== link && !(className && className.match(/px-\d+|py-\d+|p-\d+/)))
-            classNames += `${size === 'xs' ? 'px-1 py-0' : size === 'sm' ? 'px-2 py-1' : size === 'md' ? 'px-3 py-2' : size === 'lg' ? 'px-4 py-3' : size === 'xl' ? 'px-5 py-4' : ''} `;
-        classNames += `text-${size} `;
-        if(variant === 'link' && link)
-            classNames += `hover:underline `;
-        classNames += className;
-        return classNames;
-    })();
+  const renderer = () => (
+      <React.Fragment>
+          {(!disableRipple && !disabled) && <Ripple />}
+          {children}
+      </React.Fragment>
+  );
 
-    const renderer = () => (
-        <React.Fragment>
-            {(!disableRipple && !disabled) && <Ripple/>}
-            {children}
-        </React.Fragment>
-    )
+  const computedClassName = clsx([
+    className,
+    paddings[size],
+    buttonStyle.button,
+    variant === 'link' ? 'hover:dsr-underline' : '',
+    'dsr-rounded-lg dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
+  ]);
 
-    const buttonRenderer = () => (
-        <button
-            id={id}
-            aria-label={label}
-            type={type}
-            onClick={e => {
-                e.stopPropagation();
-                onClick(e);
-            }}
-            disabled={disabled}
-            aria-disabled={disabled}
-            className={_className}
-            style={style}
-        >
-            {(!disableRipple && !disabled) && <Ripple/>}
-            {children}
-        </button>
-    );
+  const computedStyle = {
+    background: hover ? hoverColor : backgroundColor,
+    color: textColor,
+    borderColor: variant === 'outline' ? activeColor : 'none',
+    ...style,
+  };
 
-    return (
-        <ButtonContainer
-            attributes={{
-                color: variant ==='solid' || color === 'shade' ? _text_color : _color,
-                background: variant === 'link' || variant === 'outline' ? 'transparent' : variant === 'solid' ? _color : _lighterBg,
-                outline: (variant === 'outline' || variant === 'minimal') ? `1px solid` : 'none',
-                hoverBg: variant === 'link' ? null : variant === 'solid' ? _darkerBg : _lighterHoverBg
-            }}
-        >
-            {link ? link_wrapper(link, renderer(), { target, rel, id, className: _className, style, label }) : buttonRenderer()}
-        </ButtonContainer>
-    );
+  const buttonRenderer = () => (
+      <button
+          id={id}
+          aria-label={label}
+          type={type}
+          onClick={e => {
+            e.stopPropagation();
+            onClick(e);
+          }}
+          disabled={disabled}
+          aria-disabled={disabled}
+          className={computedClassName}
+          style={computedStyle}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+      >
+          {(!disableRipple && !disabled) && <Ripple />}
+          {children}
+      </button>
+  );
 
-}
+  return link ? LinkWrapper(link, renderer(), {
+    target, rel, id, label,
+    className: computedClassName,
+    style: computedStyle,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+  }) : buttonRenderer();
+};
 
 export { ButtonProps as ButtonProps };
 export default Button;

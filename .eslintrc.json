@@ -1,0 +1,25 @@
+{
+  "extends": ["airbnb-typescript"],
+  "plugins": ["import", "react"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-shadow": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-redeclare": "off",
+    "import/no-extraneous-dependencies": "off", // have to check it against production
+
+    // jsx rules
+    "jsx-quotes": [2, "prefer-double"],
+    "react/jsx-indent": 2,
+    "react/jsx-indent-props": 2,
+    "react/jsx-closing-bracket-location": 2,
+    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "react/jsx-wrap-multilines": 2,
+    "react/jsx-one-expression-per-line": [2, { "allow": "single-child" }],
+    "react/jsx-tag-spacing": [2, { "beforeSelfClosing": "always" }],
+    "react/jsx-max-props-per-line": [2, { "when": "multiline" }],
+    "react/jsx-no-useless-fragment": 2
+  }
+}

@@ -1,130 +1,123 @@
-import React, {useContext} from 'react';
-import styled from '@emotion/styled';
-import Color from "color";
-import classNames from 'classnames';
+import React, { ReactNode, useContext } from 'react';
+import Color from 'color';
 
-import SkeletonItem from '../SkeletonItem';
-import { link_wrapper } from "../../utils/misc";
-import SelectionContext from "./SelectionContext";
+import { LinkWrapper } from '../../utils/misc';
+import SelectionContext from './SelectionContext';
+import clsx from 'clsx';
+import DSRContext from '../../contexts/DSRContext';
+import Icon from '../Icon';
+import SkeletonItem from '../skeletonItem';
 
-type ListItem = {
-    isPinned?: boolean,
+export type ItemListerProperty<Type> = {
+  id: string,
+  label: ReactNode,
+  labelClassName?: string,
+  value: (self: Type, index?: number) => ReactNode,
+  width?: number, 
+  fill?: boolean,
+  link?: (self: Type) => string,
+  className?: string,
+  textAlign?: 'center' | 'left' | 'right',
+  fontSize?: string
+  allowSort?: boolean,
+  isHidden?: boolean,
 };
 
-const ListItem = styled.tr<ListItem>`
-  display: grid;
-  align-items: center;
-  
-  & > td {
-    border-bottom: 1px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
-    height: 100%;
-    color: ${({ theme }) => theme.color};
-    background: ${({theme, isPinned }) => isPinned ? theme.background : null};
-    a {
-      &:hover {
-        color: ${({ theme }) => theme.secondary} !important;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none !important;
-  }
-
-  &:hover > * {
-    background: ${({theme, isPinned }) => isPinned ? theme.background : theme?.isDarkTheme ? 'rgba(255, 255, 255, 0.2)!important' : 'rgba(100, 100, 100, 0.25)!important'};
-  }
-`;
-
-export type ItemListerProperty = {
-    id: string,
-    label: (String | React.ReactNode | React.ReactChildren | React.ReactElement),
-    labelClassName?: string,
-    value: (self: any, index?: number) => String | React.ReactNode | React.ReactChildren | React.ReactElement,
-    width?: number,
-    fill?: boolean,
-    link?: (self: any) => string,
-    className?: string,
-    textAlign?: 'center' | 'left' | 'right',
-    fontSize?: string
-    allowSort?: boolean,
-    isHidden?: boolean,
+type ItemListerItemProps<Type> = {
+  properties: ItemListerProperty<Type>[],
+  item?: Type,
+  itemIndex?: number,
+  isLoading?: boolean,
+  isPinned?: boolean,
+  gridTemplate: React.CSSProperties
+  supportAccordion?: boolean,
+  isAccordionOpen?: boolean,
+  onClick?: () => void,
 };
 
-type ItemListerItemProps = {
-    properties: ItemListerProperty[],
-    item?: Partial<{ id: string }>,
-    itemIndex?: number,
-    isLoading?: boolean,
-    isPinned?: boolean,
-    gridTemplate: React.CSSProperties
-    supportAccordion?: boolean,
-    isAccordionOpen?: boolean,
-    onClick?: () => void,
-    icons: {
-        accordionOpened: React.ReactNode,
-        accordionClosed: React.ReactNode,
-    }
-};
+const ItemListerItem = <Type extends { id: string }>({
+  properties, item, itemIndex, gridTemplate, supportAccordion = false, isAccordionOpen = false,
+  onClick = () => {}, isLoading = false, isPinned = false,
+}: ItemListerItemProps<Type>) => {
 
-const ItemListerItem = ({
-    properties, item, itemIndex, icons, gridTemplate, supportAccordion = false, isAccordionOpen = false, onClick = () => {}, isLoading = false, isPinned = false
-}: ItemListerItemProps) => {
+  const { theme, isDarkTheme } = useContext(DSRContext);
+  const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
-    const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext)
+  const tdClasses = clsx([
+    'dsr-border-b dsr-h-full dsr-text-color dsr-bg',
+    isPinned ? 'dsr-bg-background' : '',
+    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
+  ]);
 
-    return (
-        <ListItem isPinned={isPinned} style={gridTemplate}>
-            {supportAccordion && (
-                <td className="px-2 flex justify-center h-full items-center w-full text-center">
-                    <button onClick={onClick}>
-                        {isAccordionOpen ? icons.accordionOpened : icons.accordionClosed}
-                    </button>
-                </td>
-            )}
-            {isEnabled && (
-                <td className="px-2">
-                    <div className="flex justify-center h-full items-center w-full py-3 text-center">
-                        {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> :
-                        <input
-                            type="checkbox"
-                            checked={isSelected(item?.id)}
-                            onChange={() => isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id)}
-                        />}
-                    </div>
-                </td>
-            )}
-            {properties?.length > 0 &&
+  return (
+      <tr
+          className="dsr-grid dsr-items-center dsr-group"
+          style={gridTemplate}
+      >
+          {supportAccordion && (
+              <td
+                  className={clsx([
+                    'dsr-px-2 dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-text-center',
+                    tdClasses,
+                  ])}
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).string() }}
+              >
+                  <button onClick={onClick}>
+                      <Icon icon={isAccordionOpen ? 'chevronDown' : 'chevronRight'} size={18} />
+                  </button>
+              </td>
+          )}
+          {isEnabled && (
+              <td
+                  className={clsx(['dsr-px-2', tdClasses])}
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).string() }}
+              >
+                  <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-py-3 dsr-text-center">
+                      {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
+                          <input
+                              type="checkbox"
+                              checked={isSelected?.(item?.id ?? '')}
+                              onChange={() => isSelected?.(item?.id ?? '') ? deselectItem?.(item?.id ?? '') : selectItem?.(item?.id ?? '')}
+                          />
+                      )}
+                  </div>
+              </td>
+          )}
+          {properties?.length > 0 &&
             properties.filter((p) => !p.isHidden).map((p) => {
-                const link = isLoading ? null : typeof p.link === 'function' ? p.link(item) : null;
-                const renderer = (
-                    <div className="inline-flex items-center">
-                        {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : p.value(item, itemIndex)}
-                        {link && <i className="fa fa-external-link ml-2" />}
-                    </div>
-                );
-                return (
-                    <td
-                        key={link ? null : p.id}
-                        className={classNames('py-2 px-3 flex items-center', p?.className)}
-                        style={{
-                            textAlign: p.textAlign,
-                            fontSize: p.fontSize,
-                        }}
-                        onClick={() => {
-                            if(isEnabled) {
-                                isSelected(item?.id) ? deselectItem(item?.id) : selectItem(item?.id);
-                            }
-                        }}
-                    >
-                        {link ? link_wrapper(link, renderer) : renderer}
-                    </td>
-                );
+              const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
+              const renderer = (
+                  <span className="dsr-flex dsr-items-center dsr-gap-1">
+                      {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex)}
+                      {link && <span className="dsr-w-[16px]"><Icon icon="externalLink" size={16} /></span>}
+                  </span>
+              );
+              return (
+                  <td
+                      key={link ? null : p.id}
+                      className={clsx([
+                        'dsr-py-2 dsr-px-3 dsr-flex dsr-items-center',
+                        tdClasses,
+                        p?.className,
+                      ])}
+                      style={{
+                        textAlign: p.textAlign,
+                        fontSize: p.fontSize,
+                        borderBottomColor: Color(theme?.color).fade(0.85).string(),
+                      }}
+                      onClick={() => {
+                        if (isEnabled) {
+                          if (isSelected?.(item?.id ?? '')) deselectItem?.(item?.id ?? '');
+                          else selectItem?.(item?.id ?? '');
+                        }
+                      }}
+                  >
+                      {link ? LinkWrapper(link, renderer, { className: 'dsr-text-primary' }) : renderer}
+                  </td>
+              );
             })}
-        </ListItem>
-    );
+      </tr>
+  );
 
 };
 

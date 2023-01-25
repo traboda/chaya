@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Modal from "./Modal";
-import Button from "./Button";
-import Card from "./Card";
-import {useTheme} from "@emotion/react";
-import TextInput from "./TextInput";
-
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
+import Modal from './Modal';
+import Button from './Button';
+import Card from './Card';
+import TextInput from './TextInput';
+import DSRContext from '../contexts/DSRContext';
 
 type ConfirmationDialog = {
   labels?: {
@@ -17,52 +16,48 @@ type ConfirmationDialog = {
   isOpen?: boolean,
   requirePassword?: boolean,
   requireConfirmationText?: boolean,
-  onConfirm?: (args: {
-      password?: string,
-  }) => void,
+  onConfirm?: (args: { password?: string, }) => void,
   onCancel?: () => void
 };
 
 const defaultLabels = {
-    title: 'Are You Sure?',
-    description: "You can't undo this action afterwards.",
-    confirm: 'Confirm',
-    cancel: 'Cancel',
-    confirmationText: 'CONFIRM',
+  title: 'Are You Sure?',
+  description: "You can't undo this action afterwards.",
+  confirm: 'Confirm',
+  cancel: 'Cancel',
+  confirmationText: 'CONFIRM',
 };
 
 const ConfirmationDialog = ({
-  labels: _labels, isOpen = false, requireConfirmationText, requirePassword,
+  labels: initialLabels, isOpen = false, requireConfirmationText, requirePassword,
   onConfirm = () => {}, onCancel = () => {},
 }: ConfirmationDialog) => {
 
-    const labels = {...defaultLabels, ..._labels};
-    const theme = useTheme();
+  const labels = { ...defaultLabels, ...initialLabels };
+  const { theme } = useContext(DSRContext);
 
-    const [confirmText, setConfirmText] = useState('');
-    const [password, setPassword] = useState('');
+  const [confirmText, setConfirmText] = useState('');
+  const [password, setPassword] = useState('');
 
-    const confirmAction = (e) => {
-        e.preventDefault();
-        if(requirePassword && password?.length === 0)
-            return;
-        if(requireConfirmationText && confirmText !== labels.confirmationText)
-            return;
-        onConfirm({ password });
-    }
+  const confirmAction = (e: FormEvent) => {
+    e.preventDefault();
+    if (requirePassword && password?.length === 0) return;
+    if (requireConfirmationText && confirmText !== labels.confirmationText) return;
+    onConfirm({ password });
+  };
 
-    useEffect(() => setPassword(''), [isOpen]);
+  useEffect(() => setPassword(''), [isOpen]);
 
-    return (
+  return (
       <Modal isOpen={isOpen} onClose={onCancel}>
-          <Card className="confirmation-dialog" background={theme.background}>
-              <div className="p-2">
-                  <h2 className="font-semibold text-2xl mb-2">{labels?.title}</h2>
-                  <p style={{ width: '450px', maxWidth: '100%' }} className="text-lg">
+          <Card className="confirmation-dialog" background={theme?.background}>
+              <div className="dsr-p-2">
+                  <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
+                  <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
                       {labels?.description}
                   </p>
               </div>
-              <form className="py-2" onSubmit={confirmAction}>
+              <form className="dsr-py-2" onSubmit={confirmAction}>
                   {requireConfirmationText && (
                       <TextInput
                           label={`Enter "${labels?.confirmationText}" to confirm`}
@@ -73,7 +68,7 @@ const ConfirmationDialog = ({
                       />
                   )}
                   {requirePassword && (
-                      <div className="mb-3">
+                      <div className="dsr-mb-3">
                           <TextInput
                               label="Enter Your Password"
                               name="password"
@@ -84,13 +79,13 @@ const ConfirmationDialog = ({
                           />
                       </div>
                   )}
-                  <div className="flex justify-end">
+                  <div className="dsr-flex dsr-justify-end">
                       <Button
                           color="shade"
                           size="lg"
                           onClick={onCancel}
                           type="button"
-                          className="mr-2"
+                          className="dsr-mr-2"
                       >
                           {labels?.cancel}
                       </Button>
@@ -104,8 +99,7 @@ const ConfirmationDialog = ({
               </form>
           </Card>
       </Modal>
-    );
-
+  );
 };
 
 export default ConfirmationDialog;

@@ -1,69 +1,86 @@
-import React from 'react';
-import Color from 'color';
-import styled from '@emotion/styled';
+import React, { useContext } from 'react';
 
 import Breadcrumb, { BreadcrumbPropType } from './Breadcrumb';
-
-const PageHeaderSection = styled.section`
-    background: ${({ theme }) => theme?.isDarkTheme ? Color(theme.background || '#000').lighten(0.2).hex() : Color(theme.background || '#FFF').darken(0.15).hex() };
-    &.page-header-lg {
-      padding: 3.5vh 3.5vw;
-    }
-    &.page-header-sm {
-        padding: 1.5vh 1.5vw;
-    }
-`;
+import clsx from 'clsx';
+import DSRContext from '../contexts/DSRContext';
+import Color from 'color';
 
 type PageHeader = {
-    title?: string,
-    customTitle?: React.ReactElement,
-    description?: string,
-    id?: string,
-    size?: ('lg'|'sm')
-    fill?: boolean,
-    className?: string,
-    headingClassName?: string,
-    breadcrumb?: BreadcrumbPropType,
-    breadcrumbItems?: {
-        link: string,
-        title: string,
-        isActive?: boolean
-    }[],
-    titleBottomRenderer?: () => (React.ReactChildren|React.ReactNode|React.ReactElement),
-    sidebarRenderer?: () => (React.ReactChildren|React.ReactNode|React.ReactElement)
-    customRender?: () => (React.ReactChildren|React.ReactNode|React.ReactElement),
-}
+  title?: string,
+  customTitle?: React.ReactElement,
+  description?: string,
+  id?: string,
+  size?: ('lg' | 'sm')
+  fill?: boolean,
+  className?: string,
+  headingClassName?: string,
+  breadcrumb?: BreadcrumbPropType,
+  breadcrumbItems?: {
+    link: string,
+    title: string,
+    isActive?: boolean
+  }[],
+  titleBottomRenderer?: () => (React.ReactNode),
+  sidebarRenderer?: () => (React.ReactNode)
+  customRender?: () => (React.ReactNode),
+};
 
 const PageHeader = ({
-    title, description, className = '', headingClassName = '', id,
-    breadcrumbItems = [], size = 'lg', fill = false,
-    customRender = () => <div />,
-    titleBottomRenderer = () => <div />,
-    sidebarRenderer = () => <div />,
-    customTitle = null, breadcrumb = null
-} : PageHeader) => (
-    <PageHeaderSection id={id} className={`page-header page-header-${size} ${className} ${!fill ? 'flex items-center justify-center' : ''}`}>
-        <div style={!fill ? { width: '1333px', maxWidth: '100%' } : null}>
-            <div className="flex flex-wrap">
-                <div className="md:w-2/3 py-2">
-                    <div className={size == "lg" ? "px-2 mb-4" : "mb-2" }>
-                        <Breadcrumb
-                            {...breadcrumb}
-                            items={breadcrumbItems}
-                            className={`${size == "sm" ? "text-sm mb-0" : ''}`}
-                        />
-                    </div>
-                    {customTitle ? customTitle : <h1 aria-level={1} className={`${size == 'lg' ? `text-6xl` : 'text-3xl'} mt-1 font-semibold ${headingClassName}`} role="heading">{title}</h1>}
-                    {description?.length > 0 && <p style={{ width: '600px', maxWidth: '100%' }} className="text-md opacity-80 mt-2">{description}</p>}
-                    {titleBottomRenderer()}
-                </div>
-                <div className="md:w-1/3 py-2 flex justify-end items-center">
-                    {sidebarRenderer()}
-                </div>
-            </div>
-            {customRender && customRender()}
-        </div>
-    </PageHeaderSection>
-);
+  title, description, className = '', headingClassName = '', id,
+  breadcrumbItems = [], size = 'lg', fill = false,
+  customRender = () => <div />,
+  titleBottomRenderer = () => <div />,
+  sidebarRenderer = () => <div />,
+  customTitle, breadcrumb,
+} : PageHeader) => {
+  const { isDarkTheme, theme } = useContext(DSRContext);
+
+  return (
+      <section
+          id={id}
+          className={clsx([
+            className,
+            !fill && 'dsr-flex dsr-items-center dsr-justify-center',
+          ])}
+          style={{
+            background: isDarkTheme ? Color(theme?.background || '#000').lighten(0.2).hex() : Color(theme?.background || '#FFF').darken(0.15).hex(),
+            padding: size === 'lg' ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
+          }}
+      >
+          <div style={!fill ? { width: '1333px', maxWidth: '100%' } : {}}>
+              <div className="dsr-flex dsr-flex-wrap">
+                  <div className="md:dsr-w-2/3 dsr-py-2">
+                      <div className={size == 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2' }>
+                          <Breadcrumb
+                              {...breadcrumb}
+                              items={breadcrumbItems}
+                              className={`${size == 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}`}
+                          />
+                      </div>
+                      {customTitle ? customTitle : (
+                          <h1
+                              aria-level={1}
+                              className={clsx([
+                                size == 'lg' ? 'dsr-text-6xl' : 'dsr-text-3xl',
+                                'dsr-mt-1 dsr-font-semibold',
+                                headingClassName,
+                              ])}
+                              role="heading"
+                          >
+                              {title}
+                          </h1>
+                      )}
+                      {description && description?.length > 0 ? <p style={{ width: '600px', maxWidth: '100%' }} className="dsr-text-md dsr-opacity-80 dsr-mt-2">{description}</p> : null}
+                      {titleBottomRenderer()}
+                  </div>
+                  <div className="md:dsr-w-1/3 dsr-py-2 dsr-flex dsr-justify-end dsr-items-center">
+                      {sidebarRenderer()}
+                  </div>
+              </div>
+              {customRender && customRender()}
+          </div>
+      </section>
+  );
+};
 
 export default PageHeader;

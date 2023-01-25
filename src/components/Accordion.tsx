@@ -1,75 +1,73 @@
-import React, {useEffect, useState} from 'react';
-import styled from '@emotion/styled';
+import React, { useContext, useEffect, useState } from 'react';
+import clsx from 'clsx';
+import DSRContext from '../contexts/DSRContext';
+import hyperid from 'hyperid';
+import Icon from './Icon';
+const generateId = hyperid();
 
-
-const AccordionContainer = styled.div`
-  background: ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'};
-  button {
-    color: ${({ theme }) => theme.secondary};
-    background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.2)' : 'rgba(255, 255, 255, 0.9)' };
-  }
-  .accordion-body {
-    transition: all 200ms ease;
-    opacity: 0;
-    height: 0;
-    color: ${({ theme }) => theme.color};
-    &.active {
-      opacity: 1;
-      height: auto;
-    }
-  }
-`;
-
-type AccordionProps = {
-    title: string,
-    renderer?: () => React.ReactNode,
-    text?: (string|React.ReactNode),
-    isOpen?: boolean,
-    onChange?: () => void,
-    keepExpanded?: boolean
-    id?: string,
-    className?: string,
-    titleClassName?: string,
-    bodyClassName?: string,
-    icons?: {
-        opened?: React.ReactElement,
-        closed?: React.ReactElement
-    }
-};
-
-const defaultIcons = {
-    opened: <span style={{ transform: 'rotate(-90deg)' }}>⮞</span>,
-    closed: <span style={{ transform: 'rotate(90deg)' }}>⮞</span>
+export type AccordionProps = {
+  title: string,
+  renderer?: () => React.ReactNode,
+  text?: (string | React.ReactNode),
+  isOpen?: boolean,
+  onChange?: () => void,
+  keepExpanded?: boolean
+  id?: string,
+  className?: string,
+  titleClassName?: string,
+  bodyClassName?: string,
 };
 
 const Accordion = ({
-   title, renderer, text, isOpen: _isOpen, onChange = () => {}, id,
-   className = '', titleClassName = '', bodyClassName = '', icons: _icons = null,
+  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = generateId(),
+  className = '', titleClassName = '', bodyClassName = '',
 }: AccordionProps) => {
 
-    const [isOpen, setOpen] = useState(_isOpen ?? false);
+  const [isOpen, setOpen] = useState(_isOpen ?? false);
 
-    useEffect(() => { setOpen(_isOpen ?? false) }, [_isOpen]);
+  useEffect(() => { setOpen(_isOpen ?? false); }, [_isOpen]);
 
-    const icons = {...defaultIcons, ..._icons};
+  const { isDarkTheme } = useContext(DSRContext);
 
-    return (
-        <AccordionContainer id={id} className={`accordion p-3 rounded-lg ${className}`}>
-            <button
-                className={`accordion-selection-button w-full p-3 font-semibold flex rounded-lg text-xl justify-between ${titleClassName}`}
-                onClick={() => {
-                    setOpen(!isOpen);
-                    onChange();
-                }}
-            >
-                {title}
-                {isOpen ? icons?.opened : icons?.closed}
-            </button>
-            <div className={`accordion-body text-lg ${isOpen ? bodyClassName + ' active p-3' : ''}`}>
-                {isOpen && renderer ? renderer() : text}
-            </div>
-        </AccordionContainer>
-    );
+  return (
+      <div
+          id={id}
+          className={clsx([
+            'dsr-p-3 dsr-rounded-lg',
+            className,
+          ])}
+          style={{ background: isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)' }}
+      >
+          <button
+              className={clsx([
+                'dsr-w-full dsr-p-3 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-xl',
+                'dsr-justify-between dsr-text-color',
+                titleClassName,
+              ])}
+              aria-expanded={isOpen}
+              aria-controls={`${id}_content`}
+              style={{ background: isDarkTheme ? 'rgba(237, 237, 237, 0.2)' : 'rgba(255, 255, 255, 0.9)' }}
+              onClick={() => {
+                setOpen(!isOpen);
+                onChange();
+              }}
+          >
+              {title}
+              <Icon icon={isOpen ? 'chevronUp' : 'chevronDown'} size={18} />
+          </button>
+
+          <div
+              id={`${id}_content`}
+              aria-hidden={!isOpen}
+              className={clsx([
+                'dsr-text-lg dsr-transition-all dsr-opacity-0 dsr-h-0 dsr-text-color dsr-px-3',
+                isOpen ? clsx([bodyClassName, 'dsr-opacity-100 dsr-h-auto dsr-py-3']) : '',
+              ])}
+          >
+              {isOpen && renderer ? renderer() : text}
+          </div>
+      </div>
+  );
 };
 
 export default Accordion;

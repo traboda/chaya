@@ -1,104 +1,112 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import styled from '@emotion/styled';
-import classNames from 'classnames';
+import React, { useContext, useEffect, useRef } from 'react';
 import Color from 'color';
 
 import SortButton from './SortButton';
 
 import { ItemListerProperty } from './item';
-import SelectionContext from "./SelectionContext";
+import SelectionContext from './SelectionContext';
+import clsx from 'clsx';
+import DSRContext from '../../contexts/DSRContext';
+import Icon from '../Icon';
 
+type ItemListerTitleBarProps<Type> = {
+  properties: ItemListerProperty<Type>[],
+  onSort: (attribute: string, order?: ('asc' | 'desc')) => void,
+  currentSortAttribute?: string,
+  sortOrder?: 'asc' | 'desc',
+  gridTemplate: React.CSSProperties,
+  setWidth?: (width: number) => void
+  isAccordionsOpen?: boolean,
+  toggleAccordions?: (state: boolean) => void,
+};
 
-const TitleBar = styled.tr`
-  display: grid;
-  width: 100%;
-  transition: transform 200ms ease;
+const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-color';
 
-  & > th {
-    height: 100%;
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.primaryTextColor};
-    border-bottom: 2px solid ${({ theme }) => Color(theme.color).fade(0.85).string()};
-  }
-`;
+const ItemListerTitleBar = <Type extends { id: string }>({
+  properties, currentSortAttribute, sortOrder, isAccordionsOpen = undefined, toggleAccordions = () => {},
+  gridTemplate, onSort = () => null, setWidth = () => {},
+}: ItemListerTitleBarProps<Type>) => {
 
-type ItemListerTitleBarProps = {
-    properties: ItemListerProperty[],
-    onSort: (attribute: string, order: ('asc' | 'desc' | null)) => void,
-    currentSortAttribute: string,
-    sortOrder: 'asc' | 'desc' | null,
-    gridTemplate: React.CSSProperties,
-    setWidth?: (_width: number) => void
-    isAccordionsOpen?: boolean,
-    toggleAccordions?: (state: boolean) => void,
-    icons: {
-        accordionOpened: React.ReactNode,
-        accordionClosed: React.ReactNode,
-    }
-}
+  const { theme } = useContext(DSRContext);
+  const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext);
 
-const ItemListerTitleBar = ({
-    properties, currentSortAttribute, sortOrder, icons, isAccordionsOpen = null, toggleAccordions = (_) => {},
-    gridTemplate, onSort = () => null, setWidth = (_w) => {}
-}: ItemListerTitleBarProps) => {
+  const barRef = useRef<HTMLTableRowElement>(null);
 
-    const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext)
+  useEffect(() => { if (barRef.current) setWidth(barRef.current.offsetWidth); }, [barRef.current]);
 
-    const barRef = useRef<HTMLTableRowElement>();
-
-    useEffect(() => setWidth(barRef.current.offsetWidth), [barRef.current]);
-
-    return (
-        <TitleBar ref={barRef} style={gridTemplate}>
-            {isAccordionsOpen != null && (
-                <th className="flex justify-center h-full items-center text-center relative">
-                    <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
-                        {isAccordionsOpen ? icons.accordionOpened : icons.accordionClosed}
-                    </button>
-                </th>
-            )}
-            {isSelectEnabled && (
-                <th className="py-3">
-                    <div className="flex justify-center h-full items-center text-center">
-                        <input
-                            type="checkbox"
-                            checked={isAllSelected()}
-                            onChange={() => isAllSelected() ? deselectAll() : selectAll()}
-                        />
-                    </div>
-                </th>
-            )}
-            {properties?.length > 0 && (
-                properties.filter((p) => !p.isHidden).map((p) => (
-                    <th className="py-3" key={p.id} style={{ textAlign: p.textAlign }}>
-                        {p?.allowSort ? (
-                            <div className={classNames('flex items-center', p?.labelClassName)}>
-                                <div className="px-2" style={{ width: 'auto', fontWeight: 600 }}>
-                                    {p.label}
-                                </div>
-                                <div style={{ width: '30px', opacity: 0.75, fontSize: '90%' }}>
-                                    <SortButton
-                                        attribute={p.id}
-                                        currentAttribute={currentSortAttribute}
-                                        currentOrder={sortOrder}
-                                        onSort={onSort}
-                                    />
-                                </div>
-                            </div>
-                        ) : (
-                            <div
-                                className={classNames('flex items-center px-3', p?.labelClassName)}
-                                style={{ width: 'auto', fontWeight: 600 }}
-                            >
+  return (
+      <div
+          className="dsr-grid dsr-w-full dsr-transition-transform"
+          ref={barRef}
+          style={gridTemplate}
+      >
+          {isAccordionsOpen != null && (
+              <th
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString() }}
+                  className={clsx([
+                    'dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center dsr-relative dsr-border-b-2',
+                    thClasses,
+                  ])}
+              >
+                  <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
+                      <Icon icon={isAccordionsOpen ? 'chevronDown' : 'chevronRight'} size={18} />
+                  </button>
+              </th>
+          )}
+          {isSelectEnabled && (
+              <th
+                  className={clsx(['dsr-py-3', thClasses])}
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString() }}
+              >
+                  <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
+                      <input
+                          type="checkbox"
+                          checked={isAllSelected?.()}
+                          onChange={() => isAllSelected?.() ? deselectAll?.() : selectAll?.()}
+                      />
+                  </div>
+              </th>
+          )}
+          {properties?.length > 0 && (
+            properties.filter((p) => !p.isHidden).map((p) => (
+                <th
+                    className={clsx(['dsr-py-3', thClasses])}
+                    key={p.id}
+                    style={{
+                      textAlign: p.textAlign,
+                      borderBottomColor: Color(theme?.color).fade(0.85).toString(),
+                    }}
+                >
+                    {p?.allowSort ? (
+                        <div className={clsx(['dsr-flex dsr-items-center dsr-gap-1', p?.labelClassName])}>
+                            <div className="dsr-px-2 dsr-m-auto dsr-font-semibold">
                                 {p.label}
                             </div>
-                        )}
-                    </th>
-                    )
-                )
-            )}
-        </TitleBar>
-    );
+                            <div className="dsr-w-[30px] dsr-opacity-75 dsr-text-[90%] dsr-w-[14px]">
+                                <SortButton
+                                    attribute={p.id}
+                                    currentAttribute={currentSortAttribute}
+                                    currentOrder={sortOrder}
+                                    onSort={onSort}
+                                />
+                            </div>
+                        </div>
+                    ) : (
+                        <div
+                            className={clsx([
+                              'dsr-flex dsr-font-semibold dsr-items-center dsr-px-3 dsr-m-auto',
+                              p?.labelClassName,
+                            ])}
+                        >
+                            {p.label}
+                        </div>
+                    )}
+                </th>
+            ),
+            )
+          )}
+      </div>
+  );
 
 };
 

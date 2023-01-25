@@ -1,7 +1,7 @@
-import {useState} from "react";
-import useInterval from './useInterval'
-
-interface useCounterType {
+import { useState } from 'react';
+import useInterval from './useInterval';
+ 
+interface UseCounterType {
   initialValue?: number
   interval?: number
   isIncrement?: boolean,
@@ -14,7 +14,7 @@ interface CounterHelpers {
   reset: () => void
 }
 
-const useCounter = ({ initialValue = 0, interval = 1000, isIncrement = true, allowNegative = true }: useCounterType): [number, CounterHelpers] => {
+const useCounter = ({ initialValue = 0, interval = 1000, isIncrement = true, allowNegative = true }: UseCounterType): [number, CounterHelpers] => {
 
   const [count, setCount] = useState(initialValue);
 
@@ -35,6 +35,6 @@ const useCounter = ({ initialValue = 0, interval = 1000, isIncrement = true, all
 
   return [count, { start, stop, reset }];
 
-}
+};
 
 export default useCounter;

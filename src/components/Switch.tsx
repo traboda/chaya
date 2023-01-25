@@ -1,81 +1,97 @@
-import React, { useRef } from 'react';
-import styled from "@emotion/styled";
-import { nanoid } from "nanoid";
-import { useTheme } from "@emotion/react";
+import React, { useContext, useMemo, useRef } from 'react';
+import hyperid from 'hyperid';
+import DSRContext from '../contexts/DSRContext';
+import clsx from 'clsx';
 
-const SwitchContainer = styled.label`
-  background: ${({ theme }) => theme.isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)' };
-  input:checked + div {
-    transform: translate3d(100%, 0, 0);
-  }
-`
+const generateId = hyperid();
 
 type SwitchProps = {
-    value: boolean,
-    onChange?: (v: boolean) => void,
-    size?: number,
-    label?: string,
-    id?: string,
-    className?: string,
-    required?: boolean,
-    variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
-    disabled?: boolean
-}
+  value: boolean,
+  onChange?: (v: boolean) => void,
+  size?: number,
+  label?: string,
+  id?: string,
+  className?: string,
+  required?: boolean,
+  variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
+  disabled?: boolean
+};
+
+const borders = {
+  'primary': 'dsr-border-primary',
+  'secondary': 'dsr-border-secondary',
+  'success': 'dsr-border-green-500',
+  'danger': 'dsr-border-red-500',
+  'warning': 'dsr-border-yellow-400',
+  'transparent': 'dsr-border-inherit',
+};
 
 const variants = {
-    "primary": 'bg-primary',
-    "secondary": 'bg-secondary',
-    "success": 'bg-green-500',
-    "danger": 'bg-red-500',
-    "warning": 'bg-yellow-400',
-    "transparent": 'bg-inherit'
+  'primary': 'dsr-bg-primary',
+  'secondary': 'dsr-bg-secondary',
+  'success': 'dsr-bg-green-500',
+  'danger': 'dsr-bg-red-500',
+  'warning': 'dsr-bg-yellow-400',
+  'transparent': 'dsr-bg-inherit',
 };
 
 const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', id, className = '', disabled = false }: SwitchProps) => {
 
-    const { color } = useTheme();
-    const checkbox = useRef(null);
-    const inputID = id ? id : `switch-input-${nanoid()}`;
+  const isDarkTheme = useContext(DSRContext);
+  const checkbox = useRef(null);
+  const inputID = useMemo(() => id ?? `switch-input-${generateId()}`, [id]);
 
-    return (
-        <div className="w-full flex flex-col">
-            {label && (
-                <label
-                    className="block text-lg opacity-80 mb-1"
-                    htmlFor={inputID}
-                    id={`${inputID}-label`}
-                    aria-hidden={false}
-                    style={{ color }}
-                >
-                    {label}
-                    {required && <span className="text-red-500 ml-1">*</span>}
-                </label>
-            )}
-            <SwitchContainer
-                className={`inline-block rounded-full shadow-inner ${value && variants[variant]} ${disabled && 'cursor-not-allowed'} ${className}`}
-                style={{ height: size, width: size * 2 }}
-            >
-                <input
-                    id={inputID}
-                    ref={checkbox}
-                    type="checkbox"
-                    aria-labelledby={`${inputID}-label`}
-                    aria-required={required}
-                    aria-readonly={disabled}
-                    aria-checked={value}
-                    disabled={disabled}
-                    className="absolute opacity-0"
-                    required={required}
-                    checked={value}
-                    onChange={({ target }) => onChange(target.checked)}
-                />
-                <div
-                    className={`rounded-full bg-white transition shadow-md border ${value && `border-${variants[variant]}`}`}
-                    style={{ height: size, width: size }}
-                />
-            </SwitchContainer>
-        </div>
-    );
+  return (
+      <div className="dsr-w-full dsr-flex dsr-flex-col">
+          {label && (
+              <label
+                  className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1"
+                  htmlFor={inputID}
+                  id={`${inputID}-label`}
+                  aria-hidden={false}
+              >
+                  {label}
+                  {required && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
+              </label>
+          )}
+          <label
+              className={clsx([
+                'dsr-inline-block dsr-rounded-full dsr-shadow-inner',
+                value && variants[variant],
+                className,
+                disabled && 'dsr-cursor-not-allowed',
+              ])}
+              style={{
+                height: size,
+                width: size * 2,
+                background: value ? '' : isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)',
+              }}
+          >
+              <input
+                  id={inputID}
+                  ref={checkbox}
+                  type="checkbox"
+                  aria-labelledby={`${inputID}-label`}
+                  aria-required={required}
+                  aria-readonly={disabled}
+                  aria-checked={value}
+                  disabled={disabled}
+                  className="dsr-absolute dsr-opacity-0"
+                  required={required}
+                  checked={value}
+                  onChange={({ target }) => onChange(target.checked)}
+              />
+              <div
+                  className={clsx([
+                    'dsr-rounded-full dsr-bg-white dsr-transition dsr-shadow-md dsr-border',
+                    value && borders[variant],
+                    value && 'dsr-translate-x-full',
+                  ])}
+                  style={{ height: size, width: size }}
+              />
+          </label>
+      </div>
+  );
 };
 
 export default Switch;

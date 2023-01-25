@@ -1,0 +1,11 @@
+.animation {
+  animation-name: ripple;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ripple {
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}

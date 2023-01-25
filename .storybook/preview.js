@@ -1,18 +1,11 @@
-import { themes } from '@storybook/theming';
-import "../src/index.css"
+import '../dist/style.css';
 
-// https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
-  // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
-  actions: { argTypesRegex: '^on.*' },
-  options: {
-    storySort: {
-      order: ['Intro','*'],
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
     },
   },
-  darkMode: {
-    current: 'light',
-    dark: { ...themes.dark },
-    light: { ...themes.light }
-  }
-};
+}

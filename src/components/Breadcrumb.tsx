@@ -1,60 +1,41 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import {nanoid} from "nanoid";
-import { link_wrapper } from "../utils/misc";
-
-const BreadcrumbWrapper = styled.ul`
-    li {
-        opacity: 0.75;
-        list-style: none;
-        margin-right: 0.75rem;
-        a {
-            color: inherit;
-            text-decoration: none!important;
-        }
-        &:after {
-            margin-left: 0.75rem;
-            content: '/';
-        }
-        &:hover {
-            color: ${({theme}) => theme.secondary};
-        }
-    }
-`;
+import hyperid from 'hyperid';
+import Icon from './Icon';
+import { LinkWrapper } from '../utils/misc';
+import clsx from 'clsx';
+const generateId = hyperid();
 
 export type BreadcrumbPropType = {
-    items: {
-        link?: string,
-        title?: string,
-        isActive?: boolean
-    }[],
-    className?: string,
-    icons?: {
-        home?: React.ReactElement,
-    }
+  items: {
+    link?: string,
+    title?: string,
+    isActive?: boolean
+  }[],
+  className?: string,
 };
 
-const defaultIcons = {
-    home: <>🏠</>
+const Breadcrumb = ({ items, className = '' }: BreadcrumbPropType) => {
+  return (
+      <ul className={clsx(['dsr-text-lg dsr-flex dsr-gap-2 dsr-items-center dsr-opacity-75', className])}>
+          <li>
+              {LinkWrapper('/', <Icon icon="home" size={18} />)}
+          </li>
+          <li>
+              /
+          </li>
+          {items.length > 0 && items.map((i) => (
+              <ul className="dsr-flex dsr-gap-2 dsr-text-color hover:dsr-text-primary">
+
+                  <li key={generateId()}>
+                      {LinkWrapper(item?.link || '#', item?.title)}
+                  </li>
+                  <li>
+                      /
+                  </li>
+              </ul>
+          ))}
+      </ul>
+  );
 };
-
-
-const Breadcrumb = ({ items, className = '', icons: _icons = null }: BreadcrumbPropType) => {
-
-    const icons = {...defaultIcons, ..._icons};
-
-    return (
-        <BreadcrumbWrapper className={`text-lg flex items-center breadcrumb ${className}`}>
-            <li>
-                {link_wrapper('/', icons?.home)}
-            </li>
-            {items.length > 0 && items.map((i) => (
-                <li key={nanoid()}>
-                    {link_wrapper(i?.link || '#', <>{i.title}</>)}
-                </li>
-            ))}
-        </BreadcrumbWrapper>
-    );
-}
 
 export default Breadcrumb;

@@ -1,56 +1,51 @@
-import React from "react";
-import styled from '@emotion/styled';
+import React, { ReactNode, useContext } from 'react';
+import clsx from 'clsx';
+import DSRContext from '../contexts/DSRContext';
+import Icon, { IconInputType } from './Icon';
 
-type Card = {
-    children: (React.ReactNode|React.ReactChildren);
-    variant?: 'shaded'|'outline';
-    title?: string,
-    description?: string,
-    titleClassName?: string,
-    iconClassName?: string,
-    iconRenderer?: React.ReactElement,
-    background?: string,
-    id?: string,
-    className?: string,
-}
-
-type CardContainer = {
-    background?: string
-}
-
-const CardContainer = styled('div')<CardContainer>`
-  padding: 1rem;
-  border-radius: 8px;
-  height: 100%;
-  &.card-shaded {
-    background: ${({ background, theme }) =>
-        background ? background :
-        theme.isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, -20%, 0.05)'
-    };
-  }
-  &.card-outline {
-    border: 1px solid ${({ theme }) => theme.isDarkTheme ? 'hsla(0, 0%, 100%, 0.15)' : 'hsla(0, 0%, 0%, 0.15)'};
-  }
-`;
+export type CardProps = {
+  children: ReactNode,
+  variant?: 'shaded' | 'outline',
+  title?: string,
+  description?: string,
+  titleClassName?: string,
+  icon?: IconInputType,
+  background?: string,
+  id?: string,
+  className?: string,
+};
 
 const Card = ({
-    id, children, title, description, variant = 'shaded',
-    className = '', titleClassName = '', iconClassName = '', iconRenderer = null,
-    background,
-}: Card) =>  (
-    <CardContainer id={id} background={background} className={`card card-${variant} rounded-lg p-4 ${className}`}>
-        <div>
-            {title &&
-            <h3 className={`text-3xl mb-2 font-semibold ${titleClassName}`}>
-                {iconClassName && <i className={`${iconClassName} mr-2`} />}
-                {iconRenderer}
-                {title}
-            </h3>}
-            {description && <p className="text-lg opacity-90 mb-2">{description}</p>}
-            {children}
-        </div>
-    </CardContainer>
-);
+  id, children, title, description, variant = 'shaded',
+  className = '', titleClassName = '', background, icon,
+}: CardProps) => {
+  const { isDarkTheme } = useContext(DSRContext);
+
+  return (
+      <div
+          id={id}
+          className={clsx([
+            'dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-transparent',
+            className,
+          ])}
+          style={{
+            background: variant === 'shaded' ? (background ?? (isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)')) : '',
+            borderColor: variant === 'outline' ? (isDarkTheme ? 'hsla(0, 0%, 100%, 0.15)' : 'hsla(0, 0%, 0%, 0.15)') : '',
+          }}
+      >
+          <div>
+              {title && (
+                  <h3 className={clsx(['dsr-text-3xl dsr-mb-2 dsr-font-semibold', titleClassName])}>
+                      {icon ? <Icon icon={icon} /> : null}
+                      {title}
+                  </h3>
+              )}
+              {description && <p className="dsr-text-lg dsr-opacity-90 dsr-mb-2">{description}</p>}
+              {children}
+          </div>
+      </div>
+  );
+};
 
 
 export default Card;
