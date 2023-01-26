@@ -16,7 +16,7 @@ type RadioButtonProps = {
   option: RadioOptionType,
   value: RadioOptionType | string,
   color?: string,
-  size?: string,
+  size?: { button: string, label: string },
   isDisabled?: boolean,
   spacing?: string,
 };
@@ -47,11 +47,11 @@ const Radio = ({ option, value, onChange, color, size, isDisabled, spacing }: Ra
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-transition-shadow dsr-duration-normal dsr-border dsr-border-2 dsr-border-none dsr-rounded-full',
-                'dsr-border-inherit dsr-text-white', size, isChecked && styled.radioButton,
+                'dsr-border-inherit dsr-text-white', size?.button, isChecked && styled.radioButton,
                 isChecked ? color : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
               ])}
           />
-          <span className="dsr-ml-2">{option.label}</span>
+          <span className={clsx(['dsr-ml-2', size?.label && `dsr-text-${size?.label}`])}>{option.label}</span>
       </div>
   );
 };

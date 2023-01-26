@@ -43,7 +43,10 @@ const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', 
                   option={option}
                   value={value}
                   color={colors[color]}
-                  size={sizes[size]}
+                  size={{
+                    button: sizes[size],
+                    label: size,
+                  }}
                   spacing={alignment === 'vertical' ? 'dsr-my-2' : 'dsr-mx-4'}
                   onChange={onChange}
                   isDisabled={isDisabled}
