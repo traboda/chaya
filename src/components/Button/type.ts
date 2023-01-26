@@ -1,5 +1,6 @@
-import { LinkRelType, LinkTargetType } from '../../utils/misc';
 import { CSSProperties, ReactNode, MouseEvent } from 'react';
+
+import { LinkRelType, LinkTargetType } from '../../utils/misc';
 
 export type ButtonVariant = 'solid' | 'outline' | 'minimal' | 'link';
 export type ButtonColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';

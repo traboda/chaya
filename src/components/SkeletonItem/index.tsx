@@ -1,6 +1,7 @@
 import React from 'react';
-import skeletonItemStyles from './skeletonItem.module.scss';
 import clsx from 'clsx';
+
+import skeletonItemStyles from './skeletonItem.module.scss';
 
 type SkeletonItemProps = {
   circular?: boolean

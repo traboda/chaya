@@ -1,12 +1,12 @@
 import React, { ReactNode, useContext, useEffect } from 'react';
+import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
-
-import Button, { ButtonProps } from './../Button';
-import clsx from 'clsx';
 import Icon, { IconInputType } from '../Icon';
 import DSRContext from '../../contexts/DSRContext';
+
+import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
 
 type ModalProps = {

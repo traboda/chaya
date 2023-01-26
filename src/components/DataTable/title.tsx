@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import Color from 'color';
-
-import SortButton from './SortButton';
-
-import { ItemListerProperty } from './item';
-import SelectionContext from './SelectionContext';
 import clsx from 'clsx';
+
 import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
+
+import SortButton from './SortButton';
+import { ItemListerProperty } from './item';
+import SelectionContext from './SelectionContext';
 
 type ItemListerTitleBarProps<Type> = {
   properties: ItemListerProperty<Type>[],

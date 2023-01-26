@@ -1,42 +1,33 @@
-import React, { MouseEvent, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import Color from 'color';
 import tailwindColors from 'tailwindcss/colors';
-import DSRContext from '../contexts/DSRContext';
 import clsx from 'clsx';
 
+import DSRContext from '../contexts/DSRContext';
+import { RGBAtoRGB } from '../utils/color';
+
 export type BadgeProps = {
-  variant?: ('solid' | 'outline' | 'minimal'),
-  color?: ('primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade'),
-  size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
+  variant?: 'solid' | 'outline' | 'minimal',
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade',
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   id?: string,
   className?: string,
   style?: React.CSSProperties,
-  onClick?: (e: MouseEvent) => void,
   children: React.ReactNode,
   circular?: boolean,
 };
 
-
-const RGBAtoRGB = (color: Color, by: number) => {
-  const a = color.alpha();
-  return [
-    Math.round(((1 - a) * by) + (a * color.red())),
-    Math.round(((1 - a) * by) + (a * color.green())),
-    Math.round(((1 - a) * by) + (a * color.blue())),
-  ];
-};
-
-const paddings = {
-  xs: 'dsr-px-1.5 dsr-py-0',
-  sm: 'dsr-px-2.5 dsr-py-1',
-  md: 'dsr-px-3.5 dsr-py-2',
-  lg: 'dsr-px-4 dsr-py-3',
-  xl: 'dsr-px-5 dsr-py-4',
+const badgeSizeDefinitions = {
+  xs: 'dsr-px-1.5 dsr-py-0 dsr-text-xs',
+  sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
+  md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
+  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
+  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
 };
 
 const Badge = ({
   children, variant = 'minimal', color = 'primary', size = 'sm',
-  id, className = '', style, onClick = () => {}, circular = true,
+  id, className = '', style, circular = false,
 }: BadgeProps) => {
 
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -69,7 +60,7 @@ const Badge = ({
     };
     return backgroundColors[variant];
   }, [activeColor, variant]);
-
+ 
   const textColor = useMemo(
     () => {
       if (variant === 'solid') return Color(activeColor).isDark() ? '#fff' : '#333';
@@ -81,7 +72,7 @@ const Badge = ({
 
   const computedClassName = clsx([
     className,
-    paddings[size],
+    badgeSizeDefinitions[size],
     'dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
@@ -96,10 +87,6 @@ const Badge = ({
   return (
       <span
           id={id}
-          onClick={e => {
-            e.stopPropagation();
-            onClick(e);
-          }}
           className={computedClassName}
           style={computedStyle}
       >
