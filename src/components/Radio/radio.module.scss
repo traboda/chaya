@@ -1,0 +1,14 @@
+.radioButton {
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 42%;
+    height: 42%;
+    border-radius: 50%;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    vertical-align: middle;
+    word-wrap: break-word;
+    box-sizing: border-box;
+  }
+}
