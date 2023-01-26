@@ -33,10 +33,7 @@ const Template: Story = args => {
 export const Default = Template.bind({});
 
 Default.args = {
-  value: {
-    label: 'option 2',
-    value: 'option-2',
-  },
+  value: 'option-2',
   options: [
     {
       label: 'option 1',

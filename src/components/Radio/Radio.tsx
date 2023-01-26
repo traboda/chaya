@@ -12,30 +12,28 @@ export type RadioOptionType = {
 };
 
 type RadioButtonProps = {
-  onChange: (value: any) => void,
+  onChange: (value: string) => void,
   option: RadioOptionType,
-  value: RadioOptionType | string,
   color?: string,
   size?: { button: string, label: string },
   isDisabled?: boolean,
-  spacing?: string,
+  selected?: boolean,
 };
 
-const Radio = ({ option, value, onChange, color, size, isDisabled, spacing }: RadioButtonProps) => {
+const Radio = ({ option, selected = false, onChange, color, size, isDisabled }: RadioButtonProps) => {
 
   const { isDarkTheme } = useContext(DSRContext);
-  const isChecked = typeof value === 'string' ? value === option.value : value.value === option.value;
 
   return (
       <div
-          className={clsx([ 'dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative', spacing ])}
+          className="dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
           onClick={() => onChange(option.value)}
       >
           <input
               type="radio"
               name={option.value}
               value={option.value}
-              checked={isChecked}
+              checked={selected}
               disabled={isDisabled || option.disabled}
               className={clsx([
                 'dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
@@ -46,9 +44,8 @@ const Radio = ({ option, value, onChange, color, size, isDisabled, spacing }: Ra
           <span
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-                'dsr-transition-shadow dsr-duration-normal dsr-border dsr-border-2 dsr-border-none dsr-rounded-full',
-                'dsr-border-inherit dsr-text-white', size?.button, isChecked && styled.radioButton,
-                isChecked ? color : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                'dsr-border-none dsr-rounded-full dsr-text-white', size?.button, selected && styled.radioButton,
+                selected ? color : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
               ])}
           />
           <span className={clsx(['dsr-ml-2', size?.label && `dsr-text-${size?.label}`])}>{option.label}</span>

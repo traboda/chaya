@@ -36,19 +36,22 @@ const sizes = {
 const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical' }: RadioGroupType) => {
 
   return (
-      <div className={clsx([ 'dsr-flex', alignment === 'vertical' ? 'dsr-flex-col' : 'dsr-flex-row'])}>
+      <div
+          className={clsx([
+            'dsr-flex', alignment === 'vertical' ? 'dsr-flex-col dsr-gap-y-4' : 'dsr-flex-row dsr-gap-x-8',
+          ])}
+      >
           {options.map((option, index) => (
               <Radio
                   key={index}
                   option={option}
-                  value={value}
+                  selected={value === option.value}
                   color={colors[color]}
                   size={{
                     button: sizes[size],
                     label: size,
                   }}
-                  spacing={alignment === 'vertical' ? 'dsr-my-2' : 'dsr-mx-4'}
-                  onChange={onChange}
+                  onChange={() => onChange(option.value)}
                   isDisabled={isDisabled}
               />
           ))}
