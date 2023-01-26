@@ -24,6 +24,7 @@ export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
+export { default as Drawer } from './components/Drawer';
 
 // hooks
 export { default as useCounter } from './hooks/useCounter';
