@@ -44,11 +44,15 @@ const Radio = ({ option, selected = false, onChange, color, size, isDisabled }: 
           <span
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-                'dsr-border-none dsr-rounded-full dsr-text-white', size?.button, selected && styled.radioButton,
-                selected ? color : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                'dsr-border-none dsr-rounded-full dsr-text-white', size?.button,
+                selected && styled.radioButton,
+                selected ? color :
+                  isDarkTheme ?
+                    'dsr-bg-white/20' :
+                    'dsr-bg-gray-500/20',
               ])}
           />
-          <span className={clsx(['dsr-ml-2', size?.label && `dsr-text-${size?.label}`])}>{option.label}</span>
+          <span className={clsx([ 'dsr-ml-2', size?.label ])}>{ option.label }</span>
       </div>
   );
 };

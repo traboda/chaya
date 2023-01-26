@@ -26,11 +26,11 @@ const colors = {
 };
 
 const sizes = {
-  'xs': 'dsr-h-2 dsr-w-2',
-  'sm': 'dsr-h-3 dsr-w-3',
-  'md': 'dsr-h-4 dsr-w-4',
-  'lg': 'dsr-h-5 dsr-w-5',
-  'xl': 'dsr-h-6 dsr-w-6',
+  'xs': { button: 'dsr-h-2 dsr-w-2', label: 'dsr-text-xs' },
+  'sm': { button: 'dsr-h-3 dsr-w-3', label: 'dsr-text-sm' },
+  'md': { button: 'dsr-h-4 dsr-w-4', label: 'dsr-text-md' },
+  'lg': { button: 'dsr-h-5 dsr-w-5', label: 'dsr-text-lg' },
+  'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
 };
 
 const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical' }: RadioGroupType) => {
@@ -47,10 +47,7 @@ const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', 
                   option={option}
                   selected={value === option.value}
                   color={colors[color]}
-                  size={{
-                    button: sizes[size],
-                    label: size,
-                  }}
+                  size={sizes[size]}
                   onChange={() => onChange(option.value)}
                   isDisabled={isDisabled}
               />
