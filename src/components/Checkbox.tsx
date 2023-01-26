@@ -44,7 +44,10 @@ const Checkbox = ({ option, checked = false, onChange, color, size, isDisabled }
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-border-none dsr-rounded-sm', size?.button,
-                color && checked ? color : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                checked ? color
+                  : isDarkTheme ?
+                    'dsr-bg-white/20' :
+                    'dsr-bg-gray-500/20',
               ])}
           >
               <div
@@ -66,7 +69,7 @@ const Checkbox = ({ option, checked = false, onChange, color, size, isDisabled }
                   </svg>
               </div>
           </span>
-          <span className={clsx(['dsr-ml-2', size?.label && `dsr-text-${size?.label}`])}>{ option.label }</span>
+          <span className={clsx([ 'dsr-ml-2', size?.label ])}>{ option.label }</span>
       </div>
   );
 };
