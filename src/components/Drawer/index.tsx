@@ -1,9 +1,11 @@
 import React, { CSSProperties, ReactNode, useContext, useEffect, useMemo } from 'react';
+import clsx from 'clsx';
+
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
 import Icon from '../Icon';
-import clsx from 'clsx';
 import DSRContext from '../../contexts/DSRContext';
+
 import drawerStyles from './drawer.module.scss';
 
 
