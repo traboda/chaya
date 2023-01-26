@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { LinkWrapper } from '../utils/misc';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import DSRContext from '../contexts/DSRContext';
+
+import { LinkWrapper } from '../../utils/misc';
+import Icon, { IconInputType } from '../Icon';
 
 type DropdownMenuProps = {
   children: React.ReactNode
   items?: {
     title: string,
     iconClassName?: string,
-    icon?: () => React.ReactNode,
+    icon?: IconInputType,
     className?: string,
     onClick?: () => void,
     link?: string,
@@ -25,13 +26,11 @@ type DropdownMenuProps = {
 };
 
 const DropdownMenu = ({
-  children, items = [], isOpen = false, onClose = () => {}, id, className = '', align = 'right',
+  children, items = [], isOpen = false, onClose = () => {}, id, className = '', align = 'left',
   dropdownButtonClassName = '', dropdownContainerClassName, customHeaderRenderer,
 } : DropdownMenuProps) => {
 
-  const { theme } = useContext(DSRContext);
   const [open, setOpen] = useState(isOpen);
-  const buttonRef = useRef(null);
 
   useEffect(() => setOpen(isOpen), [isOpen]);
   useEffect(() => onClose, [isOpen]);
@@ -39,55 +38,44 @@ const DropdownMenu = ({
   return (
       <div
           id={id}
+          onMouseLeave={() => setOpen(false)}
           className={clsx([
             'dropdown dsr-relative',
             className,
           ])}
       >
           <button
-              ref={buttonRef}
               className={clsx([
-                'dropdown-button dsr-rounded-md p-[0.5rem] text-left bg-none border-none',
+                'dropdown-button dsr-rounded-md dsr-text-left dsr-bg-none dsr-border-none dsr-transition-all',
                 dropdownButtonClassName,
               ])}
               aria-label="Navigation Dropdown"
               data-is-open={open}
               onClick={() => setOpen(!open)}
-              style={{
-                transition: '200ms ease',
-              }}
           >
               {children}
           </button>
-          {open && (
+          <div
+              className={clsx([
+                align == 'left' ? 'dsr-left-0 dsr-origin-top-left' : 'dsr-right-0 dsr-origin-top-right',
+                'dsr-absolute dsr-pt-2 dsr-top-full dsr-transform dsr-transition-all dsr-ease-in-out dsr-duration-100',
+                open ? 'dsr-opacity-100 dsr-pointer-events-auto dsr-scale-100' : 'dsr-opacity-0 dsr-pointer-events-none dsr-scale-75',
+              ])}
+          >
               <div
                   role="navigation"
                   className={clsx([
-                    'dropdown-container dsr-mt-[0.5rem] dsr-rounded-lg overflow-hidden dsr-block dsr-p-0.5 dsr-text-left dsr-bg-none dsr-border-none',
-                    align == 'left' ? 'dsr-left-0' : 'dsr-right-0',
+                    'dropdown-container dsr-p-1 dsr-rounded-lg overflow-hidden dsr-block dsr-p-0.5 dsr-text-left dsr-bg-none dsr-border-none',
+                    'dsr-shadow dsr-bg-background bg-text-color dsr-w-[240px]',
                     dropdownContainerClassName,
                   ])}
-                  style={{
-                    boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important',
-                    padding: '0.25rem',
-                    maxWidth: '100vh',
-                    width: '200px',
-                    position: 'absolute',
-                    backgroundColor: theme?.background,
-                    color: theme?.color,
-                    // @ts-ignore
-                    top:  buttonRef?.current ? buttonRef?.current?.getBoundingClientRect().height + 2.5 : '45px',
-                  }}
               >
-                  {customHeaderRenderer ? customHeaderRenderer() : null}
-                  <div role="menu" onMouseLeave={() => setOpen(false)}>
+                  {customHeaderRenderer?.()}
+                  <div role="menu">
                       {items.length > 0 && items.map((n, i) => {
                         const content = n?.renderer ? n.renderer() : (
-                            <div
-                                className="dsr-flex dsr-items-center dsr-text-left "
-                            >
-                                {n?.iconClassName && <i className={`${n.iconClassName} dsr-mr-2`} />}
-                                {typeof n?.icon == 'function' && <div className="dsr-inline-block">{n.icon()}</div>}
+                            <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
+                                {n.icon && <Icon icon={n.icon} size={16} />}
                                 {n?.title}
                             </div>
                         );
@@ -97,7 +85,7 @@ const DropdownMenu = ({
                                 key={i}
                                 className={clsx([
                                   n?.className,
-                                  'dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-[0.5rem] hover:dsr-bg-neutral-300 hover:dsr-text-primary',
+                                  'dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-2 hover:dsr-bg-neutral-300 hover:dsr-text-primary',
                                 ])}
                             >
                                 {n?.link ? LinkWrapper(n.link, content) : <button className="dsr-text-left dsr-w-full dsr-rounded-md" onClick={n?.onClick}>{content}</button>}
@@ -106,7 +94,7 @@ const DropdownMenu = ({
                       })}
                   </div>
               </div>
-          )}
+          </div>
       </div>
   );
 };
