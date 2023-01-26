@@ -3,6 +3,9 @@ import clsx from 'clsx';
 
 import DSRContext from '../contexts/DSRContext';
 
+export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
+export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export type CheckboxOptionType = {
   label: string,
   value: string,
@@ -13,13 +16,30 @@ type CheckboxButtonProps = {
   onChange: (value: any) => void,
   option: CheckboxOptionType,
   checked?: boolean,
-  color?: string,
-  size?: { button: string, label: string },
+  color?: CheckboxColor,
+  size?: CheckboxSize,
   isDisabled?: boolean,
   spacing?: string,
 };
 
-const Checkbox = ({ option, checked = false, onChange, color, size, isDisabled }: CheckboxButtonProps) => {
+export const sizes = {
+  'xs': { button: 'dsr-h-2 dsr-w-2', label: 'dsr-text-xs' },
+  'sm': { button: 'dsr-h-3 dsr-w-3', label: 'dsr-text-sm' },
+  'md': { button: 'dsr-h-4 dsr-w-4', label: 'dsr-text-md' },
+  'lg': { button: 'dsr-h-5 dsr-w-5', label: 'dsr-text-lg' },
+  'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
+};
+
+export const colors = {
+  'primary': 'dsr-bg-primary',
+  'secondary': 'dsr-bg-secondary',
+  'success': 'dsr-bg-green-500',
+  'danger': 'dsr-bg-red-500',
+  'warning': 'dsr-bg-yellow-400',
+  'default': 'dsr-bg-gray-500/70',
+};
+
+const Checkbox = ({ option, checked = false, onChange, color = 'primary', size = 'md', isDisabled }: CheckboxButtonProps) => {
 
   const { isDarkTheme } = useContext(DSRContext);
 
@@ -43,7 +63,7 @@ const Checkbox = ({ option, checked = false, onChange, color, size, isDisabled }
           <span
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-                'dsr-border-none dsr-rounded-sm', size?.button,
+                'dsr-border-none dsr-rounded-sm', sizes[size]?.button,
                 checked ? color
                   : isDarkTheme ?
                     'dsr-bg-white/20' :
@@ -69,7 +89,7 @@ const Checkbox = ({ option, checked = false, onChange, color, size, isDisabled }
                   </svg>
               </div>
           </span>
-          <span className={clsx([ 'dsr-ml-2', size?.label ])}>{ option.label }</span>
+          <span className={clsx([ 'dsr-ml-2', sizes[size]?.label ])}>{ option.label }</span>
       </div>
   );
 };
