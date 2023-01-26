@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { addDecorator, Meta, Story } from '@storybook/react';
 
-import RadioGroup from '../components/Radio/RadioGroup';
+import { RadioGroup } from '../index';
 
 import ThemeContextDecorator from './ThemeContextDecorator';
 
