@@ -71,6 +71,7 @@ const Index = (props: TagSelectorProps) => {
       props.small ? 'dsr-px-1 dsr-py-4' : '',
       className || [
         'hover:dsr-bg-primary hover:dsr-text-gray-100 hover:dsr-border-primary',
+        'focus:dsr-bg-primary focus:dsr-text-gray-100 focus:dsr-border-primary',
         'active:dsr-bg-gray-100 active:dsr-text-primary active:dsr-border-primary dsr-border-gray-500',
       ],
     ]);
@@ -79,21 +80,23 @@ const Index = (props: TagSelectorProps) => {
   return (
       <div id={props?.id} className={props?.className}>
           {props?.labels &&
-          <div className="dsr-flex dsr-flex-wrap  dsr-mx-0">
-              {props.labels?.title &&
-              <div className="dsr-w-4/5 dsr-p-1">
-                  <div className="dsr-text-lg dsr-opacity-80">{props.labels.title}</div>
-              </div>}
-              {/*@TODO: Add help text*/}
-              {/*{props.labels.helpText &&*/}
-              {/*    <ToolTip placement="top" overlay={props.labels.helpText}>*/}
-              {/*        <i*/}
-              {/*            style={{ fontSize: '1.35rem', opacity: 0.8, fontWeight: 300 }}*/}
-              {/*            className="far fa-info-circle"*/}
-              {/*        />*/}
-              {/*    </ToolTip>*/}
-              {/*</div>}*/}
-          </div>}
+              <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
+                  {props.labels?.title &&
+                      <div className="dsr-w-4/5 dsr-p-1">
+                          <div className="dsr-text-lg dsr-opacity-80">{props.labels.title}</div>
+                      </div>
+                  }
+                  {/*@TODO: Add help text*/}
+                  {/*{props.labels.helpText &&*/}
+                  {/*    <ToolTip placement="top" overlay={props.labels.helpText}>*/}
+                  {/*        <i*/}
+                  {/*            style={{ fontSize: '1.35rem', opacity: 0.8, fontWeight: 300 }}*/}
+                  {/*            className="far fa-info-circle"*/}
+                  {/*        />*/}
+                  {/*    </ToolTip>*/}
+                  {/*</div>}*/}
+              </div>
+          }
           <div className="dsr-flex dsr-flex-wrap dsr-items-center">
               {props.options.map(opt => (
                   <button
@@ -104,7 +107,6 @@ const Index = (props: TagSelectorProps) => {
                         generateClassName(opt.value),
                         props?.tagClassName,
                       ])}
-
                       onClick={() => handleTagClick(opt)}
                   >
                       {opt.label}
