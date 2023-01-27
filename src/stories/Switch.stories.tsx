@@ -25,7 +25,6 @@ const Template: Story = args => {
   }, [args.value]);
 
   return (
-  // @ts-ignore
       <Switch {...args} value={value} onChange={setValue} />
   );
 };
@@ -37,4 +36,50 @@ Default.args = {
   label: 'Do you want this?',
   required: true,
 };
+
+export const Disabled = Template.bind({});
+
+Disabled.args = {
+  value: true,
+  label: 'You cant change this. Want to try it?',
+  disabled: true,
+};
+
+const SwitchBox = (props: any) => {
+  const [value, setValue] = useState(props?.value ?? true);
+  return (
+      <Switch {...props} value={value} onChange={setValue} />
+  );
+};
+
+const SwitchVariants: Story = args =>  (
+    <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
+        <div className="dsr-w-1/3 p-2">
+            <SwitchBox {...args} variant="success" />
+        </div>
+        <div className="dsr-w-1/3 dsr-p-2">
+            <SwitchBox {...args} variant="warning" />
+        </div>
+        <div className="dsr-w-1/3 dsr-p-2">
+            <SwitchBox {...args} variant="danger" />
+        </div>
+        <div className="dsr-w-1/3 dsr-p-2">
+            <SwitchBox {...args} variant="primary" />
+        </div>
+        <div className="dsr-w-1/3 dsr-p-2">
+            <SwitchBox {...args} variant="secondary" />
+        </div>
+        <div className="dsr-w-1/3 dsr-p-2">
+            <SwitchBox {...args} variant="transparent" />
+        </div>
+    </div>
+);
+
+export const Variants = SwitchVariants.bind({});
+
+Variants.args = {
+  value: true,
+  label: 'Do you want this?',
+};
+
 
