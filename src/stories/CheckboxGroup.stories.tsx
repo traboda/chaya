@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { addDecorator, Meta, Story } from '@storybook/react';
 
-import { CheckboxGroup } from '../index';
+import { CheckboxGroup, Card } from '../index';
 
 import ThemeContextDecorator from './ThemeContextDecorator';
 
@@ -17,6 +17,31 @@ const meta: Meta = {
 
 export default meta;
 
+const defaultValue = ['option-2', 'option-3'];
+
+const options =  [
+  {
+    label: 'option 1',
+    value: 'option-1',
+  },
+  {
+    label: 'option 2',
+    value: 'option-2',
+  },
+  {
+    label: 'option 3',
+    value: 'option-3',
+  },
+  {
+    label: 'option 4',
+    value: 'option-4',
+  },
+  {
+    label: 'option 5',
+    value: 'option-5',
+  },
+];
+
 const Template: Story = args => {
   const [value, setValue] = useState(args.value ?? []);
 
@@ -25,36 +50,80 @@ const Template: Story = args => {
   }, [args.value]);
 
   return (
-  // @ts-ignore
-      <CheckboxGroup {...args} value={value} onChange={setValue} />
+      <CheckboxGroup {...args} options={args?.options} value={value} onChange={setValue} />
   );
 };
 
 export const Default = Template.bind({});
 
 Default.args = {
-  value: ['option-2', 'option-3'],
-  options: [
-    {
-      label: 'option 1',
-      value: 'option-1',
-    },
-    {
-      label: 'option 2',
-      value: 'option-2',
-    },
-    {
-      label: 'option 3',
-      value: 'option-3',
-    },
-    {
-      label: 'option 4',
-      value: 'option-4',
-    },
-    {
-      label: 'option 5',
-      value: 'option-5',
-    },
-  ],
+  value: defaultValue,
+  options,
 };
 
+export const Horizontal = Template.bind({});
+
+Horizontal.args = {
+  value: defaultValue,
+  options,
+  alignment: 'horizontal',
+};
+
+const CheckboxExample = (props: any) => {
+  const [value, setValue] = useState(props.value ?? []);
+  return (
+      <Card>
+          <CheckboxGroup {...props} value={value} onChange={setValue} />
+      </Card>
+  );
+};
+
+const CheckboxColorsTemplate: Story = args => (
+    <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="default" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="primary" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="secondary" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="danger" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="warning" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} color="success" />
+        </div>
+    </div>
+);
+
+export const colors = CheckboxColorsTemplate.bind({});
+colors.args = { options };
+
+
+const SizesColorsTemplate: Story = args => (
+    <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} size="xs" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} size="sm" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} size="md" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} size="lg" />
+        </div>
+        <div className="md:dsr-w-1/3 dsr-p-2">
+            <CheckboxExample options={args?.options} size="xl" />
+        </div>
+    </div>
+);
+
+export const sizes = SizesColorsTemplate.bind({});
+sizes.args = { options };
