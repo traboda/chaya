@@ -1,6 +1,16 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
-import { ChevronDown, ChevronRight, ChevronUp, ExternalLink, Home, Search, X } from 'react-feather';
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft, ChevronsRight,
+  ChevronUp,
+  ExternalLink,
+  Home,
+  Search,
+  X,
+} from 'react-feather';
 
 import { DSRContextProvider } from '../index';
 
@@ -30,7 +40,10 @@ export default (storyFn: () => ReactNode) => {
                 times: <X {...props} />,
                 chevronUp: <ChevronUp {...props} />,
                 chevronDown: <ChevronDown {...props} />,
+                chevronsLeft: <ChevronsLeft {...props} />,
+                chevronLeft: <ChevronLeft {...props} />,
                 chevronRight: <ChevronRight {...props} />,
+                chevronsRight: <ChevronsRight {...props} />,
                 externalLink: <ExternalLink {...props} />,
                 home: <Home {...props} />,
               })[icon] ?? <>n/a</>}

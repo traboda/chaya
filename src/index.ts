@@ -23,6 +23,7 @@ export { default as ProgressBar } from './components/ProgressBar';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as CheckboxGroup } from './components/CheckboxGroup';
+export { default as PageNavigator } from './components/PageNavigator';
 export { default as RadioGroup } from './components/Radio/RadioGroup';
 export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
