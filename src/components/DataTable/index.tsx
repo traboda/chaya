@@ -4,8 +4,8 @@ import hyperid from 'hyperid';
  
 import InfiniteLoader from '../InfiniteLoader';
 
-import ItemListerTitleBar from './title';
-import ItemListerItem, { ItemListerProperty } from './item';
+import ItemListerTitleBar from './TitleBar';
+import ItemListerItem, { ItemListerProperty } from './Row';
 import SelectionHelper from './SelectionHelper';
 
 const generateId = hyperid();
