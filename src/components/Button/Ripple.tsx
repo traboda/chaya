@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import style from './button.module.scss';
 import clsx from 'clsx';
 
+import style from './button.module.scss';
+ 
 const useDebouncedRippleCleanUp = (rippleCount: number, duration: number, cleanUpFunction: () => void) => {
   useEffect(() => {
     let bounce: any = null;

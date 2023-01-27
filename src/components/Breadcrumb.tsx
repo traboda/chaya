@@ -50,5 +50,4 @@ const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPro
     </ul>
 );
 
-
 export default Breadcrumb;
