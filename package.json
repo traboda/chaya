@@ -30,6 +30,7 @@
   "homepage": "https://github.com/traboda/design-system#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@radix-ui/react-tooltip": "^1.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.3.0",

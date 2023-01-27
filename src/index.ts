@@ -11,6 +11,7 @@ export { default as Badge } from './components/Badge';
 export { default as Switch } from './components/Switch';
 export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
+export { default as ToolTip } from './components/ToolTip';
 export { default as Radio } from './components/Radio/Radio';
 export { default as Dropdown } from './components/Dropdown';
 export { default as TextInput } from './components/TextInput';
