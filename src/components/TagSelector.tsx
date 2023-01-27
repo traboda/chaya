@@ -79,13 +79,13 @@ const Index = (props: TagSelectorProps) => {
 
   return (
       <div id={props?.id} className={props?.className}>
-          {props?.labels &&
+          {props?.labels && (
               <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-                  {props.labels?.title &&
+                  {props.labels?.title && (
                       <div className="dsr-w-4/5 dsr-p-1">
                           <div className="dsr-text-lg dsr-opacity-80">{props.labels.title}</div>
                       </div>
-                  }
+                  )}
                   {/*@TODO: Add help text*/}
                   {/*{props.labels.helpText &&*/}
                   {/*    <ToolTip placement="top" overlay={props.labels.helpText}>*/}
@@ -96,7 +96,7 @@ const Index = (props: TagSelectorProps) => {
                   {/*    </ToolTip>*/}
                   {/*</div>}*/}
               </div>
-          }
+          )}
           <div className="dsr-flex dsr-flex-wrap dsr-items-center">
               {props.options.map(opt => (
                   <button
