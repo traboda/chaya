@@ -11,6 +11,7 @@ export { default as Badge } from './components/Badge';
 export { default as Switch } from './components/Switch';
 export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
+export { default as PinInput } from './components/PinInput';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
 export { default as DataTable } from './components/DataTable';
