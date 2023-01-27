@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
+import ToolTip from './ToolTip';
+import Icon from './Icon';
+
 type OptionType = {
   value: (string | number),
   label: (string | React.ReactElement),
@@ -86,15 +89,11 @@ const Index = (props: TagSelectorProps) => {
                           <div className="dsr-text-lg dsr-opacity-80">{props.labels.title}</div>
                       </div>
                   )}
-                  {/*@TODO: Add help text*/}
-                  {/*{props.labels.helpText &&*/}
-                  {/*    <ToolTip placement="top" overlay={props.labels.helpText}>*/}
-                  {/*        <i*/}
-                  {/*            style={{ fontSize: '1.35rem', opacity: 0.8, fontWeight: 300 }}*/}
-                  {/*            className="far fa-info-circle"*/}
-                  {/*        />*/}
-                  {/*    </ToolTip>*/}
-                  {/*</div>}*/}
+                  {props.labels.helpText && (
+                      <ToolTip  overlay={props.labels.helpText}>
+                          <Icon icon="info" size={16} />
+                      </ToolTip>
+                  )}
               </div>
           )}
           <div className="dsr-flex dsr-flex-wrap dsr-items-center">
