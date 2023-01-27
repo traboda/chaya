@@ -64,10 +64,7 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-border-none dsr-rounded-sm', sizes[size]?.button,
-                checked ? color
-                  : isDarkTheme ?
-                    'dsr-bg-white/20' :
-                    'dsr-bg-gray-500/20',
+                checked ? colors[color] : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
               ])}
           >
               <div
