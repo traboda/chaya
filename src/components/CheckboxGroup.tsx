@@ -22,7 +22,7 @@ const CheckboxGroup = ({
   return (
       <div
           className={clsx([
-            'dsr-flex', alignment === 'vertical' ? 'dsr-flex-col dsr-gap-y-4' : 'dsr-flex-row dsr-gap-x-8',
+            'dsr-flex', alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-flex-wrap dsr-gap-2',
           ])}
       >
           {options.map((option, index) => (
