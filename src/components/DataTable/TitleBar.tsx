@@ -6,7 +6,7 @@ import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
 
 import SortButton from './SortButton';
-import { ItemListerProperty } from './item';
+import { ItemListerProperty } from './Row';
 import SelectionContext from './SelectionContext';
 
 type ItemListerTitleBarProps<Type> = {
