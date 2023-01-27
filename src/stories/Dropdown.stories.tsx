@@ -17,14 +17,23 @@ const meta: Meta = {
 
 export default meta;
 
+const DropdownChildren = (
+    <div>
+        <h2 className="text-lg">Heading</h2>
+        <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem fugiat maiores rem? Adipisci consequatur possimus rerum. Aliquam at debitis deserunt dolorem enim et incidunt natus nulla, officia, pariatur rem.</p>
+    </div>
+);
+
+const DropdownButtonRenderer = (
+    <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+        open
+    </div>
+);
+
 const Template: Story = args => {
   return (
       <div className="dsr-bg-gray-200 dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col" style={{ minHeight: '50vh' }}>
-          <Dropdown {...args}>
-              <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                  open
-              </div>
-          </Dropdown>
+          <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
       </div>
   );
 };
@@ -33,41 +42,21 @@ export const Default = Template.bind({});
 
 const FiveCorners: Story = args => {
   return (
-      <div className="dsr-bg-gray-200 dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
+      <div className="dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
           <div className="dsr-fixed dsr-top-0 dsr-left-0 dsr-m-4">
-              <Dropdown {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                      open
-                  </div>
-              </Dropdown>
+              <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
           </div>
           <div className="dsr-fixed dsr-top-0 dsr-right-0 dsr-m-4">
-              <Dropdown {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                      open
-                  </div>
-              </Dropdown>
+              <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
           </div>
           <div className="dsr-fixed dsr-bottom-0 dsr-left-0 dsr-m-4">
-              <Dropdown {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                      open
-                  </div>
-              </Dropdown>
+              <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
           </div>
           <div className="dsr-fixed dsr-bottom-0 dsr-right-0 dsr-m-4">
-              <Dropdown {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                      open
-                  </div>
-              </Dropdown>
+              <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
           </div>
           <div className="dsr-fixed dsr-top-1/2 dsr-left-1/2">
-              <Dropdown {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
-                      open
-                  </div>
-              </Dropdown>
+              <Dropdown buttonRenderer={DropdownButtonRenderer} children={DropdownChildren} {...args} />
           </div>
       </div>
   );
