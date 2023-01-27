@@ -20,7 +20,7 @@ type PinDigitProps = {
 const PinDigit = ({
   type = 'text', id, ariaLabelledBy, mask, value, onChange,
   onKeyDown, placeholder, invalid, disabled, required, className,
-} : PinDigitProps) => (
+}: PinDigitProps) => (
     <input
         id={id}
         autoComplete="off"

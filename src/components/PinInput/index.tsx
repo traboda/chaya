@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import hyperid from 'hyperid';
 const generate = hyperid();
+import clsx from 'clsx';
 
 import PinDigit from './digit';
 
@@ -107,18 +108,21 @@ const PinInput = ({
   return (
       <div>
           {labels?.label && (
-          <label
-              id={`${inputID}-label`}
-              className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1"
-              aria-hidden={false}
-          >
-              {labels?.label}
-              {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
-          </label>
+              <label
+                  id={`${inputID}-label`}
+                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1"
+                  aria-hidden={false}
+              >
+                  {labels?.label}
+                  {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
+              </label>
           )}
           <div
               ref={inputs}
-              className={`dsr-py-2 dsr-grid dsr-gap-2 dsr-pin-input ${className}`}
+              className={clsx([
+                'dsr-py-2 dsr-grid dsr-gap-2 dsr-pin-input',
+                className,
+              ])}
               style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
               onFocus={() => setInvalidLength(false)}
               onBlur={() => setInvalidLength(value?.length < digits)}
