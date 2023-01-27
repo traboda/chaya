@@ -14,6 +14,7 @@ export { default as Switch } from './components/Switch';
 export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
 export { default as ToolTip } from './components/ToolTip';
+export { default as PinInput } from './components/PinInput';
 export { default as Dropdown } from './components/Dropdown';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
