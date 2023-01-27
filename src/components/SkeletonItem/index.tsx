@@ -6,16 +6,17 @@ import skeletonItemStyles from './skeletonItem.module.scss';
 type SkeletonItemProps = {
   circular?: boolean
   minWidth?: string
+  variant?: 'wave' | 'pulse'
   w?: string
   h?: string
   className?: string
 };
 
-const SkeletonItem = ({ circular, minWidth, w, h, className } : SkeletonItemProps) => (
+const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave' } : SkeletonItemProps) => (
     <div
         className={clsx([
           circular ? 'dsr-rounded-full' : 'dsr-rounded-lg',
-          skeletonItemStyles.animate,
+          variant === 'pulse' ?  'dsr-animate-pulse' : skeletonItemStyles.animate,
           'dsr-relative dsr-overflow-hidden dsr-bg-gray-500/20',
           className,
         ])}
