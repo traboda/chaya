@@ -8,6 +8,7 @@ export { default as Tabs } from './components/Tabs';
 export { default as Modal } from './components/Modal';
 export { default as Alert } from './components/Alert';
 export { default as Badge } from './components/Badge';
+export { default as Drawer } from './components/Drawer';
 export { default as Switch } from './components/Switch';
 export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
@@ -24,7 +25,6 @@ export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
-export { default as Drawer } from './components/Drawer';
 
 // hooks
 export { default as useCounter } from './hooks/useCounter';

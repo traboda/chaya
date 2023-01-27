@@ -1,10 +1,9 @@
-import React, { CSSProperties, ReactNode, useContext, useEffect, useMemo } from 'react';
+import React, { CSSProperties, ReactNode,  useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
 import Icon from '../Icon';
-import DSRContext from '../../contexts/DSRContext';
 
 import drawerStyles from './drawer.module.scss';
 
@@ -26,7 +25,6 @@ const Drawer = ({
   minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%',
 }: DrawerProps) => {
 
-  const { theme } = useContext(DSRContext);
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
 
   const getPositionAlignmentParent = useMemo(() => {
@@ -60,9 +58,9 @@ const Drawer = ({
 
   const getPositionAnimation = useMemo(() => {
     if (position === 'top' || position === 'bottom') {
-      return !isOpen ? drawerStyles.animateTranslateInY : drawerStyles.animateTranslateOutY;
+      return isOpen ? drawerStyles.animateTranslateOutY : drawerStyles.animateTranslateInY;
     } else {
-      return !isOpen ? drawerStyles.animateTranslateInX : drawerStyles.animateTranslateOutX;
+      return isOpen ? drawerStyles.animateTranslateOutX : drawerStyles.animateTranslateInX;
     }
   }, [isOpen, position]);
 
@@ -89,19 +87,17 @@ const Drawer = ({
                     'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
                     'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
                     getPositionAlignmentParent,
-                  ],
-                  )}
+                  ])}
                   onClick={onClose}
               >
                   <div
                       className={clsx([
-                        'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full',
+                        'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
                         getPositionAlignmentChild,
                         getPositionAnimation,
+
                       ])}
                       style={{
-                        background: theme?.background,
-                        color: theme?.color,
                         minHeight,
                         maxHeight,
                         maxWidth: position === 'right' || position === 'left'  ? maxWidth : '100%',
