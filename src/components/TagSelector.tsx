@@ -10,13 +10,15 @@ type OptionType = {
   color?: string
 };
 
+type ValueType = string | number;
+
 type TagSelectorProps = {
   labels?: {
     helpText: string,
     title: string,
   },
-  value: any,
-  onChange: (arg: any) => void,
+  value: ValueType | ValueType[],
+  onChange: (arg: ValueType | ValueType[]) => void,
   id?: string,
   className?: string,
   tagClassName?: string,
@@ -27,23 +29,12 @@ type TagSelectorProps = {
 };
 
 const Index = (props: TagSelectorProps) => {
-  const getValue = () => {
-    if (props.value && !Array.isArray(props.value))
-      for (const opt of props.options)
-        if (JSON.stringify(props.value) === JSON.stringify(opt.value))
-          return opt;
-
-    return props.options[0];
-  };
-
-  const [tag, setTag] = useState<OptionType>(getValue());
-  const [tags, setTags] = useState<(string | number)[]>([]);
+  const [tag, setTag] = useState<ValueType>(Array.isArray(props.value) ? '' : props.value);
+  const [tags, setTags] = useState<ValueType[]>(Array.isArray(props.value) ? props.value : []);
 
   useEffect(() => {
-    if (!props.multiple && props.value) {
-      if (typeof props.value === 'string') setTag(getValue());
-      else setTag(props.value);
-    }
+    if (props.multiple) setTags(props.value as ValueType[]);
+    else setTag(props.value as ValueType);
   }, [props.value]);
 
   const handleTagClick = (tagSelect: OptionType) => {
@@ -59,23 +50,21 @@ const Index = (props: TagSelectorProps) => {
         setTags(tempTags);
         props.onChange(tempTags);
       }
-    } else if (props.isClearable && tagSelect.value === tag?.value) props.onChange(props.options[0]);
-    else props.onChange(tagSelect);
+    } else if (props.isClearable && tagSelect.value === tag) props.onChange(props.options[0].value);
+    else props.onChange(tagSelect.value);
   };
 
   const generateClassName = (value: string | number) => {
-
     const className = clsx([
-      props?.multiple && tags?.includes(value) && 'dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
-      !props.multiple && tag?.value === value && 'dsr-bg-primary dsr-text-gray-100  dsr-border-primary',
+      props?.multiple && tags.includes(value) && 'dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
+      !props.multiple && tag === value && 'dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
     ]);
 
     return clsx([
       props.small ? 'dsr-px-1 dsr-py-4' : '',
       className || [
         'hover:dsr-bg-primary hover:dsr-text-gray-100 hover:dsr-border-primary',
-        'focus:dsr-bg-primary focus:dsr-text-gray-100 focus:dsr-border-primary',
-        'active:dsr-bg-gray-100 active:dsr-text-primary active:dsr-border-primary dsr-border-gray-500',
+        'focus:dsr-border-primary dsr-border-gray-500',
       ],
     ]);
   };

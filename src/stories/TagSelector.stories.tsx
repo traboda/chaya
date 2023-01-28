@@ -32,24 +32,34 @@ const Template: Story = args => {
 
 export const Default = Template.bind({});
 
+const options = [
+  {
+    label: 'Item 1',
+    value: 'tab 1',
+  },
+  {
+    label: 'Item 2',
+    value: 'tab 2',
+  },
+  {
+    label: 'Item 3',
+    value: 'tab 3',
+  },
+  {
+    label: 'Item 4',
+    value: 'tab 4',
+  },
+];
+
 Default.args = {
-  value: null,
-  options: [
-    {
-      label: 'Item 1',
-      value: 'tab 1',
-    },
-    {
-      label: 'Item 2',
-      value: 'tab 2',
-    },
-    {
-      label: 'Item 3',
-      value: 'tab 3',
-    },
-    {
-      label: 'Item 4',
-      value: 'tab 4',
-    },
-  ],
+  value: 'tab 2',
+  options,
+};
+
+export const MultipleTags = Template.bind({});
+
+MultipleTags.args = {
+  value: ['tab 2', 'tab 4'],
+  multiple: true,
+  options,
 };

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Radio, { RadioColor, RadioOptionType, RadioSize } from './Radio';
 
-type RadioGroupType = {
+export type RadioGroupType = {
   onChange: (value: string) => void,
   value: RadioOptionType | string,
   options: RadioOptionType[],

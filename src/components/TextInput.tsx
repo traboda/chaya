@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState, KeyboardEvent } from 'react';
+import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent } from 'react';
 import clsx from 'clsx';
 import Color from 'color';
 import hyperid from 'hyperid';
@@ -8,13 +8,13 @@ const generateId = hyperid();
 
 const emptyFunc = () => {};
 
-export type TextInputProps = {
+export type TextInputProps<Type> = {
   label: string
   name: string
   id?: string
   placeholder?: string
   type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url')
-  value: (string | number)
+  value: Type
   required?: boolean
   disabled?: boolean
   invalid?: boolean
@@ -34,7 +34,7 @@ export type TextInputProps = {
   onFocus?: () => void
   onBlur?: () => void
   onKeyDown?: (e: KeyboardEvent) => void,
-  onChange?: (value: any) => void
+  onChange?: (value: Type) => void
   className?: string
   style?: React.CSSProperties
   autoFocus?: boolean,
@@ -42,14 +42,14 @@ export type TextInputProps = {
   prefixRenderer?: React.ReactElement
 };
 
-const TextInput = ({
+const TextInput = <Type extends unknown>({
   id, label, name, placeholder, value: val, charLimit = null,
   className, style, hideLabel = false,
   required = false, disabled = false, invalid = false, autoFocus = false,
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
-}: TextInputProps) => {
+}: TextInputProps<Type>) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
@@ -57,18 +57,18 @@ const TextInput = ({
 
   const [isTyping, setTyping] = useState(false);
 
-  const [value, setValue] = useState(val !== null ? val : '');
+  const [value, setValue] = useState<Type>(val !== null ? val : '' as Type);
   useEffect(() => {
     setValue(val);
   }, [val]);
 
-  const handleChange = (e: any) => {
-    const value = e.currentTarget.value;
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.target.value;
     if (charLimit == null || (value.length <= charLimit)) {
       if (typeof onChange === 'function')
-        if (type === 'number') onChange(parseInt(value));
-        else onChange(value);
-      setValue(value);
+        if (type === 'number') onChange(parseInt(value) as Type);
+        else onChange(value as Type);
+      setValue(value as Type);
     }
   };
 
@@ -87,7 +87,7 @@ const TextInput = ({
     'aria-required': required,
     id: inputID,
     name,
-    value,
+    value: value as (string | number),
     placeholder: placeholder || label,
     spellCheck,
     autoComplete,
@@ -103,7 +103,7 @@ const TextInput = ({
     onChange: handleChange,
   };
 
-  const showLimit = ((typeof value !== 'number' && value?.length > 0) && isTyping && charLimit !== null && charLimit > 0);
+  const showLimit = ((typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0);
 
   const inputClassNameCalculated = clsx([
     'dsr-text-lg dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background',
@@ -139,7 +139,7 @@ const TextInput = ({
               </div>
               {(showLimit && typeof value !== 'number') && (
               <div className="dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
-                  {value?.length}
+                  {(value as string)?.length}
                   /
                   {charLimit}
               </div>
