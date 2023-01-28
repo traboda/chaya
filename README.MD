@@ -1,10 +1,7 @@
-# Traboda Design System
+# Chaya UI
 
-Traboda Design System is a collection of reusable components, and other frontend utility functions for React, 
+Chaya is a collection of reusable components, and other frontend utility functions for React, 
 that are used to design a consistent, modern and accessible frontend for Traboda platforms.
-
-While this project is various platforms of Traboda in production, it is still in its early stages and 
-the component props and apis are subject to change.
 
 ## Usage
 

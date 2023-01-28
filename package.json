@@ -1,7 +1,7 @@
 {
   "name": "chaya-ui",
   "version": "1.0.0-beta",
-  "description": "Traboda Design System",
+  "description": "Modern, Functional Design System & Components for React",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
     "build-components": "rm -rf dist && rollup -c",
@@ -14,21 +14,31 @@
     "build-storybook": "build-storybook",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
+  "contributors": [
+    "Advaith A J <advaitharunjeena@gmail.com>",
+    "aswinshenoy <aswinshenoy65@gmail.com>",
+    "Abhiram Krishna <abhikrishnaram88@gmail.com>"
+  ],
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/traboda/chaya/issues"
+  },
+  "homepage": "https://github.com/traboda/chaya#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/traboda/design-system.git"
+    "url": "git+https://github.com/traboda/chaya.git"
   },
   "keywords": [
+    "react",
+    "react-components",
+    "uikit",
+    "accessible",
+    "components",
+    "library",
     "design-system",
     "traboda",
     "chaya-ui"
   ],
-  "author": "Advaith A J",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/traboda/design-system/issues"
-  },
-  "homepage": "https://github.com/traboda/design-system#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@radix-ui/react-tooltip": "^1.0.3",
