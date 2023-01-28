@@ -32,6 +32,7 @@ export { default as CheckboxGroup } from './components/CheckboxGroup';
 export { default as PageNavigator } from './components/PageNavigator';
 export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
+export { default as SelectorButton } from './components/SelectorButton';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 

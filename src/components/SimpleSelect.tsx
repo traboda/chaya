@@ -39,25 +39,26 @@ const defaultLabels = {
 };
 
 const SimpleSelect = ({
-  value, onChange = () => {}, className = '', required = false, disabled = false, name, options, labels: propLabels, removeSVG = false,
+  value, onChange = () => {}, className = '', required = false, disabled = false, name, options,
+  labels: propLabels, removeSVG = false,
 }: SimpleSelectProps) => {
 
   const labels = { ...defaultLabels, ...propLabels };
-  const inputID = `${name}-input-${generateId}`;
+  const inputID = `${name}-input-${generateId()}`;
   const { isDarkTheme } = useContext(DSRContext);
 
   return (
       <div className="dsr-w-full">
           {labels?.label && labels?.label?.length > 0 && (
-          <label
-              id={`${inputID}-label`}
-              className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
-              htmlFor={inputID}
-              aria-hidden={false}
-          >
-              {labels?.label}
-              {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
-          </label>
+              <label
+                  id={`${inputID}-label`}
+                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
+                  htmlFor={inputID}
+                  aria-hidden={false}
+              >
+                  {labels?.label}
+                  {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
+              </label>
           )}
           <div className="dsr-w-full">
               <select
