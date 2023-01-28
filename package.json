@@ -11,7 +11,7 @@
     "lint-fix": "eslint --fix src/ --ext .ts,.tsx",
     "watch-tailwind": "npm run tailwind -- --watch",
     "storybook": "concurrently \"npm run watch-tailwind\" \"start-storybook -p 6006\"",
-    "build-storybook": "build-storybook",
+    "build-storybook": "npm run build-tailwind && build-storybook",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "contributors": [
