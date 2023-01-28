@@ -33,7 +33,7 @@ export type TabItemObject =  {
 export type Tabs = {
   items: TabItemObject[]
   disabled?: boolean
-  onClickDisabled?: (arg: any) => void,
+  onClickDisabled?: (key: string) => void,
   onChange?: (key: string) => void,
   id?: string,
   countBadgeProps?: BadgeProps,

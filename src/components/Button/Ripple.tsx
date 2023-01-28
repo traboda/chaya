@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 import style from './button.module.scss';
  
 const useDebouncedRippleCleanUp = (rippleCount: number, duration: number, cleanUpFunction: () => void) => {
   useEffect(() => {
-    let bounce: any = null;
+    let bounce: NodeJS.Timeout | undefined = undefined;
     if (rippleCount > 0) {
       clearTimeout(bounce);
 
@@ -34,8 +34,8 @@ const Ripple = () => {
     setRippleArray([]);
   });
 
-  const addRipple = (event: any) => {
-    const rippleContainer = event.currentTarget.getBoundingClientRect();
+  const addRipple = (event: MouseEvent) => {
+    const rippleContainer = event.currentTarget?.getBoundingClientRect();
     const size =
             rippleContainer.width > rippleContainer.height
               ? rippleContainer.width

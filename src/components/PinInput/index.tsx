@@ -46,7 +46,7 @@ const PinInput = ({
     setInvalid(false);
   };
 
-  const selectDigit = ({ index }: { index: any }) => {
+  const selectDigit = (index: number) => {
     const elems = inputs.current?.children as HTMLCollectionOf<HTMLInputElement>;
     elems[index].focus();
     elems[index].select();
@@ -58,7 +58,7 @@ const PinInput = ({
       newVal[index] = (index === digits - 1) ? val[val.length - 1] : val[0];
       onChange(newVal.join('').trim().slice(0, digits));
       if (val && index !== digits - 1)
-        selectDigit({ index: index + 1 });
+        selectDigit(index + 1);
     }
   };
 
@@ -68,32 +68,29 @@ const PinInput = ({
       const newValue = value.slice(0, index) + value.slice(index + 1);
       onChange(newValue.trim().slice(0, digits));
       // focus back to previous digit
-      if (index === 0) selectDigit({ index: index });
-      else selectDigit({ index: index - 1 });
+      if (index === 0) selectDigit(index);
+      else selectDigit(index - 1);
     } else if (event.key === 'Delete') {
       // current next digit, no change in focus
       const newValue = value.slice(0, index + 1) + value.slice(index + 2);
       onChange(newValue.trim().slice(0, digits));
     } else if (event.key === 'ArrowLeft') {
       if (index - 1 < value.length) {
-        if (index === 0 && value.length === digits) {
-          selectDigit({ index: digits - 1 });
-        } else {
-          selectDigit({ index: index - 1 });
-        }
+        if (index === 0 && value.length === digits) selectDigit(digits - 1);
+        else selectDigit(index - 1);
       }
     } else if (event.key === 'ArrowRight') {
       if (value?.length > index) {
-        if (index === digits - 1) selectDigit({ index: 0 });
-        else selectDigit({ index: index + 1 });
+        if (index === digits - 1) selectDigit(0);
+        else selectDigit(index + 1);
       }
     }
   };
 
-  const onPaste = (event: any) => {
+  const onPaste = (event: ClipboardEvent) => {
     event.preventDefault();
-    const text = (event.originalEvent || event).clipboardData.getData('text/plain');
-    onChange(text.trim().slice(0, digits));
+    const text = event.clipboardData?.getData('text/plain');
+    if (text) onChange(text.trim().slice(0, digits));
   };
 
   useEffect(() => {
