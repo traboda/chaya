@@ -12,11 +12,11 @@ export const parameters = {
   darkMode: {
     dark: {
       ...themes.dark,
-      brandImage: '',
+      brandImage: 'https://raw.githubusercontent.com/traboda/chaya/main/src/assets/chaya-white-logo.svg',
     },
     light: {
       ...themes.normal,
-      brandImage: '',
+      brandImage: 'https://raw.githubusercontent.com/traboda/chaya/main/src/assets/chaya-black-logo.svg',
     }
   }
 }

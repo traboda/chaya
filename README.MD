@@ -1,7 +1,7 @@
 <div align="center">
-    <img src="/src/assets/chaya-black-logo.svg" width="300" alt="ChayaUI" />
-    <h1>Chaya UI</h1>
-    <p>Chaya UI is a modern, functional design system & component library for React.</p>
+    <img src="/src/assets/chaya-icon.svg" height="100" alt="ChayaUI" />
+    <h1 style="margin-top: 12px">Chaya UI</h1>
+    <p style="font-size: 110%">Chaya UI is a modern, functional design system & component library for React.</p>
     <div align="center">
       <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
       <a href="https://www.npmjs.com/package/chaya-ui">
@@ -10,7 +10,9 @@
       <a href="https://www.npmjs.com/package/chaya-ui">
         <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
       </a>
-      <img alt="Github Stars" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge" />
+      <a href="https://github.com/traboda/chaya/stargazers">
+        <img alt="Github Stars" src="https://img.shields.io/github/stars/traboda/chaya?style=for-the-badge" />
+      </a>
     </div>
 </div>
 
@@ -38,6 +40,7 @@ or with yarn, as
 ```bash
 yarn add chaya-ui
 ```
+
 
 ## Setting Up & Usage
 
