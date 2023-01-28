@@ -1,4 +1,5 @@
 import '../dist/style.css';
+import { themes } from '@storybook/theming';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -8,4 +9,14 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  darkMode: {
+    dark: {
+      ...themes.dark,
+      brandImage: '',
+    },
+    light: {
+      ...themes.normal,
+      brandImage: '',
+    }
+  }
 }

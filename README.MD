@@ -1,16 +1,32 @@
-# Chaya UI
+<div align="center">
+    <img src="/src/assets/chaya-black-logo.svg" width="300" alt="ChayaUI" />
+    <h1>Chaya UI</h1>
+    <p>Chaya UI is a modern, functional design system & component library for React.</p>
+    <div align="center">
+      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
+      <a href="https://www.npmjs.com/package/chaya-ui">
+        <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/chaya-ui.svg?style=for-the-badge"/>
+      </a>
+      <a href="https://www.npmjs.com/package/chaya-ui">
+        <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
+      </a>
+      <img alt="Github Stars" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge" />
+    </div>
+</div>
 
-<p align="center">
-  <img alt="MIT License" src="https://img.shields.io/github/license/traboda/chaya"/>
-  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=flat"/>
-  <img alt="Github Stars" src="https://badgen.net/github/stars/traboda/chaya" />
-</p>
-
-Chaya is a collection of reusable components, and other frontend utility functions for React, 
+Chaya features a collection of reusable components, and other frontend utility functions for React, 
 that are used to design a consistent, modern and accessible frontend for Traboda platforms.
+Chaya makes it seamless to build a consistent and accessible frontend for your platforms made
+with React.
 
-- Fully Typed
+- 32+ UI components, 4+ hooks, and even more to come
+- Built with TypeScript, fully typed
+- Styled with Tailwind CSS (v3)
 - Supports Dark Mode & Custom Theming
+
+## Looking to Explore?
+
+Checkout examples from our Storybook: [chaya.traboda.com](https://chaya.traboda.com/)
 
 ## Installing Chaya
 
@@ -65,6 +81,22 @@ so that the links are handled by the router of your choice.
 generate the CSS variables for the theme.
 - `iconWrapper` lets you wrap icons with a custom component, for example, `react-feather` or `react-icons` so that the icons
 are rendered by the icon library of your choice.
+
+2. Import the components from `chaya-ui` and use them in your application.
+
+```ts
+import { Button } from 'chaya-ui';
+
+const App = () => (
+  <Button 
+    onClick={() => console.log('I was clicked')} 
+    variant="outline" 
+    color="danger"
+  >
+      Click Me
+  </Button>
+);
+```
 
 ## Development Guide
 
