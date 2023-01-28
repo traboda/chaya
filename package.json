@@ -1,6 +1,6 @@
 {
-  "name": "design-system",
-  "version": "1.0.0",
+  "name": "chaya-ui",
+  "version": "1.0.0-beta",
   "description": "Traboda Design System",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
@@ -20,7 +20,8 @@
   },
   "keywords": [
     "design-system",
-    "traboda"
+    "traboda",
+    "chaya-ui"
   ],
   "author": "Advaith A J",
   "license": "MIT",

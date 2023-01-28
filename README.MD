@@ -10,30 +10,35 @@ the component props and apis are subject to change.
 
 Install the package by running - 
 ```bash
-npm install @traboda/design-system
+npm install chaya-ui
 ```
 or with yarn, as 
 ```bash
-yarn add @traboda/design-system
+yarn add chaya-ui
 ```
 
 ## Development Guide
 
-The recommended workflow is to run TSDX in one terminal:
+We use `npm` as the package manager
 
 ```bash
-npm start # or yarn start
+npm run storybook
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+This will start the storybook and loads the stories from `./stories` at [localhost:6006](http://localhost:6006).
 
-Run inside another terminal run the storybook to see the components in action.
+The package can be build using the command:
 
 ```bash
-yarn storybook
+npm run build
 ```
 
-This loads the stories from `./stories`.
+Type checks and linting commands are also available in the package
+
+```bash
+npm run lint
+npm run type-check
+```
 
 ## Contributions
 
