@@ -48,7 +48,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
     return colors[color];
   }, [theme, color]);
 
-  const textColor = useMemo(() => {return Color(activeColor).isDark() ? '#fff' : '#333';}, [activeColor]);
+  const textColor = useMemo(() =>  Color(activeColor).isDark() ? '#fff' : '#333', [activeColor]);
 
   const cardRenderer = () => (
       <div
