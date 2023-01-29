@@ -15,22 +15,22 @@ const SortButton = ({ attribute, currentAttribute, currentOrder, onSort = () => 
           onClick={() => onSort(attribute, 'desc')}
           className="dsr-p-0 dsr-m-0 dsr-bg-transparent dsr-outline-none dsr-cursor-pointer dsr-flex dsr-flex-col dsr-justify-center dsr-items-center"
       >
-          <Icon icon="chevronUp" size={14} />
-          <Icon icon="chevronDown" size={14} />
+          <Icon icon="chevron-up" size={14} />
+          <Icon icon="chevron-down" size={14} />
       </button>
   ) : currentOrder === 'desc' ? (
       <button
           onClick={() => onSort(attribute, 'asc')}
           className="dsr-p-0 dsr-m-0 dsr-bg-transparent dsr-outline-none dsr-cursor-pointer"
       >
-          <Icon icon="chevronDown" size={14} />
+          <Icon icon="chevron-down" size={14} />
       </button>
   ) : (
       <button
           onClick={() => onSort('DEFAULT', undefined)}
           className="dsr-p-0 dsr-m-0 dsr-bg-transparent dsr-outline-none dsr-cursor-pointer"
       >
-          <Icon icon="chevronUp" size={14} />
+          <Icon icon="chevron-up" size={14} />
       </button>
   );
 

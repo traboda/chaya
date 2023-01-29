@@ -10,15 +10,14 @@ type OptionType = {
   color?: string
 };
 
-type ValueType = string | number;
-
-type TagSelectorProps = {
+type SingleValueType = string | number;
+type TagSelectorProps<Type> = {
   labels?: {
     helpText: string,
     title: string,
   },
-  value: ValueType | ValueType[],
-  onChange: (arg: ValueType | ValueType[]) => void,
+  value: Type,
+  onChange: (arg: Type) => void,
   id?: string,
   className?: string,
   tagClassName?: string,
@@ -28,13 +27,13 @@ type TagSelectorProps = {
   multiple?: boolean,
 };
 
-const Index = (props: TagSelectorProps) => {
-  const [tag, setTag] = useState<ValueType>(Array.isArray(props.value) ? '' : props.value);
-  const [tags, setTags] = useState<ValueType[]>(Array.isArray(props.value) ? props.value : []);
+const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: TagSelectorProps<Type>) => {
+  const [tag, setTag] = useState<SingleValueType>(Array.isArray(props.value) ? '' : props.value);
+  const [tags, setTags] = useState<SingleValueType[]>(Array.isArray(props.value) ? props.value : []);
 
   useEffect(() => {
-    if (props.multiple) setTags(props.value as ValueType[]);
-    else setTag(props.value as ValueType);
+    if (props.multiple) setTags(props.value as SingleValueType[]);
+    else setTag(props.value as SingleValueType);
   }, [props.value]);
 
   const handleTagClick = (tagSelect: OptionType) => {
@@ -44,14 +43,14 @@ const Index = (props: TagSelectorProps) => {
         const index = tags.indexOf(tagSelect.value);
         tempTags.splice(index, index + 1);
         setTags(tempTags);
-        props.onChange(tempTags);
+        props.onChange(tempTags as Type);
       } else {
         const tempTags = [...tags, tagSelect.value];
         setTags(tempTags);
-        props.onChange(tempTags);
+        props.onChange(tempTags as Type);
       }
-    } else if (props.isClearable && tagSelect.value === tag) props.onChange(props.options[0].value);
-    else props.onChange(tagSelect.value);
+    } else if (props.isClearable && tagSelect.value === tag) props.onChange(props.options[0].value as Type);
+    else props.onChange(tagSelect.value as Type);
   };
 
   const generateClassName = (value: string | number) => {
@@ -105,4 +104,4 @@ const Index = (props: TagSelectorProps) => {
   );
 };
 
-export default Index;
+export default TagSelector;

@@ -64,7 +64,7 @@ const ItemListerItem = <Type extends { id: string }>({
                   style={{ borderBottomColor: Color(theme?.color).fade(0.85).string() }}
               >
                   <button onClick={onClick}>
-                      <Icon icon={isAccordionOpen ? 'chevronDown' : 'chevronRight'} size={18} />
+                      <Icon icon={isAccordionOpen ? 'chevron-down' : 'chevron-right'} size={18} />
                   </button>
               </td>
           )}
@@ -90,7 +90,7 @@ const ItemListerItem = <Type extends { id: string }>({
               const renderer = (
                   <span className="dsr-flex dsr-items-center dsr-gap-1">
                       {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex)}
-                      {link && <span className="dsr-w-[16px]"><Icon icon="externalLink" size={16} /></span>}
+                      {link && <span className="dsr-w-[16px]"><Icon icon="external-link" size={16} /></span>}
                   </span>
               );
               return (
