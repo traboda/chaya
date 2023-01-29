@@ -1,6 +1,4 @@
-import React, { FormEvent, useContext, useEffect, useState } from 'react';
-
-import DSRContext from '../contexts/DSRContext';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import Modal from './Modal';
 import Button from './Button';
@@ -36,7 +34,6 @@ const ConfirmationDialog = ({
 }: ConfirmationDialog) => {
 
   const labels = { ...defaultLabels, ...initialLabels };
-  const { theme } = useContext(DSRContext);
 
   const [confirmText, setConfirmText] = useState('');
   const [password, setPassword] = useState('');
@@ -52,7 +49,7 @@ const ConfirmationDialog = ({
 
   return (
       <Modal isOpen={isOpen} onClose={onCancel}>
-          <Card className="confirmation-dialog" background={theme?.background}>
+          <Card className="confirmation-dialog !dsr-bg-background">
               <div className="dsr-p-2">
                   <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
                   <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
