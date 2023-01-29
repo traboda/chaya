@@ -19,7 +19,7 @@ export default meta;
 
 const defaultValue = ['option-2', 'option-3'];
 
-const options =  [
+const options = [
   {
     label: 'option 1',
     value: 'option-1',

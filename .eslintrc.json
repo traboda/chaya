@@ -9,7 +9,7 @@
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/no-redeclare": "off",
     "import/no-extraneous-dependencies": "off", // have to check it against production
-
+    "no-multi-spaces": 2,
     // jsx rules
     "jsx-quotes": [2, "prefer-double"],
     "react/jsx-indent": 2,

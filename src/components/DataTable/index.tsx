@@ -100,7 +100,7 @@ const DataTable = <Type extends { id: string }>({
     if (canExpand) divide.push(dummyCol(60));
     if (allowSelection) divide.push(dummyCol(60));
     const propConfigs = properties.filter(p => !p.isHidden);
-    divide =  divide?.length > 0 ? [...divide, ...propConfigs] : propConfigs;
+    divide = divide?.length > 0 ? [...divide, ...propConfigs] : propConfigs;
     let cols = '';
     for (const col of divide)
       cols += col?.width ? `${col.width}${widthUnit} ` : col?.fill ? `minmax(${calculateRemainingWidth()}px, 1fr) ` : '100px ';
@@ -109,7 +109,7 @@ const DataTable = <Type extends { id: string }>({
 
   const toggleAccordion = (index: number) => {
     if (activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
-    else  setActiveIndex([...activeIndex, index]);
+    else setActiveIndex([...activeIndex, index]);
   };
 
   return (

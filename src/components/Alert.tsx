@@ -62,7 +62,7 @@ const getColorByType = (type: string, isDarkTheme?: boolean) => {
 };
 
 const Alert = ({
-  type = 'default', variant = 'filled', id, className = '', title, description,  allowDismissal = false,
+  type = 'default', variant = 'filled', id, className = '', title, description, allowDismissal = false,
   onDismiss = () => {}, primaryButton, secondaryButton, titleIcon,
 }: Alert) => {
   const [hide, setHide] = useState(false);
