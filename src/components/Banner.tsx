@@ -48,10 +48,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
     return colors[color];
   }, [theme, color]);
 
-  const textColor = useMemo(
-    () => {
-      return Color(activeColor).isDark() ? '#fff' : '#333';
-    }, [activeColor]);
+  const textColor = useMemo(() => {return Color(activeColor).isDark() ? '#fff' : '#333';}, [activeColor]);
 
   const cardRenderer = () => (
       <div
@@ -78,17 +75,17 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
                   >
                       {icon && <Icon icon={icon} size={20} />}
                       {allowDismissal && (
-                      <button type="button" className="dsr-flex dsr-place-items-center" onClick={onClose}>
-                          <Icon icon={'times'} size={20} />
-                      </button>
+                          <button type="button" className="dsr-flex dsr-place-items-center" onClick={onClose}>
+                              <Icon icon="times" size={20} />
+                          </button>
                       )}
                   </div>
               </div>
               <p>
                   {text || 'Banner text'}
-                  {' '}
+                  ' '
                   {learnMore && (
-                      <a href={learnMore.link} className="dsr-whitespace-nowrap  hover:dsr-underline dsr-inline">{learnMore.text}</a>)}
+                      <a href={learnMore.link} className="dsr-whitespace-nowrap hover:dsr-underline dsr-inline">{learnMore.text}</a>)}
               </p>
               <div className="dsr-flex dsr-w-full dsr-justify-end">
                   <div>{children}</div>
@@ -119,7 +116,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
                   {icon && <Icon icon={icon} size={20} />}
                   <p>
                       {text || 'Banner text'}
-                      {' '}
+                      ' '
                       {learnMore && (<a href={learnMore.link} className="dsr-whitespace-nowrap  hover:dsr-underline dsr-inline">{learnMore.text}</a>)}
                   </p>
               </div>
@@ -127,7 +124,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
                   {children}
                   {allowDismissal && (
                       <button type="button" className="dsr-flex dsr-place-items-center" onClick={onClose}>
-                          <Icon icon={'times'} size={20} />
+                          <Icon icon="times" size={20} />
                       </button>
                   )}
               </div>
@@ -135,20 +132,13 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
       </div>
   );
 
-  const something = () => {
-    if (variant === 'card') {
-      return cardRenderer();
-    }
-    return bannerRenderer();
-  };
+  const renderer = () => {if (variant === 'card') return cardRenderer(); return bannerRenderer();};
 
   return (
       <div className="dsr-w-full">
-          {position === 'inline' ? (
-            something()
-          ) : (
+          {position === 'inline' ? (renderer()) : (
               <DocumentPortal position={position === 'top' ? 'start' : undefined}>
-                  {something()}
+                  {renderer()}
               </DocumentPortal>
           )}
       </div>
