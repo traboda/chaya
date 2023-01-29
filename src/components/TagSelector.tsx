@@ -79,7 +79,7 @@ const Index = (props: TagSelectorProps) => {
                       </div>
                   )}
                   {props.labels.helpText && (
-                      <ToolTip  overlay={props.labels.helpText}>
+                      <ToolTip overlay={props.labels.helpText}>
                           <Icon icon="info" size={16} />
                       </ToolTip>
                   )}

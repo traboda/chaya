@@ -30,7 +30,7 @@ const Template: Story = args => {
 
   return (
       <div style={{ width: '650px', maxWidth: '100%' }}>
-          <SearchBox  {...args} keyword={keyword} setKeyword={setKeyword} />
+          <SearchBox {...args} keyword={keyword} setKeyword={setKeyword} />
       </div>
   );
 };
