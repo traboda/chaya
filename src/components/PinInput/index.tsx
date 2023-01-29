@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import hyperid from 'hyperid';
 const generate = hyperid();
 import clsx from 'clsx';
+
+import DSRContext from '../../contexts/DSRContext';
 
 import PinDigit from './digit';
 
@@ -26,19 +28,21 @@ type PinInputProps = {
     label?: string,
     placeholder?: string,
     invalidLength?: string,
-  }
+  },
+  variant?: 'minimal' | 'classic',
 };
 
 
 const PinInput = ({
   value = '', onChange: onChangeProp = () => {}, digits = 6, type = 'text', mask = false, labels,
   invalid = false, disabled = false, required = false, autoFocus = false, id,
-  className = '', digitClassName = '',
+  className = '', digitClassName = '', variant = 'minimal',
 }: PinInputProps) => {
 
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(invalid);
+  const { isDarkTheme } = useContext(DSRContext);
   const inputID = id ? id : `pin-input-${generate()}`;
 
   const onChange = (val: string) => {
@@ -117,7 +121,9 @@ const PinInput = ({
           <div
               ref={inputs}
               className={clsx([
-                'dsr-py-2 dsr-grid dsr-gap-2 dsr-pin-input',
+                'dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2',
+                variant === 'minimal' ? 'dsr-rounded-lg dsr-border' : 'dsr-gap-2',
+                isDarkTheme ? 'dsr-border-gray-400' : 'dsr-border-black',
                 className,
               ])}
               style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
@@ -139,6 +145,8 @@ const PinInput = ({
                       disabled={disabled}
                       required={required}
                       className={digitClassName}
+                      isDarkTheme={isDarkTheme}
+                      variant={variant}
                   />
               ))}
           </div>

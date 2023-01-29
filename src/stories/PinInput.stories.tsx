@@ -26,7 +26,7 @@ const Template: Story = args => {
   }, [args.value]);
 
   return (
-      <div style={{ width: '450px', maxWidth: '100%' }}>
+      <div style={{ width: '300px', maxWidth: '100%' }}>
           <h1 className="mb-3">
               Pin:
               {value}
@@ -38,6 +38,12 @@ const Template: Story = args => {
 };
 
 export const Default = Template.bind({});
+
+Default.args = {
+  labels: {
+    placeholder: '44kl4K',
+  },
+};
 
 
 export const FormSubmission: Story = (args) => {
