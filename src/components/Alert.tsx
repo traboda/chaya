@@ -79,7 +79,7 @@ const Alert = ({
           className={computedClassName}
           style={{
             color: getColorByType(type, isDarkTheme),
-            borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme ) : undefined,
+            borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme) : undefined,
             borderStyle: variant === 'outline' ? 'solid' : undefined,
             borderWidth: variant === 'outline' ? '1px' : undefined,
             backgroundColor: variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined,
