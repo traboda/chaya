@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import terser from '@rollup/plugin-terser';
 
 import dts from 'rollup-plugin-dts';
-import scss from 'rollup-plugin-scss';
+import postcss from 'rollup-plugin-postcss';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 import packageJson from './package.json' assert { type: 'json' };
@@ -16,19 +16,20 @@ export default [
       {
         file: packageJson.main,
         format: 'cjs',
-        sourcemap: true,
       },
       {
         file: packageJson.module,
         format: 'esm',
-        sourcemap: true,
       },
     ],
     plugins: [
       resolve(),
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
-      scss({ output: false }),
+      postcss({
+        modules: true,
+        minimize: true,
+      }),
       terser(),
       nodePolyfills(),
     ],

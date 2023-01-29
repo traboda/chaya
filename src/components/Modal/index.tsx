@@ -56,7 +56,7 @@ const Modal = ({
               ])}
               style={{
                 zIndex: 7200,
-                background: `rgba(${isDarkTheme ? '0, 0, 0' : '255, 255, 255'},${hideBg ? 0.75 : 0.5})`,
+                background: `rgba(${isDarkTheme ? '0, 0, 0' : '255, 255, 255'}, ${hideBg ? 0.75 : 0.5})`,
               }}
               onClick={onClose}
           >
