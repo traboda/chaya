@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 
 interface DocumentPortalProps {
   children: ReactNode
+  position?: 'start' | 'end'
 } 
 
-const DocumentPortal = ({ children }: DocumentPortalProps) => {
+const DocumentPortal = ({ children, position = 'end' }: DocumentPortalProps) => {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const div = document.createElement('div');
     div.style.display = 'contents';
-    document.body.appendChild(div);
+    if (position === 'start') document.body.prepend(div);
+    else document.body.appendChild(div);
     setElement(div);
 
     return () => {
