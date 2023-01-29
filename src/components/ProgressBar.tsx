@@ -24,17 +24,16 @@ const sizes = {
 
 const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, minVal = 0, maxVal = 100, height }: ProgressBar) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
+  const { theme } = useContext(DSRContext);
   
   return (
       <div
           id={id}
           className={clsx([
-            'dsr-w-full dsr-rounded-lg',
+            'dsr-w-full dsr-rounded-lg dsr-bg-gray-400/30',
             className,
           ])}
           style={{
-            background: isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)',
             height: height ? height : sizes[size],
           }}
       >

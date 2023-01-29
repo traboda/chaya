@@ -1,7 +1,5 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -20,15 +18,14 @@ const Card = ({
   id, children, title, description, variant = 'shaded',
   className = '', titleClassName = '', icon,
 }: CardProps) => {
-  const { isDarkTheme } = useContext(DSRContext);
 
   return (
       <div
           id={id}
           className={clsx([
-            'dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-solid',
-            isDarkTheme ? 'dsr-border-white/20' : 'dsr-border-black/20',
-            variant === 'shaded' ? isDarkTheme ? 'dsr-bg-white/10' : 'dsr-bg-black/10' : '',
+            'dsr-p-4 dsr-rounded-lg dsr-h-full dark:dsr-border-white/20 dsr-border-black/20',
+            variant === 'shaded' ? 'dark:dsr-bg-white/10 dsr-bg-gray-400/20' : '',
+            variant === 'outline' ? 'dsr-border dsr-border-solid' : '',
             className,
           ])}
       >

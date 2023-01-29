@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
-
-import DSRContext from '../contexts/DSRContext';
 
 import Icon from './Icon';
 
@@ -28,26 +26,22 @@ const Accordion = ({
 
   useEffect(() => { setOpen(_isOpen ?? false); }, [_isOpen]);
 
-  const { isDarkTheme } = useContext(DSRContext);
-
   return (
       <div
           id={id}
           className={clsx([
-            'accordion dsr-p-3 dsr-rounded-lg',
-            isDarkTheme ? 'dsr-bg-white/10' : 'dsr-bg-black/10',
+            'accordion dsr-p-3 dsr-rounded-lg dark:dsr-bg-gray-200/10 dsr-bg-gray-500/10',
             className,
           ])}
       >
           <button
               className={clsx([
                 'accordion-button dsr-w-full dsr-p-3 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-xl',
-                'dsr-justify-between dsr-text-color',
+                'dsr-justify-between dsr-text-color dsr-bg-white dark:dsr-bg-gray-200/20',
                 titleClassName,
               ])}
               aria-expanded={isOpen}
               aria-controls={`${id}_content`}
-              style={{ background: isDarkTheme ? 'rgba(237, 237, 237, 0.2)' : 'rgba(255, 255, 255, 0.9)' }}
               onClick={() => {
                 setOpen(!isOpen);
                 onChange();

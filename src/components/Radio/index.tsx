@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../../contexts/DSRContext';
 
 import styled from './radio.module.scss';
 
@@ -42,8 +40,6 @@ const sizes = {
 
 const Radio = ({ option, selected = false, onChange, color = 'primary', size = 'md', isDisabled }: RadioButtonProps) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
-
   return (
       <div
           className="dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
@@ -67,7 +63,7 @@ const Radio = ({ option, selected = false, onChange, color = 'primary', size = '
                 'dsr-border-none dsr-rounded-full dsr-text-white',
                 sizes[size]?.button,
                 selected ? styled.radioButton : '',
-                selected ? colors[color] : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                selected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
               ])}
           />
           <span className={clsx([ 'dsr-ml-2', sizes[size]?.label ])}>{ option.label }</span>

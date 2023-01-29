@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
-
-import DSRContext from '../../contexts/DSRContext';
 
 import PinDigit from './digit';
 
@@ -41,7 +39,6 @@ const PinInput = ({
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(invalid);
-  const { isDarkTheme } = useContext(DSRContext);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
 
   const onChange = (val: string) => {
@@ -120,9 +117,8 @@ const PinInput = ({
           <div
               ref={inputs}
               className={clsx([
-                'dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2',
+                'dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2 dark:dsr-border-gray-400 dsr-border-black',
                 variant === 'minimal' ? 'dsr-rounded-lg dsr-border' : 'dsr-gap-2',
-                isDarkTheme ? 'dsr-border-gray-400' : 'dsr-border-black',
                 className,
               ])}
               style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
@@ -144,7 +140,6 @@ const PinInput = ({
                       disabled={disabled}
                       required={required}
                       className={digitClassName}
-                      isDarkTheme={isDarkTheme}
                       variant={variant}
                   />
               ))}

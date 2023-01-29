@@ -41,13 +41,13 @@ const ItemListerItem = <Type extends { id: string }>({
   onClick = () => {}, isLoading = false, isPinned = false,
 }: ItemListerItemProps<Type>) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
+  const { theme } = useContext(DSRContext);
   const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
     'dsr-border-b dsr-h-full dsr-text-color dsr-bg',
     isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
+    isPinned ? 'group-hover:dsr-bg-background' : 'dark:group-hover:dsr-bg-white/20 group-hover:dsr-bg-gray-500/20',
   ]);
 
   return (

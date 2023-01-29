@@ -1,7 +1,5 @@
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent } from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -41,8 +39,6 @@ export const colors = {
 
 const Checkbox = ({ option, checked = false, onChange, color = 'primary', size = 'md', isDisabled }: CheckboxButtonProps) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
-
   return (
       <label className="dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
           <input
@@ -62,7 +58,7 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-border-none dsr-rounded-sm', sizes[size]?.button,
-                checked ? colors[color] : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                checked ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
               ])}
           >
               <div

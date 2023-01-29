@@ -14,14 +14,13 @@ type PinDigitProps = {
   disabled?: boolean,
   required?: boolean,
   className?: string,
-  isDarkTheme?: boolean,
   variant?: 'minimal' | 'classic',
 };
 
 
 const PinDigit = ({
   type = 'text', id, ariaLabelledBy, mask, value, onChange,
-  onKeyDown, placeholder, invalid, disabled, required, className, isDarkTheme, variant,
+  onKeyDown, placeholder, invalid, disabled, required, className, variant,
 }: PinDigitProps) => {
   return (
       <input
@@ -30,7 +29,7 @@ const PinDigit = ({
           aria-labelledby={ariaLabelledBy}
           className={clsx([
             'dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-italic placeholder:dsr-text-slate-400/40',
-            isDarkTheme ? 'dsr-text-white' : 'dsr-text-black',
+            'dark:dsr-text-white dsr-text-black dsr-bg-gray-400/20',
             variant === 'minimal' ? 'dsr-border-b-2 focus:dsr-border-primary' : 'dsr-rounded-lg focus:dsr-border-2',
             className,
             invalid ? 'dsr-border-red-500' : 'dsr-border-gray-400/40',
@@ -42,7 +41,7 @@ const PinDigit = ({
           onKeyDown={(e) => ((!disabled ? onKeyDown && onKeyDown(e) : null))}
           placeholder={placeholder}
           required={required}
-          style={{ background: variant === 'minimal' ? 'transparent' : isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)' }}
+          style={{ background: variant === 'minimal' ? 'transparent' : '' }}
       />
   );
 };

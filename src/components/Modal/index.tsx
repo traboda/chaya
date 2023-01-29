@@ -1,10 +1,9 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
 import Icon, { IconInputType } from '../Icon';
-import DSRContext from '../../contexts/DSRContext';
 
 import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
@@ -14,7 +13,6 @@ type ModalProps = {
   children: ReactNode,
   onClose: () => void,
   title?: string,
-  hideBg?: boolean,
   contentClassName?: string,
   maxWidth?: number | string,
   minHeight?: number | string,
@@ -26,10 +24,9 @@ type ModalProps = {
 
 const Modal = ({
   isOpen, children, onClose, title, contentClassName = '', titleIcon,
-  maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
+  maxWidth = 720, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
   const shouldRenderChild = useDelayUnmount(isOpen, 300);
 
   useEffect(() => {
@@ -52,20 +49,18 @@ const Modal = ({
           <section
               className={clsx([
                 'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
-                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm',
+                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm dsr-bg-white/30 dark:dsr-bg-black/30',
               ])}
               style={{
                 zIndex: 7200,
-                background: `rgba(${isDarkTheme ? '0, 0, 0' : '255, 255, 255'}, ${hideBg ? 0.75 : 0.5})`,
               }}
               onClick={onClose}
           >
               <div
                   className={clsx([
                     'dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
-                    'dsr-text-color',
+                    'dsr-text-color dsr-bg-background',
                     isOpen ? modalStyles.animateIn : modalStyles.animateOut,
-                    hideBg ? '' : 'dsr-bg-background',
                   ])}
                   onClick={e => e.stopPropagation()}
               >
