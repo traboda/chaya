@@ -52,7 +52,7 @@ const SwitchBox = (props: any) => {
   );
 };
 
-const SwitchVariants: Story = args =>  (
+const SwitchVariants: Story = args => (
     <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
         <div className="dsr-w-1/3 p-2">
             <SwitchBox {...args} variant="success" />

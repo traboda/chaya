@@ -3,7 +3,7 @@ import React from 'react';
 import DSRContext from '../contexts/DSRContext';
  
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');
-export type LinkRelType =  (
+export type LinkRelType = (
     'noopener' | 'noreferrer' | 'noopener noreferrer' | 'alternate' | 'author' | 'bookmark' |
     'help' | 'license' | 'next' | 'nofollow' | 'prefetch' | 'prev' | 'search' | 'tag'
 );

@@ -8,7 +8,7 @@ import SimpleSelect from './SimpleSelect';
 import Badge, { BadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
 
-export type TabItemObject =  {
+export type TabItemObject = {
   name?: string
   label?: string
   key?: string,
@@ -48,12 +48,12 @@ export type Tabs = {
 const Tabs = ({
   isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey, id,
   className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
-  alignCenter,  onChange = () => {}, disableResponsive = false, countBadgeProps,
+  alignCenter, onChange = () => {}, disableResponsive = false, countBadgeProps,
 }: Tabs) => {
 
   const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
 
-  const tabItems =  items?.length > 0 ?
+  const tabItems = items?.length > 0 ?
     items.map((t, index) => { return { key: `tab_${index}`, ...t }; }) : [];
 
   const getInitialTab = () => {

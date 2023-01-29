@@ -29,6 +29,10 @@ const Template: Story = args => (
     </div>
 );
 
-export const Default = Template.bind({});
+export const Wave = Template.bind({});
 
-Default.args = {};
+Wave.args = {};
+
+export const Pulse = Template.bind({});
+
+Pulse.args = { variant: 'pulse' };
