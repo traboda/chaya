@@ -11,7 +11,7 @@
     "lint-fix": "eslint --fix src/ --ext .ts,.tsx",
     "watch-tailwind": "npm run tailwind -- --watch",
     "storybook": "concurrently \"npm run watch-tailwind\" \"start-storybook -p 6006\"",
-    "build-storybook": "build-storybook",
+    "build-storybook": "npm run build-tailwind && build-storybook",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "contributors": [
@@ -78,7 +78,7 @@
     "rollup": "^3.10.0",
     "rollup-plugin-dts": "^5.1.1",
     "rollup-plugin-polyfill-node": "^0.11.0",
-    "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "storybook-dark-mode": "^2.0.5",
