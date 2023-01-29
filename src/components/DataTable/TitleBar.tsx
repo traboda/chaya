@@ -49,7 +49,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                   ])}
               >
                   <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
-                      <Icon icon={isAccordionsOpen ? 'chevronDown' : 'chevronRight'} size={18} />
+                      <Icon icon={isAccordionsOpen ? 'chevron-down' : 'chevron-right'} size={18} />
                   </button>
               </th>
           )}

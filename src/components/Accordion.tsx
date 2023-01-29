@@ -54,7 +54,7 @@ const Accordion = ({
               }}
           >
               {title}
-              <Icon icon={isOpen ? 'chevronUp' : 'chevronDown'} size={18} />
+              <Icon icon={isOpen ? 'chevron-up' : 'chevron-down'} size={18} />
           </button>
           <div
               id={`${id}_content`}

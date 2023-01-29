@@ -41,7 +41,7 @@ export type TextInputProps<Type> = {
   prefixRenderer?: React.ReactElement
 };
 
-const TextInput = <Type extends unknown>({
+const TextInput = <Type extends string | number>({
   id, label, name, placeholder, value: val, charLimit = null,
   className, style, hideLabel = false,
   required = false, disabled = false, invalid = false, autoFocus = false,

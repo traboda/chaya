@@ -58,12 +58,12 @@ const PageNavigator = ({
               <div className="dsr-flex dsr-items-stretch">
                   {(showEdges && page > 2) && (
                       <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(1)}>
-                          <Icon icon="chevronsLeft" size={18} />
+                          <Icon icon="chevrons-left" size={18} />
                       </Button>
                   )}
                   {(showControls && page > 1) && (
                       <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(page - 1)}>
-                          <Icon icon="chevronLeft" size={18} />
+                          <Icon icon="chevron-left" size={18} />
                       </Button>
                   )}
                   {getPageNo().map((item, index) => (
@@ -83,12 +83,12 @@ const PageNavigator = ({
                   ))}
                   {(showControls && !(page + 1 >= length)) && (
                       <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(page + 1)}>
-                          <Icon icon="chevronRight" size={18} />
+                          <Icon icon="chevron-right" size={18} />
                       </Button>
                   )}
                   {(showEdges && (page + 1 < length)) && (
                       <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(length)}>
-                          <Icon icon="chevronsRight" size={18} />
+                          <Icon icon="chevrons-right" size={18} />
                       </Button>
                   )}
               </div>

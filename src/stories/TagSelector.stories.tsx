@@ -18,7 +18,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-  const [value, setValue] = useState(args.value);
+  const [value, setValue] = useState<string | string[]>(args.value);
 
   useEffect(() => {
     setValue(args.value);
