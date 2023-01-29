@@ -14,12 +14,13 @@ type PinDigitProps = {
   disabled?: boolean,
   required?: boolean,
   className?: string,
+  isDarkTheme?: boolean,
 };
 
 
 const PinDigit = ({
   type = 'text', id, ariaLabelledBy, mask, value, onChange,
-  onKeyDown, placeholder, invalid, disabled, required, className,
+  onKeyDown, placeholder, invalid, disabled, required, className, isDarkTheme,
 }: PinDigitProps) => (
     <input
         id={id}
@@ -27,6 +28,7 @@ const PinDigit = ({
         aria-labelledby={ariaLabelledBy}
         className={clsx([
           'dsr-text-lg dsr-outline-1 dsr-p-2 dsr-text-center dsr-rounded-lg dsr-w-full',
+          isDarkTheme ? 'dsr-text-white' : 'dsr-text-black',
           className,
           invalid ? 'dsr-outline-red-500' : 'dsr-outline-gray-400',
         ])}
@@ -37,6 +39,7 @@ const PinDigit = ({
         onKeyDown={(e) => ((!disabled ? onKeyDown && onKeyDown(e) : null))}
         placeholder={placeholder}
         required={required}
+        style={{ background: isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)' }}
     />
 );
 

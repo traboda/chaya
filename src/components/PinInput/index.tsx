@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import hyperid from 'hyperid';
 const generate = hyperid();
 import clsx from 'clsx';
+
+import DSRContext from '../../contexts/DSRContext';
 
 import PinDigit from './digit';
 
@@ -39,6 +41,7 @@ const PinInput = ({
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(invalid);
+  const { isDarkTheme } = useContext(DSRContext);
   const inputID = id ? id : `pin-input-${generate()}`;
 
   const onChange = (val: string) => {
@@ -139,6 +142,7 @@ const PinInput = ({
                       disabled={disabled}
                       required={required}
                       className={digitClassName}
+                      isDarkTheme={isDarkTheme}
                   />
               ))}
           </div>
