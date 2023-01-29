@@ -2,6 +2,7 @@
 module.exports = {
   prefix: 'dsr-',
   content: ['./src/**/*.{tsx,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
