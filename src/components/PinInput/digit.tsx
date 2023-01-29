@@ -15,7 +15,7 @@ type PinDigitProps = {
   required?: boolean,
   className?: string,
   isDarkTheme?: boolean,
-  variant?: string,
+  variant?: 'minimal' | 'classic',
 };
 
 
