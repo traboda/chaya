@@ -12,14 +12,13 @@ export type CardProps = {
   description?: string,
   titleClassName?: string,
   icon?: IconInputType,
-  background?: string,
   id?: string,
   className?: string,
 };
 
 const Card = ({
   id, children, title, description, variant = 'shaded',
-  className = '', titleClassName = '', background, icon,
+  className = '', titleClassName = '', icon,
 }: CardProps) => {
   const { isDarkTheme } = useContext(DSRContext);
 
@@ -27,13 +26,11 @@ const Card = ({
       <div
           id={id}
           className={clsx([
-            'dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-transparent',
+            'dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-solid',
+            isDarkTheme ? 'dsr-border-white/20' : 'dsr-border-black/20',
+            variant === 'shaded' ? isDarkTheme ? 'dsr-bg-white/10' : 'dsr-bg-black/10' : '',
             className,
           ])}
-          style={{
-            background: variant === 'shaded' ? (background ?? (isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)')) : '',
-            borderColor: variant === 'outline' ? (isDarkTheme ? 'hsla(0, 0%, 100%, 0.15)' : 'hsla(0, 0%, 0%, 0.15)') : '',
-          }}
       >
           <div>
               {title && (
