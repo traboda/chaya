@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../utils/misc';
@@ -7,9 +7,7 @@ import { LinkWrapper } from '../utils/misc';
 import SimpleSelect from './SimpleSelect';
 import Badge, { BadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
- 
-const generateId = hyperid();
- 
+
 export type TabItemObject =  {
   name?: string
   label?: string
@@ -53,7 +51,7 @@ const Tabs = ({
   alignCenter,  onChange = () => {}, disableResponsive = false, countBadgeProps,
 }: Tabs) => {
 
-  const tabID = useMemo(() => id ?? `tab-${generateId()}`, [id]);
+  const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
 
   const tabItems =  items?.length > 0 ?
     items.map((t, index) => { return { key: `tab_${index}`, ...t }; }) : [];
@@ -96,7 +94,7 @@ const Tabs = ({
   const renderPanels = () => tabItems?.length > 0 ?
     tabItems.map((t) => (
         <div
-            key={t?.key ? `tab_panel_${t.key}` : generateId()}
+            key={t?.key ? `tab_panel_${t.key}` : nanoid()}
             role="tabpanel"
             id={`${tabID}-${t.key}-panel`}
             aria-labelledby={`${tabID}-${t.key}-tab`}
@@ -119,7 +117,7 @@ const Tabs = ({
   const renderTabs = () => (
     tabItems.filter((t) => !t.hidden).map(t => (
         <li
-            key={t?.key ? `tab_selector_${t?.key}` : generateId()}
+            key={t?.key ? `tab_selector_${t?.key}` : nanoid()}
             className={isVertical ? 'dsr-w-full' : undefined}
             role="presentation"
         >

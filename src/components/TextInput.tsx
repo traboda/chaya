@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent } from 'react';
 import clsx from 'clsx';
 import Color from 'color';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
-const generateId = hyperid();
 
 const emptyFunc = () => {};
 
@@ -53,7 +52,7 @@ const TextInput = <Type extends unknown>({
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
-  const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${generateId()}`, [id, name]);
+  const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${nanoid()}`, [id, name]);
 
   const [isTyping, setTyping] = useState(false);
 

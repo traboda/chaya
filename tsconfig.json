@@ -6,7 +6,7 @@
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "module": "ESNext",
+    "module": "esnext",
     "declaration": true,
     "declarationDir": "types",
     "sourceMap": true,

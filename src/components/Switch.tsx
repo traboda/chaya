@@ -1,10 +1,8 @@
 import React, { useContext, useMemo, useRef } from 'react';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import DSRContext from '../contexts/DSRContext';
-
-const generateId = hyperid();
 
 type SwitchProps = {
   value: boolean,
@@ -40,7 +38,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
 
   const isDarkTheme = useContext(DSRContext);
   const checkbox = useRef(null);
-  const inputID = useMemo(() => id ?? `switch-input-${generateId()}`, [id]);
+  const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
   return (
       <div className="dsr-w-full dsr-flex dsr-flex-col">

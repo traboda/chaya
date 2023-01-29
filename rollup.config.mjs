@@ -33,7 +33,7 @@ export default [
       terser(),
       nodePolyfills(),
     ],
-    external: ["react", "react-dom"]
+    external: ["nanoid", "react", "react-dom"]
   },
   {
     input: 'dist/esm/types/index.d.ts',

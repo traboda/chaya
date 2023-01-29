@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import clsx from 'clsx';
 import Color from 'color';
-import hyperID from 'hyperid';
+import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
-const generateId = hyperID();
 
 type OptionType = {
   value: (string | number),
@@ -44,7 +43,7 @@ const SimpleSelect = ({
 }: SimpleSelectProps) => {
 
   const labels = { ...defaultLabels, ...propLabels };
-  const inputID = `${name}-input-${generateId()}`;
+  const inputID = useMemo(() => `${name}-input-${nanoid()}`, [name]);
   const { isDarkTheme } = useContext(DSRContext);
 
   return (

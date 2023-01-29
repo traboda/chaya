@@ -1,11 +1,10 @@
 import React, { ReactNode } from 'react';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../utils/misc';
 
 import Icon from './Icon';
-const generateId = hyperid();
 
 export type BreadcrumbItemProps = {
   link?: string,
@@ -42,7 +41,7 @@ const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPro
         />
         {items.length > 0 && items.map((item) => (
             <BreadcrumbItem
-                key={generateId()}
+                key={nanoid()}
                 item={item}
                 className={itemClassName}
             />

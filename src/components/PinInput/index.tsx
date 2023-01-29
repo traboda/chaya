@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import hyperid from 'hyperid';
-const generate = hyperid();
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import PinDigit from './digit';
@@ -39,7 +38,7 @@ const PinInput = ({
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(invalid);
-  const inputID = id ? id : `pin-input-${generate()}`;
+  const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
 
   const onChange = (val: string) => {
     onChangeProp(val);

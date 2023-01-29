@@ -1,14 +1,12 @@
 import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
  
 import InfiniteLoader from '../InfiniteLoader';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { ItemListerProperty } from './Row';
 import SelectionHelper from './SelectionHelper';
-
-const generateId = hyperid();
 
 type DataTableProps<Type> = {
   properties: ItemListerProperty<Type>[],
@@ -90,7 +88,7 @@ const DataTable = <Type extends { id: string }>({
 
   const dummyCol = (width: number) => ({
     width,
-    id: generateId(),
+    id: nanoid(),
     label: undefined,
     value() { return undefined; },
   });
@@ -167,7 +165,7 @@ const DataTable = <Type extends { id: string }>({
                                         <div className="accordion-item">
                                             <div> 
                                                 <ItemListerItem<Type>
-                                                    key={i?.id ?? generateId()}
+                                                    key={i?.id ?? nanoid()}
                                                     properties={properties}
                                                     item={i}
                                                     itemIndex={index}
@@ -186,7 +184,7 @@ const DataTable = <Type extends { id: string }>({
                                     </div>
                                 ) : (
                                     <ItemListerItem<Type>
-                                        key={i.id ? i.id : generateId()}
+                                        key={i.id ? i.id : nanoid()}
                                         properties={properties}
                                         item={i}
                                         itemIndex={index}
@@ -198,7 +196,7 @@ const DataTable = <Type extends { id: string }>({
                         </tbody>
                         {isLoading && Array(10).fill(0).map(() => (
                             <ItemListerItem<Type>
-                                key={generateId()}
+                                key={nanoid()}
                                 properties={properties}
                                 isLoading
                                 gridTemplate={gridTemplate}

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import hyperid from 'hyperid';
+import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
 
 import Icon from './Icon';
-const generateId = hyperid();
 
 export type AccordionProps = {
   title: string,
@@ -21,7 +20,7 @@ export type AccordionProps = {
 };
 
 const Accordion = ({
-  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = generateId(),
+  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = nanoid(),
   className = '', titleClassName = '', bodyClassName = '',
 }: AccordionProps) => {
 
