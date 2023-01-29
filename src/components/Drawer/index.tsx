@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode,  useEffect, useMemo } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
@@ -79,7 +79,7 @@ const Drawer = ({
     return () => document.removeEventListener('keydown', onKeyDown);
   }, []);
 
-  return  shouldRenderChild ? (
+  return shouldRenderChild ? (
       <DocumentPortal>
           <div className="dsr-relative dsr-z-7000">
               <section
@@ -100,7 +100,7 @@ const Drawer = ({
                       style={{
                         minHeight,
                         maxHeight,
-                        maxWidth: position === 'right' || position === 'left'  ? maxWidth : '100%',
+                        maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
                         minWidth,
                         '--drawer-position-direction': positionDirection,
                       } as CSSProperties}
