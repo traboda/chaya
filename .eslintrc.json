@@ -21,6 +21,7 @@
     "react/jsx-tag-spacing": [2, { "beforeSelfClosing": "always" }],
     "react/jsx-max-props-per-line": [2, { "when": "multiline" }],
     "react/jsx-no-useless-fragment": 2,
+    "react/jsx-curly-brace-presence": [2, { "props": "never", "children": "never" }],
     "import/order": [2, {
       "groups": ["builtin", "external", "parent", "sibling", "index"],
       "newlines-between": "always"
