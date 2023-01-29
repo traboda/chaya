@@ -19,7 +19,7 @@ export default meta;
 
 const Template: Story = args => {
   return (
-      <div className="dsr-bg-gray-200 dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col" style={{ minHeight: '50vh' }}>
+      <div className="dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col" style={{ minHeight: '50vh' }}>
           <DropdownMenu {...args}>
               <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                   open
@@ -33,7 +33,7 @@ export const Default = Template.bind({});
 
 const FiveCorners: Story = args => {
   return (
-      <div className="dsr-bg-gray-200 dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
+      <div className="relative dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
           <div className="dsr-fixed dsr-top-0 dsr-left-0 dsr-m-4">
               <DropdownMenu {...args}>
                   <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>

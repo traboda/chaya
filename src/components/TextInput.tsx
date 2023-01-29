@@ -123,7 +123,7 @@ const TextInput = <Type extends string | number>({
       <div
           className={clsx([
             className,
-            'dsr-w-full dsr-h-full dsr-overflow-hidden',
+            'text-input dsr-w-full dsr-h-full dsr-overflow-hidden',
           ])}
           style={style}
       >
@@ -137,7 +137,7 @@ const TextInput = <Type extends string | number>({
                   </label>}
               </div>
               {(showLimit && typeof value !== 'number') && (
-              <div className="dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
+              <div className="text-input-char-limit dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
                   {(value as string)?.length}
                   /
                   {charLimit}

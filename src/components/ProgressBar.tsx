@@ -30,7 +30,7 @@ const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, 
       <div
           id={id}
           className={clsx([
-            'dsr-w-full dsr-rounded-lg',
+            'progress-bar dsr-w-full dsr-rounded-lg',
             className,
           ])}
           style={{
@@ -41,7 +41,7 @@ const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, 
           <div
               role="progressbar"
               className={clsx([
-                'dsr-rounded-lg dsr-h-full',
+                'progress-bar-progress dsr-rounded-lg dsr-h-full',
               ])}
               style={{
                 width: `${value || 0}%`,

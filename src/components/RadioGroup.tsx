@@ -18,7 +18,8 @@ const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', 
   return (
       <div
           className={clsx([
-            'dsr-flex', alignment === 'vertical' ? 'dsr-flex-col dsr-gap-y-4' : 'dsr-flex-row dsr-gap-x-8',
+            'radio-group dsr-flex',
+            alignment === 'vertical' ? 'dsr-flex-col dsr-gap-y-4' : 'dsr-flex-row dsr-gap-x-8',
           ])}
       >
           {options.map((option, index) => (

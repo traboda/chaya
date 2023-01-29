@@ -47,7 +47,7 @@ const SimpleSelect = ({
   const { isDarkTheme } = useContext(DSRContext);
 
   return (
-      <div className="dsr-w-full">
+      <div className="dsr-w-full simple-select-container">
           {labels?.label && labels?.label?.length > 0 && (
               <label
                   id={`${inputID}-label`}
@@ -62,7 +62,7 @@ const SimpleSelect = ({
           <div className="dsr-w-full">
               <select
                   className={clsx([
-                    'dsr-w-full dsr-text-lg dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color dsr-border dsr-border-gray-500/70 dsr-bg-background',
+                    'simple-select dsr-w-full dsr-text-lg dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color dsr-border dsr-border-gray-500/70 dsr-bg-background',
                     'focus:dsr-outline-none focus:dsr-border-secondary hover:dsr-border-color',
                     className,
                   ])}

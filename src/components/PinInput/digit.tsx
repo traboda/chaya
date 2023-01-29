@@ -29,7 +29,7 @@ const PinDigit = ({
           autoComplete="off"
           aria-labelledby={ariaLabelledBy}
           className={clsx([
-            'dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-italic placeholder:dsr-text-slate-400/40',
+            'pin-digit dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-italic placeholder:dsr-text-slate-400/40',
             isDarkTheme ? 'dsr-text-white' : 'dsr-text-black',
             variant === 'minimal' ? 'dsr-border-b-2 focus:dsr-border-primary' : 'dsr-rounded-lg focus:dsr-border-2',
             className,

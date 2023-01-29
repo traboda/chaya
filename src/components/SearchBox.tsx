@@ -1,4 +1,5 @@
 import React, { KeyboardEvent } from 'react';
+import clsx from 'clsx';
 
 import TextInput from './TextInput';
 import Button from './Button';
@@ -44,7 +45,7 @@ const SearchBox = ({
   return (
       <form
           id={id}
-          className={className}
+          className={clsx(['search-box', className])}
           onSubmit={(e) => {
             e.preventDefault();
             onSearch(keyword);
@@ -83,7 +84,7 @@ const SearchBox = ({
                               size="md"
                               variant="link"
                               color="contrast"
-                              className={buttonClass}
+                              className={clsx(['search-box-button', buttonClass])}
                               label={`${name} button`}
                               type="submit"
                           >

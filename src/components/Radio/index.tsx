@@ -46,7 +46,7 @@ const Radio = ({ option, selected = false, onChange, color = 'primary', size = '
 
   return (
       <div
-          className="dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
+          className="radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
           onClick={() => onChange(option.value)}
       >
           <input
@@ -56,7 +56,7 @@ const Radio = ({ option, selected = false, onChange, color = 'primary', size = '
               checked={selected}
               disabled={isDisabled || option.disabled}
               className={clsx([
-                'dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
+                'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
                 'dsr-overflow-hidden dsr-absolute -dsr-m-1',
               ])}
               style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}

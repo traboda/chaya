@@ -43,7 +43,7 @@ const DropdownMenu = ({
           buttonRenderer={buttonRenderer}
       >
           {customHeaderRenderer?.()}
-          <div role="menu">
+          <div role="menu" className="dropdown-menu-container">
               {items.length > 0 && items.map((n, i) => {
                 const content = n?.renderer ? n.renderer() : (
                     <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
@@ -57,7 +57,7 @@ const DropdownMenu = ({
                         key={i}
                         className={clsx([
                           n?.className,
-                          'dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-2 hover:dsr-bg-neutral-300 hover:dsr-text-primary',
+                          'dropdown-menu-item dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-2 hover:dsr-bg-neutral-300 hover:dsr-text-primary',
                         ])}
                     >
                         {n?.link ? LinkWrapper(n.link, content) : <button className="dsr-text-left dsr-w-full dsr-rounded-md" onClick={n?.onClick}>{content}</button>}

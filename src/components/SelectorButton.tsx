@@ -37,8 +37,8 @@ const SelectorButton = ({
       <form
           id={id}
           className={clsx([
+            'selector-button dsr-flex dsr-items-stretch w-full',
             className,
-            'dsr-flex dsr-items-stretch w-full',
           ])}
           onSubmit={onSubmit}
       >

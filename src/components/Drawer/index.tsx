@@ -81,7 +81,7 @@ const Drawer = ({
 
   return shouldRenderChild ? (
       <DocumentPortal>
-          <div className="dsr-relative dsr-z-7000">
+          <div className="drawer dsr-relative dsr-z-7000">
               <section
                   className={clsx([
                     'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
@@ -95,7 +95,6 @@ const Drawer = ({
                         'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
                         getPositionAlignmentChild,
                         getPositionAnimation,
-
                       ])}
                       style={{
                         minHeight,
@@ -110,7 +109,7 @@ const Drawer = ({
                           <button
                               type="button"
                               title="close"
-                              className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
+                              className="drawer-close-button dsr-outline-none"
                               onClick={onClose}
                           >
                               <Icon icon="times" size={16} />

@@ -119,7 +119,7 @@ export const WithButton = Template.bind({});
 WithButton.args = {
   title: 'Your account is about to expire. Renew your subscription now!',
   variant: 'filled',
-  type: 'warning',
+  type: 'danger',
   allowDismissal: true,
   primaryButton: {
     children: 'Renew',

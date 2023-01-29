@@ -25,7 +25,7 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
   const renderPlaceholder = () => (
       <svg
           id={id}
-          className={clsx('dsr-rounded-lg', className)}
+          className={clsx('avatar-placeholder dsr-rounded-lg', className)}
           width={size}
           height={size}
           viewBox="0 0 75 75"
@@ -50,7 +50,7 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
 
   return !(src?.length) || show ? renderPlaceholder() : (
       <img
-          className={clsx('dsr-rounded-lg', className)}
+          className={clsx('avatar dsr-rounded-lg', className)}
           height={size}
           width={size}
           title={title}

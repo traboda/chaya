@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import clsx from 'clsx';
 
 import DSRContext from '../contexts/DSRContext';
 
@@ -56,7 +57,7 @@ const CircularProgress = ({
           aria-valuenow={(value / 100) * maxVal}
           aria-valuemin={minVal}
           aria-valuemax={maxVal}
-          className={className}
+          className={clsx(['circular-progress', className])}
       >
           <svg
               viewBox="0 0 100 100"

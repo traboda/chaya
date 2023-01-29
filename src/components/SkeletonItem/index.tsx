@@ -17,7 +17,7 @@ const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave' } 
         className={clsx([
           circular ? 'dsr-rounded-full' : 'dsr-rounded-lg',
           variant === 'pulse' ? 'dsr-animate-pulse' : skeletonItemStyles.animate,
-          'dsr-relative dsr-overflow-hidden dsr-bg-gray-500/20',
+          'skeleton dsr-relative dsr-overflow-hidden dsr-bg-gray-500/20',
           className,
         ])}
         style={{

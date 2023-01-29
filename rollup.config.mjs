@@ -25,7 +25,10 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({
+        tsconfig: './tsconfig.json',
+        exclude: ['**/stories/**'],
+      }),
       postcss({
         modules: true,
         minimize: true,
@@ -33,7 +36,7 @@ export default [
       terser(),
       nodePolyfills(),
     ],
-    external: ["nanoid", "react", "react-dom"]
+    external: ["react", "react-dom"]
   },
   {
     input: 'dist/esm/types/index.d.ts',

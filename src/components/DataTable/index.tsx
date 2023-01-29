@@ -132,9 +132,10 @@ const DataTable = <Type extends { id: string }>({
                         {customTopBarRenderer()}
                     </div>
                     <table
-                        className="dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full"
+                        className="data-table dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full"
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
+                        {/*// @todo div is not allowed inside table*/}
                         <div className="dsr-sticky dsr-z-50" ref={titleBarRef} style={{ top: titleTopHeight }}>
                             <ItemListerTitleBar<Type>
                                 properties={properties}
@@ -161,6 +162,7 @@ const DataTable = <Type extends { id: string }>({
                             {items?.length > 0 ?
                               items.map((i, index) =>
                                 canExpand ? (
+                                    // @todo - div is not allowed inside a table
                                     <div className="accordion">
                                         <div className="accordion-item">
                                             <div> 

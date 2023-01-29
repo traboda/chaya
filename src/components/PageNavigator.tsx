@@ -50,19 +50,25 @@ const PageNavigator = ({
       <div
           id={id}
           className={clsx([
-            'dsr-flex dsr-items-center dsr-justify-center dsr-text-center dsr-pt-4 page-navigator',
+            'page-navigator dsr-flex dsr-items-center dsr-justify-center dsr-text-center dsr-pt-4 page-navigator',
             className,
           ])}
       >
           <div className="dsr-select-none">
               <div className="dsr-flex dsr-items-stretch">
                   {(showEdges && page > 2) && (
-                      <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(1)}>
+                      <Button
+                          className="first-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+                          onClick={() => setPage(1)}
+                      >
                           <Icon icon="chevrons-left" size={18} />
                       </Button>
                   )}
                   {(showControls && page > 1) && (
-                      <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(page - 1)}>
+                      <Button
+                          className="previous-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+                          onClick={() => setPage(page - 1)}
+                      >
                           <Icon icon="chevron-left" size={18} />
                       </Button>
                   )}
@@ -73,7 +79,7 @@ const PageNavigator = ({
                           disabled={page === item}
                           key={`page_${item}_${index}`}
                           className={clsx([
-                            'dsr-w-12 dsr-mx-1',
+                            'page-number-button dsr-w-12 dsr-mx-1',
                             page === item ? 'active' : '',
                           ])}
                           onClick={() => setPage(item)}
@@ -82,12 +88,18 @@ const PageNavigator = ({
                       </Button>
                   ))}
                   {(showControls && !(page + 1 >= length)) && (
-                      <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(page + 1)}>
+                      <Button
+                          className="next-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+                          onClick={() => setPage(page + 1)}
+                      >
                           <Icon icon="chevron-right" size={18} />
                       </Button>
                   )}
                   {(showEdges && (page + 1 < length)) && (
-                      <Button className="dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1" onClick={() => setPage(length)}>
+                      <Button
+                          className="last-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+                          onClick={() => setPage(length)}
+                      >
                           <Icon icon="chevrons-right" size={18} />
                       </Button>
                   )}

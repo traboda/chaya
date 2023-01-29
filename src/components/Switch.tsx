@@ -41,7 +41,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
   const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
   return (
-      <div className="dsr-w-full dsr-flex dsr-flex-col">
+      <div className="switch-container dsr-w-full dsr-flex dsr-flex-col">
           {label && (
               <label
                   className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1"
@@ -75,7 +75,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                   aria-readonly={disabled}
                   aria-checked={value}
                   disabled={disabled}
-                  className="dsr-absolute dsr-opacity-0"
+                  className="switch dsr-absolute dsr-opacity-0"
                   required={required}
                   checked={value}
                   onChange={({ target }) => onChange(target.checked)}

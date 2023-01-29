@@ -51,7 +51,7 @@ const Modal = ({
       <DocumentPortal>
           <section
               className={clsx([
-                'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
+                'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
                 'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm',
               ])}
               style={{
@@ -62,7 +62,7 @@ const Modal = ({
           >
               <div
                   className={clsx([
-                    'dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
+                    'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
                     'dsr-text-color',
                     isOpen ? modalStyles.animateIn : modalStyles.animateOut,
                     hideBg ? '' : 'dsr-bg-background',

@@ -120,7 +120,7 @@ const PinInput = ({
           <div
               ref={inputs}
               className={clsx([
-                'dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2',
+                'pin-input dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2',
                 variant === 'minimal' ? 'dsr-rounded-lg dsr-border' : 'dsr-gap-2',
                 isDarkTheme ? 'dsr-border-gray-400' : 'dsr-border-black',
                 className,

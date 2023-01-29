@@ -69,7 +69,7 @@ const Alert = ({
   const { isDarkTheme } = useContext(DSRContext);
   const computedClassName = clsx([
     description ? 'dsr-py-4' : 'dsr-py-3',
-    'dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2 ',
+    'alert dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2 ',
     className,
   ]);
 
@@ -89,7 +89,7 @@ const Alert = ({
               <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
                   <button
                       title="dismiss"
-                      className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
+                      className="alert-dismiss-button dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
                       onClick={() => { setHide(true); onDismiss(); }}
                   >
                       <Icon icon="times" size={16} />
@@ -108,18 +108,18 @@ const Alert = ({
                   {primaryButton && (
                       <div className="dsr-mr-2">
                           <Button
-                              {...primaryButton}
                               color="primary"
                               className="dsr-text-base"
+                              {...primaryButton}
                           />
                       </div>
                   )}
                   {secondaryButton && (
                       <div>
                           <Button
-                              {...secondaryButton}
                               color="secondary"
                               className="dsr-text-base"
+                              {...secondaryButton}
                           />
                       </div>
                   )}

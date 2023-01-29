@@ -52,7 +52,7 @@ const ItemListerItem = <Type extends { id: string }>({
 
   return (
       <tr
-          className="dsr-grid dsr-items-center dsr-group"
+          className="data-table-row dsr-grid dsr-items-center dsr-group"
           style={gridTemplate}
       >
           {supportAccordion && (

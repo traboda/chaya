@@ -27,7 +27,7 @@ const ToolTip = ({ children, overlay }: ToolTipProps) => {
               <Tooltip.Portal>
                   <Tooltip.Content
                       style={{ background: tooltipColor }}
-                      className="dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-p-2 dsr-backdrop-blur dsr-text-color"
+                      className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-p-2 dsr-backdrop-blur dsr-text-color"
                       sideOffset={5}
                   >
                       {overlay}

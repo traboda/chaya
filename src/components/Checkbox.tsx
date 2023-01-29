@@ -44,7 +44,7 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
   const { isDarkTheme } = useContext(DSRContext);
 
   return (
-      <label className="dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
+      <label className="checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
           <input
               onChange={onChange}
               type="checkbox"
@@ -53,7 +53,7 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
               checked={checked}
               disabled={isDisabled || option.disabled}
               className={clsx([
-                'dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
+                'checkbox dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
                 'dsr-overflow-hidden dsr-absolute -dsr-m-1',
               ])}
               style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}

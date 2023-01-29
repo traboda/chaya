@@ -40,8 +40,9 @@ const PageHeader = ({
       <section
           id={id}
           className={clsx([
-            className,
+            'page-header',
             !fill && 'dsr-flex dsr-items-center dsr-justify-center',
+            className,
           ])}
           style={{
             background: isDarkTheme ? Color(theme?.background || '#000').lighten(0.2).hex() : Color(theme?.background || '#FFF').darken(0.15).hex(),

@@ -69,7 +69,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
   };
 
   return (
-      <div id={props?.id} className={props?.className}>
+      <div id={props?.id} className={clsx(['tag-selector', props?.className])}>
           {props?.labels && (
               <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
                   {props.labels?.title && (
@@ -89,7 +89,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
                   <button
                       key={opt.value}
                       className={clsx([
-                        'dsr-px-4 dsr-py-1 dsr-rounded-lg dsr-m-1 dsr-text-lg',
+                        'tag-option dsr-px-4 dsr-py-1 dsr-rounded-lg dsr-m-1 dsr-text-lg',
                         'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
                         generateClassName(opt.value),
                         props?.tagClassName,

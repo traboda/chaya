@@ -73,7 +73,7 @@ const Badge = ({
   const computedClassName = clsx([
     className,
     badgeSizeDefinitions[size],
-    'dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
+    'badge dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
 
