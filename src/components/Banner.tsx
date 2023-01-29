@@ -131,7 +131,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
       </div>
   );
 
-  const renderer = () => {if (variant === 'card') return cardRenderer; return bannerRenderer;};
+  const renderer = () => (variant === 'card') ? cardRenderer : bannerRenderer;
 
   return (
       <div className="dsr-w-full">
