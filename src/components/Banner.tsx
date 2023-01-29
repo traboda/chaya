@@ -50,7 +50,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
 
   const textColor = useMemo(() =>  Color(activeColor).isDark() ? '#fff' : '#333', [activeColor]);
 
-  const cardRenderer = () => (
+  const cardRenderer = (
       <div
           className={clsx([
             'dsr-p-4 dsr-max-w-[700px] dsr-right-0',
@@ -84,8 +84,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
               <p>
                   {text || 'Banner text'}
                   ' '
-                  {learnMore && (
-                      <a href={learnMore.link} className="dsr-whitespace-nowrap hover:dsr-underline dsr-inline">{learnMore.text}</a>)}
+                  {learnMore && <a href={learnMore.link} className="dsr-whitespace-nowrap hover:dsr-underline dsr-inline">{learnMore.text}</a>}
               </p>
               <div className="dsr-flex dsr-w-full dsr-justify-end">
                   <div>{children}</div>
@@ -94,7 +93,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
       </div>
   );
 
-  const bannerRenderer = () => (
+  const bannerRenderer = (
       <div
           className={clsx([
             'dsr-w-full dsr-left-0 dsr-right-0',
@@ -117,7 +116,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
                   <p>
                       {text || 'Banner text'}
                       ' '
-                      {learnMore && (<a href={learnMore.link} className="dsr-whitespace-nowrap  hover:dsr-underline dsr-inline">{learnMore.text}</a>)}
+                      {learnMore && <a href={learnMore.link} className="dsr-whitespace-nowrap  hover:dsr-underline dsr-inline">{learnMore.text}</a>}
                   </p>
               </div>
               <div className="dsr-flex dsr-gap-4 dsr-items-center dsr-flex-shrink-0">
@@ -132,7 +131,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
       </div>
   );
 
-  const renderer = () => {if (variant === 'card') return cardRenderer(); return bannerRenderer();};
+  const renderer = () => {if (variant === 'card') return cardRenderer; return bannerRenderer;};
 
   return (
       <div className="dsr-w-full">
