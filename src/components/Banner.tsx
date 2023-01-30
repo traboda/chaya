@@ -13,7 +13,6 @@ export type BannerPropType = {
   variant?: 'full-width' | 'float' | 'card',
   color?: 'primary' | 'secondary' | 'warning' | 'danger' | 'success' | 'shaded' | 'contrast' | 'white' | 'dark'
   position?: 'top' | 'bottom' | 'inline',
-  circular?: boolean,
   text?: string,
   icon?: IconInputType,
   allowDismissal?: boolean,
@@ -26,7 +25,10 @@ export type BannerPropType = {
 };
 
 
-const Banner = ({ className, variant, onClose, position = 'top', text, color = 'primary', icon, allowDismissal, children, circular, learnMore }: BannerPropType) => {
+const Banner = ({
+  className, variant, onClose, position = 'top', text, color = 'primary', icon,
+  allowDismissal, children, learnMore,
+}: BannerPropType) => {
 
   const { theme, isDarkTheme } = useContext(DSRContext);
 
@@ -44,7 +46,6 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
       contrast: background.negate().toString(),
       shaded: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
     };
-
     return colors[color];
   }, [theme, color]);
 
@@ -60,7 +61,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
           <div
               className={clsx([
                 'dsr-p-5 dsr-flex dsr-flex-col dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
-                circular ? 'dsr-rounded-full' : variant !== 'full-width' ? 'dsr-rounded-lg' : '',
+                variant !== 'full-width' ? 'dsr-rounded-lg' : '',
                 className,
                 variant !== 'full-width' && 'dsr-shadow-lg',
               ])}
@@ -105,9 +106,8 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
           <div
               className={clsx([
                 'dsr-w-full dsr-p-5 dsr-flex dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
-                circular ? 'dsr-rounded-full' : variant !== 'full-width' ? 'dsr-rounded-lg' : '',
+                variant !== 'full-width' ? 'dsr-rounded-lg dsr-shadow-lg' : '',
                 className,
-                variant !== 'full-width' && 'dsr-shadow-lg',
               ])}
               style={{ backgroundColor: activeColor, color: textColor }}
           >
@@ -136,7 +136,7 @@ const Banner = ({ className, variant, onClose, position = 'top', text, color = '
   return (
       <div className="dsr-w-full">
           {position === 'inline' ? (renderer()) : (
-              <DocumentPortal position={position === 'top' ? 'start' : undefined}>
+              <DocumentPortal position={position === 'top' ? 'start' : 'end'}>
                   {renderer()}
               </DocumentPortal>
           )}
