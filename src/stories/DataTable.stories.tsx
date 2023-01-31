@@ -175,10 +175,12 @@ const columns = [
     'label': 'Name',
     fill: true,
     link: (i) => `#${i.id}`,
-    'value': (i) => (<div>
-        {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
-        {i.name}
-    </div>),
+    'value': (i) => (
+        <span>
+            {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
+            {i.name}
+        </span>
+    ),
     'allowSort': true,
   },
   {
@@ -252,6 +254,12 @@ AccordionTable.args = {
       <div className="p-4">
           <div className="text-sm text-gray-500">
               {c?.name}
+
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque eius esse molestiae molestias, nobis, quasi quidem quis, sequi sit sunt suscipit veritatis. Deserunt doloremque et, officiis quia quibusdam quis.
+
+              <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus deleniti dicta distinctio, dolorum eligendi est illo incidunt maiores, necessitatibus, nemo nobis possimus quaerat quas reiciendis repellat sapiente unde voluptas voluptate.
+              </p>
           </div>
       </div>
   ),

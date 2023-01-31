@@ -35,7 +35,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   useEffect(() => { if (barRef.current) setWidth(barRef.current.offsetWidth); }, [barRef.current]);
 
   return (
-      <div
+      <tr
           className="dsr-grid dsr-w-full dsr-transition-transform"
           ref={barRef}
           style={gridTemplate}
@@ -102,10 +102,9 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                         </div>
                     )}
                 </th>
-            ),
-            )
+            ))
           )}
-      </div>
+      </tr>
   );
 
 };
