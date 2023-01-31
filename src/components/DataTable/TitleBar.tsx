@@ -20,7 +20,7 @@ type ItemListerTitleBarProps<Type> = {
   toggleAccordions?: (state: boolean) => void,
 };
 
-const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-color';
+const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-primaryTextColor';
 
 const ItemListerTitleBar = <Type extends { id: string }>({
   properties, currentSortAttribute, sortOrder, isAccordionsOpen = undefined, toggleAccordions = () => {},

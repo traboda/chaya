@@ -17,7 +17,7 @@ export type BadgeProps = {
   circular?: boolean,
 };
 
-const badgeSizeDefinitions = {
+const sizeDefinitions = {
   xs: 'dsr-px-1.5 dsr-py-0 dsr-text-xs',
   sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
   md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
@@ -72,7 +72,7 @@ const Badge = ({
 
   const computedClassName = clsx([
     className,
-    badgeSizeDefinitions[size],
+    sizeDefinitions[size],
     'badge dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);

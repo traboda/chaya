@@ -108,8 +108,7 @@ const Tabs = ({
 
   const menuButtonClassNameGenerator = (key: string) => clsx([
     'dsr-text-lg dsr-font-semibold dsr-px-5 dsr-py-2 dsr-rounded-lg dsr-outline-none',
-    // 'dsr-border-0 dsr-bg-transparent dsr-no-underline  dsr-transition-all',
-    currentTab === key ? 'active dsr-bg-primary dsr-text-color' : 'hover:dsr-bg-gray-500/20 focus:dsr-bg-gray-500/20',
+    currentTab === key ? 'active dsr-bg-primary dsr-text-primaryTextColor' : 'hover:dsr-bg-gray-500/20 focus:dsr-bg-gray-500/20',
     menuButtonClassName,
     isVertical ? 'dsr-w-full dsr-text-left' : '',
   ]);

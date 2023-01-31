@@ -42,7 +42,7 @@ const Accordion = ({
           <button
               className={clsx([
                 'accordion-button dsr-w-full dsr-p-3 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-xl',
-                'dsr-justify-between dsr-text-color',
+                'dsr-justify-between dsr-text-color dsr-items-center',
                 titleClassName,
               ])}
               aria-expanded={isOpen}
