@@ -17,6 +17,7 @@ export { default as Button } from './components/Button';
 export { default as ToolTip } from './components/ToolTip';
 export { default as PinInput } from './components/PinInput';
 export { default as Dropdown } from './components/Dropdown';
+export { default as HoverCard } from './components/HoverCard';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';
 export { default as DataTable } from './components/DataTable';
