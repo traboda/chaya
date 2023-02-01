@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../utils/misc';
-import DSRContext from '../contexts/DSRContext';
 
 import SimpleSelect from './SimpleSelect';
 import Badge, { BadgeProps } from './Badge';
@@ -74,7 +73,6 @@ const Tabs = ({
   const [currentTab, setTab] = useState(initialKey ?? getInitialTab());
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, height: 0, translate: 0 });
   const tabRef = useRef<HTMLUListElement>(null);
-  const { isDarkTheme } = useContext(DSRContext);
 
   const updateIndicator = () => {
     if (tabRef.current) {
@@ -82,18 +80,8 @@ const Tabs = ({
       if (tab) {
         const { left, width, height, top } = tab.getBoundingClientRect();
         const { left: containerLeft, top: containerTop } = tabRef.current.getBoundingClientRect();
-        const underlineComponent:HTMLDivElement | null = (
-          tabRef.current.querySelector('.tab-underline') ||
-                    tabRef.current.parentElement?.querySelector('.tab-underline') ||
-                    null
-        );
-        if (underlineComponent) {
-          if (isVertical) {
-            setIndicatorStyle({ height, translate: (top - containerTop), width: 0 });
-          } else {
-            setIndicatorStyle({ height: 0, width, translate: (left - containerLeft) });
-          }
-        }
+        if (isVertical) setIndicatorStyle({ height, translate: (top - containerTop), width: 0 });
+        else setIndicatorStyle({ height: 0, translate: (left - containerLeft), width });
       }
     }
   };
@@ -114,21 +102,18 @@ const Tabs = ({
       <div
           className={clsx([
             'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2',
-            (variant === 'underline') && 'dsr-transition-all dsr-transition hover:dsr-ease-in-out dsr-duration-200 dsr-delay-[50ms] hover:dsr-bg-gray-400/20 dsr-gap-y-2 dsr-py-0.5 dsr-p-2 hover:dsr-backdrop-blur dsr-rounded-lg',
-            variant === 'underline' && (isDarkTheme ? 'dsr-bg-gray-200/15' : 'dsr-bg-black/5'),
+            variant === 'underline' && 'dsr-transition-all dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-gap-2 dsr-py-0.5 dsr-px-2 hover:dsr-backdrop-blur',
           ])}
       >
           <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
               {t.icon && <span className="dsr-w-[16px]"><Icon icon={t.icon} size={16} /></span>}
               <span className={t.labelClassName}>{t.label}</span>
           </div>
-          {countBadgeProps && (
-          <Badge size="sm" {...{ ...countBadgeProps, ...t?.countBadgeProps }}>{t?.count}</Badge>
-          )}
+          {countBadgeProps && <Badge size="sm" {...{ ...countBadgeProps, ...t?.countBadgeProps }}>{t?.count}</Badge>}
       </div>
   );
 
-  const renderPanels = () => tabItems?.length > 0 ? (
+  const renderPanels = tabItems?.length > 0 ? (
       <div
           key="tab_panel"
           role="tabpanel"
@@ -143,7 +128,7 @@ const Tabs = ({
       </div>
   ) : <div />;
 
-  const Underline = (
+  const underlineRenderer = (
       <div
           className={clsx([
             'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
@@ -235,7 +220,7 @@ const Tabs = ({
     ))
   );
 
-  const VerticalSelector = (
+  const verticalSelector = (
       <ul
           id={tabID}
           role="tablist"
@@ -252,7 +237,7 @@ const Tabs = ({
       </ul>
   );
 
-  const HorizontalSelector = (
+  const horizontalSelector = (
       <ul
           id={tabID}
           role="tablist"
@@ -270,7 +255,7 @@ const Tabs = ({
       </ul>
   );
 
-  const ResponsiveSelector = (
+  const responsiveSelector = (
       <SimpleSelect
           labels={{ placeholder: 'Select Tab' }}
           required
@@ -292,22 +277,22 @@ const Tabs = ({
               {!disableResponsive ? (
                   <React.Fragment>
                       <div className="dsr-hidden md:dsr-block dsr-relative">
-                          {VerticalSelector}
-                          {variant === 'underline' && Underline}
+                          {verticalSelector}
+                          {variant === 'underline' && underlineRenderer}
                       </div>
                       <div className="dsr-block md:dsr-hidden">
-                          {ResponsiveSelector}
+                          {responsiveSelector}
                       </div>
                   </React.Fragment>
               ) : (
                   <div className="dsr-relative">
-                      {VerticalSelector}
-                      {variant === 'underline' && Underline}
+                      {verticalSelector}
+                      {variant === 'underline' && underlineRenderer}
                   </div>
               )}
           </div>
           <div className={clsx([bodyClassName, 'dsr-w-full md:dsr-w-4/5 dsr-pr-4 dsr-pl-4'])}>
-              {renderPanels()}
+              {renderPanels}
           </div>
       </div>
   ) : (
@@ -320,21 +305,21 @@ const Tabs = ({
           {!disableResponsive ? (
               <React.Fragment>
                   <div className="dsr-hidden md:dsr-block dsr-relative">
-                      {HorizontalSelector}
-                      {variant === 'underline' && Underline}
+                      {horizontalSelector}
+                      {variant === 'underline' && underlineRenderer}
                   </div>
                   <div className="dsr-block md:dsr-hidden">
-                      {ResponsiveSelector}
+                      {responsiveSelector}
                   </div>
               </React.Fragment>
           ) : (
               <div className="dsr-relative">
-                  {HorizontalSelector}
-                  {variant === 'underline' && Underline}
+                  {horizontalSelector}
+                  {variant === 'underline' && underlineRenderer}
               </div>
           )}
           <div className={clsx([bodyClassName, 'dsr-py-3'])}>
-              {renderPanels()}
+              {renderPanels}
           </div>
       </div>
   );
