@@ -61,9 +61,7 @@ const Tabs = ({
     let tabkey = tabItems.length > 0 && tabItems[0].type !== 'section' ? tabItems[0].key : null;
     if (tabItems.length > 0) {
       tabItems.forEach((t) => {
-        if (tabkey === null && t.key && t.type !== 'section')
-          tabkey = t.key;
-        if (t.isInitial)
+        if ((tabkey === null && t.key && t.type !== 'section') || t.isInitial)
           tabkey = t.key;
       });
     }

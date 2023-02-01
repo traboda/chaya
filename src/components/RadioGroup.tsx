@@ -1,12 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import Radio, { RadioColor, RadioOptionType, RadioSize } from './Radio';
+import Radio, { RadioColor, RadioSize } from './Radio';
 
 export type RadioGroupType = {
   onChange: (value: string) => void,
-  value: RadioOptionType | string,
-  options: RadioOptionType[],
+  value: string,
+  options: {
+    value: string,
+    label: string
+  }[],
   color?: RadioColor, 
   size?: RadioSize, 
   isDisabled?: boolean,
@@ -25,11 +28,12 @@ const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', 
           {options.map((option, index) => (
               <Radio
                   key={index}
-                  option={option}
-                  selected={value === option.value}
+                  value={option.value}
+                  label={option.label}
                   color={color}
                   size={size}
                   onChange={() => onChange(option.value)}
+                  isSelected={value === option.value}
                   isDisabled={isDisabled}
               />
           ))}

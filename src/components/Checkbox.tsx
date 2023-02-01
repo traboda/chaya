@@ -1,24 +1,17 @@
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent } from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-export type CheckboxOptionType = {
-  label: string,
-  value: string,
-  disabled?: boolean,
-};
-
 export type CheckboxButtonProps = {
+  value: string,
+  label: string,
   onChange: (value: ChangeEvent<HTMLInputElement>) => void,
-  option: CheckboxOptionType,
-  checked?: boolean,
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
+  isChecked?: boolean,
   spacing?: string,
 };
 
@@ -39,19 +32,16 @@ export const colors = {
   'default': 'dsr-bg-gray-500/70',
 };
 
-const Checkbox = ({ option, checked = false, onChange, color = 'primary', size = 'md', isDisabled }: CheckboxButtonProps) => {
-
-  const { isDarkTheme } = useContext(DSRContext);
-
+const Checkbox = ({ value, label, isChecked = false, onChange, color = 'primary', size = 'md', isDisabled }: CheckboxButtonProps) => {
   return (
       <label className="checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
           <input
               onChange={onChange}
               type="checkbox"
-              name={option.value}
-              value={option.value}
-              checked={checked}
-              disabled={isDisabled || option.disabled}
+              name={value}
+              value={value}
+              checked={isChecked}
+              disabled={isDisabled}
               className={clsx([
                 'checkbox dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
                 'dsr-overflow-hidden dsr-absolute -dsr-m-1',
@@ -62,21 +52,21 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
               className={clsx([
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-border-none dsr-rounded-sm', sizes[size]?.button,
-                checked ? colors[color] : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                isChecked ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
               ])}
           >
               <div
                   className={clsx([
                     'dsr-flex dsr-justify-center dsr-items-center dsr-h-full dsr-w-full dsr-p-0.5',
                     'dsr-duration-200 dsr-origin-bottom-left dsr-text-white dsr-ease-in-out dsr-transition-opacity',
-                    checked ? 'dsr-opacity-100 dsr-scale-100' : 'dsr-opacity-0 dsr-scale-75',
+                    isChecked ? 'dsr-opacity-100 dsr-scale-100' : 'dsr-opacity-0 dsr-scale-75',
                   ])}
               >
                   <svg
                       viewBox="0 0 12 10"
                       style={{ fill: 'none', strokeWidth: '2px', stroke: 'currentcolor', strokeDasharray: '16px' }}
                       className={clsx([
-                        checked && 'dsr-scale-100',
+                        isChecked && 'dsr-scale-100',
                         'dsr-duration-400 dsr-origin-bottom-left dsr-ease-out dsr-transition dsr-transform',
                       ])}
                   >
@@ -84,7 +74,7 @@ const Checkbox = ({ option, checked = false, onChange, color = 'primary', size =
                   </svg>
               </div>
           </span>
-          <span className={clsx([ 'dsr-ml-2', sizes[size]?.label ])}>{ option.label }</span>
+          <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
       </label>
   );
 };
