@@ -36,6 +36,7 @@ export { default as AccordionGroup } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
 export { default as SelectorButton } from './components/SelectorButton';
 export { default as CircularProgress } from './components/CircularProgress';
+export { default as SidebarNavigation } from './components/SidebarNavigation';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 
 // hooks
