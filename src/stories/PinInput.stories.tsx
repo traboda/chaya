@@ -31,7 +31,6 @@ const Template: Story = args => {
               Pin:
               {value}
           </h1>
-          {/*// @ts-ignore*/}
           <PinInput {...args} value={value} onChange={setValue} />
       </div>
   );
@@ -40,6 +39,16 @@ const Template: Story = args => {
 export const Default = Template.bind({});
 
 Default.args = {
+  labels: {
+    placeholder: '44kl4K',
+  },
+};
+
+
+export const ClassVariant = Template.bind({});
+
+ClassVariant.args = {
+  variant: 'classic',
   labels: {
     placeholder: '44kl4K',
   },
@@ -57,7 +66,6 @@ export const FormSubmission: Story = (args) => {
                   Pin:
                   {value}
               </h1>
-              {/*// @ts-ignore*/}
               <PinInput {...args} value={value} onChange={setValue} />
               <button type="submit">
                   Submit

@@ -45,6 +45,10 @@ export const Default = Template.bind({});
 
 Default.args = { items };
 
+export const UnderlineVariant = Template.bind({});
+
+UnderlineVariant.args = { items, variant: 'underline' };
+
 export const WithBadge = Template.bind({});
  
 WithBadge.args = {
@@ -64,6 +68,14 @@ WithBadge.args = {
 export const Vertical = Template.bind({});
 
 Vertical.args = {
+  isVertical: true,
+  items,
+};
+
+export const VerticalUnderlineVariant = Template.bind({});
+
+VerticalUnderlineVariant.args = {
+  variant: 'underline',
   isVertical: true,
   items,
 };

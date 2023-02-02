@@ -147,7 +147,7 @@ const Tabs = ({
     'dsr-text-lg dsr-font-semibold dsr-outline-none dsr-duration-200 dsr-transition',
     'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background',
     menuButtonClassName,
-    currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary' : 'active' : '',
+    currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary dsr-text-primaryTextColor' : 'active' : '',
     variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-px-2' : 'dsr-py-2',
   ]);
 

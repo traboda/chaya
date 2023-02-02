@@ -31,7 +31,7 @@ const PinDigit = ({
           className={clsx([
             'pin-digit dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-italic placeholder:dsr-text-slate-400/40',
             isDarkTheme ? 'dsr-text-white' : 'dsr-text-black',
-            variant === 'minimal' ? 'dsr-border-b-2 focus:dsr-border-primary' : 'dsr-rounded-lg focus:dsr-border-2',
+            variant === 'minimal' ? 'dsr-border-b-2 focus:dsr-border-primary' : 'dsr-py-1 dsr-rounded focus:dsr-border-2',
             className,
             invalid ? 'dsr-border-red-500' : 'dsr-border-gray-400/40',
           ])}
