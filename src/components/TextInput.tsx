@@ -14,9 +14,9 @@ export type TextInputProps<Type> = {
   placeholder?: string
   type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url')
   value: Type
-  required?: boolean
-  disabled?: boolean
-  invalid?: boolean
+  isRequired?: boolean
+  isDisabled?: boolean
+  isInvalid?: boolean
   inputClassName?: string
   inputStyle?: React.CSSProperties
   rows?: number
@@ -44,7 +44,7 @@ export type TextInputProps<Type> = {
 const TextInput = <Type extends string | number>({
   id, label, name, placeholder, value: val, charLimit = null,
   className, style, hideLabel = false,
-  required = false, disabled = false, invalid = false, autoFocus = false,
+  isRequired = false, isDisabled = false, isInvalid = false, autoFocus = false,
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
@@ -55,11 +55,16 @@ const TextInput = <Type extends string | number>({
   const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${nanoid()}`, [id, name]);
 
   const [isTyping, setTyping] = useState(false);
+  const [touched, setTouched] = useState(false);
 
   const [value, setValue] = useState<Type>(val !== null ? val : '' as Type);
   useEffect(() => {
     setValue(val);
   }, [val]);
+
+  useEffect(() => {
+    if (value) setTouched(true);
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -72,6 +77,7 @@ const TextInput = <Type extends string | number>({
   };
 
   const handleFocus = () => {
+    setTouched(true);
     if (typeof onFocus === 'function') onFocus();
     setTyping(true);
   };
@@ -83,7 +89,7 @@ const TextInput = <Type extends string | number>({
 
   const props = {
     'aria-label': label,
-    'aria-required': required,
+    'aria-required': isRequired,
     id: inputID,
     name,
     value: value as (string | number),
@@ -95,8 +101,8 @@ const TextInput = <Type extends string | number>({
     min,
     max,
     autoFocus,
-    required: required,
-    disabled: disabled,
+    required: isRequired,
+    disabled: isDisabled,
     onFocus: handleFocus,
     onBlur: handleBlur,
     onChange: handleChange,
@@ -107,9 +113,10 @@ const TextInput = <Type extends string | number>({
   const inputClassNameCalculated = clsx([
     'dsr-text-lg dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background',
     'dsr-text-color dsr-rounded-lg dsr-border group-hover:dsr-border-gray-400/80',
-    'focus:dsr-outline-none focus:dsr-border-secondary dsr-text-base invalid:dsr-border-red-500',
+    'focus:dsr-outline-none focus:dsr-border-secondary dsr-text-base',
     'placeholder:dsr-text-color placeholder:dsr-opacity-50',
-    invalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
+    isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
+    touched ? 'invalid:dsr-border-red-500' : '',
     inputClassName,
   ]);
 
@@ -128,22 +135,27 @@ const TextInput = <Type extends string | number>({
           style={style}
       >
           {(!hideLabel) && (
-          <div className="dsr-flex dsr-flex-wrap dsr-mb-1 dsr-mx-0">
-              <div className={showLimit ? 'dsr-w-2/3 dsr-px-0' : 'dsr-w-full dsr-px-0'}>
-                  {label &&
-                  <label className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70" htmlFor={inputID} aria-hidden={false}>
-                      {label}
-                      {required && <span className="dsr-ml-1 dsr-text-red-500 dsr-text-sm">*</span>}
-                  </label>}
+              <div className="dsr-flex dsr-flex-wrap dsr-mb-1 dsr-mx-0">
+                  <div className={showLimit ? 'dsr-w-2/3 dsr-px-0' : 'dsr-w-full dsr-px-0'}>
+                      {label && (
+                          <label
+                              className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70"
+                              htmlFor={inputID}
+                              aria-hidden={false}
+                          >
+                              {label}
+                              {isRequired && <span className="dsr-ml-1 dsr-text-red-500 dsr-text-sm">*</span>}
+                          </label>
+                      )}
+                  </div>
+                  {(showLimit && typeof value !== 'number') && (
+                  <div className="text-input-char-limit dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
+                      {(value as string)?.length}
+                      /
+                      {charLimit}
+                  </div>
+                  )}
               </div>
-              {(showLimit && typeof value !== 'number') && (
-              <div className="text-input-char-limit dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
-                  {(value as string)?.length}
-                  /
-                  {charLimit}
-              </div>
-              )}
-          </div>
           )}
           <div className="dsr-relative dsr-group">
               {prefixRenderer && (
@@ -193,14 +205,14 @@ const TextInput = <Type extends string | number>({
               )}
           </div>
           {errorText && (
-          <div className="text-red-400 mt-1">
-              {errorText}
-          </div>
+              <div className="dsr-text-red-400 dsr-mt-1">
+                  {errorText}
+              </div>
           )}
           {description && (
-          <div className="mt-2" style={{ opacity: 0.75, fontSize: '10px' }}>
-              {description}
-          </div>
+              <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">
+                  {description}
+              </div>
           )}
       </div>
   );
