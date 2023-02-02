@@ -15,7 +15,7 @@ type HoverCardProps = {
   maxWidth?: string,
 };
 
-const HoverCard = ({ children, cardRenderer, id, className, minWidth = '250px', maxWidth = '50vw' }: HoverCardProps) => {
+const HoverCard = ({ children, cardRenderer, id, className, minWidth = '250px', maxWidth = '350px' }: HoverCardProps) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
@@ -23,7 +23,7 @@ const HoverCard = ({ children, cardRenderer, id, className, minWidth = '250px', 
   
   const cardBackground = useMemo(() => {
     const background = Color(theme?.background);
-    return isDarkTheme ? background.lighten(1.5).toString() : background.darken(0.1).toString();
+    return isDarkTheme ? background.lighten(0.8).fade(0.2).toString() : background.lighten(0.4).fade(0.2).toString();
   }, [theme]);
 
   return (
@@ -34,12 +34,12 @@ const HoverCard = ({ children, cardRenderer, id, className, minWidth = '250px', 
           <RadixHoverCard.Portal>
               <RadixHoverCard.Content
                   className={clsx([
-                    'HoverCardContent',
-                    'dsr-rounded-lg dsr-shadow-lg dsr-text-color',
+                    'hover-card-content',
+                    'dsr-rounded-lg dsr-shadow-lg dsr-text-color dsr-backdrop-blur-md dsr-transform-gpu',
                     className,
                   ])}
                   style={{
-                    background: cardBackground || theme?.background,
+                    background: cardBackground,
                     minWidth,
                     maxWidth,
                   }}
