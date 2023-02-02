@@ -11,12 +11,12 @@ import buttonStyle from './button.module.scss';
 import { ButtonProps } from './type';
 import Ripple from './Ripple';
 
-const paddings = {
-  xs: 'dsr-px-1 dsr-py-0',
-  sm: 'dsr-px-2 dsr-py-1',
-  md: 'dsr-px-3 dsr-py-2',
-  lg: 'dsr-px-4 dsr-py-3',
-  xl: 'dsr-px-5 dsr-py-4',
+const sizeDefinitions = {
+  xs: 'dsr-px-1 dsr-py-0 dsr-text-xs',
+  sm: 'dsr-px-2 dsr-py-1 dsr-text-sm',
+  md: 'dsr-px-3 dsr-py-2 dsr-text-base',
+  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
+  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
 };
 
 const Button = ({
@@ -84,7 +84,7 @@ const Button = ({
 
   const computedClassName = clsx([
     className,
-    paddings[size],
+    sizeDefinitions[size],
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-rounded-lg dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',

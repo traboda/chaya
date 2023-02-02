@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
@@ -28,7 +28,7 @@ export type TabItemObject = {
   onActive?: () => void
 };
 
-export type Tabs = {
+export type TabsProps = {
   items: TabItemObject[]
   disabled?: boolean
   onClickDisabled?: (key: string) => void,
@@ -42,14 +42,15 @@ export type Tabs = {
   initialKey?: string,
   isVertical?: boolean,
   disableResponsive?: boolean,
-  alignCenter?: boolean
+  alignCenter?: boolean,
+  variant?: 'pill' | 'underline'
 };
 
 const Tabs = ({
   isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey, id,
   className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
-  alignCenter, onChange = () => {}, disableResponsive = false, countBadgeProps,
-}: Tabs) => {
+  alignCenter, onChange = () => {}, disableResponsive = false, countBadgeProps, variant = 'pill',
+}: TabsProps) => {
 
   const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
 
@@ -60,9 +61,7 @@ const Tabs = ({
     let tabkey = tabItems.length > 0 && tabItems[0].type !== 'section' ? tabItems[0].key : null;
     if (tabItems.length > 0) {
       tabItems.forEach((t) => {
-        if (tabkey === null && t.key && t.type !== 'section')
-          tabkey = t.key;
-        if (t.isInitial)
+        if ((tabkey === null && t.key && t.type !== 'section') || t.isInitial)
           tabkey = t.key;
       });
     }
@@ -70,48 +69,86 @@ const Tabs = ({
   };
 
   const [currentTab, setTab] = useState(initialKey ?? getInitialTab());
+  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, height: 0, translate: 0 });
+  const tabRef = useRef<HTMLUListElement>(null);
+
+  const updateIndicator = () => {
+    if (tabRef.current) {
+      const tab = tabRef.current.querySelector('.active');
+      if (tab) {
+        const { left, width, height, top } = tab.getBoundingClientRect();
+        const { left: containerLeft, top: containerTop } = tabRef.current.getBoundingClientRect();
+        if (isVertical) setIndicatorStyle({ height, translate: (top - containerTop), width: 0 });
+        else setIndicatorStyle({ height: 0, translate: (left - containerLeft), width });
+      }
+    }
+  };
+
 
   useEffect(() => {
     if (initialKey && initialKey?.length) setTab(initialKey);
   }, [initialKey]);
 
   useEffect(() => {
-    if (currentTab) onChange(currentTab);
+    if (currentTab) {
+      updateIndicator();
+      onChange(currentTab);
+    }
   }, [currentTab]);
 
   const renderOption = (t: TabItemObject) => (
-      <div className="dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2">
+      <div
+          className={clsx([
+            'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2',
+            variant === 'underline' && 'dsr-transition-all dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-gap-2 dsr-py-0.5 dsr-px-2 hover:dsr-backdrop-blur',
+          ])}
+      >
           <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
               {t.icon && <span className="dsr-w-[16px]"><Icon icon={t.icon} size={16} /></span>}
               <span className={t.labelClassName}>{t.label}</span>
           </div>
-          {countBadgeProps && (
-              <Badge size="sm" {...{ ...countBadgeProps, ...t?.countBadgeProps }}>{t?.count}</Badge>
-          )}
+          {countBadgeProps && <Badge size="sm" {...{ ...countBadgeProps, ...t?.countBadgeProps }}>{t?.count}</Badge>}
       </div>
   );
 
-  const renderPanels = () => tabItems?.length > 0 ?
-    tabItems.map((t) => (
-        <div
-            key={t?.key ? `tab_panel_${t.key}` : nanoid()}
-            role="tabpanel"
-            id={`${tabID}-${t.key}-panel`}
-            aria-labelledby={`${tabID}-${t.key}-tab`}
-        >
-            {t.key === currentTab && (
-              t?.renderer ? t.renderer :
-                t.rendererFunc ? t.rendererFunc() : null
-            )}
-        </div>
-    )) : <div />;
+  const renderPanels = tabItems?.length > 0 ? (
+      <div
+          key="tab_panel"
+          role="tabpanel"
+          id="tab-panel"
+          aria-labelledby="tab-panel"
+          className="dsr-fade-in"
+      >
+          {tabItems.filter(t => t.key === currentTab).map(t => (
+            t?.renderer ? t.renderer :
+              t.rendererFunc ? t.rendererFunc() : null
+          ))}
+      </div>
+  ) : <div />;
+
+  const underlineRenderer = (
+      <div
+          className={clsx([
+            'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
+            'dsr-border-2 dsr-border-primary dsr-rounded-lg dsr-left-0',
+            isVertical ? 'dsr-top-0 dsr-left-0 dsr-w-0' : 'dsr-bottom-0 dsr-w-full',
+          ])}
+          style={{
+            transform: isVertical ?
+              `translateY(${indicatorStyle?.translate}px)` :
+              `translateX(${indicatorStyle?.translate}px)`,
+            width: indicatorStyle?.width,
+            height: indicatorStyle?.height,
+          }}
+      />
+  );
 
   const menuButtonClassNameGenerator = (key: string) => clsx([
-    'dsr-text-lg dsr-font-semibold dsr-px-5 dsr-py-2 dsr-rounded-lg dsr-outline-none',
-    // 'dsr-border-0 dsr-bg-transparent dsr-no-underline  dsr-transition-all',
-    currentTab === key ? 'active dsr-bg-primary dsr-text-color' : 'hover:dsr-bg-gray-500/20 focus:dsr-bg-gray-500/20',
+    'dsr-text-lg dsr-font-semibold dsr-outline-none dsr-duration-200 dsr-transition',
+    'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background',
     menuButtonClassName,
-    isVertical ? 'dsr-w-full dsr-text-left' : '',
+    currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary' : 'active' : '',
+    variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-px-2' : 'dsr-py-2',
   ]);
 
   const renderTabs = () => (
@@ -181,37 +218,42 @@ const Tabs = ({
     ))
   );
 
-  const VerticalSelector = () => (
-      <div
+  const verticalSelector = (
+      <ul
           id={tabID}
           role="tablist"
           aria-orientation="vertical"
+          ref={tabRef}
           className={clsx([
             'dsr-sticky dsr-list-none dsr-top-0 tab-selector vertical-selector',
             'dsr-flex dsr-items-center dsr-flex-col dsr-justify-start',
+            variant === 'underline' ? 'dsr-gap-y-4' : '',
             menuClassName,
           ])}
       >
           {renderTabs()}
-      </div>
+      </ul>
   );
 
-  const HorizontalSelector = () => (
-      <div
+  const horizontalSelector = (
+      <ul
           id={tabID}
           role="tablist"
           aria-orientation="horizontal"
+          ref={tabRef}
           className={clsx([
-            'dsr-list-none tab-selector horizontal-tabs dsr-inline-flex dsr-bg-gray-400/20 bg-rounded-lg',
+            'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
             'dsr-items-center dsr-rounded-lg',
+            variant === 'pill' ? 'dsr-bg-gray-400/20 bg-rounded-lg' : '',
+            variant === 'underline' ? 'dsr-gap-x-4' : '',
             menuClassName,
           ])}
       >
           {renderTabs()}
-      </div>
+      </ul>
   );
 
-  const ResponsiveSelector = () => (
+  const responsiveSelector = (
       <SimpleSelect
           labels={{ placeholder: 'Select Tab' }}
           required
@@ -232,19 +274,23 @@ const Tabs = ({
           <div className="dsr-w-full md:dsr-w-1/5 dsr-p-0">
               {!disableResponsive ? (
                   <React.Fragment>
-                      <div className="dsr-hidden md:dsr-block">
-                          <VerticalSelector />
+                      <div className="dsr-hidden md:dsr-block dsr-relative">
+                          {verticalSelector}
+                          {variant === 'underline' && underlineRenderer}
                       </div>
                       <div className="dsr-block md:dsr-hidden">
-                          <ResponsiveSelector />
+                          {responsiveSelector}
                       </div>
                   </React.Fragment>
               ) : (
-                  <VerticalSelector />
+                  <div className="dsr-relative">
+                      {verticalSelector}
+                      {variant === 'underline' && underlineRenderer}
+                  </div>
               )}
           </div>
           <div className={clsx([bodyClassName, 'dsr-w-full md:dsr-w-4/5 dsr-pr-4 dsr-pl-4'])}>
-              {renderPanels()}
+              {renderPanels}
           </div>
       </div>
   ) : (
@@ -256,18 +302,22 @@ const Tabs = ({
       >
           {!disableResponsive ? (
               <React.Fragment>
-                  <div className="dsr-hidden md:dsr-block">
-                      <HorizontalSelector />
+                  <div className="dsr-hidden md:dsr-block dsr-relative">
+                      {horizontalSelector}
+                      {variant === 'underline' && underlineRenderer}
                   </div>
                   <div className="dsr-block md:dsr-hidden">
-                      <ResponsiveSelector />
+                      {responsiveSelector}
                   </div>
               </React.Fragment>
           ) : (
-              <HorizontalSelector />
+              <div className="dsr-relative">
+                  {horizontalSelector}
+                  {variant === 'underline' && underlineRenderer}
+              </div>
           )}
           <div className={clsx([bodyClassName, 'dsr-py-3'])}>
-              {renderPanels()}
+              {renderPanels}
           </div>
       </div>
   );

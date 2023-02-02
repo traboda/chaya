@@ -4,7 +4,7 @@ import Color from 'color';
 import DSRContext, { IconWrapperType, LinkWrapper } from '../contexts/DSRContext';
 import { Theme } from '../types/theme';
 
-const defaultLinkWrapper = (link: string, component: ReactElement) => <a href={link}>{component}</a>;
+const defaultLinkWrapper = (link: string, component: ReactElement) => component;
 
 const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme, iconWrapper }: {
   children: ReactNode,

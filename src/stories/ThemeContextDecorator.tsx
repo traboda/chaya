@@ -17,14 +17,18 @@ import { DSRContextProvider } from '../index';
 
 const defaultTheme = {
   primary: '#0f51c3',
+  primaryTextColor: '#fff',
   secondary: '#77019e',
+  secondaryTextColor: '#fff',
   color: '#333',
   background: '#eee',
 };
 
 const darkTheme = {
   primary: '#1d66e5',
+  primaryTextColor: '#fff',
   secondary: '#b64fd7',
+  secondaryTextColor: '#fff',
   color: '#FFF',
   background: '#222',
 };

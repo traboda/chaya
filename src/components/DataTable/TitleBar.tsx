@@ -20,7 +20,7 @@ type ItemListerTitleBarProps<Type> = {
   toggleAccordions?: (state: boolean) => void,
 };
 
-const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-color';
+const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-primaryTextColor';
 
 const ItemListerTitleBar = <Type extends { id: string }>({
   properties, currentSortAttribute, sortOrder, isAccordionsOpen = undefined, toggleAccordions = () => {},
@@ -35,7 +35,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   useEffect(() => { if (barRef.current) setWidth(barRef.current.offsetWidth); }, [barRef.current]);
 
   return (
-      <div
+      <tr
           className="dsr-grid dsr-w-full dsr-transition-transform"
           ref={barRef}
           style={gridTemplate}
@@ -102,10 +102,9 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                         </div>
                     )}
                 </th>
-            ),
-            )
+            ))
           )}
-      </div>
+      </tr>
   );
 
 };

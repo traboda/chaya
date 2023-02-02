@@ -1,13 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import Checkbox, { CheckboxColor, CheckboxOptionType, CheckboxSize } from './Checkbox';
-
+import Checkbox, { CheckboxColor, CheckboxSize } from './Checkbox';
 
 type CheckboxGroupType = {
   onChange: (values: string[]) => void,
   value: string[],
-  options: CheckboxOptionType[],
+  options: {
+    value: string,
+    label: string
+  }[],
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
@@ -29,8 +31,10 @@ const CheckboxGroup = ({
           {options.map((option, index) => (
               <Checkbox
                   key={index}
-                  option={option}
-                  checked={value.includes(option.value)}
+                  value={option.value}
+                  label={option.label}
+                  isChecked={value.includes(option.value)}
+                  isDisabled={isDisabled}
                   color={color}
                   size={size}
                   onChange={() => {
@@ -38,7 +42,6 @@ const CheckboxGroup = ({
                       value.filter(value => value !== option.value) :
                       [...value, option.value]);
                   }}
-                  isDisabled={isDisabled}
               />
           ))}
       </div>

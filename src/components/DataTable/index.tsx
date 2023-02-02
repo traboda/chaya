@@ -33,7 +33,7 @@ type DataTableProps<Type> = {
 const DataTable = <Type extends { id: string }>({
   properties = [],
   items = [],
-  emptyListRenderer = () => <div />,
+  emptyListRenderer = () => null,
   isLoading = false, canLoadMore = false,
   allowSelection = false, onSelect = () => {},
   onLoadMore = () => {}, maxHeight,
@@ -135,8 +135,7 @@ const DataTable = <Type extends { id: string }>({
                         className="data-table dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full"
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
-                        {/*// @todo div is not allowed inside table*/}
-                        <div className="dsr-sticky dsr-z-50" ref={titleBarRef} style={{ top: titleTopHeight }}>
+                        <thead className="dsr-sticky dsr-z-50" ref={titleBarRef} style={{ top: titleTopHeight }}>
                             <ItemListerTitleBar<Type>
                                 properties={properties}
                                 onSort={onSort}
@@ -157,15 +156,14 @@ const DataTable = <Type extends { id: string }>({
                                     supportAccordion={canExpand}
                                 />
                             )}
-                        </div>
+                        </thead>
                         <tbody>
                             {items?.length > 0 ?
                               items.map((i, index) =>
                                 canExpand ? (
-                                    // @todo - div is not allowed inside a table
-                                    <div className="accordion">
-                                        <div className="accordion-item">
-                                            <div> 
+                                    <tr>
+                                        <td colSpan={items.length - 1}>
+                                            <table className="data-table dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full table-accordion">
                                                 <ItemListerItem<Type>
                                                     key={i?.id ?? nanoid()}
                                                     properties={properties}
@@ -176,14 +174,15 @@ const DataTable = <Type extends { id: string }>({
                                                     supportAccordion={canExpand}
                                                     isAccordionOpen={activeIndex.includes(index)}
                                                 />
-                                            </div>
-                                            {activeIndex.includes(index) && (
-                                                <div className="accordion-content">
-                                                    {accordionRenderer(i)}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
+
+                                                {activeIndex.includes(index) && (
+                                                    <tr className="accordion-content data-table-row dsr-grid dsr-items-center dsr-group dsr-w-full">
+                                                        <td colSpan={items.length - 1}>{accordionRenderer(i)}</td>
+                                                    </tr>
+                                                )}
+                                            </table>
+                                        </td>
+                                    </tr>
                                 ) : (
                                     <ItemListerItem<Type>
                                         key={i.id ? i.id : nanoid()}
@@ -194,23 +193,24 @@ const DataTable = <Type extends { id: string }>({
                                     />
                                 ),
                               ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
-                                emptyListRenderer() : <div />}
+                                emptyListRenderer() : null}
+
+                            {isLoading && Array(10).fill(0).map(() => (
+                                <ItemListerItem<Type>
+                                    key={nanoid()}
+                                    properties={properties}
+                                    isLoading
+                                    gridTemplate={gridTemplate}
+                                />
+                            ))}
                         </tbody>
-                        {isLoading && Array(10).fill(0).map(() => (
-                            <ItemListerItem<Type>
-                                key={nanoid()}
-                                properties={properties}
-                                isLoading
-                                gridTemplate={gridTemplate}
-                            />
-                        ))}
-                        <InfiniteLoader
-                            loadable={loadable}
-                            canLoadMore={canLoadMore}
-                            isLoading={isLoading}
-                            onLoadMore={onLoadMore}
-                        />
                     </table>
+                    <InfiniteLoader
+                        loadable={loadable}
+                        canLoadMore={canLoadMore}
+                        isLoading={isLoading}
+                        onLoadMore={onLoadMore}
+                    />
                 </div>
             )}
       </SelectionHelper>

@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 type ProgressBar = {
   value: number,
@@ -24,32 +22,26 @@ const sizes = {
 
 const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, minVal = 0, maxVal = 100, height }: ProgressBar) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
-  
   return (
       <div
           id={id}
           className={clsx([
-            'progress-bar dsr-w-full dsr-rounded-lg',
+            'progress-bar dsr-w-full dsr-rounded-lg dsr-bg-gray-500/20',
             className,
           ])}
-          style={{
-            background: isDarkTheme ? 'rgba(237, 237, 237, 0.1)' : 'rgba(237, 237, 237, 0.75)',
-            height: height ? height : sizes[size],
-          }}
+          style={{ height: height ? height : sizes[size] }}
       >
           <div
               role="progressbar"
               className={clsx([
-                'progress-bar-progress dsr-rounded-lg dsr-h-full',
+                'progress-bar-progress dsr-rounded-lg dsr-h-full dsr-bg-primary',
               ])}
               style={{
                 width: `${value || 0}%`,
                 backgroundSize: '1rem 1rem',
-                backgroundColor: theme?.secondary,
-                backgroundImage: striped ? 'linear-gradient( 45deg, rgba(255,255,255,.15) 25%,transparent 25%,' +
-                    'transparent 50%, rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%, ' +
-                    'transparent 75%,transparent )' : '',
+                backgroundImage: striped ? 'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, ' +
+                    'transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, ' +
+                    'transparent 75%, transparent )' : '',
               }}
               aria-valuenow={(value / 100) * maxVal}
               aria-valuemin={minVal}

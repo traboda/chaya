@@ -1,26 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
-import DSRContext from '../../contexts/DSRContext';
-
 import styled from './radio.module.scss';
-
-export type RadioOptionType = {
-  label: string,
-  value: string,
-  disabled?: boolean,
-};
 
 export type RadioColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 type RadioButtonProps = {
+  label: string,
+  value: string,
   onChange: (value: string) => void,
-  option: RadioOptionType,
   color?: RadioColor,
   size?: RadioSize,
   isDisabled?: boolean,
-  selected?: boolean,
+  isSelected?: boolean,
 };
 
 const colors = {
@@ -40,21 +33,18 @@ const sizes = {
   'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
 };
 
-const Radio = ({ option, selected = false, onChange, color = 'primary', size = 'md', isDisabled }: RadioButtonProps) => {
-
-  const { isDarkTheme } = useContext(DSRContext);
-
+const Radio = ({ value, label, isSelected = false, onChange, color = 'primary', size = 'md', isDisabled }: RadioButtonProps) => {
   return (
       <div
           className="radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
-          onClick={() => onChange(option.value)}
+          onClick={() => onChange(value)}
       >
           <input
               type="radio"
-              name={option.value}
-              value={option.value}
-              checked={selected}
-              disabled={isDisabled || option.disabled}
+              name={label}
+              value={value}
+              checked={isSelected}
+              disabled={isDisabled}
               className={clsx([
                 'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
                 'dsr-overflow-hidden dsr-absolute -dsr-m-1',
@@ -66,11 +56,11 @@ const Radio = ({ option, selected = false, onChange, color = 'primary', size = '
                 'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
                 'dsr-border-none dsr-rounded-full dsr-text-white',
                 sizes[size]?.button,
-                selected ? styled.radioButton : '',
-                selected ? colors[color] : isDarkTheme ? 'dsr-bg-white/20' : 'dsr-bg-gray-500/20',
+                isSelected ? styled.radioButton : '',
+                isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
               ])}
           />
-          <span className={clsx([ 'dsr-ml-2', sizes[size]?.label ])}>{ option.label }</span>
+          <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
       </div>
   );
 };
