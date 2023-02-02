@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useContext, useMemo } from 'react';
+import React, { ReactNode, useContext, useMemo } from 'react';
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
@@ -9,13 +9,13 @@ import DSRContext from '../contexts/DSRContext';
 type HoverCardProps = {
   id?: string,
   className?: string,
-  children: ReactElement,
-  cardRenderer: (ReactNode | string),
-  minWidth?: string,
-  maxWidth?: string,
+  children: ReactNode,
+  cardRenderer: ReactNode,
+  minWidth?: string | number,
+  maxWidth?: string | number,
 };
 
-const HoverCard = ({ children, cardRenderer, id, className, minWidth = '250px', maxWidth = '350px' }: HoverCardProps) => {
+const HoverCard = ({ children, cardRenderer, id, className, minWidth = 250, maxWidth = 350 }: HoverCardProps) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
