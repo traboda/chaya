@@ -58,6 +58,7 @@ const PageNavigator = ({
               <div className="dsr-flex dsr-items-stretch">
                   {(showEdges && page > 2) && (
                       <Button
+                          label="Go to first page"
                           className="first-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
                           onClick={() => setPage(1)}
                       >
@@ -66,6 +67,7 @@ const PageNavigator = ({
                   )}
                   {(showControls && page > 1) && (
                       <Button
+                          label="Go to previous page"
                           className="previous-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
                           onClick={() => setPage(page - 1)}
                       >
@@ -74,6 +76,7 @@ const PageNavigator = ({
                   )}
                   {getPageNo().map((item, index) => (
                       <Button
+                          label={`Go to page ${item}`}
                           variant={page === item ? 'solid' : 'outline'}
                           color={page === item ? 'contrast' : 'secondary'}
                           disabled={page === item}
@@ -89,6 +92,7 @@ const PageNavigator = ({
                   ))}
                   {(showControls && !(page + 1 >= length)) && (
                       <Button
+                          label="Go to next page"
                           className="next-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
                           onClick={() => setPage(page + 1)}
                       >
@@ -97,6 +101,7 @@ const PageNavigator = ({
                   )}
                   {(showEdges && (page + 1 < length)) && (
                       <Button
+                          label="Go to last page"
                           className="last-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
                           onClick={() => setPage(length)}
                       >

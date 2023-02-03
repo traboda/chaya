@@ -9,6 +9,7 @@ import Icon from './Icon';
 export type BreadcrumbItemProps = {
   link?: string,
   title?: ReactNode,
+  label?: string,
   isActive?: boolean
 };
 
@@ -24,7 +25,7 @@ export const BreadcrumbItem = ({ item, className } : {
 }) => (
     <li className={clsx('breadcrumb-item dsr-flex dsr-items-center dsr-gap-2 dsr-text-color hover:dsr-text-primary', className)}>
         <span>
-            {LinkWrapper(item?.link || '#', item?.title)}
+            {LinkWrapper(item?.link || '#', item?.title, { label: item?.label })}
         </span>
         <span className="dsr-text-color hover:dsr-text-primary">/</span>
     </li>
@@ -36,6 +37,7 @@ const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPro
             item={{
               title: <Icon icon="home" size={18} />,
               link: '/',
+              label: 'Go to home page',
             }}
             className={itemClassName}
         />
