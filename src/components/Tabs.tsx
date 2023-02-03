@@ -144,8 +144,8 @@ const Tabs = ({
   );
 
   const menuButtonClassNameGenerator = (key: string) => clsx([
-    'dsr-text-lg dsr-font-semibold dsr-outline-none dsr-duration-200 dsr-transition',
-    'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background',
+    'dsr-text-lg dsr-font-semibold dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
+    'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background dsr-outline-2',
     menuButtonClassName,
     currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary dsr-text-primaryTextColor' : 'active' : '',
     variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-px-2' : 'dsr-py-2',

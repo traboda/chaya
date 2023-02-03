@@ -88,6 +88,7 @@ const Button = ({
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-rounded-lg dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
+    'focus-visible:dsr-outline dsr-outline-2',
   ]);
 
   const computedStyle = {
