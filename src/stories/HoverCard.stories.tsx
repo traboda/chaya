@@ -1,22 +1,11 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { Button, HoverCard } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Content Handlers/HoverCard',
   component: HoverCard,
-  argTypes: {
-    children: {
-      control: {
-        type: 'text',
-      },
-    },
-  },
   parameters: {
     backgrounds: {},
     controls: { expanded: true },
@@ -56,10 +45,7 @@ const Card = () => (
 );
 
 const Template: Story = args => (
-    <div
-        className="dsr-fixed dsr-top-1/2 dsr-left-0 dsr-w-full dsr-h-full"
-        style={{ background: 'url(https://source.unsplash.com/random/1920x1080) center / cover no-repeat' }}
-    >
+    <div className="dsr-fixed dsr-top-1/2 dsr-left-0 dsr-w-full dsr-h-full">
         <div className="dsr-fixed dsr-top-0 dsr-left-0">
             <HoverCard cardRenderer={<Card />} {...args}>
                 <Button className="text-white">Hover Top-Left</Button>

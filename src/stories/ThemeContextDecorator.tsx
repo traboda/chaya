@@ -1,17 +1,10 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ChevronUp,
-  ExternalLink,
-  Home,
-  Search,
-  X,
+  ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
+  ExternalLink, Home, Search, Settings, X,
 } from 'react-feather';
+import { nanoid } from 'nanoid';
 
 import { DSRContextProvider } from '../index';
 
@@ -33,11 +26,15 @@ const darkTheme = {
   background: '#222',
 };
 
-export default (storyFn: () => ReactNode) => {
+const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
   const theme = useDarkMode() ? darkTheme : defaultTheme;
 
   return (
-      <div className="dsr-p-1 dsr-rounded-lg" style={{ background: theme.background, color: theme.color }}>
+      <div
+          key={nanoid()}
+          className="dsr-p-4 dsr-rounded-lg"
+          style={{ background: theme.background, color: theme.color }}
+      >
           <DSRContextProvider
               theme={theme}
               iconWrapper={(icon, props) => ({
@@ -51,10 +48,14 @@ export default (storyFn: () => ReactNode) => {
                 'chevrons-right': <ChevronsRight {...props} />,
                 externalLink: <ExternalLink {...props} />,
                 home: <Home {...props} />,
+                settings: <Settings {...props} />,
               })[icon] ?? <>n/a</>}
           >
-              {storyFn()}
+              {children}
           </DSRContextProvider>
       </div>
   );
+
 };
+
+export default ThemeContextDecorator;

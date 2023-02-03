@@ -1,10 +1,7 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { SimpleSelect } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'User Inputs/Simple Select',

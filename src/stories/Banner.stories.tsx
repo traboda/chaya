@@ -1,10 +1,7 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { Banner } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Content Handlers/Banner',

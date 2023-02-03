@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { PinInput } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'User Inputs/Pin Input',

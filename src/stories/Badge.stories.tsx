@@ -1,13 +1,8 @@
 // @ts-nocheck
 import React from 'react';
-import { Meta, Story, addDecorator } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { Badge } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Basic Elements/Badge',

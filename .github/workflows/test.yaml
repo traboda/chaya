@@ -1,4 +1,4 @@
-name: Lint
+name: Test
 
 on:
   pull_request:
@@ -20,5 +20,11 @@ jobs:
         run: npm install
       - name: Run ESLint
         run: npm run lint
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm install
       - name: Run Type checks
         run: npm run type-check

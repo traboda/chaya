@@ -1,11 +1,7 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { SidebarNavigation } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Layouts/Sidebar Navigation',
@@ -28,8 +24,7 @@ export default meta;
 
 const Template: Story = args => (
     <div style={{ width: '280px' }}>
-        {/*// @ts-ignore*/}
-        <SidebarNavigation {...args} />
+        <SidebarNavigation key={JSON.stringify(args)} items={args?.items} {...args} />
     </div>
 );
 
@@ -39,22 +34,22 @@ Basic.args = {
   activeItem: 'third-second',
   items: [
     {
-      key: 'first',
-      name: 'First',
+      key: 'DASHBOARD',
+      name: 'Dashboard',
       link: '/',
       icon: 'home',
     },
     {
-      key: 'second',
-      name: 'Second',
+      key: 'CHALLENGES',
+      name: 'Challenges',
       link: '/',
       icon: 'home',
     },
     {
-      key: 'third',
-      name: 'Third',
+      key: 'settings',
+      name: 'Settings',
       link: '/',
-      icon: 'home',
+      icon: 'settings',
       items: [
         {
           key: 'third-first',

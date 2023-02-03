@@ -1,11 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Meta, Story, addDecorator } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { useCounter } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Hooks/useCounter',

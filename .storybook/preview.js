@@ -1,5 +1,6 @@
 import '../dist/style.css';
 import { themes } from '@storybook/theming';
+import ThemeContextDecorator from "../src/stories/ThemeContextDecorator";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -20,3 +21,11 @@ export const parameters = {
     }
   }
 }
+
+export const decorators = [
+  (Story) => (
+      <ThemeContextDecorator>
+        <Story />
+      </ThemeContextDecorator>
+  ),
+];

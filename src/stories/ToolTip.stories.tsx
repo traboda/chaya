@@ -1,11 +1,7 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { Button, ToolTip } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Content Handlers/ToolTip',
@@ -28,42 +24,45 @@ export default meta;
 const Template: Story = args => (
     <div
         className="dsr-fixed dsr-top-1/2 dsr-left-0 dsr-w-full dsr-h-full"
-        style={{ background: 'url(https://source.unsplash.com/random/1920x1080) center / cover no-repeat' }}
     >
         <div className="dsr-fixed dsr-top-0 dsr-left-0">
-            <ToolTip overlay={<div>abcdefg</div>} {...args}>
-                <Button className="text-white">Hover Top-Left</Button>
+            <ToolTip overlay={<div>Shows at the bottom of the button.</div>} {...args}>
+                <Button className="text-white">Top Left</Button>
             </ToolTip>
         </div>
         <div className="dsr-fixed dsr-top-0 dsr-right-0">
             <ToolTip
-                overlay={<div>abcdefg</div>}
+                overlay={<div>Shows at the bottom of the button.</div>}
                 {...args}
             >
-                <button className="text-white">Hover Here</button>
+                <Button className="text-white">Top Right</Button>
             </ToolTip>
         </div>
         <div className="dsr-fixed dsr-bottom-0 dsr-right-0">
             <ToolTip
-                overlay={<div>abcdefg</div>}
+                overlay={<div>Shows the content at the top of the button.</div>}
                 {...args}
             >
-                <button>Hover Here</button>
+                <Button className="text-white">Bottom Right</Button>
             </ToolTip>
         </div>
         <div className="dsr-fixed dsr-bottom-0 dsr-left-0">
             <ToolTip
-                children={<div className="text-white">Hover Here</div>}
-                overlay={<div>Tool Tip</div>}
+                overlay={<div>Shows the content at the top of the button.</div>}
                 {...args}
-            />
+            >
+                <Button className="text-white">Bottom Left</Button>
+            </ToolTip>
         </div>
-        <div className="dsr-fixed dsr-top-3/4 dsr-left-1/2">
+        <div className="dsr-fixed dsr-top-1/2 dsr-left-1/2">
             <ToolTip
-                children={<div className="text-white">Hover Here</div>}
-                overlay={<div>Tool Tip</div>}
+                overlay={<div>Shows content at the top of the button.</div>}
                 {...args}
-            />
+            >
+                <Button className="text-white">
+                    Center
+                </Button>
+            </ToolTip>
         </div>
 
     </div>
