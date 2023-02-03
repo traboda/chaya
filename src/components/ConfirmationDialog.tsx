@@ -66,7 +66,7 @@ const ConfirmationDialog = ({
                           name="confirmationText"
                           value={confirmText}
                           onChange={setConfirmText}
-                          required
+                          isRequired
                       />
                   )}
                   {requirePassword && (
@@ -77,7 +77,7 @@ const ConfirmationDialog = ({
                               type="password"
                               value={password}
                               onChange={setPassword}
-                              required
+                              isRequired
                           />
                       </div>
                   )}
