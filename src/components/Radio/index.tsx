@@ -9,7 +9,7 @@ export type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type RadioButtonProps = {
   label: string,
   value: string,
-  onChange: (value: string) => void,
+  onChange?: (value: string) => void,
   color?: RadioColor,
   size?: RadioSize,
   isDisabled?: boolean,
@@ -33,36 +33,36 @@ const sizes = {
   'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
 };
 
-const Radio = ({ value, label, isSelected = false, onChange, color = 'primary', size = 'md', isDisabled }: RadioButtonProps) => {
-  return (
-      <div
-          className="radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
-          onClick={() => onChange(value)}
-      >
-          <input
-              type="radio"
-              name={label}
-              value={value}
-              checked={isSelected}
-              disabled={isDisabled}
-              className={clsx([
-                'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
-                'dsr-overflow-hidden dsr-absolute -dsr-m-1',
-              ])}
-              style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
-          />
-          <span
-              className={clsx([
-                'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-                'dsr-border-none dsr-rounded-full dsr-text-white',
-                sizes[size]?.button,
-                isSelected ? styled.radioButton : '',
-                isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
-              ])}
-          />
-          <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
-      </div>
-  );
-};
+const Radio = ({
+  value, label, onChange = () => {}, isSelected = false, color = 'primary', size = 'md', isDisabled = false,
+}: RadioButtonProps) => (
+    <div
+        className="radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
+        onClick={() => onChange(value)}
+    >
+        <input
+            type="radio"
+            name={label}
+            value={value}
+            checked={isSelected}
+            disabled={isDisabled}
+            className={clsx([
+              'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
+              'dsr-overflow-hidden dsr-absolute -dsr-m-1',
+            ])}
+            style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
+        />
+        <span
+            className={clsx([
+              'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
+              'dsr-border-none dsr-rounded-full dsr-text-white',
+              sizes[size]?.button,
+              isSelected ? styled.radioButton : '',
+              isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
+            ])}
+        />
+        <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
+    </div>
+);
 
 export default Radio;

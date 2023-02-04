@@ -25,11 +25,7 @@ export type SearchBoxProps = {
   onClear?: () => void,
   onSearch?: (keyword: string) => void,
   onKeyDown?: (e: KeyboardEvent) => void,
-  inputStyle?: React.CSSProperties,
-  icons?: {
-    search?: React.ReactElement,
-    clear?: React.ReactElement
-  }
+  inputStyle?: React.CSSProperties
 };
 
 const buttonClass = 'dsr-px-1 dsr-py-3 dsr-text-color dsr-bg-transparent focus:dsr-outline-none hover:dsr-text-secondary focus:dsr-text-secondary';

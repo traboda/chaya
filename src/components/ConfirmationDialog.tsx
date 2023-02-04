@@ -31,7 +31,7 @@ const defaultLabels = {
 };
 
 const ConfirmationDialog = ({
-  labels: initialLabels, isOpen = false, requireConfirmationText, requirePassword,
+  labels: initialLabels, isOpen = false, requireConfirmationText = false, requirePassword = false,
   onConfirm = () => {}, onCancel = () => {},
 }: ConfirmationDialog) => {
 

@@ -7,6 +7,7 @@ import Icon from './Icon';
 type OptionType = {
   value: (string | number),
   label: (string | React.ReactElement),
+  isDisabled?: boolean,
   color?: string
 };
 
@@ -85,18 +86,19 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
               </div>
           )}
           <div className="dsr-flex dsr-flex-wrap dsr-items-center">
-              {props.options.map(opt => (
+              {props.options.map(o => (
                   <button
-                      key={opt.value}
+                      key={o.value}
                       className={clsx([
                         'tag-option dsr-px-4 dsr-py-1 dsr-rounded-lg dsr-m-1 dsr-text-lg',
                         'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
-                        generateClassName(opt.value),
+                        generateClassName(o.value),
                         props?.tagClassName,
                       ])}
-                      onClick={() => handleTagClick(opt)}
+                      onClick={() => handleTagClick(o)}
+                      disabled={o?.isDisabled}
                   >
-                      {opt.label}
+                      {o.label}
                   </button>
               ))}
           </div>

@@ -11,9 +11,9 @@ type SwitchProps = {
   label?: string,
   id?: string,
   className?: string,
-  required?: boolean,
+  isRequired?: boolean,
+  isDisabled?: boolean,
   variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
-  disabled?: boolean
 };
 
 const borders = {
@@ -34,7 +34,11 @@ const variants = {
   'transparent': 'dsr-bg-inherit',
 };
 
-const Switch = ({ value, onChange = () => {}, size = 24, label, required = false, variant = 'success', id, className = '', disabled = false }: SwitchProps) => {
+const Switch = ({
+  value, onChange = () => {},
+  id, className = '', size = 24, label, variant = 'success',
+  isRequired = false, isDisabled = false,
+}: SwitchProps) => {
 
   const isDarkTheme = useContext(DSRContext);
   const checkbox = useRef(null);
@@ -50,7 +54,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                   aria-hidden={false}
               >
                   {label}
-                  {required && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
+                  {isRequired && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
               </label>
           )}
           <label
@@ -58,7 +62,7 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                 'dsr-inline-block dsr-rounded-full dsr-shadow-inner',
                 value && variants[variant],
                 className,
-                disabled && 'dsr-cursor-not-allowed',
+                isDisabled && 'dsr-cursor-not-allowed',
               ])}
               style={{
                 height: size,
@@ -71,12 +75,12 @@ const Switch = ({ value, onChange = () => {}, size = 24, label, required = false
                   ref={checkbox}
                   type="checkbox"
                   aria-labelledby={`${inputID}-label`}
-                  aria-required={required}
-                  aria-readonly={disabled}
+                  aria-required={isRequired}
+                  aria-readonly={isDisabled}
                   aria-checked={value}
-                  disabled={disabled}
+                  disabled={isDisabled}
                   className="switch dsr-absolute dsr-opacity-0"
-                  required={required}
+                  required={isRequired}
                   checked={value}
                   onChange={({ target }) => onChange(target.checked)}
               />

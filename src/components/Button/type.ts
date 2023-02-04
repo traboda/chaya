@@ -20,7 +20,7 @@ export type ButtonProps = {
   target?: LinkTargetType,
   rel?: LinkRelType,
 
-  disabled?: boolean,
+  isDisabled?: boolean,
   onClick?: (e: MouseEvent) => void
   type?: ('button' | 'submit' | 'reset')
   onBlur?: () => void

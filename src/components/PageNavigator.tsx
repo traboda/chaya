@@ -8,20 +8,20 @@ import Icon from './Icon';
 type PageNavigator = {
   totalCount: number,
   itemsPerPage: number,
-  setItemsPerPage: (count: number) => void,
+  page: number,
+  setPage?: (no: number) => void,
+  setItemsPerPage?: (count: number) => void,
   hideItemsPerPage?: boolean
   showControls?: boolean,
   showEdges?: boolean,
-  page: number,
-  setPage: (no: number) => void,
   id?: string,
   className?: string,
 };
 
 
 const PageNavigator = ({
-  totalCount, itemsPerPage, setItemsPerPage, id, className = '', hideItemsPerPage = false, page, setPage,
-  showControls = true, showEdges = true,
+  totalCount, page, itemsPerPage, id, className = '', hideItemsPerPage = false,
+  showControls = true, showEdges = true, setPage = () => {}, setItemsPerPage = () => {},
 }: PageNavigator) => {
 
 
@@ -79,7 +79,7 @@ const PageNavigator = ({
                           label={`Go to page ${item}`}
                           variant={page === item ? 'solid' : 'outline'}
                           color={page === item ? 'contrast' : 'secondary'}
-                          disabled={page === item}
+                          isDisabled={page === item}
                           key={`page_${item}_${index}`}
                           className={clsx([
                             'page-number-button dsr-w-12 dsr-mx-1',
@@ -121,7 +121,7 @@ const PageNavigator = ({
                               name="items_per_page"
                               className="dsr-p-1 dsr-text-sm dsr-text-center"
                               removeSVG={true}
-                              required
+                              isRequired
                               options={[
                                 { label: '10', value: 10 },
                                 { label: '20', value: 20 },

@@ -2,20 +2,20 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 export type DropdownProps = {
+  children: ReactNode,
+  buttonRenderer: ReactNode,
   isOpen?: boolean,
   onClose?: () => void,
   align?: 'left' | 'right',
   id?: string,
   className?: string,
   buttonClassName?: string,
-  containerClassName?: string,
-  children: ReactNode,
-  buttonRenderer: ReactNode
+  containerClassName?: string
 };
 
 const Dropdown = ({
-  isOpen, onClose = () => {}, align = 'left', id, className, containerClassName,
-  buttonClassName, children, buttonRenderer,
+  children, buttonRenderer, isOpen = false, onClose = () => {}, align = 'left',
+  id, className, containerClassName, buttonClassName,
 }: DropdownProps) => {
 
   const [open, setOpen] = useState(isOpen);

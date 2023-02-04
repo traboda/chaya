@@ -7,7 +7,7 @@ export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type CheckboxButtonProps = {
   value: string,
   label: string,
-  onChange: (value: ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (value: ChangeEvent<HTMLInputElement>) => void,
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
@@ -32,7 +32,9 @@ export const colors = {
   'default': 'dsr-bg-gray-500/70',
 };
 
-const Checkbox = ({ value, label, isChecked = false, onChange, color = 'primary', size = 'md', isDisabled }: CheckboxButtonProps) => {
+const Checkbox = ({
+  value, label, onChange = () => {}, isChecked = false, color = 'primary', size = 'md', isDisabled = false,
+}: CheckboxButtonProps) => {
   return (
       <label className="checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
           <input

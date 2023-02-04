@@ -15,12 +15,12 @@ export type TabItemObject = {
   count?: React.ReactElement,
   countBadgeProps?: BadgeProps,
   type?: ('section')
-  isInitial?: boolean
   renderer?: React.ReactElement
   rendererFunc?: () => React.ReactElement
   onClick?: () => void
-  disabled?: boolean
-  hidden?: boolean
+  isInitial?: boolean
+  isDisabled?: boolean
+  isHidden?: boolean
   url?: string
   link?: string
   icon?: IconInputType,
@@ -28,9 +28,13 @@ export type TabItemObject = {
   onActive?: () => void
 };
 
+export type TabItemWithKeys = TabItemObject & {
+  key: string
+};
+
 export type TabsProps = {
   items: TabItemObject[]
-  disabled?: boolean
+  isDisabled?: boolean
   onClickDisabled?: (key: string) => void,
   onChange?: (key: string) => void,
   id?: string,
@@ -47,14 +51,14 @@ export type TabsProps = {
 };
 
 const Tabs = ({
-  isVertical, items, disabled = false, onClickDisabled = () => {}, initialKey, id,
+  isVertical, items, isDisabled = false, onClickDisabled = () => {}, initialKey, id,
   className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
   alignCenter, onChange = () => {}, disableResponsive = false, countBadgeProps, variant = 'pill',
 }: TabsProps) => {
 
   const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
 
-  const tabItems = items?.length > 0 ?
+  const tabItems: TabItemWithKeys[] = items?.length > 0 ?
     items.map((t, index) => { return { key: `tab_${index}`, ...t }; }) : [];
 
   const getInitialTab = () => {
@@ -68,7 +72,7 @@ const Tabs = ({
     return tabkey;
   };
 
-  const [currentTab, setTab] = useState(initialKey ?? getInitialTab());
+  const [currentTab, setTab] = useState<string | null>(initialKey ?? getInitialTab());
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, height: 0, translate: 0 });
   const tabRef = useRef<HTMLUListElement>(null);
 
@@ -151,69 +155,54 @@ const Tabs = ({
     variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-px-2' : 'dsr-py-2',
   ]);
 
+  const renderButton = (t: TabItemWithKeys) => (
+      <button
+          onClick={() =>
+            t?.onClick && typeof t.onClick === 'function' ? (isDisabled ? onClickDisabled(t.key) : t.onClick?.())
+              : setTab(t.key)
+          }
+          className={menuButtonClassNameGenerator(t.key)}
+          role="tab"
+          id={`${tabID}-${t.key}-tab`}
+          data-toggle="tab"
+          aria-selected={currentTab === t.key}
+          aria-controls={`${tabID}-${t.key}-panel`}
+          disabled={t.isDisabled}
+          aria-disabled={t.isDisabled}
+      >
+          {renderOption(t)}
+      </button>
+  );
+
   const renderTabs = () => (
-    tabItems.filter((t) => !t.hidden).map(t => (
+    tabItems.filter((t) => !t.isHidden).map(t => (
         <li
             key={t?.key ? `tab_selector_${t?.key}` : nanoid()}
             className={isVertical ? 'dsr-w-full' : undefined}
             role="presentation"
         >
-            {t?.onClick && typeof t.onClick === 'function' ? (
-                <button
-                    onClick={() => t.onClick?.()}
-                    className={menuButtonClassNameGenerator(t.key)}
-                    role="tab"
-                    id={`${tabID}-${t.key}-tab`}
-                    data-toggle="tab"
-                    aria-selected={currentTab === t.key}
-                    aria-controls={`${tabID}-${t.key}-panel`}
-                >
-                    {renderOption(t)}
-                </button>
-            ) : disabled ? (
-                <button
-                    onClick={() => onClickDisabled(t.key)}
-                    className={menuButtonClassNameGenerator(t.key)}
-                    role="tab"
-                    id={`${tabID}-${t.key}-tab`}
-                    data-toggle="tab"
-                    aria-selected={currentTab === t.key}
-                    aria-controls={`${tabID}-${t.key}-panel`}
-                >
-                    {renderOption(t)}
-                </button>
-            ) : t.link ? LinkWrapper(t.link, renderOption(t)) : t.url ? (
-                <a
-                    href={t.url}
-                    className={menuButtonClassNameGenerator(t.key)}
-                    role="tab"
-                    id={`${tabID}-${t.key}-tab`}
-                    data-toggle="tab"
-                    aria-selected={currentTab === t.key}
-                    aria-controls={`${tabID}-${t.key}-panel`}
-                >
-                    {renderOption(t)}
-                </a>
-            ) : t.type === 'section' ? (
-                <h5
-                    style={{ opacity: 0.9 }}
-                    className={menuButtonClassNameGenerator(t.key)}
-                >
-                    {t.name}
-                </h5>
-            ) : (
-                <button
-                    onClick={() => setTab(t.key)}
-                    className={menuButtonClassNameGenerator(t.key)}
-                    role="tab"
-                    id={`${tabID}-${t.key}-tab`}
-                    data-toggle="tab"
-                    aria-selected={currentTab === t.key}
-                    aria-controls={`${tabID}-${t.key}-panel`}
-                >
-                    {renderOption(t)}
-                </button>
-            )}
+            {t?.onClick && typeof t.onClick === 'function' ? renderButton(t) :
+              t.link ? LinkWrapper(t.link, renderOption(t)) : t.url ? (
+                  <a
+                      href={!t.isDisabled ? t.url : undefined}
+                      className={menuButtonClassNameGenerator(t.key)}
+                      role="tab"
+                      id={`${tabID}-${t.key}-tab`}
+                      data-toggle="tab"
+                      aria-selected={currentTab === t.key}
+                      aria-controls={`${tabID}-${t.key}-panel`}
+                      aria-disabled={t.isDisabled}
+                  >
+                      {renderOption(t)}
+                  </a>
+              ) : t.type === 'section' ? (
+                  <h5
+                      style={{ opacity: 0.9 }}
+                      className={menuButtonClassNameGenerator(t.key)}
+                  >
+                      {t.name}
+                  </h5>
+              ) : renderButton(t)}
         </li>
     ))
   );
@@ -256,11 +245,11 @@ const Tabs = ({
   const responsiveSelector = (
       <SimpleSelect
           labels={{ placeholder: 'Select Tab' }}
-          required
+          isRequired
           className="dsr-mb-3 dsr-border-4 dsr-font-semibold dsr-rounded-lg"
           value={currentTab as string}
           name="tab"
-          options={tabItems.filter((t) => !t.hidden).map((t) => ({ value: t.key, label: t.label as string }))}
+          options={tabItems.filter((t) => !t.isHidden).map((t) => ({ value: t.key, label: t.label as string }))}
           onChange={(key) => {
             const tab = tabItems.find((t) => t.key === key);
             if (tab?.onClick && typeof tab.onClick === 'function') tab.onClick();

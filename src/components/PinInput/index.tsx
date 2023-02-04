@@ -7,22 +7,19 @@ import DSRContext from '../../contexts/DSRContext';
 import PinDigit from './digit';
 
 type PinInputProps = {
-  // current value
   value: string,
-  // callback function when input is changed
-  onChange: (val: string) => void,
-  // number of digits in the code
+  onChange?: (value: string) => void,
   digits?: number,
   label?: string,
   type?: ('text' | 'number'),
   mask?: boolean,
-  invalid?: boolean,
-  disabled?: boolean,
-  required?: boolean,
-  autoFocus?: boolean,
   id?: string,
   className?: string,
   digitClassName?: string,
+  isInvalid?: boolean,
+  isDisabled?: boolean,
+  isRequired?: boolean,
+  autoFocus?: boolean,
   labels?: {
     label?: string,
     placeholder?: string,
@@ -34,13 +31,13 @@ type PinInputProps = {
 
 const PinInput = ({
   value = '', onChange: onChangeProp = () => {}, digits = 6, type = 'text', mask = false, labels,
-  invalid = false, disabled = false, required = false, autoFocus = false, id,
+  isInvalid: _isInvalid = false, isDisabled = false, isRequired = false, autoFocus = false, id,
   className = '', digitClassName = '', variant = 'minimal',
 }: PinInputProps) => {
 
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
-  const [isInvalid, setInvalid] = useState(invalid);
+  const [isInvalid, setInvalid] = useState(_isInvalid);
   const { isDarkTheme } = useContext(DSRContext);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
 
@@ -114,7 +111,7 @@ const PinInput = ({
                   aria-hidden={false}
               >
                   {labels?.label}
-                  {required && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
+                  {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
               </label>
           )}
           <div
@@ -140,16 +137,16 @@ const PinInput = ({
                       onChange={(value) => onChangeVal({ val: value, index: i })}
                       onKeyDown={(e) => onKeyDown(e, i)}
                       placeholder={labels?.placeholder?.[i] ?? ''}
-                      invalid={isInvalid}
-                      disabled={disabled}
-                      required={required}
+                      isInvalid={isInvalid}
+                      isDisabled={isDisabled}
+                      isRequired={isRequired}
                       className={digitClassName}
                       isDarkTheme={isDarkTheme}
                       variant={variant}
                   />
               ))}
           </div>
-          {(invalidLength && value?.length < digits && !disabled) &&
+          {(invalidLength && value?.length < digits && !isDisabled) &&
           <div className="dsr-text-red-600 dsr-text-base">
               {labels?.invalidLength ?? `The code should be ${digits} digits.`}
           </div>}

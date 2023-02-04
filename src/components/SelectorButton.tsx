@@ -6,11 +6,11 @@ import Button from './Button';
  
 type SelectorButtonProps = {
   name: string,
+  options: SimpleSelectOptionType,
   id?: string,
   className?: string,
-  options: SimpleSelectOptionType,
   onSubmit?: (value: string | number) => void,
-  disabled?: boolean,
+  isDisabled?: boolean,
   labels?: {
     button: string,
   }
@@ -21,7 +21,7 @@ const defaultLabels = {
 };
 
 const SelectorButton = ({
-  name, id, className = '', options, disabled = false, onSubmit: onSubmitProp = () => {}, labels: initialLabels,
+  name, id, className = '', options, isDisabled = false, onSubmit: onSubmitProp = () => {}, labels: initialLabels,
 }: SelectorButtonProps) => {
 
   const labels = { ...defaultLabels, ...initialLabels };
@@ -47,8 +47,8 @@ const SelectorButton = ({
               onChange={setValue}
               name={name}
               options={options}
-              disabled={disabled}
-              required
+              isDisabled={isDisabled}
+              isRequired
               className="dsr-rounded-r-none"
           />
           <Button
@@ -56,7 +56,7 @@ const SelectorButton = ({
               size="md"
               className="dsr-flex-shrink-0 dsr-rounded-l-none"
               type="submit"
-              disabled={disabled}
+              isDisabled={isDisabled}
           >
               {labels?.button}
           </Button>

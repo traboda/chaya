@@ -16,7 +16,9 @@ export type RadioGroupType = {
   alignment?: 'horizontal' | 'vertical',
 };
 
-const RadioGroup = ({ onChange, value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical' }: RadioGroupType) => {
+const RadioGroup = ({
+  onChange, value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
+}: RadioGroupType) => {
 
   return (
       <div

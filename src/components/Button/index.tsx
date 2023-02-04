@@ -22,8 +22,8 @@ const sizeDefinitions = {
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
-  className = '', style, label, disableRipple = false,
-  target, type, rel, disabled, id,
+  id, className = '', style, label, disableRipple = false,
+  target, type, rel, isDisabled = false,
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -77,7 +77,7 @@ const Button = ({
 
   const linkRenderer = () => (
       <React.Fragment>
-          {(!disableRipple && !disabled) && <Ripple />}
+          {(!disableRipple && !isDisabled) && <Ripple />}
           {children}
       </React.Fragment>
   );
@@ -107,14 +107,14 @@ const Button = ({
             e.stopPropagation();
             onClick(e);
           }}
-          disabled={disabled}
-          aria-disabled={disabled}
+          disabled={isDisabled}
+          aria-disabled={isDisabled}
           className={computedClassName}
           style={computedStyle}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
       >
-          {(!disableRipple && !disabled) && <Ripple />}
+          {(!disableRipple && !isDisabled) && <Ripple />}
           {children}
       </button>
   );
