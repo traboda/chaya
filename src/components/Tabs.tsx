@@ -5,18 +5,18 @@ import clsx from 'clsx';
 import { LinkWrapper } from '../utils/misc';
 
 import SimpleSelect from './SimpleSelect';
-import Badge, { BadgeProps } from './Badge';
+import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
 
 export type TabItemObject = {
   name?: string
   label?: string
   key?: string,
-  count?: React.ReactElement,
-  countBadgeProps?: BadgeProps,
+  count?: React.ReactNode,
+  countBadgeProps?: BaseBadgeProps,
   type?: ('section')
-  renderer?: React.ReactElement
-  rendererFunc?: () => React.ReactElement
+  renderer?: React.ReactNode
+  rendererFunc?: () => React.ReactNode
   onClick?: () => void
   isInitial?: boolean
   isDisabled?: boolean
@@ -38,7 +38,7 @@ export type TabsProps = {
   onClickDisabled?: (key: string) => void,
   onChange?: (key: string) => void,
   id?: string,
-  countBadgeProps?: BadgeProps,
+  countBadgeProps?: BaseBadgeProps,
   className?: string,
   bodyClassName?: string,
   menuClassName?: string,
@@ -152,7 +152,7 @@ const Tabs = ({
     'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background dsr-outline-2',
     menuButtonClassName,
     currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary dsr-text-primaryTextColor' : 'active' : '',
-    variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-px-2' : 'dsr-py-2',
+    variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-w-full dsr-px-2' : 'dsr-py-2',
   ]);
 
   const renderButton = (t: TabItemWithKeys) => (
@@ -216,7 +216,7 @@ const Tabs = ({
           className={clsx([
             'dsr-sticky dsr-list-none dsr-top-0 tab-selector vertical-selector',
             'dsr-flex dsr-items-center dsr-flex-col dsr-justify-start',
-            variant === 'underline' ? 'dsr-gap-y-4' : '',
+            variant === 'underline' ? 'dsr-gap-y-3' : '',
             menuClassName,
           ])}
       >

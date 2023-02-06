@@ -6,15 +6,18 @@ import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
 import { RGBAtoRGB } from '../utils/color';
 
-export type BadgeProps = {
+export type BaseBadgeProps = {
   variant?: 'solid' | 'outline' | 'minimal',
   color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade',
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  id?: string,
-  className?: string,
   style?: React.CSSProperties,
-  children: React.ReactNode,
+  className?: string,
   circular?: boolean,
+  id?: string,
+};
+
+export type BadgeProps = BaseBadgeProps & {
+  children: React.ReactNode,
 };
 
 const sizeDefinitions = {

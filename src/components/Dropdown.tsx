@@ -21,7 +21,7 @@ const Dropdown = ({
   const [open, setOpen] = useState(isOpen);
 
   useEffect(() => setOpen(isOpen), [isOpen]);
-  useEffect(() => onClose, [isOpen]);
+  useEffect(() => onClose, [open]);
 
   return (
       <div

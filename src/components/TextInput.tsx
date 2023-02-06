@@ -112,8 +112,8 @@ const TextInput = <Type extends string | number>({
 
   const inputClassNameCalculated = clsx([
     'dsr-text-lg dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background',
-    'dsr-text-color dsr-rounded-lg dsr-border group-hover:dsr-border-gray-400/80',
-    'focus:dsr-outline-none focus:dsr-border-secondary dsr-text-base',
+    'dsr-text-color dsr-rounded-lg dsr-border hover:dsr-border-gray-400/80',
+    'focus:dsr-outline-none focus:dsr-border-primary dsr-text-base',
     'placeholder:dsr-text-color placeholder:dsr-opacity-50',
     isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
     touched ? 'invalid:dsr-border-red-500' : '',
@@ -121,9 +121,9 @@ const TextInput = <Type extends string | number>({
   ]);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border group-hover:dsr-border-gray-400/80 group-focus:dsr-border-secondary',
+    'dsr-border group-[:not(:focus-within):hover]:dsr-border-gray-400/80 group-focus-within:dsr-border-primary',
     'dsr-px-2.5 dsr-py-2 dsr-absolute dsr-top-0 dsr-right-0 dsr-h-full dsr-text-color',
-    'dsr-items-center dsr-border-gray-500/70 dsr-text-base group-focus-within:dsr-border-secondary',
+    'dsr-items-center dsr-border-gray-500/70 dsr-text-base group-focus-within:dsr-border-primary',
   ]);
 
   return (
