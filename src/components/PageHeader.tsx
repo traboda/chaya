@@ -49,7 +49,7 @@ const PageHeader = ({
             padding: size === 'lg' ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
           }}
       >
-          <div style={!fill ? { width: '1333px', maxWidth: '100%' } : {}}>
+          <div className={clsx([fill ? '' : 'dsr-container'])}>
               <div className="dsr-flex dsr-flex-wrap">
                   <div className="md:dsr-w-2/3 dsr-py-2">
                       <div className={size == 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
