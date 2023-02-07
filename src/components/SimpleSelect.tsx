@@ -1,36 +1,35 @@
 import React, { useContext, useMemo } from 'react';
 import clsx from 'clsx';
-import Color from 'color';
 import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
 
-type OptionType = {
-  value: (string | number),
-  label: (string | number)
+type OptionType<Type> = {
+  value: Type,
+  label: string | number
 };
 
-type GroupType = {
+type GroupType<Type> = {
   group: string,
-  options: OptionType[]
+  options: OptionType<Type>[]
 };
 
-export type SimpleSelectOptionType = OptionType[] | GroupType[];
+export type SimpleSelectOptionType<Type> = OptionType<Type>[] | GroupType<Type>[];
 
-export type SimpleSelectProps = {
-  value: (string | number),
+export type SimpleSelectProps<Type> = {
+  value: Type,
   name: string,
   id?: string,
   className?: string,
-  options: SimpleSelectOptionType,
-  onChange?: (v: (string | number)) => void,
+  options: SimpleSelectOptionType<Type>,
+  onChange?: (v: Type) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
+  hideArrow?: boolean,
   labels?: {
     label?: string,
     placeholder?: string
   }
-  removeSVG?: boolean,
 };
 
 const defaultLabels = {
@@ -38,11 +37,11 @@ const defaultLabels = {
   placeholder: 'Select an Option',
 };
 
-const SimpleSelect = ({
+const SimpleSelect = <Type extends string | number>({
   value, onChange = () => {},
-  id, className = '', labels: propLabels, removeSVG = false,
+  id, className = '', labels: propLabels, hideArrow = false,
   isRequired = false, isDisabled = false, name, options,
-}: SimpleSelectProps) => {
+}: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
   const inputID = useMemo(() => id ? id : `${name}-input-${nanoid()}`, [id, name]);
@@ -53,7 +52,7 @@ const SimpleSelect = ({
           {labels?.label && labels?.label?.length > 0 && (
               <label
                   id={`${inputID}-label`}
-                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1 dsr-text-color"
+                  className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1 dsr-block"
                   htmlFor={inputID}
                   aria-hidden={false}
               >
@@ -64,8 +63,9 @@ const SimpleSelect = ({
           <div className="dsr-w-full">
               <select
                   className={clsx([
-                    'simple-select dsr-w-full dsr-text-lg dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color dsr-border dsr-border-gray-500/70 dsr-bg-background',
-                    'focus:dsr-outline-none focus:dsr-border-secondary hover:dsr-border-color',
+                    'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
+                    'focus:dsr-outline-none focus:dsr-border-primary hover:dsr-border-color dsr-border',
+                    'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat',
                     className,
                   ])}
                   name={name}
@@ -74,9 +74,10 @@ const SimpleSelect = ({
                   value={value}
                   required={isRequired}
                   disabled={isDisabled}
-                  onChange={({ target }) => onChange(target.value)}
-                  style={{
-                    background: !removeSVG ? `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${Color(isDarkTheme ? '#fff' : '#000').rgb().string()}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat calc(100% - 0.75rem) center` : '',
+                  onChange={({ target }) => onChange(target.value as Type)}
+                  style={hideArrow ? {} : {
+                    backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
+                    backgroundPosition: 'calc(100% - 0.75rem) center',
                   }}
               >
                   <option
@@ -89,9 +90,9 @@ const SimpleSelect = ({
                   </option>
                   {options?.length > 0 &&
                     options.map((option) =>
-                      (option as GroupType)?.group ? (
-                          <optgroup label={(option as GroupType)?.group}>
-                              {(option as GroupType)?.options.map((opt: OptionType) => (
+                      'group' in option && option?.group ? (
+                          <optgroup label={option.group}>
+                              {option.options.map(opt => (
                                   <option
                                       key={opt.value}
                                       value={opt.value}
@@ -101,15 +102,15 @@ const SimpleSelect = ({
                                   </option>
                               ))}
                           </optgroup>
-                      ) : (
+                      ) : 'value' in option ? (
                           <option
-                              value={(option as OptionType).value}
-                              key={(option as OptionType).value}
-                              selected={value === (option as OptionType).value}
+                              value={option.value}
+                              key={option.value}
+                              selected={value === option.value}
                           >
-                              {(option as OptionType).label}
+                              {(option as OptionType<Type>).label}
                           </option>
-                      ),
+                      ) : null,
                     )
                   }
               </select>

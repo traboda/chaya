@@ -56,7 +56,11 @@ To start using the components, please follow the below steps:
     import { Search, X } from 'react-feather';
 
     import { DSRContextProvider } from 'chaya-ui';
-    import 'chaya-ui/dist/style.css'; // import this in your _app.tsx file
+   
+    // import styles in your _app.tsx file
+    // make sure that this is the first css file that you importing 
+    // that will allow your styles to overide the package styling
+    import 'chaya-ui/dist/style.css'; 
 
     const AppView = ({ children }: { children: ReactNode }) => (
       <DSRContextProvider

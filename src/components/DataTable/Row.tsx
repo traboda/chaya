@@ -41,11 +41,11 @@ const ItemListerItem = <Type extends { id: string }>({
   onClick = () => {}, isLoading = false, isPinned = false,
 }: ItemListerItemProps<Type>) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
+  const { isDarkTheme } = useContext(DSRContext);
   const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
-    'dsr-border-b dsr-h-full dsr-text-color dsr-bg',
+    'dsr-border-b dsr-h-full dsr-text-color dsr-border-gray-500/80',
     isPinned ? 'dsr-bg-background' : '',
     isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
   ]);
@@ -61,7 +61,6 @@ const ItemListerItem = <Type extends { id: string }>({
                     'dsr-px-2 dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-text-center',
                     tdClasses,
                   ])}
-                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).string() }}
               >
                   <button onClick={onClick}>
                       <Icon icon={isAccordionOpen ? 'chevron-down' : 'chevron-right'} size={18} />
@@ -69,10 +68,7 @@ const ItemListerItem = <Type extends { id: string }>({
               </td>
           )}
           {isEnabled && (
-              <td
-                  className={clsx(['dsr-px-2', tdClasses])}
-                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).string() }}
-              >
+              <td className={clsx(['dsr-px-2', tdClasses])}>
                   <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-py-3 dsr-text-center">
                       {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
                           <input
@@ -104,7 +100,6 @@ const ItemListerItem = <Type extends { id: string }>({
                       style={{
                         textAlign: p.textAlign,
                         fontSize: p.fontSize,
-                        borderBottomColor: Color(theme?.color).fade(0.85).string(),
                       }}
                       onClick={() => {
                         if (isEnabled) {
