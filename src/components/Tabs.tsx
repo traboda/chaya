@@ -289,7 +289,7 @@ const Tabs = ({
                   </div>
               )}
           </div>
-          <div className={clsx([bodyClassName, 'dsr-w-full md:dsr-w-4/5 dsr-pr-4 dsr-pl-4'])}>
+          <div className={clsx([bodyClassName, 'dsr-w-full md:dsr-w-4/5 dsr-pl-0 dsr-pr-0 md:dsr-pr-4 md:dsr-pl-4'])}>
               {renderPanels}
           </div>
       </div>
