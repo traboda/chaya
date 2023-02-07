@@ -22,11 +22,11 @@ const Template: Story = args => {
 
   return (
       <div style={{ width: '300px', maxWidth: '100%' }}>
-          <h1 className="mb-3">
-              Pin:
+          <div className="dsr-mb-3">
+              Value:
               {value}
-          </h1>
-          <PinInput {...args} value={value} onChange={setValue} />
+          </div>
+          <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
       </div>
   );
 };
@@ -57,11 +57,11 @@ export const FormSubmission: Story = (args) => {
   return (
       <form onSubmit={(e) => { e.preventDefault(); console.log('pin submitted'); }}>
           <div style={{ width: '450px', maxWidth: '100%' }}>
-              <h1 className="mb-3">
-                  Pin:
+              <div className="dsr-mb-3">
+                  Value:
                   {value}
-              </h1>
-              <PinInput {...args} value={value} onChange={setValue} />
+              </div>
+              <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
               <button type="submit">
                   Submit
               </button>
