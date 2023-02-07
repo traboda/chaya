@@ -72,11 +72,9 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
   return (
       <div id={props?.id} className={clsx(['tag-selector', props?.className])}>
           {props?.labels && (
-              <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
+              <div className="dsr-flex dsr-flex-wrap dsr-mx-0 dsr-mb-1">
                   {props.labels?.title && (
-                      <div className="dsr-w-4/5 dsr-p-1">
-                          <div className="dsr-text-lg dsr-opacity-80">{props.labels.title}</div>
-                      </div>
+                      <label className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70">{props.labels.title}</label>
                   )}
                   {props.labels.helpText && (
                       <ToolTip overlay={props.labels.helpText}>
@@ -85,12 +83,12 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
                   )}
               </div>
           )}
-          <div className="dsr-flex dsr-flex-wrap dsr-items-center">
+          <div className="dsr-flex dsr-flex-wrap dsr-items-center dsr-gap-2">
               {props.options.map(o => (
                   <button
                       key={o.value}
                       className={clsx([
-                        'tag-option dsr-px-4 dsr-py-1 dsr-rounded-lg dsr-m-1 dsr-text-lg',
+                        'tag-option dsr-px-4 dsr-py-2 dsr-rounded-lg dsr-text-base',
                         'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
                         generateClassName(o.value),
                         props?.tagClassName,

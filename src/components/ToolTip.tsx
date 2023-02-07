@@ -6,7 +6,7 @@ import DSRContext from '../contexts/DSRContext';
 
 type ToolTipProps = {
   children: ReactElement,
-  overlay: (ReactNode | string),
+  overlay: ReactNode,
 };
 
 const ToolTip = ({ children, overlay }: ToolTipProps) => {
@@ -27,7 +27,7 @@ const ToolTip = ({ children, overlay }: ToolTipProps) => {
               <Tooltip.Portal>
                   <Tooltip.Content
                       style={{ background: tooltipColor }}
-                      className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-p-2 dsr-backdrop-blur dsr-text-color"
+                      className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-px-2.5 dsr-py-1.5 dsr-backdrop-blur dsr-text-color dsr-text-sm"
                       sideOffset={5}
                   >
                       {overlay}

@@ -137,10 +137,10 @@ const TextInput = <Type extends string | number>({
       >
           {(!hideLabel) && (
               <div className="dsr-flex dsr-flex-wrap dsr-mb-1 dsr-mx-0">
-                  <div className={showLimit ? 'dsr-w-2/3 dsr-px-0' : 'dsr-w-full dsr-px-0'}>
+                  <div className={showLimit ? 'dsr-w-2/3 dsr-px-0 dsr-flex' : 'dsr-w-full dsr-px-0 dsr-flex'}>
                       {label && (
                           <label
-                              className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70"
+                              className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-block"
                               htmlFor={inputID}
                               aria-hidden={false}
                           >
@@ -158,7 +158,7 @@ const TextInput = <Type extends string | number>({
                   )}
               </div>
           )}
-          <div className="dsr-relative dsr-group dsr-flex">
+          <div className="dsr-relative dsr-group dsr-flex h-full">
               {prefixRenderer && (
                   <div
                       className={clsx([

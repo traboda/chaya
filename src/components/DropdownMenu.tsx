@@ -56,7 +56,7 @@ const DropdownMenu = ({
                       key={i}
                       className={clsx([
                         n?.className,
-                        'dropdown-menu-item dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-2 hover:dsr-bg-neutral-300 hover:dsr-text-primary',
+                        'dropdown-menu-item dsr-w-full dsr-rounded-md dsr-mr-2 dsr-p-2 hover:dsr-bg-gray-400/20 dsr-transition',
                       ])}
                   >
                       {n?.link ? LinkWrapper(n.link, content) : <button className="dsr-text-left dsr-w-full dsr-rounded-md" onClick={n?.onClick}>{content}</button>}

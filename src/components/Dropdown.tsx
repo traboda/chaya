@@ -1,5 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import Color from 'color';
+
+import DSRContext from '../contexts/DSRContext';
 
 export type DropdownProps = {
   children: ReactNode,
@@ -18,6 +21,8 @@ const Dropdown = ({
   id, className, containerClassName, buttonClassName,
 }: DropdownProps) => {
 
+  const { theme, isDarkTheme } = useContext(DSRContext);
+
   const [open, setOpen] = useState(isOpen);
 
   useEffect(() => setOpen(isOpen), [isOpen]);
@@ -27,10 +32,7 @@ const Dropdown = ({
       <div
           id={id}
           onMouseLeave={() => setOpen(false)}
-          className={clsx([
-            'dropdown dsr-relative',
-            className,
-          ])}
+          className={clsx(['dropdown dsr-relative', className])}
       >
           <button
               className={clsx([
@@ -53,9 +55,10 @@ const Dropdown = ({
                   role="navigation"
                   className={clsx([
                     'dropdown-container dsr-p-1 dsr-rounded-lg overflow-hidden dsr-block dsr-p-0.5 dsr-text-left dsr-bg-none dsr-border-none',
-                    'dsr-shadow dsr-bg-background bg-text-color dsr-w-[240px]',
+                    'dsr-shadow dsr-shadow-lg bg-text-color dsr-w-[240px]',
                     containerClassName,
                   ])}
+                  style={{ backgroundColor: isDarkTheme ? Color(theme?.background).lighten(0.4).toString() : Color(theme?.background).darken(0.06).toString() }}
               >
                   {children}
               </div>

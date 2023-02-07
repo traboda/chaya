@@ -107,7 +107,7 @@ const PinInput = ({
           {labels?.label && (
               <label
                   id={`${inputID}-label`}
-                  className="dsr-block dsr-text-lg dsr-opacity-80 dsr-mb-1"
+                  className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-block dsr-mb-1"
                   aria-hidden={false}
               >
                   {labels?.label}
@@ -117,9 +117,8 @@ const PinInput = ({
           <div
               ref={inputs}
               className={clsx([
-                'pin-input dsr-p-2 dsr-grid dsr-pin-input dsr-gap-2',
-                variant === 'minimal' ? 'dsr-rounded-lg dsr-border' : 'dsr-gap-2',
-                isDarkTheme ? 'dsr-border-gray-400' : 'dsr-border-black',
+                'pin-input dsr-grid dsr-pin-input dsr-gap-2 dsr-border-gray-500/80',
+                variant === 'minimal' ? 'dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
                 className,
               ])}
               style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}

@@ -28,11 +28,11 @@ const Card = ({
           id={id}
           className={clsx([
             'card dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-transparent',
+            variant === 'outline' ? 'dsr-border-gray-500/70' : '',
             className,
           ])}
           style={{
             background: variant === 'shaded' ? (background ?? (isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)')) : '',
-            borderColor: variant === 'outline' ? (isDarkTheme ? 'hsla(0, 0%, 100%, 0.15)' : 'hsla(0, 0%, 0%, 0.15)') : '',
           }}
       >
           <div>
