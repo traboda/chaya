@@ -18,7 +18,6 @@ type PageNavigator = {
   className?: string,
 };
 
-
 const PageNavigator = ({
   totalCount, page, itemsPerPage, id, className = '', hideItemsPerPage = false,
   showControls = true, showEdges = true, setPage = () => {}, setItemsPerPage = () => {},
@@ -78,7 +77,7 @@ const PageNavigator = ({
                       <Button
                           label={`Go to page ${item}`}
                           variant={page === item ? 'solid' : 'outline'}
-                          color={page === item ? 'contrast' : 'secondary'}
+                          color={page === item ? 'contrast' : 'primary'}
                           isDisabled={page === item}
                           key={`page_${item}_${index}`}
                           className={clsx([
@@ -120,7 +119,7 @@ const PageNavigator = ({
                               }}
                               name="items_per_page"
                               className="dsr-p-1 dsr-text-sm dsr-text-center"
-                              removeSVG={true}
+                              hideArrow={true}
                               isRequired
                               options={[
                                 { label: '10', value: 10 },

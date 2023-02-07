@@ -1,5 +1,4 @@
 import React, { ReactNode, useContext } from 'react';
-import Color from 'color';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';

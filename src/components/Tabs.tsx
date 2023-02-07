@@ -111,7 +111,18 @@ const Tabs = ({
               {t.icon && <span className="dsr-w-[16px]"><Icon icon={t.icon} size={16} /></span>}
               <span className={t.labelClassName}>{t.label}</span>
           </div>
-          {(countBadgeProps || t.countBadgeProps) && <Badge size="sm" {...{ ...(countBadgeProps ?? {}), ...t?.countBadgeProps }}>{t?.count}</Badge>}
+          {(t?.count !== undefined || countBadgeProps || t.countBadgeProps) && (
+              <Badge
+                  size="sm"
+                  {...{
+                    color: 'shade',
+                    variant: 'minimal',
+                    ...(countBadgeProps ?? {}), ...t?.countBadgeProps,
+                  }}
+              >
+                  {t?.count}
+              </Badge>
+          )}
       </div>
   );
 

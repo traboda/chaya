@@ -48,15 +48,15 @@ UnderlineVariant.args = { items, variant: 'underline' };
 export const WithBadge = Template.bind({});
  
 WithBadge.args = {
-  countBadgeProps: {
-    variant: 'solid',
-    color: 'shade',
-  },
+  // countBadgeProps: {
+  //   variant: 'solid',
+  //   color: 'shade',
+  // },
   items: items.map((i, index) => {
     return {
       ...i,
       count: index * index,
-      countBadgeProps: index == 0 ? { color: 'danger' } : null,
+      // countBadgeProps: index == 0 ? { color: 'danger' } : null,
     };
   }),
 };

@@ -1,8 +1,6 @@
-import React, { useContext, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 type SwitchProps = {
   value: boolean,
@@ -40,7 +38,6 @@ const Switch = ({
   isRequired = false, isDisabled = false,
 }: SwitchProps) => {
 
-  const isDarkTheme = useContext(DSRContext);
   const checkbox = useRef(null);
   const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
@@ -59,15 +56,15 @@ const Switch = ({
           )}
           <label
               className={clsx([
-                'dsr-inline-block dsr-rounded-full dsr-shadow-inner',
+                'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70',
                 value && variants[variant],
                 className,
                 isDisabled && 'dsr-cursor-not-allowed',
+                !value && 'dsr-bg-background',
               ])}
               style={{
                 height: size,
                 width: size * 2,
-                background: value ? '' : isDarkTheme ? 'rgba(237, 237, 237, 0.35)' : 'rgba(200, 200, 200, 0.5)',
               }}
           >
               <input
@@ -90,7 +87,7 @@ const Switch = ({
                     value && borders[variant],
                     value && 'dsr-translate-x-full',
                   ])}
-                  style={{ height: size, width: size }}
+                  style={{ height: size - 2, width: size - 2 }}
               />
           </label>
       </div>

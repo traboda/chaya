@@ -62,7 +62,7 @@ const SearchBox = ({
                       <div className="dsr-flex dsr-items-center dsr-gap-1">
                           {keyword.length > 0 && (
                               <Button
-                                  size="md"
+                                  size="xs"
                                   variant="link"
                                   color="danger"
                                   type="button"
@@ -77,7 +77,7 @@ const SearchBox = ({
                               </Button>
                           )}
                           <Button
-                              size="md"
+                              size="xs"
                               variant="link"
                               color="contrast"
                               className={clsx(['search-box-button', buttonClass])}
