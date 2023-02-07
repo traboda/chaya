@@ -56,7 +56,7 @@ const Switch = ({
           )}
           <label
               className={clsx([
-                'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70',
+                'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70 dsr-shadow-inner',
                 value && variants[variant],
                 className,
                 isDisabled && 'dsr-cursor-not-allowed',
@@ -87,7 +87,7 @@ const Switch = ({
                     value && borders[variant],
                     value && 'dsr-translate-x-full',
                   ])}
-                  style={{ height: size - 2, width: size - 2 }}
+                  style={{ height: size - 2, width: size - 1 }}
               />
           </label>
       </div>
