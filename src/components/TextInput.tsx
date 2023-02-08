@@ -158,7 +158,7 @@ const TextInput = <Type extends string | number>({
                   )}
               </div>
           )}
-          <div className="dsr-relative dsr-group dsr-flex h-full">
+          <div className="dsr-relative dsr-group dsr-flex">
               {prefixRenderer && (
                   <div
                       className={clsx([
