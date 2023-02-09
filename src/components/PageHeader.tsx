@@ -52,11 +52,11 @@ const PageHeader = ({
           <div className={clsx([fill ? '' : 'dsr-container'])}>
               <div className="dsr-flex dsr-flex-wrap">
                   <div className="md:dsr-w-2/3 dsr-py-2">
-                      <div className={size == 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
+                      <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
                           <Breadcrumb
                               {...breadcrumb}
                               items={breadcrumbItems}
-                              className={`${size == 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}`}
+                              className={size === 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}
                           />
                       </div>
                       {customTitle ? customTitle : (
@@ -72,7 +72,7 @@ const PageHeader = ({
                               {title}
                           </h1>
                       )}
-                      {description && description?.length > 0 ? <p style={{ width: '600px', maxWidth: '100%' }} className="dsr-text-md dsr-opacity-80 dsr-mt-2">{description}</p> : null}
+                      {description && description?.length > 0 ? <p className="dsr-text-md dsr-opacity-80 dsr-mt-2 dsr-max-w-full dsr-w-[600px]">{description}</p> : null}
                       {titleBottomRenderer()}
                   </div>
                   <div className="md:dsr-w-1/3 dsr-py-2 dsr-flex dsr-justify-end dsr-items-center">

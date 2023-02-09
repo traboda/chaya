@@ -169,7 +169,6 @@ const columns = [
   {
     'id': 'name',
     'label': 'Name',
-    fill: true,
     link: (i) => `#${i.id}`,
     'value': (i) => (
         <span>

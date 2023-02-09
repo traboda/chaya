@@ -14,8 +14,7 @@ type ItemListerTitleBarProps<Type> = {
   onSort: (attribute: string, order?: ('asc' | 'desc')) => void,
   currentSortAttribute?: string,
   sortOrder?: 'asc' | 'desc',
-  gridTemplate: React.CSSProperties,
-  setWidth?: (width: number) => void
+  colsWidth: (string | number)[],
   isAccordionsOpen?: boolean,
   toggleAccordions?: (state: boolean) => void,
 };
@@ -24,39 +23,35 @@ const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-primaryTextColor';
 
 const ItemListerTitleBar = <Type extends { id: string }>({
   properties, currentSortAttribute, sortOrder, isAccordionsOpen = undefined, toggleAccordions = () => {},
-  gridTemplate, onSort = () => null, setWidth = () => {},
+  colsWidth, onSort = () => null,
 }: ItemListerTitleBarProps<Type>) => {
 
   const { theme } = useContext(DSRContext);
   const { isEnabled: isSelectEnabled, selectAll, deselectAll, isAllSelected } = useContext(SelectionContext);
 
-  const barRef = useRef<HTMLTableRowElement>(null);
-
-  useEffect(() => { if (barRef.current) setWidth(barRef.current.offsetWidth); }, [barRef.current]);
+  let i = 0;
 
   return (
-      <tr
-          className="dsr-grid dsr-w-full dsr-transition-transform"
-          ref={barRef}
-          style={gridTemplate}
-      >
+      <tr className="dsr-transition-transform">
           {isAccordionsOpen != null && (
               <th
-                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString() }}
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
                   className={clsx([
-                    'dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center dsr-relative dsr-border-b-2',
+                    'dsr-relative dsr-px-2 dsr-py-3',
                     thClasses,
                   ])}
               >
-                  <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
-                      <Icon icon={isAccordionsOpen ? 'chevron-down' : 'chevron-right'} size={18} />
-                  </button>
+                  <div className="dsr-grid dsr-content-center">
+                      <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
+                          <Icon icon={isAccordionsOpen ? 'chevron-down' : 'chevron-right'} size={18} />
+                      </button>
+                  </div>
               </th>
           )}
           {isSelectEnabled && (
               <th
                   className={clsx(['dsr-py-3', thClasses])}
-                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString() }}
+                  style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
               >
                   <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
                       <input
@@ -75,6 +70,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                     style={{
                       textAlign: p.textAlign,
                       borderBottomColor: Color(theme?.color).fade(0.85).toString(),
+                      width: colsWidth[i++],
                     }}
                 >
                     {p?.allowSort ? (

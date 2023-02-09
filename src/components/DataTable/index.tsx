@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import { nanoid } from 'nanoid';
- 
+
 import InfiniteLoader from '../InfiniteLoader';
 
 import ItemListerTitleBar from './TitleBar';
@@ -24,7 +24,6 @@ type DataTableProps<Type> = {
   customTopBarRenderer?: () => React.ReactElement,
   loadable?: boolean,
   stickyRow?: Type,
-  widthUnit?: 'px' | 'fr' | 'rem' | 'em' | '%',
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
@@ -40,7 +39,7 @@ const DataTable = <Type extends { id: string }>({
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
-  stickyRow, widthUnit = 'px', showTopBarOnEmpty = false,
+  stickyRow, showTopBarOnEmpty = false,
 }: DataTableProps<Type>) => {
 
   const titleBarRef = useRef(null);
@@ -50,7 +49,6 @@ const DataTable = <Type extends { id: string }>({
 
   const [titleTopHeight, setTitleTopHeight] = useState(0);
   const [scrollDir, setScrollDir] = useState('up');
-  const [tableWidth, setTableWidth] = useState(1000);
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
 
   useEffect(() => {
@@ -76,34 +74,15 @@ const DataTable = <Type extends { id: string }>({
     };
   }, [!isLoading && items?.length === 0]);
 
-  const calculateRemainingWidth = () => {
-    let usedWidth = 0;
-    if (allowSelection) usedWidth += 60;
-    properties.forEach((property) => {
-      if (!property.fill && !property?.isHidden)
-        usedWidth += property.width ?? 100;
-    });
-    return Math.max(tableWidth - usedWidth, 200);
-  };
-
-  const dummyCol = (width: number) => ({
-    width,
-    id: nanoid(),
-    label: undefined,
-    value() { return undefined; },
-  });
-
-  const gridTemplate = useMemo(() => {
-    let divide: ItemListerProperty<Type>[] = [];
-    if (canExpand) divide.push(dummyCol(60));
-    if (allowSelection) divide.push(dummyCol(60));
-    const propConfigs = properties.filter(p => !p.isHidden);
-    divide = divide?.length > 0 ? [...divide, ...propConfigs] : propConfigs;
-    let cols = '';
-    for (const col of divide)
-      cols += col?.width ? `${col.width}${widthUnit} ` : col?.fill ? `minmax(${calculateRemainingWidth()}px, 1fr) ` : '100px ';
-    return { gridTemplateColumns: cols };
-  }, [canExpand, allowSelection, widthUnit, properties]);
+  const colsWidth = useMemo(() => {
+    let divide: (string | number | undefined)[] = [];
+    if (canExpand) divide.push(60);
+    if (allowSelection) divide.push(60);
+    divide = [...divide, ...properties.filter(p => !p.isHidden).map(p => p.width)];
+    const cols = [];
+    for (const col of divide) cols.push(col ?? 'auto');
+    return cols;
+  }, [canExpand, allowSelection, properties]);
 
   const toggleAccordion = (index: number) => {
     if (activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
@@ -132,7 +111,7 @@ const DataTable = <Type extends { id: string }>({
                         {customTopBarRenderer()}
                     </div>
                     <table
-                        className="data-table dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full"
+                        className="data-table dsr-transition-transform dsr-min-w-full dsr-border-separate dsr-border-spacing-0"
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
                         <thead className="dsr-sticky dsr-z-50" ref={titleBarRef} style={{ top: titleTopHeight }}>
@@ -141,8 +120,7 @@ const DataTable = <Type extends { id: string }>({
                                 onSort={onSort}
                                 currentSortAttribute={currentSortAttribute}
                                 sortOrder={sortOrder}
-                                gridTemplate={gridTemplate}
-                                setWidth={setTableWidth}
+                                colsWidth={colsWidth}
                                 isAccordionsOpen={canExpand ? activeIndex.length > 0 : undefined}
                                 toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
                             />
@@ -152,7 +130,6 @@ const DataTable = <Type extends { id: string }>({
                                     properties={properties}
                                     item={stickyRow}
                                     itemIndex={-1}
-                                    gridTemplate={gridTemplate}
                                     supportAccordion={canExpand}
                                 />
                             )}
@@ -161,35 +138,29 @@ const DataTable = <Type extends { id: string }>({
                             {items?.length > 0 ?
                               items.map((i, index) =>
                                 canExpand ? (
-                                    <tr>
-                                        <td colSpan={items.length - 1}>
-                                            <table className="data-table dsr-flex dsr-flex-col dsr-transition-transform dsr-min-w-full table-accordion">
-                                                <ItemListerItem<Type>
-                                                    key={i?.id ?? nanoid()}
-                                                    properties={properties}
-                                                    item={i}
-                                                    itemIndex={index}
-                                                    gridTemplate={gridTemplate}
-                                                    onClick={() => toggleAccordion(index)}
-                                                    supportAccordion={canExpand}
-                                                    isAccordionOpen={activeIndex.includes(index)}
-                                                />
+                                    <>
+                                        <ItemListerItem<Type>
+                                            key={i?.id ?? nanoid()}
+                                            properties={properties}
+                                            item={i}
+                                            itemIndex={index}
+                                            onClick={() => toggleAccordion(index)}
+                                            supportAccordion={canExpand}
+                                            isAccordionOpen={activeIndex.includes(index)}
+                                        />
 
-                                                {activeIndex.includes(index) && (
-                                                    <tr className="accordion-content data-table-row dsr-grid dsr-items-center dsr-group dsr-w-full">
-                                                        <td colSpan={items.length - 1}>{accordionRenderer(i)}</td>
-                                                    </tr>
-                                                )}
-                                            </table>
-                                        </td>
-                                    </tr>
+                                        {activeIndex.includes(index) && (
+                                            <tr className="accordion-content data-table-row dsr-group dsr-w-full">
+                                                <td colSpan={items.length - 1}>{accordionRenderer(i)}</td>
+                                            </tr>
+                                        )}
+                                    </>
                                 ) : (
                                     <ItemListerItem<Type>
                                         key={i.id ? i.id : nanoid()}
                                         properties={properties}
                                         item={i}
                                         itemIndex={index}
-                                        gridTemplate={gridTemplate}
                                     />
                                 ),
                               ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
@@ -200,7 +171,6 @@ const DataTable = <Type extends { id: string }>({
                                     key={nanoid()}
                                     properties={properties}
                                     isLoading
-                                    gridTemplate={gridTemplate}
                                 />
                             ))}
                         </tbody>

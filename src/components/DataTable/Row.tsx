@@ -14,7 +14,6 @@ export type ItemListerProperty<Type> = {
   labelClassName?: string,
   value: (self: Type, index?: number) => ReactNode,
   width?: number, 
-  fill?: boolean,
   link?: (self: Type) => string,
   className?: string,
   textAlign?: 'center' | 'left' | 'right',
@@ -29,14 +28,13 @@ type ItemListerItemProps<Type> = {
   itemIndex?: number,
   isLoading?: boolean,
   isPinned?: boolean,
-  gridTemplate: React.CSSProperties
   supportAccordion?: boolean,
   isAccordionOpen?: boolean,
   onClick?: () => void,
 };
 
 const ItemListerItem = <Type extends { id: string }>({
-  properties, item, itemIndex, gridTemplate, supportAccordion = false, isAccordionOpen = false,
+  properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
   onClick = () => {}, isLoading = false, isPinned = false,
 }: ItemListerItemProps<Type>) => {
 
@@ -49,15 +47,13 @@ const ItemListerItem = <Type extends { id: string }>({
     isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
   ]);
 
+  let i = 0;
   return (
-      <tr
-          className="data-table-row dsr-grid dsr-items-center dsr-group"
-          style={gridTemplate}
-      >
+      <tr className="dsr-group">
           {supportAccordion && (
               <td
                   className={clsx([
-                    'dsr-px-2 dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-text-center',
+                    'dsr-px-2',
                     tdClasses,
                   ])}
               >
@@ -68,7 +64,7 @@ const ItemListerItem = <Type extends { id: string }>({
           )}
           {isEnabled && (
               <td className={clsx(['dsr-px-2', tdClasses])}>
-                  <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-w-full dsr-py-3 dsr-text-center">
+                  <div className="dsr-py-3 dsr-grid dsr-content-center">
                       {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
                           <input
                               type="checkbox"
@@ -92,7 +88,7 @@ const ItemListerItem = <Type extends { id: string }>({
                   <td
                       key={link ? null : p.id}
                       className={clsx([
-                        'dsr-py-2 dsr-px-3 dsr-flex dsr-items-center',
+                        'dsr-py-2 dsr-px-3',
                         tdClasses,
                         p?.className,
                       ])}
