@@ -17,9 +17,9 @@ const Template: Story = args => {
   return (
       <div className="dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col" style={{ minHeight: '50vh' }}>
           <DropdownMenu {...args}>
-              <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+              <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                   open
-              </div>
+              </button>
           </DropdownMenu>
       </div>
   );
@@ -32,37 +32,37 @@ const FiveCorners: Story = args => {
       <div className="relative dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
           <div className="dsr-fixed dsr-top-0 dsr-left-0 dsr-m-4">
               <DropdownMenu {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+                  <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                       open
-                  </div>
+                  </button>
               </DropdownMenu>
           </div>
           <div className="dsr-fixed dsr-top-0 dsr-right-0 dsr-m-4">
               <DropdownMenu {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+                  <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                       open
-                  </div>
+                  </button>
               </DropdownMenu>
           </div>
           <div className="dsr-fixed dsr-bottom-0 dsr-left-0 dsr-m-4">
               <DropdownMenu {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+                  <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                       open
-                  </div>
+                  </button>
               </DropdownMenu>
           </div>
           <div className="dsr-fixed dsr-bottom-0 dsr-right-0 dsr-m-4">
               <DropdownMenu {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+                  <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                       open
-                  </div>
+                  </button>
               </DropdownMenu>
           </div>
           <div className="dsr-fixed dsr-top-1/2 dsr-left-1/2">
               <DropdownMenu {...args}>
-                  <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+                  <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
                       open
-                  </div>
+                  </button>
               </DropdownMenu>
           </div>
       </div>
@@ -88,7 +88,6 @@ Default.args = DynamicPosition.args = {
       'link': '#/item/link',
     },
     {
-      'icon': 'fa fa-cog',
       'title': 'Item 3 with renderer',
       renderer: () => (
           <div>
@@ -99,7 +98,7 @@ Default.args = DynamicPosition.args = {
     {
       'icon': 'fa fa-edit',
       'title': 'Item 4 custom styling',
-      'className': 'dsr-bg-red-300',
+      'className': 'dsr-bg-primary dsr-text-primaryTextColor',
       'link': '#/item/link',
     },
   ],

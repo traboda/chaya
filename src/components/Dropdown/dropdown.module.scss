@@ -1,0 +1,13 @@
+.animateEntry {
+  animation: entry 200ms ease-in forwards;
+}
+
+@keyframes entry {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

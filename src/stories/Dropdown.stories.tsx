@@ -14,16 +14,16 @@ const meta: Meta = {
 export default meta;
 
 const DropdownChildren = (
-    <div>
-        <h2 className="text-lg">Heading</h2>
-        <p className="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem fugiat maiores rem? Adipisci consequatur possimus rerum. Aliquam at debitis deserunt dolorem enim et incidunt natus nulla, officia, pariatur rem.</p>
+    <div className="dsr-p-4">
+        <h2 className="dsr-text-xl dsr-font-semibold">Heading</h2>
+        <p className="dsr-mt-2 dsr-text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem fugiat maiores rem? Adipisci consequatur possimus rerum. Aliquam at debitis deserunt dolorem enim et incidunt natus nulla, officia, pariatur rem.</p>
     </div>
 );
 
 const DropdownButtonRenderer = (
-    <div className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
+    <button className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-3 dsr-rounded-lg" style={{ color: 'white', background: '#333' }}>
         open
-    </div>
+    </button>
 );
 
 const Template: Story = args => {

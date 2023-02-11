@@ -47,7 +47,6 @@ const ItemListerItem = <Type extends { id: string }>({
     isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
   ]);
 
-  let i = 0;
   return (
       <tr className="dsr-group">
           {supportAccordion && (
