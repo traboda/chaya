@@ -37,7 +37,7 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
           <text
               x="50%"
               y="50%"
-              dominantBaseline="middle"
+              dominantBaseline="central"
               textAnchor="middle"
               fill="#222"
               fontSize="40"
