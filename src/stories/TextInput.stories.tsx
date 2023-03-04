@@ -31,8 +31,8 @@ Default.args = {};
 export const WithPostfix = Template.bind({});
 
 WithPostfix.args = {
-  prefixRenderer: 'Points',
-  postfixRenderer: 'pts',
+  prefixRenderer: <div className="dsr-px-2.5">Points</div>,
+  postfixRenderer: <div className="dsr-px-2.5">pts</div>,
 };
 
 const InvalidInputsTemplate: Story = args => (

@@ -33,10 +33,14 @@ export default meta;
 const Template: Story = args => (
     <Card {...args}>
         {args.children}
-        <Card>
-            <h1>Child Card</h1>
-            <Card>
-                <h1>Grand Child Card</h1>
+        <Card
+            description="Set start time and end time for the CTF, which will determine the duration in which the CTF will be active. This is the time when public challenges will be released to participants, when deployments can be accessed and flags can be submitted."
+            sidebarRenderer={<Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>}
+            title="Child Title"
+        >
+            <h1>Child Card (content)</h1>
+            <Card className="dsr-mt-4" title="Grand child Title">
+                <h1>Grand Child Card (content)</h1>
             </Card>
         </Card>
     </Card>

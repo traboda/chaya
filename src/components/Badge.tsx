@@ -21,7 +21,7 @@ export type BadgeProps = BaseBadgeProps & {
 };
 
 const sizeDefinitions = {
-  xs: 'dsr-px-1.5 dsr-py-0 dsr-text-xs',
+  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs',
   sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
   md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
   lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',

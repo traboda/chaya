@@ -15,7 +15,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="flex justify-center items-center">
+    <div className="dsr-flex dsr-justify-center dsr-items-center">
         <Badge {...args}>
             Badge
         </Badge>
@@ -26,8 +26,8 @@ export const Default = Template.bind({});
 
 
 const Vars: Story = args => (
-    <div className="flex flex-col justify-center items-center gap-4 py-4">
-        <div className="flex gap-2">
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-gap-2 dsr-py-2">
+        <div className="dsr-flex dsr-gap-2">
             <Badge {...args} variant="solid" color="primary" />
             <Badge {...args} variant="solid" color="secondary" />
             <Badge {...args} variant="solid" color="success" />
@@ -36,7 +36,7 @@ const Vars: Story = args => (
             <Badge {...args} variant="solid" color="contrast" />
             <Badge {...args} variant="solid" color="shade" />
         </div>
-        <div className="flex gap-2">
+        <div className="dsr-flex dsr-gap-2">
             <Badge {...args} variant="outline" color="primary" />
             <Badge {...args} variant="outline" color="secondary" />
             <Badge {...args} variant="outline" color="success" />
@@ -46,7 +46,7 @@ const Vars: Story = args => (
             <Badge {...args} variant="outline" color="shade" />
         </div>
 
-        <div className="flex gap-2">
+        <div className="dsr-flex dsr-gap-2">
             <Badge {...args} variant="minimal" color="primary" />
             <Badge {...args} variant="minimal" color="secondary" />
             <Badge {...args} variant="minimal" color="success" />
@@ -64,18 +64,15 @@ export const ColorVariants = Vars.bind({});
 ColorVariants.args = {
   children: 'Hey',
   size: 'md',
-  style: { margin: '5px' },
 };
 
 const SizeVars: Story = args => (
-    <div className="flex flex-col justify-center items-center gap-4 py-4" style={{ minHeight: '25vh' }}>
-        <div>
-            <Badge {...args} size="xs" />
-            <Badge {...args} size="sm" />
-            <Badge {...args} size="md" />
-            <Badge {...args} size="lg" />
-            <Badge {...args} size="xl" />
-        </div>
+    <div className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-4 dsr-py-4" style={{ minHeight: '25vh' }}>
+        <Badge {...args} size="xs" />
+        <Badge {...args} size="sm" />
+        <Badge {...args} size="md" />
+        <Badge {...args} size="lg" />
+        <Badge {...args} size="xl" />
     </div>
 );
 
@@ -83,5 +80,4 @@ export const SizeVariants = SizeVars.bind({});
 
 SizeVariants.args = {
   children: 'New',
-  style: { margin: '5px' },
 };

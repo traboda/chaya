@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { ReactNode, useContext, useMemo } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
@@ -26,6 +26,7 @@ export type SimpleSelectProps<Type> = {
   isRequired?: boolean,
   isDisabled?: boolean,
   hideArrow?: boolean,
+  postfixRenderer?: ReactNode,
   labels?: {
     label?: string,
     placeholder?: string
@@ -38,7 +39,7 @@ const defaultLabels = {
 };
 
 const SimpleSelect = <Type extends string | number>({
-  value, onChange = () => {},
+  value, onChange = () => {}, postfixRenderer,
   id, className = '', labels: propLabels, hideArrow = false,
   isRequired = false, isDisabled = false, name, options,
 }: SimpleSelectProps<Type>) => {
@@ -46,6 +47,12 @@ const SimpleSelect = <Type extends string | number>({
   const labels = { ...defaultLabels, ...propLabels };
   const inputID = useMemo(() => id ? id : `${name}-input-${nanoid()}`, [id, name]);
   const { isDarkTheme } = useContext(DSRContext);
+
+  const iconClassNameCalculated = clsx([
+    'dsr-border group-[:not(:focus-within):hover]:dsr-border-gray-400/80 group-focus-within:dsr-border-primary',
+    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden',
+    'dsr-items-center dsr-border-gray-500/70 dsr-text-base',
+  ]);
 
   return (
       <div className="dsr-w-full simple-select-container">
@@ -60,12 +67,14 @@ const SimpleSelect = <Type extends string | number>({
                   {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
               </label>
           )}
-          <div className="dsr-w-full">
+          <div className="dsr-w-full dsr-flex dsr-group">
               <select
                   className={clsx([
                     'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
-                    'focus:dsr-outline-none focus:dsr-border-primary hover:dsr-border-color dsr-border',
+                    'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
                     'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat',
+                    'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+                    !postfixRenderer && 'dsr-border-r',
                     className,
                   ])}
                   name={name}
@@ -114,6 +123,16 @@ const SimpleSelect = <Type extends string | number>({
                     )
                   }
               </select>
+              {postfixRenderer && (
+                  <div
+                      className={clsx([
+                        iconClassNameCalculated,
+                        'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+                      ])}
+                  >
+                      {postfixRenderer}
+                  </div>
+              )}
           </div>
       </div>
   );

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import {
   ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
-  ExternalLink, Home, Search, Settings, X,
+  ExternalLink, Home, Info, Search, Settings, X,
 } from 'react-feather';
 import { nanoid } from 'nanoid';
 
@@ -49,6 +49,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
                 externalLink: <ExternalLink {...props} />,
                 home: <Home {...props} />,
                 settings: <Settings {...props} />,
+                info: <Info {...props} />,
               })[icon] ?? <>n/a</>}
           >
               {children}

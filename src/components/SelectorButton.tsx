@@ -50,16 +50,18 @@ const SelectorButton = <Type extends string | number>({
               isDisabled={isDisabled}
               isRequired
               className="dsr-rounded-r-none"
+              postfixRenderer={
+                  <Button
+                      variant="link"
+                      color="contrast"
+                      className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent"
+                      type="submit"
+                      isDisabled={isDisabled}
+                  >
+                      {labels?.button}
+                  </Button>
+              }
           />
-          <Button
-              variant="solid"
-              size="md"
-              className="dsr-flex-shrink-0 dsr-rounded-l-none"
-              type="submit"
-              isDisabled={isDisabled}
-          >
-              {labels?.button}
-          </Button>
       </form>
   );
 

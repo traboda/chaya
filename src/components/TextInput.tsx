@@ -112,8 +112,8 @@ const TextInput = <Type extends string | number>({
 
   const inputClassNameCalculated = clsx([
     'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color',
-    'dsr-text-color dsr-border-y hover:dsr-border-gray-400/80 placeholder:dsr-opacity-50',
-    'focus:dsr-outline-none focus:dsr-border-primary dsr-text-base',
+    'dsr-text-color dsr-border-y group-[:not(:focus-within):hover]:dsr-border-gray-400/80 placeholder:dsr-opacity-50',
+    'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-text-base',
     isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
     touched ? 'invalid:dsr-border-red-500' : '',
     prefixRenderer ? '' : 'dsr-rounded-l-lg dsr-border-l',
@@ -123,7 +123,7 @@ const TextInput = <Type extends string | number>({
 
   const iconClassNameCalculated = clsx([
     'dsr-border group-[:not(:focus-within):hover]:dsr-border-gray-400/80 group-focus-within:dsr-border-primary',
-    'dsr-px-2.5 dsr-py-2 dsr-text-color group-focus-within:dsr-border-primary',
+    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden',
     'dsr-items-center dsr-border-gray-500/70 dsr-text-base',
   ]);
 
@@ -163,7 +163,7 @@ const TextInput = <Type extends string | number>({
                   <div
                       className={clsx([
                         iconClassNameCalculated,
-                        'dsr-left-0 dsr-inline-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-max-w-[5rem]',
+                        'dsr-left-0 dsr-inline-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-max-w-[5rem] dsr-shrink-0',
                       ])}
                       style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
                   >
@@ -191,7 +191,7 @@ const TextInput = <Type extends string | number>({
                   <div
                       className={clsx([
                         iconClassNameCalculated,
-                        'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg',
+                        'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
                       ])}
                       style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
                   >

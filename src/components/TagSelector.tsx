@@ -3,12 +3,15 @@ import clsx from 'clsx';
 
 import ToolTip from './ToolTip';
 import Icon from './Icon';
+import Badge, { BaseBadgeProps } from './Badge';
 
 type OptionType = {
   value: (string | number),
   label: (string | React.ReactElement),
   isDisabled?: boolean,
-  color?: string
+  color?: string,
+  count?: React.ReactNode,
+  countBadgeProps?: BaseBadgeProps,
 };
 
 type SingleValueType = string | number;
@@ -26,6 +29,7 @@ type TagSelectorProps<Type> = {
   options: OptionType[],
   isClearable?: boolean,
   multiple?: boolean,
+  countBadgeProps?: BaseBadgeProps,
 };
 
 const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: TagSelectorProps<Type>) => {
@@ -88,7 +92,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
                   <button
                       key={o.value}
                       className={clsx([
-                        'tag-option dsr-px-4 dsr-py-2 dsr-rounded-lg dsr-text-base',
+                        'tag-option dsr-px-4 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
                         'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
                         generateClassName(o.value),
                         props?.tagClassName,
@@ -96,7 +100,19 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
                       onClick={() => handleTagClick(o)}
                       disabled={o?.isDisabled}
                   >
-                      {o.label}
+                      <div>{o?.label}</div>
+                      {(o?.count !== undefined || props.countBadgeProps || o.countBadgeProps) && (
+                          <Badge
+                              size="xs"
+                              {...{
+                                color: 'shade',
+                                variant: 'minimal',
+                                ...(props.countBadgeProps ?? {}), ...o?.countBadgeProps,
+                              }}
+                          >
+                              {o?.count}
+                          </Badge>
+                      )}
                   </button>
               ))}
           </div>

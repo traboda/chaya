@@ -6,24 +6,33 @@ import clsx from 'clsx';
 import { LinkWrapper } from '../../utils/misc';
 import DSRContext from '../../contexts/DSRContext';
 import { RGBAtoRGB } from '../../utils/color';
+import Icon from '../Icon';
 
 import buttonStyle from './button.module.scss';
 import { ButtonProps } from './type';
 import Ripple from './Ripple';
 
 const sizeDefinitions = {
-  xs: 'dsr-px-1 dsr-py-0 dsr-text-xs',
-  sm: 'dsr-px-2 dsr-py-1 dsr-text-sm',
-  md: 'dsr-px-3 dsr-py-2 dsr-text-base',
-  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
-  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
+  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs dsr-rounded',
+  sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm dsr-rounded-md',
+  md: 'dsr-px-3.5 dsr-py-2 dsr-text-base dsr-rounded-lg',
+  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg dsr-rounded-lg',
+  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl dsr-rounded-lg',
+};
+
+const iconSizes = {
+  xs: 14,
+  sm: 16,
+  md: 18,
+  lg: 20,
+  xl: 22,
 };
 
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
   id, className = '', style, label, disableRipple = false,
-  target, type, rel, isDisabled = false,
+  target, type, rel, isDisabled = false, leftIcon, rightIcon,
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -38,7 +47,7 @@ const Button = ({
       danger: tailwindColors.red['500'],
       warning: tailwindColors.yellow['500'],
       contrast: background.negate().toString(),
-      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
+      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.5).toString(),
     };
 
     return colors[color];
@@ -61,8 +70,8 @@ const Button = ({
   const textColor = useMemo(
     () => {
       if (variant === 'solid' || (variant === 'outline' && hover)) return Color(activeColor).isDark() ? '#fff' : '#333';
-      else if (variant === 'minimal' && color === 'contrast') return Color(backgroundColor).isDark() ? '#fff' : '#333';
-      return activeColor;
+      else if (variant === 'minimal' && ['contrast', 'shade'].includes(color)) return Color(backgroundColor).isDark() ? '#fff' : '#333';
+      return isDarkTheme ? Color(activeColor).lighten(0.2).toString() : activeColor;
     },
     [activeColor, variant, hover],
   );
@@ -75,20 +84,23 @@ const Button = ({
     }
   }, [activeColor]);
 
-  const linkRenderer = () => (
-      <React.Fragment>
+  const buttonContent = (
+      <>
           {(!disableRipple && !isDisabled) && <Ripple />}
+          {leftIcon && <Icon icon={leftIcon} size={iconSizes[size]} />}
           {children}
-      </React.Fragment>
+          {rightIcon && <Icon icon={rightIcon} size={iconSizes[size]} />}
+      </>
   );
 
   const computedClassName = clsx([
-    className,
     sizeDefinitions[size],
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
-    'button dsr-rounded-lg dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
-    'focus-visible:dsr-outline dsr-outline-2',
+    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
+    'focus-visible:dsr-outline dsr-outline-2 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
+    size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
+    className,
   ]);
 
   const computedStyle = {
@@ -114,12 +126,11 @@ const Button = ({
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
       >
-          {(!disableRipple && !isDisabled) && <Ripple />}
-          {children}
+          {buttonContent}
       </button>
   );
 
-  return link ? LinkWrapper(link, linkRenderer(), {
+  return link ? LinkWrapper(link, buttonContent, {
     target, rel, id, label,
     className: computedClassName,
     style: computedStyle,

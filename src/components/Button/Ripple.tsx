@@ -12,7 +12,7 @@ const useDebouncedRippleCleanUp = (rippleCount: number, duration: number, cleanU
       bounce = setTimeout(() => {
         cleanUpFunction();
         clearTimeout(bounce);
-      }, duration * 4);
+      }, duration);
     }
 
     return () => clearTimeout(bounce);
@@ -25,7 +25,7 @@ type RippleState = {
   size: number
 };
 
-const duration = 800;
+const duration = 600;
 
 const Ripple = () => {
   const [rippleArray, setRippleArray] = useState<RippleState[]>([]);
@@ -47,7 +47,7 @@ const Ripple = () => {
   };
 
   return (
-      <div className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
+      <span className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
           {rippleArray.length > 0 && rippleArray.map((ripple, index) => (
               <span
                   className={clsx([
@@ -62,7 +62,7 @@ const Ripple = () => {
                   }}
               />
           ))}
-      </div>
+      </span>
   );
 };
 

@@ -1,13 +1,13 @@
 @keyframes expand {
-  from { transform: scale(0.5); opacity: 0; overflow: hidden; }
-  80% { transform: scale(1.1); overflow: hidden; }
-  to { transform: scale(1); opacity: 1; overflow: hidden; }
+  from { transform: scale(0.9); opacity: 0; }
+  80% { transform: scale(1.05); }
+  to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes expand-reverse {
-  from { transform: scale(1); opacity: 1; overflow: hidden; }
-  20% { transform: scale(1.2); overflow: hidden; }
-  to { transform: scale(0.5); opacity: 0; overflow: hidden; }
+  from { transform: scale(1); opacity: 1; }
+  20% { transform: scale(1.1); }
+  to { transform: scale(0.9); opacity: 0; }
 }
 
 .animateIn {

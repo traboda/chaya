@@ -3,7 +3,6 @@ import clsx from 'clsx';
 
 import TextInput from './TextInput';
 import Button from './Button';
-import Icon from './Icon';
 
 const defaultLabels = {
   'label': 'Search',
@@ -28,7 +27,7 @@ export type SearchBoxProps = {
   inputStyle?: React.CSSProperties
 };
 
-const buttonClass = 'dsr-px-1 dsr-py-3 dsr-text-color dsr-bg-transparent focus:dsr-outline-none hover:dsr-text-secondary focus:dsr-text-secondary';
+const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent';
 
 const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
@@ -59,33 +58,29 @@ const SearchBox = ({
                   hideLabel={hideLabel}
                   onKeyDown={onKeyDown}
                   postfixRenderer={
-                      <div className="dsr-flex dsr-items-center dsr-gap-1">
+                      <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
                           {keyword.length > 0 && (
                               <Button
-                                  size="xs"
                                   variant="link"
                                   color="danger"
                                   type="button"
-                                  className={buttonClass}
+                                  className={clsx([buttonClass, '-dsr-mr-3.5'])}
                                   onClick={() => {
                                     setKeyword('');
                                     onSearch('');
                                     onClear();
                                   }}
-                              >
-                                  <Icon icon="times" size={18} />
-                              </Button>
+                                  rightIcon="times"
+                              />
                           )}
                           <Button
-                              size="xs"
                               variant="link"
                               color="contrast"
                               className={clsx(['search-box-button', buttonClass])}
                               label={`${name} button`}
                               type="submit"
-                          >
-                              <Icon icon="search" size={18} />
-                          </Button>
+                              rightIcon="search"
+                          />
                       </div>
                   }
               />

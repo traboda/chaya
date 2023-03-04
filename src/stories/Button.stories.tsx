@@ -83,14 +83,12 @@ ColorVariants.args = {
 };
 
 const SizeVars: Story = args => (
-    <div className="dsr-flex dsr-justify-center dsr-items-center" style={{ minHeight: '25vh', columnGap: '0.25rem' }}>
-        <div>
-            <Button {...args} size="xs" />
-            <Button {...args} size="sm" />
-            <Button {...args} size="md" />
-            <Button {...args} size="lg" />
-            <Button {...args} size="xl" />
-        </div>
+    <div className="dsr-flex dsr-justify-center dsr-items-center" style={{ minHeight: '25vh' }}>
+        <Button {...args} size="xs" rightIcon="chevron-right" leftIcon="info" />
+        <Button {...args} size="sm" rightIcon="chevron-right" leftIcon="info" />
+        <Button {...args} size="md" rightIcon="chevron-right" leftIcon="info" />
+        <Button {...args} size="lg" rightIcon="chevron-right" leftIcon="info" />
+        <Button {...args} size="xl" rightIcon="chevron-right" leftIcon="info" />
     </div>
 );
 

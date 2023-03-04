@@ -20,8 +20,7 @@ const Template: Story = args => {
     setValue(args.value);
   }, [args.value]);
 
-  return (
-  // @ts-ignore
+  return ( // @ts-ignore
       <TagSelector {...args} value={value} onChange={setValue} />
   );
 };
@@ -40,6 +39,8 @@ const options = [
   {
     label: 'Item 3',
     value: 'tab 3',
+    count: 3,
+    countBadgeProps: { color: 'primary' },
   },
   {
     label: 'Item 4',

@@ -1,6 +1,7 @@
 import { CSSProperties, ReactNode, MouseEvent } from 'react';
 
 import { LinkRelType, LinkTargetType } from '../../utils/misc';
+import { IconInputType } from '../Icon';
 
 export type ButtonVariant = 'solid' | 'outline' | 'minimal' | 'link';
 export type ButtonColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';
@@ -27,4 +28,7 @@ export type ButtonProps = {
   onFocus?: () => void
   label?: string
   title?: string
+
+  leftIcon?: IconInputType
+  rightIcon?: IconInputType
 };

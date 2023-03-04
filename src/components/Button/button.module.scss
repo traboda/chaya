@@ -1,6 +1,5 @@
 .animation {
-  animation-name: ripple;
-  animation-fill-mode: forwards;
+  animation: ripple ease-in-out forwards;
 }
 
 @keyframes ripple {
