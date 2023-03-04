@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useContext, useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
 import Color from 'color';
@@ -7,19 +7,24 @@ import DSRContext from '../../contexts/DSRContext';
 
 import styles from './dropdown.module.scss';
 
+export type AlignOptions = 'start' | 'center' | 'end';
+export type SideOptions = 'top' | 'right' | 'bottom' | 'left';
+
 export type DropdownProps = {
   children: ReactNode,
-  buttonRenderer: ReactNode,
+  buttonRenderer: ReactElement,
   isOpen?: boolean,
   onClose?: () => void,
   id?: string,
   className?: string,
-  containerClassName?: string
+  containerClassName?: string,
+  align?: AlignOptions,
+  side?: SideOptions
 };
 
 const Dropdown = ({
   children, buttonRenderer, isOpen = false, onClose = () => {},
-  containerClassName,
+  containerClassName, align = 'center', side = 'bottom',
 }: DropdownProps) => {
 
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -30,7 +35,7 @@ const Dropdown = ({
   useEffect(() => onClose, [open]);
 
   return (
-      <DropdownMenu.Root open={open} onOpenChange={setOpen}>
+      <DropdownMenu.Root open={open} onOpenChange={setOpen} modal={false}>
           <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
               {buttonRenderer}
           </DropdownMenu.Trigger>
@@ -44,6 +49,8 @@ const Dropdown = ({
                   ])}
                   style={{ backgroundColor: isDarkTheme ? Color(theme?.background).lighten(0.4).toString() : Color(theme?.background).darken(0.06).toString() }}
                   sideOffset={5}
+                  align={align}
+                  side={side}
               >
                   {children}
               </DropdownMenu.Content>

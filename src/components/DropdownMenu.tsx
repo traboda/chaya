@@ -5,10 +5,10 @@ import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { LinkWrapper } from '../utils/misc';
 
 import Icon, { IconInputType } from './Icon';
-import Dropdown from './Dropdown';
+import Dropdown, { AlignOptions, SideOptions } from './Dropdown';
 
 type DropdownMenuProps = {
-  children: React.ReactNode
+  children: React.ReactElement
   items?: {
     title: string,
     iconClassName?: string,
@@ -23,12 +23,14 @@ type DropdownMenuProps = {
   id?: string,
   className?: string,
   containerClassName?: string,
-  customHeaderRenderer?: () => React.ReactNode
+  customHeaderRenderer?: () => React.ReactNode,
+  align?: AlignOptions,
+  side?: SideOptions
 };
 
 const DropdownMenu = ({
   children: buttonRenderer, items = [], isOpen = false, onClose = () => {}, id, className = '',
-  containerClassName, customHeaderRenderer,
+  containerClassName, customHeaderRenderer, align = 'center', side = 'bottom',
 } : DropdownMenuProps) => {
   const linkClasses = (className?: string) => clsx([
     'dsr-flex dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-transition dsr-px-2.5 dsr-py-1.5 dsr-w-full dsr-text-left',
@@ -43,6 +45,8 @@ const DropdownMenu = ({
           className={className}
           containerClassName={clsx([containerClassName, 'dsr-p-1'])}
           buttonRenderer={buttonRenderer}
+          align={align}
+          side={side}
       >
           {customHeaderRenderer?.()}
           {items.length > 0 && items.map((n, i) => {
