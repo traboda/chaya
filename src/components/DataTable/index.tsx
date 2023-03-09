@@ -164,7 +164,7 @@ const DataTable = <Type extends { id: string }>({
                                     />
                                 ),
                               ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
-                                emptyListRenderer() : null}
+                                (<tr><td colSpan={properties.length - 1}>{emptyListRenderer()}</td></tr>) : null}
 
                             {isLoading && Array(10).fill(0).map(() => (
                                 <ItemListerItem<Type>
