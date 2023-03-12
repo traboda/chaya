@@ -2,7 +2,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { DataTable } from '../index';
+import { DataTable, Icon } from '../index';
 
 const meta: Meta = {
   title: 'Content Handlers/Data Table',
@@ -315,4 +315,17 @@ StickyRowTemplate.args = {
 export const OverflowTemplate = Template.bind({});
 OverflowTemplate.args = {
   properties: columns.map((c, i) => ({ ...c, width: i === 0 ? 100 : c.width })),
+};
+
+export const EmptyTableListing = Template.bind({});
+EmptyTableListing.args = {
+  properties: columns,
+  items: [],
+  showTopBarOnEmpty: true,
+  emptyListRenderer: () => (
+      <div className="dsr-text-center dsr-py-4 dsr-flex dsr-items-center dsr-justify-center dsr-gap-2">
+          <Icon icon="info" />
+          The datatable is empty
+      </div>
+  ),
 };

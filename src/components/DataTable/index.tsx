@@ -79,15 +79,15 @@ const DataTable = <Type extends { id: string }>({
     if (canExpand) divide.push(60);
     if (allowSelection) divide.push(60);
     divide = [...divide, ...properties.filter(p => !p.isHidden).map(p => p.width)];
-    const cols = [];
-    for (const col of divide) cols.push(col ?? 'auto');
-    return cols;
+    return divide.map(col => col ?? 'auto');
   }, [canExpand, allowSelection, properties]);
 
   const toggleAccordion = (index: number) => {
     if (activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
     else setActiveIndex([...activeIndex, index]);
   };
+
+  const colSpan = properties.filter(p => !p.isHidden).length + Number(canExpand) + Number(allowSelection);
 
   return (
       <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
@@ -151,7 +151,7 @@ const DataTable = <Type extends { id: string }>({
 
                                         {activeIndex.includes(index) && (
                                             <tr className="accordion-content data-table-row dsr-group dsr-w-full">
-                                                <td colSpan={items.length - 1}>{accordionRenderer(i)}</td>
+                                                <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                                             </tr>
                                         )}
                                     </>
@@ -164,7 +164,13 @@ const DataTable = <Type extends { id: string }>({
                                     />
                                 ),
                               ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
-                                emptyListRenderer() : null}
+                                (
+                                    <tr>
+                                        <td colSpan={colSpan}>
+                                            {emptyListRenderer()}
+                                        </td>
+                                    </tr>
+                                ) : null}
 
                             {isLoading && Array(10).fill(0).map(() => (
                                 <ItemListerItem<Type>
