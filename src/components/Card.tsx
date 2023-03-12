@@ -37,24 +37,28 @@ const Card = ({
             background: variant === 'shaded' ? (background ?? (isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)')) : '',
           }}
       >
-          <div>
-              {title ? (
-                  <div className="dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-mb-4">
-                      <div>
-                          {title && (
-                              <h3 className={clsx(['dsr-text-2xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2', titleClassName])}>
-                                  {icon ? <Icon icon={icon} /> : null}
-                                  {title}
-                              </h3>
-                          )}
-                          {description && <p className="dsr-opacity-90 mt-2">{description}</p>}
-                      </div>
-
-                      <div>{sidebarRenderer}</div>
+          {title ? (
+              <div className="dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-mb-4 dsr-w-full">
+                  <div>
+                      {title && (
+                          <h3
+                              className={clsx([
+                                'dsr-text-2xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+                                titleClassName,
+                              ])}
+                          >
+                              {icon ? <Icon icon={icon} /> : null}
+                              {title}
+                          </h3>
+                      )}
+                      {description && <p className="dsr-opacity-90 mt-2">{description}</p>}
                   </div>
-              ) : null}
-              {children}
-          </div>
+
+                  <div>{sidebarRenderer}</div>
+              </div>
+          ) : null}
+
+          {children}
       </div>
   );
 };
