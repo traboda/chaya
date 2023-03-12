@@ -35,10 +35,10 @@ export type SimpleSelectProps<Type> = {
 
 const defaultLabels = {
   label: null,
-  placeholder: 'Select an Option',
+  placeholder: 'Select an option',
 };
 
-const SimpleSelect = <Type extends string | number>({
+const SimpleSelect = <Type extends string | number | null | undefined>({
   value, onChange = () => {}, postfixRenderer,
   id, className = '', labels: propLabels, hideArrow = false,
   isRequired = false, isDisabled = false, name, options,
@@ -80,7 +80,7 @@ const SimpleSelect = <Type extends string | number>({
                   name={name}
                   id={inputID}
                   aria-labelledby={`${inputID}-label`}
-                  value={value}
+                  value={value ?? undefined}
                   required={isRequired}
                   disabled={isDisabled}
                   onChange={({ target }) => onChange(target.value as Type)}
@@ -104,7 +104,7 @@ const SimpleSelect = <Type extends string | number>({
                               {option.options.map(opt => (
                                   <option
                                       key={opt.value}
-                                      value={opt.value}
+                                      value={opt.value ?? undefined}
                                       selected={value === opt.value}
                                   >
                                       {opt.label}
@@ -113,7 +113,7 @@ const SimpleSelect = <Type extends string | number>({
                           </optgroup>
                       ) : 'value' in option ? (
                           <option
-                              value={option.value}
+                              value={option.value ?? undefined}
                               key={option.value}
                               selected={value === option.value}
                           >

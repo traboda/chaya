@@ -11,22 +11,28 @@ type SelectorButtonProps<Type> = {
   className?: string,
   onSubmit?: (value: Type) => void,
   isDisabled?: boolean,
+  defaultOption?: Type,
   labels?: {
-    button: string,
+    button?: string,
+    placeholder?: string,
+    label?: string
   }
 };
 
 const defaultLabels = {
   button: 'Go',
+  placeholder: 'Select an option',
+  label: undefined,
 };
 
-const SelectorButton = <Type extends string | number>({
+const SelectorButton = <Type extends string | number | null | undefined>({
   name, id, className = '', options, isDisabled = false, onSubmit: onSubmitProp = () => {}, labels: initialLabels,
+  defaultOption,
 }: SelectorButtonProps<Type>) => {
 
   const labels = { ...defaultLabels, ...initialLabels };
 
-  const [value, setValue] = useState<Type>('' as Type);
+  const [value, setValue] = useState<Type>(defaultOption ?? null as Type);
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -50,6 +56,7 @@ const SelectorButton = <Type extends string | number>({
               isDisabled={isDisabled}
               isRequired
               className="dsr-rounded-r-none"
+              labels={{ placeholder: labels?.placeholder, label: labels?.label }}
               postfixRenderer={
                   <Button
                       variant="link"

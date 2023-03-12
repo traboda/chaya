@@ -39,6 +39,7 @@ Basic.args = {
     placeholder: 'Select a category',
   },
   required: true,
+  defaultOption: 'PUBLISH',
   value, onChange: (v: any) => value = v,
   options: [
     { label: 'Delete', value: 'DELETE' },
