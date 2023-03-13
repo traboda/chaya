@@ -52,12 +52,9 @@ const Modal = ({
           <section
               className={clsx([
                 'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
-                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm',
+                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm z-[7200]',
+                hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
               ])}
-              style={{
-                zIndex: 7200,
-                background: `rgba(${isDarkTheme ? '0, 0, 0' : '255, 255, 255'}, ${hideBg ? 0.75 : 0.5})`,
-              }}
               onClick={onClose}
           >
               <div
