@@ -1,10 +1,9 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
 import Icon, { IconInputType } from '../Icon';
-import DSRContext from '../../contexts/DSRContext';
 
 import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
@@ -29,7 +28,6 @@ const Modal = ({
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
   const shouldRenderChild = useDelayUnmount(isOpen, 300);
 
   useEffect(() => {
@@ -52,12 +50,9 @@ const Modal = ({
           <section
               className={clsx([
                 'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
-                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm',
+                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm z-[7200]',
+                hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
               ])}
-              style={{
-                zIndex: 7200,
-                background: `rgba(${isDarkTheme ? '0, 0, 0' : '255, 255, 255'}, ${hideBg ? 0.75 : 0.5})`,
-              }}
               onClick={onClose}
           >
               <div
