@@ -1,10 +1,9 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import DocumentPortal from '../../utils/Portal';
 import Icon, { IconInputType } from '../Icon';
-import DSRContext from '../../contexts/DSRContext';
 
 import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
@@ -29,7 +28,6 @@ const Modal = ({
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
   const shouldRenderChild = useDelayUnmount(isOpen, 300);
 
   useEffect(() => {
