@@ -1,11 +1,7 @@
 import React from 'react';
-import { addDecorator, Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 
 import { Stats } from '../index';
-
-import ThemeContextDecorator from './ThemeContextDecorator';
-
-addDecorator(ThemeContextDecorator);
 
 const meta: Meta = {
   title: 'Content Handlers/Stats',
@@ -45,4 +41,5 @@ Default.args = {
     label: 'view more',
     link: '/',
   },
+  duration: 35,
 };

@@ -13,14 +13,14 @@ export type StatsProps = {
   statsIcon?: IconInputType,
   moreInfo?: { link: string, onClick: () => void, label: string },
   change?: 'positive' | 'negative' | null,
-
+  duration: number,
 };
 
 const Stats = ({
-  title, description, value, valuePostfix, statsIcon, moreInfo, change,
+  title, description, value, valuePostfix, statsIcon, moreInfo, change, duration,
 }: StatsProps) => {
-  const StatsValue = Count(value);
-  const StatsValuePostfix = Count(valuePostfix);
+  const StatsValue = Count(0, value, duration);
+  const StatsValuePostfix = Count(0, valuePostfix, duration);
 
   return (
       <div className="dsr-flex dsr-flex-col dsr-gap-3 dsr-rounded-lg dsr-p-6 dsr-bg-white dark:dsr-bg-neutral-800">
@@ -35,7 +35,7 @@ const Stats = ({
                           {description}
                       </p>
                   )}
-                  <div className="dsr-flex dsr-gap-2 ">
+                  <div className="dsr-flex dsr-gap-2  ">
                       {value !== 0 && (
                           <div className="dsr-flex dsr-gap-1 text-color dsr-text-xl dsr-font-medium" >
                               {StatsValue}
@@ -44,7 +44,7 @@ const Stats = ({
                       {valuePostfix !== 0 && (
                           <div
                               className={clsx([
-                                'dsr-flex dsr-gap-1 dsr-items-center dsr-font-medium ',
+                                'dsr-flex dsr-items-center dsr-font-medium ',
                                 value === 0 ? 'dsr-text-xl' : 'dsr-text-md',
                                 change ? change === 'positive' ? 'dsr-text-green-500' : 'dsr-text-red-500' : '',
                               ])}
@@ -55,7 +55,7 @@ const Stats = ({
                                       size={16}
                                   />
                               )}
-                              <div className="dsr-flex dsr-gap-1">{StatsValuePostfix}</div>
+                              <div className="dsr-flex dsr-gap-2">{StatsValuePostfix}</div>
                           </div>
                       )}
                   </div>
