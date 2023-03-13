@@ -1,7 +1,5 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -20,10 +18,9 @@ export type CardProps = {
 
 const Card = ({
   id, children, title, description, variant = 'shaded',
-  className = '', titleClassName = '', background, icon,
+  className = '', titleClassName = '', icon,
   sidebarRenderer,
 }: CardProps) => {
-  const { isDarkTheme } = useContext(DSRContext);
 
   return (
       <div
@@ -31,11 +28,9 @@ const Card = ({
           className={clsx([
             'card dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-transparent',
             variant === 'outline' ? 'dsr-border-gray-500/70' : '',
+            variant === 'shaded' && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
             className,
           ])}
-          style={{
-            background: variant === 'shaded' ? (background ?? (isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)')) : '',
-          }}
       >
           {title ? (
               <div className="dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-mb-4 dsr-w-full">

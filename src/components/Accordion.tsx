@@ -34,10 +34,9 @@ const Accordion = ({
       <div
           id={id}
           className={clsx([
-            'accordion dsr-p-3 dsr-rounded-lg',
+            'accordion dsr-p-3 dsr-rounded-lg dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
             className,
           ])}
-          style={{ background: isDarkTheme ? 'hsla(0, 0%, 90%, 0.15)' : 'hsla(0, 0%, 0%, 0.05)' }}
       >
           <button
               className={clsx([
