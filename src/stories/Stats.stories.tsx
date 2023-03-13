@@ -41,5 +41,5 @@ Default.args = {
     label: 'view more',
     link: '/',
   },
-  duration: 35,
+  duration: 2000,
 };

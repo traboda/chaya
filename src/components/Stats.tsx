@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import Count from '../hooks/useCountUp';
+import useCountUp from '../hooks/useCountUp';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -13,14 +13,14 @@ export type StatsProps = {
   statsIcon?: IconInputType,
   moreInfo?: { link: string, onClick: () => void, label: string },
   change?: 'positive' | 'negative' | null,
-  duration: number,
+  duration?: number,
 };
 
 const Stats = ({
-  title, description, value, valuePostfix, statsIcon, moreInfo, change, duration,
+  title, description, value, valuePostfix, statsIcon, moreInfo, change, duration = 2000, 
 }: StatsProps) => {
-  const StatsValue = Count(0, value, duration);
-  const StatsValuePostfix = Count(0, valuePostfix, duration);
+  const StatsValue = useCountUp(0, value, duration) ;
+  const StatsValuePostfix = useCountUp(0, valuePostfix, duration);
 
   return (
       <div className="dsr-flex dsr-flex-col dsr-gap-3 dsr-rounded-lg dsr-p-6 dsr-bg-white dark:dsr-bg-neutral-800">
