@@ -9,6 +9,7 @@ export { default as Modal } from './components/Modal';
 export { default as Alert } from './components/Alert';
 export { default as Badge } from './components/Badge';
 export { default as Radio } from './components/Radio';
+export { default as Stats } from './components/Stats';
 export { default as Drawer } from './components/Drawer';
 export { default as Switch } from './components/Switch';
 export { default as Banner } from './components/Banner';
