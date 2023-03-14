@@ -29,6 +29,7 @@ export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TagSelector } from './components/TagSelector';
+export { default as FileUploader } from './components/FileUploader';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as DropdownMenu } from './components/DropdownMenu';

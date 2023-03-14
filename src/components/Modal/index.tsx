@@ -50,7 +50,7 @@ const Modal = ({
           <section
               className={clsx([
                 'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
-                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr:backdrop-blur-sm dsr-z-[7200]',
+                'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr-z-[7200]',
                 hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
               ])}
               onClick={onClose}

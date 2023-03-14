@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-import ToolTip from './ToolTip';
-import Icon from './Icon';
 import Badge, { BaseBadgeProps } from './Badge';
 import Label from './Label';
 
