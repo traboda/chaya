@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import { nanoid } from 'nanoid';
+import clsx from 'clsx';
 
 import InfiniteLoader from '../InfiniteLoader';
 
@@ -27,6 +28,7 @@ type DataTableProps<Type> = {
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
+  variant: 'default' | 'gird' | 'striped-column' | 'striped-row',
 };
 
 const DataTable = <Type extends { id: string }>({
@@ -40,6 +42,7 @@ const DataTable = <Type extends { id: string }>({
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
   stickyRow, showTopBarOnEmpty = false,
+  variant,
 }: DataTableProps<Type>) => {
 
   const titleBarRef = useRef(null);
@@ -111,10 +114,16 @@ const DataTable = <Type extends { id: string }>({
                         {customTopBarRenderer()}
                     </div>
                     <table
-                        className="data-table dsr-transition-transform dsr-min-w-full dsr-border-separate dsr-border-spacing-0"
+                        // className="data-table dsr-transition-transform dsr-min-w-full dsr-border-separate dsr-border-spacing-0"
+                        className={clsx([
+                          'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0 ',
+                          'dsr-border-collapse dsr-border-gray-200',
+                          // variant === 'default' ? 'dsr-border-collapse' : 'dsr-border-separate',
+
+                        ])}
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
-                        <thead className="dsr-sticky dsr-z-50" ref={titleBarRef} style={{ top: titleTopHeight }}>
+                        <thead className="dsr-sticky dsr-z-50 " ref={titleBarRef} style={{ top: titleTopHeight }}>
                             <ItemListerTitleBar<Type>
                                 properties={properties}
                                 onSort={onSort}
@@ -131,6 +140,7 @@ const DataTable = <Type extends { id: string }>({
                                     item={stickyRow}
                                     itemIndex={-1}
                                     supportAccordion={canExpand}
+                                    variant={variant}
                                 />
                             )}
                         </thead>
@@ -148,7 +158,6 @@ const DataTable = <Type extends { id: string }>({
                                             supportAccordion={canExpand}
                                             isAccordionOpen={activeIndex.includes(index)}
                                         />
-
                                         {activeIndex.includes(index) && (
                                             <tr className="accordion-content data-table-row dsr-group dsr-w-full">
                                                 <td colSpan={colSpan}>{accordionRenderer(i)}</td>

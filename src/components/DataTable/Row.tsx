@@ -31,13 +31,17 @@ type ItemListerItemProps<Type> = {
   supportAccordion?: boolean,
   isAccordionOpen?: boolean,
   onClick?: () => void,
+  variant: 'default' | 'gird' | 'striped-column' | 'striped-row',
 };
 
 const ItemListerItem = <Type extends { id: string }>({
   properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
   onClick = () => {}, isLoading = false, isPinned = false,
+  variant,
 }: ItemListerItemProps<Type>) => {
 
+  const stripedColumn = 'odd:dsr-bg-gray-50';
+  const stripedRow = 'even:dsr-bg-gray-50';
   const { isDarkTheme } = useContext(DSRContext);
   const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
@@ -48,12 +52,19 @@ const ItemListerItem = <Type extends { id: string }>({
   ]);
 
   return (
-      <tr className="dsr-group">
+      <tr
+          className={clsx([
+            'dsr-group',
+            variant === 'default' ? stripedRow : '',
+          ])}
+      >
           {supportAccordion && (
               <td
                   className={clsx([
                     'dsr-px-2',
                     tdClasses,
+                    variant === 'striped-column' ? stripedColumn : '',
+
                   ])}
               >
                   <button onClick={onClick}>
@@ -62,7 +73,10 @@ const ItemListerItem = <Type extends { id: string }>({
               </td>
           )}
           {isEnabled && (
-              <td className={clsx(['dsr-px-2', tdClasses])}>
+              <td
+                  className={clsx(['dsr-px-2', tdClasses, variant === 'striped-column' ? stripedColumn : '',
+                  ])}
+              >
                   <div className="dsr-py-3 dsr-grid dsr-content-center">
                       {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
                           <input
@@ -89,6 +103,7 @@ const ItemListerItem = <Type extends { id: string }>({
                       className={clsx([
                         'dsr-py-2 dsr-px-3',
                         tdClasses,
+                        variant === 'striped-column' ? stripedColumn : '',
                         p?.className,
                       ])}
                       style={{

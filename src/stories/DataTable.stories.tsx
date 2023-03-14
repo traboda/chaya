@@ -224,6 +224,8 @@ const columns = [
   },
 ];
 
+
+
 const Template: Story = args => (
     <DataTable
         items={ITEMS}
@@ -235,7 +237,9 @@ const Template: Story = args => (
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  variant: 'default',
+};
 
 export const SelectableTable = Template.bind({});
 SelectableTable.args = {
