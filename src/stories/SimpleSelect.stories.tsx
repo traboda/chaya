@@ -32,7 +32,7 @@ Basic.args = {
     label: 'Category',
     placeholder: 'Select a category',
   },
-  required: true,
+  isRequired: true,
   value, onChange: (v: any) => value = v,
   options: [
     { label: 'Cryptography', value: 'crypto' },
@@ -53,7 +53,7 @@ SelectWithGroups.args = {
     label: 'Region',
     placeholder: 'Pick a Region',
   },
-  required: true,
+  isRequired: true,
   value: country, onChange: (v: any) => country = v,
   options: [
     {

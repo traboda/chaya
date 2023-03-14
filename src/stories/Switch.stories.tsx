@@ -30,7 +30,7 @@ export const Default = Template.bind({});
 Default.args = {
   value: false,
   label: 'Do you want this?',
-  required: true,
+  isRequired: true,
 };
 
 export const Disabled = Template.bind({});
@@ -38,7 +38,7 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   value: true,
   label: 'You cant change this. Want to try it?',
-  disabled: true,
+  isDisabled: true,
 };
 
 const SwitchBox = (props: any) => {

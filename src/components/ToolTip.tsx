@@ -4,12 +4,16 @@ import Color from 'color';
 
 import DSRContext from '../contexts/DSRContext';
 
+import { AlignOptions, SideOptions } from './Dropdown';
+
 type ToolTipProps = {
   children: ReactElement,
   overlay: ReactNode,
+  side?: SideOptions,
+  align?: AlignOptions
 };
 
-const ToolTip = ({ children, overlay }: ToolTipProps) => {
+const ToolTip = ({ children, overlay, side = 'bottom', align = 'center' }: ToolTipProps) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
 
@@ -26,6 +30,8 @@ const ToolTip = ({ children, overlay }: ToolTipProps) => {
               </Tooltip.Trigger>
               <Tooltip.Portal>
                   <Tooltip.Content
+                      side={side}
+                      align={align}
                       style={{ background: tooltipColor }}
                       className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-px-2.5 dsr-py-1.5 dsr-backdrop-blur dsr-text-color dsr-text-sm"
                       sideOffset={5}

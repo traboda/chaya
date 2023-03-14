@@ -2,6 +2,8 @@ import React, { useMemo, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
+import Label from './Label';
+
 type SwitchProps = {
   value: boolean,
   onChange?: (v: boolean) => void,
@@ -43,17 +45,7 @@ const Switch = ({
 
   return (
       <div className="switch-container dsr-w-full dsr-flex dsr-flex-col">
-          {label && (
-              <label
-                  className="dsr-opacity-80 dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1"
-                  htmlFor={inputID}
-                  id={`${inputID}-label`}
-                  aria-hidden={false}
-              >
-                  {label}
-                  {isRequired && <span className="dsr-text-red-500 dsr-ml-1">*</span>}
-              </label>
-          )}
+          {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
           <label
               className={clsx([
                 'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70 dsr-shadow-inner',

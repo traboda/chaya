@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
 
+import Label from './Label';
+
 type OptionType<Type> = {
   value: Type,
   label: string | number
@@ -57,15 +59,12 @@ const SimpleSelect = <Type extends string | number | null | undefined>({
   return (
       <div className="dsr-w-full simple-select-container">
           {labels?.label && labels?.label?.length > 0 && (
-              <label
+              <Label
                   id={`${inputID}-label`}
-                  className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-mb-1 dsr-block"
                   htmlFor={inputID}
-                  aria-hidden={false}
-              >
-                  {labels?.label}
-                  {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
-              </label>
+                  children={labels?.label}
+                  isRequired={isRequired}
+              />
           )}
           <div className="dsr-w-full dsr-flex dsr-group">
               <select

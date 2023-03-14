@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import ToolTip from './ToolTip';
 import Icon from './Icon';
 import Badge, { BaseBadgeProps } from './Badge';
+import Label from './Label';
 
 type OptionType = {
   value: (string | number),
@@ -76,16 +77,11 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
   return (
       <div id={props?.id} className={clsx(['tag-selector', props?.className])}>
           {props?.labels && (
-              <div className="dsr-flex dsr-flex-wrap dsr-mx-0 dsr-mb-1">
-                  {props.labels?.title && (
-                      <label className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70">{props.labels.title}</label>
-                  )}
-                  {props.labels.helpText && (
-                      <ToolTip overlay={props.labels.helpText}>
-                          <Icon icon="info" size={16} />
-                      </ToolTip>
-                  )}
-              </div>
+              <Label
+                  htmlFor=""
+                  children={props.labels.title}
+                  tooltip={props.labels.helpText}
+              />
           )}
           <div className="dsr-flex dsr-flex-wrap dsr-items-center dsr-gap-2">
               {props.options.map(o => (

@@ -13,6 +13,7 @@ export type CheckboxButtonProps = {
   isDisabled?: boolean,
   isChecked?: boolean,
   spacing?: string,
+  className?: string,
 };
 
 export const sizes = {
@@ -34,9 +35,10 @@ export const colors = {
 
 const Checkbox = ({
   value, label, onChange = () => {}, isChecked = false, color = 'primary', size = 'md', isDisabled = false,
+  className,
 }: CheckboxButtonProps) => {
   return (
-      <label className="checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative">
+      <label className={clsx('checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative', className)}>
           <input
               onChange={onChange}
               type="checkbox"

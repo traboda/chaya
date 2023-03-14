@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { PinInput } from '../index';
+import { PinInput, Label } from '../index';
 
 const meta: Meta = {
   title: 'User Inputs/Pin Input',
@@ -22,10 +22,11 @@ const Template: Story = args => {
 
   return (
       <div style={{ width: '300px', maxWidth: '100%' }}>
-          <div className="dsr-mb-3">
+          <Label htmlFor="">
               Value:
+              {' '}
               {value}
-          </div>
+          </Label>
           <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
       </div>
   );

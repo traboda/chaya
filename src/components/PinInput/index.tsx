@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import DSRContext from '../../contexts/DSRContext';
+import Label from '../Label';
 
 import PinDigit from './digit';
 
@@ -104,16 +105,7 @@ const PinInput = ({
 
   return (
       <div>
-          {labels?.label && (
-              <label
-                  id={`${inputID}-label`}
-                  className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-block dsr-mb-1"
-                  aria-hidden={false}
-              >
-                  {labels?.label}
-                  {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
-              </label>
-          )}
+          {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
           <div
               ref={inputs}
               className={clsx([

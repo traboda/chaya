@@ -51,6 +51,10 @@ const options = [
 Default.args = {
   value: 'tab 2',
   options,
+  labels: {
+    title: 'Tag Selector Title',
+    helpText: 'This is the tooltip',
+  },
 };
 
 export const MultipleTags = Template.bind({});

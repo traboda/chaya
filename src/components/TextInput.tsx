@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 
 import DSRContext from '../contexts/DSRContext';
 
+import Label from './Label';
+
 const emptyFunc = () => {};
 
 export type TextInputProps<Type> = {
@@ -108,7 +110,7 @@ const TextInput = <Type extends string | number>({
     onChange: handleChange,
   };
 
-  const showLimit = ((typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0);
+  const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
 
   const inputClassNameCalculated = clsx([
     'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color',
@@ -135,28 +137,19 @@ const TextInput = <Type extends string | number>({
           ])}
           style={style}
       >
-          {(!hideLabel) && (
-              <div className="dsr-flex dsr-flex-wrap dsr-mb-1 dsr-mx-0">
-                  <div className={showLimit ? 'dsr-w-2/3 dsr-px-0 dsr-flex' : 'dsr-w-full dsr-px-0 dsr-flex'}>
-                      {label && (
-                          <label
-                              className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-block"
-                              htmlFor={inputID}
-                              aria-hidden={false}
-                          >
-                              {label}
-                              {isRequired && <span className="dsr-ml-1 dsr-text-red-500 dsr-text-sm">*</span>}
-                          </label>
-                      )}
-                  </div>
-                  {(showLimit && typeof value !== 'number') && (
-                      <div className="text-input-char-limit dsr-w-1/3 dsr-opacity-80 dsr-px-1 dsr-flex dsr-items-end dsr-justify-end">
+          {!hideLabel && label && (
+              <Label
+                  htmlFor={inputID}
+                  isRequired={isRequired}
+                  children={label}
+                  sidebar={(showLimit && typeof value !== 'number') && (
+                      <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
                           {(value as string)?.length}
                           /
                           {charLimit}
-                      </div>
+                      </span>
                   )}
-              </div>
+              />
           )}
           <div className="dsr-relative dsr-group dsr-flex">
               {prefixRenderer && (

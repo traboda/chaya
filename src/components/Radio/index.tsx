@@ -14,6 +14,7 @@ type RadioButtonProps = {
   size?: RadioSize,
   isDisabled?: boolean,
   isSelected?: boolean,
+  className?: string
 };
 
 const colors = {
@@ -35,9 +36,10 @@ const sizes = {
 
 const Radio = ({
   value, label, onChange = () => {}, isSelected = false, color = 'primary', size = 'md', isDisabled = false,
+  className,
 }: RadioButtonProps) => (
     <div
-        className="radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative"
+        className={clsx('radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative', className)}
         onClick={() => onChange(value)}
     >
         <input
@@ -55,7 +57,7 @@ const Radio = ({
         <span
             className={clsx([
               'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-              'dsr-border-none dsr-rounded-full dsr-text-white',
+              'dsr-border-none dsr-rounded-full dsr-text-white dsr-transition',
               sizes[size]?.button,
               isSelected ? styled.radioButton : '',
               isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
