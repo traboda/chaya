@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { FileUploader } from '../index';
+import { Dropzone } from '../index';
 
 const meta: Meta = {
-  title: 'User Inputs/File Uploader',
-  component: FileUploader,
+  title: 'User Inputs/Dropzone',
+  component: Dropzone,
   argTypes: {
     children: {
       control: {
@@ -23,13 +23,23 @@ export default meta;
 const Template: Story = args => {
   const [files, setFiles] = useState<FileList | File[]>([]);
   return (
-      <FileUploader {...args} value={files} onChange={setFiles} />
+      <Dropzone
+          {...args}
+          value={files}
+          onChange={setFiles}
+          icon="info"
+          labels={{
+            label: 'Select Photos',
+            text: 'Drag and drop photos here or click to upload',
+            hint: 'Only .jpg and .png files. Max size is 5MB',
+          }}
+      />
   );
 };
 
 export const Default = Template.bind({});
 
 Default.args = {
-  acceptMultiple: true,
-  acceptMimes: ['*/*'],
+  allowMultiple: true,
+  accept: ['*/*'],
 };

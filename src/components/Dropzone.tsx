@@ -2,24 +2,35 @@ import React, { useState, DragEvent, useRef, ChangeEvent, MouseEvent, useMemo } 
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import Icon from './Icon';
+import Icon, { IconInputType } from './Icon';
 import Label from './Label';
 
-export type FileUploaderProps = {
-  acceptMimes?: string[],
-  acceptMultiple?: boolean,
+export type DropzoneProps = {
+  accept?: string[],
+  allowMultiple?: boolean,
   value: File[] | FileList,
   onChange: (files: File[] | FileList) => void,
   id?: string,
-  label?: string,
+  labels?: {
+    label: string,
+    text: string,
+    hint: string,
+  },
   isRequired?: boolean,
-  className?: string
+  className?: string,
+  icon?: IconInputType,
 };
 
-const FileUploader = ({ acceptMimes, acceptMultiple, value, onChange, id, label, isRequired, className }: FileUploaderProps) => {
+const defaultLabels = {
+  text: 'Drag and drop files here or click to upload',
+};
+
+const Dropzone = ({
+  value, accept, allowMultiple = false, onChange = () => {}, id, icon, labels: _labels, isRequired = false, className,
+}: DropzoneProps) => {
   const inputId = useMemo(() => id ?? nanoid(), [id]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const labels = { ...defaultLabels, ..._labels };
   const [isDragging, setIsDragging] = useState(false);
 
   const onFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +67,7 @@ const FileUploader = ({ acceptMimes, acceptMultiple, value, onChange, id, label,
 
   return (
       <div>
-          {label && <Label htmlFor={inputId} children={label} isRequired={isRequired} />}
-
+          {labels && <Label htmlFor={inputId} children={labels?.label} isRequired={isRequired} />}
           <button
               type="button"
               onDrop={drop}
@@ -65,13 +75,12 @@ const FileUploader = ({ acceptMimes, acceptMultiple, value, onChange, id, label,
               onDragEnter={dragEnter}
               onDragLeave={dragLeave}
               className={clsx([
-                'dsr-w-full dsr-rounded-md dsr-bg-background dsr-min-h-[10rem] dsr-flex',
-                'dsr-flex-col dsr-text-center dsr-p-4 dsr-border-gray-400/80 hover:dsr-border-primary',
+                'dsr-w-full dsr-rounded-md dsr-min-h-[10rem] dsr-flex',
+                'dsr-flex-col dsr-text-center dsr-p-4 dsr-border-2 dsr-border-dashed dsr-border-gray-400/80 hover:dsr-border-primary',
                 value?.length ? 'dsr-gap-1' : 'dsr-items-center dsr-justify-center',
-                !isDragging && 'dsr-border',
+                isDragging ? 'dark:dsr-bg-gray-500/50 dsr-bg-gray-500/30' : 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
                 className,
               ])}
-              style={{ backgroundImage: isDragging ? 'url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'7\' ry=\'7\' stroke=\'white\' stroke-width=\'4\' stroke-dasharray=\'6%2c 14\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")' : undefined }}
               onClick={() => fileInputRef.current?.click()}
           >
               {isDragging ? (
@@ -96,31 +105,34 @@ const FileUploader = ({ acceptMimes, acceptMultiple, value, onChange, id, label,
                               </span>
                               
                               <button onClick={event => removeFile(event, i)}>
-                                  <Icon icon="times" size={14} /> 
+                                  <Icon icon="times" size={16} />
                               </button>
                           </span>
                       ))}
                   </>
               ) : (
-                  <>
-                      Drag and drop items
-                      <span className="dsr-opacity-60 dsr-my-1 dsr-text-sm">Or</span>
-                      Click here to upload files
-                  </>
+                  <div className="dsr-text-center">
+                      {icon && (
+                      <div className="dsr-flex dsr-mb-2 dsr-justify-center">
+                          <Icon icon={icon} size={48} />
+                      </div>
+                      )}
+                      {labels?.text && <div className="dsr-mb-2">{labels?.text}</div>}
+                      {labels?.hint && <div className="dsr-opacity-75 dsr-text-sm">{labels?.hint}</div>}
+                  </div>
               )}
           </button>
-
           <input
               id={inputId}
               type="file"
               className="dsr-hidden"
               ref={fileInputRef}
               onChange={onFileUpload}
-              accept={acceptMimes?.join(', ')}
-              multiple={acceptMultiple}
+              accept={accept?.join(', ')}
+              multiple={allowMultiple}
           />
       </div>
   );
 };
 
-export default FileUploader;
+export default Dropzone;
