@@ -131,7 +131,10 @@ const Dropzone = ({
                   </div>
               )}
               {[...value].map((file, i) => (
-                  <div className="dsr-flex dsr-items-center dsr-justify-between dsr-w-full dsr-transition hover:dsr-bg-gray-500/20 dsr-rounded dsr-py-0.5">
+                  <div
+                      key={file.name}
+                      className="dsr-flex dsr-items-center dsr-justify-between dsr-w-full dsr-transition hover:dsr-bg-gray-500/20 dsr-rounded dsr-py-0.5"
+                  >
                       <div>
                           {file.name}
                           {' '}
@@ -146,9 +149,9 @@ const Dropzone = ({
                           )}
                           {uploadIndicator && uploadIndicator[i] && (
                             uploadIndicator[i].success ? (
-                                <Icon icon="check" size={16} />
+                                <Icon icon="check" size={16} className="dsr-text-green-600" />
                             ) : uploadIndicator[i].error ? (
-                                <Icon icon="alert-triangle" size={16} />
+                                <Icon icon="alert-triangle" size={16} className="dsr-text-red-600" />
                             ) : (
                                 <div className="ml-1">
                                     {uploadIndicator[i].progress}

@@ -3,7 +3,7 @@ import { useDarkMode } from 'storybook-dark-mode';
 import {
   AlertTriangle, Check,
   ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
-  ExternalLink, Feather, Home, Info, Search, Settings, X,
+  ExternalLink, Home, Info, Search, Settings, X,
 } from 'react-feather';
 import { nanoid } from 'nanoid';
 
