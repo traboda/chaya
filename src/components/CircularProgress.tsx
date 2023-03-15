@@ -60,7 +60,6 @@ const CircularProgress = ({
           aria-valuemin={minVal}
           aria-valuemax={maxVal}
           className={clsx(['circular-progress', className ])}
-
       >
           <svg
               viewBox="0 0 100 100"
@@ -68,7 +67,6 @@ const CircularProgress = ({
               className={clsx([
                 isIndeterminate ? 'dsr-animate-spin' : '',
               ])}
-
           >
               <circle
                   stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
