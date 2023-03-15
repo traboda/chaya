@@ -5,25 +5,25 @@ import DSRContext from '../../contexts/DSRContext';
 
 import spinnerStyles from './spinner.module.scss';
 
-type SpinnerProps = {
+export type SpinnerProps = {
   className?: string,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
   variant?: 'simple' | 'dots',
 };
 
 const sizes = {
-  xs: '0.25rem',
-  sm: '0.5rem',
+  xs: '0.75rem',
+  sm: '0.875rem',
   md: '1rem',
-  lg: '2rem',
-  xl: '3rem',
+  lg: '1.125rem',
+  xl: '1.25rem',
 };
 
-const Spinner = ({ size = 'md', variant = 'simple' }: SpinnerProps) => {
+const Spinner = ({ size = 'md', variant = 'simple', className }: SpinnerProps) => {
   const { isDarkTheme } = useContext(DSRContext);
   
   return (
-      <div style={{ height: sizes[size], width: sizes[size] }}>
+      <div className={className} style={{ height: sizes[size], width: sizes[size] }}>
           <svg
               className={clsx([
                 variant === 'simple' && spinnerStyles.spinner,

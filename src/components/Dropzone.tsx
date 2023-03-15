@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 
 import Icon, { IconInputType } from './Icon';
 import Label from './Label';
+import UploadStatusIndicator from './UploadStatusIndicator';
 
 export type DropzoneProps = {
   accept?: string[],
@@ -58,14 +59,13 @@ const Dropzone = ({
     onFileChange(event.target.files ?? []);
   };
 
-  const removeFile = (event: MouseEvent<HTMLButtonElement>, index: number) => {
+  const removeFile = (event: MouseEvent, index: number) => {
     event.stopPropagation();
     onFileChange([...value].filter((_, i) => index !== i));
   };
 
   const dragLeave = (event: DragEvent<HTMLButtonElement>) => {
     if (event.target !== event.currentTarget) return;
-    console.log(event.target, event.currentTarget);
     setIsDragging(false);
   };
 
@@ -78,13 +78,6 @@ const Dropzone = ({
   const dragEnter = () => setIsDragging(true);
   const dragOver = (event: DragEvent<HTMLButtonElement>) => event.preventDefault();
 
-  const convertSize = (size: number) => {
-    const postfixes = ['KB', 'MB', 'GB'];
-    for (let i = 0; i < postfixes.length; i++) {
-      size = size / 1024;
-      if (size < 1024 || i === postfixes.length - 1) return `${size.toFixed(2)} ${postfixes[i]}`;
-    }
-  };
 
   return (
       <div>
@@ -119,54 +112,12 @@ const Dropzone = ({
               )}
           </button>
 
-          <div className="dsr-mt-4">
-              {!!value.length && (
-                  <div className="dsr-opacity-60 dsr-mb-1">
-                      {value.length}
-                      {' '}
-                      file
-                      {value.length > 1 && 's'}
-                      {' '}
-                      selected
-                  </div>
-              )}
-              {[...value].map((file, i) => (
-                  <div
-                      key={file.name}
-                      className="dsr-flex dsr-items-center dsr-justify-between dsr-w-full dsr-transition hover:dsr-bg-gray-500/20 dsr-rounded dsr-py-0.5"
-                  >
-                      <div>
-                          {file.name}
-                          {' '}
-                          -
-                          {' '}
-                          {convertSize(file.size)}
-                      </div>
-
-                      <div className="dsr-flex dsr-text-sm dsr-items-center">
-                          {uploadIndicator && uploadIndicator[i] && (uploadIndicator[i].loading || uploadIndicator[i].progress !== undefined) && (
-                              <div></div>
-                          )}
-                          {uploadIndicator && uploadIndicator[i] && (
-                            uploadIndicator[i].success ? (
-                                <Icon icon="check" size={16} className="dsr-text-green-600" />
-                            ) : uploadIndicator[i].error ? (
-                                <Icon icon="alert-triangle" size={16} className="dsr-text-red-600" />
-                            ) : (
-                                <div className="ml-1">
-                                    {uploadIndicator[i].progress}
-                                    %
-                                </div>
-                            )
-                          )}
-
-                          <button className="dsr-ml-2" onClick={event => removeFile(event, i)}>
-                              <Icon icon="times" size={16} />
-                          </button>
-                      </div>
-                  </div>
-              ))}
-          </div>
+          <UploadStatusIndicator
+              removeFile={removeFile}
+              className="dsr-mt-4"
+              files={value}
+              statuses={uploadIndicator}
+          />
 
           <input
               id={inputId}

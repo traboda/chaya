@@ -18,6 +18,7 @@ export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
 export { default as ToolTip } from './components/ToolTip';
 export { default as PinInput } from './components/PinInput';
+export { default as Dropzone } from './components/Dropzone';
 export { default as Dropdown } from './components/Dropdown';
 export { default as HoverCard } from './components/HoverCard';
 export { default as TextInput } from './components/TextInput';
@@ -30,7 +31,6 @@ export { default as PageHeader } from './components/PageHeader';
 export { default as Spinner } from './components/Spinner/Spinner';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TagSelector } from './components/TagSelector';
-export { default as Dropzone } from './components/Dropzone';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as DropdownMenu } from './components/DropdownMenu';
@@ -42,6 +42,7 @@ export { default as SelectorButton } from './components/SelectorButton';
 export { default as CircularProgress } from './components/CircularProgress';
 export { default as SidebarNavigation } from './components/SidebarNavigation';
 export { default as ConfirmationDialog } from './components/ConfirmationDialog';
+export { default as UploadStatusIndicator } from './components/UploadStatusIndicator';
 
 // hooks
 export { default as useCounter } from './hooks/useCounter';

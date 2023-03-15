@@ -23,7 +23,6 @@ const Icon = ({ icon, ...defaultProps }: IconComponentProps) => {
   if (typeof icon === 'object') props = { ...props, ...icon };
   // 1rem = 16px by default
   props.size = typeof props.size === 'number' ? `${props.size / 16}rem` : props.size;
-  console.log(props, icon, defaultProps);
 
   return typeof icon === 'function' ? icon(props) : (iconWrapper?.(typeof icon === 'object' ? icon.icon : icon, props) ?? <span />);
 };
