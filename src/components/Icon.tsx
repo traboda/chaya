@@ -3,7 +3,8 @@ import { useContext } from 'react';
 
 import DSRContext from '../contexts/DSRContext';
 
-export type Icons = 'chevron-down' | 'chevron-up' | 'chevron-right' | 'chevrons-right' | 'chevrons-left' | 'search' | 'times' | 'home' | 'external-link' | 'info' | string;
+export type Icons = 'chevron-down' | 'chevron-up' | 'chevron-right' | 'chevrons-right' | 'chevrons-left' | 'search' |
+'times' | 'home' | 'external-link' | 'info' | 'alert-triangle' | 'check' | string;
 export type IconProps = {
   size?: number | string,
   width?: number | string,

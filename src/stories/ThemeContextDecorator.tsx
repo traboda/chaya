@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
 import { useDarkMode } from 'storybook-dark-mode';
 import {
+  AlertTriangle, Check,
   ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
-  ExternalLink, Home, Info, Search, Settings, X,
+  ExternalLink, Feather, Home, Info, Search, Settings, X,
 } from 'react-feather';
 import { nanoid } from 'nanoid';
 
@@ -50,6 +51,8 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
                 home: <Home {...props} />,
                 settings: <Settings {...props} />,
                 info: <Info {...props} />,
+                'alert-triangle': <AlertTriangle {...props} />,
+                check: <Check {...props} />,
               })[icon] ?? <>n/a</>}
           >
               {children}
