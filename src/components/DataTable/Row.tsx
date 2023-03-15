@@ -13,7 +13,7 @@ export type ItemListerProperty<Type> = {
   label: ReactNode,
   labelClassName?: string,
   value: (self: Type, index?: number) => ReactNode,
-  width?: number, 
+  width?: number,
   link?: (self: Type) => string,
   className?: string,
   textAlign?: 'center' | 'left' | 'right',
@@ -31,62 +31,62 @@ type ItemListerItemProps<Type> = {
   supportAccordion?: boolean,
   isAccordionOpen?: boolean,
   onClick?: () => void,
-  variant: 'default' | 'gird' | 'striped-column' | 'striped-row',
+  variant: 'default' | 'grid' | 'striped-column' | 'striped-row',
 };
 
 const ItemListerItem = <Type extends { id: string }>({
   properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
-  onClick = () => {}, isLoading = false, isPinned = false,
-  variant,
+  onClick = () => {}, isLoading = false, isPinned = false, variant,
 }: ItemListerItemProps<Type>) => {
-
-  const stripedColumn = 'odd:dsr-bg-gray-50';
-  const stripedRow = 'even:dsr-bg-gray-50';
+  const stripedColumn = 'odd:dsr-bg-gray-500/40' ;
+  const stripedRow = 'even:dsr-bg-gray-500/40';
+  const grid = 'dsr-border dsr-border-gray-500/80';
   const { isDarkTheme } = useContext(DSRContext);
   const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
-    'dsr-border-b dsr-h-full dsr-text-color dsr-border-gray-500/80',
+    'dsr-h-full dsr-text-color',
+    variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
     isPinned ? 'dsr-bg-background' : '',
     isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-white/20' : 'group-hover:dsr-bg-gray-500/20',
   ]);
 
   return (
-      <tr
-          className={clsx([
-            'dsr-group',
-            variant === 'default' ? stripedRow : '',
-          ])}
-      >
+      <tr className={clsx(['dsr-group', variant === 'striped-row' ? stripedRow : ''])}>
           {supportAccordion && (
-              <td
-                  className={clsx([
-                    'dsr-px-2',
-                    tdClasses,
-                    variant === 'striped-column' ? stripedColumn : '',
-
-                  ])}
-              >
-                  <button onClick={onClick}>
-                      <Icon icon={isAccordionOpen ? 'chevron-down' : 'chevron-right'} size={18} />
-                  </button>
-              </td>
+          <td
+              className={clsx([
+                'dsr-px-2',
+                tdClasses,
+                variant === 'striped-column' ? stripedColumn : '',
+              ])}
+          >
+              <button onClick={onClick}>
+                  <Icon icon={isAccordionOpen ? 'chevron-down' : 'chevron-right'} size={18} />
+              </button>
+          </td>
           )}
           {isEnabled && (
-              <td
-                  className={clsx(['dsr-px-2', tdClasses, variant === 'striped-column' ? stripedColumn : '',
-                  ])}
-              >
-                  <div className="dsr-py-3 dsr-grid dsr-content-center">
-                      {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
-                          <input
-                              type="checkbox"
-                              checked={isSelected?.(item?.id ?? '')}
-                              onChange={() => isSelected?.(item?.id ?? '') ? deselectItem?.(item?.id ?? '') : selectItem?.(item?.id ?? '')}
-                          />
-                      )}
-                  </div>
-              </td>
+          <td
+              className={clsx([
+                'dsr-px-2',
+                tdClasses,
+                variant === 'striped-column' ? stripedColumn : '',
+              ])}
+          >
+              <div className="dsr-py-3 dsr-grid dsr-content-center">
+                  {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
+                      <input
+                          type="checkbox"
+                          checked={isSelected?.(item?.id ?? '')}
+                          onChange={() => isSelected?.(item?.id ?? '')
+                            ? deselectItem?.(item?.id ?? '')
+                            : selectItem?.(item?.id ?? '')
+                        }
+                      />
+                  )}
+              </div>
+          </td>
           )}
           {properties?.length > 0 &&
             properties.filter((p) => !p.isHidden).map((p) => {
@@ -123,7 +123,6 @@ const ItemListerItem = <Type extends { id: string }>({
             })}
       </tr>
   );
-
 };
 
 export default ItemListerItem;

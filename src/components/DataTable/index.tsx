@@ -28,7 +28,7 @@ type DataTableProps<Type> = {
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
-  variant: 'default' | 'gird' | 'striped-column' | 'striped-row',
+  variant: 'default' | 'grid' | 'striped-column' | 'striped-row',
 };
 
 const DataTable = <Type extends { id: string }>({
@@ -114,12 +114,9 @@ const DataTable = <Type extends { id: string }>({
                         {customTopBarRenderer()}
                     </div>
                     <table
-                        // className="data-table dsr-transition-transform dsr-min-w-full dsr-border-separate dsr-border-spacing-0"
                         className={clsx([
                           'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0 ',
                           'dsr-border-collapse dsr-border-gray-200',
-                          // variant === 'default' ? 'dsr-border-collapse' : 'dsr-border-separate',
-
                         ])}
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
@@ -134,14 +131,14 @@ const DataTable = <Type extends { id: string }>({
                                 toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
                             />
                             {stickyRow && (
-                                <ItemListerItem<Type>
-                                    isPinned
-                                    properties={properties}
-                                    item={stickyRow}
-                                    itemIndex={-1}
-                                    supportAccordion={canExpand}
-                                    variant={variant}
-                                />
+                            <ItemListerItem<Type>
+                                isPinned
+                                properties={properties}
+                                item={stickyRow}
+                                itemIndex={-1}
+                                supportAccordion={canExpand}
+                                variant={variant}
+                            />
                             )}
                         </thead>
                         <tbody>
@@ -157,11 +154,12 @@ const DataTable = <Type extends { id: string }>({
                                             onClick={() => toggleAccordion(index)}
                                             supportAccordion={canExpand}
                                             isAccordionOpen={activeIndex.includes(index)}
+                                            variant={variant}
                                         />
                                         {activeIndex.includes(index) && (
-                                            <tr className="accordion-content data-table-row dsr-group dsr-w-full">
-                                                <td colSpan={colSpan}>{accordionRenderer(i)}</td>
-                                            </tr>
+                                        <tr className="accordion-content data-table-row dsr-group dsr-w-full">
+                                            <td colSpan={colSpan}>{accordionRenderer(i)}</td>
+                                        </tr>
                                         )}
                                     </>
                                 ) : (
@@ -170,6 +168,7 @@ const DataTable = <Type extends { id: string }>({
                                         properties={properties}
                                         item={i}
                                         itemIndex={index}
+                                        variant={variant}
                                     />
                                 ),
                               ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
@@ -186,6 +185,7 @@ const DataTable = <Type extends { id: string }>({
                                     key={nanoid()}
                                     properties={properties}
                                     isLoading
+                                    variant={variant}
                                 />
                             ))}
                         </tbody>
