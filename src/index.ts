@@ -25,6 +25,7 @@ export { default as SearchBox } from './components/SearchBox';
 export { default as RadioGroup } from './components/RadioGroup';
 export { default as Breadcrumb } from './components/Breadcrumb';
 export { default as PageHeader } from './components/PageHeader';
+export { default as Spinner } from './components/Spinner/Spinner';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TagSelector } from './components/TagSelector';
 export { default as SkeletonItem } from './components/SkeletonItem';
