@@ -223,7 +223,6 @@ const columns = [
     'allowSort': true,
   },
 ];
-
 const Template: Story = args => (
     <DataTable
         items={ITEMS}
