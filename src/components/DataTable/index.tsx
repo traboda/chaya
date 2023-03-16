@@ -3,7 +3,8 @@ import { throttle } from 'lodash';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import InfiniteLoader from '../InfiniteLoader';
+// import InfiniteLoader from '../InfiniteLoader';
+import { PageNavigator } from '../../index';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
@@ -16,6 +17,8 @@ type DataTableProps<Type> = {
   isLoading?: boolean,
   canLoadMore?: boolean,
   onLoadMore?: () => void,
+  itemPage?: number,
+  itemsPerPage?: number,
   emptyListRenderer?: () => ReactNode,
   currentSortAttribute?: string,
   allowSelection?: boolean,
@@ -43,7 +46,7 @@ const DataTable = <Type extends { id: string }>({
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
-  stickyRow, showTopBarOnEmpty = false,
+  stickyRow, showTopBarOnEmpty = false, itemPage = 0,
   variant = 'default',
 }: DataTableProps<Type>) => {
 
@@ -93,6 +96,7 @@ const DataTable = <Type extends { id: string }>({
   };
 
   const colSpan = properties.filter(p => !p.isHidden).length + Number(canExpand) + Number(allowSelection);
+  const [page, setPage] = useState(itemPage ?? 11);
 
   return (
       <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
@@ -199,11 +203,17 @@ const DataTable = <Type extends { id: string }>({
                             ))}
                         </tbody>
                     </table>
-                    <InfiniteLoader
-                        loadable={loadable}
-                        canLoadMore={canLoadMore}
-                        isLoading={isLoading}
-                        onLoadMore={onLoadMore}
+                    {/*<InfiniteLoader*/}
+                    {/*    loadable={loadable}*/}
+                    {/*    canLoadMore={canLoadMore}*/}
+                    {/*    isLoading={isLoading}*/}
+                    {/*    onLoadMore={onLoadMore}*/}
+                    {/*/>*/}
+                    <PageNavigator
+                        totalCount={items.length}
+                        itemsPerPage={10}
+                        page={page}
+                        setPage={setPage}
                     />
                 </div>
             )}

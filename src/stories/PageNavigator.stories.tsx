@@ -40,4 +40,3 @@ Default.args = {
   totalCount: 200,
   itemsPerPage: 10,
 };
-
