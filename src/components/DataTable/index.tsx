@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import InfiniteLoader from '../InfiniteLoader';
 
 import ItemListerTitleBar from './TitleBar';
-import ItemListerItem, { ItemListerProperty } from './Row';
+import ItemListerItem, { ItemListerProperty, Variant } from './Row';
 import SelectionHelper from './SelectionHelper';
 
 type DataTableProps<Type> = {
@@ -28,7 +28,7 @@ type DataTableProps<Type> = {
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
-  variant: 'default' | 'grid' | 'striped-column' | 'striped-row',
+  variant?: Variant,
 };
 
 const DataTable = <Type extends { id: string }>({
@@ -42,7 +42,7 @@ const DataTable = <Type extends { id: string }>({
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
   stickyRow, showTopBarOnEmpty = false,
-  variant,
+  variant = 'default',
 }: DataTableProps<Type>) => {
 
   const titleBarRef = useRef(null);
@@ -53,6 +53,7 @@ const DataTable = <Type extends { id: string }>({
   const [titleTopHeight, setTitleTopHeight] = useState(0);
   const [scrollDir, setScrollDir] = useState('up');
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
+  const grid = 'dsr-border dsr-border-gray-500/80';
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -120,7 +121,14 @@ const DataTable = <Type extends { id: string }>({
                         ])}
                         style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
                     >
-                        <thead className="dsr-sticky dsr-z-50 " ref={titleBarRef} style={{ top: titleTopHeight }}>
+                        <thead
+                            className={clsx([
+                              'dsr-sticky dsr-z-50',
+                              variant === 'grid' ? grid : '',
+                            ])}
+                            ref={titleBarRef}
+                            style={{ top: titleTopHeight }}
+                        >
                             <ItemListerTitleBar<Type>
                                 properties={properties}
                                 onSort={onSort}
@@ -131,14 +139,14 @@ const DataTable = <Type extends { id: string }>({
                                 toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
                             />
                             {stickyRow && (
-                            <ItemListerItem<Type>
-                                isPinned
-                                properties={properties}
-                                item={stickyRow}
-                                itemIndex={-1}
-                                supportAccordion={canExpand}
-                                variant={variant}
-                            />
+                                <ItemListerItem<Type>
+                                    isPinned
+                                    properties={properties}
+                                    item={stickyRow}
+                                    itemIndex={-1}
+                                    supportAccordion={canExpand}
+                                    variant={variant}
+                                />
                             )}
                         </thead>
                         <tbody>
@@ -157,9 +165,9 @@ const DataTable = <Type extends { id: string }>({
                                             variant={variant}
                                         />
                                         {activeIndex.includes(index) && (
-                                        <tr className="accordion-content data-table-row dsr-group dsr-w-full">
-                                            <td colSpan={colSpan}>{accordionRenderer(i)}</td>
-                                        </tr>
+                                            <tr className="accordion-content data-table-row dsr-group dsr-w-full">
+                                                <td colSpan={colSpan}>{accordionRenderer(i)}</td>
+                                            </tr>
                                         )}
                                     </>
                                 ) : (
