@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import InfiniteLoader from '../InfiniteLoader';
 
 import ItemListerTitleBar from './TitleBar';
-import ItemListerItem, { ItemListerProperty, Variant } from './Row';
+import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
 import SelectionHelper from './SelectionHelper';
 
 type DataTableProps<Type> = {
@@ -28,8 +28,10 @@ type DataTableProps<Type> = {
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
-  variant?: Variant,
+  variant?: DataTableVariant,
 };
+
+const grid = 'dsr-border dsr-border-gray-500/80';
 
 const DataTable = <Type extends { id: string }>({
   properties = [],
@@ -53,7 +55,6 @@ const DataTable = <Type extends { id: string }>({
   const [titleTopHeight, setTitleTopHeight] = useState(0);
   const [scrollDir, setScrollDir] = useState('up');
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
-  const grid = 'dsr-border dsr-border-gray-500/80';
 
   useEffect(() => {
     const handleScroll = throttle(() => {

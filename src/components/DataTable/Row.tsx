@@ -31,12 +31,14 @@ type ItemListerItemProps<Type> = {
   supportAccordion?: boolean,
   isAccordionOpen?: boolean,
   onClick?: () => void,
-  variant?: Variant,
+  variant?: DataTableVariant,
 };
 
-export type Variant = 'default' | 'grid' | 'striped-column' | 'striped-row';
+export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-row';
 
 const grid = 'dsr-border dsr-border-gray-500/80';
+const stripedColumn = 'dark:even:dsr-bg-gray-700 even:dsr-bg-gray-300' ;
+const stripedRow = 'dark:odd:dsr-bg-gray-700 odd:dsr-bg-gray-300';
 
 const ItemListerItem = <Type extends { id: string }>({
   properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
@@ -45,8 +47,6 @@ const ItemListerItem = <Type extends { id: string }>({
 
   const { isDarkTheme } = useContext(DSRContext);
   const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
-  const stripedColumn = isDarkTheme ? 'even:dsr-bg-gray-700' : 'even:dsr-bg-gray-300' ;
-  const stripedRow = isDarkTheme ? 'odd:dsr-bg-gray-700' : 'odd:dsr-bg-gray-300' ;
 
   const tdClasses = clsx([
     'dsr-h-full dsr-text-color',
