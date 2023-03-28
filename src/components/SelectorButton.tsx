@@ -49,6 +49,7 @@ const SelectorButton = <Type extends string | number | null | undefined>({
           onSubmit={onSubmit}
       >
           <SimpleSelect
+              id={`${id}-select`}
               value={value}
               onChange={setValue}
               name={name}

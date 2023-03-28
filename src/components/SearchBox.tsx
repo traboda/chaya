@@ -48,6 +48,7 @@ const SearchBox = ({
       >
           <div className="dsr-flex dsr-w-full dsr-p-0">
               <TextInput
+                  id={`${id}-input`}
                   name={name}
                   label={labels.label}
                   placeholder={labels.placeholder}

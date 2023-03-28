@@ -47,7 +47,7 @@ const SimpleSelect = <Type extends string | number | null | undefined>({
 }: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
-  const inputID = useMemo(() => id ? id : `${name}-input-${nanoid()}`, [id, name]);
+  const inputID = useMemo(() => id ? id : `${name}-select-${nanoid()}`, [id, name]);
   const { isDarkTheme } = useContext(DSRContext);
 
   const iconClassNameCalculated = clsx([

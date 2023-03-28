@@ -59,3 +59,11 @@ const InvalidInputsTemplate: Story = args => (
 export const InvalidInputs = InvalidInputsTemplate.bind({});
 
 InvalidInputs.args = {};
+
+export const WithIcons = Template.bind({});
+
+WithIcons.args = {
+  leftIcon: 'search',
+  rightIcon: 'home',
+  isLoading: true,
+};
