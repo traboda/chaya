@@ -49,7 +49,7 @@ const offsetOptions = {
 
 const CircularProgress = ({
   value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
-  isIndeterminate = true,
+  isIndeterminate = false,
 }: CircularProgressProps) => {
   const { theme, isDarkTheme } = useContext(DSRContext);
 
@@ -59,14 +59,12 @@ const CircularProgress = ({
           aria-valuenow={(value / 100) * maxVal}
           aria-valuemin={minVal}
           aria-valuemax={maxVal}
-          className={clsx(['circular-progress', className ])}
+          className={clsx(['circular-progress', className])}
       >
           <svg
               viewBox="0 0 100 100"
               height={height ?? sizes[size]}
-              className={clsx([
-                isIndeterminate ? 'dsr-animate-spin' : '',
-              ])}
+              className={isIndeterminate ? 'dsr-animate-spin' : ''}
           >
               <circle
                   stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
