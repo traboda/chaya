@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { DataTable, Icon } from '../index';
@@ -20,7 +20,7 @@ const meta: Meta = {
   },
 };
 
-const ITEMS = [
+let ITEMS = [
   {
     'id': '55',
     'name': 'Attack matter ball budget pattern.',
@@ -162,6 +162,10 @@ const ITEMS = [
     },
   },
 ];
+ITEMS = ITEMS.flatMap(item => {
+  const start = Math.floor(Math.random() * (ITEMS.length - 4));
+  return [item, ...ITEMS.slice(start, start + Math.floor(Math.random() * 2) + 2)];
+});
 
 export default meta;
 
@@ -223,14 +227,21 @@ const columns = [
     'allowSort': true,
   },
 ];
-const Template: Story = args => (
-    <DataTable
-        items={ITEMS}
-        maxHeight="380px"
-        properties={columns}
-        {...args}
-    />
-);
+const Template: Story = args => {
+  const [page, setPage] = useState(1);
+
+  return (
+      <DataTable
+          page={page}
+          setPage={setPage}
+          totalCount={ITEMS.length}
+          items={ITEMS.slice((page - 1) * 10, (page - 1) * 10 + 10)}
+          maxHeight="380px"
+          properties={columns}
+          {...args}
+      />
+  );
+};
 
 export const Default = Template.bind({});
 

@@ -33,6 +33,9 @@ type DataTableProps<Type> = {
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
   variant?: DataTableVariant,
+  page?: number,
+  setPage?: (page: number) => void,
+  totalCount?: number,
 };
 
 const grid = 'dsr-border dsr-border-gray-500/80';
@@ -47,8 +50,9 @@ const DataTable = <Type extends { id: string }>({
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
-  stickyRow, showTopBarOnEmpty = false, itemPage = 0, enablePagination = false,
-  variant = 'default',
+  stickyRow, showTopBarOnEmpty = false, enablePagination = false,
+  page = 1, setPage = () => {},
+  variant = 'default', totalCount = 1,
 }: DataTableProps<Type>) => {
 
   const titleBarRef = useRef(null);
@@ -59,6 +63,7 @@ const DataTable = <Type extends { id: string }>({
   const [titleTopHeight, setTitleTopHeight] = useState(0);
   const [scrollDir, setScrollDir] = useState('up');
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -97,8 +102,6 @@ const DataTable = <Type extends { id: string }>({
   };
 
   const colSpan = properties.filter(p => !p.isHidden).length + Number(canExpand) + Number(allowSelection);
-  const [page, setPage] = useState(itemPage ?? 11);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   return (
       <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
@@ -207,7 +210,7 @@ const DataTable = <Type extends { id: string }>({
                     </table>
                     {enablePagination ? (
                         <PageNavigator
-                            totalCount={items.length}
+                            totalCount={totalCount}
                             itemsPerPage={itemsPerPage}
                             setItemsPerPage={setItemsPerPage}
                             page={page}

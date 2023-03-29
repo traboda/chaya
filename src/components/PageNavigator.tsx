@@ -54,7 +54,7 @@ const PageNavigator = ({
           ])}
       >
           <div className="dsr-select-none">
-              <div className="dsr-flex dsr-items-stretch">
+              <div className="dsr-flex dsr-items-stretch dsr-justify-center">
                   {(showEdges && page > 2) && (
                       <Button
                           label="Go to first page"
