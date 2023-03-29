@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import InfiniteLoader from '../InfiniteLoader';
+import { PageNavigator } from '../../index';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
@@ -16,6 +17,9 @@ type DataTableProps<Type> = {
   isLoading?: boolean,
   canLoadMore?: boolean,
   onLoadMore?: () => void,
+  itemPage?: number,
+  enablePagination?: boolean,
+  itemsPerPage?: number,
   emptyListRenderer?: () => ReactNode,
   currentSortAttribute?: string,
   allowSelection?: boolean,
@@ -29,6 +33,9 @@ type DataTableProps<Type> = {
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
   variant?: DataTableVariant,
+  page?: number,
+  setPage?: (page: number) => void,
+  totalCount?: number,
 };
 
 const grid = 'dsr-border dsr-border-gray-500/80';
@@ -43,8 +50,9 @@ const DataTable = <Type extends { id: string }>({
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />, loadable = true,
   canExpand = false, accordionRenderer = () => <div />,
-  stickyRow, showTopBarOnEmpty = false,
-  variant = 'default',
+  stickyRow, showTopBarOnEmpty = false, enablePagination = false,
+  page = 1, setPage = () => {},
+  variant = 'default', totalCount = 1,
 }: DataTableProps<Type>) => {
 
   const titleBarRef = useRef(null);
@@ -55,6 +63,7 @@ const DataTable = <Type extends { id: string }>({
   const [titleTopHeight, setTitleTopHeight] = useState(0);
   const [scrollDir, setScrollDir] = useState('up');
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -199,12 +208,23 @@ const DataTable = <Type extends { id: string }>({
                             ))}
                         </tbody>
                     </table>
-                    <InfiniteLoader
-                        loadable={loadable}
-                        canLoadMore={canLoadMore}
-                        isLoading={isLoading}
-                        onLoadMore={onLoadMore}
-                    />
+                    {enablePagination ? (
+                        <PageNavigator
+                            totalCount={totalCount}
+                            itemsPerPage={itemsPerPage}
+                            setItemsPerPage={setItemsPerPage}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    ) : (
+                        <InfiniteLoader
+                            loadable={loadable}
+                            canLoadMore={canLoadMore}
+                            isLoading={isLoading}
+                            onLoadMore={onLoadMore}
+                        />
+                    )
+                  }
                 </div>
             )}
       </SelectionHelper>
