@@ -12,6 +12,7 @@ type CircularProgressProps = {
   maxVal?: number,
   height?: number,
   className?: string,
+  isIndeterminate?: boolean,
 };
 
 const sizes = {
@@ -48,6 +49,7 @@ const offsetOptions = {
 
 const CircularProgress = ({
   value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
+  isIndeterminate = false,
 }: CircularProgressProps) => {
   const { theme, isDarkTheme } = useContext(DSRContext);
 
@@ -62,6 +64,7 @@ const CircularProgress = ({
           <svg
               viewBox="0 0 100 100"
               height={height ?? sizes[size]}
+              className={isIndeterminate ? 'dsr-animate-spin' : ''}
           >
               <circle
                   stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
@@ -71,7 +74,6 @@ const CircularProgress = ({
                   fill="transparent"
                   strokeWidth={thicknesses[thickness]}
               />
-
               <circle
                   cx={50}
                   cy={50}
