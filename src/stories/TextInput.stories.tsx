@@ -21,7 +21,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <TextInput label="Label" name="field-name" value="value" {...args} />
+    <div className="dsr-flex dsr-gap-4 dsr-items-center">
+        <TextInput label="Label" name="field-name" value="value" {...args} />
+        <TextInput label="Label" name="field-name" value="value" {...args} isDisabled />
+    </div>
 );
 
 export const Default = Template.bind({});

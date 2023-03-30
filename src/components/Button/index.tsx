@@ -65,7 +65,7 @@ const Button = ({
     };
 
     return backgroundColors[variant];
-  }, [activeColor, variant]);
+  }, [activeColor, variant, isDarkTheme]);
 
   const textColor = useMemo(
     () => {
@@ -100,6 +100,7 @@ const Button = ({
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
     'focus-visible:dsr-outline dsr-outline-2 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
+    isDisabled && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,
   ]);
 
@@ -114,13 +115,13 @@ const Button = ({
       <button
           id={id}
           aria-label={label}
+          aria-disabled={isDisabled}
           type={type}
           onClick={e => {
             e.stopPropagation();
             onClick(e);
           }}
           disabled={isDisabled}
-          aria-disabled={isDisabled}
           className={computedClassName}
           style={computedStyle}
           onMouseEnter={() => setHover(true)}
@@ -136,6 +137,7 @@ const Button = ({
     style: computedStyle,
     onMouseEnter: () => setHover(true),
     onMouseLeave: () => setHover(false),
+    isDisabled,
   }) : buttonRenderer();
 };
 

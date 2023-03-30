@@ -21,8 +21,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="dsr-flex dsr-justify-center dsr-items-center">
+    <div className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-4">
         <Button {...args} />
+        <Button {...args} isDisabled />
+        <Button {...args} link="/" isDisabled />
     </div>
 );
 

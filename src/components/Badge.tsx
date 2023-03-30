@@ -74,7 +74,7 @@ const Badge = ({
       link: 'rgba(0, 0, 0, 0)',
     };
     return backgroundColors[variant];
-  }, [activeColor, variant]);
+  }, [activeColor, variant, isDarkTheme]);
  
   const textColor = useMemo(
     () => {

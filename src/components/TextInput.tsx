@@ -97,6 +97,7 @@ const TextInput = <Type extends string | number>({
   const props = {
     'aria-label': label,
     'aria-required': isRequired,
+    'aria-disabled': isDisabled,
     id: inputID,
     name,
     value: value as (string | number),
@@ -118,9 +119,8 @@ const TextInput = <Type extends string | number>({
   const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
 
   const inputClassNameCalculated = clsx([
-    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color',
-    'dsr-text-color dsr-border-y group-[:not(:focus-within):hover]:dsr-border-gray-400/80 placeholder:dsr-opacity-50',
-    'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-text-base',
+    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color focus:dsr-outline-none',
+    'dsr-text-color dsr-border-y placeholder:dsr-opacity-50 group-focus-within:dsr-border-primary dsr-text-base',
     isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
     touched ? 'invalid:dsr-border-red-500' : '',
     prefixRenderer ? '' : 'dsr-rounded-l-lg dsr-border-l',
@@ -128,12 +128,14 @@ const TextInput = <Type extends string | number>({
     inputClassName,
     leftIcon && 'dsr-pl-10',
     (rightIcon && isLoading) ? 'dsr-pr-20' : (rightIcon || isLoading ? 'dsr-pr-10' : ''),
+    isDisabled ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
   ]);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border group-[:not(:focus-within):hover]:dsr-border-gray-400/80 group-focus-within:dsr-border-primary',
-    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center dsr-text-base',
+    'dsr-border group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center dsr-text-base',
+    'dsr-text-color group-focus-within:dsr-border-primary',
     isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
+    isDisabled ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
     // @TODO: invalid state for prefix and postfix when input is invalid - group-invalid is not a thing
   ]);
 
@@ -145,6 +147,7 @@ const TextInput = <Type extends string | number>({
           className={clsx([
             className,
             'text-input dsr-w-full dsr-h-full dsr-overflow-hidden',
+            isDisabled && 'dsr-opacity-70',
           ])}
           style={style}
       >

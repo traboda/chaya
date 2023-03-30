@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import clsx from 'clsx';
 
 import { ToolTip } from '../index';
 
@@ -10,14 +11,15 @@ export type LabelProps = {
   htmlFor: string,
   id?: string,
   sidebar?: ReactNode,
-  tooltip?: string
+  tooltip?: string,
+  className?: string
 };
 
-const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip }: LabelProps) => {
+const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className }: LabelProps) => {
   return (
       <label
           id={id}
-          className="dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-flex dsr-items-center dsr-mb-1"
+          className={clsx(['dsr-tracking-wide dsr-text-sm dsr-font-semibold dsr-opacity-70 dsr-flex dsr-items-center dsr-mb-1', className])}
           htmlFor={htmlFor}
           aria-hidden={false}
       >

@@ -17,6 +17,7 @@ export type LinkOptions = {
   style?: React.CSSProperties,
   onMouseEnter?: () => void,
   onMouseLeave?: () => void,
+  isDisabled?: boolean,
 };
 
 export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (
@@ -32,6 +33,8 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
                   className={options?.className}
                   style={options?.style}
                   aria-label={options?.label}
+                  aria-disabled={options?.isDisabled}
+                  onClick={event => options?.isDisabled && event.preventDefault()}
               >
                   {component}
               </a>,

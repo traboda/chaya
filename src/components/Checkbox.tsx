@@ -38,7 +38,13 @@ const Checkbox = ({
   className,
 }: CheckboxButtonProps) => {
   return (
-      <label className={clsx('checkbox-container dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative', className)}>
+      <label
+          className={clsx([
+            'checkbox-container dsr-inline-flex dsr-items-center dsr-relative',
+            className,
+            isDisabled ? 'dsr-opacity-70' : 'dsr-cursor-pointer',
+          ])}
+      >
           <input
               onChange={onChange}
               type="checkbox"
