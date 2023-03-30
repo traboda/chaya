@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
 import { useContext } from 'react';
 
 import DSRContext from '../contexts/DSRContext';
@@ -10,7 +10,8 @@ export type IconProps = {
   size?: number | string,
   width?: number | string,
   height?: number | string,
-  className?: string
+  className?: string,
+  style?: CSSProperties
 };
 
 export type IconInputType = Icons | ((props: IconProps) => ReactElement) | (IconProps & { icon: Icons, });

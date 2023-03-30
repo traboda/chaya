@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import DSRContext from '../contexts/DSRContext';
 import { RGBAtoRGB } from '../utils/color';
 
+import Icon, { IconInputType } from './Icon';
+
 export type BaseBadgeProps = {
   variant?: 'solid' | 'outline' | 'minimal',
   color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade',
@@ -14,6 +16,8 @@ export type BaseBadgeProps = {
   className?: string,
   circular?: boolean,
   id?: string,
+  leftIcon?: IconInputType
+  rightIcon?: IconInputType
 };
 
 export type BadgeProps = BaseBadgeProps & {
@@ -26,11 +30,19 @@ const sizeDefinitions = {
   md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
   lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
   xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
-};
+} as const;
+
+const iconSizes = {
+  xs: [12, 'dsr-mr-1', 'dsr-ml-1'],
+  sm: [14, 'dsr-mr-1', 'dsr-ml-1'],
+  md: [16, 'dsr-mr-2', 'dsr-ml-2'],
+  lg: [18, 'dsr-mr-2', 'dsr-ml-2'],
+  xl: [20, 'dsr-mr-2', 'dsr-ml-2'],
+} as const;
 
 const Badge = ({
   children, variant = 'minimal', color = 'primary', size = 'sm',
-  id, className = '', style, circular = false,
+  id, className = '', style, circular = false, leftIcon, rightIcon,
 }: BadgeProps) => {
 
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -76,7 +88,8 @@ const Badge = ({
   const computedClassName = clsx([
     className,
     sizeDefinitions[size],
-    'badge dsr-inline-block dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent dsr-transition',
+    'badge dsr-inline-flex dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
+    'dsr-transition dsr-items-center dsr-justify-center',
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
 
@@ -93,7 +106,9 @@ const Badge = ({
           className={computedClassName}
           style={computedStyle}
       >
+          {leftIcon && <Icon icon={leftIcon} className={iconSizes[size][1]} size={iconSizes[size][0]} />}
           {children}
+          {rightIcon && <Icon icon={rightIcon} className={iconSizes[size][2]} size={iconSizes[size][0]} />}
       </span>
   );
 };

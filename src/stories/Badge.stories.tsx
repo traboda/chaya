@@ -80,4 +80,13 @@ export const SizeVariants = SizeVars.bind({});
 
 SizeVariants.args = {
   children: 'New',
+  leftIcon: 'home',
+  rightIcon: 'info',
+};
+
+export const WithIcons = Template.bind({});
+
+WithIcons.args = {
+  leftIcon: 'home',
+  rightIcon: 'info',
 };
