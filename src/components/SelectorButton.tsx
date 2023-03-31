@@ -58,17 +58,17 @@ const SelectorButton = <Type extends string | number | null | undefined>({
               isRequired
               className="dsr-rounded-r-none"
               labels={{ placeholder: labels?.placeholder, label: labels?.label }}
-              postfixRenderer={
+              postfixRenderer={(
                   <Button
                       variant="link"
                       color="contrast"
-                      className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent"
+                      className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
                       type="submit"
                       isDisabled={isDisabled}
                   >
                       {labels?.button}
                   </Button>
-              }
+              )}
           />
       </form>
   );

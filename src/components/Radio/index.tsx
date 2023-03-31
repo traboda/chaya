@@ -39,10 +39,15 @@ const Radio = ({
   className,
 }: RadioButtonProps) => (
     <div
-        className={clsx('radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative', className)}
-        onClick={() => onChange(value)}
+        className={clsx([
+          'radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative',
+          className,
+          isDisabled && 'dsr-opacity-70',
+        ])}
+        onClick={() => !isDisabled && onChange(value)}
     >
         <input
+            aria-disabled={isDisabled}
             type="radio"
             name={label}
             value={value}

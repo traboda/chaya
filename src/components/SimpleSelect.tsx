@@ -51,13 +51,13 @@ const SimpleSelect = <Type extends string | number | null | undefined>({
   const { isDarkTheme } = useContext(DSRContext);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border group-[:not(:focus-within):hover]:dsr-border-gray-400/80 group-focus-within:dsr-border-primary',
-    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden',
-    'dsr-items-center dsr-border-gray-500/70 dsr-text-base',
+    'dsr-border group-focus-within:dsr-border-primary dsr-border-gray-500/70 dsr-text-base',
+    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center',
+    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
   ]);
 
   return (
-      <div className="dsr-w-full simple-select-container">
+      <div className={clsx(['dsr-w-full simple-select-container', isDisabled && 'dsr-opacity-70'])}>
           {labels?.label && labels?.label?.length > 0 && (
               <Label
                   id={`${inputID}-label`}
@@ -72,7 +72,7 @@ const SimpleSelect = <Type extends string | number | null | undefined>({
                     'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
                     'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
                     'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat',
-                    'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+                    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
                     !postfixRenderer && 'dsr-border-r',
                     className,
                   ])}

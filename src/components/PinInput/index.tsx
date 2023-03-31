@@ -104,7 +104,7 @@ const PinInput = ({
   }, []);
 
   return (
-      <div>
+      <div className={isDisabled ? 'dsr-opacity-70' : ''}>
           {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
           <div
               ref={inputs}

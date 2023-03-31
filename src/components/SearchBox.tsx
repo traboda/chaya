@@ -24,7 +24,8 @@ export type SearchBoxProps = {
   onClear?: () => void,
   onSearch?: (keyword: string) => void,
   onKeyDown?: (e: KeyboardEvent) => void,
-  inputStyle?: React.CSSProperties
+  inputStyle?: React.CSSProperties,
+  isDisabled?: boolean
 };
 
 const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent';
@@ -32,7 +33,7 @@ const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-b
 const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
   labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
-  autoFocus = false,
+  autoFocus = false, isDisabled = false,
 }: SearchBoxProps) => {
 
   const labels = { ...defaultLabels, ...labelProps };
@@ -46,46 +47,46 @@ const SearchBox = ({
             onSearch(keyword);
           }}
       >
-          <div className="dsr-flex dsr-w-full dsr-p-0">
-              <TextInput
-                  id={`${id}-input`}
-                  name={name}
-                  label={labels.label}
-                  placeholder={labels.placeholder}
-                  inputStyle={inputStyle}
-                  value={keyword}
-                  autoFocus={autoFocus}
-                  onChange={setKeyword}
-                  hideLabel={hideLabel}
-                  onKeyDown={onKeyDown}
-                  postfixRenderer={
-                      <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
-                          {keyword.length > 0 && (
-                              <Button
-                                  variant="link"
-                                  color="danger"
-                                  type="button"
-                                  className={clsx([buttonClass, '-dsr-mr-3.5'])}
-                                  onClick={() => {
-                                    setKeyword('');
-                                    onSearch('');
-                                    onClear();
-                                  }}
-                                  rightIcon="times"
-                              />
-                          )}
+          <TextInput
+              id={`${id}-input`}
+              name={name}
+              label={labels.label}
+              placeholder={labels.placeholder}
+              inputStyle={inputStyle}
+              value={keyword}
+              autoFocus={autoFocus}
+              onChange={setKeyword}
+              hideLabel={hideLabel}
+              onKeyDown={onKeyDown}
+              isDisabled={isDisabled}
+              postfixRenderer={(
+                  <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
+                      {keyword.length > 0 && (
                           <Button
                               variant="link"
-                              color="contrast"
-                              className={clsx(['search-box-button', buttonClass])}
-                              label={`${name} button`}
-                              type="submit"
-                              rightIcon="search"
+                              color="danger"
+                              type="button"
+                              className={clsx([buttonClass, '-dsr-mr-3.5 dsr-opacity-100'])}
+                              onClick={() => {
+                                setKeyword('');
+                                onSearch('');
+                                onClear();
+                              }}
+                              rightIcon="times"
                           />
-                      </div>
-                  }
-              />
-          </div>
+                      )}
+                      <Button
+                          variant="link"
+                          color="contrast"
+                          className={clsx(['search-box-button dsr-opacity-100', buttonClass])}
+                          label={`${name} button`}
+                          type="submit"
+                          rightIcon="search"
+                          isDisabled={isDisabled}
+                      />
+                  </div>
+              )}
+          />
       </form>
   );
 };

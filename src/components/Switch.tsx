@@ -44,7 +44,12 @@ const Switch = ({
   const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
   return (
-      <div className="switch-container dsr-w-full dsr-flex dsr-flex-col">
+      <div
+          className={clsx([
+            'switch-container dsr-w-full dsr-flex dsr-flex-col',
+            isDisabled && 'dsr-opacity-70',
+          ])}
+      >
           {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
           <label
               className={clsx([
@@ -67,6 +72,7 @@ const Switch = ({
                   aria-required={isRequired}
                   aria-readonly={isDisabled}
                   aria-checked={value}
+                  aria-disabled={isDisabled}
                   disabled={isDisabled}
                   className="switch dsr-absolute dsr-opacity-0"
                   required={isRequired}

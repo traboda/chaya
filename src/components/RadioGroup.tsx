@@ -27,7 +27,14 @@ const RadioGroup = ({
 
   return (
       <div>
-          {label && <Label htmlFor="" children={label} isRequired={isRequired} />}
+          {label && (
+              <Label
+                  htmlFor=""
+                  className={isDisabled ? 'dsr-opacity-70' : ''}
+                  children={label}
+                  isRequired={isRequired}
+              />
+          )}
           <div
               className={clsx([
                 'radio-group dsr-flex',

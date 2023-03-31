@@ -28,6 +28,7 @@ const PinDigit = ({
         id={id}
         autoComplete="off"
         aria-labelledby={ariaLabelledBy}
+        aria-disabled={isDisabled}
         className={clsx([
           'pin-digit dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-text-slate-400/40',
           isDarkTheme ? 'dsr-text-white' : 'dsr-text-black',
@@ -43,6 +44,7 @@ const PinDigit = ({
         onKeyDown={(e) => ((!isDisabled ? onKeyDown && onKeyDown(e) : null))}
         placeholder={placeholder}
         required={isRequired}
+        disabled={isDisabled}
     />
 );
 

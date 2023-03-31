@@ -46,6 +46,7 @@ const Checkbox = ({
           ])}
       >
           <input
+              aria-disabled={isDisabled}
               onChange={onChange}
               type="checkbox"
               name={value}
