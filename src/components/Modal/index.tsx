@@ -14,6 +14,8 @@ type ModalProps = {
   onClose: () => void,
   title?: string,
   hideBg?: boolean,
+  overlayClassName?: string,
+  containerClassName?: string,
   contentClassName?: string,
   maxWidth?: number | string,
   minHeight?: number | string,
@@ -24,7 +26,7 @@ type ModalProps = {
 };
 
 const Modal = ({
-  isOpen, children, onClose, title, contentClassName = '', titleIcon,
+  isOpen, children, onClose, title, containerClassName, overlayClassName = '', contentClassName = '', titleIcon,
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
 }: ModalProps) => {
 
@@ -52,6 +54,7 @@ const Modal = ({
                 'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex dsr-justify-center',
                 'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr-z-[7200]',
                 hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
+                overlayClassName,
               ])}
               onClick={onClose}
           >
@@ -59,6 +62,7 @@ const Modal = ({
                   className={clsx([
                     'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
                     'dsr-text-color dsr-max-w-screen dsr-max-h-screen dsr-overflow-auto',
+                    containerClassName,
                     isOpen ? modalStyles.animateIn : modalStyles.animateOut,
                     hideBg ? '' : 'dsr-bg-background',
                   ])}

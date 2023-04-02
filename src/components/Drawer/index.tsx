@@ -12,16 +12,17 @@ type DrawerProps = {
   isOpen: boolean,
   onClose: () => void,
   children: ReactNode,
+  overlayClassName?: string,
+  className?: string,
   position?: 'top' | 'right' | 'bottom' | 'left',
   minWidth?: string | number,
   minHeight?: string | number,
   maxWidth?: string | number,
   maxHeight?: string | number,
-
 };
 
 const Drawer = ({
-  isOpen, onClose, position = 'right', children,
+  isOpen, onClose, position = 'right', children, overlayClassName = '', className = '',
   minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%',
 }: DrawerProps) => {
 
@@ -87,6 +88,7 @@ const Drawer = ({
                     'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
                     'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
                     getPositionAlignmentParent,
+                    overlayClassName,
                   ])}
                   onClick={onClose}
               >
@@ -95,6 +97,7 @@ const Drawer = ({
                         'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
                         getPositionAlignmentChild,
                         getPositionAnimation,
+                        className,
                       ])}
                       style={{
                         minHeight,
