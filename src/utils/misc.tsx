@@ -1,6 +1,8 @@
 import React from 'react';
 
 import DSRContext from '../contexts/DSRContext';
+import { Spinner } from '../index';
+import { ButtonSize } from '../components/Button/type';
  
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');
 export type LinkRelType = (
@@ -18,6 +20,8 @@ export type LinkOptions = {
   onMouseEnter?: () => void,
   onMouseLeave?: () => void,
   isDisabled?: boolean,
+  isLoading?: boolean,
+  size?: ButtonSize
 };
 
 export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (
@@ -36,7 +40,7 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
                   aria-disabled={options?.isDisabled}
                   onClick={event => options?.isDisabled && event.preventDefault()}
               >
-                  {component}
+                  {options?.isLoading ? <Spinner size={options?.size} /> : component}
               </a>,
           ) : null;
         }}

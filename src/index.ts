@@ -20,6 +20,7 @@ export { default as ToolTip } from './components/ToolTip';
 export { default as PinInput } from './components/PinInput';
 export { default as Dropzone } from './components/Dropzone';
 export { default as Dropdown } from './components/Dropdown';
+export { default as Checkbox } from './components/Checkbox';
 export { default as HoverCard } from './components/HoverCard';
 export { default as TextInput } from './components/TextInput';
 export { default as Accordion } from './components/Accordion';

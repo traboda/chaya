@@ -7,6 +7,7 @@ import { LinkWrapper } from '../../utils/misc';
 import DSRContext from '../../contexts/DSRContext';
 import { RGBAtoRGB } from '../../utils/color';
 import Icon from '../Icon';
+import { Spinner } from '../../index';
 
 import buttonStyle from './button.module.scss';
 import { ButtonProps } from './type';
@@ -32,7 +33,7 @@ const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
   id, className = '', style, label, disableRipple = false,
-  target, type, rel, isDisabled = false, leftIcon, rightIcon,
+  target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false,
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
   const { theme, isDarkTheme } = useContext(DSRContext);
@@ -86,7 +87,7 @@ const Button = ({
 
   const buttonContent = (
       <>
-          {(!disableRipple && !isDisabled) && <Ripple />}
+          {(!disableRipple && !(isDisabled || isLoading)) && <Ripple />}
           {leftIcon && <Icon icon={leftIcon} size={iconSizes[size]} />}
           {children}
           {rightIcon && <Icon icon={rightIcon} size={iconSizes[size]} />}
@@ -100,7 +101,7 @@ const Button = ({
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
     'focus-visible:dsr-outline dsr-outline-2 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
-    isDisabled && 'dsr-opacity-70 dsr-cursor-not-allowed',
+    (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,
   ]);
 
@@ -115,29 +116,30 @@ const Button = ({
       <button
           id={id}
           aria-label={label}
-          aria-disabled={isDisabled}
+          aria-disabled={isDisabled || isLoading}
           type={type}
           onClick={e => {
             e.stopPropagation();
             onClick(e);
           }}
-          disabled={isDisabled}
+          disabled={isDisabled || isLoading}
           className={computedClassName}
           style={computedStyle}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
       >
-          {buttonContent}
+          {isLoading ? <Spinner size={size} /> : buttonContent}
       </button>
   );
 
   return link ? LinkWrapper(link, buttonContent, {
-    target, rel, id, label,
+    target, rel, id, label, size,
     className: computedClassName,
     style: computedStyle,
     onMouseEnter: () => setHover(true),
     onMouseLeave: () => setHover(false),
-    isDisabled,
+    isDisabled: isDisabled || isLoading,
+    isLoading,
   }) : buttonRenderer();
 };
 
