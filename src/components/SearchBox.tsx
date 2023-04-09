@@ -28,7 +28,8 @@ export type SearchBoxProps = {
   isDisabled?: boolean,
   isLoading?: boolean,
   inputClassName?: string,
-  buttonClassName?: string
+  buttonClassName?: string,
+  buttonWrapperClassName?: string
 };
 
 const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent';
@@ -36,7 +37,7 @@ const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-b
 const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
   labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
-  autoFocus = false, isDisabled = false, isLoading = false, inputClassName, buttonClassName,
+  autoFocus = false, isDisabled = false, isLoading = false, inputClassName, buttonClassName, buttonWrapperClassName,
 }: SearchBoxProps) => {
 
   const labels = { ...defaultLabels, ...labelProps };
@@ -63,7 +64,8 @@ const SearchBox = ({
               onKeyDown={onKeyDown}
               isDisabled={isDisabled}
               isLoading={isLoading}
-              className={inputClassName}
+              inputClassName={inputClassName}
+              postfixClassName={buttonWrapperClassName}
               postfixRenderer={(
                   <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
                       {keyword.length > 0 && (

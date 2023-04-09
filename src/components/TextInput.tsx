@@ -46,6 +46,8 @@ export type TextInputProps<Type> = {
   prefixRenderer?: React.ReactElement,
   leftIcon?: IconInputType,
   rightIcon?: IconInputType,
+  prefixClassName?: string,
+  postfixClassName?: string,
 };
 
 const TextInput = <Type extends string | number>({
@@ -55,6 +57,7 @@ const TextInput = <Type extends string | number>({
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
+  prefixClassName, postfixClassName,
 }: TextInputProps<Type>) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
@@ -170,6 +173,7 @@ const TextInput = <Type extends string | number>({
                   <div
                       className={clsx([
                         iconClassNameCalculated,
+                        prefixClassName,
                         'dsr-left-0 dsr-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
                       ])}
                       style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
@@ -213,6 +217,7 @@ const TextInput = <Type extends string | number>({
                   <div
                       className={clsx([
                         iconClassNameCalculated,
+                        postfixClassName,
                         'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
                       ])}
                       style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}

@@ -41,9 +41,10 @@ const PinInput = ({
   const [isInvalid, setInvalid] = useState(_isInvalid);
   const { isDarkTheme } = useContext(DSRContext);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
+  const abortController = useRef<AbortController>();
 
   const onChange = (val: string) => {
-    onChangeProp(val);
+    onChangeProp(val.trim().slice(0, digits));
     setInvalid(false);
   };
 
@@ -57,7 +58,7 @@ const PinInput = ({
     if (val) {
       const newVal = value.split('');
       newVal[index] = (index === digits - 1) ? val[val.length - 1] : val[0];
-      onChange(newVal.join('').trim().slice(0, digits));
+      onChange(newVal.join(''));
       if (val && index !== digits - 1)
         selectDigit(index + 1);
     }
@@ -67,14 +68,14 @@ const PinInput = ({
     if (event.key === 'Backspace') {
       // remove current digit
       const newValue = value.slice(0, index) + value.slice(index + 1);
-      onChange(newValue.trim().slice(0, digits));
+      onChange(newValue);
       // focus back to previous digit
       if (index === 0) selectDigit(index);
       else selectDigit(index - 1);
     } else if (event.key === 'Delete') {
       // current next digit, no change in focus
       const newValue = value.slice(0, index + 1) + value.slice(index + 2);
-      onChange(newValue.trim().slice(0, digits));
+      onChange(newValue);
     } else if (event.key === 'ArrowLeft') {
       if (index - 1 < value.length) {
         if (index === 0 && value.length === digits) selectDigit(digits - 1);
@@ -91,7 +92,7 @@ const PinInput = ({
   const onPaste = (event: ClipboardEvent) => {
     event.preventDefault();
     const text = event.clipboardData?.getData('text/plain');
-    if (text) onChange(text.trim().slice(0, digits));
+    if (text) onChange(text);
   };
 
   useEffect(() => {
@@ -100,7 +101,22 @@ const PinInput = ({
 
   useEffect(() => {
     document.addEventListener('paste', onPaste);
-    return () => document.removeEventListener('paste', onPaste);
+
+    if ('OTPCredential' in window) {
+      abortController.current = new AbortController();
+
+      navigator.credentials.get({
+        otp: { transport: ['sms'] },
+        signal: abortController.current?.signal,
+      }).then(otp => {
+        if (otp) onChange(otp.code);
+      });
+    }
+
+    return () => {
+      document.removeEventListener('paste', onPaste);
+      abortController.current?.abort();
+    };
   }, []);
 
   return (

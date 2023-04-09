@@ -14,5 +14,9 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
+    "typeRoots": [
+      "src/types",
+      "node_modules/@types"
+    ]
   }
 }
