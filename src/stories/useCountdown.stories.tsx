@@ -21,36 +21,36 @@ const Template: Story = (args) => {
   }, [args]);
 
   return (
-      <div>
-          <div className="dsr-pb-6">
-              <div className="dsr-text-lg">
-                  <span>
-                      <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.days}</b>
-                      {' '}
-                      Days
-                      {' '}
-                  </span>
-                  <span>
-                      <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.hours}</b>
-                      {' '}
-                      Hours
-                      {' '}
-                  </span>
-                  <span>
-                      <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.minutes}</b>
-                      {' '}
-                      Minutes
-                      {' '}
-                  </span>
-                  <span>
-                      <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.seconds}</b>
-                      {' '}
-                      Seconds
-                      {' '}
-                  </span>
-              </div>
-          </div>
+    <div>
+      <div className="dsr-pb-6">
+        <div className="dsr-text-lg">
+          <span>
+            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.days}</b>
+            {' '}
+            Days
+            {' '}
+          </span>
+          <span>
+            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.hours}</b>
+            {' '}
+            Hours
+            {' '}
+          </span>
+          <span>
+            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.minutes}</b>
+            {' '}
+            Minutes
+            {' '}
+          </span>
+          <span>
+            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.seconds}</b>
+            {' '}
+            Seconds
+            {' '}
+          </span>
+        </div>
       </div>
+    </div>
   );
 };
 

@@ -23,44 +23,44 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
   };
 
   const renderPlaceholder = () => (
-      <svg
-          id={id}
-          className={clsx('avatar-placeholder dsr-rounded-lg', className)}
-          width={size}
-          height={size}
-          viewBox="0 0 75 75"
-          preserveAspectRatio="xMinYMid meet"
-          style={{ backgroundColor: '#ddd' }}
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
+    <svg
+      id={id}
+      className={clsx('avatar-placeholder dsr-rounded-lg', className)}
+      width={size}
+      height={size}
+      viewBox="0 0 75 75"
+      preserveAspectRatio="xMinYMid meet"
+      style={{ backgroundColor: '#ddd' }}
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
+      <text
+        x="50%"
+        y="50%"
+        dominantBaseline="central"
+        textAnchor="middle"
+        fill="#222"
+        fontSize="40"
+        fontWeight="500"
       >
-          <text
-              x="50%"
-              y="50%"
-              dominantBaseline="central"
-              textAnchor="middle"
-              fill="#222"
-              fontSize="40"
-              fontWeight="500"
-          >
-              {getName()?.toUpperCase()}
-          </text>
-      </svg>
+        {getName()?.toUpperCase()}
+      </text>
+    </svg>
   );
 
   return !(src?.length) || show ? renderPlaceholder() : (
-      <img
-          className={clsx('avatar dsr-rounded-lg', className)}
-          height={size}
-          width={size}
-          title={title}
-          id={id}
-          alt={alt}
-          draggable="false"
-          src={src}
-          onError={() => setShow(true)}
-          onLoad={() => setShow(false)}
-      />
+    <img
+      className={clsx('avatar dsr-rounded-lg', className)}
+      height={size}
+      width={size}
+      title={title}
+      id={id}
+      alt={alt}
+      draggable="false"
+      src={src}
+      onError={() => setShow(true)}
+      onLoad={() => setShow(false)}
+    />
   );
 };
 

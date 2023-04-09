@@ -24,16 +24,16 @@ const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme,
   }, [theme]);
 
   return (
-      <DSRContext.Provider
-          value={{
-            linkWrapper,
-            iconWrapper,
-            theme,
-            isDarkTheme,
-          }}
-      >
-          {children}
-      </DSRContext.Provider>
+    <DSRContext.Provider
+      value={{
+        linkWrapper,
+        iconWrapper,
+        theme,
+        isDarkTheme,
+      }}
+    >
+      {children}
+    </DSRContext.Provider>
   );
 };
 

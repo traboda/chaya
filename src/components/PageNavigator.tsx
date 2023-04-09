@@ -46,96 +46,96 @@ const PageNavigator = ({
   };
 
   return (
-      <div
-          id={id}
-          className={clsx([
-            'page-navigator dsr-flex dsr-items-center dsr-justify-center dsr-text-center dsr-pt-4 page-navigator',
-            className,
-          ])}
-      >
-          <div className="dsr-select-none">
-              <div className="dsr-flex dsr-items-stretch dsr-justify-center">
-                  {(showEdges && page > 2) && (
-                      <Button
-                          label="Go to first page"
-                          className="first-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
-                          onClick={() => setPage(1)}
-                      >
-                          <Icon icon="chevrons-left" size={18} />
-                      </Button>
-                  )}
-                  {(showControls && page > 1) && (
-                      <Button
-                          label="Go to previous page"
-                          className="previous-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
-                          onClick={() => setPage(page - 1)}
-                      >
-                          <Icon icon="chevron-left" size={18} />
-                      </Button>
-                  )}
-                  {getPageNo().map((item, index) => (
-                      <Button
-                          label={`Go to page ${item}`}
-                          variant={page === item ? 'solid' : 'outline'}
-                          color={page === item ? 'contrast' : 'primary'}
-                          isDisabled={page === item}
-                          key={`page_${item}_${index}`}
-                          className={clsx([
-                            'page-number-button dsr-w-12 dsr-mx-1',
-                            page === item ? 'active' : '',
-                          ])}
-                          onClick={() => setPage(item)}
-                      >
-                          {item}
-                      </Button>
-                  ))}
-                  {(showControls && !(page + 1 >= length)) && (
-                      <Button
-                          label="Go to next page"
-                          className="next-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
-                          onClick={() => setPage(page + 1)}
-                      >
-                          <Icon icon="chevron-right" size={18} />
-                      </Button>
-                  )}
-                  {(showEdges && (page + 1 < length)) && (
-                      <Button
-                          label="Go to last page"
-                          className="last-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
-                          onClick={() => setPage(length)}
-                      >
-                          <Icon icon="chevrons-right" size={18} />
-                      </Button>
-                  )}
-              </div>
-              {!hideItemsPerPage &&
-                  <div className="dsr-flex dsr-items-center dsr-justify-center dsr-mt-3">
-                      <div className="dsr-mr-1 dsr-w-10">
-                          <SimpleSelect
-                              value={itemsPerPage}
-                              onChange={(n) => {
-                                setPage(1);
-                                setItemsPerPage(typeof n === 'number' ? n : parseInt(n));
-                              }}
-                              name="items_per_page"
-                              className="dsr-p-1 dsr-text-sm dsr-text-center"
-                              hideArrow={true}
-                              isRequired
-                              options={[
-                                { label: '10', value: 10 },
-                                { label: '20', value: 20 },
-                                { label: '30', value: 30 },
-                                { label: '50', value: 50 },
-                                { label: '100', value: 100 },
-                              ]}
-                          />
-                      </div>
-                      {' '}
-                      items per page
-                  </div>
-              }
+    <div
+      id={id}
+      className={clsx([
+        'page-navigator dsr-flex dsr-items-center dsr-justify-center dsr-text-center dsr-pt-4 page-navigator',
+        className,
+      ])}
+    >
+      <div className="dsr-select-none">
+        <div className="dsr-flex dsr-items-stretch dsr-justify-center">
+          {(showEdges && page > 2) && (
+          <Button
+            label="Go to first page"
+            className="first-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            onClick={() => setPage(1)}
+          >
+            <Icon icon="chevrons-left" size={18} />
+          </Button>
+          )}
+          {(showControls && page > 1) && (
+          <Button
+            label="Go to previous page"
+            className="previous-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            onClick={() => setPage(page - 1)}
+          >
+            <Icon icon="chevron-left" size={18} />
+          </Button>
+          )}
+          {getPageNo().map((item, index) => (
+            <Button
+              label={`Go to page ${item}`}
+              variant={page === item ? 'solid' : 'outline'}
+              color={page === item ? 'contrast' : 'primary'}
+              isDisabled={page === item}
+              key={`page_${item}_${index}`}
+              className={clsx([
+                'page-number-button dsr-w-12 dsr-mx-1',
+                page === item ? 'active' : '',
+              ])}
+              onClick={() => setPage(item)}
+            >
+              {item}
+            </Button>
+          ))}
+          {(showControls && !(page + 1 >= length)) && (
+          <Button
+            label="Go to next page"
+            className="next-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            onClick={() => setPage(page + 1)}
+          >
+            <Icon icon="chevron-right" size={18} />
+          </Button>
+          )}
+          {(showEdges && (page + 1 < length)) && (
+          <Button
+            label="Go to last page"
+            className="last-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            onClick={() => setPage(length)}
+          >
+            <Icon icon="chevrons-right" size={18} />
+          </Button>
+          )}
+        </div>
+        {!hideItemsPerPage &&
+          <div className="dsr-flex dsr-items-center dsr-justify-center dsr-mt-3">
+            <div className="dsr-mr-1 dsr-w-10">
+              <SimpleSelect
+                value={itemsPerPage}
+                onChange={(n) => {
+                  setPage(1);
+                  setItemsPerPage(typeof n === 'number' ? n : parseInt(n));
+                }}
+                name="items_per_page"
+                className="dsr-p-1 dsr-text-sm dsr-text-center"
+                hideArrow={true}
+                isRequired
+                options={[
+                  { label: '10', value: 10 },
+                  { label: '20', value: 20 },
+                  { label: '30', value: 30 },
+                  { label: '50', value: 50 },
+                  { label: '100', value: 100 },
+                ]}
+              />
+            </div>
+            {' '}
+            items per page
           </div>
+              }
       </div>
+    </div>
   );
 };
 

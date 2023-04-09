@@ -20,17 +20,17 @@ const Template: Story = args => {
   const [page, setPage] = useState(args.page ?? 11);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   return (
-      <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-p-30" style={{ minHeight: '35vh' }}>
-          <PageNavigator
-              page={page}
-              setPage={setPage}
-              itemsPerPage={itemsPerPage}
-              hideItemsPerPage={args.hideItemsPerPage}
-              setItemsPerPage={setItemsPerPage}
-              totalCount={args.totalCount}
-              {...args}
-          />
-      </div>
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-p-30" style={{ minHeight: '35vh' }}>
+      <PageNavigator
+        page={page}
+        setPage={setPage}
+        itemsPerPage={itemsPerPage}
+        hideItemsPerPage={args.hideItemsPerPage}
+        setItemsPerPage={setItemsPerPage}
+        totalCount={args.totalCount}
+        {...args}
+      />
+    </div>
   );
 };
 

@@ -51,56 +51,56 @@ const ConfirmationDialog = ({
   useEffect(() => setPassword(''), [isOpen]);
 
   return (
-      <Modal isOpen={isOpen} onClose={onCancel}>
-          <Card className="confirmation-dialog" background={theme?.background}>
-              <div className="dsr-p-2">
-                  <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
-                  <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
-                      {labels?.description}
-                  </p>
-              </div>
-              <form className="dsr-py-2" onSubmit={confirmAction}>
-                  {requireConfirmationText && (
-                      <TextInput
-                          label={`Enter "${labels?.confirmationText}" to confirm`}
-                          name="confirmationText"
-                          value={confirmText}
-                          onChange={setConfirmText}
-                          isRequired
-                      />
-                  )}
-                  {requirePassword && (
-                      <div className="dsr-mb-3">
-                          <TextInput
-                              label="Enter Your Password"
-                              name="password"
-                              type="password"
-                              value={password}
-                              onChange={setPassword}
-                              isRequired
-                          />
-                      </div>
-                  )}
-                  <div className="dsr-flex dsr-justify-end">
-                      <Button
-                          color="shade"
-                          size="lg"
-                          onClick={onCancel}
-                          type="button"
-                          className="dsr-mr-2"
-                      >
-                          {labels?.cancel}
-                      </Button>
-                      <Button
-                          size="lg"
-                          type="submit"
-                      >
-                          {labels?.confirm}
-                      </Button>
-                  </div>
-              </form>
-          </Card>
-      </Modal>
+    <Modal isOpen={isOpen} onClose={onCancel}>
+      <Card className="confirmation-dialog" background={theme?.background}>
+        <div className="dsr-p-2">
+          <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
+          <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
+            {labels?.description}
+          </p>
+        </div>
+        <form className="dsr-py-2" onSubmit={confirmAction}>
+          {requireConfirmationText && (
+          <TextInput
+            label={`Enter "${labels?.confirmationText}" to confirm`}
+            name="confirmationText"
+            value={confirmText}
+            onChange={setConfirmText}
+            isRequired
+          />
+          )}
+          {requirePassword && (
+          <div className="dsr-mb-3">
+            <TextInput
+              label="Enter Your Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={setPassword}
+              isRequired
+            />
+          </div>
+          )}
+          <div className="dsr-flex dsr-justify-end">
+            <Button
+              color="shade"
+              size="lg"
+              onClick={onCancel}
+              type="button"
+              className="dsr-mr-2"
+            >
+              {labels?.cancel}
+            </Button>
+            <Button
+              size="lg"
+              type="submit"
+            >
+              {labels?.confirm}
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </Modal>
   );
 };
 

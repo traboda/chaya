@@ -23,10 +23,10 @@ export default meta;
 
 
 const Template: Story = args => (
-    <div style={{ width: '280px' }}>
-        {/*// @ts-ignore*/}
-        <SelectorButton {...args} />
-    </div>
+  <div style={{ width: '280px' }}>
+    {/*// @ts-ignore*/}
+    <SelectorButton {...args} />
+  </div>
 );
 
 export const Basic = Template.bind({});

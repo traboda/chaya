@@ -43,60 +43,60 @@ const SearchBox = ({
   const labels = { ...defaultLabels, ...labelProps };
 
   return (
-      <form
-          id={id}
-          className={clsx(['search-box', className])}
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSearch(keyword);
-          }}
-      >
-          <TextInput
-              id={`${id}-input`}
-              name={name}
-              label={labels.label}
-              placeholder={labels.placeholder}
-              inputStyle={inputStyle}
-              value={keyword}
-              autoFocus={autoFocus}
-              onChange={setKeyword}
-              hideLabel={hideLabel}
-              onKeyDown={onKeyDown}
-              isDisabled={isDisabled}
-              isLoading={isLoading}
-              inputClassName={inputClassName}
-              postfixClassName={buttonWrapperClassName}
-              postfixRenderer={(
-                  <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
-                      {keyword.length > 0 && (
-                          <Button
-                              variant="link"
-                              color="danger"
-                              type="button"
-                              className={clsx([buttonClass, '-dsr-mr-3.5 dsr-opacity-100', buttonClassName])}
-                              onClick={() => {
-                                setKeyword('');
-                                onSearch('');
-                                onClear();
-                              }}
-                              rightIcon="times"
-                              isDisabled={isDisabled || isLoading}
-                          />
-                      )}
+    <form
+      id={id}
+      className={clsx(['search-box', className])}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSearch(keyword);
+      }}
+    >
+      <TextInput
+        id={`${id}-input`}
+        name={name}
+        label={labels.label}
+        placeholder={labels.placeholder}
+        inputStyle={inputStyle}
+        value={keyword}
+        autoFocus={autoFocus}
+        onChange={setKeyword}
+        hideLabel={hideLabel}
+        onKeyDown={onKeyDown}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+        inputClassName={inputClassName}
+        postfixClassName={buttonWrapperClassName}
+        postfixRenderer={(
+          <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
+            {keyword.length > 0 && (
+              <Button
+                variant="link"
+                color="danger"
+                type="button"
+                className={clsx([buttonClass, '-dsr-mr-3.5 dsr-opacity-100', buttonClassName])}
+                onClick={() => {
+                  setKeyword('');
+                  onSearch('');
+                  onClear();
+                }}
+                rightIcon="times"
+                isDisabled={isDisabled || isLoading}
+              />
+            )}
 
-                      <Button
-                          variant="link"
-                          color="contrast"
-                          className={clsx(['search-box-button dsr-opacity-100', buttonClass, buttonClassName])}
-                          label={`${name} button`}
-                          type="submit"
-                          rightIcon="search"
-                          isDisabled={isDisabled || isLoading}
-                      />
-                  </div>
+            <Button
+              variant="link"
+              color="contrast"
+              className={clsx(['search-box-button dsr-opacity-100', buttonClass, buttonClassName])}
+              label={`${name} button`}
+              type="submit"
+              rightIcon="search"
+              isDisabled={isDisabled || isLoading}
+            />
+          </div>
               )}
-          />
-      </form>
+      />
+    </form>
   );
 };
 

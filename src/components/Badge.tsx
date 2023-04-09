@@ -101,15 +101,15 @@ const Badge = ({
   };
 
   return (
-      <span
-          id={id}
-          className={computedClassName}
-          style={computedStyle}
-      >
-          {leftIcon && <Icon icon={leftIcon} className={iconSizes[size][1]} size={iconSizes[size][0]} />}
-          {children}
-          {rightIcon && <Icon icon={rightIcon} className={iconSizes[size][2]} size={iconSizes[size][0]} />}
-      </span>
+    <span
+      id={id}
+      className={computedClassName}
+      style={computedStyle}
+    >
+      {leftIcon && <Icon icon={leftIcon} className={iconSizes[size][1]} size={iconSizes[size][0]} />}
+      {children}
+      {rightIcon && <Icon icon={rightIcon} className={iconSizes[size][2]} size={iconSizes[size][0]} />}
+    </span>
   );
 };
 

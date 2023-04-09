@@ -74,58 +74,58 @@ const Alert = ({
   ]);
 
   return !hide ? (
-      <div
-          id={id}
-          className={computedClassName}
-          style={{
-            color: getColorByType(type, isDarkTheme),
-            borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme) : undefined,
-            borderStyle: variant === 'outline' ? 'solid' : undefined,
-            borderWidth: variant === 'outline' ? '1px' : undefined,
-            backgroundColor: variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined,
-          }}
-      >
-          {allowDismissal && (
-              <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
-                  <button
-                      title="dismiss"
-                      className="alert-dismiss-button dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
-                      onClick={() => { setHide(true); onDismiss(); }}
-                  >
-                      <Icon icon="times" size={16} />
-                  </button>
-              </div>
-          )}
-          {title && (
-              <h4 className={description ? 'dsr-text-xl dsr-font-semibold' : 'dsr-text-lg'}>
-                  {titleIcon ? <Icon icon={titleIcon} /> : null}
-                  {title}
-              </h4>
-          )}
-          {description && <p className="dsr-text-lg">{description}</p>}
-          {(primaryButton || secondaryButton) && (
-              <div className="dsr-flex dsr-items-center">
-                  {primaryButton && (
-                      <div className="dsr-mr-2">
-                          <Button
-                              color="primary"
-                              className="dsr-text-base"
-                              {...primaryButton}
-                          />
-                      </div>
-                  )}
-                  {secondaryButton && (
-                      <div>
-                          <Button
-                              color="secondary"
-                              className="dsr-text-base"
-                              {...secondaryButton}
-                          />
-                      </div>
-                  )}
-              </div>
-          )}
+    <div
+      id={id}
+      className={computedClassName}
+      style={{
+        color: getColorByType(type, isDarkTheme),
+        borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme) : undefined,
+        borderStyle: variant === 'outline' ? 'solid' : undefined,
+        borderWidth: variant === 'outline' ? '1px' : undefined,
+        backgroundColor: variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined,
+      }}
+    >
+      {allowDismissal && (
+      <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
+        <button
+          title="dismiss"
+          className="alert-dismiss-button dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl"
+          onClick={() => { setHide(true); onDismiss(); }}
+        >
+          <Icon icon="times" size={16} />
+        </button>
       </div>
+      )}
+      {title && (
+      <h4 className={description ? 'dsr-text-xl dsr-font-semibold' : 'dsr-text-lg'}>
+        {titleIcon ? <Icon icon={titleIcon} /> : null}
+        {title}
+      </h4>
+      )}
+      {description && <p className="dsr-text-lg">{description}</p>}
+      {(primaryButton || secondaryButton) && (
+      <div className="dsr-flex dsr-items-center">
+        {primaryButton && (
+        <div className="dsr-mr-2">
+          <Button
+            color="primary"
+            className="dsr-text-base"
+            {...primaryButton}
+          />
+        </div>
+        )}
+        {secondaryButton && (
+        <div>
+          <Button
+            color="secondary"
+            className="dsr-text-base"
+            {...secondaryButton}
+          />
+        </div>
+        )}
+      </div>
+      )}
+    </div>
   ) : <div />;
 };
 

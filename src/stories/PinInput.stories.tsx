@@ -21,14 +21,14 @@ const Template: Story = args => {
   }, [args.value]);
 
   return (
-      <div style={{ width: '300px', maxWidth: '100%' }}>
-          <Label htmlFor="">
-              Value:
-              {' '}
-              {value}
-          </Label>
-          <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
-      </div>
+    <div style={{ width: '300px', maxWidth: '100%' }}>
+      <Label htmlFor="">
+        Value:
+        {' '}
+        {value}
+      </Label>
+      <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
+    </div>
   );
 };
 
@@ -56,18 +56,18 @@ export const FormSubmission: Story = (args) => {
   useEffect(() => setValue(args.value), [args.value]);
 
   return (
-      <form onSubmit={(e) => { e.preventDefault(); console.log('pin submitted'); }}>
-          <div style={{ width: '450px', maxWidth: '100%' }}>
-              <div className="dsr-mb-3">
-                  Value:
-                  {value}
-              </div>
-              <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
-              <button type="submit">
-                  Submit
-              </button>
-          </div>
-      </form>
+    <form onSubmit={(e) => { e.preventDefault(); console.log('pin submitted'); }}>
+      <div style={{ width: '450px', maxWidth: '100%' }}>
+        <div className="dsr-mb-3">
+          Value:
+          {value}
+        </div>
+        <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
+        <button type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
   );
 };
 

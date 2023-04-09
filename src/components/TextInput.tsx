@@ -146,97 +146,97 @@ const TextInput = <Type extends string | number>({
 
 
   return (
-      <div
-          className={clsx([
-            className,
-            'text-input dsr-w-full dsr-h-full dsr-overflow-hidden',
-            (isDisabled || isLoading) && 'dsr-opacity-70',
-          ])}
-          style={style}
-      >
-          {!hideLabel && label && (
-              <Label
-                  htmlFor={inputID}
-                  isRequired={isRequired}
-                  children={label}
-                  sidebar={(showLimit && typeof value !== 'number') && (
-                      <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
-                          {(value as string)?.length}
-                          /
-                          {charLimit}
-                      </span>
-                  )}
-              />
-          )}
-          <div className="dsr-relative dsr-group dsr-flex">
-              {prefixRenderer && (
-                  <div
-                      className={clsx([
-                        iconClassNameCalculated,
-                        prefixClassName,
-                        'dsr-left-0 dsr-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
-                      ])}
-                      style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
-                  >
-                      {prefixRenderer}
-                  </div>
-              )}
-              <div className="dsr-relative dsr-w-full">
-                  {leftIcon && (
-                      <Icon
-                          icon={leftIcon}
-                          className={clsx(['dsr-left-3', innerIconClassNameCalculated])}
-                          size={18}
-                      />
-                  )}
-                  {type === 'textarea' ? (
-                      <textarea
-                          rows={rows}
-                          className={inputClassNameCalculated}
-                          style={inputStyle}
-                          onKeyDown={onKeyDown}
-                          {...props}
-                      />
-                  ) : (
-                      <input
-                          type={type}
-                          className={inputClassNameCalculated}
-                          style={inputStyle}
-                          onKeyDown={onKeyDown}
-                          {...props}
-                      />
-                  )}
-                  {(rightIcon || isLoading) && (
-                      <div className={clsx(['dsr-right-3 dsr-flex dsr-gap-3 dsr-items-center', innerIconClassNameCalculated])}>
-                          {isLoading && <Spinner size="md" />}
-                          {rightIcon && <Icon icon={rightIcon} size={18} />}
-                      </div>
-                  )}
-              </div>
-              {postfixRenderer && (
-                  <div
-                      className={clsx([
-                        iconClassNameCalculated,
-                        postfixClassName,
-                        'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
-                      ])}
-                      style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
-                  >
-                      {postfixRenderer}
-                  </div>
-              )}
+    <div
+      className={clsx([
+        className,
+        'text-input dsr-w-full dsr-h-full dsr-overflow-hidden',
+        (isDisabled || isLoading) && 'dsr-opacity-70',
+      ])}
+      style={style}
+    >
+      {!hideLabel && label && (
+      <Label
+        htmlFor={inputID}
+        isRequired={isRequired}
+        children={label}
+        sidebar={(showLimit && typeof value !== 'number') && (
+        <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
+          {(value as string)?.length}
+          /
+          {charLimit}
+        </span>
+        )}
+      />
+      )}
+      <div className="dsr-relative dsr-group dsr-flex">
+        {prefixRenderer && (
+          <div
+            className={clsx([
+              iconClassNameCalculated,
+              prefixClassName,
+              'dsr-left-0 dsr-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
+            ])}
+            style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
+          >
+            {prefixRenderer}
           </div>
-          {errorText && (
-              <div className="dsr-text-red-400 dsr-mt-1">
-                  {errorText}
-              </div>
+        )}
+        <div className="dsr-relative dsr-w-full">
+          {leftIcon && (
+          <Icon
+            icon={leftIcon}
+            className={clsx(['dsr-left-3', innerIconClassNameCalculated])}
+            size={18}
+          />
           )}
-          {description && (
-              <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">
-                  {description}
-              </div>
+          {type === 'textarea' ? (
+            <textarea
+              rows={rows}
+              className={inputClassNameCalculated}
+              style={inputStyle}
+              onKeyDown={onKeyDown}
+              {...props}
+            />
+          ) : (
+            <input
+              type={type}
+              className={inputClassNameCalculated}
+              style={inputStyle}
+              onKeyDown={onKeyDown}
+              {...props}
+            />
           )}
+          {(rightIcon || isLoading) && (
+          <div className={clsx(['dsr-right-3 dsr-flex dsr-gap-3 dsr-items-center', innerIconClassNameCalculated])}>
+            {isLoading && <Spinner size="md" />}
+            {rightIcon && <Icon icon={rightIcon} size={18} />}
+          </div>
+          )}
+        </div>
+        {postfixRenderer && (
+          <div
+            className={clsx([
+              iconClassNameCalculated,
+              postfixClassName,
+              'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+            ])}
+            style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
+          >
+            {postfixRenderer}
+          </div>
+        )}
       </div>
+      {errorText && (
+      <div className="dsr-text-red-400 dsr-mt-1">
+        {errorText}
+      </div>
+      )}
+      {description && (
+      <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">
+        {description}
+      </div>
+      )}
+    </div>
   );
 
 };

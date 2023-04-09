@@ -120,44 +120,44 @@ const PinInput = ({
   }, []);
 
   return (
-      <div className={isDisabled ? 'dsr-opacity-70' : ''}>
-          {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
-          <div
-              ref={inputs}
-              className={clsx([
-                'pin-input dsr-grid dsr-pin-input dsr-gap-2 dsr-border-gray-500/80',
-                variant === 'minimal' ? 'dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
-                className,
-              ])}
-              style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
-              onFocus={() => setInvalidLength(false)}
-              onBlur={() => setInvalidLength(value?.length < digits)}
-          >
-              {Array(digits).fill(null).map((_, i) => (
-                  <PinDigit
-                      id={`${inputID}-${i}`}
-                      key={i}
-                      type={type}
-                      mask={mask}
-                      ariaLabelledBy={`${inputID}-label`}
-                      value={value[i] ?? ''}
-                      onChange={(value) => onChangeVal({ val: value, index: i })}
-                      onKeyDown={(e) => onKeyDown(e, i)}
-                      placeholder={labels?.placeholder?.[i] ?? ''}
-                      isInvalid={isInvalid}
-                      isDisabled={isDisabled}
-                      isRequired={isRequired}
-                      className={digitClassName}
-                      isDarkTheme={isDarkTheme}
-                      variant={variant}
-                  />
-              ))}
-          </div>
-          {(invalidLength && value?.length < digits && !isDisabled) &&
-          <div className="dsr-text-red-600 dsr-text-base">
-              {labels?.invalidLength ?? `The code should be ${digits} digits.`}
-          </div>}
+    <div className={isDisabled ? 'dsr-opacity-70' : ''}>
+      {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
+      <div
+        ref={inputs}
+        className={clsx([
+          'pin-input dsr-grid dsr-pin-input dsr-gap-2 dsr-border-gray-500/80',
+          variant === 'minimal' ? 'dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
+          className,
+        ])}
+        style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
+        onFocus={() => setInvalidLength(false)}
+        onBlur={() => setInvalidLength(value?.length < digits)}
+      >
+        {Array(digits).fill(null).map((_, i) => (
+          <PinDigit
+            id={`${inputID}-${i}`}
+            key={i}
+            type={type}
+            mask={mask}
+            ariaLabelledBy={`${inputID}-label`}
+            value={value[i] ?? ''}
+            onChange={(value) => onChangeVal({ val: value, index: i })}
+            onKeyDown={(e) => onKeyDown(e, i)}
+            placeholder={labels?.placeholder?.[i] ?? ''}
+            isInvalid={isInvalid}
+            isDisabled={isDisabled}
+            isRequired={isRequired}
+            className={digitClassName}
+            isDarkTheme={isDarkTheme}
+            variant={variant}
+          />
+        ))}
       </div>
+      {(invalidLength && value?.length < digits && !isDisabled) &&
+      <div className="dsr-text-red-600 dsr-text-base">
+        {labels?.invalidLength ?? `The code should be ${digits} digits.`}
+      </div>}
+    </div>
   );
 };
 

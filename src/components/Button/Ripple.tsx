@@ -47,22 +47,22 @@ const Ripple = () => {
   };
 
   return (
-      <span className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
-          {rippleArray.length > 0 && rippleArray.map((ripple, index) => (
-              <span
-                  className={clsx([
-                    style.animation,
-                    'dsr-transform dsr-scale-[0.01] dsr-rounded-full dsr-absolute dsr-opacity-75 dsr-bg-white',
-                  ])}
-                  key={'span-' + index}
-                  style={{
-                    top: ripple.y, left: ripple.x,
-                    width: ripple.size, height: ripple.size,
-                    animationDuration: `${duration}ms`,
-                  }}
-              />
-          ))}
-      </span>
+    <span className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
+      {rippleArray.length > 0 && rippleArray.map((ripple, index) => (
+        <span
+          className={clsx([
+            style.animation,
+            'dsr-transform dsr-scale-[0.01] dsr-rounded-full dsr-absolute dsr-opacity-75 dsr-bg-white',
+          ])}
+          key={'span-' + index}
+          style={{
+            top: ripple.y, left: ripple.x,
+            width: ripple.size, height: ripple.size,
+            animationDuration: `${duration}ms`,
+          }}
+        />
+      ))}
+    </span>
   );
 };
 

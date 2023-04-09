@@ -32,24 +32,24 @@ const SidebarNavigation = ({
   }, [isCollapsed]);
 
   return (
-      <ul
-          ref={wrapperRef}
-          className={clsx([
-            'dsr-flex dsr-flex-col dsr-gap-1 dsr-overflow-hidden dsr-transition-all',
-            className,
-          ])}
-          style={{ width: isCollapsed ? 38 : width }}
-      >
-          {items.map(item => (
-              <SidebarNavigationItem
-                  key={item.key}
-                  item={item}
-                  activeItem={activeItem}
-                  isCollapsed={isCollapsed}
-                  defaultExpansion={!!item.items?.find(item => item.key === activeItem)}
-              />
-          ))}
-      </ul>
+    <ul
+      ref={wrapperRef}
+      className={clsx([
+        'dsr-flex dsr-flex-col dsr-gap-1 dsr-overflow-hidden dsr-transition-all',
+        className,
+      ])}
+      style={{ width: isCollapsed ? 38 : width }}
+    >
+      {items.map(item => (
+        <SidebarNavigationItem
+          key={item.key}
+          item={item}
+          activeItem={activeItem}
+          isCollapsed={isCollapsed}
+          defaultExpansion={!!item.items?.find(item => item.key === activeItem)}
+        />
+      ))}
+    </ul>
   );
 };
 

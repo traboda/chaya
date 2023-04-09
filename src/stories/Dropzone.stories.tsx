@@ -23,17 +23,17 @@ export default meta;
 const Template: Story = args => {
   const [files, setFiles] = useState<FileList | File[]>([]);
   return (
-      <Dropzone
-          {...args}
-          value={files}
-          onChange={setFiles}
-          icon="info"
-          labels={{
-            label: 'Select Photos',
-            text: 'Drag and drop photos here or click to upload',
-            hint: 'Only .jpg and .png files. Max size is 5MB',
-          }}
-      />
+    <Dropzone
+      {...args}
+      value={files}
+      onChange={setFiles}
+      icon="info"
+      labels={{
+        label: 'Select Photos',
+        text: 'Drag and drop photos here or click to upload',
+        hint: 'Only .jpg and .png files. Max size is 5MB',
+      }}
+    />
   );
 };
 

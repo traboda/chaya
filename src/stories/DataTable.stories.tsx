@@ -175,10 +175,10 @@ const columns = [
     'label': 'Name',
     link: (i) => `#${i.id}`,
     'value': (i) => (
-        <span>
-            {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
-            {i.name}
-        </span>
+      <span>
+        {i?.isSolved && <i className="fa fa-check text-green-500 mr-2" />}
+        {i.name}
+      </span>
     ),
     'allowSort': true,
   },
@@ -231,15 +231,15 @@ const Template: Story = args => {
   const [page, setPage] = useState(1);
 
   return (
-      <DataTable
-          page={page}
-          setPage={setPage}
-          totalCount={ITEMS.length}
-          items={ITEMS.slice((page - 1) * 10, (page - 1) * 10 + 10)}
-          maxHeight="380px"
-          properties={columns}
-          {...args}
-      />
+    <DataTable
+      page={page}
+      setPage={setPage}
+      totalCount={ITEMS.length}
+      items={ITEMS.slice((page - 1) * 10, (page - 1) * 10 + 10)}
+      maxHeight="380px"
+      properties={columns}
+      {...args}
+    />
   );
 };
 
@@ -256,17 +256,17 @@ export const AccordionTable = Template.bind({});
 AccordionTable.args = {
   canExpand: true,
   accordionRenderer: (c) => (
-      <div className="p-4">
-          <div className="text-sm text-gray-500">
-              {c?.name}
+    <div className="p-4">
+      <div className="text-sm text-gray-500">
+        {c?.name}
 
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque eius esse molestiae molestias, nobis, quasi quidem quis, sequi sit sunt suscipit veritatis. Deserunt doloremque et, officiis quia quibusdam quis.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque eius esse molestiae molestias, nobis, quasi quidem quis, sequi sit sunt suscipit veritatis. Deserunt doloremque et, officiis quia quibusdam quis.
 
-              <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus deleniti dicta distinctio, dolorum eligendi est illo incidunt maiores, necessitatibus, nemo nobis possimus quaerat quas reiciendis repellat sapiente unde voluptas voluptate.
-              </p>
-          </div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus deleniti dicta distinctio, dolorum eligendi est illo incidunt maiores, necessitatibus, nemo nobis possimus quaerat quas reiciendis repellat sapiente unde voluptas voluptate.
+        </p>
       </div>
+    </div>
   ),
 };
 
@@ -274,29 +274,29 @@ AccordionTable.args = {
 export const WithTopBar = Template.bind({});
 WithTopBar.args = {
   customTopBarRenderer: () => (
-      <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
-          dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
-          temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
-          expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
-          debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
-          temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
-          vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
-          pariatur rem reprehenderit repudiandae velit voluptate.
-      </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consectetur
+      dolores illo incidunt iure minima molestias non optio porro, possimus, quam quis rerum saepe suscipit
+      temporibus vero vitae voluptates. Commodi deserunt eveniet ex illo omnis porro repellat repellendus? Debitis
+      expedita fugit ipsam natus optio porro sequi tempore? Aliquid amet ea itaque possimus ullam. Ab atque cum
+      debitis doloribus dolorum eligendi fuga inventore necessitatibus nisi nobis porro possimus reprehenderit
+      temporibus totam, voluptatibus. Aspernatur facere iste iusto obcaecati porro quis, quos sequi suscipit unde
+      vero! Accusantium aliquid, aperiam aspernatur assumenda doloribus eos expedita laudantium, odit optio
+      pariatur rem reprehenderit repudiandae velit voluptate.
+    </div>
   ),
 };
 
 
 const ContainedTableTemplate: Story = args => (
-    <div style={{ width: '500px', height: '720px' }}>
-        <DataTable
-            items={ITEMS}
-            maxHeight="380px"
-            properties={columns}
-            {...args}
-        />
-    </div>
+  <div style={{ width: '500px', height: '720px' }}>
+    <DataTable
+      items={ITEMS}
+      maxHeight="380px"
+      properties={columns}
+      {...args}
+    />
+  </div>
 );
 
 export const ContainedTable = ContainedTableTemplate.bind({});
@@ -333,9 +333,9 @@ EmptyTableListing.args = {
   items: [],
   showTopBarOnEmpty: true,
   emptyListRenderer: () => (
-      <div className="dsr-text-center dsr-py-4 dsr-flex dsr-items-center dsr-justify-center dsr-gap-2">
-          <Icon icon="info" />
-          The datatable is empty
-      </div>
+    <div className="dsr-text-center dsr-py-4 dsr-flex dsr-items-center dsr-justify-center dsr-gap-2">
+      <Icon icon="info" />
+      The datatable is empty
+    </div>
   ),
 };

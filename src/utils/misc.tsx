@@ -25,24 +25,24 @@ export type LinkOptions = {
 };
 
 export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (
-    <DSRContext.Consumer>
-        {({ linkWrapper }) => {
-          return linkWrapper ? linkWrapper(
-            link,
-              <a
-                  id={options?.id}
-                  href={link}
-                  target={options?.target}
-                  rel={options?.rel}
-                  className={options?.className}
-                  style={options?.style}
-                  aria-label={options?.label}
-                  aria-disabled={options?.isDisabled}
-                  onClick={event => options?.isDisabled && event.preventDefault()}
-              >
-                  {options?.isLoading ? <Spinner size={options?.size} /> : component}
-              </a>,
-          ) : null;
-        }}
-    </DSRContext.Consumer>
+  <DSRContext.Consumer>
+    {({ linkWrapper }) => {
+      return linkWrapper ? linkWrapper(
+        link,
+        <a
+          id={options?.id}
+          href={link}
+          target={options?.target}
+          rel={options?.rel}
+          className={options?.className}
+          style={options?.style}
+          aria-label={options?.label}
+          aria-disabled={options?.isDisabled}
+          onClick={event => options?.isDisabled && event.preventDefault()}
+        >
+          {options?.isLoading ? <Spinner size={options?.size} /> : component}
+        </a>,
+      ) : null;
+    }}
+  </DSRContext.Consumer>
 );

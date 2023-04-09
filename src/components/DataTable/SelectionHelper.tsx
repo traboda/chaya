@@ -54,14 +54,14 @@ const SelectionHelper = ({ isEnabled = false, children, onSelect }: SelectionHel
   }, [selectedIDs, excludedIDs]);
 
   return (
-      <SelectionContext.Provider
-          value={{
-            isEnabled, selectedIDs, excludedIDs,
-            isSelected, isAllSelected, selectItem, deselectItem, deselectAll, selectAll,
-          }}
-      >
-          {children}
-      </SelectionContext.Provider>
+    <SelectionContext.Provider
+      value={{
+        isEnabled, selectedIDs, excludedIDs,
+        isSelected, isAllSelected, selectItem, deselectItem, deselectAll, selectAll,
+      }}
+    >
+      {children}
+    </SelectionContext.Provider>
   );
 
 };

@@ -21,11 +21,11 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div style={{ maxWidth: '100%', height: '1000px' }}>
-        <Banner {...args} >
-            <button className="dsr-bg-indigo-500 dsr-px-5 dsr-py-2 dsr-text-white dsr-rounded-md hover:dsr-bg-indigo-700 focus:dsr-outline-none">Button</button>
-        </Banner>
-    </div>
+  <div style={{ maxWidth: '100%', height: '1000px' }}>
+    <Banner {...args} >
+      <button className="dsr-bg-indigo-500 dsr-px-5 dsr-py-2 dsr-text-white dsr-rounded-md hover:dsr-bg-indigo-700 focus:dsr-outline-none">Button</button>
+    </Banner>
+  </div>
 );
 
 export const Default = Template.bind({});

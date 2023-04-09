@@ -25,9 +25,9 @@ const Template: Story = args => {
   }, [args?.keyword]);
 
   return (
-      <div style={{ width: '650px', maxWidth: '100%' }}>
-          <SearchBox {...args} keyword={keyword} setKeyword={setKeyword} />
-      </div>
+    <div style={{ width: '650px', maxWidth: '100%' }}>
+      <SearchBox {...args} keyword={keyword} setKeyword={setKeyword} />
+    </div>
   );
 };
 

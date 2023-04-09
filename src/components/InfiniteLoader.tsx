@@ -24,26 +24,26 @@ const InfiniteLoader = ({
   renderer = () => <div />,
   showEndOfListMessage = false,
 }: InfiniteLoaderProps) => (
-    <Fragment>
-        {renderer()}
-        {loadable && (canLoadMore ? (
-            <Waypoint onEnter={() => isLoading ? null : onLoadMore()}>
-                <div>
-                    {!isLoading && (
-                    <div className="dsr-flex dsr-justify-center dsr-items-center dsr-text-center dsr-my-4">
-                        <Button onClick={onLoadMore}>
-                            Load more
-                        </Button>
-                    </div>
-                    )}
-                </div>
-            </Waypoint>
-        ) : showEndOfListMessage ? (
-            <div className="dsr-my-4 dsr-text-center dsr-opacity-80">
-                {labels.endOfList}
+  <Fragment>
+    {renderer()}
+    {loadable && (canLoadMore ? (
+      <Waypoint onEnter={() => isLoading ? null : onLoadMore()}>
+        <div>
+          {!isLoading && (
+            <div className="dsr-flex dsr-justify-center dsr-items-center dsr-text-center dsr-my-4">
+              <Button onClick={onLoadMore}>
+                Load more
+              </Button>
             </div>
-        ) : <div />)}
-    </Fragment>
+          )}
+        </div>
+      </Waypoint>
+    ) : showEndOfListMessage ? (
+      <div className="dsr-my-4 dsr-text-center dsr-opacity-80">
+        {labels.endOfList}
+      </div>
+    ) : <div />)}
+  </Fragment>
 );
 
 

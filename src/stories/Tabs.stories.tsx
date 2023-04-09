@@ -14,8 +14,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    // @ts-ignore
-    <Tabs {...args} />
+  // @ts-ignore
+  <Tabs {...args} />
 );
 
 const items = [

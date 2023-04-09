@@ -14,8 +14,8 @@
     "space-in-parens": [2, "never"],
     // jsx rules
     "jsx-quotes": [2, "prefer-double"],
-    "react/jsx-indent": 2,
-    "react/jsx-indent-props": 2,
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2],
     "react/jsx-closing-bracket-location": 2,
     "react/jsx-first-prop-new-line": [2, "multiline"],
     "react/jsx-wrap-multilines": 2,

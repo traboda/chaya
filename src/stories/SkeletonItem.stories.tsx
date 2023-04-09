@@ -14,14 +14,14 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div style={{ width: '450px', maxWidth: '100%' }}>
-        {/*// @ts-ignore*/}
-        <SkeletonItem {...args} h={150} w={150} className="dsr-my-2" />
-        {/*// @ts-ignore*/}
-        <SkeletonItem {...args} h={35} w={120} className="dsr-my-2" />
-        {/*// @ts-ignore*/}
-        <SkeletonItem {...args} h={30} w={150} className="dsr-my-2" />
-    </div>
+  <div style={{ width: '450px', maxWidth: '100%' }}>
+    {/*// @ts-ignore*/}
+    <SkeletonItem {...args} h={150} w={150} className="dsr-my-2" />
+    {/*// @ts-ignore*/}
+    <SkeletonItem {...args} h={35} w={120} className="dsr-my-2" />
+    {/*// @ts-ignore*/}
+    <SkeletonItem {...args} h={30} w={150} className="dsr-my-2" />
+  </div>
 );
 
 export const Wave = Template.bind({});

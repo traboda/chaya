@@ -19,15 +19,15 @@ const Template: Story = args => {
   }, [args.isOpen]);
 
   return (
-      <div>
-          <button onClick={() => setIsOpen(true)}>Open</button>
-          <ConfirmationDialog
-              isOpen={isOpen}
-              onCancel={() => setIsOpen(false)}
-              onConfirm={() => setIsOpen(false)}
-              {...args}
-          />
-      </div>
+    <div>
+      <button onClick={() => setIsOpen(true)}>Open</button>
+      <ConfirmationDialog
+        isOpen={isOpen}
+        onCancel={() => setIsOpen(false)}
+        onConfirm={() => setIsOpen(false)}
+        {...args}
+      />
+    </div>
   );
 };
 

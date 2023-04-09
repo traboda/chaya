@@ -54,38 +54,38 @@ const CircularProgress = ({
   const { theme, isDarkTheme } = useContext(DSRContext);
 
   return (
-      <div
-          role="progressbar"
-          aria-valuenow={(value / 100) * maxVal}
-          aria-valuemin={minVal}
-          aria-valuemax={maxVal}
-          className={clsx(['circular-progress', className])}
+    <div
+      role="progressbar"
+      aria-valuenow={(value / 100) * maxVal}
+      aria-valuemin={minVal}
+      aria-valuemax={maxVal}
+      className={clsx(['circular-progress', className])}
+    >
+      <svg
+        viewBox="0 0 100 100"
+        height={height ?? sizes[size]}
+        className={isIndeterminate ? 'dsr-animate-spin' : ''}
       >
-          <svg
-              viewBox="0 0 100 100"
-              height={height ?? sizes[size]}
-              className={isIndeterminate ? 'dsr-animate-spin' : ''}
-          >
-              <circle
-                  stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
-                  cx={50}
-                  cy={50}
-                  r={radiusOptions[thickness]}
-                  fill="transparent"
-                  strokeWidth={thicknesses[thickness]}
-              />
-              <circle
-                  cx={50}
-                  cy={50}
-                  r={radiusOptions[thickness]}
-                  fill="transparent"
-                  stroke={strokeColor ?? theme?.primary}
-                  strokeWidth={thicknesses[thickness]}
-                  strokeDashoffset={offsetOptions[thickness]}
-                  strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}
-              />
-          </svg>
-      </div>
+        <circle
+          stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
+          cx={50}
+          cy={50}
+          r={radiusOptions[thickness]}
+          fill="transparent"
+          strokeWidth={thicknesses[thickness]}
+        />
+        <circle
+          cx={50}
+          cy={50}
+          r={radiusOptions[thickness]}
+          fill="transparent"
+          stroke={strokeColor ?? theme?.primary}
+          strokeWidth={thicknesses[thickness]}
+          strokeDashoffset={offsetOptions[thickness]}
+          strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}
+        />
+      </svg>
+    </div>
   );
 };
 

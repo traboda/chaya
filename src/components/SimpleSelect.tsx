@@ -57,83 +57,83 @@ const SimpleSelect = <Type extends string | number | null | undefined>({
   ]);
 
   return (
-      <div className={clsx(['dsr-w-full simple-select-container', isDisabled && 'dsr-opacity-70'])}>
-          {labels?.label && labels?.label?.length > 0 && (
-              <Label
-                  id={`${inputID}-label`}
-                  htmlFor={inputID}
-                  children={labels?.label}
-                  isRequired={isRequired}
-              />
-          )}
-          <div className="dsr-w-full dsr-flex dsr-group">
-              <select
-                  className={clsx([
-                    'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
-                    'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
-                    'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat',
-                    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
-                    !postfixRenderer && 'dsr-border-r',
-                    className,
-                  ])}
-                  name={name}
-                  id={inputID}
-                  aria-labelledby={`${inputID}-label`}
-                  value={value ?? undefined}
-                  required={isRequired}
-                  disabled={isDisabled}
-                  onChange={({ target }) => onChange(target.value as Type)}
-                  style={hideArrow ? {} : {
-                    backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
-                    backgroundPosition: 'calc(100% - 0.75rem) center',
-                  }}
-              >
-                  <option
-                      selected={value === null}
-                      disabled={isRequired}
-                      value={undefined}
-                      className="dsr-bg-background dsr-text-color"
-                  >
-                      {labels?.placeholder}
-                  </option>
-                  {options?.length > 0 &&
+    <div className={clsx(['dsr-w-full simple-select-container', isDisabled && 'dsr-opacity-70'])}>
+      {labels?.label && labels?.label?.length > 0 && (
+      <Label
+        id={`${inputID}-label`}
+        htmlFor={inputID}
+        children={labels?.label}
+        isRequired={isRequired}
+      />
+      )}
+      <div className="dsr-w-full dsr-flex dsr-group">
+        <select
+          className={clsx([
+            'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
+            'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
+            'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat',
+            !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+            !postfixRenderer && 'dsr-border-r',
+            className,
+          ])}
+          name={name}
+          id={inputID}
+          aria-labelledby={`${inputID}-label`}
+          value={value ?? undefined}
+          required={isRequired}
+          disabled={isDisabled}
+          onChange={({ target }) => onChange(target.value as Type)}
+          style={hideArrow ? {} : {
+            backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
+            backgroundPosition: 'calc(100% - 0.75rem) center',
+          }}
+        >
+          <option
+            selected={value === null}
+            disabled={isRequired}
+            value={undefined}
+            className="dsr-bg-background dsr-text-color"
+          >
+            {labels?.placeholder}
+          </option>
+          {options?.length > 0 &&
                     options.map((option) =>
                       'group' in option && option?.group ? (
-                          <optgroup label={option.group}>
-                              {option.options.map(opt => (
-                                  <option
-                                      key={opt.value}
-                                      value={opt.value ?? undefined}
-                                      selected={value === opt.value}
-                                  >
-                                      {opt.label}
-                                  </option>
-                              ))}
-                          </optgroup>
+                        <optgroup label={option.group}>
+                          {option.options.map(opt => (
+                            <option
+                              key={opt.value}
+                              value={opt.value ?? undefined}
+                              selected={value === opt.value}
+                            >
+                              {opt.label}
+                            </option>
+                          ))}
+                        </optgroup>
                       ) : 'value' in option ? (
-                          <option
-                              value={option.value ?? undefined}
-                              key={option.value}
-                              selected={value === option.value}
-                          >
-                              {(option as OptionType<Type>).label}
-                          </option>
+                        <option
+                          value={option.value ?? undefined}
+                          key={option.value}
+                          selected={value === option.value}
+                        >
+                          {(option as OptionType<Type>).label}
+                        </option>
                       ) : null,
                     )
                   }
-              </select>
-              {postfixRenderer && (
-                  <div
-                      className={clsx([
-                        iconClassNameCalculated,
-                        'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
-                      ])}
-                  >
-                      {postfixRenderer}
-                  </div>
-              )}
+        </select>
+        {postfixRenderer && (
+          <div
+            className={clsx([
+              iconClassNameCalculated,
+              'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+            ])}
+          >
+            {postfixRenderer}
           </div>
+        )}
       </div>
+    </div>
   );
 };
 

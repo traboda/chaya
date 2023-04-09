@@ -38,40 +38,40 @@ const DropdownMenu = ({
   ]);
 
   return (
-      <Dropdown
-          isOpen={isOpen}
-          onClose={onClose}
-          id={id}
-          className={className}
-          containerClassName={clsx([containerClassName, 'dsr-p-1'])}
-          buttonRenderer={buttonRenderer}
-          align={align}
-          side={side}
-      >
-          {customHeaderRenderer?.()}
-          {items.length > 0 && items.map((n, i) => {
-            const content = n?.renderer ? n.renderer() : (
-                <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
-                    {n.icon && <Icon icon={n.icon} size={16} />}
-                    {n?.title}
-                </div>
-            );
+    <Dropdown
+      isOpen={isOpen}
+      onClose={onClose}
+      id={id}
+      className={className}
+      containerClassName={clsx([containerClassName, 'dsr-p-1'])}
+      buttonRenderer={buttonRenderer}
+      align={align}
+      side={side}
+    >
+      {customHeaderRenderer?.()}
+      {items.length > 0 && items.map((n, i) => {
+        const content = n?.renderer ? n.renderer() : (
+          <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
+            {n.icon && <Icon icon={n.icon} size={16} />}
+            {n?.title}
+          </div>
+        );
 
-            return (
-                <RadixDropdownMenu.Item
-                    role="menuitem"
-                    key={i}
-                    className="dropdown-menu-item hover:dsr-outline-none"
-                >
-                    {n?.link ? LinkWrapper(n.link, content, { className: linkClasses(n?.className) }) : (
-                        <button className={linkClasses(n?.className)} onClick={n?.onClick}>
-                            {content}
-                        </button>
-                    )}
-                </RadixDropdownMenu.Item>
-            );
-          })}
-      </Dropdown>
+        return (
+          <RadixDropdownMenu.Item
+            role="menuitem"
+            key={i}
+            className="dropdown-menu-item hover:dsr-outline-none"
+          >
+            {n?.link ? LinkWrapper(n.link, content, { className: linkClasses(n?.className) }) : (
+              <button className={linkClasses(n?.className)} onClick={n?.onClick}>
+                {content}
+              </button>
+            )}
+          </RadixDropdownMenu.Item>
+        );
+      })}
+    </Dropdown>
   );
 };
 

@@ -23,9 +23,9 @@ export default meta;
 
 
 const Template: Story = args => (
-    <div style={{ width: '280px' }}>
-        <SidebarNavigation key={JSON.stringify(args)} items={args?.items} {...args} />
-    </div>
+  <div style={{ width: '280px' }}>
+    <SidebarNavigation key={JSON.stringify(args)} items={args?.items} {...args} />
+  </div>
 );
 
 export const Basic = Template.bind({});

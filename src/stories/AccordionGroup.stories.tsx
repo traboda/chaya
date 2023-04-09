@@ -14,8 +14,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    // @ts-ignore
-    <AccordionGroup {...args} />
+  // @ts-ignore
+  <AccordionGroup {...args} />
 );
 
 export const Default = Template.bind({});

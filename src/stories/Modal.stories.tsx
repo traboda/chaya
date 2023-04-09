@@ -61,18 +61,18 @@ const Template: Story = args => {
   }, [args.isOpen]);
 
   return (
-      <div>
-          <button onClick={() => setIsOpen(true)}>
-              open
-          </button>
-          {Array(8).fill(lorem).map(l => <p>{l}</p>)}
-          {/* @ts-ignore */}
-          <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <div>
-                  <p>{lorem}</p>
-              </div>
-          </Modal>
-      </div>
+    <div>
+      <button onClick={() => setIsOpen(true)}>
+        open
+      </button>
+      {Array(8).fill(lorem).map(l => <p>{l}</p>)}
+      {/* @ts-ignore */}
+      <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div>
+          <p>{lorem}</p>
+        </div>
+      </Modal>
+    </div>
   );
 };
 

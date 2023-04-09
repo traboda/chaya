@@ -81,48 +81,48 @@ const Drawer = ({
   }, []);
 
   return shouldRenderChild ? (
-      <DocumentPortal>
-          <div className="drawer dsr-relative dsr-z-7000">
-              <section
-                  className={clsx([
-                    'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
-                    'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
-                    getPositionAlignmentParent,
-                    overlayClassName,
-                  ])}
-                  onClick={onClose}
+    <DocumentPortal>
+      <div className="drawer dsr-relative dsr-z-7000">
+        <section
+          className={clsx([
+            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
+            'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
+            getPositionAlignmentParent,
+            overlayClassName,
+          ])}
+          onClick={onClose}
+        >
+          <div
+            className={clsx([
+              'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
+              getPositionAlignmentChild,
+              getPositionAnimation,
+              className,
+            ])}
+            style={{
+              minHeight,
+              maxHeight,
+              maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
+              minWidth,
+              '--drawer-position-direction': positionDirection,
+            } as CSSProperties}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2">
+              <button
+                type="button"
+                title="close"
+                className="drawer-close-button dsr-outline-none"
+                onClick={onClose}
               >
-                  <div
-                      className={clsx([
-                        'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
-                        getPositionAlignmentChild,
-                        getPositionAnimation,
-                        className,
-                      ])}
-                      style={{
-                        minHeight,
-                        maxHeight,
-                        maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
-                        minWidth,
-                        '--drawer-position-direction': positionDirection,
-                      } as CSSProperties}
-                      onClick={e => e.stopPropagation()}
-                  >
-                      <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2">
-                          <button
-                              type="button"
-                              title="close"
-                              className="drawer-close-button dsr-outline-none"
-                              onClick={onClose}
-                          >
-                              <Icon icon="times" size={16} />
-                          </button>
-                      </div>
-                      <div>{children}</div>
-                  </div>
-              </section>
+                <Icon icon="times" size={16} />
+              </button>
+            </div>
+            <div>{children}</div>
           </div>
-      </DocumentPortal>
+        </section>
+      </div>
+    </DocumentPortal>
   ) : <div />;
 };
 

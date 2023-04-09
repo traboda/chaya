@@ -20,10 +20,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    // @ts-ignore
-    <Stats {...args}>
-        {args.children}
-    </Stats>
+  // @ts-ignore
+  <Stats {...args}>
+    {args.children}
+  </Stats>
 );
 
 export const Default = Template.bind({});

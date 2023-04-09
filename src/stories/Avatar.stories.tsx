@@ -14,10 +14,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
-        {/*// @ts-ignore*/}
-        <Avatar {...args} />
-    </div>
+  <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+    {/*// @ts-ignore*/}
+    <Avatar {...args} />
+  </div>
 );
 
 export const UsernameOnly = Template.bind({

@@ -35,27 +35,27 @@ const Dropdown = ({
   useEffect(() => onClose, [open]);
 
   return (
-      <DropdownMenu.Root open={open} onOpenChange={setOpen} modal={false}>
-          <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
-              {buttonRenderer}
-          </DropdownMenu.Trigger>
+    <DropdownMenu.Root open={open} onOpenChange={setOpen} modal={false}>
+      <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
+        {buttonRenderer}
+      </DropdownMenu.Trigger>
 
-          <DropdownMenu.Portal>
-              <DropdownMenu.Content
-                  className={clsx([
-                    'dsr-w-[240px] dsr-rounded-lg dsr-text-color dsr-shadow-md',
-                    styles.animateEntry,
-                    containerClassName,
-                  ])}
-                  style={{ backgroundColor: isDarkTheme ? Color(theme?.background).lighten(0.4).toString() : Color(theme?.background).darken(0.06).toString() }}
-                  sideOffset={5}
-                  align={align}
-                  side={side}
-              >
-                  {children}
-              </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-      </DropdownMenu.Root>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className={clsx([
+            'dsr-w-[240px] dsr-rounded-lg dsr-text-color dsr-shadow-md',
+            styles.animateEntry,
+            containerClassName,
+          ])}
+          style={{ backgroundColor: isDarkTheme ? Color(theme?.background).lighten(0.4).toString() : Color(theme?.background).darken(0.06).toString() }}
+          sideOffset={5}
+          align={align}
+          side={side}
+        >
+          {children}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 };
 

@@ -27,29 +27,29 @@ const HoverCard = ({ children, cardRenderer, id, className, minWidth = 250, maxW
   }, [theme]);
 
   return (
-      <RadixHoverCard.Root openDelay={100} closeDelay={100}>
-          <RadixHoverCard.Trigger>
-              {children}
-          </RadixHoverCard.Trigger>
-          <RadixHoverCard.Portal>
-              <RadixHoverCard.Content
-                  className={clsx([
-                    'hover-card-content',
-                    'dsr-rounded-lg dsr-shadow-lg dsr-text-color dsr-backdrop-blur-md dsr-transform-gpu',
-                    className,
-                  ])}
-                  style={{
-                    background: cardBackground,
-                    minWidth,
-                    maxWidth,
-                  }}
-                  sideOffset={5}
-                  id={hoverCardID}
-              >
-                  {cardRenderer}
-              </RadixHoverCard.Content>
-          </RadixHoverCard.Portal>
-      </RadixHoverCard.Root>
+    <RadixHoverCard.Root openDelay={100} closeDelay={100}>
+      <RadixHoverCard.Trigger>
+        {children}
+      </RadixHoverCard.Trigger>
+      <RadixHoverCard.Portal>
+        <RadixHoverCard.Content
+          className={clsx([
+            'hover-card-content',
+            'dsr-rounded-lg dsr-shadow-lg dsr-text-color dsr-backdrop-blur-md dsr-transform-gpu',
+            className,
+          ])}
+          style={{
+            background: cardBackground,
+            minWidth,
+            maxWidth,
+          }}
+          sideOffset={5}
+          id={hoverCardID}
+        >
+          {cardRenderer}
+        </RadixHoverCard.Content>
+      </RadixHoverCard.Portal>
+    </RadixHoverCard.Root>
   );
 };
 

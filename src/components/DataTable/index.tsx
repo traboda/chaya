@@ -104,130 +104,127 @@ const DataTable = <Type extends { id: string }>({
   const colSpan = properties.filter(p => !p.isHidden).length + Number(canExpand) + Number(allowSelection);
 
   return (
-      <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
-          {(!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function' && !showTopBarOnEmpty) ?
-            emptyListRenderer() : (
-                <div
-                    style={{
-                      overflowX: maxHeight ? 'auto' : undefined,
-                      maxHeight: maxHeight,
-                    }}
-                    ref={scrollElement}
-                >
-                    <div
-                        ref={titleTopRef}
-                        className="dsr-transition-opacity dsr-sticky dsr-left-0 dsr-top-0 dsr-z-40 dsr-bg-background"
-                        style={{
-                          pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
-                          opacity: scrollDir === 'up' ? 1 : 0,
-                        }}
-                    >
-                        {customTopBarRenderer()}
-                    </div>
-                    <table
-                        className={clsx([
-                          'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0 ',
-                          'dsr-border-collapse dsr-border-gray-200',
-                        ])}
-                        style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
-                    >
-                        <thead
-                            className={clsx([
-                              'dsr-sticky dsr-z-50',
-                              variant === 'grid' ? grid : '',
-                            ])}
-                            ref={titleBarRef}
-                            style={{ top: titleTopHeight }}
-                        >
-                            <ItemListerTitleBar<Type>
-                                properties={properties}
-                                onSort={onSort}
-                                currentSortAttribute={currentSortAttribute}
-                                sortOrder={sortOrder}
-                                colsWidth={colsWidth}
-                                isAccordionsOpen={canExpand ? activeIndex.length > 0 : undefined}
-                                toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
-                            />
-                            {stickyRow && (
-                                <ItemListerItem<Type>
-                                    isPinned
-                                    properties={properties}
-                                    item={stickyRow}
-                                    itemIndex={-1}
-                                    supportAccordion={canExpand}
-                                    variant={variant}
-                                />
-                            )}
-                        </thead>
-                        <tbody>
-                            {items?.length > 0 ?
-                              items.map((i, index) =>
-                                canExpand ? (
-                                    <>
-                                        <ItemListerItem<Type>
-                                            key={i?.id ?? nanoid()}
-                                            properties={properties}
-                                            item={i}
-                                            itemIndex={index}
-                                            onClick={() => toggleAccordion(index)}
-                                            supportAccordion={canExpand}
-                                            isAccordionOpen={activeIndex.includes(index)}
-                                            variant={variant}
-                                        />
-                                        {activeIndex.includes(index) && (
-                                            <tr className="accordion-content data-table-row dsr-group dsr-w-full">
-                                                <td colSpan={colSpan}>{accordionRenderer(i)}</td>
-                                            </tr>
-                                        )}
-                                    </>
-                                ) : (
-                                    <ItemListerItem<Type>
-                                        key={i.id ? i.id : nanoid()}
-                                        properties={properties}
-                                        item={i}
-                                        itemIndex={index}
-                                        variant={variant}
-                                    />
-                                ),
-                              ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ?
-                                (
-                                    <tr>
-                                        <td colSpan={colSpan}>
-                                            {emptyListRenderer()}
-                                        </td>
-                                    </tr>
-                                ) : null}
-
-                            {isLoading && Array(10).fill(0).map(() => (
-                                <ItemListerItem<Type>
-                                    key={nanoid()}
-                                    properties={properties}
-                                    isLoading
-                                    variant={variant}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
-                    {enablePagination ? (
-                        <PageNavigator
-                            totalCount={totalCount}
-                            itemsPerPage={itemsPerPage}
-                            setItemsPerPage={setItemsPerPage}
-                            page={page}
-                            setPage={setPage}
+    <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
+      {(!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function' && !showTopBarOnEmpty) ?
+        emptyListRenderer() : (
+          <div
+            style={{
+              overflowX: maxHeight ? 'auto' : undefined,
+              maxHeight: maxHeight,
+            }}
+            ref={scrollElement}
+          >
+            <div
+              ref={titleTopRef}
+              className="dsr-transition-opacity dsr-sticky dsr-left-0 dsr-top-0 dsr-z-40 dsr-bg-background"
+              style={{
+                pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
+                opacity: scrollDir === 'up' ? 1 : 0,
+              }}
+            >
+              {customTopBarRenderer()}
+            </div>
+            <table
+              className={clsx([
+                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0 ',
+                'dsr-border-collapse dsr-border-gray-200',
+              ])}
+              style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
+            >
+              <thead
+                className={clsx([
+                  'dsr-sticky dsr-z-50',
+                  variant === 'grid' ? grid : '',
+                ])}
+                ref={titleBarRef}
+                style={{ top: titleTopHeight }}
+              >
+                <ItemListerTitleBar<Type>
+                  properties={properties}
+                  onSort={onSort}
+                  currentSortAttribute={currentSortAttribute}
+                  sortOrder={sortOrder}
+                  colsWidth={colsWidth}
+                  isAccordionsOpen={canExpand ? activeIndex.length > 0 : undefined}
+                  toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
+                />
+                {stickyRow && (
+                  <ItemListerItem<Type>
+                    isPinned
+                    properties={properties}
+                    item={stickyRow}
+                    itemIndex={-1}
+                    supportAccordion={canExpand}
+                    variant={variant}
+                  />
+                )}
+              </thead>
+              <tbody>
+                {items?.length > 0 ?
+                  items.map((i, index) =>
+                    canExpand ? (
+                      <>
+                        <ItemListerItem<Type>
+                          key={i?.id ?? nanoid()}
+                          properties={properties}
+                          item={i}
+                          itemIndex={index}
+                          onClick={() => toggleAccordion(index)}
+                          supportAccordion={canExpand}
+                          isAccordionOpen={activeIndex.includes(index)}
+                          variant={variant}
                         />
+                        {activeIndex.includes(index) && (
+                        <tr className="accordion-content data-table-row dsr-group dsr-w-full">
+                          <td colSpan={colSpan}>{accordionRenderer(i)}</td>
+                        </tr>
+                        )}
+                      </>
                     ) : (
-                        <InfiniteLoader
-                            loadable={loadable}
-                            canLoadMore={canLoadMore}
-                            isLoading={isLoading}
-                            onLoadMore={onLoadMore}
-                        />
-                    )
-                  }
-                </div>
+                      <ItemListerItem<Type>
+                        key={i.id ? i.id : nanoid()}
+                        properties={properties}
+                        item={i}
+                        itemIndex={index}
+                        variant={variant}
+                      />
+                    ),
+                  ) : (!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function') ? (
+                    <tr>
+                      <td colSpan={colSpan}>
+                        {emptyListRenderer()}
+                      </td>
+                    </tr>
+                  ) : null}
+                {isLoading && Array(10).fill(0).map(() => (
+                  <ItemListerItem<Type>
+                    key={nanoid()}
+                    properties={properties}
+                    isLoading
+                    variant={variant}
+                  />
+                ))}
+              </tbody>
+            </table>
+            {enablePagination ? (
+              <PageNavigator
+                totalCount={totalCount}
+                itemsPerPage={itemsPerPage}
+                setItemsPerPage={setItemsPerPage}
+                page={page}
+                setPage={setPage}
+              />
+            ) : (
+              <InfiniteLoader
+                loadable={loadable}
+                canLoadMore={canLoadMore}
+                isLoading={isLoading}
+                onLoadMore={onLoadMore}
+              />
             )}
-      </SelectionHelper>
+          </div>
+        )}
+    </SelectionHelper>
   );
 };
 

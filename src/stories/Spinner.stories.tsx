@@ -11,10 +11,10 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-    <div style={{ width: '450px', maxWidth: '100%' }}>
-        {/*// @ts-ignore*/}
-        <Spinner {...args} />
-    </div>
+  <div style={{ width: '450px', maxWidth: '100%' }}>
+    {/*// @ts-ignore*/}
+    <Spinner {...args} />
+  </div>
 );
 
 export const Default = Template.bind({});

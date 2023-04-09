@@ -40,37 +40,37 @@ const SelectorButton = <Type extends string | number | null | undefined>({
   };
 
   return (
-      <form
-          id={id}
-          className={clsx([
-            'selector-button dsr-flex dsr-items-stretch w-full',
-            className,
-          ])}
-          onSubmit={onSubmit}
-      >
-          <SimpleSelect
-              id={`${id}-select`}
-              value={value}
-              onChange={setValue}
-              name={name}
-              options={options}
-              isDisabled={isDisabled}
-              isRequired
-              className="dsr-rounded-r-none"
-              labels={{ placeholder: labels?.placeholder, label: labels?.label }}
-              postfixRenderer={(
-                  <Button
-                      variant="link"
-                      color="contrast"
-                      className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
-                      type="submit"
-                      isDisabled={isDisabled}
-                  >
-                      {labels?.button}
-                  </Button>
+    <form
+      id={id}
+      className={clsx([
+        'selector-button dsr-flex dsr-items-stretch w-full',
+        className,
+      ])}
+      onSubmit={onSubmit}
+    >
+      <SimpleSelect
+        id={`${id}-select`}
+        value={value}
+        onChange={setValue}
+        name={name}
+        options={options}
+        isDisabled={isDisabled}
+        isRequired
+        className="dsr-rounded-r-none"
+        labels={{ placeholder: labels?.placeholder, label: labels?.label }}
+        postfixRenderer={(
+          <Button
+            variant="link"
+            color="contrast"
+            className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
+            type="submit"
+            isDisabled={isDisabled}
+          >
+            {labels?.button}
+          </Button>
               )}
-          />
-      </form>
+      />
+    </form>
   );
 
 };

@@ -23,28 +23,28 @@ const ToolTip = ({ children, overlay, side = 'bottom', align = 'center' }: ToolT
   }, [theme]);
 
   return (
-      <Tooltip.Provider>
-          <Tooltip.Root>
-              <Tooltip.Trigger>
-                  {children}
-              </Tooltip.Trigger>
-              <Tooltip.Portal>
-                  <Tooltip.Content
-                      side={side}
-                      align={align}
-                      style={{ background: tooltipColor }}
-                      className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-px-2.5 dsr-py-1.5 dsr-backdrop-blur dsr-text-color dsr-text-sm"
-                      sideOffset={5}
-                  >
-                      {overlay}
-                      <Tooltip.Arrow
-                          style={{ fill: tooltipColor }}
-                          className="dsr-backdrop-blur"
-                      />
-                  </Tooltip.Content>
-              </Tooltip.Portal>
-          </Tooltip.Root>
-      </Tooltip.Provider>
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger>
+          {children}
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content
+            side={side}
+            align={align}
+            style={{ background: tooltipColor }}
+            className="tooltip-content dsr-z-9000 dsr-whitespace-nowrap dsr-rounded-lg dsr-px-2.5 dsr-py-1.5 dsr-backdrop-blur dsr-text-color dsr-text-sm"
+            sideOffset={5}
+          >
+            {overlay}
+            <Tooltip.Arrow
+              style={{ fill: tooltipColor }}
+              className="dsr-backdrop-blur"
+            />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   );
 };
 

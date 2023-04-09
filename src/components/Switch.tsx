@@ -44,51 +44,51 @@ const Switch = ({
   const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
   return (
-      <div
-          className={clsx([
-            'switch-container dsr-w-full dsr-flex dsr-flex-col',
-            isDisabled && 'dsr-opacity-70',
-          ])}
+    <div
+      className={clsx([
+        'switch-container dsr-w-full dsr-flex dsr-flex-col',
+        isDisabled && 'dsr-opacity-70',
+      ])}
+    >
+      {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
+      <label
+        className={clsx([
+          'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70 dsr-shadow-inner',
+          value && variants[variant],
+          className,
+          isDisabled && 'dsr-cursor-not-allowed',
+          !value && 'dsr-bg-background',
+        ])}
+        style={{
+          height: size,
+          width: size * 2,
+        }}
       >
-          {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
-          <label
-              className={clsx([
-                'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70 dsr-shadow-inner',
-                value && variants[variant],
-                className,
-                isDisabled && 'dsr-cursor-not-allowed',
-                !value && 'dsr-bg-background',
-              ])}
-              style={{
-                height: size,
-                width: size * 2,
-              }}
-          >
-              <input
-                  id={inputID}
-                  ref={checkbox}
-                  type="checkbox"
-                  aria-labelledby={`${inputID}-label`}
-                  aria-required={isRequired}
-                  aria-readonly={isDisabled}
-                  aria-checked={value}
-                  aria-disabled={isDisabled}
-                  disabled={isDisabled}
-                  className="switch dsr-absolute dsr-opacity-0"
-                  required={isRequired}
-                  checked={value}
-                  onChange={({ target }) => onChange(target.checked)}
-              />
-              <div
-                  className={clsx([
-                    'dsr-rounded-full dsr-bg-white dsr-transition dsr-shadow-md dsr-border',
-                    value && borders[variant],
-                    value && 'dsr-translate-x-full',
-                  ])}
-                  style={{ height: size - 2, width: size - 1 }}
-              />
-          </label>
-      </div>
+        <input
+          id={inputID}
+          ref={checkbox}
+          type="checkbox"
+          aria-labelledby={`${inputID}-label`}
+          aria-required={isRequired}
+          aria-readonly={isDisabled}
+          aria-checked={value}
+          aria-disabled={isDisabled}
+          disabled={isDisabled}
+          className="switch dsr-absolute dsr-opacity-0"
+          required={isRequired}
+          checked={value}
+          onChange={({ target }) => onChange(target.checked)}
+        />
+        <div
+          className={clsx([
+            'dsr-rounded-full dsr-bg-white dsr-transition dsr-shadow-md dsr-border',
+            value && borders[variant],
+            value && 'dsr-translate-x-full',
+          ])}
+          style={{ height: size - 2, width: size - 1 }}
+        />
+      </label>
+    </div>
   );
 };
 

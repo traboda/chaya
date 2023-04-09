@@ -86,12 +86,12 @@ const Button = ({
   }, [activeColor]);
 
   const buttonContent = (
-      <>
-          {(!disableRipple && !(isDisabled || isLoading)) && <Ripple />}
-          {leftIcon && <Icon icon={leftIcon} size={iconSizes[size]} />}
-          {children}
-          {rightIcon && <Icon icon={rightIcon} size={iconSizes[size]} />}
-      </>
+    <>
+      {(!disableRipple && !(isDisabled || isLoading)) && <Ripple />}
+      {leftIcon && <Icon icon={leftIcon} size={iconSizes[size]} />}
+      {children}
+      {rightIcon && <Icon icon={rightIcon} size={iconSizes[size]} />}
+    </>
   );
 
   const computedClassName = clsx([
@@ -113,23 +113,23 @@ const Button = ({
   };
 
   const buttonRenderer = () => (
-      <button
-          id={id}
-          aria-label={label}
-          aria-disabled={isDisabled || isLoading}
-          type={type}
-          onClick={e => {
-            e.stopPropagation();
-            onClick(e);
-          }}
-          disabled={isDisabled || isLoading}
-          className={computedClassName}
-          style={computedStyle}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-      >
-          {isLoading ? <Spinner size={size} /> : buttonContent}
-      </button>
+    <button
+      id={id}
+      aria-label={label}
+      aria-disabled={isDisabled || isLoading}
+      type={type}
+      onClick={e => {
+        e.stopPropagation();
+        onClick(e);
+      }}
+      disabled={isDisabled || isLoading}
+      className={computedClassName}
+      style={computedStyle}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {isLoading ? <Spinner size={size} /> : buttonContent}
+    </button>
   );
 
   return link ? LinkWrapper(link, buttonContent, {

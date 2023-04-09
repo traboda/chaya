@@ -26,36 +26,36 @@ const RadioGroup = ({
 }: RadioGroupType) => {
 
   return (
-      <div>
-          {label && (
-              <Label
-                  htmlFor=""
-                  className={isDisabled ? 'dsr-opacity-70' : ''}
-                  children={label}
-                  isRequired={isRequired}
-              />
-          )}
-          <div
-              className={clsx([
-                'radio-group dsr-flex',
-                alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-gap-4',
-              ])}
-          >
-              {options.map((option, index) => (
-                  <Radio
-                      className={optionClassName}
-                      key={index}
-                      value={option.value}
-                      label={option.label}
-                      color={color}
-                      size={size}
-                      onChange={() => onChange(option.value)}
-                      isSelected={value === option.value}
-                      isDisabled={isDisabled}
-                  />
-              ))}
-          </div>
+    <div>
+      {label && (
+      <Label
+        htmlFor=""
+        className={isDisabled ? 'dsr-opacity-70' : ''}
+        children={label}
+        isRequired={isRequired}
+      />
+      )}
+      <div
+        className={clsx([
+          'radio-group dsr-flex',
+          alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-gap-4',
+        ])}
+      >
+        {options.map((option, index) => (
+          <Radio
+            className={optionClassName}
+            key={index}
+            value={option.value}
+            label={option.label}
+            color={color}
+            size={size}
+            onChange={() => onChange(option.value)}
+            isSelected={value === option.value}
+            isDisabled={isDisabled}
+          />
+        ))}
       </div>
+    </div>
   );
 };
 

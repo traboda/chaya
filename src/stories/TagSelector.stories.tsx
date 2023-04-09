@@ -21,7 +21,7 @@ const Template: Story = args => {
   }, [args.value]);
 
   return ( // @ts-ignore
-      <TagSelector {...args} value={value} onChange={setValue} />
+    <TagSelector {...args} value={value} onChange={setValue} />
   );
 };
 
