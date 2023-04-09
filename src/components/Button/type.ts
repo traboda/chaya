@@ -2,14 +2,13 @@ import { CSSProperties, ReactNode, MouseEvent } from 'react';
 
 import { LinkRelType, LinkTargetType } from '../../utils/misc';
 import { IconInputType } from '../Icon';
+import { DSRColorType, DSRVariantType } from '../../hooks/useColors';
 
-export type ButtonVariant = 'solid' | 'outline' | 'minimal' | 'link';
-export type ButtonColor = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonProps = {
-  variant?: ButtonVariant,
-  color?: ButtonColor,
+  variant?: DSRVariantType,
+  color?: DSRColorType,
   size?: ButtonSize,
   children?: ReactNode,
   id?: string,

@@ -1,16 +1,13 @@
-import React, { useContext, useMemo } from 'react';
-import Color from 'color';
-import tailwindColors from 'tailwindcss/colors';
+import React from 'react';
 import clsx from 'clsx';
 
-import DSRContext from '../contexts/DSRContext';
-import { RGBAtoRGB } from '../utils/color';
+import useColors, { DSRColorType } from '../hooks/useColors';
 
 import Icon, { IconInputType } from './Icon';
 
 export type BaseBadgeProps = {
   variant?: 'solid' | 'outline' | 'minimal',
-  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade',
+  color?: DSRColorType,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   style?: React.CSSProperties,
   className?: string,
@@ -45,45 +42,7 @@ const Badge = ({
   id, className = '', style, circular = false, leftIcon, rightIcon,
 }: BadgeProps) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
-
-  const activeColor = useMemo(() => {
-    const background = Color(theme?.background);
-
-    const colors = {
-      primary: theme?.primary,
-      secondary: theme?.secondary,
-      success: tailwindColors.green['600'],
-      danger: tailwindColors.red['500'],
-      warning: tailwindColors.yellow['500'],
-      contrast: background.negate().toString(),
-      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
-    };
-
-    return colors[color];
-  }, [theme, color]);
-
-  const backgroundColor = useMemo(() => {
-    const backgroundColors = {
-      solid: activeColor,
-      outline: 'rgba(0, 0, 0, 0)',
-      minimal: Color(RGBAtoRGB(
-        Color(activeColor).fade(0.70),
-        isDarkTheme ? 40 : 255,
-      )).toString(),
-      link: 'rgba(0, 0, 0, 0)',
-    };
-    return backgroundColors[variant];
-  }, [activeColor, variant, isDarkTheme]);
- 
-  const textColor = useMemo(
-    () => {
-      if (variant === 'solid') return Color(activeColor).isDark() ? '#fff' : '#333';
-      else if (variant === 'minimal' && color === 'contrast') return Color(backgroundColor).isDark() ? '#fff' : '#333';
-      return activeColor;
-    },
-    [activeColor, variant],
-  );
+  const { activeColor, backgroundColor, textColor } = useColors(variant, color);
 
   const computedClassName = clsx([
     className,

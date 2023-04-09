@@ -12,6 +12,10 @@ module.exports = {
         secondaryTextColor: 'var(--secondaryTextColor)',
         background: 'var(--background)',
         color: 'var(--color)'
+      },
+      gridTemplateColumns: {
+        'flexible-fit': 'repeat(auto-fit, minmax(var(--dsr-flexible-cols-min-width), 1fr))',
+        'flexible-fill': 'repeat(auto-fill, minmax(var(--dsr-flexible-cols-min-width), 1fr))'
       }
     },
   },
