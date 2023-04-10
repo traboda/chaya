@@ -19,50 +19,41 @@ type DrawerProps = {
   minHeight?: string | number,
   maxWidth?: string | number,
   maxHeight?: string | number,
+  closable?: boolean
 };
 
 const Drawer = ({
   isOpen, onClose, position = 'right', children, overlayClassName = '', className = '',
-  minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%',
+  minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true,
 }: DrawerProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
 
-  const getPositionAlignmentParent = useMemo(() => {
-    switch (position) {
-      case 'top': return 'dsr-justify-start dsr-items-start';
-      case 'right': return 'dsr-justify-end dsr-items-start';
-      case 'bottom': return 'dsr-justify-start dsr-items-end';
-      case 'left': return 'dsr-justify-start dsr-items-start';
-    }
-  }, [position]);
+  const getPositionAlignmentParent = {
+    top: 'dsr-justify-start dsr-items-start',
+    right: 'dsr-justify-end dsr-items-start',
+    bottom: 'dsr-justify-start dsr-items-end',
+    left: 'dsr-justify-start dsr-items-start',
+  }[position];
 
-  const getPositionAlignmentChild = useMemo(() => {
-    switch (position) {
-      case 'top':
-        return 'dsr-w-flex-1 dsr-rounded-b-lg';
-      case 'right':
-        return 'dsr-h-full dsr-rounded-l-lg';
-      case 'bottom':
-        return 'dsr-flex-1 dsr-rounded-t-lg';
-      case 'left':
-        return 'dsr-h-full dsr-rounded-r-lg';
-    }
-  }, [position]);
+  const getPositionAlignmentChild = {
+    top: 'dsr-w-flex-1 dsr-rounded-b-lg',
+    right: 'dsr-h-full dsr-rounded-l-lg',
+    bottom: 'dsr-w-flex-1 dsr-rounded-t-lg',
+    left: 'dsr-h-full dsr-rounded-r-lg',
+  }[position];
 
-  const positionDirection = useMemo(() => ({
-    'top': '-100%',
-    'right': '100%',
-    'bottom': '100%',
-    'left': '-100%',
-  }[position]), [position]);
+  const positionDirection = {
+    top: '-100%',
+    right: '100%',
+    bottom: '100%',
+    left: '-100%',
+  }[position];
 
   const getPositionAnimation = useMemo(() => {
     if (position === 'top' || position === 'bottom') {
       return isOpen ? drawerStyles.animateTranslateOutY : drawerStyles.animateTranslateInY;
-    } else {
-      return isOpen ? drawerStyles.animateTranslateOutX : drawerStyles.animateTranslateInX;
-    }
+    } else return isOpen ? drawerStyles.animateTranslateOutX : drawerStyles.animateTranslateInX;
   }, [isOpen, position]);
 
   useEffect(() => {
@@ -90,7 +81,7 @@ const Drawer = ({
             getPositionAlignmentParent,
             overlayClassName,
           ])}
-          onClick={onClose}
+          onClick={() => closable && onClose()}
         >
           <div
             className={clsx([
@@ -108,16 +99,18 @@ const Drawer = ({
             } as CSSProperties}
             onClick={e => e.stopPropagation()}
           >
-            <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2">
-              <button
-                type="button"
-                title="close"
-                className="drawer-close-button dsr-outline-none"
-                onClick={onClose}
-              >
-                <Icon icon="times" size={16} />
-              </button>
-            </div>
+            {closable && (
+              <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
+                <button
+                  type="button"
+                  title="close"
+                  className="drawer-close-button dsr-outline-none"
+                  onClick={onClose}
+                >
+                  <Icon icon="times" size={20} />
+                </button>
+              </div>
+            )}
             <div>{children}</div>
           </div>
         </section>

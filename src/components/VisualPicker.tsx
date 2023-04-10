@@ -34,18 +34,20 @@ const VisualPicker = <Type extends string | number>({
   const { backgroundColor, textColor } = useColors('solid', color);
 
   return (
-    <div className={clsx(['dsr-w-full', className])} id={generatedID}>
+    <div className="dsr-w-full" id={generatedID}>
       {label && <Label htmlFor="" isRequired={isRequired}>{label}</Label>}
 
       <div
         className={clsx([
           'dsr-grid dsr-w-full dsr-gap-4',
+          className,
           isVertical ? 'dsr-grid-cols-1' : fitHorizontal ? 'dsr-grid-cols-flexible-fit' : 'dsr-grid-cols-flexible-fill',
         ])}
       >
         {items.map((item, i) => (
           <button
             key={i}
+            type="button"
             aria-disabled={isDisabled || item.isDisabled}
             disabled={isDisabled || item.isDisabled}
             className={clsx([

@@ -84,6 +84,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
       <div className="dsr-flex dsr-flex-wrap dsr-items-center dsr-gap-2">
         {props.options.map(o => (
           <button
+            type="button"
             key={o.value}
             className={clsx([
               'tag-option dsr-px-4 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
