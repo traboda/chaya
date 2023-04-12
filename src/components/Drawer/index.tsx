@@ -76,7 +76,7 @@ const Drawer = ({
       <div className="drawer dsr-relative dsr-z-7000">
         <section
           className={clsx([
-            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-screen dsr-flex',
+            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex',
             'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
             getPositionAlignmentParent,
             overlayClassName,

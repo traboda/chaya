@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { Modal } from '../index';
+import { Button, Modal } from '../index';
 
 const meta: Meta = {
   title: 'Overlays/Modal',
@@ -68,8 +68,13 @@ const Template: Story = args => {
       {Array(8).fill(lorem).map(l => <p>{l}</p>)}
       {/* @ts-ignore */}
       <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div>
+        <div className="dsr-max-h-[80dvh]">
           <p>{lorem}</p>
+          <p>{lorem}</p>
+          <p>{lorem}</p>
+        </div>
+        <div className="dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-p-4" style={{ bottom: '0dvh' }}>
+          <Button className="dsr-w-full">Sticky Button</Button>
         </div>
       </Modal>
     </div>
