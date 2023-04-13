@@ -23,11 +23,12 @@ type ModalProps = {
   primaryButton?: ButtonProps,
   secondaryButton?: ButtonProps,
   titleIcon?: IconInputType,
+  closable?: boolean
 };
 
 const Modal = ({
   isOpen, children, onClose, title, containerClassName, overlayClassName = '', contentClassName = '', titleIcon,
-  maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton,
+  maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 300);
@@ -39,13 +40,13 @@ const Modal = ({
   }, [shouldRenderChild]);
 
   const onKeyDown = ({ key }: KeyboardEvent) => {
-    if (key === 'Escape') onClose();
+    if (key === 'Escape' && closable) onClose();
   };
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
     return () => { document.removeEventListener('keydown', onKeyDown); };
-  }, []);
+  }, [closable]);
 
   return shouldRenderChild ? (
     <DocumentPortal>
@@ -56,7 +57,7 @@ const Modal = ({
           hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
           overlayClassName,
         ])}
-        onClick={onClose}
+        onClick={() => closable && onClose()}
       >
         <div
           className={clsx([
@@ -68,16 +69,18 @@ const Modal = ({
           ])}
           onClick={e => e.stopPropagation()}
         >
-          <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
-            <button
-              type="button"
-              title="close"
-              className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0"
-              onClick={onClose}
-            >
-              <Icon icon="times" size={18} />
-            </button>
-          </div>
+          {closable && (
+            <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
+              <button
+                type="button"
+                title="close"
+                className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0"
+                onClick={() => closable && onClose()}
+              >
+                <Icon icon="times" size={18} />
+              </button>
+            </div>
+          )}
           {title && (
             <h2 className="dsr-text-2xl dsr-pt-4 dsr-pb-2 dsr-px-4 dsr-font-semibold">
               {titleIcon ? <Icon icon={titleIcon} /> : null}

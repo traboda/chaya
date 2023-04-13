@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import useColors, { DSRColorType } from '../hooks/useColors';
+import useColors, { ChayaColorType } from '../hooks/useColors';
 
 import Label from './Label';
 
@@ -22,7 +22,7 @@ export type VisualPickerProps<Type> = {
   isRequired?: boolean,
   isDisabled?: boolean,
   fitHorizontal?: boolean,
-  color?: DSRColorType
+  color?: ChayaColorType
 };
 
 const VisualPicker = <Type extends string | number>({

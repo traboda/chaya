@@ -5,10 +5,10 @@ import tailwindColors from 'tailwindcss/colors';
 import DSRContext from '../contexts/DSRContext';
 import { RGBAtoRGB } from '../utils/color';
 
-export type DSRColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';
-export type DSRVariantType = 'solid' | 'outline' | 'minimal' | 'link';
+export type ChayaColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';
+export type ChayaVariantType = 'solid' | 'outline' | 'minimal' | 'link';
 
-const useColors = (variant: DSRVariantType, color: DSRColorType, hover: boolean = false) => {
+const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: boolean = false) => {
   const { theme, isDarkTheme } = useContext(DSRContext);
 
   const activeColor = useMemo(() => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import useColors, { DSRColorType } from '../hooks/useColors';
+import useColors, { ChayaColorType } from '../hooks/useColors';
 
 import Icon, { IconInputType } from './Icon';
 
 export type BaseBadgeProps = {
   variant?: 'solid' | 'outline' | 'minimal',
-  color?: DSRColorType,
+  color?: ChayaColorType,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   style?: React.CSSProperties,
   className?: string,

@@ -1,6 +1,7 @@
-import React, { FormEvent, useContext, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
+import clsx from 'clsx';
 
-import DSRContext from '../contexts/DSRContext';
+import { ChayaColorType } from '../hooks/useColors';
 
 import Modal from './Modal';
 import Button from './Button';
@@ -19,7 +20,9 @@ type ConfirmationDialog = {
   requirePassword?: boolean,
   requireConfirmationText?: boolean,
   onConfirm?: (args: { password?: string, }) => void,
-  onCancel?: () => void
+  onCancel?: () => void,
+  color?: ChayaColorType,
+  className?: string
 };
 
 const defaultLabels = {
@@ -32,11 +35,10 @@ const defaultLabels = {
 
 const ConfirmationDialog = ({
   labels: initialLabels, isOpen = false, requireConfirmationText = false, requirePassword = false,
-  onConfirm = () => {}, onCancel = () => {},
+  onConfirm = () => {}, onCancel = () => {}, color = 'primary', className,
 }: ConfirmationDialog) => {
 
   const labels = { ...defaultLabels, ...initialLabels };
-  const { theme } = useContext(DSRContext);
 
   const [confirmText, setConfirmText] = useState('');
   const [password, setPassword] = useState('');
@@ -52,49 +54,43 @@ const ConfirmationDialog = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onCancel}>
-      <Card className="confirmation-dialog" background={theme?.background}>
-        <div className="dsr-p-2">
-          <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
-          <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
-            {labels?.description}
-          </p>
-        </div>
-        <form className="dsr-py-2" onSubmit={confirmAction}>
+      <Card className={clsx('confirmation-dialog', className)}>
+        <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
+        <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
+          {labels?.description}
+        </p>
+        <form className="dsr-pt-2" onSubmit={confirmAction}>
           {requireConfirmationText && (
-          <TextInput
-            label={`Enter "${labels?.confirmationText}" to confirm`}
-            name="confirmationText"
-            value={confirmText}
-            onChange={setConfirmText}
-            isRequired
-          />
-          )}
-          {requirePassword && (
-          <div className="dsr-mb-3">
             <TextInput
-              label="Enter Your Password"
-              name="password"
-              type="password"
-              value={password}
-              onChange={setPassword}
+              label={`Enter "${labels?.confirmationText}" to confirm`}
+              name="confirmationText"
+              value={confirmText}
+              onChange={setConfirmText}
               isRequired
             />
-          </div>
+          )}
+          {requirePassword && (
+            <div className="dsr-mb-3">
+              <TextInput
+                label="Enter Your Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={setPassword}
+                isRequired
+              />
+            </div>
           )}
           <div className="dsr-flex dsr-justify-end">
             <Button
               color="shade"
-              size="lg"
               onClick={onCancel}
               type="button"
               className="dsr-mr-2"
             >
               {labels?.cancel}
             </Button>
-            <Button
-              size="lg"
-              type="submit"
-            >
+            <Button type="submit" color={color}>
               {labels?.confirm}
             </Button>
           </div>

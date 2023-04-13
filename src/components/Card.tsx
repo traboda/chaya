@@ -10,7 +10,6 @@ export type CardProps = {
   description?: string,
   titleClassName?: string,
   icon?: IconInputType,
-  background?: string,
   id?: string,
   className?: string,
   sidebarRenderer?: ReactNode
