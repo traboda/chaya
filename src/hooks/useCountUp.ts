@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
-const useCountUp = (min: number, max: number, duration: number) => {
+import useNumberFormatter from './useNumberFormatter';
+
+const useCountUp = (min: number, max: number, duration: number = 2000, roundFrom = 1000) => {
   const [value, setValue] = useState(min);
-  const fps = duration / 60 ;
-  const formatter = Intl.NumberFormat('en', { notation: 'compact' });
+  const fps = duration / 60;
+  const formatter = useNumberFormatter(roundFrom);
 
   useEffect(() => {
     let last = Date.now(), diff = 0;
@@ -21,9 +23,8 @@ const useCountUp = (min: number, max: number, duration: number) => {
     };
     requestAnimationFrame(loop);
   }, []);
-  return (
-    [formatter.format(value)]
-  );
+  
+  return formatter(value);
 };
 
 export default useCountUp;

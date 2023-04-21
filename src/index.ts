@@ -47,7 +47,10 @@ export { default as ConfirmationDialog } from './components/ConfirmationDialog';
 export { default as UploadStatusIndicator } from './components/UploadStatusIndicator';
 
 // hooks
+export { default as useCountUp } from './hooks/useCountUp';
 export { default as useCounter } from './hooks/useCounter';
-export { default as useClipboard } from './hooks/useClipboard';
 export { default as useInterval } from './hooks/useInterval';
-export { default as useCountdown } from './hooks/useCountdown';
+export { default as useClipboard } from './hooks/useClipboard';
+export { default as useCountdown } from './hooks/useCountDown';
+export { default as useNumberFormatter } from './hooks/useNumberFormatter';
+export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';

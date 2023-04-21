@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import Color from 'color';
 import { nanoid } from 'nanoid';
 
-import DSRContext from '../contexts/DSRContext';
-import { Spinner } from '../index';
+import DSRContext from '../../contexts/DSRContext';
+import { Spinner } from '../../index';
+import Label from '../Label';
+import Icon, { IconInputType } from '../Icon';
 
-import Label from './Label';
-import Icon, { IconInputType } from './Icon';
+import textInputStyle from './textInput.module.scss';
 
 const emptyFunc = () => {};
 
@@ -37,8 +38,8 @@ export type TextInputProps<Type> = {
   autoCapitalize?: ('off' | 'on')
   onFocus?: () => void
   onBlur?: () => void
-  onKeyDown?: (e: KeyboardEvent) => void,
-  onChange?: (value: Type) => void
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+  onChange?: (value: Type, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   className?: string
   style?: React.CSSProperties
   autoFocus?: boolean,
@@ -48,6 +49,7 @@ export type TextInputProps<Type> = {
   rightIcon?: IconInputType,
   prefixClassName?: string,
   postfixClassName?: string,
+  hideStepper?: boolean
 };
 
 const TextInput = <Type extends string | number>({
@@ -57,7 +59,7 @@ const TextInput = <Type extends string | number>({
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
-  prefixClassName, postfixClassName,
+  prefixClassName, postfixClassName, hideStepper = false,
 }: TextInputProps<Type>) => {
 
   const { isDarkTheme, theme } = useContext(DSRContext);
@@ -76,12 +78,12 @@ const TextInput = <Type extends string | number>({
     if (value) setTouched(true);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const value = e.target.value;
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = event.target.value;
     if (charLimit == null || (value.length <= charLimit)) {
       if (typeof onChange === 'function')
-        if (type === 'number') onChange(parseInt(value) as Type);
-        else onChange(value as Type);
+        if (type === 'number') onChange(parseInt(value) as Type, event);
+        else onChange(value as Type, event);
       setValue(value as Type);
     }
   };
@@ -117,6 +119,8 @@ const TextInput = <Type extends string | number>({
     onFocus: handleFocus,
     onBlur: handleBlur,
     onChange: handleChange,
+    onKeyDown,
+    style: inputStyle,
   };
 
   const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
@@ -132,6 +136,7 @@ const TextInput = <Type extends string | number>({
     leftIcon && 'dsr-pl-10',
     (rightIcon && isLoading) ? 'dsr-pr-20' : (rightIcon || isLoading ? 'dsr-pr-10' : ''),
     isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+    hideStepper && textInputStyle.hideStepper,
   ]);
 
   const iconClassNameCalculated = clsx([
@@ -144,7 +149,6 @@ const TextInput = <Type extends string | number>({
 
   const innerIconClassNameCalculated = 'dsr-absolute dsr-top-1/2 -dsr-translate-y-1/2 dsr-text-color dsr-pointer-events-none';
 
-
   return (
     <div
       className={clsx([
@@ -155,18 +159,18 @@ const TextInput = <Type extends string | number>({
       style={style}
     >
       {!hideLabel && label && (
-      <Label
-        htmlFor={inputID}
-        isRequired={isRequired}
-        children={label}
-        sidebar={(showLimit && typeof value !== 'number') && (
-        <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
-          {(value as string)?.length}
-          /
-          {charLimit}
-        </span>
-        )}
-      />
+        <Label
+          htmlFor={inputID}
+          isRequired={isRequired}
+          children={label}
+          sidebar={(showLimit && typeof value !== 'number') && (
+          <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
+            {(value as string)?.length}
+            /
+            {charLimit}
+          </span>
+          )}
+        />
       )}
       <div className="dsr-relative dsr-group dsr-flex">
         {prefixRenderer && (
@@ -183,34 +187,20 @@ const TextInput = <Type extends string | number>({
         )}
         <div className="dsr-relative dsr-w-full">
           {leftIcon && (
-          <Icon
-            icon={leftIcon}
-            className={clsx(['dsr-left-3', innerIconClassNameCalculated])}
-            size={18}
-          />
+            <Icon
+              icon={leftIcon}
+              className={clsx(['dsr-left-3', innerIconClassNameCalculated])}
+              size={18}
+            />
           )}
           {type === 'textarea' ? (
-            <textarea
-              rows={rows}
-              className={inputClassNameCalculated}
-              style={inputStyle}
-              onKeyDown={onKeyDown}
-              {...props}
-            />
-          ) : (
-            <input
-              type={type}
-              className={inputClassNameCalculated}
-              style={inputStyle}
-              onKeyDown={onKeyDown}
-              {...props}
-            />
-          )}
+            <textarea rows={rows} className={inputClassNameCalculated} {...props} />
+          ) : <input type={type} className={inputClassNameCalculated} {...props} />}
           {(rightIcon || isLoading) && (
-          <div className={clsx(['dsr-right-3 dsr-flex dsr-gap-3 dsr-items-center', innerIconClassNameCalculated])}>
-            {isLoading && <Spinner size="md" />}
-            {rightIcon && <Icon icon={rightIcon} size={18} />}
-          </div>
+            <div className={clsx(['dsr-right-3 dsr-flex dsr-gap-3 dsr-items-center', innerIconClassNameCalculated])}>
+              {isLoading && <Spinner size="md" />}
+              {rightIcon && <Icon icon={rightIcon} size={18} />}
+            </div>
           )}
         </div>
         {postfixRenderer && (
@@ -226,16 +216,8 @@ const TextInput = <Type extends string | number>({
           </div>
         )}
       </div>
-      {errorText && (
-      <div className="dsr-text-red-400 dsr-mt-1">
-        {errorText}
-      </div>
-      )}
-      {description && (
-      <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">
-        {description}
-      </div>
-      )}
+      {errorText && <div className="dsr-text-red-400 dsr-mt-1">{errorText}</div>}
+      {description && <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">{description}</div>}
     </div>
   );
 

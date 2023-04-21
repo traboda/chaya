@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 import useInterval from './useInterval';
 
-interface UseCountdownInterface {
+interface UseCountDownInterface {
   // the date to count down to
   date: Date,
   allowNegative?: boolean,
   interval?: number
 }
  
-interface CountdownProperties {
+interface CountDownProperties {
   total: number,
   days: number,
   hours: number,
@@ -19,17 +19,17 @@ interface CountdownProperties {
   completed: boolean
 }
 
-interface CountdownHelpers {
+interface CountDownHelpers {
   setDate: (date: Date) => void,
 }
 
-const useCountdown = ({
+const useCountDown = ({
   date: initialDate, allowNegative = false, interval = 1000,
-}: UseCountdownInterface): [CountdownProperties, CountdownHelpers] => {
+}: UseCountDownInterface): [CountDownProperties, CountDownHelpers] => {
 
   const [date, setDate] = useState<Date>(initialDate);
 
-  const calculateDelta = (): CountdownProperties => {
+  const calculateDelta = (): CountDownProperties => {
     const now = Date.now();
     const timeLeft = new Date(date).getTime() - now;
 
@@ -53,7 +53,7 @@ const useCountdown = ({
 
   };
 
-  const [delta, setDelta] = useState<CountdownProperties>(calculateDelta());
+  const [delta, setDelta] = useState<CountDownProperties>(calculateDelta());
 
   const tick = () => setDelta(calculateDelta());
 
@@ -63,4 +63,4 @@ const useCountdown = ({
 
 };
 
-export default useCountdown;
+export default useCountDown;

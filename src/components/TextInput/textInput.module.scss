@@ -1,0 +1,9 @@
+.hideStepper {
+  appearance: textfield;
+}
+
+.hideStepper::-webkit-outer-spin-button,
+.hideStepper::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

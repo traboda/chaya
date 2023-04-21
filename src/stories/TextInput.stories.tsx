@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { TextInput } from '../index';
@@ -20,12 +20,16 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => (
-  <div className="dsr-flex dsr-gap-4 dsr-items-center">
-    <TextInput label="Label" name="field-name" value="value" {...args} />
-    <TextInput label="Label" name="field-name" value="value" {...args} isDisabled />
-  </div>
-);
+const Template: Story = args => {
+  const [value, setValue] = useState('');
+
+  return (
+    <div className="dsr-flex dsr-gap-4 dsr-items-center">
+      <TextInput label="Label" name="field-name" {...args} value={value} onChange={setValue} />
+      <TextInput label="Label" name="field-name" {...args} value={value} onChange={setValue} isDisabled />
+    </div>
+  );
+};
 
 export const Default = Template.bind({});
 

@@ -40,6 +40,7 @@ Default.args = {
     onClick: () => {},
     label: 'view more',
     link: '/',
+    isActive: false,
   },
   duration: 2000,
 };
