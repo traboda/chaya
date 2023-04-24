@@ -2,14 +2,14 @@ import { useEffect, useRef } from 'react';
 
 const useCurrencyFormatter = () => {
   const numberFormatter = useRef<(amount: number, currency?: string, decimals?: number) => string>(
-    amount => `₹${amount.toString()}`,
+    (amount, _, decimals = 0) => `₹${amount.toFixed(decimals)}`,
   );
   useEffect(() => {
     numberFormatter.current = (amount, currency = 'INR', decimals = 0) =>
       new Intl.NumberFormat(window?.navigator?.language ?? 'en-IN', {
         style: 'currency',
         currency,
-        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
       }).format(amount);
   }, []);
 
