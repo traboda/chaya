@@ -24,9 +24,9 @@ const SimpleSelectOption = <Type extends SimpleSelectValue>({
       aria-disabled={isDisabled}
       disabled={isDisabled}
       className={clsx([
-        'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/20 dsr-cursor-pointer',
+        'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-black/20 dsr-cursor-pointer',
         'dsr-justify-between dsr-items-center',
-        isSelected && 'dsr-bg-black/30 dsr-font-semibold',
+        isSelected && 'dsr-bg-black/20 dark:dsr-bg-black/30 dsr-font-semibold',
         className,
       ])}
     >

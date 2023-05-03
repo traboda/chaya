@@ -94,7 +94,7 @@ const SearchBox = ({
               isDisabled={isDisabled || isLoading}
             />
           </div>
-              )}
+        )}
       />
     </form>
   );

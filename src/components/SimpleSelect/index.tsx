@@ -5,6 +5,8 @@ import { nanoid } from 'nanoid';
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import DocumentPortal from '../../utils/Portal';
+import { SearchBox } from '../../index';
+import TextInput from '../TextInput';
 
 import SimpleSelectOption from './option';
 
@@ -35,6 +37,7 @@ export type SimpleSelectProps<Type> = {
   postfixRenderer?: ReactNode,
   dropdownContainerClassName?: string,
   dropdownClassName?: string,
+  isSearchable?: boolean,
   labels?: {
     label?: string,
     placeholder?: string
@@ -49,7 +52,7 @@ const defaultLabels = {
 const SimpleSelect = <Type extends SimpleSelectValue>({
   value, onChange = () => {}, postfixRenderer,
   id, className = '', labels: propLabels, hideArrow = false, dropdownContainerClassName = '',
-  isRequired = false, isDisabled = false, name, options, dropdownClassName = '',
+  isRequired = false, isDisabled = false, name, options, dropdownClassName = '', isSearchable = false,
 }: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
@@ -59,6 +62,7 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
   const selectRef = useRef<HTMLButtonElement>(null);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [selectBounding, setSelectBounding] = useState({ left: 0, bottom: 0, width: 0 });
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const iconClassNameCalculated = clsx([
     'dsr-border group-focus-within:dsr-border-primary dsr-border-gray-500/70 dsr-text-base',
@@ -68,6 +72,7 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
 
   useEffect(() => {
     if (isDropdownActive && selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
+    if (isDropdownActive) setSearchKeyword('');
   }, [isDropdownActive]);
 
   const onSelect = (value: Type) => {
@@ -78,6 +83,15 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
   const getValue = () => {
     const option = options.find(option => 'group' in option ? option.options.find(o => o.value === value) : option.value === value);
     return option && 'group' in option ? option.options.find(o => o.value === value)?.label : option?.label;
+  };
+
+  const filteredOptions = () => {
+    return options.filter(option => {
+      if ('group' in option)
+        return option.options.filter(o => o.label.toString().toLowerCase().includes(searchKeyword.toLowerCase())).length > 0;
+      
+      return option.label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
+    });
   };
 
   return (
@@ -141,41 +155,61 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
           }}
         >
           <div className={clsx(['dsr-bg-background dsr-rounded-lg dsr-overflow-hidden', dropdownClassName])}>
-            {options?.length > 0 &&
-              options.map((option) =>
-                'group' in option && option?.group ? (
-                  <>
-                    <div
-                      className={clsx([
-                        'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                        'dsr-px-3 dsr-py-2',
-                      ])}
-                    >
-                      {option.group}
-                    </div>
-                    {option.options.map(opt => (
-                      <SimpleSelectOption
-                        className="dsr-pl-5"
-                        key={opt.value}
-                        value={opt.value ?? undefined as Type}
-                        isSelected={value === opt.value}
-                        label={opt.label}
-                        isClearable={!isRequired}
-                        onSelect={onSelect}
-                      />
-                    ))}
-                  </>
-                ) : 'value' in option ? (
-                  <SimpleSelectOption
-                    value={option.value ?? undefined as Type}
-                    key={option.value}
-                    isSelected={value === option.value}
-                    isClearable={!isRequired}
-                    label={option.label}
-                    onSelect={onSelect}
-                  />
-                ) : null,
-              )}
+            {isSearchable && (
+              <div className="dark:dsr-bg-black/30 dsr-bg-black/10">
+                <TextInput
+                  label="Search"
+                  hideLabel
+                  name="select_search"
+                  rightIcon="search"
+                  value={searchKeyword}
+                  onChange={setSearchKeyword}
+                  autoFocus={isDropdownActive}
+                  type="text"
+                  inputClassName="!dsr-border-0 dsr-bg-transparent dsr-px-3 dsr-py-2 dsr-w-full"
+                  placeholder="Search..."
+                />
+              </div>
+            )}
+            {filteredOptions().map(option =>
+              'group' in option && option?.group ? (
+                <>
+                  <div
+                    className={clsx([
+                      'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                      'dsr-px-3 dsr-py-2',
+                    ])}
+                  >
+                    {option.group}
+                  </div>
+                  {option.options.map(opt => (
+                    <SimpleSelectOption
+                      className="dsr-pl-5"
+                      key={opt.value}
+                      value={opt.value ?? undefined as Type}
+                      isSelected={value === opt.value}
+                      label={opt.label}
+                      isClearable={!isRequired}
+                      onSelect={onSelect}
+                    />
+                  ))}
+                </>
+              ) : 'value' in option ? (
+                <SimpleSelectOption
+                  value={option.value ?? undefined as Type}
+                  key={option.value}
+                  isSelected={value === option.value}
+                  isClearable={!isRequired}
+                  label={option.label}
+                  onSelect={onSelect}
+                />
+              ) : null,
+            )}
+            {filteredOptions().length === 0 && (
+              <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                No options found.
+              </div>
+            )}
           </div>
         </div>
       </DocumentPortal>
