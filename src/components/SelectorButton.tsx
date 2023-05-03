@@ -6,7 +6,7 @@ import Button from './Button';
  
 type SelectorButtonProps<Type> = {
   name: string,
-  options: SimpleSelectOptionType<Type>,
+  options: SimpleSelectOptionType[],
   id?: string,
   className?: string,
   onSubmit?: (value: Type) => void,

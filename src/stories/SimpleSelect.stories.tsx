@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(args.value);
   return (
     <Card>
       {/*@ts-ignore*/}
@@ -41,6 +41,25 @@ Basic.args = {
   },
   isRequired: true,
   value, onChange: (v: any) => value = v,
+  options: [
+    { label: 'Cryptography', value: 'crypto' },
+    { label: 'Forensics', value: 'forensics' },
+    { label: 'Pwn', value: 'pwn' },
+    { label: 'Reversing', value: 'reversing' },
+    { label: 'Web', value: 'web' },
+  ],
+};
+
+export const MultiSelect = Template.bind({});
+
+MultiSelect.args = {
+  labels: {
+    label: 'Category',
+    placeholder: 'Select a category',
+  },
+  isMulti: true,
+  isRequired: true,
+  value: [],
   options: [
     { label: 'Cryptography', value: 'crypto' },
     { label: 'Forensics', value: 'forensics' },

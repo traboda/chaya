@@ -2,35 +2,42 @@ import React from 'react';
 import clsx from 'clsx';
 
 import Icon from '../Icon';
+import Checkbox from '../Checkbox';
 
 import { SimpleSelectValue } from './index';
 
-export type SimpleSelectOptionProps<Type> = {
+export type SimpleSelectOptionProps = {
   isSelected: boolean,
   isDisabled?: boolean,
-  value: Type,
+  value: SimpleSelectValue,
   label: string | number,
-  onSelect: (v: Type) => void,
+  onSelect: (v: SimpleSelectValue) => void,
   isClearable: boolean,
   className?: string,
+  isMulti: boolean
 };
 
-const SimpleSelectOption = <Type extends SimpleSelectValue>({
-  isSelected, isDisabled = false, value, label, onSelect, isClearable, className = '',
-}: SimpleSelectOptionProps<Type>) => {
+const SimpleSelectOption = ({
+  isSelected, isDisabled = false, value, label, onSelect, isClearable, className = '', isMulti,
+}: SimpleSelectOptionProps) => {
   return (
     <button
-      onClick={() => onSelect((isSelected ? (isClearable ? null : value) : value) as Type)}
+      onClick={() => onSelect((isSelected && !isMulti ? (isClearable ? null : value) : value))}
       aria-disabled={isDisabled}
       disabled={isDisabled}
       className={clsx([
         'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-black/20 dsr-cursor-pointer',
         'dsr-justify-between dsr-items-center',
-        isSelected && 'dsr-bg-black/20 dark:dsr-bg-black/30 dsr-font-semibold',
+        isSelected && !isMulti && 'dsr-bg-black/20 dark:dsr-bg-black/30 dsr-font-semibold',
         className,
       ])}
     >
-      <span>{label}</span>
+      <span className="flex items-center gap-2">
+        {isMulti && (
+          <Checkbox value={(value ?? '').toString()} label="" isChecked={isSelected} />
+        )}
+        <span>{label}</span>
+      </span>
       {isSelected && isClearable && (
         <Icon icon="times" size={16} />
       )}

@@ -5,22 +5,21 @@ import { nanoid } from 'nanoid';
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import DocumentPortal from '../../utils/Portal';
-import { SearchBox } from '../../index';
 import TextInput from '../TextInput';
 
 import SimpleSelectOption from './option';
 
-type OptionType<Type> = {
-  value: Type,
+type OptionType = {
+  value: SimpleSelectValue,
   label: string | number
 };
 
-type GroupType<Type> = {
+type GroupType = {
   group: string,
-  options: OptionType<Type>[]
+  options: OptionType[]
 };
 
-export type SimpleSelectOptionType<Type> = OptionType<Type> | GroupType<Type>;
+export type SimpleSelectOptionType = OptionType | GroupType;
 
 export type SimpleSelectValue = string | number | null | undefined;
 
@@ -29,7 +28,7 @@ export type SimpleSelectProps<Type> = {
   name: string,
   id?: string,
   className?: string,
-  options: SimpleSelectOptionType<Type>[],
+  options: SimpleSelectOptionType[],
   onChange?: (v: Type) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
@@ -38,6 +37,7 @@ export type SimpleSelectProps<Type> = {
   dropdownContainerClassName?: string,
   dropdownClassName?: string,
   isSearchable?: boolean,
+  isMulti?: boolean,
   labels?: {
     label?: string,
     placeholder?: string
@@ -49,8 +49,8 @@ const defaultLabels = {
   placeholder: 'Select an option',
 };
 
-const SimpleSelect = <Type extends SimpleSelectValue>({
-  value, onChange = () => {}, postfixRenderer,
+const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
+  value, onChange = () => {}, postfixRenderer, isMulti = false,
   id, className = '', labels: propLabels, hideArrow = false, dropdownContainerClassName = '',
   isRequired = false, isDisabled = false, name, options, dropdownClassName = '', isSearchable = false,
 }: SimpleSelectProps<Type>) => {
@@ -75,9 +75,10 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
     if (isDropdownActive) setSearchKeyword('');
   }, [isDropdownActive]);
 
-  const onSelect = (value: Type) => {
-    onChange(value);
-    setIsDropdownActive(false);
+  const onSelect = (option: SimpleSelectValue) => {
+    if (isMulti && Array.isArray(value)) onChange(value.includes(option) ? value.filter(v => v !== option) as Type : [...value, option] as Type);
+    else onChange(option as Type);
+    if (!isMulti) setIsDropdownActive(false);
   };
 
   const getValue = () => {
@@ -93,6 +94,10 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
       return option.label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
     });
   };
+
+  useEffect(() => {
+    if (isMulti && !Array.isArray(value)) throw new Error('SimpleSelect: value must be an array when isMulti is true');
+  }, []);
 
   return (
     <>
@@ -184,10 +189,11 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
                   </div>
                   {option.options.map(opt => (
                     <SimpleSelectOption
+                      isMulti={isMulti}
                       className="dsr-pl-5"
                       key={opt.value}
-                      value={opt.value ?? undefined as Type}
-                      isSelected={value === opt.value}
+                      value={opt.value}
+                      isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
                       label={opt.label}
                       isClearable={!isRequired}
                       onSelect={onSelect}
@@ -196,9 +202,10 @@ const SimpleSelect = <Type extends SimpleSelectValue>({
                 </>
               ) : 'value' in option ? (
                 <SimpleSelectOption
-                  value={option.value ?? undefined as Type}
+                  isMulti={isMulti}
+                  value={option.value}
                   key={option.value}
-                  isSelected={value === option.value}
+                  isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
                   isClearable={!isRequired}
                   label={option.label}
                   onSelect={onSelect}
