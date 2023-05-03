@@ -85,7 +85,7 @@ const Checkbox = ({
           </svg>
         </div>
       </span>
-      <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
+      {label && <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>}
     </label>
   );
 };

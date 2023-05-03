@@ -26,17 +26,17 @@ const SimpleSelectOption = ({
       aria-disabled={isDisabled}
       disabled={isDisabled}
       className={clsx([
-        'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-black/20 dsr-cursor-pointer',
-        'dsr-justify-between dsr-items-center',
-        isSelected && !isMulti && 'dsr-bg-black/20 dark:dsr-bg-black/30 dsr-font-semibold',
+        'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-white/10',
+        'dsr-justify-between dsr-items-center dsr-cursor-pointer dsr-text-left',
+        isSelected && !isMulti && 'dsr-bg-black/20 dark:dsr-bg-white/20 dsr-font-semibold',
         className,
       ])}
     >
-      <span className="flex items-center gap-2">
+      <span className="dsr-flex dsr-items-center dsr-gap-2">
         {isMulti && (
           <Checkbox value={(value ?? '').toString()} label="" isChecked={isSelected} />
         )}
-        <span>{label}</span>
+        <span className="dsr-block">{label}</span>
       </span>
       {isSelected && isClearable && (
         <Icon icon="times" size={16} />

@@ -82,8 +82,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const getValue = () => {
-    const option = options.find(option => 'group' in option ? option.options.find(o => o.value === value) : option.value === value);
-    return option && 'group' in option ? option.options.find(o => o.value === value)?.label : option?.label;
+    const val = isMulti && Array.isArray(value) ? value[0] : value;
+    const option = options.find(option => 'group' in option ? option.options.find(o => o.value === val) : option.value === val);
+    return option && 'group' in option ? option.options.find(o => o.value === val)?.label : option?.label;
   };
 
   const filteredOptions = () => {
@@ -97,11 +98,18 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   useEffect(() => {
     if (isMulti && !Array.isArray(value)) throw new Error('SimpleSelect: value must be an array when isMulti is true');
+
+    const onScroll = () => {
+      if (isDropdownActive && selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
+    };
+
+    document.addEventListener('scroll', onScroll, false);
+    return () => document.removeEventListener('scroll', onScroll, false);
   }, []);
 
   return (
     <>
-      <div className={clsx(['dsr-w-full simple-select-container', isDisabled && 'dsr-opacity-70'])}>
+      <div className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
         {labels?.label && labels?.label?.length > 0 && (
           <Label
             id={`${inputID}-label`}
@@ -117,8 +125,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
               'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
               'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
+              'dsr-gap-2 dsr-flex dsr-items-center',
               !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
               !postfixRenderer && 'dsr-border-r',
+              !hideArrow && 'dsr-pr-8',
               className,
             ])}
             id={inputID}
@@ -130,7 +140,17 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               backgroundPosition: 'calc(100% - 0.75rem) center',
             }}
           >
-            {getValue() ?? labels?.placeholder}
+            {getValue() ? (
+              <>
+                <span className="dsr-whitespace-nowrap dsr-text-ellipsis dsr-overflow-hidden">{getValue()}</span>
+                {isMulti && Array.isArray(value) && value.length > 1 && (
+                  <span className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-px-1 dsr-py-0.5 dsr-rounded-lg dsr-text-sm">
+                    +
+                    {value.length - 1}
+                  </span>
+                )}
+              </>
+            ) : labels?.placeholder}
           </button>
           {postfixRenderer && (
             <div
@@ -159,9 +179,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             width: selectBounding.width,
           }}
         >
-          <div className={clsx(['dsr-bg-background dsr-rounded-lg dsr-overflow-hidden', dropdownClassName])}>
+          <div className="dsr-bg-background dsr-rounded-lg">
             {isSearchable && (
-              <div className="dark:dsr-bg-black/30 dsr-bg-black/10">
+              <div className="dsr-bg-background dsr-sticky dsr-top-0 dsr-z-10">
                 <TextInput
                   label="Search"
                   hideLabel
@@ -171,52 +191,54 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   onChange={setSearchKeyword}
                   autoFocus={isDropdownActive}
                   type="text"
-                  inputClassName="!dsr-border-0 dsr-bg-transparent dsr-px-3 dsr-py-2 dsr-w-full"
+                  inputClassName="!dsr-border-0 dark:dsr-bg-white/10 dsr-bg-black/10 dsr-px-3 dsr-py-2 dsr-w-full !dsr-rounded-none"
                   placeholder="Search..."
                 />
               </div>
             )}
-            {filteredOptions().map(option =>
-              'group' in option && option?.group ? (
-                <>
-                  <div
-                    className={clsx([
-                      'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                      'dsr-px-3 dsr-py-2',
-                    ])}
-                  >
-                    {option.group}
-                  </div>
-                  {option.options.map(opt => (
-                    <SimpleSelectOption
-                      isMulti={isMulti}
-                      className="dsr-pl-5"
-                      key={opt.value}
-                      value={opt.value}
-                      isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
-                      label={opt.label}
-                      isClearable={!isRequired}
-                      onSelect={onSelect}
-                    />
-                  ))}
-                </>
-              ) : 'value' in option ? (
-                <SimpleSelectOption
-                  isMulti={isMulti}
-                  value={option.value}
-                  key={option.value}
-                  isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-                  isClearable={!isRequired}
-                  label={option.label}
-                  onSelect={onSelect}
-                />
-              ) : null,
-            )}
-            {filteredOptions().length === 0 && (
+            <div className="dsr-overflow-hidden dsr-rounded-b-lg">
+              {filteredOptions().map(option =>
+                'group' in option && option?.group ? (
+                  <>
+                    <div
+                      className={clsx([
+                        'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                        'dsr-px-3 dsr-py-2',
+                      ])}
+                    >
+                      {option.group}
+                    </div>
+                    {option.options.map(opt => (
+                      <SimpleSelectOption
+                        isMulti={isMulti}
+                        className="dsr-pl-5"
+                        key={opt.value}
+                        value={opt.value}
+                        isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
+                        label={opt.label}
+                        isClearable={!isRequired}
+                        onSelect={onSelect}
+                      />
+                    ))}
+                  </>
+                ) : 'value' in option ? (
+                  <SimpleSelectOption
+                    isMulti={isMulti}
+                    value={option.value}
+                    key={option.value}
+                    isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+                    isClearable={!isRequired}
+                    label={option.label}
+                    onSelect={onSelect}
+                  />
+                ) : null,
+              )}
+              {filteredOptions().length === 0 && (
               <div className="dsr-px-3 dsr-py-2 dsr-text-center">
                 No options found.
               </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </DocumentPortal>

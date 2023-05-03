@@ -47,6 +47,11 @@ Basic.args = {
     { label: 'Pwn', value: 'pwn' },
     { label: 'Reversing', value: 'reversing' },
     { label: 'Web', value: 'web' },
+    { label: 'Cryptography', value: 'crypto' },
+    { label: 'Forensics', value: 'forensics' },
+    { label: 'Pwn', value: 'pwn' },
+    { label: 'Reversing', value: 'reversing' },
+    { label: 'Web', value: 'web' },
   ],
 };
 
