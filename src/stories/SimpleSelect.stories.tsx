@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { SimpleSelect } from '../index';
+import { Card, SimpleSelect } from '../index';
 
 const meta: Meta = {
   title: 'User Inputs/Simple Select',
@@ -20,8 +20,15 @@ const meta: Meta = {
 
 export default meta;
 
-// @ts-ignore
-const Template: Story = args => <SimpleSelect {...args} />;
+const Template: Story = args => {
+  const [value, setValue] = useState(null);
+  return (
+    <Card>
+      {/*@ts-ignore*/}
+      <SimpleSelect {...args} value={value} onChange={setValue} />
+    </Card>
+  );
+};
 
 export const Basic = Template.bind({});
 
