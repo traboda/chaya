@@ -31,19 +31,29 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => (
-  <Card {...args}>
-    {args.children}
-    <Card
-      description="Set start time and end time for the CTF, which will determine the duration in which the CTF will be active. This is the time when public challenges will be released to participants, when deployments can be accessed and flags can be submitted."
-      sidebarRenderer={<Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>}
-      title="Child Title"
-    >
-      <h1>Child Card (content)</h1>
-      <Card className="dsr-mt-4" title="Grand child Title">
-        <h1>Grand Child Card (content)</h1>
+  <>
+    <Card {...args}>
+      {args.children}
+      <Card
+        description="Set start time and end time for the CTF, which will determine the duration in which the CTF will be active. This is the time when public challenges will be released to participants, when deployments can be accessed and flags can be submitted."
+        sidebarRenderer={<Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>}
+        title="Child Title"
+      >
+        <h1>Child Card (content)</h1>
+        <Card className="dsr-mt-4" title="Grand child Title">
+          <h1>Grand Child Card (content)</h1>
+        </Card>
       </Card>
     </Card>
-  </Card>
+
+    <Card
+      title="Card without any children"
+      description="This is a card which does not have any children"
+      sidebarRenderer={(
+        <Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>
+      )}
+    />
+  </>
 );
 
 export const Default = Template.bind({});
@@ -130,7 +140,7 @@ const HeightPreviewCardTemplate: Story = () => (
           hi elllo
         </Button>
       </div>
-      <div className="dsr-w-1/4 dsr-p-1">
+      <div className="dsr-w-1/3 dsr-p-1">
         <PageNavigator
           page={1}
           itemsPerPage={30}
@@ -153,7 +163,7 @@ const HeightPreviewCardTemplate: Story = () => (
         <TextInput label="hello" />
       </div>
       <div className="dsr-w-1/4 dsr-p-1">
-        <Card className="dsr-p-2" variant="outline">
+        <Card className="dsr-p-2">
           j1
         </Card>
       </div>

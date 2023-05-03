@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Icon, { IconInputType } from './Icon';
 
 export type CardProps = {
-  children: ReactNode,
+  children?: ReactNode,
   variant?: 'shaded' | 'outline',
   title?: string,
   description?: string,
@@ -32,7 +32,12 @@ const Card = ({
       ])}
     >
       {title ? (
-        <div className="dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-mb-4 dsr-w-full">
+        <div
+          className={clsx([
+            'dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-w-full',
+            children && 'dsr-mb-4',
+          ])}
+        >
           <div>
             {title && (
               <h3
