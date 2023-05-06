@@ -6,6 +6,7 @@ import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import DocumentPortal from '../../utils/Portal';
 import TextInput from '../TextInput';
+import { Spinner } from '../../index';
 
 import SimpleSelectOption from './option';
 
@@ -38,6 +39,8 @@ export type SimpleSelectProps<Type> = {
   dropdownClassName?: string,
   isSearchable?: boolean,
   isMulti?: boolean,
+  isAsync?: boolean,
+  onFetch?: (keyword: string) => Promise<SimpleSelectOptionType[]> | undefined,
   labels?: {
     label?: string,
     placeholder?: string
@@ -53,6 +56,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false,
   id, className = '', labels: propLabels, hideArrow = false, dropdownContainerClassName = '',
   isRequired = false, isDisabled = false, name, options, dropdownClassName = '', isSearchable = false,
+  isAsync = false, onFetch = () => new Promise(resolve => resolve([])),
 }: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
@@ -60,6 +64,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const { isDarkTheme } = useContext(DSRContext);
 
   const selectRef = useRef<HTMLButtonElement>(null);
+  const [isFetching, setIsFetching] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [selectBounding, setSelectBounding] = useState({ left: 0, bottom: 0, width: 0 });
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -75,6 +80,16 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     if (isDropdownActive) setSearchKeyword('');
   }, [isDropdownActive]);
 
+  useEffect(() => {
+    if (isAsync) {
+      const fetch = onFetch(searchKeyword);
+      if (fetch) {
+        setIsFetching(true);
+        fetch.then(() => setIsFetching(false));
+      }
+    }
+  }, [searchKeyword]);
+
   const onSelect = (option: SimpleSelectValue) => {
     if (isMulti && Array.isArray(value)) onChange(value.includes(option) ? value.filter(v => v !== option) as Type : [...value, option] as Type);
     else onChange(option as Type);
@@ -88,10 +103,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const filteredOptions = () => {
-    return options.filter(option => {
+    return isAsync ? options : options.filter(option => {
       if ('group' in option)
         return option.options.filter(o => o.label.toString().toLowerCase().includes(searchKeyword.toLowerCase())).length > 0;
-      
       return option.label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
     });
   };
@@ -179,7 +193,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             width: selectBounding.width,
           }}
         >
-          <div className="dsr-bg-background dsr-rounded-lg">
+          <div className={clsx(['dsr-bg-background dsr-rounded-lg', dropdownClassName])}>
             {isSearchable && (
               <div className="dsr-bg-background dsr-sticky dsr-top-0 dsr-z-10">
                 <TextInput
@@ -194,6 +208,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   inputClassName="!dsr-border-0 dark:dsr-bg-white/10 dsr-bg-black/10 dsr-px-3 dsr-py-2 dsr-w-full !dsr-rounded-none"
                   placeholder="Search..."
                 />
+              </div>
+            )}
+            {isFetching && (
+              <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
+                <Spinner size="lg" />
               </div>
             )}
             <div className="dsr-overflow-hidden dsr-rounded-b-lg">
