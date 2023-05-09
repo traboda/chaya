@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
+import Checkbox from '../Checkbox';
 
 import SortButton from './SortButton';
 import { ItemListerProperty } from './Row';
@@ -34,33 +35,39 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   return (
     <tr className="dsr-transition-transform">
       {isAccordionsOpen != null && (
-      <th
-        style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
-        className={clsx([
-          'dsr-relative dsr-px-2 dsr-py-3',
-          thClasses,
-        ])}
-      >
-        <div className="dsr-grid dsr-content-center">
-          <button onClick={() => toggleAccordions(!isAccordionsOpen)}>
-            <Icon icon={isAccordionsOpen ? 'chevron-down' : 'chevron-right'} size={18} />
+        <th
+          style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
+          className={clsx([
+            'dsr-relative dsr-px-2 dsr-py-3',
+            thClasses,
+          ])}
+        >
+          <button onClick={() => toggleAccordions(!isAccordionsOpen)} className="dsr-flex">
+            <Icon
+              icon="chevron-right"
+              size={18}
+              className={clsx([
+                'dsr-transition-transform',
+                isAccordionsOpen ? 'dsr-rotate-90' : '',
+              ])}
+            />
           </button>
-        </div>
-      </th>
+        </th>
       )}
       {isSelectEnabled && (
-      <th
-        className={clsx(['dsr-py-3', thClasses])}
-        style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
-      >
-        <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
-          <input
-            type="checkbox"
-            checked={isAllSelected?.()}
-            onChange={() => isAllSelected?.() ? deselectAll?.() : selectAll?.()}
-          />
-        </div>
-      </th>
+        <th
+          className={clsx(['dsr-py-3', thClasses])}
+          style={{ borderBottomColor: Color(theme?.color).fade(0.85).toString(), width: colsWidth[i++] }}
+        >
+          <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
+            <Checkbox
+              label=""
+              value=""
+              isChecked={isAllSelected?.()}
+              onChange={() => isAllSelected?.() ? deselectAll?.() : selectAll?.()}
+            />
+          </div>
+        </th>
       )}
       {properties?.length > 0 && (
         properties.filter((p) => !p.isHidden).map((p) => (

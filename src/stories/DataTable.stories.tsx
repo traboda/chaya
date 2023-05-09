@@ -256,8 +256,8 @@ export const AccordionTable = Template.bind({});
 AccordionTable.args = {
   canExpand: true,
   accordionRenderer: (c) => (
-    <div className="p-4">
-      <div className="text-sm text-gray-500">
+    <div className="dsr-p-4">
+      <div className="dsr-text-sm dsr-text-gray-500">
         {c?.name}
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus atque eius esse molestiae molestias, nobis, quasi quidem quis, sequi sit sunt suscipit veritatis. Deserunt doloremque et, officiis quia quibusdam quis.

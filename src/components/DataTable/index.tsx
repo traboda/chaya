@@ -90,8 +90,8 @@ const DataTable = <Type extends { id: string }>({
 
   const colsWidth = useMemo(() => {
     let divide: (string | number | undefined)[] = [];
-    if (canExpand) divide.push(60);
-    if (allowSelection) divide.push(60);
+    if (canExpand) divide.push(40);
+    if (allowSelection) divide.push(40);
     divide = [...divide, ...properties.filter(p => !p.isHidden).map(p => p.width)];
     return divide.map(col => col ?? 'auto');
   }, [canExpand, allowSelection, properties]);
@@ -126,7 +126,7 @@ const DataTable = <Type extends { id: string }>({
             </div>
             <table
               className={clsx([
-                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0 ',
+                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0',
                 'dsr-border-collapse dsr-border-gray-200',
               ])}
               style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}

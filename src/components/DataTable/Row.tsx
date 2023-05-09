@@ -5,6 +5,7 @@ import { LinkWrapper } from '../../utils/misc';
 import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
 import SkeletonItem from '../SkeletonItem';
+import Checkbox from '../Checkbox';
 
 import SelectionContext from './SelectionContext';
 
@@ -58,73 +59,77 @@ const ItemListerItem = <Type extends { id: string }>({
   return (
     <tr className={clsx(['dsr-group', variant === 'striped-row' ? stripedRow : ''])}>
       {supportAccordion && (
-      <td
-        className={clsx([
-          'dsr-px-2',
-          tdClasses,
-          variant === 'striped-column' ? stripedColumn : '',
-        ])}
-      >
-        <button onClick={onClick}>
-          <Icon icon={isAccordionOpen ? 'chevron-down' : 'chevron-right'} size={18} />
-        </button>
-      </td>
+        <td
+          className={clsx([
+            'dsr-px-2 dsr-text-center',
+            tdClasses,
+            variant === 'striped-column' ? stripedColumn : '',
+          ])}
+        >
+          <button onClick={onClick} className="dsr-flex">
+            <Icon
+              icon="chevron-right"
+              size={18}
+              className={clsx([
+                'dsr-transition-transform',
+                isAccordionOpen ? 'dsr-rotate-90' : '',
+              ])}
+            />
+          </button>
+        </td>
       )}
       {isEnabled && (
-      <td
-        className={clsx([
-          'dsr-px-2',
-          tdClasses,
-          variant === 'striped-column' ? stripedColumn : '',
-        ])}
-      >
-        <div className="dsr-py-3 dsr-grid dsr-content-center">
-          {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
-            <input
-              type="checkbox"
-              checked={isSelected?.(item?.id ?? '')}
-              onChange={() => isSelected?.(item?.id ?? '')
-                ? deselectItem?.(item?.id ?? '')
-                : selectItem?.(item?.id ?? '')
-                        }
-            />
-          )}
-        </div>
-      </td>
+        <td
+          className={clsx([
+            'dsr-px-2 dsr-text-center',
+            tdClasses,
+            variant === 'striped-column' ? stripedColumn : '',
+          ])}
+        >
+            {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
+              <Checkbox
+                label=""
+                value=""
+                isChecked={isSelected?.(item?.id ?? '')}
+                onChange={() => isSelected?.(item?.id ?? '')
+                  ? deselectItem?.(item?.id ?? '')
+                  : selectItem?.(item?.id ?? '')}
+              />
+            )}
+        </td>
       )}
-      {properties?.length > 0 &&
-            properties.filter((p) => !p.isHidden).map((p) => {
-              const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
-              const renderer = (
-                <span className="dsr-flex dsr-items-center dsr-gap-1">
-                  {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex)}
-                  {link && <span className="dsr-w-[16px]"><Icon icon="external-link" size={16} /></span>}
-                </span>
-              );
-              return (
-                <td
-                  key={link ? null : p.id}
-                  className={clsx([
-                    'dsr-py-2 dsr-px-3',
-                    tdClasses,
-                    variant === 'striped-column' ? stripedColumn : '',
-                    p?.className,
-                  ])}
-                  style={{
-                    textAlign: p.textAlign,
-                    fontSize: p.fontSize,
-                  }}
-                  onClick={() => {
-                    if (isEnabled) {
-                      if (isSelected?.(item?.id ?? '')) deselectItem?.(item?.id ?? '');
-                      else selectItem?.(item?.id ?? '');
-                    }
-                  }}
-                >
-                  {link ? LinkWrapper(link, renderer, { className: 'dsr-text-primary' }) : renderer}
-                </td>
-              );
-            })}
+      {properties?.length > 0 && properties.filter(p => !p.isHidden).map(p => {
+        const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
+        const renderer = (
+          <span className="dsr-flex dsr-items-center dsr-gap-1">
+            {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex)}
+            {link && <span className="dsr-w-[16px]"><Icon icon="external-link" size={16} /></span>}
+          </span>
+        );
+        return (
+          <td
+            key={link ? null : p.id}
+            className={clsx([
+              'dsr-py-2 dsr-px-3',
+              tdClasses,
+              variant === 'striped-column' ? stripedColumn : '',
+              p?.className,
+            ])}
+            style={{
+              textAlign: p.textAlign,
+              fontSize: p.fontSize,
+            }}
+            onClick={() => {
+              if (isEnabled) {
+                if (isSelected?.(item?.id ?? '')) deselectItem?.(item?.id ?? '');
+                else selectItem?.(item?.id ?? '');
+              }
+            }}
+          >
+            {link ? LinkWrapper(link, renderer, { className: 'dsr-text-primary' }) : renderer}
+          </td>
+        );
+      })}
     </tr>
   );
 };
