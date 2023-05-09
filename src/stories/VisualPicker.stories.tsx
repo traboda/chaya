@@ -14,11 +14,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-  const [value, setValue] = useState(args.value);
-
-  useEffect(() => {
-    setValue(args.value);
-  }, [args.value]);
+  const [value, setValue] = useState(args.value ?? '');
 
   return (
     <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
@@ -28,22 +24,55 @@ const Template: Story = args => {
   );
 };
 
+const items = [
+  {
+    icon: 'home',
+    title: 'First Item',
+    description: 'This is the description for the first item',
+    value: 'item1',
+  },
+  {
+    icon: 'settings',
+    title: 'Second Bigger Item Title',
+    description: 'This is the description for the second item',
+    value: 'item2',
+    isDisabled: true,
+  },
+  {
+    icon: 'check',
+    title: 'Third Item',
+    description: 'This is the description for the third item',
+    value: 'item3',
+  },
+  {
+    icon: 'settings',
+    title: 'Fourth Item',
+    description: 'This is the description for the fourth item',
+    value: 'item4',
+  },
+  {
+    icon: 'external-link',
+    title: 'Fifth Item',
+    description: 'This is the description for the fifth item',
+    value: 'item5',
+  },
+  {
+    icon: 'alert-triangle',
+    title: 'Sixth Item',
+    description: 'This is the description for the sixth item',
+    value: 'item6',
+  },
+];
+
 export const Default = Template.bind({});
 
-Default.args = {
-  items: [
-    {
-      label: 'Item 1',
-      value: 'item1',
-    },
-    {
-      label: 'Item 2',
-      value: 'item2',
-      isDisabled: true,
-    },
-    {
-      label: 'Item 3',
-      value: 'item3',
-    },
-  ],
+Default.args = { items, colMinWidth: 300 };
+
+export const MultiSelect = Template.bind({});
+
+MultiSelect.args = {
+  items,
+  value: [],
+  isMulti: true,
+  colMinWidth: 300,
 };

@@ -47,7 +47,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
           'chevron-left': <ChevronLeft {...props} />,
           'chevron-right': <ChevronRight {...props} />,
           'chevrons-right': <ChevronsRight {...props} />,
-          externalLink: <ExternalLink {...props} />,
+          'external-link': <ExternalLink {...props} />,
           home: <Home {...props} />,
           settings: <Settings {...props} />,
           info: <Info {...props} />,
