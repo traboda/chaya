@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent } from 'react';
+import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
 import clsx from 'clsx';
 import Color from 'color';
 import { nanoid } from 'nanoid';
@@ -36,15 +36,15 @@ export type TextInputProps<Type> = {
   autoComplete?: ('off' | 'on' | 'email' | 'current-password' | 'username')
   autoCorrect?: ('off' | 'on')
   autoCapitalize?: ('off' | 'on')
-  onFocus?: () => void
-  onBlur?: () => void
+  onFocus?: (event: FocusEvent) => void
+  onBlur?: (event: FocusEvent) => void
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
   onChange?: (value: Type, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   className?: string
   style?: React.CSSProperties
   autoFocus?: boolean,
-  postfixRenderer?: React.ReactElement
-  prefixRenderer?: React.ReactElement,
+  postfixRenderer?: React.ReactNode,
+  prefixRenderer?: React.ReactNode,
   leftIcon?: IconInputType,
   rightIcon?: IconInputType,
   prefixClassName?: string,
@@ -88,14 +88,14 @@ const TextInput = <Type extends string | number>({
     }
   };
 
-  const handleFocus = () => {
+  const handleFocus = (event: FocusEvent) => {
     setTouched(true);
-    if (typeof onFocus === 'function') onFocus();
+    if (typeof onFocus === 'function') onFocus(event);
     setTyping(true);
   };
 
-  const handleBlur = () => {
-    if (typeof onBlur === 'function') onBlur();
+  const handleBlur = (event: FocusEvent) => {
+    if (typeof onBlur === 'function') onBlur(event);
     setTyping(false);
   };
 

@@ -66,7 +66,7 @@ const Checkbox = ({
           isChecked ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
         ])}
       >
-        <div
+        <span
           className={clsx([
             'dsr-flex dsr-justify-center dsr-items-center dsr-h-full dsr-w-full dsr-p-0.5',
             'dsr-duration-200 dsr-origin-bottom-left dsr-text-white dsr-ease-in-out dsr-transition-opacity',
@@ -83,7 +83,7 @@ const Checkbox = ({
           >
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
           </svg>
-        </div>
+        </span>
       </span>
       {label && <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>}
     </label>
