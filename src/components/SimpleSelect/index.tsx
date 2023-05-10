@@ -25,6 +25,7 @@ export type SimpleSelectOptionType = OptionType | GroupType;
 export type SimpleSelectValue = string | number | null | undefined;
 
 export type SimpleSelectProps<Type> = {
+  variant?: 'comma' | 'chip',
   value: Type,
   name: string,
   id?: string,
@@ -52,7 +53,7 @@ const defaultLabels = {
 
 const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false,
-  id, className = '', labels: propLabels, hideArrow = false,
+  id, className = '', labels: propLabels, hideArrow = false, variant = 'comma',
   isRequired = false, isDisabled = false, name, options, dropdownClassName = '',
   isAsync = false, onFetch = () => new Promise(resolve => resolve([])),
 }: SimpleSelectProps<Type>) => {
@@ -61,6 +62,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const inputID = useMemo(() => id ? id : `${name}-select-${nanoid()}`, [id, name]);
   const { isDarkTheme } = useContext(DSRContext);
 
+  const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -99,6 +101,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const getValue = () => {
     let label;
     if (isMulti && Array.isArray(value)) {
+      if (value.length > 0 && variant === 'chip') return '';
       const values = value.map(v => getLabel(v)).filter(v => !!v);
       label = values.length > 5 ? `${values.length} options selected` : values.join(', ');
     } else label = getLabel(value as SimpleSelectValue)?.toString();
@@ -106,11 +109,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const filteredOptions = () => {
-    return isAsync ? options : options.filter(option => {
-      if ('group' in option)
-        return option.options.filter(o => o.label.toString().toLowerCase().includes(searchKeyword.toLowerCase())).length > 0;
-      return option.label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
-    });
+    const matchesLabel = (label: string | number) => label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
+    return isAsync ? options : options
+      .map(option => 'group' in option ? { ...option, options: option.options.filter(o => matchesLabel(o.label)) } : option)
+      .filter(option => 'group' in option ? option.options.length : matchesLabel(option.label));
   };
 
   useEffect(() => {
@@ -121,8 +123,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     };
     
     const onClick = (event: MouseEvent) => {
-      const classList = (event.target as HTMLElement)?.classList;
-      if (isMulti && classList.contains('simple-select-option') || classList.contains('simple-select')) return;
+      if (!containerRef.current) return;
+      if (isMulti && containerRef.current.contains(event.target as Node)) return;
       setIsDropdownActive(false);
     };
 
@@ -150,7 +152,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   return (
     <>
-      <div className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
+      <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
         {labels?.label && labels?.label?.length > 0 && (
           <Label
             id={`${inputID}-label`}
@@ -180,7 +182,26 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               backgroundRepeat: 'no-repeat',
             }}
           >
-            <div className="dsr-w-full">
+            <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
+              {variant === 'chip' && Array.isArray(value) ? value.map(val => (
+                <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded-full dsr-inline-flex dsr-overflow-hidden">
+                  <div className="dsr-pl-2 dsr-pr-1">{getLabel(val)}</div>
+                  <button
+                    onClick={event => {
+                      event.stopPropagation();
+                      onChange(value.filter(v => v !== val) as Type);
+                    }}
+                    type="button"
+                    className={clsx([
+                      'hover:dark:dsr-bg-white/10 dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
+                      'hover:dsr-bg-black/10',
+                    ])}
+                  >
+                    <Icon icon="times" size={14} />
+                  </button>
+                </div>
+              )) : null}
+
               <input
                 ref={searchBoxRef}
                 id={inputID}
@@ -190,7 +211,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 onFocus={() => setIsDropdownActive(true)}
                 onClick={event => event.stopPropagation()}
                 type="text"
-                className="dsr-w-full dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate"
+                className={clsx([
+                  'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
+                  variant === 'chip' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
+                ])}
               />
             </div>
 
@@ -250,10 +274,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   <div
                     className={clsx([
                       'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                      'dsr-px-3 dsr-py-2',
+                      'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
                     ])}
                   >
-                    {option.group}
+                    <div>{option.group}</div>
+                    <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
                   </div>
                   {option.options.map(opt => (
                     <SimpleSelectOption

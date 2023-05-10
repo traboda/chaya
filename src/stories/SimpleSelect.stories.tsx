@@ -30,6 +30,19 @@ const Template: Story = args => {
   );
 };
 
+const options = [
+  { label: 'Cryptography 1', value: 'crypto1' },
+  { label: 'Forensics 2', value: 'forensics2' },
+  { label: 'Pwn 3', value: 'pwn3' },
+  { label: 'Reversing 4', value: 'reversing4' },
+  { label: 'Web 5', value: 'web5' },
+  { label: 'Cryptography 6', value: 'crypto6' },
+  { label: 'Forensics 7', value: 'forensics7' },
+  { label: 'Pwn 8', value: 'pwn8' },
+  { label: 'Reversing 9', value: 'reversing9' },
+  { label: 'Web 10', value: 'web10' },
+];
+
 export const Basic = Template.bind({});
 
 let value;
@@ -41,18 +54,7 @@ Basic.args = {
   },
   isRequired: true,
   value, onChange: (v: any) => value = v,
-  options: [
-    { label: 'Cryptography 1', value: 'crypto1' },
-    { label: 'Forensics 2', value: 'forensics2' },
-    { label: 'Pwn 3', value: 'pwn3' },
-    { label: 'Reversing 4', value: 'reversing4' },
-    { label: 'Web 5', value: 'web5' },
-    { label: 'Cryptography 6', value: 'crypto6' },
-    { label: 'Forensics 7', value: 'forensics7' },
-    { label: 'Pwn 8', value: 'pwn8' },
-    { label: 'Reversing 9', value: 'reversing9' },
-    { label: 'Web 10', value: 'web10' },
-  ],
+  options,
 };
 
 export const MultiSelect = Template.bind({});
@@ -65,18 +67,7 @@ MultiSelect.args = {
   isMulti: true,
   isRequired: true,
   value: [],
-  options: [
-    { label: 'Cryptography 1', value: 'crypto1' },
-    { label: 'Forensics 2', value: 'forensics2' },
-    { label: 'Pwn 3', value: 'pwn3' },
-    { label: 'Reversing 4', value: 'reversing4' },
-    { label: 'Web 5', value: 'web5' },
-    { label: 'Cryptography 6', value: 'crypto6' },
-    { label: 'Forensics 7', value: 'forensics7' },
-    { label: 'Pwn 8', value: 'pwn8' },
-    { label: 'Reversing 9', value: 'reversing9' },
-    { label: 'Web 10', value: 'web10' },
-  ],
+  options,
 };
 
 
@@ -113,3 +104,30 @@ SelectWithGroups.args = {
   ],
 };
 
+const VariantsTemplate: Story = args => {
+  const [value, setValue] = useState(args.value);
+  return (
+    <Card> 
+      {/*@ts-ignore*/}
+      <SimpleSelect {...args} value={value} onChange={setValue} variant="comma" />
+
+      <div className="dsr-mt-4"></div>
+
+      {/*@ts-ignore*/}
+      <SimpleSelect {...args} value={value} onChange={setValue} variant="chip" />
+    </Card>
+  );
+};
+
+export const Variants = VariantsTemplate.bind({});
+
+Variants.args = {
+  labels: {
+    label: 'Category',
+    placeholder: 'Select a category',
+  },
+  isMulti: true,
+  isRequired: true,
+  value: [],
+  options,
+};
