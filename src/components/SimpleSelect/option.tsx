@@ -22,6 +22,7 @@ const SimpleSelectOption = ({
 }: SimpleSelectOptionProps) => {
   return (
     <button
+      type="button"
       onClick={event => {
         if (isMulti) event.stopPropagation();
         onSelect((isSelected && !isMulti ? (isClearable ? null : value) : value));

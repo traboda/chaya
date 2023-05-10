@@ -5,8 +5,8 @@ import { nanoid } from 'nanoid';
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import DocumentPortal from '../../utils/Portal';
-import TextInput from '../TextInput';
 import { Spinner } from '../../index';
+import Icon from '../Icon';
 
 import SimpleSelectOption from './option';
 
@@ -62,13 +62,17 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const { isDarkTheme } = useContext(DSRContext);
 
   const selectRef = useRef<HTMLDivElement>(null);
+  const searchBoxRef = useRef<HTMLInputElement>(null);
   const [isFetching, setIsFetching] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [selectBounding, setSelectBounding] = useState({ left: 0, bottom: 0, width: 0 });
   const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
-    if (isDropdownActive && selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
+    if (isDropdownActive) {
+      if (selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
+      if (searchBoxRef.current) searchBoxRef.current.focus();
+    }
     if (isDropdownActive) setSearchKeyword('');
   }, [isDropdownActive]);
 
@@ -94,8 +98,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   const getValue = () => {
     let label;
-    if (isMulti && Array.isArray(value)) label = value.map(v => getLabel(v)).filter(v => !!v).join(', ');
-    else label = getLabel(value as SimpleSelectValue)?.toString();
+    if (isMulti && Array.isArray(value)) {
+      const values = value.map(v => getLabel(v)).filter(v => !!v);
+      label = values.length > 5 ? `${values.length} options selected` : values.join(', ');
+    } else label = getLabel(value as SimpleSelectValue)?.toString();
     return label || labels?.placeholder;
   };
 
@@ -136,6 +142,12 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     };
   }, []);
 
+  const iconClassNameCalculated = clsx([
+    'dsr-border group-focus-within:dsr-border-primary dsr-border-gray-500/70 dsr-text-base',
+    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center',
+    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+  ]);
+
   return (
     <>
       <div className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
@@ -148,29 +160,63 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           />
         )}
         <div className="dsr-w-full dsr-flex dsr-group" ref={selectRef}>
-          <TextInput
-            label=""
-            hideLabel
-            name={name}
-            value={isDropdownActive ? searchKeyword : getValue()}
-            placeholder={isDropdownActive ? getValue() : ''}
-            onChange={setSearchKeyword}
-            inputClassName={clsx([
-              'simple-select',
+          <div
+            tabIndex={0}
+            className={clsx([
+              'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
+              'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
+              'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
+              'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
+              !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+              !postfixRenderer && 'dsr-border-r',
               !hideArrow && 'dsr-pr-8',
               className,
             ])}
-            id={inputID}
-            isDisabled={isDisabled}
             aria-labelledby={`${inputID}-label`}
-            onFocus={() => setIsDropdownActive(true)}
-            inputStyle={hideArrow ? {} : {
+            onClick={() => setIsDropdownActive(!isDropdownActive)}
+            style={hideArrow ? {} : {
               backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
               backgroundPosition: 'calc(100% - 0.75rem) center',
               backgroundRepeat: 'no-repeat',
             }}
-            postfixRenderer={postfixRenderer}
-          />
+          >
+            <div className="dsr-w-full">
+              <input
+                ref={searchBoxRef}
+                id={inputID}
+                value={isDropdownActive ? searchKeyword : getValue()}
+                placeholder={isDropdownActive ? getValue() : ''}
+                onChange={event => setSearchKeyword(event.target.value)}
+                onFocus={() => setIsDropdownActive(true)}
+                onClick={event => event.stopPropagation()}
+                type="text"
+                className="dsr-w-full dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate"
+              />
+            </div>
+
+            {(Array.isArray(value) ? value.length > 0 : !isRequired && !!value) && (
+              <button
+                type="button"
+                onClick={event => {
+                  event.stopPropagation();
+                  onChange((Array.isArray(value) ? [] : null) as Type);
+                }}
+              >
+                <Icon icon="times" size={16} />
+              </button>
+            )}
+          </div>
+
+          {postfixRenderer && (
+            <div
+              className={clsx([
+                iconClassNameCalculated,
+                'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+              ])}
+            >
+              {postfixRenderer}
+            </div>
+          )}
         </div>
       </div>
 
