@@ -62,6 +62,7 @@ const ConfirmationDialog = ({
         <form className="dsr-pt-2" onSubmit={confirmAction}>
           {requireConfirmationText && (
             <TextInput
+              className="dsr-mb-3"
               label={`Enter "${labels?.confirmationText}" to confirm`}
               name="confirmationText"
               value={confirmText}
@@ -70,16 +71,15 @@ const ConfirmationDialog = ({
             />
           )}
           {requirePassword && (
-            <div className="dsr-mb-3">
-              <TextInput
-                label="Enter Your Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={setPassword}
-                isRequired
-              />
-            </div>
+            <TextInput
+              className="dsr-mb-3"
+              label="Enter Your Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={setPassword}
+              isRequired
+            />
           )}
           <div className="dsr-flex dsr-justify-end">
             <Button
@@ -90,7 +90,11 @@ const ConfirmationDialog = ({
             >
               {labels?.cancel}
             </Button>
-            <Button type="submit" color={color}>
+            <Button
+              type="submit"
+              color={color}
+              isDisabled={(requireConfirmationText && confirmText !== labels.confirmationText) || (requirePassword && password?.length === 0)}
+            >
               {labels?.confirm}
             </Button>
           </div>
