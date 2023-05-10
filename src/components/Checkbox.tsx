@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
@@ -8,12 +8,14 @@ export type CheckboxButtonProps = {
   value: string,
   label: string,
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void,
+  onClick?: (event: MouseEvent<HTMLLabelElement>) => void,
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
   isChecked?: boolean,
   spacing?: string,
   className?: string,
+  isHalf?: boolean
 };
 
 export const sizes = {
@@ -35,10 +37,11 @@ export const colors = {
 
 const Checkbox = ({
   value, label, onChange = () => {}, isChecked = false, color = 'primary', size = 'md', isDisabled = false,
-  className,
+  className, onClick = () => {}, isHalf = false,
 }: CheckboxButtonProps) => {
   return (
     <label
+      onClick={onClick}
       className={clsx([
         'checkbox-container dsr-inline-flex dsr-items-center dsr-relative',
         className,
@@ -75,13 +78,13 @@ const Checkbox = ({
         >
           <svg
             viewBox="0 0 12 10"
-            style={{ fill: 'none', strokeWidth: '2px', stroke: 'currentcolor', strokeDasharray: '16px' }}
-            className={clsx([
-              isChecked && 'dsr-scale-100',
-              'dsr-duration-400 dsr-origin-bottom-left dsr-ease-out dsr-transition dsr-transform',
-            ])}
+            stroke="currentColor"
+            fill="none"
+            strokeWidth={2}
+            strokeDasharray={16}
+            strokeLinecap="round"
           >
-            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            {isHalf ? <line x1="2" y1="5" x2="10" y2="5"></line> : <polyline points="1.5 6 4.5 9 10.5 1"></polyline>}
           </svg>
         </span>
       </span>

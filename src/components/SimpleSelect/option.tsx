@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../Icon';
@@ -20,13 +20,15 @@ export type SimpleSelectOptionProps = {
 const SimpleSelectOption = ({
   isSelected, isDisabled = false, value, label, onSelect, isClearable, className = '', isMulti,
 }: SimpleSelectOptionProps) => {
+  const onClick = (event: MouseEvent | ChangeEvent) => {
+    if (isMulti) event.stopPropagation();
+    onSelect(isSelected && !isMulti ? (isClearable ? null : value) : value);
+  };
+
   return (
     <button
       type="button"
-      onClick={event => {
-        if (isMulti) event.stopPropagation();
-        onSelect((isSelected && !isMulti ? (isClearable ? null : value) : value));
-      }}
+      onClick={onClick}
       aria-disabled={isDisabled}
       disabled={isDisabled}
       className={clsx([
@@ -38,7 +40,13 @@ const SimpleSelectOption = ({
     >
       <span className="dsr-flex dsr-items-center dsr-gap-2">
         {isMulti && (
-          <Checkbox value={(value ?? '').toString()} label="" isChecked={isSelected} />
+          <Checkbox
+            onClick={event => event.stopPropagation()}
+            value={(value ?? '').toString()}
+            label=""
+            isChecked={isSelected}
+            onChange={onClick}
+          />
         )}
         <span className="dsr-block">{label}</span>
       </span>

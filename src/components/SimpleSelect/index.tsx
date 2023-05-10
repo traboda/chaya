@@ -7,6 +7,7 @@ import Label from '../Label';
 import DocumentPortal from '../../utils/Portal';
 import { Spinner } from '../../index';
 import Icon from '../Icon';
+import Checkbox from '../Checkbox';
 
 import SimpleSelectOption from './option';
 
@@ -123,8 +124,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     };
     
     const onClick = (event: MouseEvent) => {
-      if (!containerRef.current) return;
-      if (isMulti && containerRef.current.contains(event.target as Node)) return;
+      if (!containerRef.current || containerRef.current.contains(event.target as Node)) return;
       setIsDropdownActive(false);
     };
 
@@ -149,6 +149,13 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center',
     !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
   ]);
+
+  const onSelectAll = () => {
+    const options = filteredOptions();
+    const totalCount = options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0);
+    if (isMulti && Array.isArray(value) && value.length === totalCount) onChange([] as unknown as Type);
+    else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type);
+  };
 
   return (
     <>
@@ -259,57 +266,71 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         >
           <div
             className={clsx([
-              'dsr-overflow-y-auto dsr-bg-background dsr-rounded-lg dsr-max-h-[250px]',
+              'dsr-overflow-hidden dsr-bg-background dsr-rounded-lg',
               dropdownClassName,
             ])}
           >
-            {isFetching && (
-              <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
-                <Spinner size="lg" />
-              </div>
-            )}
-            {filteredOptions().map(option =>
-              'group' in option && option?.group ? (
-                <>
-                  <div
-                    className={clsx([
-                      'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                      'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
-                    ])}
-                  >
-                    <div>{option.group}</div>
-                    <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
-                  </div>
-                  {option.options.map(opt => (
-                    <SimpleSelectOption
-                      isMulti={isMulti}
-                      className="dsr-pl-5"
-                      key={opt.value}
-                      value={opt.value}
-                      isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
-                      label={opt.label}
-                      isClearable={!isRequired}
-                      onSelect={onSelect}
-                    />
-                  ))}
-                </>
-              ) : 'value' in option ? (
-                <SimpleSelectOption
-                  isMulti={isMulti}
-                  value={option.value}
-                  key={option.value}
-                  isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-                  isClearable={!isRequired}
-                  label={option.label}
-                  onSelect={onSelect}
-                />
-              ) : null,
-            )}
-            {filteredOptions().length === 0 && (
-              <div className="dsr-px-3 dsr-py-2 dsr-text-center">
-                No options found.
-              </div>
-            )}
+            <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
+              {isFetching ? (
+                <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
+                  <Spinner size="lg" />
+                </div>
+              ) : isMulti && (
+                <div className=" dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
+                  <Checkbox
+                    value=""
+                    label="Select all"
+                    onChange={() => onSelectAll()}
+                    isChecked={Array.isArray(value) && value.length > 0}
+                    isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
+              {filteredOptions().map(option =>
+                'group' in option && option?.group ? (
+                  <>
+                    <div
+                      className={clsx([
+                        'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                        'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
+                      ])}
+                    >
+                      <div>{option.group}</div>
+                      <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
+                    </div>
+                    {option.options.map(opt => (
+                      <SimpleSelectOption
+                        isMulti={isMulti}
+                        className="dsr-pl-5"
+                        key={opt.value}
+                        value={opt.value}
+                        isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
+                        label={opt.label}
+                        isClearable={!isRequired}
+                        onSelect={onSelect}
+                      />
+                    ))}
+                  </>
+                ) : 'value' in option ? (
+                  <SimpleSelectOption
+                    isMulti={isMulti}
+                    value={option.value}
+                    key={option.value}
+                    isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+                    isClearable={!isRequired}
+                    label={option.label}
+                    onSelect={onSelect}
+                  />
+                ) : null,
+              )}
+              {filteredOptions().length === 0 && (
+                <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                  No options found.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </DocumentPortal>
