@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { Card, SimpleSelect } from '../index';
+import {SimpleSelectProps} from "../components/SimpleSelect";
 
 const meta: Meta = {
   title: 'User Inputs/Simple Select',
@@ -20,27 +21,31 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => {
+const Template: Story<SimpleSelectProps<any>> = args => {
   const [value, setValue] = useState(args.value);
   return (
     <Card>
-      {/*@ts-ignore*/}
       <SimpleSelect {...args} value={value} onChange={setValue} />
     </Card>
   );
 };
 
 const options = [
-  { label: 'Cryptography 1', value: 'crypto1' },
-  { label: 'Forensics 2', value: 'forensics2' },
-  { label: 'Pwn 3', value: 'pwn3' },
-  { label: 'Reversing 4', value: 'reversing4' },
-  { label: 'Web 5', value: 'web5' },
-  { label: 'Cryptography 6', value: 'crypto6' },
-  { label: 'Forensics 7', value: 'forensics7' },
-  { label: 'Pwn 8', value: 'pwn8' },
-  { label: 'Reversing 9', value: 'reversing9' },
-  { label: 'Web 10', value: 'web10' },
+  { label: 'Computer Science', value: 'cs' },
+  { label: 'Electronics', value: 'ec' },
+  { label: 'Mechanical', value: 'me' },
+  { label: 'Civil', value: 'ce' },
+  { label: 'Electrical', value: 'ee' },
+  { label: 'Chemical', value: 'ch' },
+  { label: 'Aerospace', value: 'ae' },
+  { label: 'Biotechnology', value: 'bt' },
+  { label: 'Metallurgy', value: 'mt' },
+  { label: 'Production', value: 'pe' },
+  { label: 'Textile', value: 'te' },
+  { label: 'Mining', value: 'mn' },
+  { label: 'Naval Architecture', value: 'na' },
+  { label: 'Petroleum', value: 'pe' },
+  { label: 'Plastic', value: 'pl' }
 ];
 
 export const Basic = Template.bind({});
@@ -57,9 +62,10 @@ Basic.args = {
   options,
 };
 
-export const MultiSelect = Template.bind({});
 
-MultiSelect.args = {
+export const withMultiSelect: Story<SimpleSelectProps<string[]>> = Template;
+
+withMultiSelect.args = {
   labels: {
     label: 'Category',
     placeholder: 'Select a category',
@@ -70,12 +76,11 @@ MultiSelect.args = {
   options,
 };
 
-
-export const SelectWithGroups: Story = Template;
+export const withGroups: Story<SimpleSelectProps<string>> = Template;
 
 let country;
 
-SelectWithGroups.args = {
+withGroups.args = {
   labels: {
     label: 'Region',
     placeholder: 'Pick a Region',
@@ -104,17 +109,22 @@ SelectWithGroups.args = {
   ],
 };
 
-const VariantsTemplate: Story = args => {
+const VariantsTemplate: Story<SimpleSelectProps<string[]>> = args => {
   const [value, setValue] = useState(args.value);
   return (
-    <Card> 
-      {/*@ts-ignore*/}
-      <SimpleSelect {...args} value={value} onChange={setValue} variant="comma" />
-
-      <div className="dsr-mt-4"></div>
-
-      {/*@ts-ignore*/}
-      <SimpleSelect {...args} value={value} onChange={setValue} variant="chip" />
+    <Card>
+      <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
+        <div className="w-full md:dsr-w-1/2 dsr-p-2">
+          <Card title="Comma Variant">
+            <SimpleSelect  {...args} value={value} onChange={setValue} variant="comma" />
+          </Card>
+        </div>
+        <div className="w-full md:dsr-w-1/2 dsr-p-2">
+          <Card title="Chip Variant">
+            <SimpleSelect {...args} value={value} onChange={setValue} variant="chip" />
+          </Card>
+        </div>
+      </div>
     </Card>
   );
 };
@@ -128,6 +138,9 @@ Variants.args = {
   },
   isMulti: true,
   isRequired: true,
-  value: [],
+  value: [
+      options[0].value,
+      options[1].value,
+  ],
   options,
 };
