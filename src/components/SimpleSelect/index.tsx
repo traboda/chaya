@@ -91,7 +91,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   const onSelect = (option: SimpleSelectValue) => {
     if (isMulti && Array.isArray(value)) onChange(value.includes(option) ? value.filter(v => v !== option) as Type : [...value, option] as Type);
-    else onChange(option as Type);
+    else {
+      setIsDropdownActive(false);
+      onChange(option as Type);
+    }
   };
 
   const getLabel = (val: SimpleSelectValue) => {
