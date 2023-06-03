@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { Button, Modal } from '../index';
+import {Button, Modal, SimpleSelect} from '../index';
+import {ModalProps} from "../components/Modal";
 
 const meta: Meta = {
   title: 'Overlays/Modal',
@@ -52,9 +53,10 @@ const lorem = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad arch
             voluptas! Consequatur, deleniti dolore eius eligendi eos excepturi fugit illum magnam molestias mollitia natus
             nemo non pariatur provident quas, reiciendis saepe similique temporibus veritatis.`;
 
-const Template: Story = args => {
+const Template: Story<ModalProps> = args => {
 
   const [isOpen, setIsOpen] = React.useState(args.isOpen);
+  const [subject, setSubject] = React.useState('cs');
 
   React.useEffect(() => {
     setIsOpen(args.isOpen);
@@ -66,13 +68,24 @@ const Template: Story = args => {
         open
       </button>
       {Array(8).fill(lorem).map(l => <p>{l}</p>)}
-      {/* @ts-ignore */}
       <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="dsr-max-h-[80dvh]">
+        <div className="dsr-max-h-[50dvh] dsr-overflow-auto">
           <p>{lorem}</p>
           <p>{lorem}</p>
           <p>{lorem}</p>
         </div>
+        <SimpleSelect
+            value={subject}
+            name="subject"
+            options={[
+                { value: 'cs', label: 'Computer Science' },
+                { value: 'math', label: 'Mathematics' },
+                { value: 'physics', label: 'Physics' },
+                { value: 'chemistry', label: 'Chemistry' },
+                { value: 'biology', label: 'Biology' },
+            ]}
+            onChange={setSubject}
+        />
         <div className="dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-p-4" style={{ bottom: '0dvh' }}>
           <Button className="dsr-w-full">Sticky Button</Button>
         </div>

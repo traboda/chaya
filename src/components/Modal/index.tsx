@@ -8,7 +8,7 @@ import Icon, { IconInputType } from '../Icon';
 import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
 
-type ModalProps = {
+export type ModalProps = {
   isOpen: boolean,
   children: ReactNode,
   onClose: () => void,
@@ -87,7 +87,7 @@ const Modal = ({
                     {title && (
                         <h2 className="dsr-text-2xl dsr-pt-4 dsr-pb-2 dsr-px-4 dsr-font-semibold">
                             {titleIcon ? <Icon icon={titleIcon} /> : null}
-                            <Dialog.Title>
+                            <Dialog.Title asChild>
                                 {title}
                             </Dialog.Title>
                         </h2>
