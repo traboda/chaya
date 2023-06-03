@@ -59,8 +59,8 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
 
   const generateClassName = (value: string | number) => {
     const className = clsx([
-      props?.multiple && tags.includes(value) && 'dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
-      !props.multiple && tag === value && 'dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
+      props?.multiple && tags.includes(value) && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
+      !props.multiple && tag === value && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
     ]);
 
     return clsx([

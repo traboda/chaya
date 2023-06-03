@@ -254,7 +254,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
       <DocumentPortal>
         <div
           className={clsx([
-            'dsr-absolute dsr-z-50 dsr-text-color dsr-grid',
+            'dsr-absolute dsr-z-[8000] dsr-text-color dsr-grid',
             'dsr-transition-[grid-template-rows]',
             isDropdownActive ? 'dsr-grid-rows-[1fr]' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
           ])}
