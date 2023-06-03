@@ -1,6 +1,6 @@
 {
   "name": "chaya-ui",
-  "version": "1.0.0-beta.35",
+  "version": "1.0.0-beta.36",
   "description": "Modern, Functional Design System & Components for React",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
@@ -95,6 +95,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.4",
     "nanoid": "^3.3.4"
   },
   "main": "dist/cjs/index.js",

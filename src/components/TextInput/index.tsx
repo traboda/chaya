@@ -4,7 +4,7 @@ import Color from 'color';
 import { nanoid } from 'nanoid';
 
 import DSRContext from '../../contexts/DSRContext';
-import { Spinner } from '../../index';
+import Spinner from '../Spinner';
 import Label from '../Label';
 import Icon, { IconInputType } from '../Icon';
 

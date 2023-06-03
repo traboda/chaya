@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DSRContext from '../contexts/DSRContext';
-import { Spinner } from '../index';
+import Spinner from '../components/Spinner';
 import { ButtonSize } from '../components/Button/type';
  
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');

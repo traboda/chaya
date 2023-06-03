@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
-import { Spinner } from '../../index';
+import Spinner from "../Spinner";
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 

@@ -1,7 +1,6 @@
 import React, { MouseEvent } from 'react';
 
-import { Spinner } from '../index';
-
+import Spinner from './Spinner';
 import Icon from './Icon';
 
 export type UploadStatus = {

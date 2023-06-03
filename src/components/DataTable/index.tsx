@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import InfiniteLoader from '../InfiniteLoader';
-import { PageNavigator } from '../../index';
+import PageNavigator from '../PageNavigator';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';

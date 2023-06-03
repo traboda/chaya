@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
 import Icon from '../Icon';
-import { Spinner } from '../../index';
+import Spinner from '../Spinner';
 import useColors from '../../hooks/useColors';
 
 import buttonStyle from './button.module.scss';
