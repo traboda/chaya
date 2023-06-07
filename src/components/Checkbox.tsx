@@ -43,7 +43,7 @@ const Checkbox = ({
     <label
       onClick={onClick}
       className={clsx([
-        'checkbox-container dsr-inline-flex dsr-items-center dsr-relative',
+        'checkbox-container dsr-inline-flex dsr-items-center dsr-text-left dsr-relative',
         className,
         isDisabled ? 'dsr-opacity-70' : 'dsr-cursor-pointer',
       ])}

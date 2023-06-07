@@ -35,6 +35,7 @@ export { default as TagSelector } from './components/TagSelector';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as DropdownMenu } from './components/DropdownMenu';
+export { default as DropdownFilter } from './components/DropdownFilter';
 export { default as VisualPicker } from './components/VisualPicker';
 export { default as CheckboxGroup } from './components/CheckboxGroup';
 export { default as PageNavigator } from './components/PageNavigator';

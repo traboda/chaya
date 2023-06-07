@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
-import Spinner from "../Spinner";
+import Spinner from '../Spinner';
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 
@@ -159,194 +159,194 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   return (
-      <DropdownMenu.Root
-          open={isDropdownActive}
-          onOpenChange={setIsDropdownActive}
-          modal={false}
-      >
-        <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
-          {labels?.label && labels?.label?.length > 0 && (
-              <Label
-                  id={`${inputID}-label`}
-                  htmlFor={inputID}
-                  children={labels?.label}
-                  isRequired={isRequired}
-              />
-          )}
-          <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
-            <div>
-              <div className="dsr-w-full dsr-flex dsr-group" ref={selectRef}>
-                <div
-                  tabIndex={0}
-                  className={clsx([
-                    'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
-                    'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
-                    'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
-                    'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
-                    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
-                    !postfixRenderer && 'dsr-border-r',
-                    !hideArrow && 'dsr-pr-8',
-                    className,
-                  ])}
-                  aria-labelledby={`${inputID}-label`}
-                  onClick={() => setIsDropdownActive(!isDropdownActive)}
-                  style={hideArrow ? {} : {
-                    backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
-                    backgroundPosition: 'calc(100% - 0.75rem) center',
-                    backgroundRepeat: 'no-repeat',
-                  }}
-                >
-                  <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
-                    {variant === 'chip' && Array.isArray(value) ? value.map(val => (
-                      <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded-full dsr-inline-flex dsr-overflow-hidden">
-                        <div className="dsr-pl-2 dsr-pr-1">{getLabel(val)}</div>
-                        <button
-                          onClick={event => {
-                            event.stopPropagation();
-                            onChange(value.filter(v => v !== val) as Type);
-                          }}
-                          type="button"
-                          className={clsx([
-                            'hover:dark:dsr-bg-white/10 dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
-                            'hover:dsr-bg-black/10',
-                          ])}
-                        >
-                          <Icon icon="times" size={14} />
-                        </button>
-                      </div>
-                    )) : null}
+    <DropdownMenu.Root
+      open={isDropdownActive}
+      onOpenChange={setIsDropdownActive}
+      modal={false}
+    >
+      <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
+        {labels?.label && labels?.label?.length > 0 && (
+          <Label
+            id={`${inputID}-label`}
+            htmlFor={inputID}
+            children={labels?.label}
+            isRequired={isRequired}
+          />
+        )}
+        <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
+          <div>
+            <div className="dsr-w-full dsr-flex dsr-group" ref={selectRef}>
+              <div
+                tabIndex={0}
+                className={clsx([
+                  'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
+                  'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
+                  'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
+                  'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
+                  !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+                  !postfixRenderer && 'dsr-border-r',
+                  !hideArrow && 'dsr-pr-8',
+                  className,
+                ])}
+                aria-labelledby={`${inputID}-label`}
+                onClick={() => setIsDropdownActive(!isDropdownActive)}
+                style={hideArrow ? {} : {
+                  backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
+                  backgroundPosition: 'calc(100% - 0.75rem) center',
+                  backgroundRepeat: 'no-repeat',
+                }}
+              >
+                <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
+                  {variant === 'chip' && Array.isArray(value) ? value.map(val => (
+                    <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded-full dsr-inline-flex dsr-overflow-hidden">
+                      <div className="dsr-pl-2 dsr-pr-1">{getLabel(val)}</div>
+                      <button
+                        onClick={event => {
+                          event.stopPropagation();
+                          onChange(value.filter(v => v !== val) as Type);
+                        }}
+                        type="button"
+                        className={clsx([
+                          'hover:dark:dsr-bg-white/10 dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
+                          'hover:dsr-bg-black/10',
+                        ])}
+                      >
+                        <Icon icon="times" size={14} />
+                      </button>
+                    </div>
+                  )) : null}
 
-                    <input
-                      ref={searchBoxRef}
-                      id={inputID}
-                      value={isDropdownActive ? searchKeyword : getValue()}
-                      placeholder={isDropdownActive ? getValue() : ''}
-                      onChange={event => {
-                        setIsDropdownActive(true);
-                        setSearchKeyword(event.target.value)
-                      }}
-                      onFocus={() => setIsDropdownActive(true)}
-                      onClick={event => {
-                        event.stopPropagation();
-                        setIsDropdownActive(true);
-                      }}
-                      type="text"
-                      className={clsx([
-                        'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
-                        variant === 'chip' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
-                      ])}
-                    />
-                  </div>
-
-                  {(Array.isArray(value) ? value.length > 0 : !isRequired && !!value) && (
-                    <button
-                      type="button"
-                      onClick={event => {
-                        event.stopPropagation();
-                        onChange((Array.isArray(value) ? [] : null) as Type);
-                      }}
-                    >
-                      <Icon icon="times" size={16} />
-                    </button>
-                  )}
+                  <input
+                    ref={searchBoxRef}
+                    id={inputID}
+                    value={isDropdownActive ? searchKeyword : getValue()}
+                    placeholder={isDropdownActive ? getValue() : ''}
+                    onChange={event => {
+                      setIsDropdownActive(true);
+                      setSearchKeyword(event.target.value);
+                    }}
+                    onFocus={() => setIsDropdownActive(true)}
+                    onClick={event => {
+                      event.stopPropagation();
+                      setIsDropdownActive(true);
+                    }}
+                    type="text"
+                    className={clsx([
+                      'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
+                      variant === 'chip' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
+                    ])}
+                  />
                 </div>
 
-                {postfixRenderer && (
-                  <div
-                    className={clsx([
-                      iconClassNameCalculated,
-                      'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
-                    ])}
-                  >
-                    {postfixRenderer}
+                {(Array.isArray(value) ? value.length > 0 : !isRequired && !!value) && (
+                <button
+                  type="button"
+                  onClick={event => {
+                    event.stopPropagation();
+                    onChange((Array.isArray(value) ? [] : null) as Type);
+                  }}
+                >
+                  <Icon icon="times" size={16} />
+                </button>
+                )}
+              </div>
+
+              {postfixRenderer && (
+              <div
+                className={clsx([
+                  iconClassNameCalculated,
+                  'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+                ])}
+              >
+                {postfixRenderer}
+              </div>
+              )}
+            </div>
+          </div>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Portal container={containerRef.current} forceMount>
+          <DropdownMenu.Content
+            forceMount
+            side={side}
+            className={clsx([
+              'dsr-text-color dsr-grid dsr-z-[8000]',
+              'dsr-transition-[grid-template-rows]',
+              isDropdownActive ? 'dsr-grid-rows-[1fr] dsr-border dsr-border-gray-50/20 dsr-rounded-lg' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
+              dropdownClassName,
+            ])}
+            style={{
+              width: 'var(--radix-dropdown-menu-trigger-width)',
+            }}
+            align="start"
+            sideOffset={5}
+          >
+            <div className="dsr-overflow-hidden dsr-bg-background dsr-rounded-lg">
+              <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
+                {isFetching ? (
+                  <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
+                    <Spinner size="lg" />
                   </div>
+                ) : isMulti && (
+                <div className=" dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
+                  <Checkbox
+                    value=""
+                    label="Select all"
+                    onChange={() => onSelectAll()}
+                    isChecked={Array.isArray(value) && value.length > 0}
+                    isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
+                  />
+                </div>
+                )}
+              </div>
+              <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
+                {filteredOptions().map(option =>
+                  'group' in option && option?.group ? (
+                    <>
+                      <div
+                        className={clsx([
+                          'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                          'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
+                        ])}
+                      >
+                        <div>{option.group}</div>
+                        <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
+                      </div>
+                      {option.options.map(opt => (
+                        <SimpleSelectOption
+                          isMulti={isMulti}
+                          className="dsr-pl-5"
+                          key={opt.value}
+                          value={opt.value}
+                          isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
+                          label={opt.label}
+                          isClearable={!isRequired}
+                          onSelect={onSelect}
+                        />
+                      ))}
+                    </>
+                  ) : 'value' in option ? (
+                    <SimpleSelectOption
+                      isMulti={isMulti}
+                      value={option.value}
+                      key={option.value}
+                      isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+                      isClearable={!isRequired}
+                      label={option.label}
+                      onSelect={onSelect}
+                    />
+                  ) : null,
+                )}
+                {filteredOptions().length === 0 && (
+                <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                  No options found.
+                </div>
                 )}
               </div>
             </div>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Portal container={containerRef.current} forceMount>
-            <DropdownMenu.Content
-              forceMount
-              side={side}
-              className={clsx([
-                'dsr-text-color dsr-grid dsr-z-[8000]',
-                'dsr-transition-[grid-template-rows]',
-                isDropdownActive ? 'dsr-grid-rows-[1fr] dsr-border dsr-border-gray-50/20 dsr-rounded-lg' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
-                dropdownClassName,
-              ])}
-              style={{
-                width: 'var(--radix-dropdown-menu-trigger-width)',
-              }}
-              align="start"
-              sideOffset={5}
-            >
-              <div className="dsr-overflow-hidden dsr-bg-background dsr-rounded-lg">
-                <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
-                  {isFetching ? (
-                    <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
-                      <Spinner size="lg" />
-                    </div>
-                  ) : isMulti && (
-                    <div className=" dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
-                      <Checkbox
-                        value=""
-                        label="Select all"
-                        onChange={() => onSelectAll()}
-                        isChecked={Array.isArray(value) && value.length > 0}
-                        isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
-                  {filteredOptions().map(option =>
-                    'group' in option && option?.group ? (
-                      <>
-                        <div
-                          className={clsx([
-                            'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                            'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
-                          ])}
-                        >
-                          <div>{option.group}</div>
-                          <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
-                        </div>
-                        {option.options.map(opt => (
-                          <SimpleSelectOption
-                            isMulti={isMulti}
-                            className="dsr-pl-5"
-                            key={opt.value}
-                            value={opt.value}
-                            isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
-                            label={opt.label}
-                            isClearable={!isRequired}
-                            onSelect={onSelect}
-                          />
-                        ))}
-                      </>
-                    ) : 'value' in option ? (
-                      <SimpleSelectOption
-                        isMulti={isMulti}
-                        value={option.value}
-                        key={option.value}
-                        isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-                        isClearable={!isRequired}
-                        label={option.label}
-                        onSelect={onSelect}
-                      />
-                    ) : null,
-                  )}
-                  {filteredOptions().length === 0 && (
-                    <div className="dsr-px-3 dsr-py-2 dsr-text-center">
-                      No options found.
-                    </div>
-                  )}
-                </div>
-              </div>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        </div>
-      </DropdownMenu.Root>
+          </DropdownMenu.Content>
+        </DropdownMenu.Portal>
+      </div>
+    </DropdownMenu.Root>
   );
 };
 

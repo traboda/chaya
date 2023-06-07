@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { Card, SimpleSelect } from '../index';
-import {SimpleSelectProps} from "../components/SimpleSelect";
+import { SimpleSelectProps } from '../components/SimpleSelect';
 
 const meta: Meta = {
   title: 'User Inputs/Simple Select',
@@ -45,7 +45,7 @@ const options = [
   { label: 'Mining', value: 'mn' },
   { label: 'Naval Architecture', value: 'na' },
   { label: 'Petroleum', value: 'pe' },
-  { label: 'Plastic', value: 'pl' }
+  { label: 'Plastic', value: 'pl' },
 ];
 
 export const Basic = Template.bind({});
@@ -116,7 +116,7 @@ const VariantsTemplate: Story<SimpleSelectProps<string[]>> = args => {
       <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
         <div className="w-full md:dsr-w-1/2 dsr-p-2">
           <Card title="Comma Variant">
-            <SimpleSelect  {...args} value={value} onChange={setValue} variant="comma" />
+            <SimpleSelect {...args} value={value} onChange={setValue} variant="comma" />
           </Card>
         </div>
         <div className="w-full md:dsr-w-1/2 dsr-p-2">
@@ -139,8 +139,8 @@ Variants.args = {
   isMulti: true,
   isRequired: true,
   value: [
-      options[0].value,
-      options[1].value,
+    options[0].value,
+    options[1].value,
   ],
   options,
 };

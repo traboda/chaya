@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import {Button, Modal, SimpleSelect} from '../index';
-import {ModalProps} from "../components/Modal";
+import { Button, Modal, SimpleSelect } from '../index';
+import { ModalProps } from '../components/Modal';
 
 const meta: Meta = {
   title: 'Overlays/Modal',
@@ -75,16 +75,16 @@ const Template: Story<ModalProps> = args => {
           <p>{lorem}</p>
         </div>
         <SimpleSelect
-            value={subject}
-            name="subject"
-            options={[
-                { value: 'cs', label: 'Computer Science' },
-                { value: 'math', label: 'Mathematics' },
-                { value: 'physics', label: 'Physics' },
-                { value: 'chemistry', label: 'Chemistry' },
-                { value: 'biology', label: 'Biology' },
-            ]}
-            onChange={setSubject}
+          value={subject}
+          name="subject"
+          options={[
+            { value: 'cs', label: 'Computer Science' },
+            { value: 'math', label: 'Mathematics' },
+            { value: 'physics', label: 'Physics' },
+            { value: 'chemistry', label: 'Chemistry' },
+            { value: 'biology', label: 'Biology' },
+          ]}
+          onChange={setSubject}
         />
         <div className="dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-p-4" style={{ bottom: '0dvh' }}>
           <Button className="dsr-w-full">Sticky Button</Button>
