@@ -7,17 +7,27 @@ import { LinkWrapper } from '../utils/misc';
 import Icon, { IconInputType } from './Icon';
 import Dropdown, { AlignOptions, SideOptions } from './Dropdown';
 
-type DropdownMenuProps = {
+export type OptionType = {
+  title: string,
+  iconClassName?: string,
+  icon?: IconInputType,
+  className?: string,
+  onClick?: () => void,
+  link?: string,
+  renderer?: () => React.ReactNode,
+};
+
+export type GroupType = {
+  title?: string,
+  icon?: IconInputType,
+  options: OptionType[],
+};
+
+export type DropdownMenuOptionType = OptionType | GroupType;
+
+export type DropdownMenuProps = {
   children: React.ReactElement
-  items?: {
-    title: string,
-    iconClassName?: string,
-    icon?: IconInputType,
-    className?: string,
-    onClick?: () => void,
-    link?: string,
-    renderer?: () => React.ReactNode,
-  }[],
+  options?: DropdownMenuOptionType[],
   isOpen?: boolean,
   onClose?: () => void,
   id?: string,
@@ -29,7 +39,7 @@ type DropdownMenuProps = {
 };
 
 const DropdownMenu = ({
-  children: buttonRenderer, items = [], isOpen = false, onClose = () => {}, id, className = '',
+  children: buttonRenderer, options, isOpen = false, onClose = () => {}, id, className = '',
   containerClassName, customHeaderRenderer, align = 'center', side = 'bottom',
 } : DropdownMenuProps) => {
   const linkClasses = (className?: string) => clsx([
@@ -37,40 +47,67 @@ const DropdownMenu = ({
     className,
   ]);
 
+  const optionRenderer: (o: OptionType, index: number) => React.ReactNode = (o, index) => {
+    const content = o?.renderer ? o.renderer() : (
+      <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
+        {o.icon && <Icon icon={o.icon} size={16} />}
+        {o?.title}
+      </div>
+    );
+
+    return (
+      <RadixDropdownMenu.Item
+        role="menuitem"
+        key={`dropdown-menu-item-${index}-${o?.title}`}
+        className="dropdown-menu-item hover:dsr-outline-none"
+      >
+        {o?.link ? LinkWrapper(o.link, content, { className: linkClasses(o?.className) }) : (
+          <button className={linkClasses(o?.className)} onClick={o?.onClick}>
+            {content}
+          </button>
+        )}
+      </RadixDropdownMenu.Item>
+    );
+  };
+
+  const groupRenderer: (g: GroupType, index: number) => React.ReactNode = (g, index) => {
+    return (
+      <RadixDropdownMenu.Group
+        key={`dropdown-menu-group-${index}-${g?.title || ''}`}
+        className={clsx([
+          'dsr-pb-1',
+          'dsr-mb-1 dsr-border-b dsr-border-gray-500/70',
+        ])}
+      >
+        {g?.title && (
+          <div className="dsr-opacity-80 dsr-flex dsr-items-center dsr-uppercase dsr-px-1 dsr-text-xs dsr-my-2">
+            {g.icon && <Icon className="dsr-inline-block dsr-mr-1" icon={g.icon} size={12} />}
+            {g?.title}
+          </div>
+        )}
+        {g?.options.map((o, i) => optionRenderer(o, i))}
+      </RadixDropdownMenu.Group>
+    );
+  };
+
   return (
     <Dropdown
       isOpen={isOpen}
       onClose={onClose}
       id={id}
       className={className}
-      containerClassName={clsx([containerClassName, 'dsr-p-1'])}
+      containerClassName={clsx([
+        'dsr-border dsr-rounded-lg dsr-border-gray-500/70 dsr-p-1',
+        containerClassName,
+      ])}
       buttonRenderer={buttonRenderer}
       align={align}
       side={side}
     >
       {customHeaderRenderer?.()}
-      {items.length > 0 && items.map((n, i) => {
-        const content = n?.renderer ? n.renderer() : (
-          <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
-            {n.icon && <Icon icon={n.icon} size={16} />}
-            {n?.title}
-          </div>
-        );
-
-        return (
-          <RadixDropdownMenu.Item
-            role="menuitem"
-            key={i}
-            className="dropdown-menu-item hover:dsr-outline-none"
-          >
-            {n?.link ? LinkWrapper(n.link, content, { className: linkClasses(n?.className) }) : (
-              <button className={linkClasses(n?.className)} onClick={n?.onClick}>
-                {content}
-              </button>
-            )}
-          </RadixDropdownMenu.Item>
-        );
-      })}
+      {(options && options.length > 0) && options.map((o, i) =>
+        'options' in o ? groupRenderer(o, i) : optionRenderer(o, i),
+      )}
     </Dropdown>
   );
 };

@@ -16,6 +16,7 @@ export type ItemListerProperty<Type> = {
   value: (self: Type, index?: number) => ReactNode,
   width?: number,
   link?: (self: Type) => string,
+  onClick?: (self: Type) => void,
   className?: string,
   textAlign?: 'center' | 'left' | 'right',
   fontSize?: string
@@ -101,10 +102,12 @@ const ItemListerItem = <Type extends { id: string }>({
       {properties?.length > 0 && properties.filter(p => !p.isHidden).map((p, index) => {
         const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
         const contentRenderer = isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex);
-        const renderer = link ? (
+        const renderer = link || (p?.onClick && typeof (p?.onClick) === 'function') ? (
           <span className={`group-[${p?.id}-${index}]-row`}>
             {contentRenderer}
-            {link && <span className="dsr-w-[16px] dsr-opacity-0 group-hover:dsr-opacity-100 dsr-inline-block dsr-ml-1"><Icon className="dsr-inline" icon="external-link" size={16} /></span>}
+            <span className="dsr-w-[16px] dsr-opacity-0 group-hover:dsr-opacity-100 dsr-inline-block dsr-ml-1">
+              <Icon className="dsr-inline" icon="external-link" size={16} />
+            </span>
           </span>
         ) : contentRenderer;
         return (
@@ -121,7 +124,8 @@ const ItemListerItem = <Type extends { id: string }>({
               fontSize: p.fontSize,
             }}
             onClick={() => {
-              if (isEnabled) {
+              if (p?.onClick && typeof (p.onClick) === 'function' && item) p.onClick(item);
+              else if (isEnabled) {
                 if (isSelected?.(item?.id ?? '')) deselectItem?.(item?.id ?? '');
                 else if (selectedIDs && selectedIDs?.length > 0) selectItem?.(item?.id ?? '');
               }

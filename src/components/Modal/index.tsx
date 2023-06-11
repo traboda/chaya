@@ -11,6 +11,7 @@ import modalStyles from './modal.module.scss';
 export type ModalProps = {
   isOpen: boolean,
   children: ReactNode,
+  overlayContent?: ReactNode,
   onClose: () => void,
   title?: string,
   description?: string,
@@ -28,7 +29,7 @@ export type ModalProps = {
 };
 
 const Modal = ({
-  isOpen, children, onClose, title, description, containerClassName, overlayClassName = '', contentClassName = '', titleIcon,
+  isOpen, children, onClose, title, description, containerClassName, overlayClassName = '', overlayContent, contentClassName = '', titleIcon,
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 
@@ -52,7 +53,9 @@ const Modal = ({
   return shouldRenderChild ? (
     <Dialog.Root open={isOpen} onOpenChange={() => closable ? onClose() : null} modal>
       <Dialog.Portal>
-        <Dialog.Overlay />
+        <Dialog.Overlay>
+          {overlayContent}
+        </Dialog.Overlay>
         <Dialog.Content
           className={clsx([
             'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex dsr-justify-center',
@@ -65,7 +68,7 @@ const Modal = ({
           <div
             className={clsx([
               'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
-              'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto',
+              'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto dsr-p-2',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
               hideBg ? '' : 'dsr-bg-background',

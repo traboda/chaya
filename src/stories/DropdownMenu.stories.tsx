@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { DropdownMenu } from '../index';
+import { DropdownMenuProps } from '../components/DropdownMenu';
 
 const meta: Meta = {
   title: 'Content Handlers/Dropdown Menu',
@@ -13,7 +14,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => {
+const Template: Story<DropdownMenuProps> = args => {
   return (
     <div className="dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col" style={{ minHeight: '50vh' }}>
       <DropdownMenu {...args}>
@@ -26,8 +27,41 @@ const Template: Story = args => {
 };
 
 export const Default = Template.bind({});
+export const withGroups = Template.bind({});
 
-const FiveCorners: Story = args => {
+withGroups.args = {
+  options: [
+    {
+      options: [
+        {
+          title: 'View',
+          icon: 'external-link',
+          onClick: () => console.log('open viewer'),
+        },
+        {
+          title: 'Edit',
+          onClick: () => console.log('open editor'),
+        },
+      ],
+    },
+    {
+      title: 'Advanced',
+      icon: 'external-link',
+      options: [
+        {
+          title: 'Item 2',
+          onClick: () => console.log('clicked'),
+        },
+      ],
+    },
+    {
+      title: 'Delete',
+      onClick: () => console.log('delete'),
+    },
+  ],
+};
+
+const FiveCorners: Story<DropdownMenuProps> = args => {
   return (
     <div className="relative dsr-flex dsr-pt-10 dsr-items-center dsr-flex-col">
       <div className="dsr-fixed dsr-top-0 dsr-left-0 dsr-m-4">
@@ -72,9 +106,8 @@ const FiveCorners: Story = args => {
 export const DynamicPosition = FiveCorners.bind({});
 
 Default.args = DynamicPosition.args = {
-  showOnHover: false,
   className: '',
-  items: [
+  options: [
     {
       'icon': 'times',
       'title': 'Item 1 with click',
