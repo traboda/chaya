@@ -13,6 +13,7 @@ export type ModalProps = {
   children: ReactNode,
   onClose: () => void,
   title?: string,
+  description?: string,
   hideBg?: boolean,
   overlayClassName?: string,
   containerClassName?: string,
@@ -27,7 +28,7 @@ export type ModalProps = {
 };
 
 const Modal = ({
-  isOpen, children, onClose, title, containerClassName, overlayClassName = '', contentClassName = '', titleIcon,
+  isOpen, children, onClose, title, description, containerClassName, overlayClassName = '', contentClassName = '', titleIcon,
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 
@@ -86,11 +87,16 @@ const Modal = ({
             )}
             {title && (
               <Dialog.Title asChild>
-                <h2 className="dsr-text-2xl dsr-mt-3 dsr-mb-2 dsr-px-4 dsr-font-semibold">
+                <h2 className="dsr-text-2xl dsr-mt-3 dsr-mb-2 dsr-font-semibold">
                   {titleIcon ? <Icon icon={titleIcon} /> : null}
                   {title}
                 </h2>
               </Dialog.Title>
+            )}
+            {description && (
+            <p className="dsr-opacity-80 mb-2">
+              {description}
+            </p>
             )}
             <div
               className={clsx([contentClassName, 'dsr-overflow-auto'])}

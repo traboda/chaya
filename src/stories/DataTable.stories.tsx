@@ -194,12 +194,14 @@ const columns = [
     'label': 'Difficulty',
     width: 150,
     'value': (i) => i?.difficultyLevel?.label,
+    textAlign: 'right',
     'allowSort': true,
   },
   {
     'id': 'points',
     'label': 'Points',
     'value': (i) => `${i?.points ? i.points : i?.challenge?.points}`,
+    textAlign: 'right',
     'allowSort': true,
   },
   {

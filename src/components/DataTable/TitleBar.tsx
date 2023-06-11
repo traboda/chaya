@@ -81,8 +81,13 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             }}
           >
             {p?.allowSort ? (
-              <div className={clsx(['dsr-flex dsr-items-center dsr-gap-1', p?.labelClassName])}>
-                <div className="dsr-px-2 dsr-m-auto dsr-font-semibold">
+              <div
+                className={clsx(['dsr-flex dsr-items-center dsr-w-full dsr-gap-1', p?.labelClassName])}
+              >
+                <div
+                  className="dsr-px-2 dsr-m-auto dsr-font-semibold dsr-w-full"
+                  style={{ textAlign: p.textAlign ?? 'left' }}
+                >
                   {p.label}
                 </div>
                 <div className="dsr-w-[30px] dsr-opacity-75 dsr-text-[90%] dsr-w-[14px]">
@@ -97,9 +102,10 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             ) : (
               <div
                 className={clsx([
-                  'dsr-flex dsr-font-semibold dsr-items-center dsr-px-3 dsr-m-auto',
+                  'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
                   p?.labelClassName,
                 ])}
+                style={{ textAlign: p.textAlign }}
               >
                 {p.label}
               </div>

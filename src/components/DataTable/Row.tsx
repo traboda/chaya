@@ -98,14 +98,15 @@ const ItemListerItem = <Type extends { id: string }>({
             )}
         </td>
       )}
-      {properties?.length > 0 && properties.filter(p => !p.isHidden).map(p => {
+      {properties?.length > 0 && properties.filter(p => !p.isHidden).map((p, index) => {
         const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
-        const renderer = (
-          <span className="dsr-flex dsr-items-center dsr-gap-1">
-            {isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex)}
-            {link && <span className="dsr-w-[16px]"><Icon icon="external-link" size={16} /></span>}
+        const contentRenderer = isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex);
+        const renderer = link ? (
+          <span className={`group-[${p?.id}-${index}]-row`}>
+            {contentRenderer}
+            {link && <span className="dsr-w-[16px] dsr-opacity-0 group-hover:dsr-opacity-100 dsr-inline-block dsr-ml-1"><Icon className="dsr-inline" icon="external-link" size={16} /></span>}
           </span>
-        );
+        ) : contentRenderer;
         return (
           <td
             key={link ? null : p.id}
@@ -116,7 +117,7 @@ const ItemListerItem = <Type extends { id: string }>({
               p?.className,
             ])}
             style={{
-              textAlign: p.textAlign,
+              textAlign: p.textAlign ?? 'left',
               fontSize: p.fontSize,
             }}
             onClick={() => {
