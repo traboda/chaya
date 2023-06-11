@@ -55,7 +55,7 @@ const DataTable = <Type extends { id: string }>({
   variant = 'default', totalCount = 1,
 }: DataTableProps<Type>) => {
 
-  const titleBarRef = useRef(null);
+  const titleBarRef = useRef<HTMLTableSectionElement>(null);
   const titleTopRef = useRef<HTMLDivElement>(null);
   const scrollElement = useRef<HTMLDivElement>(null);
   const lastScrollTop = useRef(0);
@@ -81,7 +81,6 @@ const DataTable = <Type extends { id: string }>({
       setTitleTopHeight(titleTopRef.current.clientHeight);
       resizeObs.observe(titleTopRef.current);
     }
-
     return () => {
       if (scrollElement.current) scrollElement.current.removeEventListener('scroll', handleScroll);
       if (titleTopRef.current && titleBarRef.current) resizeObs.unobserve(titleBarRef.current);

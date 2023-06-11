@@ -85,12 +85,12 @@ const Modal = ({
             </div>
             )}
             {title && (
-            <h2 className="dsr-text-2xl dsr-pt-4 dsr-pb-2 dsr-px-4 dsr-font-semibold">
-              {titleIcon ? <Icon icon={titleIcon} /> : null}
               <Dialog.Title asChild>
-                {title}
+                <h2 className="dsr-text-2xl dsr-mt-3 dsr-mb-2 dsr-px-4 dsr-font-semibold">
+                  {titleIcon ? <Icon icon={titleIcon} /> : null}
+                  {title}
+                </h2>
               </Dialog.Title>
-            </h2>
             )}
             <div
               className={clsx([contentClassName, 'dsr-overflow-auto'])}
@@ -104,13 +104,13 @@ const Modal = ({
                 {primaryButton && <Button {...primaryButton} />}
               </div>
             ) : primaryButton && (
-            <Button
-              variant="solid"
-              color="primary"
-              size="lg"
-              className={clsx(['dsr-w-full dsr-mt-2', primaryButton?.className])}
-              {...primaryButton}
-            />
+              <Button
+                variant="solid"
+                color="primary"
+                size="lg"
+                className={clsx(['dsr-w-full dsr-mt-2', primaryButton?.className])}
+                {...primaryButton}
+              />
             )}
           </div>
         </Dialog.Content>

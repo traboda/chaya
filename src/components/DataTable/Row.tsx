@@ -47,7 +47,7 @@ const ItemListerItem = <Type extends { id: string }>({
 }: ItemListerItemProps<Type>) => {
 
   const { isDarkTheme } = useContext(DSRContext);
-  const { isEnabled, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
+  const { isEnabled, selectedIDs, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
     'dsr-h-full dsr-text-color',
@@ -122,7 +122,7 @@ const ItemListerItem = <Type extends { id: string }>({
             onClick={() => {
               if (isEnabled) {
                 if (isSelected?.(item?.id ?? '')) deselectItem?.(item?.id ?? '');
-                else selectItem?.(item?.id ?? '');
+                else if (selectedIDs && selectedIDs?.length > 0) selectItem?.(item?.id ?? '');
               }
             }}
           >
