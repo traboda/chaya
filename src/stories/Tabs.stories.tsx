@@ -22,10 +22,12 @@ const items = [
   {
     label: 'Item 1',
     renderer: 'tab 1',
+    count: 3,
   },
   {
     label: 'Item 2',
     renderer: 'tab 2',
+    count: 5,
   },
   {
     label: 'Item 3',

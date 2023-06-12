@@ -69,10 +69,12 @@ const Modal = ({
             className={clsx([
               'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
               'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto dsr-p-2',
+              'dsr-border dsr-border-gray-500/70',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
               hideBg ? '' : 'dsr-bg-background',
             ])}
+            style={{ maxWidth }}
             onClick={e => e.stopPropagation()}
           >
             {closable && (
@@ -90,7 +92,7 @@ const Modal = ({
             )}
             {title && (
               <Dialog.Title asChild>
-                <h2 className="dsr-text-2xl dsr-mt-3 dsr-mb-2 dsr-font-semibold">
+                <h2 className="dsr-text-2xl dsr-mb-2 dsr-font-semibold">
                   {titleIcon ? <Icon icon={titleIcon} /> : null}
                   {title}
                 </h2>

@@ -25,7 +25,8 @@ const Card = ({
     <div
       id={id}
       className={clsx([
-        'card dsr-p-4 dsr-rounded-lg dsr-h-full dsr-border dsr-border-transparent',
+        'card dsr-p-3 dsr-rounded-lg dsr-h-full',
+        'dsr-border dsr-border-gray-500/70',
         variant === 'outline' ? 'dsr-border-gray-500/70' : '',
         variant === 'shaded' && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
         className,

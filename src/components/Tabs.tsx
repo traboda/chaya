@@ -260,7 +260,9 @@ const Tabs = ({
       className="dsr-mb-3 dsr-border-4 dsr-font-semibold dsr-rounded-lg"
       value={currentTab as string}
       name="tab"
-      options={tabItems.filter((t) => !t.isHidden).map((t) => ({ value: t.key, label: t.label as string }))}
+      options={tabItems.filter((t) => !t.isHidden).map((t) => ({
+        value: t.key, label: `${t.label} ${t.count ? `(${t.count})` : ''}` as string,
+      }))}
       onChange={(key) => {
         const tab = tabItems.find((t) => t.key === key);
         if (tab?.onClick && typeof tab.onClick === 'function') tab.onClick();

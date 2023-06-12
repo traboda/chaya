@@ -67,13 +67,7 @@ const Template: Story<ModalProps> = args => {
       <button onClick={() => setIsOpen(true)}>
         open
       </button>
-      {Array(8).fill(lorem).map(l => <p>{l}</p>)}
       <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="dsr-max-h-[50dvh] dsr-overflow-auto">
-          <p>{lorem}</p>
-          <p>{lorem}</p>
-          <p>{lorem}</p>
-        </div>
         <SimpleSelect
           value={subject}
           name="subject"
@@ -86,6 +80,7 @@ const Template: Story<ModalProps> = args => {
           ]}
           onChange={setSubject}
         />
+        {Array(8).fill(lorem).map(l => <p>{l}</p>)}
         <div className="dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-p-4" style={{ bottom: '0dvh' }}>
           <Button className="dsr-w-full">Sticky Button</Button>
         </div>
@@ -99,8 +94,10 @@ export const Default = Template.bind({});
 Default.args = {
   isOpen: true,
   onClose: () => {},
-  title: 'Some Notice',
-  contentClassName: 'dsr-p-4',
+  title: 'Playback Settings',
+  description: 'Get queue and radio updates based on your listening behaviour. You can change this at any time in your settings.',
+  contentClassName: 'dsr-p-1',
+  maxHeight: 500,
 };
  
 

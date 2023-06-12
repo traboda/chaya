@@ -320,7 +320,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
                           label={opt.label}
                           isClearable={!isRequired}
-                          onSelect={onSelect}
+                          onSelect={(value) => {
+                            onSelect(value);
+                            if (!isMulti)
+                              setIsDropdownActive(false);
+                          }}
                         />
                       ))}
                     </>
@@ -332,7 +336,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                       isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
                       isClearable={!isRequired}
                       label={option.label}
-                      onSelect={onSelect}
+                      onSelect={(value) => {
+                        onSelect(value);
+                        if (!isMulti)
+                          setIsDropdownActive(false);
+                      }}
                     />
                   ) : null,
                 )}
