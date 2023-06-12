@@ -27,6 +27,7 @@ const ProgressBar = ({ value, striped = false, size = 'md', className = '', id, 
       id={id}
       className={clsx([
         'progress-bar dsr-w-full dsr-rounded-lg dsr-bg-gray-500/20',
+        'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         className,
       ])}
       style={{ height: height ? height : sizes[size] }}

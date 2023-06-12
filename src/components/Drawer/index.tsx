@@ -86,6 +86,7 @@ const Drawer = ({
           <div
             className={clsx([
               'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
+              'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
               getPositionAlignmentChild,
               getPositionAnimation,
               className,

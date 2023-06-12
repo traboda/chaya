@@ -5,7 +5,6 @@ import { ChayaColorType } from '../hooks/useColors';
 
 import Modal from './Modal';
 import Button from './Button';
-import Card from './Card';
 import TextInput from './TextInput';
 
 type ConfirmationDialog = {
@@ -53,53 +52,55 @@ const ConfirmationDialog = ({
   useEffect(() => setPassword(''), [isOpen]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onCancel}>
-      <Card className={clsx('confirmation-dialog', className)}>
-        <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
-        <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
-          {labels?.description}
-        </p>
-        <form className="dsr-pt-2" onSubmit={confirmAction}>
-          {requireConfirmationText && (
-            <TextInput
-              className="dsr-mb-3"
-              label={`Enter "${labels?.confirmationText}" to confirm`}
-              name="confirmationText"
-              value={confirmText}
-              onChange={setConfirmText}
-              isRequired
-            />
-          )}
-          {requirePassword && (
-            <TextInput
-              className="dsr-mb-3"
-              label="Enter Your Password"
-              name="password"
-              type="password"
-              value={password}
-              onChange={setPassword}
-              isRequired
-            />
-          )}
-          <div className="dsr-flex dsr-justify-end">
-            <Button
-              color="shade"
-              onClick={onCancel}
-              type="button"
-              className="dsr-mr-2"
-            >
-              {labels?.cancel}
-            </Button>
-            <Button
-              type="submit"
-              color={color}
-              isDisabled={(requireConfirmationText && confirmText !== labels.confirmationText) || (requirePassword && password?.length === 0)}
-            >
-              {labels?.confirm}
-            </Button>
-          </div>
-        </form>
-      </Card>
+    <Modal
+      isOpen={isOpen}
+      onClose={onCancel}
+      contentClassName={clsx('confirmation-dialog', className)}
+    >
+      <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
+      <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
+        {labels?.description}
+      </p>
+      <form className="dsr-pt-2" onSubmit={confirmAction}>
+        {requireConfirmationText && (
+        <TextInput
+          className="dsr-mb-3"
+          label={`Enter "${labels?.confirmationText}" to confirm`}
+          name="confirmationText"
+          value={confirmText}
+          onChange={setConfirmText}
+          isRequired
+        />
+        )}
+        {requirePassword && (
+        <TextInput
+          className="dsr-mb-3"
+          label="Enter Your Password"
+          name="password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+          isRequired
+        />
+        )}
+        <div className="dsr-flex dsr-justify-end">
+          <Button
+            color="shade"
+            onClick={onCancel}
+            type="button"
+            className="dsr-mr-2"
+          >
+            {labels?.cancel}
+          </Button>
+          <Button
+            type="submit"
+            color={color}
+            isDisabled={(requireConfirmationText && confirmText !== labels.confirmationText) || (requirePassword && password?.length === 0)}
+          >
+            {labels?.confirm}
+          </Button>
+        </div>
+      </form>
     </Modal>
   );
 };

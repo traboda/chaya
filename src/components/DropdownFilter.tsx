@@ -131,7 +131,7 @@ const DropdownFilter = ({
     <Dropdown
       align="end"
       containerClassName={clsx([
-        'dsr-z-[100] dsr-border dsr-rounded-lg dsr-border-gray-500/70',
+        'dsr-z-[100] dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         dropdownContainerClassName,
       ])}
       buttonRenderer={(

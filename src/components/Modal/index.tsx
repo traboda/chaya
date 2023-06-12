@@ -69,7 +69,7 @@ const Modal = ({
             className={clsx([
               'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
               'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto dsr-p-2',
-              'dsr-border dsr-border-gray-500/70',
+              'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
               hideBg ? '' : 'dsr-bg-background',

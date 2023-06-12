@@ -50,7 +50,7 @@ const Avatar = ({ alt, src, size = undefined, id, className = '', title }: Avata
 
   return !(src?.length) || show ? renderPlaceholder() : (
     <img
-      className={clsx('avatar dsr-rounded-lg', className)}
+      className={clsx('avatar dsr-rounded-lg dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10', className)}
       height={size}
       width={size}
       title={title}
