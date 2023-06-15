@@ -49,7 +49,7 @@ const Badge = ({
     sizeDefinitions[size],
     'badge dsr-inline-flex dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
     'dsr-transition dsr-items-center dsr-justify-center',
-    circular ? 'dsr-rounded-full' : 'dsr-rounded',
+     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
 
   const computedStyle = {

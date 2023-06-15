@@ -31,7 +31,7 @@ export type SimpleSelectProps<Type> = {
   name: string,
   id?: string,
   className?: string,
-  options: SimpleSelectOptionType[],
+  options?: SimpleSelectOptionType[],
   onChange?: (v: Type) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
@@ -43,7 +43,8 @@ export type SimpleSelectProps<Type> = {
   onFetch?: (keyword: string) => Promise<SimpleSelectOptionType[]> | undefined,
   labels?: {
     label?: string,
-    placeholder?: string
+    placeholder?: string,
+    noOptionsFound?: string,
   },
   side?: 'left' | 'right' | 'top' | 'bottom',
 };
@@ -51,12 +52,13 @@ export type SimpleSelectProps<Type> = {
 const defaultLabels = {
   label: null,
   placeholder: 'Select an option',
+  noOptionsFound: 'No options found',
 };
 
 const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false, side,
   id, className = '', labels: propLabels, hideArrow = false, variant = 'comma',
-  isRequired = false, isDisabled = false, name, options, dropdownClassName = '',
+  isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '',
   isAsync = false, onFetch = () => new Promise(resolve => resolve([])),
 }: SimpleSelectProps<Type>) => {
 
@@ -68,27 +70,33 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const selectRef = useRef<HTMLDivElement>(null);
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const [isFetching, setIsFetching] = useState(false);
+  const [options, setOptions] = useState<SimpleSelectOptionType[]>(_options);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
-  const [selectBounding, setSelectBounding] = useState({ left: 0, bottom: 0, width: 0 });
   const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     if (isDropdownActive) {
-      if (selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
       if (searchBoxRef.current) searchBoxRef.current.focus();
+      setSearchKeyword('');
     }
-    if (isDropdownActive) setSearchKeyword('');
   }, [isDropdownActive]);
 
   useEffect(() => {
-    if (isAsync) {
-      const fetch = onFetch(searchKeyword);
-      if (fetch) {
-        setIsFetching(true);
-        fetch.then(() => setIsFetching(false));
-      }
-    }
+    if (isAsync)
+      onFetch(searchKeyword)?.then((options) => {
+        setOptions(options);
+        setIsFetching(false);
+      });
   }, [searchKeyword]);
+
+  const previousOptions = useRef<SimpleSelectOptionType[]>(_options);
+  useEffect(() => {
+      if (isAsync) return;
+      if (previousOptions.current !== _options) {
+          setOptions(_options);
+          previousOptions.current = _options;
+      }
+  }, [_options]);
 
   const onSelect = (option: SimpleSelectValue) => {
     if (isMulti && Array.isArray(value)) onChange(value.includes(option) ? value.filter(v => v !== option) as Type : [...value, option] as Type);
@@ -112,36 +120,21 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   const filteredOptions = () => {
     const matchesLabel = (label: string | number) => label.toString().toLowerCase().includes(searchKeyword.toLowerCase());
-    return isAsync ? options : options
+    return options
       .map(option => 'group' in option ? { ...option, options: option.options.filter(o => matchesLabel(o.label)) } : option)
       .filter(option => 'group' in option ? option.options.length : matchesLabel(option.label));
   };
 
   useEffect(() => {
     if (isMulti && !Array.isArray(value)) throw new Error('SimpleSelect: value must be an array when isMulti is true');
-
-    const updateBounding = () => {
-      if (selectRef.current) setSelectBounding(selectRef.current.getBoundingClientRect());
-    };
     
     const onClick = (event: MouseEvent) => {
       if (!containerRef.current || containerRef.current.contains(event.target as Node)) return;
       setIsDropdownActive(false);
     };
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries)
-        if (entry.contentBoxSize) updateBounding();
-    });
-
-    if (selectRef.current) resizeObserver.observe(selectRef.current);
-
-    document.addEventListener('scroll', updateBounding, false);
     document.addEventListener('click', onClick);
     return () => {
-      document.removeEventListener('scroll', updateBounding, false);
       document.removeEventListener('click', onClick);
-      if (selectRef.current) resizeObserver.unobserve(selectRef.current);
     };
   }, []);
 
@@ -157,6 +150,27 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     if (isMulti && Array.isArray(value) && value.length === totalCount) onChange([] as unknown as Type);
     else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type);
   };
+
+  const renderDropdownOption = (option: SimpleSelectOptionType, className?: string) => 'value' in option ? (
+      <SimpleSelectOption
+          isMulti={isMulti}
+          className={className}
+          value={option.value}
+          key={option.value}
+          isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+          label={option.label}
+          isClearable={!isRequired}
+          onSelect={(value) => {
+            onSelect(value);
+            if (!isMulti)
+              setIsDropdownActive(false);
+            else {
+              setSearchKeyword('');
+              searchBoxRef?.current?.focus();
+            }
+          }}
+      />
+  ) : null;
 
   return (
     <DropdownMenu.Root
@@ -250,7 +264,6 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 </button>
                 )}
               </div>
-
               {postfixRenderer && (
               <div
                 className={clsx([
@@ -299,55 +312,27 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 )}
               </div>
               <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
-                {filteredOptions().map(option =>
-                  'group' in option && option?.group ? (
-                    <>
-                      <div
-                        className={clsx([
-                          'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                          'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
-                        ])}
-                      >
-                        <div>{option.group}</div>
-                        <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
-                      </div>
-                      {option.options.map(opt => (
-                        <SimpleSelectOption
-                          isMulti={isMulti}
-                          className="dsr-pl-5"
-                          key={opt.value}
-                          value={opt.value}
-                          isSelected={isMulti && Array.isArray(value) ? value.includes(opt.value) : value === opt.value}
-                          label={opt.label}
-                          isClearable={!isRequired}
-                          onSelect={(value) => {
-                            onSelect(value);
-                            if (!isMulti)
-                              setIsDropdownActive(false);
-                          }}
-                        />
-                      ))}
-                    </>
-                  ) : 'value' in option ? (
-                    <SimpleSelectOption
-                      isMulti={isMulti}
-                      value={option.value}
-                      key={option.value}
-                      isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-                      isClearable={!isRequired}
-                      label={option.label}
-                      onSelect={(value) => {
-                        onSelect(value);
-                        if (!isMulti)
-                          setIsDropdownActive(false);
-                      }}
-                    />
-                  ) : null,
-                )}
-                {filteredOptions().length === 0 && (
-                <div className="dsr-px-3 dsr-py-2 dsr-text-center">
-                  No options found.
-                </div>
+                {filteredOptions().length > 0 ? (
+                    filteredOptions().map(option =>
+                        'group' in option && option?.group ? (
+                            <React.Fragment>
+                              <div
+                                  className={clsx([
+                                    'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                                    'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
+                                  ])}
+                              >
+                                <div>{option.group}</div>
+                                <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
+                              </div>
+                              {option.options.map(opt => renderDropdownOption(opt, "dsr-pl-5"))}
+                            </React.Fragment>
+                        ) : renderDropdownOption(option),
+                    )
+                ) : (
+                  <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                    {labels?.noOptionsFound}
+                  </div>
                 )}
               </div>
             </div>

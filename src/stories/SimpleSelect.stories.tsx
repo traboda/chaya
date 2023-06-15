@@ -44,7 +44,7 @@ const options = [
   { label: 'Textile', value: 'te' },
   { label: 'Mining', value: 'mn' },
   { label: 'Naval Architecture', value: 'na' },
-  { label: 'Petroleum', value: 'pe' },
+  { label: 'Petroleum', value: 'petro' },
   { label: 'Plastic', value: 'pl' },
 ];
 
@@ -62,8 +62,30 @@ Basic.args = {
   options,
 };
 
+export const withAsync: Story<SimpleSelectProps<string>> = Template.bind({});
 
-export const withMultiSelect: Story<SimpleSelectProps<string[]>> = Template;
+let asyncValue;
+
+withAsync.args = {
+    labels: {
+        label: 'Pokemon',
+        placeholder: 'Select a pokemon',
+        noOptionsFound: 'No pokemon found',
+    },
+    isAsync: true,
+    isRequired: true,
+    value: asyncValue, onChange: (v: any) => asyncValue = v,
+    onFetch: async (query: string) => {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100&offset=0`);
+        const data = await response.json();
+        return data.results.filter((pokemon: any) => pokemon.name.includes(query)).map((pokemon: any) => ({
+            label: pokemon.name,
+            value: pokemon.name,
+        }));
+    }
+}
+
+export const withMultiSelect: Story<SimpleSelectProps<string[]>> = Template.bind({});
 
 withMultiSelect.args = {
   labels: {
@@ -76,7 +98,7 @@ withMultiSelect.args = {
   options,
 };
 
-export const withGroups: Story<SimpleSelectProps<string>> = Template;
+export const withGroups: Story<SimpleSelectProps<string>> = Template.bind({});
 
 let country;
 

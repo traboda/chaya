@@ -7,7 +7,7 @@ import Icon from './Icon';
 export type LabelProps = {
   children: ReactNode,
   isRequired?: boolean,
-  htmlFor: string,
+  htmlFor?: string,
   id?: string,
   sidebar?: ReactNode,
   tooltip?: string,
@@ -33,7 +33,6 @@ const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className 
           </ToolTip>
         )}
       </span>
-
       <span className="dsr-ml-auto">{sidebar}</span>
     </label>
   );

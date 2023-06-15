@@ -1,7 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
-
-import DSRContext from '../contexts/DSRContext';
 
 import Button, { ButtonProps } from './Button';
 import Icon, { IconInputType } from './Icon';
@@ -9,7 +7,7 @@ import Icon, { IconInputType } from './Icon';
 
 type Alert = {
   type?: 'success' | 'info' | 'warning' | 'danger' | 'default';
-  variant?: 'filled' | 'outline';
+  variant?: 'solid' | 'outline';
   id?: string,
   className?: string,
   title?: string
@@ -21,70 +19,52 @@ type Alert = {
   titleIcon?: IconInputType,
 };
 
-const getBgByType = (type: string, isDarkTheme?: boolean) => {
-  if (isDarkTheme) {
-    switch (type) {
-      case 'success': return '#025f2b';
-      case 'info': return '#024c6a';
-      case 'warning': return '#907400';
-      case 'danger': return '#7b0707';
-      default: return '#333';
-    }
-  } else {
-    switch (type) {
-      case 'success': return '#dff0d8';
-      case 'info': return '#d9edf7';
-      case 'warning': return '#fcf8e3';
-      case 'danger': return '#fddede';
-      default: return '#eee';
-    }
+const getBackgroundClassByType = (type: string) => {
+  switch (type) {
+    case 'success': return 'dark:dsr-bg-green-900 dsr-bg-green-100';
+    case 'info': return 'dark:dsr-bg-blue-900 dsr-bg-blue-100';
+    case 'warning': return 'dark:dsr-bg-yellow-900 dsr-bg-yellow-100';
+    case 'danger': return 'dark:dsr-bg-red-900 dsr-bg-red-100';
+    default: return 'dark:dsr-bg-gray-900 dsr-bg-gray-50';
   }
-};
+}
 
-const getColorByType = (type: string, isDarkTheme?: boolean) => {
-  if (isDarkTheme) {
+const getColorClassByType = (type: string) => {
     switch (type) {
-      case 'success': return '#B5FFD9';
-      case 'info': return '#90E0EF';
-      case 'warning': return '#ffeedb';
-      case 'danger': return '#fac8df';
-      default: return '#FFF';
+      case 'success': return 'dark:dsr-text-green-300 dsr-text-green-600';
+      case 'info': return 'dark:dsr-text-blue-300 dsr-text-blue-600';
+      case 'warning': return 'dark:dsr-text-yellow-300 dsr-text-yellow-600';
+      case 'danger': return 'dark:dsr-text-red-300 dsr-text-red-600';
+      default: return 'dark:dsr-text-gray-300 dsr-text-gray-600';
     }
-  } else {
-    switch (type) {
-      case 'success': return '#3c763d';
-      case 'info': return '#31708f';
-      case 'warning': return '#8a6d3b';
-      case 'danger': return '#c20101';
-      default: return '#111';
-    }
+}
+
+const getBorderClassByType = (type: string) => {
+  switch (type) {
+    case 'success': return 'dark:dsr-border-green-600 dsr-border-green-600';
+    case 'info': return 'dark:dsr-border-blue-500 dsr-border-blue-500';
+    case 'warning': return 'dark:dsr-border-yellow-500 dsr-border-yellow-600';
+    case 'danger': return 'dark:dsr-border-red-500 dsr-border-red-500';
+    default: return 'dark:dsr-border-gray-500 dsr-border-gray-500';
   }
 };
 
 const Alert = ({
-  type = 'default', variant = 'filled', id, className = '', title, description, allowDismissal = false,
+  type = 'default', variant = 'solid', id, className = '', title, description, allowDismissal = false,
   onDismiss = () => {}, primaryButton, secondaryButton, titleIcon,
 }: Alert) => {
   const [hide, setHide] = useState(false);
-  const { isDarkTheme } = useContext(DSRContext);
   const computedClassName = clsx([
     description ? 'dsr-py-4' : 'dsr-py-3',
-    'alert dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2 ',
+    'alert dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2',
+    'dsr-border', getBorderClassByType(type), getColorClassByType(type),
+    variant === 'solid' && getBackgroundClassByType(type),
+    variant === 'outline' ? 'dark:dsr-border-opacity-80 dsr-border-opacity-60' : 'dark:dsr-border-opacity-70 dsr-border-opacity-20',
     className,
   ]);
 
   return !hide ? (
-    <div
-      id={id}
-      className={computedClassName}
-      style={{
-        color: getColorByType(type, isDarkTheme),
-        borderColor: variant === 'outline' ? getColorByType(type, isDarkTheme) : undefined,
-        borderStyle: variant === 'outline' ? 'solid' : undefined,
-        borderWidth: variant === 'outline' ? '1px' : undefined,
-        backgroundColor: variant === 'filled' ? getBgByType(type, isDarkTheme) : undefined,
-      }}
-    >
+    <div id={id} className={computedClassName}>
       {allowDismissal && (
       <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
         <button
