@@ -4,42 +4,44 @@ import clsx from 'clsx';
 import Checkbox, { CheckboxColor, CheckboxSize } from './Checkbox';
 import Label from './Label';
 
-type CheckboxGroupType = {
-  value: string[],
+export type CheckboxGroupType<Type> = {
+  value: Type[],
   options: {
-    value: string,
+    value: Type,
     label: string
   }[],
-  onChange?: (values: string[]) => void,
+  onChange?: (values: Type[]) => void,
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
+  id?: string,
   alignment?: 'horizontal' | 'vertical',
   isRequired?: boolean,
   label?: string,
   optionClassName?: string
 };
 
-const CheckboxGroup = ({
+const CheckboxGroup = <Type extends string | number>({
   value, options, onChange = () => {}, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
-  isRequired = false, label, optionClassName,
-}: CheckboxGroupType) => (
-  <div>
+  isRequired = false, label, optionClassName, id,
+}: CheckboxGroupType<Type>) => (
+  <React.Fragment>
     {label && (
     <Label
-      htmlFor=""
+      htmlFor={id}
       className={isDisabled ? 'dsr-opacity-70' : ''}
       children={label}
       isRequired={isRequired}
     />
     )}
     <div
+      id={id}
       className={clsx([
         'checkbox-group dsr-flex',
         alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-flex-wrap dsr-gap-4',
       ])}
     >
-      {options.map((option, index) => (
+      {options?.length > 0 && options.map((option, index) => (
         <Checkbox
           className={optionClassName}
           key={index}
@@ -57,8 +59,7 @@ const CheckboxGroup = ({
         />
       ))}
     </div>
-  </div>
-);
-
+  </React.Fragment>
+  );
 
 export default CheckboxGroup;

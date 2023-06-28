@@ -19,36 +19,46 @@ export type BreadcrumbPropType = {
   itemClassName?: string
 };
 
-export const BreadcrumbItem = ({ item, className } : {
-  item: BreadcrumbItemProps,
-  className: string
-}) => (
-  <li className={clsx('breadcrumb-item dsr-flex dsr-items-center dsr-gap-2 dsr-text-color hover:dsr-text-primary', className)}>
-    <span>
-      {LinkWrapper(item?.link || '#', item?.title, { label: item?.label })}
-    </span>
-    <span className="dsr-text-color hover:dsr-text-primary">/</span>
-  </li>
-);
+const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPropType) => {
 
-const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPropType) => (
-  <ul className={clsx(['breadcrumb dsr-text-lg dsr-flex dsr-gap-2 dsr-items-center dsr-opacity-75', className])}>
-    <BreadcrumbItem
-      item={{
+    const computedItemClassName = clsx([
+        'breadcrumb-item dsr-flex dsr-items-center dsr-gap-1 dsr-text-color',
+        itemClassName
+    ]);
+
+    const homePathItem = {
         title: <Icon icon="home" size={18} />,
         link: '/',
         label: 'Go to home page',
-      }}
-      className={itemClassName}
-    />
-    {items.length > 0 && items.map((item) => (
-      <BreadcrumbItem
-        key={nanoid()}
-        item={item}
-        className={itemClassName}
-      />
-    ))}
-  </ul>
-);
+    };
+
+    const withHomeLink = items?.length > 0 ? [homePathItem, ...items] : [homePathItem]
+
+    return (
+        <ul
+            className={clsx([
+                'breadcrumb dsr-text-lg dsr-flex dsr-gap-2 dsr-items-center dsr-opacity-75',
+                className
+            ])}
+        >
+            {withHomeLink.length > 0 && withHomeLink.map((item) => (
+                <li
+                    key={nanoid()}
+                    className={computedItemClassName}
+                >
+                     <span
+                         className={clsx([
+                             'dsr-rounded hover:dsr-bg-gray-500/40 dsr-px-2 focus:dsr-bg-gray-500/50',
+                             'focus:dsr-outline-none dsr-transition dsr-text-color'
+                         ])}
+                     >
+                      {LinkWrapper(item?.link || '#', item?.title, { label: item?.label })}
+                    </span>
+                    <span className="dsr-text-color hover:dsr-text-primary">/</span>
+                </li>
+            ))}
+        </ul>
+    );
+}
 
 export default Breadcrumb;

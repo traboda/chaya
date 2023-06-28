@@ -43,7 +43,8 @@ const DropdownMenu = ({
   containerClassName, customHeaderRenderer, align = 'center', side = 'bottom',
 } : DropdownMenuProps) => {
   const linkClasses = (className?: string) => clsx([
-    'dsr-flex dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-transition dsr-px-2.5 dsr-py-1.5 dsr-w-full dsr-text-left',
+    'dsr-flex dsr-rounded-lg dsr-transition dsr-px-2.5 dsr-py-1.5 dsr-w-full dsr-text-left',
+    'hover:dsr-bg-gray-400/20 focus:dsr-bg-gray-400/20 focus:dsr-outline-none',
     className,
   ]);
 
@@ -57,11 +58,15 @@ const DropdownMenu = ({
 
     return (
       <RadixDropdownMenu.Item
+        asChild
         role="menuitem"
         key={`dropdown-menu-item-${index}-${o?.title}`}
-        className="dropdown-menu-item hover:dsr-outline-none"
+        className="dropdown-menu-item dsr-my-1"
       >
-        {o?.link ? LinkWrapper(o.link, content, { className: linkClasses(o?.className) }) : (
+        {o?.link ?
+            <div className={linkClasses(o?.className)}>
+              {LinkWrapper(o.link, content)}
+            </div> : (
           <button className={linkClasses(o?.className)} onClick={o?.onClick}>
             {content}
           </button>

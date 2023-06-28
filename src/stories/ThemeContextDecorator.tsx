@@ -15,7 +15,7 @@ const defaultTheme = {
   secondary: '#77019e',
   secondaryTextColor: '#fff',
   color: '#333',
-  background: '#eee',
+  background: '#FAFAFA',
 };
 
 const darkTheme = {
@@ -24,7 +24,7 @@ const darkTheme = {
   secondary: '#b64fd7',
   secondaryTextColor: '#fff',
   color: '#FFF',
-  background: '#222',
+  background: '#111',
 };
 
 const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
@@ -33,7 +33,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
   return (
     <div
       key={nanoid()}
-      className="dsr-p-4 dsr-rounded-lg"
+      className="dsr-p-4"
       style={{ background: theme.background, color: theme.color }}
     >
       <DSRContextProvider

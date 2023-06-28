@@ -60,6 +60,7 @@ const Button = ({
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
     'focus-visible:dsr-outline dsr-outline-2 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
+    'focus:dsr-ring-2 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
     (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,

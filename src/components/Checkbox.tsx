@@ -4,15 +4,15 @@ import clsx from 'clsx';
 export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-export type CheckboxButtonProps = {
-  value: string,
+export type CheckboxButtonProps<Type> = {
   label: string,
+  value: Type,
+  isChecked?: boolean,
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void,
   onClick?: (event: MouseEvent<HTMLLabelElement>) => void,
   color?: CheckboxColor,
   size?: CheckboxSize,
   isDisabled?: boolean,
-  isChecked?: boolean,
   spacing?: string,
   className?: string,
   isHalf?: boolean
@@ -35,10 +35,10 @@ export const colors = {
   'default': 'dsr-bg-gray-500/70',
 };
 
-const Checkbox = ({
+const Checkbox = <Type extends string | number>({
   value, label, onChange = () => {}, isChecked = false, color = 'primary', size = 'md', isDisabled = false,
   className, onClick = () => {}, isHalf = false,
-}: CheckboxButtonProps) => {
+}: CheckboxButtonProps<Type>) => {
   return (
     <label
       onClick={onClick}
@@ -52,7 +52,7 @@ const Checkbox = ({
         aria-disabled={isDisabled}
         onChange={onChange}
         type="checkbox"
-        name={value}
+        name={value.toString()}
         value={value}
         checked={isChecked}
         disabled={isDisabled}
