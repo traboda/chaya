@@ -1,7 +1,8 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, Story, StoryObj } from '@storybook/react';
 
 import { Tabs } from '../index';
+import { TabsProps } from '../components/Tabs';
 
 const meta: Meta = {
   title: 'Content Handlers/Tabs',
@@ -13,8 +14,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = args => (
-  // @ts-ignore
+const Template: Story<TabsProps> = args => (
   <Tabs {...args} />
 );
 
@@ -42,6 +42,25 @@ const items = [
 export const Default = Template.bind({});
 
 Default.args = { items };
+
+type StoryType = StoryObj<typeof Tabs>;
+
+export const Mobile: StoryType = {
+  name: 'Mobile View',
+  args: {
+    isVertical: true,
+    items,
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphoneSE',
+    },
+  },
+};
+
+
+Default.args = { items };
+
 
 export const UnderlineVariant = Template.bind({});
 

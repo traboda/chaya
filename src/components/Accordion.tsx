@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import Icon from './Icon';
 
 export type AccordionProps = {
-  title: string,
+  title: string | React.ReactNode,
   renderer?: () => React.ReactNode,
   text?: (string | React.ReactNode),
   isOpen?: boolean,

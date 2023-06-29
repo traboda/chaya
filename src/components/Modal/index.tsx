@@ -83,9 +83,12 @@ const Modal = ({
                 <button
                   type="button"
                   title="close"
-                  className="dsr-font-mono dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0"
+                  className={clsx([
+                    'dsr-font-mono dsr-rounded dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0',
+                    'focus:dsr-ring-2',
+                  ])}
                 >
-                  <Icon icon="times" size={18} />
+                  <Icon aria-hidden="true" icon="times" size={18} />
                 </button>
               </Dialog.Close>
             </div>

@@ -5,7 +5,7 @@ import Accordion from './Accordion';
 
 export type AccordionGroupProps = {
   items: {
-    title: string,
+    title: string | ReactNode,
     text?: string,
     renderer?: () => ReactNode,
     isOpen?: boolean

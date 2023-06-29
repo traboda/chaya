@@ -7,6 +7,7 @@ import { LinkWrapper } from '../utils/misc';
 import SimpleSelect from './SimpleSelect';
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
+import AccordionGroup from './AccordionGroup';
 
 export type TabItemObject = {
   name?: string
@@ -271,57 +272,65 @@ const Tabs = ({
     />
   );
 
-  return isVertical ? (
-    <div className={clsx(['dsr-flex dsr-flex-wrap dsr-mx-0', className])}>
-      <div className="dsr-w-full md:dsr-w-1/5 dsr-p-0">
-        {!disableResponsive ? (
-          <React.Fragment>
-            <div className="dsr-hidden md:dsr-block dsr-relative">
-              {verticalSelector}
-              {variant === 'underline' && underlineRenderer}
-            </div>
-            <div className="dsr-block md:dsr-hidden">
-              {responsiveSelector}
-            </div>
-          </React.Fragment>
-        ) : (
+  const ResponsiveView = (
+    <AccordionGroup
+      accordionClassName="!dsr-p-1"
+      items={tabItems.filter((t) => !t.isHidden).map((t) => ({
+        title: (
+          <>
+            {renderOption(t)}
+          </>
+        ),
+        isOpen: currentTab === t.key,
+        renderer: () => (
+          <>
+            {tabItems.filter(t => t.key === currentTab).map(t => (
+              t?.renderer ? t.renderer :
+                t.rendererFunc ? t.rendererFunc() : null
+            ))}
+          </>
+        ),
+      }))}
+    />
+  );
+
+  return (
+    <React.Fragment>
+      <div
+        className={clsx([
+          isVertical ? 'dsr-flex-wrap dsr-mx-0' : 'dsr-px-0',
+          (!isVertical && alignCenter) && 'dsr-flex-col dsr-items-center',
+          isVertical ?
+            !disableResponsive ? 'dsr-hidden md:dsr-flex' : 'dsr-flex' :
+            !disableResponsive ?
+              alignCenter ? 'dsr-hidden md:dsr-flex' : 'dsr-hidden md:dsr-block'
+              : alignCenter ? 'dsr-flex' : 'dsr-block',
+          className,
+        ])}
+      >
+        <div className={clsx([isVertical ? 'dsr-w-full md:dsr-w-1/5 dsr-p-0' : 'dsr-relative'])}>
           <div className="dsr-relative">
-            {verticalSelector}
+            {isVertical ? verticalSelector : horizontalSelector}
             {variant === 'underline' && underlineRenderer}
           </div>
-        )}
+        </div>
+        <div
+          className={clsx([
+            isVertical ?
+              'dsr-w-full md:dsr-w-4/5 dsr-pl-0 dsr-pr-0 md:dsr-pr-4 md:dsr-pl-4'
+              : 'dsr-py-3',
+            bodyClassName,
+          ])}
+        >
+          {renderPanels}
+        </div>
       </div>
-      <div className={clsx([bodyClassName, 'dsr-w-full md:dsr-w-4/5 dsr-pl-0 dsr-pr-0 md:dsr-pr-4 md:dsr-pl-4'])}>
-        {renderPanels}
-      </div>
-    </div>
-  ) : (
-    <div
-      className={clsx([
-        className,
-        alignCenter ? 'dsr-flex dsr-flex-col dsr-items-center' : 'dsr-px-0',
-      ])}
-    >
-      {!disableResponsive ? (
-        <React.Fragment>
-          <div className="dsr-hidden md:dsr-block dsr-relative">
-            {horizontalSelector}
-            {variant === 'underline' && underlineRenderer}
-          </div>
-          <div className="dsr-block md:dsr-hidden">
-            {responsiveSelector}
-          </div>
-        </React.Fragment>
-      ) : (
-        <div className="dsr-relative">
-          {horizontalSelector}
-          {variant === 'underline' && underlineRenderer}
+      {!disableResponsive && (
+        <div className="dsr-block md:dsr-hidden">
+            {ResponsiveView}
         </div>
       )}
-      <div className={clsx([bodyClassName, 'dsr-py-3'])}>
-        {renderPanels}
-      </div>
-    </div>
+    </React.Fragment>
   );
 
 };
