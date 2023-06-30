@@ -27,6 +27,16 @@ const iconSizes = {
   xl: 22,
 };
 
+const ringColor = {
+  primary: 'dsr-ring-primary/50',
+  secondary: 'dsr-ring-secondary/50',
+  success: 'dsr-ring-green-600/50',
+  danger: 'dsr-ring-red-500/50',
+  warning: 'dsr-ring-yellow-500/50',
+  contrast: 'dsr-ring-contrast/50',
+  shade: 'dsr-ring-current',
+};
+
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
@@ -56,11 +66,12 @@ const Button = ({
 
   const computedClassName = clsx([
     sizeDefinitions[size],
+    ringColor[color],
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
-    'focus-visible:dsr-outline dsr-outline-2 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
-    'focus:dsr-ring-2 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
+    'dsr-outline-0 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
+    'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
     (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,

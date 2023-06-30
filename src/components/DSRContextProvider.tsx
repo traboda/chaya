@@ -18,10 +18,15 @@ const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme,
     Object.keys(theme).forEach(
       key => document.documentElement.style.setProperty(`--${key}`, theme[key as keyof Theme]),
     );
+    document.documentElement.style.setProperty('--primary50', Color(theme.primary).alpha(0.5).toString());
+    document.documentElement.style.setProperty('--secondary50', Color(theme.secondary).alpha(0.5).toString());
+    document.documentElement.style.setProperty('--contrast', Color(theme.background).negate().toString());
+    document.documentElement.style.setProperty('--contrast50', Color(theme.background).negate().alpha(0.5).toString());
 
     if (isDarkTheme) document.body.classList.add('dsr-dark');
     else document.body.classList.remove('dsr-dark');
-  }, [theme]);
+
+  }, [theme, isDarkTheme]);
 
   return (
     <DSRContext.Provider

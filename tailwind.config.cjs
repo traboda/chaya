@@ -7,10 +7,14 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--primary)',
+        'primary/50': 'var(--primary50)',
         primaryTextColor: 'var(--primaryTextColor)',
         secondary: 'var(--secondary)',
+        'secondary/50': 'var(--secondary50)',
         secondaryTextColor: 'var(--secondaryTextColor)',
         background: 'var(--background)',
+        contrast: 'var(--contrast)',
+        'contrast/50': 'var(--contrast50)',
         color: 'var(--color)'
       },
       gridTemplateColumns: {
