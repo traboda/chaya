@@ -110,7 +110,7 @@ To start using the components, please follow the below steps:
 We use `npm` as the package manager
 
 ```bash
-npm run storybook
+npm run dev
 ```
 
 This will start the storybook and loads the stories from `./stories` at [localhost:6006](http://localhost:6006).
