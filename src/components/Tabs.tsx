@@ -4,7 +4,6 @@ import clsx from 'clsx';
 
 import { LinkWrapper } from '../utils/misc';
 
-import SimpleSelect from './SimpleSelect';
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
 import AccordionGroup from './AccordionGroup';
@@ -252,24 +251,6 @@ const Tabs = ({
     >
       {renderTabs()}
     </ul>
-  );
-
-  const responsiveSelector = (
-    <SimpleSelect
-      labels={{ placeholder: 'Select Tab' }}
-      isRequired
-      className="dsr-mb-3 dsr-border-4 dsr-font-semibold dsr-rounded-lg"
-      value={currentTab as string}
-      name="tab"
-      options={tabItems.filter((t) => !t.isHidden).map((t) => ({
-        value: t.key, label: `${t.label} ${t.count ? `(${t.count})` : ''}` as string,
-      }))}
-      onChange={(key) => {
-        const tab = tabItems.find((t) => t.key === key);
-        if (tab?.onClick && typeof tab.onClick === 'function') tab.onClick();
-        setTab(key.toString());
-      }}
-    />
   );
 
   const ResponsiveView = (

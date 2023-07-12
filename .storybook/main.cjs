@@ -18,7 +18,7 @@ module.exports = {
     name: "@storybook/react-webpack5",
     options: {}
   },
-  "staticDirs": ['../src/assets', './public'],
+  "staticDirs": ['./public'],
   "webpackFinal": async (config, {
     configType
   }) => {

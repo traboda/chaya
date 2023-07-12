@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/src/assets/chaya-icon.svg" height="100" alt="ChayaUI" />
+    <img src="/.storybook/public/chaya-icon.svg" height="100" alt="ChayaUI" />
     <h1 style="margin-top: 12px">Chaya UI</h1>
     <p style="font-size: 110%">Chaya UI is a modern, functional design system & component library for React.</p>
     <div align="center">

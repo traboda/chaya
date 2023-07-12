@@ -64,13 +64,13 @@ const DropdownMenu = ({
         className="dropdown-menu-item dsr-my-1"
       >
         {o?.link ?
-            <div className={linkClasses(o?.className)}>
-              {LinkWrapper(o.link, content)}
-            </div> : (
-          <button className={linkClasses(o?.className)} onClick={o?.onClick}>
-            {content}
-          </button>
-        )}
+          <div className={linkClasses(o?.className)}>
+            {LinkWrapper(o.link, content)}
+          </div> : (
+            <button className={linkClasses(o?.className)} onClick={o?.onClick}>
+              {content}
+            </button>
+          )}
       </RadixDropdownMenu.Item>
     );
   };

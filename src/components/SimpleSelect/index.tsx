@@ -91,11 +91,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   const previousOptions = useRef<SimpleSelectOptionType[]>(_options);
   useEffect(() => {
-      if (isAsync) return;
-      if (previousOptions.current !== _options) {
-          setOptions(_options);
-          previousOptions.current = _options;
-      }
+    if (isAsync) return;
+    if (previousOptions.current !== _options) {
+      setOptions(_options);
+      previousOptions.current = _options;
+    }
   }, [_options]);
 
   const onSelect = (option: SimpleSelectValue) => {
@@ -152,24 +152,24 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, className?: string) => 'value' in option ? (
-      <SimpleSelectOption
-          isMulti={isMulti}
-          className={className}
-          value={option.value}
-          key={option.value}
-          isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-          label={option.label}
-          isClearable={!isRequired}
-          onSelect={(value) => {
-            onSelect(value);
-            if (!isMulti)
-              setIsDropdownActive(false);
-            else {
-              setSearchKeyword('');
-              searchBoxRef?.current?.focus();
-            }
-          }}
-      />
+    <SimpleSelectOption
+      isMulti={isMulti}
+      className={className}
+      value={option.value}
+      key={option.value}
+      isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+      label={option.label}
+      isClearable={!isRequired}
+      onSelect={(value) => {
+        onSelect(value);
+        if (!isMulti)
+          setIsDropdownActive(false);
+        else {
+          setSearchKeyword('');
+          searchBoxRef?.current?.focus();
+        }
+      }}
+    />
   ) : null;
 
   return (
@@ -313,22 +313,22 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               </div>
               <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
                 {filteredOptions().length > 0 ? (
-                    filteredOptions().map(option =>
-                        'group' in option && option?.group ? (
-                            <React.Fragment>
-                              <div
-                                  className={clsx([
-                                    'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                                    'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
-                                  ])}
-                              >
-                                <div>{option.group}</div>
-                                <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
-                              </div>
-                              {option.options.map(opt => renderDropdownOption(opt, "dsr-pl-5"))}
-                            </React.Fragment>
-                        ) : renderDropdownOption(option),
-                    )
+                  filteredOptions().map(option =>
+                    'group' in option && option?.group ? (
+                      <React.Fragment>
+                        <div
+                          className={clsx([
+                            'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
+                            'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
+                          ])}
+                        >
+                          <div>{option.group}</div>
+                          <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
+                        </div>
+                        {option.options.map(opt => renderDropdownOption(opt, 'dsr-pl-5'))}
+                      </React.Fragment>
+                    ) : renderDropdownOption(option),
+                  )
                 ) : (
                   <div className="dsr-px-3 dsr-py-2 dsr-text-center">
                     {labels?.noOptionsFound}

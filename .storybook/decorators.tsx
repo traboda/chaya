@@ -1,5 +1,5 @@
 import React from "react";
-import ThemeContextDecorator from "../src/stories/components/ThemeContextDecorator";
+import ThemeContextDecorator from "./utils/ThemeContextDecorator";
 
 export const decorators = [
     (Story: any) => (

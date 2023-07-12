@@ -27,17 +27,17 @@ const getBackgroundClassByType = (type: string) => {
     case 'danger': return 'dark:dsr-bg-red-900 dsr-bg-red-100';
     default: return 'dark:dsr-bg-gray-900 dsr-bg-gray-50';
   }
-}
+};
 
 const getColorClassByType = (type: string) => {
-    switch (type) {
-      case 'success': return 'dark:dsr-text-green-300 dsr-text-green-600';
-      case 'info': return 'dark:dsr-text-blue-300 dsr-text-blue-600';
-      case 'warning': return 'dark:dsr-text-yellow-300 dsr-text-yellow-600';
-      case 'danger': return 'dark:dsr-text-red-300 dsr-text-red-600';
-      default: return 'dark:dsr-text-gray-300 dsr-text-gray-600';
-    }
-}
+  switch (type) {
+    case 'success': return 'dark:dsr-text-green-300 dsr-text-green-600';
+    case 'info': return 'dark:dsr-text-blue-300 dsr-text-blue-600';
+    case 'warning': return 'dark:dsr-text-yellow-300 dsr-text-yellow-600';
+    case 'danger': return 'dark:dsr-text-red-300 dsr-text-red-600';
+    default: return 'dark:dsr-text-gray-300 dsr-text-gray-600';
+  }
+};
 
 const getBorderClassByType = (type: string) => {
   switch (type) {
