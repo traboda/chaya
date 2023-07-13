@@ -14,19 +14,27 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DropdownFilterProps> = args => (
-  <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
-    <DropdownFilter {...args}>
-      <Button>
-        Filter
-      </Button>
-    </DropdownFilter>
-  </div>
-);
+const Template: Story<DropdownFilterProps> = args => {
+
+  const [selections, setSelections] = React.useState(args?.selections);
+
+  return (
+    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+      <DropdownFilter {...args} selections={selections} setSelections={setSelections}>
+        <Button>
+          Filter
+        </Button>
+      </DropdownFilter>
+    </div>
+  );
+};
 
 export const BasicUsage = Template.bind({});
 
 BasicUsage.args = {
+  selections: [
+    'id', 'name',
+  ],
   options: [
     { label: 'ID', value: 'id' },
     { label: 'Name', value: 'name' },

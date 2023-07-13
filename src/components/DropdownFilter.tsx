@@ -47,17 +47,69 @@ const DropdownRender = ({
 }: DropdownRenderProps) => {
 
   const labels = { ...defaultLabels, ..._labels };
+  const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
+  const optionRefs = React.useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
+  const availableOptions = options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase()));
+
+  useEffect(() => {
+    optionRefs.current = Array(availableOptions.length).fill(null).map(() => React.createRef());
+  }, [availableOptions.length]);
+  
 
   useEffect(onLoad, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key == 'ArrowDown' || e.key == 'ArrowUp') e.preventDefault();
+    switch (e.key) {
+      case 'ArrowDown':
+        if (highlightedIndex < availableOptions.length - 1) {
+          setHighlightedIndex(highlightedIndex + 1);
+          optionRefs.current[highlightedIndex + 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          setHighlightedIndex(0);
+          optionRefs.current[0].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        break;
+      case 'ArrowUp':
+        if (highlightedIndex > 0) {
+          setHighlightedIndex(highlightedIndex - 1);
+          optionRefs.current[highlightedIndex - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          setHighlightedIndex(availableOptions.length - 1);
+          optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        break;
+      case 'Home':
+        setHighlightedIndex(0);
+        optionRefs.current[0].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        break;
+      case 'End':
+        setHighlightedIndex(availableOptions.length - 1);
+        optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        break;
+      case 'Enter':
+        if (highlightedIndex != null) {
+          const option = availableOptions[highlightedIndex].value;
+          if (selections?.includes(option)) {
+            setSelections(selections.filter((s) => s != option));
+          } else {
+            setSelections([...(selections || []), option]);
+          }
+        }
+    }
+  };
 
   return (
     <div>
       <div className="dsr-pb-1">
         <SearchBox
           hideLabel
+          autoFocus
           keyword={keyword}
-          inputClassName="dsr-py-1 dsr-px-2"
-          buttonClassName="dsr-p-1"
+          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
+          buttonClassName="dsr-p-1 !dsr-border-none !dsr-outline-none !dsr-rounded-b-none !dsr-bg-transparent"
+          buttonWrapperClassName="!dsr-border-0 !dsr-outline-none !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
+          onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
             label: labels.searchLabel,
@@ -69,11 +121,13 @@ const DropdownRender = ({
         {labels.optionsTitle}
       </div>
       <div className="dsr-max-h-[20vh] dsr-overflow-y-auto">
-        {options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase())).map((field) => (
+        {availableOptions.map((field, index) => (
           <button
             key={nanoid()}
+            ref={optionRefs.current[index]}
             className={clsx([
               'dsr-flex dsr-items-center dsr-justify-start dsr-gap-2 dsr-px-3 dsr-py-1 hover:dsr-bg-white/20 dsr-w-full',
+              index == highlightedIndex && 'dsr-bg-white/20',
               optionButtonClassName,
             ])}
             onClick={() => setSelections(

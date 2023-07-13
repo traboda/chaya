@@ -23,7 +23,7 @@ export type SearchBoxProps = {
   },
   onClear?: () => void,
   onSearch?: (keyword: string) => void,
-  onKeyDown?: (e: KeyboardEvent) => void,
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
   inputStyle?: React.CSSProperties,
   isDisabled?: boolean,
   isLoading?: boolean,
