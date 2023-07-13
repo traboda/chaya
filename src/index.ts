@@ -8,6 +8,7 @@ export { default as Tabs } from './components/Tabs';
 export { default as Modal } from './components/Modal';
 export { default as Alert } from './components/Alert';
 export { default as Badge } from './components/Badge';
+export { default as Combobox } from './components/Combobox';
 export { default as Label } from './components/Label';
 export { default as Radio } from './components/Radio';
 export { default as Stats } from './components/Stats';

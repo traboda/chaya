@@ -72,6 +72,7 @@
     "@typescript-eslint/parser": "^5.48.2",
     "babel-loader": "^8.3.0",
     "clsx": "^1.2.1",
+    "cmdk": "^0.2.0",
     "color": "^4.2.3",
     "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
