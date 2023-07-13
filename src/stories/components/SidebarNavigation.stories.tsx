@@ -45,43 +45,55 @@ const Template: Story = args => {
   );
 };
 
+const Items = [
+  {
+    key: 'DASHBOARD',
+    label: 'Dashboard',
+    icon: 'home',
+  },
+  {
+    key: 'CHALLENGES',
+    label: 'Challenges',
+    icon: 'home',
+  },
+  {
+    key: 'settings',
+    label: 'Settings',
+    icon: 'settings',
+    items: [
+      {
+        key: 'third-first',
+        label: 'First',
+        icon: 'home',
+      },
+      {
+        key: 'third-second',
+        label: 'Second',
+        icon: 'home',
+      },
+    ],
+  },
+  {
+    key: 'fourth',
+    label: 'Fourth',
+    icon: 'home',
+  },
+];
+
 export const Basic = Template.bind({});
 
 
 Basic.args = {
   activeItem: 'third-second',
-  items: [
-    {
-      key: 'DASHBOARD',
-      label: 'Dashboard',
-      icon: 'home',
-    },
-    {
-      key: 'CHALLENGES',
-      label: 'Challenges',
-      icon: 'home',
-    },
-    {
-      key: 'settings',
-      label: 'Settings',
-      icon: 'settings',
-      items: [
-        {
-          key: 'third-first',
-          label: 'First',
-          icon: 'home',
-        },
-        {
-          key: 'third-second',
-          label: 'Second',
-          icon: 'home',
-        },
-      ],
-    },
-    {
-      key: 'fourth',
-      label: 'Fourth',
-      icon: 'home',
-    },
-  ],
+  items: Items,
+};
+
+
+export const LineVariant = Template.bind({});
+
+
+LineVariant.args = {
+  activeItem: 'third-second',
+  variant: 'line',
+  items: Items,
 };
