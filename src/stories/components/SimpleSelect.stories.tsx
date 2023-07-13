@@ -24,9 +24,7 @@ export default meta;
 const Template: Story<SimpleSelectProps<any>> = args => {
   const [value, setValue] = useState(args.value);
   return (
-    <Card>
-      <SimpleSelect {...args} value={value} onChange={setValue} />
-    </Card>
+    <SimpleSelect {...args} value={value} onChange={setValue} />
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
@@ -73,6 +73,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const [options, setOptions] = useState<SimpleSelectOptionType[]>(_options);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const optionRefs = React.useRef<Array<React.RefObject<HTMLDivElement>>>([]);
 
   useEffect(() => {
     if (isDropdownActive) {
@@ -126,8 +128,12 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   useEffect(() => {
+    optionRefs.current = filteredOptions().map((_, i) => optionRefs.current[i] ?? React.createRef());
+  }, [filteredOptions]);
+
+  useEffect(() => {
     if (isMulti && !Array.isArray(value)) throw new Error('SimpleSelect: value must be an array when isMulti is true');
-    
+
     const onClick = (event: MouseEvent) => {
       if (!containerRef.current || containerRef.current.contains(event.target as Node)) return;
       setIsDropdownActive(false);
@@ -151,26 +157,75 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type);
   };
 
-  const renderDropdownOption = (option: SimpleSelectOptionType, className?: string) => 'value' in option ? (
-    <SimpleSelectOption
-      isMulti={isMulti}
-      className={className}
-      value={option.value}
-      key={option.value}
-      isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
-      label={option.label}
-      isClearable={!isRequired}
-      onSelect={(value) => {
-        onSelect(value);
-        if (!isMulti)
-          setIsDropdownActive(false);
-        else {
-          setSearchKeyword('');
-          searchBoxRef?.current?.focus();
-        }
-      }}
-    />
+  const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
+    <DropdownMenu.Item ref={ref}>
+      <SimpleSelectOption
+        isMulti={isMulti}
+        className={className}
+        value={option.value}
+        key={option.value}
+        isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
+        label={option.label}
+        isHighlighted={highlightedIndex === index}
+        isClearable={!isRequired}
+        onSelect={(value) => {
+          onSelect(value);
+          if (!isMulti)
+            setIsDropdownActive(false);
+          else {
+            setSearchKeyword('');
+            searchBoxRef?.current?.focus();
+          }
+        }}
+      />
+    </DropdownMenu.Item>
+
   ) : null;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') e.preventDefault();
+    switch (e.key) {
+      case 'ArrowDown':
+        if (highlightedIndex < filteredOptions().length - 1) {
+          setHighlightedIndex((prev) => prev + 1);
+          optionRefs.current[highlightedIndex + 1]?.current?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          setHighlightedIndex(0);
+          optionRefs.current[0]?.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+      case 'ArrowUp':
+        if (highlightedIndex > 0) {
+          setHighlightedIndex((prev) => prev - 1);
+          optionRefs.current[highlightedIndex - 1]?.current?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          setHighlightedIndex(filteredOptions().length - 1);
+          optionRefs.current[filteredOptions().length - 1]?.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+      case 'Home':
+        setHighlightedIndex(0);
+        optionRefs.current[0]?.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'End':
+        setHighlightedIndex(filteredOptions().length - 1);
+        optionRefs.current[filteredOptions().length - 1]?.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'Enter':
+        const highlightedOption = filteredOptions()[highlightedIndex];
+        if (highlightedOption) {
+          if ('group' in highlightedOption) {
+            onSelect(highlightedOption.options[0].value);
+          } else {
+            onSelect(highlightedOption.value);
+          }
+          setIsDropdownActive(false);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <DropdownMenu.Root
@@ -192,6 +247,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             <div className="dsr-w-full dsr-flex dsr-group" ref={selectRef}>
               <div
                 tabIndex={0}
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-labelledby={`${inputID}-label`}
+                onKeyDown={handleKeyDown}
                 className={clsx([
                   'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
                   'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
@@ -202,7 +261,6 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   !hideArrow && 'dsr-pr-8',
                   className,
                 ])}
-                aria-labelledby={`${inputID}-label`}
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
                 style={hideArrow ? {} : {
                   backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
@@ -233,6 +291,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   <input
                     ref={searchBoxRef}
                     id={inputID}
+                    aria-autocomplete="list"
                     value={isDropdownActive ? searchKeyword : getValue()}
                     placeholder={isDropdownActive ? getValue() : ''}
                     onChange={event => {
@@ -311,9 +370,13 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 </div>
                 )}
               </div>
-              <div className="dsr-max-h-[250px] dsr-overflow-y-auto">
+              <ul
+                tabIndex={-1}
+                role="listbox"
+                className="dsr-max-h-[250px] dsr-overflow-y-auto"
+              >
                 {filteredOptions().length > 0 ? (
-                  filteredOptions().map(option =>
+                  filteredOptions().map((option, index) =>
                     'group' in option && option?.group ? (
                       <React.Fragment>
                         <div
@@ -323,18 +386,21 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           ])}
                         >
                           <div>{option.group}</div>
-                          <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">{option.options.length}</div>
+                          <div
+                            className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm"
+                          >
+                            {option.options.length}
+                          </div>
                         </div>
-                        {option.options.map(opt => renderDropdownOption(opt, 'dsr-pl-5'))}
+                        {option.options.map(opt => renderDropdownOption(opt, index, optionRefs.current[index], 'dsr-pl-5'))}
                       </React.Fragment>
-                    ) : renderDropdownOption(option),
-                  )
+                    ) : renderDropdownOption(option, index, optionRefs.current[index]))
                 ) : (
                   <div className="dsr-px-3 dsr-py-2 dsr-text-center">
                     {labels?.noOptionsFound}
                   </div>
                 )}
-              </div>
+              </ul>
             </div>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
