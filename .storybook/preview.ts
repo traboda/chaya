@@ -28,7 +28,6 @@ export const parameters = {
     dark: {
       ...themes.dark,
       ...chayaDarkTheme,
-      brandImage: 'https://raw.githubusercontent.com/traboda/chaya/main/.storybook/public/chaya-white-logo.svg',
     },
     light: {
       ...themes.normal,

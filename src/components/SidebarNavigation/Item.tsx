@@ -2,20 +2,37 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
-import Icon from '../Icon';
+import Icon, { IconInputType } from '../Icon';
+import Badge, { BaseBadgeProps } from '../Badge';
 
-import { ItemBase } from './index';
+export type ItemBase = {
+  key: string,
+  label: string,
+  link?: string,
+  onClick?: () => void,
+  icon?: IconInputType,
+  labelClassName?: string,
+  role?: string,
+  isDisabled?: boolean,
+  badge?: React.ReactNode,
+  badgeProps?: BaseBadgeProps,
+};
 
 export type SidebarNavigationProps = {
-  activeItem?: string,
   item: ItemBase & {
     items?: ItemBase[]
   },
+  variant?: 'pill' | 'line',
+  activeItem?: string | null,
+  role?: string,
   isCollapsed?: boolean,
   defaultExpansion?: boolean
 };
 
-const SidebarNavigationItem = ({ item, isCollapsed, defaultExpansion, activeItem }: SidebarNavigationProps) => {
+const SidebarNavigationItem = ({
+  item, role, variant = 'pill', isCollapsed, defaultExpansion, activeItem,
+}: SidebarNavigationProps) => {
+
   const [height, setHeight] = useState<undefined | number>(undefined);
   const dropdownContentRef = useRef<HTMLLIElement>(null);
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion || false);
@@ -24,42 +41,92 @@ const SidebarNavigationItem = ({ item, isCollapsed, defaultExpansion, activeItem
     if (isCollapsed) setDropdownVisibility(false);
   }, [isCollapsed]);
 
-  useEffect(() => {
-    setHeight(dropdownContentRef.current?.scrollHeight);
-  }, [dropdownVisibility]);
+  useEffect(() => setHeight(dropdownContentRef.current?.scrollHeight), [dropdownVisibility]);
 
-  const liClass = 'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
+  const liClass = 'hover:dsr-bg-gray-400/20 hover:dsr-backdrop-blur dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
 
   const innerContent = (item: ItemBase) => (
-    <>
-      <span className="dsr-w-[18px]"><Icon icon={item.icon} size={18} /></span>
-      {item.name}
-    </>
+    <div
+      className={clsx([
+        'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2 dsr-py-1.5',
+        variant === 'line' && 'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-px-2',
+      ])}
+    >
+      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
+        {item.icon && <span className="dsr-w-[18px]"><Icon icon={item.icon} size={18} /></span>}
+        <span className={item.labelClassName}>{item.label}</span>
+      </div>
+      {(item?.badge !== undefined || item?.badgeProps) && (
+        <Badge
+          size="sm"
+          {...{
+            color: 'shade',
+            variant: 'minimal',
+            ...item?.badgeProps,
+          }}
+        >
+          {item?.badge}
+        </Badge>
+      )}
+    </div>
   );
 
-  const commonClasses = 'dsr-px-2.5 focus-visible:dsr-outline dsr-py-1.5 dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary';
+  const commonClasses = clsx([
+    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 dsr-px-2.5 focus-visible:dsr-outline dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary',
+    activeItem === item.key && 'active',
+  ]);
 
-  const contentRenderer = (item: ItemBase) => LinkWrapper(item.link, innerContent(item), {
-    className: clsx([
-      'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5',
-      commonClasses,
-      activeItem === item.key ? 'dsr-bg-gray-500/30' : 'hover:dsr-bg-gray-500/20',
-    ]),
-  });
+
+  const contentRenderer = (item: ItemBase) => item?.link ?
+    LinkWrapper(item.link, innerContent(item), {
+      role: item.role ?? 'tab',
+      className: clsx([
+        commonClasses,
+        variant == 'pill' && (
+          activeItem === item.key ? 'dsr-bg-gray-500/30 active' : 'hover:dsr-bg-gray-500/20'
+        ),
+      ]),
+      isDisabled: item.isDisabled,
+      onClick: typeof item?.onClick === 'function' ? item.onClick : () => {},
+    }) : (
+      <button
+        type="button"
+        role={item.role ?? 'tab'}
+        onClick={typeof item?.onClick === 'function' ? item.onClick : () => {}}
+        disabled={item.isDisabled}
+        aria-selected={activeItem === item.key}
+        aria-disabled={item.isDisabled}
+        className={clsx([
+          commonClasses,
+          variant == 'pill' && (
+            activeItem === item.key ? 'dsr-bg-primary dsr-text-primaryTextColor active' : 'hover:dsr-bg-gray-500/20'
+          ),
+        ])}
+      >
+        {innerContent(item)}
+      </button>
+    );
 
   return item.items?.length ? (
-    <li>
+    <li role={role}>
       <ul className="dsr-flex dsr-flex-col dsr-gap-1">
-        <li className={liClass}>
+        <li
+          className={clsx([
+            'hover:dsr-bg-gray-400/20',
+            commonClasses,
+            liClass,
+            variant == 'pill' && (
+              activeItem === item.key ? 'dsr-bg-primary dsr-text-primaryTextColor active' : ''
+            ),
+          ])}
+        >
           <button
             className={clsx([
-              'dsr-w-full dsr-items-center dsr-justify-between dsr-cursor-pointer dsr-flex dsr-rounded-lg hover:dsr-bg-gray-500/20',
-              commonClasses,
+              'dsr-w-full dsr-items-center hello dsr-justify-between dsr-cursor-pointer dsr-flex dsr-rounded-lg',
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >
             <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item)}</span>
-
             <span
               className={clsx([
                 'dsr-w-[18px] dsr-transform dsr-transition-transform',
@@ -94,7 +161,13 @@ const SidebarNavigationItem = ({ item, isCollapsed, defaultExpansion, activeItem
       </ul>
     </li>
   ) : (
-    <li className={liClass} key={item.key}>{contentRenderer(item)}</li>
+    <li
+      role={role}
+      className={liClass}
+      key={item.key}
+    >
+      {contentRenderer(item)}
+    </li>
   );
 };
 

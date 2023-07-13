@@ -22,12 +22,12 @@ const items = [
   {
     label: 'Item 1',
     renderer: 'tab 1',
-    count: 3,
+    badge: 3,
   },
   {
     label: 'Item 2',
     renderer: 'tab 2',
-    count: 5,
+    badge: 5,
   },
   {
     label: 'Item 3',
@@ -64,7 +64,7 @@ Default.args = { items };
 
 export const UnderlineVariant = Template.bind({});
 
-UnderlineVariant.args = { items, variant: 'underline' };
+UnderlineVariant.args = { items, variant: 'line' };
 
 export const WithBadge = Template.bind({});
  
@@ -72,7 +72,7 @@ WithBadge.args = {
   items: items.map((i, index) => {
     return {
       ...i,
-      count: index * index,
+      badge: index * index,
     };
   }),
 };
@@ -82,12 +82,13 @@ export const Vertical = Template.bind({});
 Vertical.args = {
   isVertical: true,
   items,
+  className: 'font-semibold',
 };
 
 export const VerticalUnderlineVariant = Template.bind({});
 
 VerticalUnderlineVariant.args = {
-  variant: 'underline',
+  variant: 'line',
   isVertical: true,
   items,
 };

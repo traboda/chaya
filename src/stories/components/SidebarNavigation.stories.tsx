@@ -22,53 +22,65 @@ const meta: Meta = {
 export default meta;
 
 
-const Template: Story = args => (
-  <div style={{ width: '280px' }}>
-    <SidebarNavigation key={JSON.stringify(args)} items={args?.items} {...args} />
-  </div>
-);
+const Template: Story = args => {
+
+  const [activeItem, setActiveItem] = React.useState(args?.activeItem);
+
+  return (
+    <div style={{ width: '280px' }}>
+      <SidebarNavigation
+        key={JSON.stringify(args)}
+        {...args}
+        items={args?.items.map((item: any) => ({
+          ...item,
+          onClick: () => setActiveItem(item.key),
+          items: item?.items ? (item.items?.map((subItem: any) => ({
+            ...subItem,
+            onClick: () => setActiveItem(subItem.key),
+          }))) : undefined,
+        }))}
+        activeItem={activeItem}
+      />
+    </div>
+  );
+};
 
 export const Basic = Template.bind({});
+
 
 Basic.args = {
   activeItem: 'third-second',
   items: [
     {
       key: 'DASHBOARD',
-      name: 'Dashboard',
-      link: '/',
+      label: 'Dashboard',
       icon: 'home',
     },
     {
       key: 'CHALLENGES',
-      name: 'Challenges',
-      link: '/',
+      label: 'Challenges',
       icon: 'home',
     },
     {
       key: 'settings',
-      name: 'Settings',
-      link: '/',
+      label: 'Settings',
       icon: 'settings',
       items: [
         {
           key: 'third-first',
-          name: 'First',
-          link: '/',
+          label: 'First',
           icon: 'home',
         },
         {
           key: 'third-second',
-          name: 'Second',
-          link: '/',
+          label: 'Second',
           icon: 'home',
         },
       ],
     },
     {
       key: 'fourth',
-      name: 'Fourth',
-      link: '/',
+      label: 'Fourth',
       icon: 'home',
     },
   ],

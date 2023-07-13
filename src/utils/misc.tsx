@@ -16,9 +16,11 @@ export type LinkOptions = {
   id?: string,
   className?: string,
   label?: string,
+  role?: string,
   style?: React.CSSProperties,
   onMouseEnter?: () => void,
   onMouseLeave?: () => void,
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void,
   isDisabled?: boolean,
   isLoading?: boolean,
   size?: ButtonSize
@@ -31,6 +33,7 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
         link,
         <a
           id={options?.id}
+          role={options?.role}
           href={link}
           target={options?.target}
           rel={options?.rel}
@@ -38,7 +41,12 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
           style={options?.style}
           aria-label={options?.label}
           aria-disabled={options?.isDisabled}
-          onClick={event => options?.isDisabled && event.preventDefault()}
+          onClick={event => {
+            if (!options?.isDisabled) {
+              event.preventDefault();
+              options?.onClick?.(event);
+            }
+          }}
         >
           {options?.isLoading ? <Spinner size={options?.size} /> : component}
         </a>,
