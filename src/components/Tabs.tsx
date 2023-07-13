@@ -21,7 +21,6 @@ export type TabItemObject = {
   badgeProps?: BaseBadgeProps,
   // extras
   isHidden?: boolean,
-  type?: ('section')
   renderer?: React.ReactNode
   rendererFunc?: () => React.ReactNode
   isInitial?: boolean
@@ -61,10 +60,10 @@ const Tabs = ({
     items.map((t, index) => { return { key: `tab_${index}`, ...t }; }) : [];
 
   const getInitialTab = () => {
-    let tabkey = tabItems.length > 0 && tabItems[0].type !== 'section' ? tabItems[0].key : null;
+    let tabkey = tabItems.length > 0 ? tabItems[0].key : null;
     if (tabItems.length > 0) {
       tabItems.forEach((t) => {
-        if ((tabkey === null && t.key && t.type !== 'section') || t.isInitial)
+        if ((tabkey === null && t.key) || t.isInitial)
           tabkey = t.key;
       });
     }
@@ -231,14 +230,7 @@ const Tabs = ({
             t.link ? LinkWrapper(!t.isDisabled ? t.link : '', renderOption(t), {
               className: menuButtonClassNameGenerator(t.key),
               id: `${tabID}-${t.key}-tab`,
-            }) : t.type === 'section' ? (
-              <h5
-                style={{ opacity: 0.9 }}
-                className={menuButtonClassNameGenerator(t.key)}
-              >
-                {t.label}
-              </h5>
-            ) : renderButton(t)}
+            }) : renderButton(t)}
         </li>
       ))}
     </ul>
