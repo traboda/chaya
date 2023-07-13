@@ -12,18 +12,27 @@ type PageNavigator = {
   setPage?: (no: number) => void,
   setItemsPerPage?: (count: number) => void,
   hideItemsPerPage?: boolean
+  showPages?: boolean,
   showControls?: boolean,
   showEdges?: boolean,
   id?: string,
   className?: string,
+  labels?: {
+    rowsPerPage?: string,
+  }
+};
+
+const DEFAULT_LABELS = {
+  rowsPerPage: 'rows per page',
 };
 
 const PageNavigator = ({
   totalCount, page, itemsPerPage, id, className = '', hideItemsPerPage = false,
-  showControls = true, showEdges = true, setPage = () => {}, setItemsPerPage = () => {},
+  showControls = true, showEdges = true, showPages = true,
+  setPage = () => {}, setItemsPerPage = () => {}, labels: _labels,
 }: PageNavigator) => {
 
-
+  const labels = { ...DEFAULT_LABELS, ..._labels };
   const length = Math.floor(((totalCount + itemsPerPage - 1) / itemsPerPage));
 
   const getPageNo = () => {
@@ -73,22 +82,24 @@ const PageNavigator = ({
             <Icon icon="chevron-left" size={18} />
           </Button>
           )}
-          {getPageNo().map((item, index) => (
-            <Button
-              label={`Go to page ${item}`}
-              variant={page === item ? 'solid' : 'outline'}
-              color={page === item ? 'contrast' : 'primary'}
-              isDisabled={page === item}
-              key={`page_${item}_${index}`}
-              className={clsx([
-                'page-number-button dsr-w-12 dsr-mx-1',
-                page === item ? 'active' : '',
-              ])}
-              onClick={() => setPage(item)}
-            >
-              {item}
-            </Button>
-          ))}
+          {showPages && (
+            getPageNo().map((item, index) => (
+              <Button
+                label={`Go to page ${item}`}
+                variant={page === item ? 'solid' : 'outline'}
+                color={page === item ? 'primary' : 'primary'}
+                isDisabled={page === item}
+                key={`page_${item}_${index}`}
+                className={clsx([
+                  'page-number-button dsr-w-12 dsr-mx-1',
+                  page === item ? 'active !dsr-opacity-100' : '',
+                ])}
+                onClick={() => setPage(item)}
+              >
+                {item}
+              </Button>
+            ))
+          )}
           {(showControls && !(page + 1 >= length)) && (
           <Button
             label="Go to next page"
@@ -108,9 +119,9 @@ const PageNavigator = ({
           </Button>
           )}
         </div>
-        {!hideItemsPerPage &&
+        {!hideItemsPerPage && (
           <div className="dsr-flex dsr-items-center dsr-justify-center dsr-mt-3">
-            <div className="dsr-mr-1 dsr-w-10">
+            <div className="dsr-mr-1 dsr-w-12">
               <SimpleSelect
                 value={itemsPerPage}
                 onChange={(n) => {
@@ -118,7 +129,7 @@ const PageNavigator = ({
                   setItemsPerPage(typeof n === 'number' ? n : parseInt(n));
                 }}
                 name="items_per_page"
-                className="dsr-p-1 dsr-text-sm dsr-text-center"
+                className="!dsr-p-1 dsr-text-sm dsr-text-center"
                 hideArrow={true}
                 isRequired
                 options={[
@@ -130,10 +141,9 @@ const PageNavigator = ({
                 ]}
               />
             </div>
-            {' '}
-            items per page
+            {` ${labels.rowsPerPage}`}
           </div>
-              }
+        )}
       </div>
     </div>
   );

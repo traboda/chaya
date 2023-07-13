@@ -23,18 +23,15 @@ const darkTheme = {
     primaryTextColor: '#fff',
     secondary: '#b64fd7',
     secondaryTextColor: '#fff',
-    color: '#FFF',
-    background: '#111',
+    color: '#FAFAFA',
+    background: '#212121',
 };
 
 const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
     const theme = useDarkMode() ? darkTheme : defaultTheme;
 
     return (
-        <div
-            key={nanoid()}
-            style={{ background: theme.background, color: theme.color }}
-        >
+        <div key={nanoid()} className="dsr-p-4">
             <DSRContextProvider
                 theme={theme}
                 iconWrapper={(icon, props) => ({

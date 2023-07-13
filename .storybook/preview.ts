@@ -2,8 +2,6 @@ import { themes } from '@storybook/theming';
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import '../dist/style.css';
-import chayaTheme from "./chayaTheme";
-import chayaDarkTheme from "./chayaDarkTheme";
 
 export { decorators } from "./decorators";
 
@@ -27,11 +25,17 @@ export const parameters = {
     current: 'dark',
     dark: {
       ...themes.dark,
-      ...chayaDarkTheme,
+      brandTitle: 'Chaya UI by Traboda',
+      brandUrl: 'https://chaya.traboda.com',
+      brandImage: 'https://raw.githubusercontent.com/traboda/chaya/main/.storybook/public/chaya-white-logo.svg',
+      brandTarget: '_self',
     },
     light: {
       ...themes.normal,
-      ...chayaTheme,
+      brandTitle: 'Chaya UI by Traboda',
+      brandUrl: 'https://chaya.traboda.com',
+      brandImage: 'https://raw.githubusercontent.com/traboda/chaya/main/.storybook/public/chaya-dark-logo.svg',
+      brandTarget: '_self',
     },
     classTarget: 'body',
     stylePreview: true,
