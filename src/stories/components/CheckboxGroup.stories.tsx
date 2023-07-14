@@ -42,8 +42,8 @@ Default.args = {
 const RequiredTemplate: Story<CheckboxGroupType<number>> = args => (
   <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
     <form
-      onClick={(e) => {
-        e.stopPropagation();
+      onSubmit={(e) => {
+        console.log(e);
         e.preventDefault();
         alert('submitted');
       }}

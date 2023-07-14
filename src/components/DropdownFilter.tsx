@@ -106,7 +106,7 @@ const DropdownRender = ({
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
+          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
           buttonClassName="dsr-p-1 !dsr-border-none !dsr-outline-none !dsr-rounded-b-none !dsr-bg-transparent"
           buttonWrapperClassName="!dsr-border-0 !dsr-outline-none !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
           onKeyDown={handleKeyDown}

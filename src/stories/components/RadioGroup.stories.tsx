@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { Card, RadioGroup } from '../../index';
+import { RadioGroupType } from '../../components/RadioGroup';
 
 const meta: Meta = {
   title: 'User Inputs/RadioGroup',
@@ -14,29 +15,12 @@ const meta: Meta = {
 export default meta;
 
 const options = [
-  {
-    label: 'option 1',
-    value: 'option-1',
-  },
-  {
-    label: 'option 2',
-    value: 'option-2',
-  },
-  {
-    label: 'option 3',
-    value: 'option-3',
-  },
-  {
-    label: 'option 4',
-    value: 'option-4',
-  },
-  {
-    label: 'option 5',
-    value: 'option-5',
-  },
+  { label: 'Male', value: 'M' },
+  { label: 'Female', value: 'F' },
+  { label: 'N/A', value: 'N' },   
 ];
 
-const Template: Story = args => {
+const Template: Story<RadioGroupType<string>> = args => {
   const [value, setValue] = useState(args.value ?? null);
 
   useEffect(() => {
@@ -51,14 +35,23 @@ const Template: Story = args => {
 export const Default = Template.bind({});
 
 Default.args = {
-  value: 'option-2',
+  label: 'Select Gender',
+
+  value: 'M',
+  options,
+};
+
+export const Disabled = Template.bind({});
+
+Disabled.args = {
+  isDisabled: true,
+  label: 'Select Gender',
   options,
 };
 
 export const Horizontal = Template.bind({});
 
 Horizontal.args = {
-  value: 'option-2',
   options,
   alignment: 'horizontal',
 };

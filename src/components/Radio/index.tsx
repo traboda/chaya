@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 
 import styled from './radio.module.scss';
@@ -6,10 +6,12 @@ import styled from './radio.module.scss';
 export type RadioColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-type RadioButtonProps = {
+type RadioButtonProps<Type> = {
   label: string,
-  value: string,
-  onChange?: (value: string) => void,
+  value: Type,
+  tabIndex?: number,
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
+  onChange?: (value: Type) => void,
   color?: RadioColor,
   size?: RadioSize,
   isDisabled?: boolean,
@@ -34,42 +36,53 @@ const sizes = {
   'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
 };
 
-const Radio = ({
+const Radio = forwardRef<HTMLInputElement, RadioButtonProps<string | number>>(({
   value, label, onChange = () => {}, isSelected = false, color = 'primary', size = 'md', isDisabled = false,
-  className,
-}: RadioButtonProps) => (
-  <div
-    className={clsx([
-      'radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative',
-      className,
-      isDisabled && 'dsr-opacity-70',
-    ])}
-    onClick={() => !isDisabled && onChange(value)}
-  >
-    <input
-      aria-disabled={isDisabled}
-      type="radio"
-      name={label}
-      value={value}
-      checked={isSelected}
-      disabled={isDisabled}
+  className, tabIndex, onKeyDown,
+}, ref) => {
+
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  return (
+    <div
       className={clsx([
-        'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
-        'dsr-overflow-hidden dsr-absolute -dsr-m-1',
+        'radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative',
+        className,
+        isDisabled && 'dsr-opacity-70',
       ])}
-      style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
-    />
-    <span
-      className={clsx([
-        'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-        'dsr-border-none dsr-rounded-full dsr-text-white dsr-transition',
-        sizes[size]?.button,
-        isSelected ? styled.radioButton : '',
-        isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
-      ])}
-    />
-    <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
-  </div>
-);
+      onClick={() => !isDisabled && onChange(value)}
+    >
+      <input
+        ref={ref}
+        tabIndex={tabIndex}
+        onKeyDown={onKeyDown}
+        aria-disabled={isDisabled}
+        type="radio"
+        name={label}
+        value={value}
+        checked={isSelected}
+        disabled={isDisabled}
+        className={clsx([
+          'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
+          'dsr-overflow-hidden dsr-absolute -dsr-m-1',
+        ])}
+        style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      />
+      <span
+        className={clsx([
+          'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
+          'dsr-border-none dsr-rounded-full dsr-text-white dsr-transition',
+          sizes[size]?.button,
+          isSelected ? styled.radioButton : '',
+          isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
+          isFocused && 'dsr-ring-2 dsr-ring-white dsr-ring-offset-1 dsr-ring-offset-gray-900',
+        ])}
+      />
+      <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
+    </div>
+  );
+});
 
 export default Radio;
