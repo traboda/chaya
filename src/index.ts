@@ -32,6 +32,7 @@ export { default as PageHeader } from './components/PageHeader';
 export { default as Spinner } from './components/Spinner';
 export { default as ProgressBar } from './components/ProgressBar';
 export { default as TagSelector } from './components/TagSelector';
+export { default as SettingCard } from './components/SettingCard';
 export { default as SkeletonItem } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 export { default as DropdownMenu } from './components/DropdownMenu';
