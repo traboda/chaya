@@ -1,6 +1,6 @@
 {
   "name": "chaya-ui",
-  "version": "1.0.0-beta.47",
+  "version": "1.0.0-beta.50",
   "description": "Modern, Functional Design System & Components for React",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
@@ -15,8 +15,8 @@
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "contributors": [
+    "Ashwin S Shenoy <aswinshenoy65@gmail.com>",
     "Advaith A J <advaitharunjeena@gmail.com>",
-    "aswinshenoy <aswinshenoy65@gmail.com>",
     "Abhiram Krishna <abhikrishnaram88@gmail.com>"
   ],
   "license": "GPL-3.0-only",
