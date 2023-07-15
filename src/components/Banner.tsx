@@ -8,7 +8,7 @@ import DSRContext from '../contexts/DSRContext';
 
 import Icon, { IconInputType } from './Icon';
 
-export type BannerPropType = {
+export type BannerProps = {
   className?: string,
   variant?: 'full-width' | 'float' | 'card',
   color?: 'primary' | 'secondary' | 'warning' | 'danger' | 'success' | 'shaded' | 'contrast' | 'white' | 'dark'
@@ -28,7 +28,7 @@ export type BannerPropType = {
 const Banner = ({
   className, variant, onClose, position = 'top', text, color = 'primary', icon,
   allowDismissal, children, learnMore,
-}: BannerPropType) => {
+}: BannerProps) => {
 
   const { theme, isDarkTheme } = useContext(DSRContext);
 

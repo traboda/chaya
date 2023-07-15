@@ -1,41 +1,46 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-import { ChayaColorType } from '../hooks/useColors';
-
 import Modal from './Modal';
-import Button from './Button';
+import Button, { ButtonProps } from './Button';
 import TextInput from './TextInput';
 
-type ConfirmationDialog = {
-  labels?: {
-    title?: string,
-    description?: string,
+export type ConfirmationDialogProps = {
+  labels: {
+    title: string,
+    description: string,
     confirm?: string,
     cancel?: string,
     confirmationText?: string,
+    confirmationTextLabel?: string,
+    passwordLabel?: string,
+    passwordPlaceholder?: string,
   },
   isOpen?: boolean,
   requirePassword?: boolean,
   requireConfirmationText?: boolean,
   onConfirm?: (args: { password?: string, }) => void,
   onCancel?: () => void,
-  color?: ChayaColorType,
   className?: string
+  formID?: string,
+  confirmButtonProps: ButtonProps,
+  cancelButtonProps: ButtonProps,
 };
 
 const defaultLabels = {
-  title: 'Are You Sure?',
-  description: "You can't undo this action afterwards.",
   confirm: 'Confirm',
   cancel: 'Cancel',
   confirmationText: 'CONFIRM',
+  confirmationTextLabel: 'Confirmation Text',
+  passwordLabel: 'Password',
+  passwordPlaceholder: 'Enter your password',
 };
 
 const ConfirmationDialog = ({
   labels: initialLabels, isOpen = false, requireConfirmationText = false, requirePassword = false,
-  onConfirm = () => {}, onCancel = () => {}, color = 'primary', className,
-}: ConfirmationDialog) => {
+  onConfirm = () => {}, onCancel = () => {}, className, formID,
+  confirmButtonProps, cancelButtonProps,
+}: ConfirmationDialogProps) => {
 
   const labels = { ...defaultLabels, ...initialLabels };
 
@@ -57,45 +62,56 @@ const ConfirmationDialog = ({
       onClose={onCancel}
       contentClassName={clsx('confirmation-dialog', className)}
     >
-      <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-2">{labels?.title}</h2>
-      <p style={{ width: '450px' }} className="dsr-text-lg dsr-max-w-full">
-        {labels?.description}
-      </p>
-      <form className="dsr-pt-2" onSubmit={confirmAction}>
-        {requireConfirmationText && (
-        <TextInput
-          className="dsr-mb-3"
-          label={`Enter "${labels?.confirmationText}" to confirm`}
-          name="confirmationText"
-          value={confirmText}
-          onChange={setConfirmText}
-          isRequired
-        />
-        )}
-        {requirePassword && (
-        <TextInput
-          className="dsr-mb-3"
-          label="Enter Your Password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={setPassword}
-          isRequired
-        />
-        )}
-        <div className="dsr-flex dsr-justify-end">
+      <form id={formID} onSubmit={confirmAction}>
+        <div className="dsr-p-1">
+          <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-1">{labels?.title}</h2>
+          <p style={{ width: '450px' }} className="dsr-opacity-90 dsr-max-w-full">
+            {labels?.description}
+          </p>
+          {(requireConfirmationText || requirePassword) && (
+            <div className="dsr-my-4">
+              {requireConfirmationText && (
+                <TextInput
+                  className="dsr-mb-3"
+                  label={labels?.confirmationTextLabel}
+                  placeholder={`Enter "${labels?.confirmationText}" to confirm`}
+                  name="confirmationText"
+                  value={confirmText}
+                  onChange={setConfirmText}
+                  isRequired
+                />
+              )}
+              {requirePassword && (
+                <TextInput
+                  className="dsr-mb-3"
+                  label={labels?.passwordLabel}
+                  placeholder={labels?.passwordPlaceholder}
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={setPassword}
+                  isRequired
+                />
+              )}
+            </div>
+          )}
+        </div>
+        <div className="dsr-flex dsr-justify-end dsr-gap-2">
           <Button
-            color="shade"
+            color="contrast"
             onClick={onCancel}
             type="button"
-            className="dsr-mr-2"
+            {...cancelButtonProps}
+            className={clsx(['cancel-button', confirmButtonProps?.className])}
           >
             {labels?.cancel}
           </Button>
           <Button
+            autoFocus
             type="submit"
-            color={color}
             isDisabled={(requireConfirmationText && confirmText !== labels.confirmationText) || (requirePassword && password?.length === 0)}
+            {...confirmButtonProps}
+            className={clsx(['confirm-button', confirmButtonProps?.className])}
           >
             {labels?.confirm}
           </Button>

@@ -81,6 +81,7 @@ const Modal = ({
             <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
               <Dialog.Close asChild>
                 <button
+                  tabIndex={-1}
                   type="button"
                   title="close"
                   className={clsx([

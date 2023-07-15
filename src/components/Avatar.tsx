@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 
-type AvatarProps = {
+export type AvatarProps = {
   alt: string,
   src: string,
   size?: number | string,

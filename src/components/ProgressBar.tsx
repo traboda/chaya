@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export type ProgressBarType = {
+export type ProgressBarProps = {
   value: number,
   isStriped?: boolean,
   size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl'),
@@ -21,7 +21,7 @@ const sizes = {
   xl: '3rem',
 };
 
-const ProgressBar = ({ value, isStriped = false, size = 'md', className = '', id, minVal = 0, maxVal = 100, height, isLoading = false }: ProgressBarType) => {
+const ProgressBar = ({ value, isStriped = false, size = 'md', className = '', id, minVal = 0, maxVal = 100, height, isLoading = false }: ProgressBarProps) => {
 
   return (
     <div

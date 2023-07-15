@@ -5,7 +5,7 @@ import Button, { ButtonProps } from './Button';
 import Icon, { IconInputType } from './Icon';
 
 
-type Alert = {
+export type AlertProps = {
   type?: 'success' | 'info' | 'warning' | 'danger' | 'default';
   variant?: 'solid' | 'outline';
   id?: string,
@@ -52,7 +52,7 @@ const getBorderClassByType = (type: string) => {
 const Alert = ({
   type = 'default', variant = 'solid', id, className = '', title, description, allowDismissal = false,
   onDismiss = () => {}, primaryButton, secondaryButton, titleIcon,
-}: Alert) => {
+}: AlertProps) => {
   const [hide, setHide] = useState(false);
   const computedClassName = clsx([
     description ? 'dsr-py-4' : 'dsr-py-3',

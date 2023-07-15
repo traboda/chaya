@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import Label from './Label';
 
-type SwitchProps = {
+export type SwitchProps = {
   value: boolean,
   onChange?: (v: boolean) => void,
   size?: number,

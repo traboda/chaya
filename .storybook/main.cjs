@@ -3,6 +3,7 @@ module.exports = {
   "stories": [
       "../src/stories/introduction/*.stories.mdx",
       "../src/stories/components/*.stories.tsx",
+      "../src/stories/components/**/**.stories.tsx",
   ],
   "addons": [
     "@storybook/addon-links",

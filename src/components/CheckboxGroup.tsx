@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Checkbox, { CheckboxColor, CheckboxSize } from './Checkbox';
 import Label from './Label';
 
-export type CheckboxGroupType<Type> = {
+export type CheckboxGroupProps<Type> = {
   value: Type[],
   options: {
     value: Type,
@@ -25,7 +25,7 @@ export type CheckboxGroupType<Type> = {
 const CheckboxGroup = <Type extends string | number>({
   value, options, onChange = () => {}, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
   isRequired = false, label, optionClassName, id, minSelections = 1,
-}: CheckboxGroupType<Type>) => {
+}: CheckboxGroupProps<Type>) => {
 
   const checkboxRefs = useRef<(React.RefObject<HTMLInputElement>)[]>([]);
   const [hiddenInputValue, setHiddenInputValue] = React.useState<string>('');

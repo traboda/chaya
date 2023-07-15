@@ -8,7 +8,7 @@ import Icon from '../Icon';
 import drawerStyles from './drawer.module.scss';
 
 
-type DrawerProps = {
+export type DrawerProps = {
   isOpen: boolean,
   onClose: () => void,
   children: ReactNode,

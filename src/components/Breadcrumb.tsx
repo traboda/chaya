@@ -13,13 +13,13 @@ export type BreadcrumbItemProps = {
   isActive?: boolean
 };
 
-export type BreadcrumbPropType = {
+export type BreadcrumbProps = {
   items: BreadcrumbItemProps[],
   className?: string,
   itemClassName?: string
 };
 
-const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbPropType) => {
+const Breadcrumb = ({ items, className = '', itemClassName = '' }: BreadcrumbProps) => {
 
   const computedItemClassName = clsx([
     'breadcrumb-item dsr-flex dsr-items-center dsr-gap-1 dsr-text-color',

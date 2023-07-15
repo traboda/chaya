@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
-import ToolTip from './ToolTip';
+import ToolTip from './Tooltip';
 import Icon from './Icon';
 
 export type LabelProps = {

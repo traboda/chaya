@@ -16,7 +16,7 @@ export { default as Switch } from './components/Switch';
 export { default as Banner } from './components/Banner';
 export { default as Avatar } from './components/Avatar';
 export { default as Button } from './components/Button';
-export { default as ToolTip } from './components/ToolTip';
+export { default as Tooltip } from './components/Tooltip';
 export { default as PinInput } from './components/PinInput';
 export { default as Dropzone } from './components/Dropzone';
 export { default as Dropdown } from './components/Dropdown';

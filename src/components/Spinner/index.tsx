@@ -9,6 +9,7 @@ export type SpinnerProps = {
   className?: string,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
   variant?: 'simple' | 'dots',
+  id?: string,
 };
 
 const sizes = {
@@ -19,11 +20,11 @@ const sizes = {
   xl: '1.25rem',
 };
 
-const Spinner = ({ size = 'md', variant = 'simple', className }: SpinnerProps) => {
+const Spinner = ({ size = 'md', variant = 'simple', className, id }: SpinnerProps) => {
   const { isDarkTheme } = useContext(DSRContext);
   
   return (
-    <div className={className} style={{ height: sizes[size], width: sizes[size] }}>
+    <div id={id} className={className} style={{ height: sizes[size], width: sizes[size] }}>
       <svg
         className={clsx([
           variant === 'simple' && spinnerStyles.spinner,

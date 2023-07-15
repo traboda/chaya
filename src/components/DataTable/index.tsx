@@ -10,7 +10,7 @@ import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
 import SelectionHelper from './SelectionHelper';
 
-type DataTableProps<Type> = {
+export type DataTableProps<Type> = {
   properties: ItemListerProperty<Type>[],
   items: Type[],
   maxHeight?: string,

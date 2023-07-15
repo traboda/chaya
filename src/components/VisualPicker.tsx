@@ -7,7 +7,7 @@ import useColors, { ChayaColorType } from '../hooks/useColors';
 import Label from './Label';
 import Icon, { IconInputType } from './Icon';
 
-type VisualPickerValueType = string | number;
+export type VisualPickerValueType = string | number;
 
 export type VisualPickerProps<Type> = {
   items: {

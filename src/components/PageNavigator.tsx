@@ -5,7 +5,7 @@ import Button from './Button';
 import SimpleSelect from './SimpleSelect';
 import Icon from './Icon';
 
-type PageNavigator = {
+export type PageNavigatorProps = {
   totalCount: number,
   itemsPerPage: number,
   page: number,
@@ -30,7 +30,7 @@ const PageNavigator = ({
   totalCount, page, itemsPerPage, id, className = '', hideItemsPerPage = false,
   showControls = true, showEdges = true, showPages = true,
   setPage = () => {}, setItemsPerPage = () => {}, labels: _labels,
-}: PageNavigator) => {
+}: PageNavigatorProps) => {
 
   const labels = { ...DEFAULT_LABELS, ..._labels };
   const length = Math.floor(((totalCount + itemsPerPage - 1) / itemsPerPage));

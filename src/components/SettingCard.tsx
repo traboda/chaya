@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Card from './Card';
 
-export type SettingCardType = {
+export type SettingCardProps = {
   labels: {
     title: string,
     description?: (string | React.ReactElement),
@@ -18,7 +18,7 @@ export type SettingCardType = {
 
 const SettingCard = ({
   labels, children, id, className, subSettingRenderer, titleClassName,
-}: SettingCardType) => (
+}: SettingCardProps) => (
   <Card id={id} className={clsx(['dsr-p-2 md:dsr-p-3 dsr-w-full', className])}>
     <div className="dsr-flex dsr-flex-wrap dsr-h-full dsr-mx-0">
       <div className="dsr-w-full md:dsr-w-3/4 dsr-p-1">

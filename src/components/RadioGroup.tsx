@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Radio, { RadioColor, RadioSize } from './Radio';
 import Label from './Label';
 
-export type RadioGroupType<Type> = {
+export type RadioGroupProps<Type> = {
   value: Type,
   options: {
     value: Type,
@@ -23,7 +23,7 @@ export type RadioGroupType<Type> = {
 const RadioGroup = <Type extends string | number>({
   value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
   isRequired = false, label, optionClassName, onChange = () => {},
-}: RadioGroupType<Type>) => {
+}: RadioGroupProps<Type>) => {
 
   const radioRefs = useRef<(React.RefObject<HTMLInputElement>)[]>([]);
 

@@ -61,7 +61,7 @@ const DropdownMenu = ({
         asChild
         role="menuitem"
         key={`dropdown-menu-item-${index}-${o?.title}`}
-        className="dropdown-menu-item dsr-my-1"
+        className="dropdown-menu-item"
       >
         {o?.link ?
           <div className={linkClasses(o?.className)}>
@@ -81,7 +81,7 @@ const DropdownMenu = ({
         key={`dropdown-menu-group-${index}-${g?.title || ''}`}
         className={clsx([
           'dsr-pb-1',
-          'dsr-mb-1 dsr-border-b dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+          'dsr-border-b dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         ])}
       >
         {g?.title && (
@@ -102,7 +102,7 @@ const DropdownMenu = ({
       id={id}
       className={className}
       containerClassName={clsx([
-        'dsr-rounded-lg dsr-p-1',
+        'dsr-rounded-lg dsr-p-1 dsr-flex dsr-flex-col dsr-gap-1',
         'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         containerClassName,
       ])}

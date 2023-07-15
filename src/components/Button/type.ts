@@ -19,6 +19,8 @@ export type ButtonProps = {
   link?: string
   target?: LinkTargetType,
   rel?: LinkRelType,
+  tabIndex?: number,
+  autoFocus?: boolean,
 
   isDisabled?: boolean,
   isLoading?: boolean,

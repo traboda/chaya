@@ -48,7 +48,14 @@ const Accordion = ({
         }}
       >
         {title}
-        <Icon icon={isOpen ? 'chevron-up' : 'chevron-down'} size={18} />
+        <Icon
+          icon="chevron-down"
+          className={clsx([
+            'dsr-transition dsr-transform dsr-duration-200',
+            isOpen ? 'dsr-rotate-180' : '',
+          ])}
+          size={18}
+        />
       </button>
       <div
         id={`${id}_content`}

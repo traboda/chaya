@@ -4,9 +4,9 @@ import Color from 'color';
 
 import DSRContext from '../contexts/DSRContext';
 
-import Breadcrumb, { BreadcrumbPropType } from './Breadcrumb';
+import Breadcrumb, { BreadcrumbProps } from './Breadcrumb';
 
-type PageHeader = {
+export type PageHeaderProps = {
   title?: string,
   customTitle?: React.ReactElement,
   description?: string,
@@ -15,7 +15,7 @@ type PageHeader = {
   fill?: boolean,
   className?: string,
   headingClassName?: string,
-  breadcrumb?: BreadcrumbPropType,
+  breadcrumb?: BreadcrumbProps,
   breadcrumbItems?: {
     link: string,
     title: string,
@@ -33,7 +33,7 @@ const PageHeader = ({
   titleBottomRenderer = () => <div />,
   sidebarRenderer = () => <div />,
   customTitle, breadcrumb,
-} : PageHeader) => {
+} : PageHeaderProps) => {
   const { isDarkTheme, theme } = useContext(DSRContext);
 
   return (

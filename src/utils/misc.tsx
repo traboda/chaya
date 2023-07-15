@@ -13,6 +13,8 @@ export type LinkRelType = (
 export type LinkOptions = {
   target?: LinkTargetType,
   rel?: LinkRelType,
+  tabIndex?: number,
+  autoFocus?: boolean,
   id?: string,
   className?: string,
   label?: string,
@@ -33,7 +35,9 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
         link,
         <a
           id={options?.id}
+          autoFocus={options?.autoFocus}
           role={options?.role}
+          tabIndex={options?.tabIndex}
           href={link}
           target={options?.target}
           rel={options?.rel}

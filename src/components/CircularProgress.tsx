@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import DSRContext from '../contexts/DSRContext';
 
-type CircularProgressProps = {
+export type CircularProgressProps = {
   value: number,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
   thickness?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',

@@ -7,7 +7,7 @@ import Label from '../Label';
 
 import PinDigit from './digit';
 
-type PinInputProps = {
+export type PinInputProps = {
   value: string,
   onChange?: (value: string) => void,
   digits?: number,

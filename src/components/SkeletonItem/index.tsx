@@ -3,12 +3,12 @@ import clsx from 'clsx';
 
 import skeletonItemStyles from './skeletonItem.module.scss';
 
-type SkeletonItemProps = {
+export type SkeletonItemProps = {
   circular?: boolean
   minWidth?: string
   variant?: 'wave' | 'pulse'
-  w?: string
-  h?: string
+  w?: string | number
+  h?: string | number
   className?: string
 };
 

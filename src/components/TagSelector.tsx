@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Badge, { BaseBadgeProps } from './Badge';
 import Label from './Label';
 
-type OptionType = {
+export type OptionType = {
   value: (string | number),
   label: (string | React.ReactElement),
   isDisabled?: boolean,
@@ -13,8 +13,8 @@ type OptionType = {
   countBadgeProps?: BaseBadgeProps,
 };
 
-type SingleValueType = string | number;
-type TagSelectorProps<Type> = {
+export type SingleValueType = string | number;
+export type TagSelectorProps<Type> = {
   labels?: {
     helpText: string,
     title: string,

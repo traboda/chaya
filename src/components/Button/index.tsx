@@ -40,7 +40,7 @@ const ringColor = {
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
-  id, className = '', style, label, disableRipple = false,
+  id, className = '', style, label, disableRipple = false, tabIndex, autoFocus,
   target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false,
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
@@ -90,6 +90,8 @@ const Button = ({
       aria-label={label}
       aria-disabled={isDisabled || isLoading}
       type={type}
+      tabIndex={tabIndex}
+      autoFocus={autoFocus}
       onClick={e => {
         e.stopPropagation();
         onClick(e);
@@ -112,6 +114,8 @@ const Button = ({
     onMouseLeave: () => setHover(false),
     isDisabled: isDisabled || isLoading,
     isLoading,
+    tabIndex,
+    autoFocus,
   }) : buttonRenderer();
 };
 
