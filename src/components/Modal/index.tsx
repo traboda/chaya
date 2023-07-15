@@ -59,8 +59,8 @@ const Modal = ({
         <Dialog.Content
           className={clsx([
             'modal-wrapper dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex dsr-justify-center',
-            'dsr-items-end sm:dsr-items-center dsr-backdrop-blur dsr-z-[7200]',
-            hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/50 dark:dsr-bg-black/50',
+            'dsr-items-end sm:dsr-items-center dsr-backdrop-blur-sm dsr-z-[7200]',
+            hideBg ? 'dsr-bg-white/75 dark:dsr-bg-black/75' : 'dsr-bg-white/30 dark:dsr-bg-black/30',
             overlayClassName,
           ])}
           onClick={() => closable && onClose()}
@@ -72,7 +72,7 @@ const Modal = ({
               'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
-              hideBg ? '' : 'dsr-bg-background',
+              hideBg ? '' : 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
             ])}
             style={{ maxWidth }}
             onClick={e => e.stopPropagation()}

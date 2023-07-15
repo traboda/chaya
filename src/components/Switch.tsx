@@ -53,11 +53,11 @@ const Switch = ({
       {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
       <label
         className={clsx([
-          'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dsr-border-gray-500/70 dsr-shadow-inner',
+          'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
           value && variants[variant],
           className,
           isDisabled && 'dsr-cursor-not-allowed',
-          !value && 'dsr-bg-background',
+          !value && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
         ])}
         style={{
           height: size,

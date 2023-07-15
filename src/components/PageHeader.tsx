@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import Color from 'color';
 
-import DSRContext from '../contexts/DSRContext';
 
 import Breadcrumb, { BreadcrumbProps } from './Breadcrumb';
 
@@ -34,18 +32,16 @@ const PageHeader = ({
   sidebarRenderer = () => <div />,
   customTitle, breadcrumb,
 } : PageHeaderProps) => {
-  const { isDarkTheme, theme } = useContext(DSRContext);
 
   return (
     <section
       id={id}
       className={clsx([
-        'page-header',
+        'page-header dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
         !fill && 'dsr-flex dsr-items-center dsr-justify-center',
         className,
       ])}
       style={{
-        background: isDarkTheme ? Color(theme?.background || '#000').lighten(0.2).hex() : Color(theme?.background || '#FFF').darken(0.15).hex(),
         padding: size === 'lg' ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
       }}
     >
