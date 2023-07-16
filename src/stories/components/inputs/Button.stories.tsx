@@ -5,7 +5,7 @@ import { Button } from '../../../index';
 import { ButtonProps } from '../../../components/Button';
 
 const meta: Meta = {
-  title: 'Inputs/Button',
+  title: 'Components/Inputs/Button',
   component: Button,
   argTypes: {
     children: {

@@ -5,7 +5,7 @@ import { Drawer } from '../../../index';
 import { DrawerProps } from '../../../components/Drawer';
 
 const meta: Meta = {
-  title: 'Overlays/Drawer',
+  title: 'Components/Overlays/Drawer',
   component: Drawer,
   parameters: {
     controls: { expanded: true },

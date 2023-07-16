@@ -6,7 +6,7 @@ import { DataTableProps } from '../../../components/DataTable';
 import { ItemListerProperty } from '../../../components/DataTable/Row';
 
 const meta: Meta = {
-  title: 'Display/DataTable',
+  title: 'Components/Display/DataTable',
   component: DataTable,
   argTypes: {
     children: {

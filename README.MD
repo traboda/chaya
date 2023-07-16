@@ -21,7 +21,7 @@ that are used to design a consistent, modern and accessible frontend for Traboda
 Chaya makes it seamless to build a consistent and accessible frontend for your platforms made
 with React.
 
-- 32+ UI components, 4+ hooks, and even more to come
+- 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
 - Styled with Tailwind CSS (v3)
 - Supports Dark Mode & Custom Theming

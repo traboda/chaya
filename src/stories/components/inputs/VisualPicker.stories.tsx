@@ -5,7 +5,7 @@ import { VisualPicker } from '../../../index';
 import { VisualPickerProps } from '../../../components/VisualPicker';
 
 const meta: Meta = {
-  title: 'Inputs/VisualPicker',
+  title: 'Components/Inputs/VisualPicker',
   component: VisualPicker,
   parameters: {
     controls: { expanded: true },

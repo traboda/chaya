@@ -5,7 +5,7 @@ import { Button, PageHeader } from '../../../index';
 import { PageHeaderProps } from '../../../components/PageHeader';
 
 const meta: Meta = {
-  title: 'Display/PageHeader',
+  title: 'Components/Display/PageHeader',
   component: PageHeader,
   parameters: {
     controls: { expanded: true },

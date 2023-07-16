@@ -5,7 +5,7 @@ import { Card, SimpleSelect } from '../../../index';
 import { SimpleSelectProps } from '../../../components/SimpleSelect';
 
 const meta: Meta = {
-  title: 'Inputs/Simple Select',
+  title: 'Components/Inputs/Simple Select',
   component: SimpleSelect,
   argTypes: {
     children: {
@@ -60,6 +60,26 @@ Basic.args = {
   options,
 };
 
+export const CustomIcon = Template.bind({});
+
+let value2;
+
+CustomIcon.args = {
+  labels: {
+    label: 'Customized Selector',
+    placeholder: 'Pick your option',
+  },
+  isRequired: false,
+  hideArrow: true,
+  leftIcon: {
+    icon: 'search',
+  },
+  rightIcon: 'settings',
+  value: value2,
+  onChange: (v: any) => value2 = v,
+  options,
+};
+
 export const withAsync: Story<SimpleSelectProps<string>> = Template.bind({});
 
 let asyncValue;
@@ -90,11 +110,14 @@ withMultiSelect.args = {
     label: 'Category',
     placeholder: 'Select a category',
   },
+  variant: 'comma',
   isMulti: true,
   isRequired: true,
-  value: [],
+  value: ['cs', 'me'],
   options,
 };
+
+
 
 export const withGroups: Story<SimpleSelectProps<string>> = Template.bind({});
 
@@ -141,7 +164,7 @@ const VariantsTemplate: Story<SimpleSelectProps<string[]>> = args => {
         </div>
         <div className="w-full md:dsr-w-1/2 dsr-p-2">
           <Card title="Chip Variant">
-            <SimpleSelect {...args} value={value} onChange={setValue} variant="chip" />
+            <SimpleSelect {...args} value={value} onChange={setValue} variant="pill" />
           </Card>
         </div>
       </div>

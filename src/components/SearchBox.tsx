@@ -29,7 +29,8 @@ export type SearchBoxProps = {
   isLoading?: boolean,
   inputClassName?: string,
   buttonClassName?: string,
-  buttonWrapperClassName?: string
+  buttonWrapperClassName?: string,
+  hideButton?: boolean,
 };
 
 const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent';
@@ -37,7 +38,8 @@ const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-b
 const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
   labels: labelProps, onSearch = () => {}, onClear = () => {}, onKeyDown = () => () => {},
-  autoFocus = false, isDisabled = false, isLoading = false, inputClassName, buttonClassName, buttonWrapperClassName,
+  autoFocus = false, isDisabled = false, isLoading = false, hideButton = false,
+  inputClassName, buttonClassName, buttonWrapperClassName,
 }: SearchBoxProps) => {
 
   const labels = { ...defaultLabels, ...labelProps };
@@ -65,15 +67,16 @@ const SearchBox = ({
         isDisabled={isDisabled}
         isLoading={isLoading}
         inputClassName={inputClassName}
-        postfixClassName={buttonWrapperClassName}
-        postfixRenderer={(
+        postfixClassName={clsx([hideButton && 'dsr-border-l-0 !dsr-bg-transparent', buttonWrapperClassName])}
+        leftIcon={hideButton ? 'search' : undefined}
+        postfixRenderer={(!hideButton || keyword?.length > 0) && (
           <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
             {keyword.length > 0 && (
               <Button
                 variant="link"
                 color="danger"
                 type="button"
-                className={clsx([buttonClass, '-dsr-mr-3.5 dsr-opacity-100', buttonClassName])}
+                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-opacity-100', buttonClassName])}
                 onClick={() => {
                   setKeyword('');
                   onSearch('');
@@ -84,15 +87,17 @@ const SearchBox = ({
               />
             )}
 
-            <Button
-              variant="link"
-              color="contrast"
-              className={clsx(['search-box-button dsr-opacity-100', buttonClass, buttonClassName])}
-              label={`${name} button`}
-              type="submit"
-              rightIcon="search"
-              isDisabled={isDisabled || isLoading}
-            />
+            {!hideButton && (
+              <Button
+                variant="link"
+                color="contrast"
+                className={clsx(['search-box-button dsr-opacity-100', buttonClass, buttonClassName])}
+                label={`${name} button`}
+                type="submit"
+                rightIcon="search"
+                isDisabled={isDisabled || isLoading}
+              />
+            )}
           </div>
         )}
       />

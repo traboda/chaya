@@ -5,7 +5,7 @@ import { Button, Modal, SimpleSelect } from '../../../index';
 import { ModalProps } from '../../../components/Modal';
 
 const meta: Meta = {
-  title: 'Overlays/Modal',
+  title: 'Components/Overlays/Modal',
   component: Modal,
   argTypes: {
     children: {

@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { SelectorButton } from '../../../index';
 
 const meta: Meta = {
-  title: 'Inputs/SelectorButton',
+  title: 'Components/Inputs/SelectorButton',
   component: SelectorButton,
   argTypes: {
     children: {

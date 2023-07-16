@@ -5,7 +5,7 @@ import { TagSelector } from '../../../index';
 import { OptionType, TagSelectorProps } from '../../../components/TagSelector';
 
 const meta: Meta = {
-  title: 'Inputs/Tag Selector',
+  title: 'Components/Inputs/Tag Selector',
   component: TagSelector,
   parameters: {
     controls: { expanded: true },

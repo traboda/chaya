@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { Button, HoverCard } from '../../../index';
 
 const meta: Meta = {
-  title: 'Overlays/HoverCard',
+  title: 'Components/Overlays/HoverCard',
   component: HoverCard,
   parameters: {
     backgrounds: {},

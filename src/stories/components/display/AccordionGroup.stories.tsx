@@ -5,7 +5,7 @@ import { AccordionGroup } from '../../../index';
 import { AccordionGroupProps } from '../../../components/AccordionGroup';
 
 const meta: Meta = {
-  title: 'Display/AccordionGroup',
+  title: 'Components/Display/AccordionGroup',
   component: AccordionGroup,
   parameters: {
     controls: { expanded: true },

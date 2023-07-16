@@ -5,7 +5,7 @@ import { Stats } from '../../../index';
 import { StatsProps } from '../../../components/Stats';
 
 const meta: Meta = {
-  title: 'Display/Stats',
+  title: 'Components/Display/Stats',
   component: Stats,
   argTypes: {
     children: {

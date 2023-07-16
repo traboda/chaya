@@ -5,7 +5,7 @@ import { SkeletonItem } from '../../../index';
 import { SkeletonItemProps } from '../../../components/SkeletonItem';
 
 const meta: Meta = {
-  title: 'Feedback/SkeletonItem',
+  title: 'Components/Feedback/SkeletonItem',
   component: SkeletonItem,
   parameters: {
     controls: { expanded: true },

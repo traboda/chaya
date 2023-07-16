@@ -5,7 +5,7 @@ import { PinInput, Label } from '../../../index';
 import { PinInputProps } from '../../../components/PinInput';
 
 const meta: Meta = {
-  title: 'Inputs/Pin Input',
+  title: 'Components/Inputs/Pin Input',
   component: PinInput,
   parameters: {
     controls: { expanded: true },

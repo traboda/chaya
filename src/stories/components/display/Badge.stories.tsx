@@ -5,7 +5,7 @@ import { Badge } from '../../../index';
 import { BadgeProps } from '../../../components/Badge';
 
 const meta: Meta = {
-  title: 'Display/Badge',
+  title: 'Components/Display/Badge',
   component: Badge,
   parameters: {
     controls: { expanded: true },

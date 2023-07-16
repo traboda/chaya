@@ -6,7 +6,7 @@ import styled from './radio.module.scss';
 export type RadioColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-type RadioButtonProps<Type> = {
+export type RadioProps<Type> = {
   label: string,
   value: Type,
   tabIndex?: number,
@@ -36,7 +36,7 @@ const sizes = {
   'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
 };
 
-const Radio = forwardRef<HTMLInputElement, RadioButtonProps<string | number>>(({
+const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
   value, label, onChange = () => {}, isSelected = false, color = 'primary', size = 'md', isDisabled = false,
   className, tabIndex, onKeyDown,
 }, ref) => {

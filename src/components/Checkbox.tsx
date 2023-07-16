@@ -4,7 +4,7 @@ import clsx from 'clsx';
 export type CheckboxColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
 export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-export type CheckboxButtonProps<Type> = {
+export type CheckboxProps<Type> = {
   label: string,
   value: Type,
   isChecked?: boolean,
@@ -46,7 +46,7 @@ export const focusColors = {
   'default': 'dsr-ring-gray-500/70',
 };
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxButtonProps<string | number>>(
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps<string | number>>(
   ({
     value, label, onChange = () => {}, isChecked = false, color = 'primary', size = 'md', isDisabled = false,
     className, onClick = () => {}, isHalf = false, tabIndex, onKeyDown,

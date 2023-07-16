@@ -1,6 +1,6 @@
 {
   "name": "chaya-ui",
-  "version": "1.0.0-beta.52",
+  "version": "1.0.0-beta.53",
   "description": "Modern, Functional Design System & Components for React",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
@@ -57,6 +57,7 @@
     "@storybook/addon-essentials": "^7.0.24",
     "@storybook/addon-interactions": "^7.0.24",
     "@storybook/addon-links": "^7.0.24",
+    "@storybook/addon-storysource": "^7.0.27",
     "@storybook/addon-viewport": "^7.0.24",
     "@storybook/addons": "^7.0.24",
     "@storybook/manager-api": "^7.0.24",

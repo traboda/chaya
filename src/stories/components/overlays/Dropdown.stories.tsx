@@ -5,7 +5,7 @@ import { Dropdown } from '../../../index';
 import { DropdownProps } from '../../../components/Dropdown';
 
 const meta: Meta = {
-  title: 'Overlays/Dropdown',
+  title: 'Components/Overlays/Dropdown',
   component: Dropdown,
   parameters: {
     controls: { expanded: true },

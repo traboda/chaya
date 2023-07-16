@@ -5,7 +5,7 @@ import { CircularProgress } from '../../../index';
 import { CircularProgressProps } from '../../../components/CircularProgress';
 
 const meta: Meta = {
-  title: 'Feedback/CircularProgress',
+  title: 'Components/Feedback/CircularProgress',
   component: CircularProgress,
 };
 

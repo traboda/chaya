@@ -5,7 +5,7 @@ import { SidebarNavigation } from '../../../index';
 import { SidebarNavigationProps } from '../../../components/SidebarNavigation';
 
 const meta: Meta = {
-  title: 'Navigation/SidebarNavigation',
+  title: 'Components/Navigation/SidebarNavigation',
   component: SidebarNavigation,
   argTypes: {
     children: {

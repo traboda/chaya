@@ -6,7 +6,7 @@ import { CheckboxGroupProps } from '../../../components/CheckboxGroup';
 
 
 const meta: Meta = {
-  title: 'Inputs/CheckboxGroup',
+  title: 'Components/Inputs/CheckboxGroup',
   component: CheckboxGroup,
   parameters: {
     controls: { expanded: true },

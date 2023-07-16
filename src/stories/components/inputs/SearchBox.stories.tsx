@@ -5,7 +5,7 @@ import { SearchBox } from '../../../index';
 import { SearchBoxProps } from '../../../components/SearchBox';
 
 const meta: Meta = {
-  title: 'Inputs/SearchBox',
+  title: 'Components/Inputs/SearchBox',
   component: SearchBox,
   argTypes: {
     onSearch: { action: 'search' },
@@ -36,4 +36,12 @@ export const Default = Template.bind({});
 
 Default.args = {
   keyword: '',
+};
+
+
+export const WithoutButton = Template.bind({});
+
+WithoutButton.args = {
+  keyword: 'something',
+  hideButton: true,
 };

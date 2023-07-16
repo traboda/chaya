@@ -5,7 +5,7 @@ import { Dropzone } from '../../../index';
 import { DropzoneProps } from '../../../components/Dropzone';
 
 const meta: Meta = {
-  title: 'Inputs/Dropzone',
+  title: 'Components/Inputs/Dropzone',
   component: Dropzone,
   argTypes: {
     children: {

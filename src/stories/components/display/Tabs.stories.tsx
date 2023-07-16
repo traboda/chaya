@@ -5,7 +5,7 @@ import { Tabs } from '../../../index';
 import { TabsProps } from '../../../components/Tabs';
 
 const meta: Meta = {
-  title: 'Display/Tabs',
+  title: 'Components/Display/Tabs',
   component: Tabs,
   parameters: {
     controls: { expanded: true },

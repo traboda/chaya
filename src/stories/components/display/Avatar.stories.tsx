@@ -5,7 +5,7 @@ import { Avatar } from '../../../index';
 import { AvatarProps } from '../../../components/Avatar';
 
 const meta: Meta = {
-  title: 'Display/Avatar',
+  title: 'Components/Display/Avatar',
   component: Avatar,
   parameters: {
     controls: { expanded: true },

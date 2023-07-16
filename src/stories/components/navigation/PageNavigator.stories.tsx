@@ -5,7 +5,7 @@ import { PageNavigator } from '../../../index';
 import { PageNavigatorProps } from '../../../components/PageNavigator';
 
 const meta: Meta = {
-  title: 'Navigation/PageNavigator',
+  title: 'Components/Navigation/PageNavigator',
   component: PageNavigator,
   parameters: {
     controls: {

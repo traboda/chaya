@@ -5,7 +5,7 @@ import { Spinner } from '../../../index';
 import { SpinnerProps } from '../../../components/Spinner';
 
 const meta: Meta = {
-  title: 'Feedback/Spinner',
+  title: 'Components/Feedback/Spinner',
   component: Spinner,
 };
 

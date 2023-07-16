@@ -1,21 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import {
-  Card,
-  Button,
-  TextInput,
-  PinInput,
-  SearchBox,
-  SelectorButton,
-  SimpleSelect,
-  Switch,
-  TagSelector, PageNavigator, Badge,
-} from '../../../index';
+import { Card, Button } from '../../../index';
 import { CardProps } from '../../../components/Card';
 
 const meta: Meta = {
-  title: 'Display/Card',
+  title: 'Components/Display/Card',
   component: Card,
   argTypes: {
     children: {
@@ -31,30 +21,21 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<CardProps> = args => (
-  <>
-    <Card {...args}>
-      {args.children}
-      <Card
-        description="Set start time and end time for the CTF, which will determine the duration in which the CTF will be active. This is the time when public challenges will be released to participants, when deployments can be accessed and flags can be submitted."
-        sidebarRenderer={<Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>}
-        title="Child Title"
-      >
-        <h1>Child Card (content)</h1>
-        <Card className="dsr-mt-4" title="Grand child Title">
-          <h1>Grand Child Card (content)</h1>
-        </Card>
-      </Card>
-    </Card>
+const ChildPlaceholder = ({ className, text = 'Card Content Goes Here' }: { className?: string, text?: string }) => (
+  <div className={`dsr-bg-gray-500/40 dsr-w-full dsr-h-[25vh] dsr-border-2 dsr-border-gray-400/80 dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed ${className}`}>
+    {text}
+  </div>
+);
 
-    <Card
-      title="Card without any children"
-      description="This is a card which does not have any children"
-      sidebarRenderer={(
-        <Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>
-      )}
-    />
-  </>
+const Template: Story<CardProps> = args => (
+  <Card
+    title="Card without any children"
+    description="This is a card which does not have any children"
+    sidebarRenderer={(
+      <Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>
+    )}
+    {...args}
+  />
 );
 
 export const Default = Template.bind({});
@@ -62,14 +43,12 @@ export const Default = Template.bind({});
 Default.args = {
   title: 'Hello World',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  className: 'dsr-m-10',
+  children: <ChildPlaceholder />,
 };
 
 const DesignTemplate: Story<CardProps> = args => (
-  // @ts-ignore
   <Card {...args}>
     {args.children}
-    <Button className="dsr-mt-10" color="primary">Press here</Button>
   </Card>
 );
 
@@ -78,6 +57,7 @@ export const ShadedCard = DesignTemplate.bind({});
 ShadedCard.args = {
   title: 'Card Design',
   description: 'The following settings can be customized to make the card even more awesome.',
+  children: <ChildPlaceholder />,
 };
 
 export const OutlinedCard = DesignTemplate.bind({});
@@ -86,89 +66,28 @@ OutlinedCard.args = {
   title: 'Card Design',
   variant: 'outline',
   description: 'The following settings can be customized to make the card even more awesome.',
+  children: <ChildPlaceholder />,
 };
 
-
-const HeightPreviewCardTemplate: Story<CardProps> = () => (
-  // @ts-ignore
-  <div background="#111">
-    <div className="dsr-flex dsr-flex-wrap dsr-items-end">
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TextInput label="hello" />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <PinInput labels={{ label: 'hello' }} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        <SearchBox keyword="abc" setKeyword={() => {}} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        <SelectorButton name="hello" options={[{ label: 'hello', value: 'hello' }]} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TextInput label="hello" type="password" />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <PinInput variant="classic" labels={{ label: 'hello' }} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        <SimpleSelect value="hello" name="hello" options={[{ label: 'hello', value: 'hello' }]} labels={{ label: 'hello' }} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <Switch label="hello" />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TextInput label="hello" type="textarea" rows={1} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TagSelector labels={{ title: 'hello' }} value="hello" options={[{ label: 'hello', value: 'hello' }, { label: 'bye', value: 'bye' }]} />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TextInput label="hello" />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        <Button>
-          hi elllo
-        </Button>
-      </div>
-      <div className="dsr-w-1/3 dsr-p-1">
-        <PageNavigator
-          page={1}
-          itemsPerPage={30}
-          totalCount={100}
-          hideItemsPerPage
-        />
-      </div>
-      <div className="dsr-w-1/8 dsr-p-1">
-        <Button variant="outline">
-          hi elllo
-        </Button>
-      </div>
-      <div className="dsr-w-1/8 dsr-p-1">
-        <Badge variant="outline" size="md">
-          hi elllo
-        </Badge>
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        {/*// @ts-ignore*/}
-        <TextInput label="hello" />
-      </div>
-      <div className="dsr-w-1/4 dsr-p-1">
-        <Card className="dsr-p-2">
-          j1
+const WithChildCardsTemplate: Story<CardProps> = args => (
+  <div>
+    <Card title="Parent Card Title" {...args}>
+      <ChildPlaceholder text="Parent card content goes here" className="!dsr-h-[10vh] dsr-mb-4" />
+      {args.children}
+      <Card
+        description="Set start time and end time for the CTF, which will determine the duration in which the CTF will be active. This is the time when public challenges will be released to participants, when deployments can be accessed and flags can be submitted."
+        sidebarRenderer={<Button size="sm" className="dsr-w-full dsr-whitespace-nowrap" leftIcon="info">Learn More</Button>}
+        title="Child Title"
+      >
+        <ChildPlaceholder text="Child card content goes here" className="!dsr-h-[10vh] dsr-mb-4" />
+        <Card className="dsr-mt-4" title="Grand child Title">
+          <ChildPlaceholder text="Grand child card content goes here" className="!dsr-h-[10vh] dsr-mb-4" />
         </Card>
-      </div>
-    </div>
+      </Card>
+    </Card>
+    <ChildPlaceholder text="Generic content outside card looks like this" className="!dsr-h-[10vh] dsr-mt-4" />
   </div>
-);
-export const HeightPreviewCard = HeightPreviewCardTemplate.bind({});
 
-HeightPreviewCard.args = {};
+);
+
+export const WithChildren = WithChildCardsTemplate.bind({});

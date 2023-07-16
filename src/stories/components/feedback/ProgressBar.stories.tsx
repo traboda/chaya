@@ -5,7 +5,7 @@ import { ProgressBar } from '../../../index';
 import { ProgressBarProps } from '../../../components/ProgressBar';
 
 const meta: Meta = {
-  title: 'Feedback/ProgressBar',
+  title: 'Components/Feedback/ProgressBar',
   component: ProgressBar,
   parameters: {
     controls: { expanded: true },

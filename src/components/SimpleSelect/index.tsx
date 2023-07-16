@@ -6,7 +6,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import Spinner from '../Spinner';
-import Icon from '../Icon';
+import Icon, { IconInputType } from '../Icon';
 import Checkbox from '../Checkbox';
 
 import SimpleSelectOption from './option';
@@ -26,7 +26,7 @@ export type SimpleSelectOptionType = OptionType | GroupType;
 export type SimpleSelectValue = string | number | null | undefined;
 
 export type SimpleSelectProps<Type> = {
-  variant?: 'comma' | 'chip',
+  variant?: 'comma' | 'pill',
   value: Type,
   name: string,
   id?: string,
@@ -36,6 +36,8 @@ export type SimpleSelectProps<Type> = {
   isRequired?: boolean,
   isDisabled?: boolean,
   hideArrow?: boolean,
+  leftIcon?: IconInputType,
+  rightIcon?: IconInputType,
   postfixRenderer?: ReactNode,
   dropdownClassName?: string,
   isMulti?: boolean,
@@ -57,7 +59,7 @@ const defaultLabels = {
 
 const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false, side,
-  id, className = '', labels: propLabels, hideArrow = false, variant = 'comma',
+  id, className = '', labels: propLabels, hideArrow = false, variant = 'comma', rightIcon, leftIcon,
   isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '',
   isAsync = false, onFetch = () => new Promise(resolve => resolve([])),
 }: SimpleSelectProps<Type>) => {
@@ -113,7 +115,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const getValue = () => {
     let label;
     if (isMulti && Array.isArray(value)) {
-      if (value.length > 0 && variant === 'chip') return '';
+      if (value.length > 0 && variant === 'pill') return '';
       const values = value.map(v => getLabel(v)).filter(v => !!v);
       label = values.length > 5 ? `${values.length} options selected` : values.join(', ');
     } else label = getLabel(value as SimpleSelectValue)?.toString();
@@ -158,7 +160,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
-    <DropdownMenu.Item ref={ref}>
+    <DropdownMenu.Item ref={ref} className="!dsr-outline-0">
       <SimpleSelectOption
         isMulti={isMulti}
         className={className}
@@ -248,8 +250,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               <div
                 tabIndex={0}
                 role="combobox"
-                aria-haspopup="listbox"
                 aria-labelledby={`${inputID}-label`}
+                aria-owns={`${inputID}-listbox`}
+                aria-controls={`${inputID}-listbox`}
                 onKeyDown={handleKeyDown}
                 className={clsx([
                   'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
@@ -257,7 +260,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
                   'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
                   !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
-                  !postfixRenderer && 'dsr-border-r',
+                  !postfixRenderer ? 'dsr-border-r' : '!dsr-border-r-0 dsr-rounded-r-none',
                   !hideArrow && 'dsr-pr-8',
                   className,
                 ])}
@@ -268,19 +271,22 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   backgroundRepeat: 'no-repeat',
                 }}
               >
+                {leftIcon && <Icon icon={leftIcon} size={18} />}
                 <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
-                  {variant === 'chip' && Array.isArray(value) ? value.map(val => (
-                    <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded-full dsr-inline-flex dsr-overflow-hidden">
+                  {variant === 'pill' && Array.isArray(value) ? value.map(val => (
+                    <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded dsr-inline-flex dsr-overflow-hidden">
                       <div className="dsr-pl-2 dsr-pr-1">{getLabel(val)}</div>
                       <button
                         onClick={event => {
                           event.stopPropagation();
                           onChange(value.filter(v => v !== val) as Type);
                         }}
+                        aria-label="Remove"
+                        title="Remove"
                         type="button"
                         className={clsx([
-                          'hover:dark:dsr-bg-white/10 dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
-                          'hover:dsr-bg-black/10',
+                          'dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
+                          'hover:dsr-text-red-400',
                         ])}
                       >
                         <Icon icon="times" size={14} />
@@ -306,7 +312,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     type="text"
                     className={clsx([
                       'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
-                      variant === 'chip' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
+                      variant === 'pill' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
                     ])}
                   />
                 </div>
@@ -314,14 +320,17 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 {(Array.isArray(value) ? value.length > 0 : !isRequired && !!value) && (
                 <button
                   type="button"
+                  title="clear"
+                  aria-label="clear"
                   onClick={event => {
                     event.stopPropagation();
                     onChange((Array.isArray(value) ? [] : null) as Type);
                   }}
                 >
-                  <Icon icon="times" size={16} />
+                  <Icon icon="times" size={18} />
                 </button>
                 )}
+                {rightIcon && <Icon icon={rightIcon} size={18} />}
               </div>
               {postfixRenderer && (
               <div
@@ -373,6 +382,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               <ul
                 tabIndex={-1}
                 role="listbox"
+                aria-labelledby={inputID}
+                id={`${inputID}-listbox`}
                 className="dsr-max-h-[250px] dsr-overflow-y-auto"
               >
                 {filteredOptions().length > 0 ? (

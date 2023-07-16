@@ -5,7 +5,7 @@ import { Card, RadioGroup } from '../../../index';
 import { RadioGroupProps } from '../../../components/RadioGroup';
 
 const meta: Meta = {
-  title: 'Inputs/RadioGroup',
+  title: 'Components/Inputs/RadioGroup',
   component: RadioGroup,
   parameters: {
     controls: { expanded: true },

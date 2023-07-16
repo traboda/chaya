@@ -5,7 +5,7 @@ import { Breadcrumb } from '../../../index';
 import { BreadcrumbProps } from '../../../components/Breadcrumb';
 
 const meta: Meta = {
-  title: 'Navigation/Breadcrumb',
+  title: 'Components/Navigation/Breadcrumb',
   component: Breadcrumb,
   parameters: {
     controls: { expanded: true },

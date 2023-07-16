@@ -5,7 +5,7 @@ import { Button, Tooltip } from '../../../index';
 import { TooltipProps } from '../../../components/Tooltip';
 
 const meta: Meta = {
-  title: 'Overlays/Tooltip',
+  title: 'Components/Overlays/Tooltip',
   component: Tooltip,
   argTypes: {
     children: {

@@ -34,8 +34,8 @@ const SimpleSelectOption = ({
         aria-disabled={isDisabled}
         disabled={isDisabled}
         className={clsx([
-          'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-white/10',
-          'dsr-justify-between dsr-items-center dsr-cursor-pointer dsr-text-left simple-select-option',
+          'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-white/20',
+          'dsr-justify-between dsr-items-center dsr-cursor-pointer dsr-text-left simple-select-option !dsr-outline-0',
           isSelected && !isMulti && 'dsr-bg-black/20 dark:dsr-bg-white/20 dsr-font-semibold',
           isHighlighted && 'dsr-bg-black/10 dark:dsr-bg-white/10',
           className,

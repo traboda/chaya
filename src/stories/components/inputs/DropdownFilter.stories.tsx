@@ -5,7 +5,7 @@ import { DropdownFilter, Button } from '../../../index';
 import { DropdownFilterProps } from '../../../components/DropdownFilter';
 
 const meta: Meta = {
-  title: 'Inputs/DropdownFilter',
+  title: 'Components/Inputs/DropdownFilter',
   component: DropdownFilter,
   parameters: {
     controls: { expanded: true },

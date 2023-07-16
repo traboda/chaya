@@ -5,7 +5,7 @@ import { Banner } from '../../../index';
 import { BannerProps } from '../../../components/Banner';
 
 const meta: Meta = {
-  title: 'Display/Banner',
+  title: 'Components/Display/Banner',
   component: Banner,
   argTypes: {
     children: {

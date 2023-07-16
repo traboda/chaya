@@ -6,7 +6,7 @@ import { SettingCardProps } from '../../../components/SettingCard';
 import { SettingCard } from '../../../index';
 
 const meta: Meta = {
-  title: 'Display/SettingCard',
+  title: 'Components/Display/SettingCard',
   component: SettingCard,
   parameters: {
     controls: { expanded: true },

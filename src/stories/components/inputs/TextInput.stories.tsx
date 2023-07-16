@@ -5,7 +5,7 @@ import { TextInput } from '../../../index';
 import { TextInputProps } from '../../../components/TextInput';
 
 const meta: Meta = {
-  title: 'Inputs/Text Input',
+  title: 'Components/Inputs/Text Input',
   component: TextInput,
   argTypes: {
     children: {

@@ -5,7 +5,7 @@ import { Alert } from '../../../index';
 import { AlertProps } from '../../../components/Alert';
 
 const meta: Meta = {
-  title: 'Feedback/Alert',
+  title: 'Components/Feedback/Alert',
   component: Alert,
   argTypes: {
     children: {

@@ -5,7 +5,7 @@ import { Switch } from '../../../index';
 import { SwitchProps } from '../../../components/Switch';
 
 const meta: Meta = {
-  title: 'Inputs/Switch',
+  title: 'Components/Inputs/Switch',
   component: Switch,
   parameters: {
     controls: { expanded: true },

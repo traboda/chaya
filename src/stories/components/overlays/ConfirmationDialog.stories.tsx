@@ -5,7 +5,7 @@ import { ConfirmationDialog } from '../../../index';
 import { ConfirmationDialogProps } from '../../../components/ConfirmationDialog';
 
 const meta: Meta = {
-  title: 'Overlays/ConfirmationDialog',
+  title: 'Components/Overlays/ConfirmationDialog',
   component: ConfirmationDialog,
 };
 
