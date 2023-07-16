@@ -47,8 +47,9 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
           aria-disabled={options?.isDisabled}
           onClick={event => {
             if (!options?.isDisabled) {
-              event.preventDefault();
               options?.onClick?.(event);
+            } else {
+              event.preventDefault();
             }
           }}
         >

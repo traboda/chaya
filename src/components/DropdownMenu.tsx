@@ -56,22 +56,23 @@ const DropdownMenu = ({
       </div>
     );
 
-    return (
+    return o?.link?.length ? LinkWrapper(o.link,
       <RadixDropdownMenu.Item
-        asChild
         role="menuitem"
         key={`dropdown-menu-item-${index}-${o?.title}`}
-        className="dropdown-menu-item"
+        tabIndex={-1}
+        className={clsx(['dropdown-menu-item', linkClasses(o?.className)])}
       >
-        {o?.link ?
-          <div className={linkClasses(o?.className)}>
-            {LinkWrapper(o.link, content)}
-          </div> : (
-            <button className={linkClasses(o?.className)} onClick={o?.onClick}>
-              {content}
-            </button>
-          )}
-      </RadixDropdownMenu.Item>
+        {content}
+      </RadixDropdownMenu.Item>, { className: 'dsr-w-full' }) : (
+        <RadixDropdownMenu.Item
+          role="menuitem"
+          key={`dropdown-menu-item-${index}-${o?.title}`}
+          className={clsx(['dropdown-menu-item', linkClasses(o?.className)])}
+          onClick={o?.onClick}
+        >
+          {content}
+        </RadixDropdownMenu.Item>
     );
   };
 

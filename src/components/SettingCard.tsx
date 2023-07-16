@@ -19,7 +19,7 @@ export type SettingCardProps = {
 const SettingCard = ({
   labels, children, id, className, subSettingRenderer, titleClassName,
 }: SettingCardProps) => (
-  <Card id={id} className={clsx(['dsr-p-2 md:dsr-p-3 dsr-w-full', className])}>
+  <Card id={id} className={clsx(['dsr-p-2 dsr-w-full', className])}>
     <div className="dsr-flex dsr-flex-wrap dsr-h-full dsr-mx-0">
       <div className="dsr-w-full md:dsr-w-3/4 dsr-p-1">
         <div
@@ -37,7 +37,7 @@ const SettingCard = ({
           </p>
           ) : labels.description}
       </div>
-      <div className="dsr-block dsr-w-full md:dsr-w-1/4 md:dsr-flex dsr-mt-2 md:dsr-mt-0 dsr-items-start dsr-justify-end">
+      <div className="dsr-block dsr-w-full md:dsr-w-1/4 md:dsr-flex dsr-mt-2 dsr-items-start dsr-justify-end">
         <div>
           {children}
         </div>

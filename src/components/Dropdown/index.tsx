@@ -1,7 +1,9 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useContext, useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
+import Color from 'color';
 
+import DSRContext from '../../contexts/DSRContext';
 
 import styles from './dropdown.module.scss';
 
@@ -25,6 +27,8 @@ const Dropdown = ({
   containerClassName, align = 'center', side = 'bottom',
 }: DropdownProps) => {
 
+  const { theme, isDarkTheme } = useContext(DSRContext);
+
   const [open, setOpen] = useState(isOpen);
 
   useEffect(() => setOpen(isOpen), [isOpen]);
@@ -39,10 +43,11 @@ const Dropdown = ({
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={clsx([
-            'dsr-w-[240px] dsr-rounded-lg dsr-text-color dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10 dsr-shadow-md',
+            'dsr-w-[240px] dsr-rounded-lg dsr-text-color dsr-shadow-md',
             styles.animateEntry,
             containerClassName,
           ])}
+          style={{ backgroundColor: isDarkTheme ? Color(theme?.background).lighten(0.4).toString() : Color(theme?.background).darken(0.06).toString() }}
           sideOffset={5}
           align={align}
           side={side}

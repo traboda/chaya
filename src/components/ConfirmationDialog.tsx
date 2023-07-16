@@ -8,7 +8,7 @@ import TextInput from './TextInput';
 export type ConfirmationDialogProps = {
   labels: {
     title: string,
-    description: string,
+    description?: string,
     confirm?: string,
     cancel?: string,
     confirmationText?: string,
@@ -23,8 +23,8 @@ export type ConfirmationDialogProps = {
   onCancel?: () => void,
   className?: string
   formID?: string,
-  confirmButtonProps: ButtonProps,
-  cancelButtonProps: ButtonProps,
+  confirmButtonProps?: ButtonProps,
+  cancelButtonProps?: ButtonProps,
 };
 
 const defaultLabels = {
@@ -65,9 +65,11 @@ const ConfirmationDialog = ({
       <form id={formID} onSubmit={confirmAction}>
         <div className="dsr-p-1">
           <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-1">{labels?.title}</h2>
-          <p style={{ width: '450px' }} className="dsr-opacity-90 dsr-max-w-full">
-            {labels?.description}
-          </p>
+          {labels?.description && labels?.description?.length > 0 && (
+            <p style={{ width: '450px' }} className="dsr-opacity-90 dsr-max-w-full">
+              {labels.description}
+            </p>
+          )}
           {(requireConfirmationText || requirePassword) && (
             <div className="dsr-my-4">
               {requireConfirmationText && (

@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/react';
 
 import { DropdownMenu } from '../../../index';
 import { DropdownMenuProps } from '../../../components/DropdownMenu';
-import alert from '../../../components/Alert';
 
 const meta: Meta = {
   title: 'Overlays/DropdownMenu',
@@ -113,8 +112,7 @@ Default.args = DynamicPosition.args = {
       'icon': 'home',
       'title': 'Item 1 with click',
       onClick: () => {
-        // @ts-ignore
-        alert('Item 1 clicked');
+        console.log('clicked');
       },
     },
     {
