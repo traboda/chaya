@@ -31,7 +31,7 @@ const Template: Story<SimpleSelectProps<any>> = args => {
 const options = [
   { label: 'Computer Science', value: 'cs' },
   { label: 'Electronics', value: 'ec' },
-  { label: 'Mechanical', value: 'me' },
+  { label: 'Mechanical', value: 'me', icon: 'settings' },
   { label: 'Civil', value: 'ce' },
   { label: 'Electrical', value: 'ee' },
   { label: 'Chemical', value: 'ch' },
@@ -86,19 +86,23 @@ let asyncValue;
 
 withAsync.args = {
   labels: {
-    label: 'Pokemon',
     placeholder: 'Select a pokemon',
     noOptionsFound: 'No pokemon found',
   },
   isAsync: true,
   isRequired: true,
   value: asyncValue, onChange: (v: any) => asyncValue = v,
+  rightIcon: 'search',
+  hideArrow: true,
   onFetch: async (query: string) => {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0');
     const data = await response.json();
     return data.results.filter((pokemon: any) => pokemon.name.includes(query)).map((pokemon: any) => ({
       label: pokemon.name,
       value: pokemon.name,
+      iconRenderer: (
+        <img width={28} height={28} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`} />
+      ),
     }));
   },
 };
@@ -117,7 +121,36 @@ withMultiSelect.args = {
   options,
 };
 
+export const withAsyncMulti: Story<SimpleSelectProps<string[]>> = Template.bind({});
 
+
+let asyncMultiValue: string[] = ['3', '6'];
+
+withAsyncMulti.args = {
+  labels: {
+    placeholder: 'Select a pokemon',
+    noOptionsFound: 'No pokemon found',
+  },
+  isAsync: true,
+  isRequired: true,
+  isMulti: true,
+  value: asyncMultiValue,
+  onChange: (v: string[]) => asyncMultiValue = v,
+  rightIcon: 'search',
+  hideArrow: true,
+  variant: 'pill',
+  onFetch: async (query: string) => {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0');
+    const data = await response.json();
+    return data.results.filter((pokemon: any) => pokemon.name.includes(query)).map((pokemon: any) => ({
+      label: pokemon.name,
+      value: pokemon.url.split('/')[6],
+      iconRenderer: (
+        <img width={28} height={28} className="dsr-bg-white dsr-rounded" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`} />
+      ),
+    }));
+  },
+};
 
 export const withGroups: Story<SimpleSelectProps<string>> = Template.bind({});
 
@@ -181,9 +214,6 @@ Variants.args = {
   },
   isMulti: true,
   isRequired: true,
-  value: [
-    options[0].value,
-    options[1].value,
-  ],
+  value: ['cs', 'me'],
   options,
 };

@@ -1,25 +1,29 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
-import Icon from '../Icon';
+import Icon, { IconInputType } from '../Icon';
 import Checkbox from '../Checkbox';
 
 import { SimpleSelectValue } from './index';
 
 export type SimpleSelectOptionProps = {
-  isSelected: boolean,
-  isDisabled?: boolean,
+
   value: SimpleSelectValue,
   label: string | number,
-  onSelect: (v: SimpleSelectValue) => void,
-  isClearable: boolean,
+  icon?: IconInputType,
+  iconRenderer?: React.ReactNode,
+  onSelect?: (v: SimpleSelectValue) => void,
+  isClearable?: boolean,
   className?: string,
-  isMulti: boolean
+  isSelected?: boolean,
+  isDisabled?: boolean,
+  isMulti?: boolean
   isHighlighted?: boolean,
 };
 
 const SimpleSelectOption = ({
-  isSelected, isDisabled = false, value, label, onSelect, isClearable, className = '', isMulti, isHighlighted = false,
+  value, label, onSelect = () => {}, isSelected, className = '', icon, iconRenderer,
+  isMulti = false, isHighlighted = false, isDisabled = false, isClearable = false,
 }: SimpleSelectOptionProps) => {
   const onClick = (event: MouseEvent | ChangeEvent) => {
     if (isMulti) event.stopPropagation();
@@ -50,6 +54,14 @@ const SimpleSelectOption = ({
             isChecked={isSelected}
             onChange={onClick}
           />
+          )}
+          {icon && (<Icon icon={icon} size={16} />)}
+          {iconRenderer && (
+            <div className="dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
+              <div className="dsr-w-[24px] dsr-h-[24px]">
+                {iconRenderer}
+              </div>
+            </div>
           )}
           <span className="dsr-block">{label}</span>
         </span>

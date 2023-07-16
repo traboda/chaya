@@ -14,6 +14,8 @@ import SimpleSelectOption from './option';
 type OptionType = {
   value: SimpleSelectValue,
   label: string | number
+  icon?: IconInputType,
+  iconRenderer?: ReactNode
 };
 
 type GroupType = {
@@ -107,10 +109,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     else onChange(option as Type);
   };
 
-  const getLabel = (val: SimpleSelectValue) => {
+  const getOption = (val: SimpleSelectValue) => {
     const option = options.find(option => 'group' in option ? option.options.find(o => o.value === val) : option.value === val);
-    return option && 'group' in option ? option.options.find(o => o.value === val)?.label : option?.label;
+    return option && 'group' in option ? option.options.find(o => o.value === val) : option;
   };
+  const getLabel = (val: SimpleSelectValue) => getOption(val)?.label;
 
   const getValue = () => {
     let label;
@@ -166,6 +169,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         className={className}
         value={option.value}
         key={option.value}
+        icon={option.icon}
+        iconRenderer={option.iconRenderer}
         isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
         label={option.label}
         isHighlighted={highlightedIndex === index}
@@ -273,26 +278,37 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               >
                 {leftIcon && <Icon icon={leftIcon} size={18} />}
                 <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
-                  {variant === 'pill' && Array.isArray(value) ? value.map(val => (
-                    <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded dsr-inline-flex dsr-overflow-hidden">
-                      <div className="dsr-pl-2 dsr-pr-1">{getLabel(val)}</div>
-                      <button
-                        onClick={event => {
-                          event.stopPropagation();
-                          onChange(value.filter(v => v !== val) as Type);
-                        }}
-                        aria-label="Remove"
-                        title="Remove"
-                        type="button"
-                        className={clsx([
-                          'dsr-pl-1 dsr-pr-2 dsr-h-full dsr-transition',
-                          'hover:dsr-text-red-400',
-                        ])}
-                      >
-                        <Icon icon="times" size={14} />
-                      </button>
-                    </div>
-                  )) : null}
+                  {variant === 'pill' && Array.isArray(value) ? value.map(val => {
+                    const option = getOption(val);
+                    return (
+                      <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded dsr-items-center dsr-inline-flex dsr-px-1 dsr-overflow-hidden">
+                        {option?.icon && (<Icon icon={option?.icon} size={16} />)}
+                        {option?.iconRenderer && (
+                        <div className="dsr-p-1 dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
+                          <div className="dsr-w-[24px] dsr-h-[24px]">
+                            {option.iconRenderer}
+                          </div>
+                        </div>
+                        )}
+                        <div className="dsr-px-1">{option?.label}</div>
+                        <button
+                          onClick={event => {
+                            event.stopPropagation();
+                            onChange(value.filter(v => v !== val) as Type);
+                          }}
+                          aria-label="Remove"
+                          title="Remove"
+                          type="button"
+                          className={clsx([
+                            'dsr-px-1 dsr-h-full dsr-transition',
+                            'hover:dsr-text-red-400',
+                          ])}
+                        >
+                          <Icon icon="times" size={14} />
+                        </button>
+                      </div>
+                    );
+                  }) : null}
 
                   <input
                     ref={searchBoxRef}
@@ -330,7 +346,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   <Icon icon="times" size={18} />
                 </button>
                 )}
-                {rightIcon && <Icon icon={rightIcon} size={18} />}
+                {rightIcon && <Icon className="dsr-mr-1" icon={rightIcon} size={18} />}
               </div>
               {postfixRenderer && (
               <div
