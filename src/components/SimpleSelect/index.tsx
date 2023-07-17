@@ -37,18 +37,24 @@ export type SimpleSelectProps<Type> = {
   onChange?: (v: Type) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
-  hideArrow?: boolean,
   leftIcon?: IconInputType,
   rightIcon?: IconInputType,
   postfixRenderer?: ReactNode,
   dropdownClassName?: string,
   isMulti?: boolean,
   isAsync?: boolean,
+  isCreatable?: boolean,
+  hideArrow?: boolean,
+  hideLabel?: boolean,
+  hideSelectAll?: boolean,
+  onCreate?: (keyword: string) => void,
   onFetch?: (keyword: string) => Promise<SimpleSelectOptionType[]> | undefined,
-  labels?: {
-    label?: string,
+  labels: {
+    label: string,
     placeholder?: string,
     noOptionsFound?: string,
+    selectAll?: string,
+    create?: string,
   },
   side?: 'left' | 'right' | 'top' | 'bottom',
 };
@@ -57,13 +63,15 @@ const defaultLabels = {
   label: null,
   placeholder: 'Select an option',
   noOptionsFound: 'No options found',
+  selectAll: 'Select all',
+  create: 'Create',
 };
 
 const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
-  value, onChange = () => {}, postfixRenderer, isMulti = false, side,
-  id, className = '', labels: propLabels, hideArrow = false, variant = 'comma', rightIcon, leftIcon,
+  value, onChange = () => {}, postfixRenderer, isMulti = false, side, hideLabel = false, hideSelectAll = false,
+  id, className = '', labels: propLabels, hideArrow = false, variant = 'comma', rightIcon, leftIcon, isCreatable = false,
   isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '',
-  isAsync = false, onFetch = () => new Promise(resolve => resolve([])),
+  isAsync = false, onFetch = () => new Promise(resolve => resolve([])), onCreate,
 }: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
@@ -241,11 +249,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
       modal={false}
     >
       <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
-        {labels?.label && labels?.label?.length > 0 && (
+        {!hideLabel && (
           <Label
             id={`${inputID}-label`}
             htmlFor={inputID}
-            children={labels?.label}
+            children={labels.label}
             isRequired={isRequired}
           />
         )}
@@ -255,7 +263,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
               <div
                 tabIndex={0}
                 role="combobox"
-                aria-labelledby={`${inputID}-label`}
+                aria-labelledby={!hideLabel ? `${inputID}-label` : undefined}
+                aria-label={hideLabel ? labels.label : undefined}
                 aria-owns={`${inputID}-listbox`}
                 aria-controls={`${inputID}-listbox`}
                 onKeyDown={handleKeyDown}
@@ -379,29 +388,32 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           >
             <div className="dsr-overflow-hidden dsr-bg-background dsr-rounded-lg">
               <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
-                {isFetching ? (
+                {isFetching && (
                   <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
                     <Spinner size="lg" />
                   </div>
-                ) : isMulti && (
-                <div className=" dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
-                  <Checkbox
-                    value=""
-                    label="Select all"
-                    onChange={() => onSelectAll()}
-                    isChecked={Array.isArray(value) && value.length > 0}
-                    isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
-                  />
-                </div>
                 )}
               </div>
               <ul
                 tabIndex={-1}
                 role="listbox"
-                aria-labelledby={inputID}
                 id={`${inputID}-listbox`}
                 className="dsr-max-h-[250px] dsr-overflow-y-auto"
               >
+                {(isMulti && !hideSelectAll) && (
+                  <DropdownMenu.Item className="!dsr-outline-0">
+                    <li role="option" className="dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
+                      <Checkbox
+                        value=""
+                        label={labels.selectAll}
+                        onChange={() => onSelectAll()}
+                        isChecked={Array.isArray(value) && value.length > 0}
+                        isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
+                        className="dsr-w-full"
+                      />
+                    </li>
+                  </DropdownMenu.Item>
+                )}
                 {filteredOptions().length > 0 ? (
                   filteredOptions().map((option, index) =>
                     'group' in option && option?.group ? (
@@ -413,19 +425,34 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           ])}
                         >
                           <div>{option.group}</div>
-                          <div
-                            className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm"
-                          >
+                          <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">
                             {option.options.length}
                           </div>
                         </div>
                         {option.options.map(opt => renderDropdownOption(opt, index, optionRefs.current[index], 'dsr-pl-5'))}
                       </React.Fragment>
                     ) : renderDropdownOption(option, index, optionRefs.current[index]))
-                ) : (
+                ) : !isCreatable && (
                   <div className="dsr-px-3 dsr-py-2 dsr-text-center">
-                    {labels?.noOptionsFound}
+                    {labels.noOptionsFound}
                   </div>
+                )}
+                {isCreatable && filteredOptions().length === 0 && searchKeyword?.length > 0 && (
+                <DropdownMenu.Item className="!dsr-outline-0" onClick={event => event.stopPropagation()}>
+                  <SimpleSelectOption
+                    label={`${labels.create} ${searchKeyword}`}
+                    value={searchKeyword}
+                    icon="plus"
+                    onSelect={() => {
+                      if (typeof onCreate === 'function')
+                        onCreate(searchKeyword);
+                      else {
+                        setOptions([...options, { label: searchKeyword, value: searchKeyword }]);
+                        onSelect(searchKeyword as SimpleSelectValue);
+                      }
+                    }}
+                  />
+                </DropdownMenu.Item>
                 )}
               </ul>
             </div>

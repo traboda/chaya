@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import SearchResult, { SearchResultType } from './result';
 
@@ -12,39 +13,40 @@ export type SearchResultGroupType = {
 
 export type SearchResultsProps = {
   results: (SearchResultType | SearchResultGroupType)[],
+  id?: string,
+  className?: string,
+  resultClassName?: string,
 };
 
 
 const SearchResults = ({
-  results,
+  results, id, className, resultClassName,
 }: SearchResultsProps) => {
 
   return (
-    <div>
-      <ul className="dsr-flex dsr-flex-col dsr-gap-2">
-        {results.map((result, i) => {
-          if ('results' in result) {
-            return (
-              <li key={i}>
-                <div>{result.title}</div>
-                <ul>
-                  {result.results.map((result, j) => (
-                    <li key={`${j}_${i}`}>
-                      <SearchResult result={result} />
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            );
-          }
+    <ul id={id} className={clsx('dsr-flex dsr-flex-col dsr-gap-2', className)}>
+      {results.map((result, i) => {
+        if ('results' in result) {
           return (
             <li key={i}>
-              <SearchResult result={result} />
+              <div className="dsr-font-semibold dsr-mb-1">{result.title}</div>
+              <ul className="dsr-flex dsr-flex-col dsr-gap-2">
+                {result.results.map((result, j) => (
+                  <li key={`${j}_${i}`}>
+                    <SearchResult result={result} className={resultClassName} />
+                  </li>
+                ))}
+              </ul>
             </li>
           );
-        })}
-      </ul>
-    </div>
+        }
+        return (
+          <li key={i}>
+            <SearchResult result={result} />
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 

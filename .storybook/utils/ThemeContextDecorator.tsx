@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import {
     AlertTriangle, Check,
     ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
-    ExternalLink, Home, Info, Search, Settings, X, Trash
+    ExternalLink, Home, Info, Search, Settings, X, Trash, Plus
 } from 'react-feather';
 import { nanoid } from 'nanoid';
 
@@ -44,6 +44,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
                     'chevron-right': <ChevronRight {...props} />,
                     'chevrons-right': <ChevronsRight {...props} />,
                     'external-link': <ExternalLink {...props} />,
+                    plus: <Plus {...props} />,
                     home: <Home {...props} />,
                     settings: <Settings {...props} />,
                     info: <Info {...props} />,

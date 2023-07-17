@@ -86,6 +86,7 @@ let asyncValue;
 
 withAsync.args = {
   labels: {
+    label: 'Pokemon',
     placeholder: 'Select a pokemon',
     noOptionsFound: 'No pokemon found',
   },
@@ -128,6 +129,7 @@ let asyncMultiValue: string[] = ['3', '6'];
 
 withAsyncMulti.args = {
   labels: {
+    label: 'Pokemon',
     placeholder: 'Select a pokemon',
     noOptionsFound: 'No pokemon found',
   },
@@ -146,10 +148,41 @@ withAsyncMulti.args = {
       label: pokemon.name,
       value: pokemon.url.split('/')[6],
       iconRenderer: (
-        <img width={28} height={28} className="dsr-bg-white dsr-rounded" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`} />
+        <img
+          width={28}
+          height={28}
+          className="dsr-bg-white dsr-rounded"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`}
+        />
       ),
     }));
   },
+};
+
+
+const tags = [ { 'label': 'Web', 'value': 'web', 'isPrivate': false }, { 'label': 'DFIR', 'value': 'dfir', 'isPrivate': false }, { 'label': 'CSRF', 'value': 'csrf', 'isPrivate': false } ];
+
+export const withAsyncMultiTags: Story<SimpleSelectProps<string[]>> = Template.bind({});
+
+
+let asyncMultiTags: string[] = ['csrf'];
+
+withAsyncMultiTags.args = {
+  labels: {
+    label: 'Tags',
+    placeholder: 'Select a tag',
+    noOptionsFound: 'No tags found',
+  },
+  isCreatable: true,
+  isRequired: true,
+  isMulti: true,
+  hideSelectAll: true,
+  value: asyncMultiTags,
+  onChange: (v: string[]) => asyncMultiTags = v,
+  rightIcon: 'search',
+  hideArrow: true,
+  variant: 'pill',
+  options: tags,
 };
 
 export const withGroups: Story<SimpleSelectProps<string>> = Template.bind({});
