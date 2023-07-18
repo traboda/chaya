@@ -71,6 +71,10 @@ const Template: Story<ModalProps> = args => {
         <SimpleSelect
           value={subject}
           name="subject"
+          labels={{
+            label: 'Subject',
+          }}
+          hideLabel
           options={[
             { value: 'cs', label: 'Computer Science' },
             { value: 'math', label: 'Mathematics' },

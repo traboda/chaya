@@ -57,7 +57,7 @@ const SelectorButton = <Type extends string | number | null | undefined>({
         isDisabled={isDisabled}
         isRequired
         className="dsr-rounded-r-none"
-        labels={{ placeholder: labels?.placeholder, label: labels?.label }}
+        labels={{ placeholder: labels?.placeholder, label: labels?.label || '' }}
         postfixRenderer={(
           <Button
             variant="link"

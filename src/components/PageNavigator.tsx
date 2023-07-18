@@ -124,6 +124,10 @@ const PageNavigator = ({
             <div className="dsr-mr-1 dsr-w-12">
               <SimpleSelect
                 value={itemsPerPage}
+                hideLabel
+                labels={{
+                  label: labels.rowsPerPage,
+                }}
                 onChange={(n) => {
                   setPage(1);
                   setItemsPerPage(typeof n === 'number' ? n : parseInt(n));
