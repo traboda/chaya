@@ -65,7 +65,7 @@ const Breadcrumb = ({
             <span
               className={clsx([
                 'dsr-rounded focus:dsr-outline-none dsr-transition dsr-text-color',
-                index == breadcrumbItems.length - 1 ? 'dsr-font-semibold' : 'hover:dsr-bg-gray-500/40 dsr-px-1 focus:dsr-bg-gray-500/50'
+                index == breadcrumbItems.length - 1 ? 'dsr-font-semibold' : 'hover:dsr-bg-gray-500/40 dsr-px-1 focus:dsr-bg-gray-500/50',
               ])}
             >
               {LinkWrapper(
