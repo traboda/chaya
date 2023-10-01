@@ -15,7 +15,7 @@ module.exports = {
         background: 'var(--background)',
         contrast: 'var(--contrast)',
         'contrast/50': 'var(--contrast50)',
-        color: 'var(--color)'
+        color: 'var(--color)',
       },
       animation: {
         'stripes': 'stripes 60s linear infinite',
