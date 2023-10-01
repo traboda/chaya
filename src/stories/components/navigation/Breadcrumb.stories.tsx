@@ -24,7 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   items: [
-    { link:'#/abc', title:'abc' },
-    { link:'#/abc/efg', title:'efg' },
+    { link:'#/abc/asdjh', title:'This is my long title' },
+    { link:'#/abc/efg/sadkl', title:'Home Page', isActive:true },
   ],
 };
