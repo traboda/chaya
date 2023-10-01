@@ -5,7 +5,7 @@ import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
 
-export type ItemBase = {
+export type SidebarNavigationItemBaseType = {
   key: string,
   label: string,
   link?: string,
@@ -19,8 +19,8 @@ export type ItemBase = {
 };
 
 export type SidebarNavigationProps = {
-  item: ItemBase & {
-    items?: ItemBase[]
+  item: SidebarNavigationItemBaseType & {
+    items?: SidebarNavigationItemBaseType[]
   },
   variant?: 'pill' | 'line',
   activeItem?: string | null,
@@ -45,7 +45,7 @@ const SidebarNavigationItem = ({
 
   const liClass = 'hover:dsr-bg-gray-400/20 hover:dsr-backdrop-blur dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
 
-  const innerContent = (item: ItemBase) => (
+  const innerContent = (item: SidebarNavigationItemBaseType) => (
     <div
       className={clsx([
         'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2 dsr-py-1.5',
@@ -54,7 +54,7 @@ const SidebarNavigationItem = ({
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
         {item.icon && <span className="dsr-w-[18px]"><Icon icon={item.icon} size={18} /></span>}
-        <span className={item.labelClassName}>{item.label}</span>
+        <span className={clsx([isCollapsed ? 'dsr-opacity-0' : '', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -77,7 +77,7 @@ const SidebarNavigationItem = ({
   ]);
 
 
-  const contentRenderer = (item: ItemBase) => item?.link ?
+  const contentRenderer = (item: SidebarNavigationItemBaseType) => item?.link ?
     LinkWrapper(item.link, innerContent(item), {
       role: item.role ?? 'tab',
       className: clsx([
@@ -141,15 +141,20 @@ const SidebarNavigationItem = ({
         <li
           ref={dropdownContentRef}
           className={clsx([
-            'dsr-pl-4 dsr-transition-all dsr-overflow-hidden dsr-relative',
+            'dsr-transition-all dsr-overflow-hidden dsr-relative',
             dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
+            isCollapsed ? '' : 'dsr-pl-4',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
-          <div className="dsr-absolute dsr-top-0 dsr-left-0 dsr-pl-2 dsr-h-full">
+          <div
+            className={clsx([
+              'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
+              isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-2',
+            ])}
+          >
             <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
           </div>
-
           <ul className="dsr-flex dsr-flex-col dsr-gap-1">
             {item.items.map(subItem => (
               <li className={liClass} key={item.key + subItem.key}>

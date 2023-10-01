@@ -32,9 +32,12 @@ export { default as PageHeader, PageHeaderProps } from './components/PageHeader'
 export { default as Spinner, SpinnerProps } from './components/Spinner';
 export { default as ProgressBar, ProgressBarProps } from './components/ProgressBar';
 export { default as TagSelector, TagSelectorProps } from './components/TagSelector';
+export { default as SelectorButton } from './components/SelectorButton';
 export { default as SettingCard, SettingCardProps } from './components/SettingCard';
 export { default as SkeletonItem, SkeletonItemProps } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
+export { default as SidebarNavigation, SidebarNavigationProps, SidebarNavigationItemType } from './components/SidebarNavigation';
+export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';
 export { default as SearchResults, SearchResultsProps, SearchResultType, SearchResultGroupType } from './components/SearchResults';
 export { default as DropdownFilter, DropdownFilterProps } from './components/DropdownFilter';
@@ -43,9 +46,7 @@ export { default as CheckboxGroup, CheckboxGroupProps } from './components/Check
 export { default as PageNavigator, PageNavigatorProps } from './components/PageNavigator';
 export { default as AccordionGroup, AccordionGroupProps } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
-export { default as SelectorButton } from './components/SelectorButton';
 export { default as CircularProgress, CircularProgressProps } from './components/CircularProgress';
-export { default as SidebarNavigation, SidebarNavigationProps } from './components/SidebarNavigation';
 export { default as ConfirmationDialog, ConfirmationDialogProps } from './components/ConfirmationDialog';
 export { default as UploadStatusIndicator, UploadStatusIndicatorProps } from './components/UploadStatusIndicator';
 

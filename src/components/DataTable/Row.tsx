@@ -42,6 +42,7 @@ const grid = 'dsr-border dsr-border-gray-500/80';
 const stripedColumn = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-800 odd:dsr-bg-white even:dsr-bg-[#f1f3f3]' ;
 const stripedRow = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-900 odd:dsr-bg-white even:dsr-bg-[#f1f3f3] ';
 
+
 const ItemListerItem = <Type extends { id: string }>({
   properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
   onClick = () => {}, isLoading = false, isPinned = false, variant = 'default',

@@ -17,6 +17,7 @@ export type LinkOptions = {
   autoFocus?: boolean,
   id?: string,
   className?: string,
+  title?: string,
   label?: string,
   role?: string,
   style?: React.CSSProperties,
@@ -43,7 +44,8 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
           rel={options?.rel}
           className={options?.className}
           style={options?.style}
-          aria-label={options?.label}
+          title={options?.title}
+          aria-label={options?.label || options?.title}
           aria-disabled={options?.isDisabled}
           onClick={event => {
             if (!options?.isDisabled) {
