@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import SidebarNavigationItem, { ItemBase } from './Item';
+import SidebarNavigationItem, { SidebarNavigationItemBaseType } from './Item';
+
+export type SidebarNavigationItemType = (SidebarNavigationItemBaseType & {
+  items?: SidebarNavigationItemBaseType[]
+  isHidden?: boolean
+});
 
 export type SidebarNavigationProps = {
-  items: (ItemBase & {
-    items?: ItemBase[]
-    isHidden?: boolean
-  })[],
+  items: SidebarNavigationItemType[],
   variant?: 'pill' | 'line',
   activeItem?: string | null,
   className?: string,
@@ -20,7 +22,6 @@ export type SidebarNavigationProps = {
 const SidebarNavigation = ({
   items, className, variant = 'pill', role = 'tablist', itemRole, id, isCollapsed, activeItem,
 }: SidebarNavigationProps) => {
-  const [width, setWidth] = useState<undefined | number>(undefined);
   const wrapperRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, height: 0, translate: 0 });
 
@@ -42,10 +43,6 @@ const SidebarNavigation = ({
     }
   }, [activeItem]);
 
-  useEffect(() => {
-    setWidth(wrapperRef.current?.parentElement?.scrollWidth);
-  }, [isCollapsed]);
-
   const listRenderer = (
     <ul
       id={id}
@@ -53,10 +50,10 @@ const SidebarNavigation = ({
       role={role}
       aria-orientation="vertical"
       className={clsx([
-        'dsr-flex dsr-flex-col dsr-gap-1 dsr-overflow-hidden dsr-transition-all',
+        'dsr-flex dsr-flex-col dsr-gap-1 dsr-overflow-hidden dsr-transition-all dsr-max-w-full',
         className,
       ])}
-      style={{ width: isCollapsed ? 38 : width }}
+      style={{ width: isCollapsed ? 38 : undefined }}
     >
       {items.filter((item) => !item.isHidden).map(item => (
         <SidebarNavigationItem
