@@ -216,7 +216,6 @@ const columns: ItemListerProperty<ItemType>[] = [
     label: 'Points',
     value: (i) => i.points,
     textAlign: 'right',
-    allowSort: true,
   },
   {
     id: 'difficultyLevel1',
@@ -229,6 +228,7 @@ const columns: ItemListerProperty<ItemType>[] = [
     label: 'Points',
     value: (i) => i.points,
     allowSort: true,
+    textAlign: 'center',
   },
   {
     id: 'difficultyLevel3',
