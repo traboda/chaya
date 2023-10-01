@@ -261,6 +261,14 @@ const Template: Story<DataTableProps<ItemType>> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {};
+export const Grid = Template.bind({});
+Grid.args = { variant:'grid' };
+
+export const StripedRow = Template.bind({});
+StripedRow.args = { variant:'striped-row' };
+
+export const StripedColumn = Template.bind({});
+StripedColumn.args = { variant:'striped-column' };
 
 export const WithTitleIcon = Template.bind({});
 WithTitleIcon.args = {
