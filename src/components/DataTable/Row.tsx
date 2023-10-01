@@ -39,8 +39,9 @@ type ItemListerItemProps<Type> = {
 export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-row';
 
 const grid = 'dsr-border dsr-border-gray-500/80';
-const stripedColumn = 'even:group-hover:dsr-bg-neutral-200/20 dark:even:dsr-bg-neutral-800 even:dsr-bg-gray-300/30' ;
-const stripedRow = 'dark:odd:dsr-bg-neutral-800 odd:dsr-bg-neutral-300/30';
+const stripedColumn = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-800 odd:dsr-bg-white even:dsr-bg-[#f1f3f3]' ;
+const stripedRow = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-900 odd:dsr-bg-white even:dsr-bg-[#f1f3f3] ';
+
 
 const ItemListerItem = <Type extends { id: string }>({
   properties, item, itemIndex, supportAccordion = false, isAccordionOpen = false,
@@ -54,7 +55,7 @@ const ItemListerItem = <Type extends { id: string }>({
     'dsr-h-full dsr-text-color',
     variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
     isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-neutral-100/20' : 'group-hover:dsr-bg-gray-500/20',
+    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-neutral-800 ' : 'group-hover:dsr-bg-gray-500/20',
   ]);
 
   return (
