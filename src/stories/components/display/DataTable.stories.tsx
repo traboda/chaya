@@ -262,14 +262,6 @@ const Template: Story<DataTableProps<ItemType>> = (args) => {
 export const Default = Template.bind({});
 Default.args = {};
 
-export const WithTitleIcon = Template.bind({});
-WithTitleIcon.args = {
-  properties: columns.map((i) => ({
-    ...i,
-    icon: 'home',
-  })),
-};
-
 export const Grid = Template.bind({});
 Grid.args = { variant:'grid' };
 
@@ -278,6 +270,14 @@ StripedRow.args = { variant:'striped-row' };
 
 export const StripedColumn = Template.bind({});
 StripedColumn.args = { variant:'striped-column' };
+
+export const WithTitleIcon = Template.bind({});
+WithTitleIcon.args = {
+  properties: columns.map((i) => ({
+    ...i,
+    icon: 'home',
+  })),
+};
 
 export const SelectableTable = Template.bind({});
 SelectableTable.args = {
