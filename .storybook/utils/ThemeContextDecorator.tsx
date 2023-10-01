@@ -1,9 +1,4 @@
 import React, { ReactNode } from 'react';
-import {
-    AlertTriangle, Check,
-    ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ChevronUp,
-    ExternalLink, Home, Info, Search, Settings, X, Trash, Plus
-} from 'react-feather';
 import { nanoid } from 'nanoid';
 
 import { DSRContextProvider } from '../../src/index';
@@ -32,26 +27,23 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
 
     return (
         <div key={nanoid()} className="dsr-p-4">
+            <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
             <DSRContextProvider
                 theme={theme}
                 iconWrapper={(icon, props) => ({
-                    search: <Search {...props} />,
-                    times: <X {...props} />,
-                    'chevron-up': <ChevronUp {...props} />,
-                    'chevron-down': <ChevronDown {...props} />,
-                    'chevrons-left': <ChevronsLeft {...props} />,
-                    'chevron-left': <ChevronLeft {...props} />,
-                    'chevron-right': <ChevronRight {...props} />,
-                    'chevrons-right': <ChevronsRight {...props} />,
-                    'external-link': <ExternalLink {...props} />,
-                    plus: <Plus {...props} />,
-                    home: <Home {...props} />,
-                    settings: <Settings {...props} />,
-                    info: <Info {...props} />,
-                    'alert-triangle': <AlertTriangle {...props} />,
-                    check: <Check {...props} />,
-                    bin: <Trash {...props} />,
-                })[icon] ?? <>n/a</>}
+                    times: <i className={`ri-close-line`} {...props} />,
+                    'chevron-up': <i className={`ri-arrow-up-s-fill`} />,
+                    'chevron-down': <i className={`ri-arrow-down-s-fill`} />,
+                    'chevrons-left': <i className={`ri-arrow-left-s-fill`} />,
+                    'chevron-left': <i className={`ri-arrow-left-double-line`} />,
+                    'chevron-right': <i className={`ri-arrow-right-s-fill`} {...props} />,
+                    'chevrons-right': <i className={`ri-arrow-right-double-line`} {...props} />,
+                    plus: <i className={`ri-add-line`} {...props} />,
+                    info: <i className={`ri-information-line`} {...props} />,
+                    'alert-triangle': <i className={`ri-error-warning-line`} {...props} />,
+                    check: <i className={`ri-checkbox-circle-line`} {...props} />,
+                    bin: <i className={`ri-delete-bin-line`} {...props} />,
+                })[icon] ?? <i className={`ri-${icon}-line ri-${icon}`} {...props} />}
             >
                 {children}
             </DSRContextProvider>
