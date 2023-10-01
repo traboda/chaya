@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
 import DSRContext from '../../contexts/DSRContext';
-import Icon from '../Icon';
+import Icon, { IconInputType } from '../Icon';
 import SkeletonItem from '../SkeletonItem';
 import Checkbox from '../Checkbox';
 
@@ -11,6 +11,7 @@ import SelectionContext from './SelectionContext';
 
 export type ItemListerProperty<Type> = {
   id: string,
+  icon?: IconInputType,
   label: ReactNode,
   labelClassName?: string,
   value: (self: Type, index?: number) => ReactNode,
@@ -54,7 +55,7 @@ const ItemListerItem = <Type extends { id: string }>({
     'dsr-h-full dsr-text-color',
     variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
     isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-neutral-800 ' : 'group-hover:dsr-bg-gray-500/20',
+    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-neutral-800' : 'group-hover:dsr-bg-gray-500/20',
   ]);
 
   return (

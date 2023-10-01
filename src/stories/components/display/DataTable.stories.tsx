@@ -251,17 +251,25 @@ const Template: Story<DataTableProps<ItemType>> = (args) => {
       {...args}
       page={page}
       setPage={setPage}
-      totalCount={ITEMS.length}
-      items={ITEMS.slice((page - 1) * 10, (page - 1) * 10 + 10)}
+      totalCount={args?.items ? args?.items.length : ITEMS.length}
+      items={args?.items ? args.items : ITEMS.slice((page - 1) * 10, (page - 1) * 10 + 10)}
       maxHeight="380px"
-      properties={columns}
+      properties={args?.properties ? args?.properties : columns}
     />
   );
 };
 
 export const Default = Template.bind({});
-
 Default.args = {};
+
+export const WithTitleIcon = Template.bind({});
+WithTitleIcon.args = {
+  properties: columns.map((i) => ({
+    ...i,
+    icon: 'home',
+  })),
+};
+
 export const Grid = Template.bind({});
 Grid.args = { variant:'grid' };
 
