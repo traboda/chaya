@@ -17,15 +17,27 @@ type ItemListerTitleBarProps<Type> = {
   sortOrder?: 'asc' | 'desc';
   colsWidth: (string | number)[];
   isAccordionsOpen?: boolean;
+  variant?: DataTableVariant;
   toggleAccordions?: (state: boolean) => void;
 };
+// dsr-bg-primar
 
-const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-primaryTextColor';
+export type DataTableVariant =
+  | 'default'
+  | 'grid'
+  | 'striped-column'
+  | 'striped-row';
+
+const grid = 'dsr-border dsr-border-gray-500/60 bg-red-500';
+
+const thClasses =
+  'dsr-h-full dsr-text-neutral-600 dark:dsr-text-primaryTextColor  ̥';
 
 const ItemListerTitleBar = <Type extends { id: string }>({
   properties,
   currentSortAttribute,
   sortOrder,
+  variant = 'default',
   isAccordionsOpen = undefined,
   toggleAccordions = () => {},
   colsWidth,
@@ -38,6 +50,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
     deselectAll,
     isAllSelected,
   } = useContext(SelectionContext);
+  console.log(variant);
 
   let i = 0;
 
@@ -49,7 +62,11 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             borderBottomColor: Color(theme?.color).fade(0.85).toString(),
             width: colsWidth[i++],
           }}
-          className={clsx(['dsr-relative dsr-px-2 dsr-py-3', thClasses])}
+          className={clsx([
+            'dsr-relative dsr-px-2 dsr-py-3',
+            thClasses,
+          
+          ])}
         >
           <button
             onClick={() => toggleAccordions(!isAccordionsOpen)}
@@ -91,7 +108,11 @@ const ItemListerTitleBar = <Type extends { id: string }>({
           .filter((p) => !p.isHidden)
           .map((p) => (
             <th
-              className={clsx(['dsr-py-3', thClasses])}
+              className={clsx([
+                'dsr-py-3',
+                thClasses,
+                variant === 'grid' && grid,
+              ])}
               key={p.id}
               style={{
                 textAlign: p.textAlign,
@@ -107,10 +128,9 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                   ])}
                 >
                   <div
-                    className="dsr-px-2 dsr-m-auto dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2 dsr-w-full"
+                    className="dsr-px-2 dsr-m-auto dsr-font-bold dark:dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2 dsr-w-full"
                     style={{ textAlign: p.textAlign ?? 'left' }}
                   >
-
                     {p.icon ? <Icon icon={p.icon} /> : null}
                     {p.label}
                   </div>
@@ -128,7 +148,11 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                   className={clsx([
                     'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
                     p?.labelClassName,
-                    p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
+                    p.textAlign == 'right'
+                      ? 'dsr-justify-end'
+                      : p.textAlign == 'center'
+                        ? 'dsr-justify-center'
+                        : null,
                   ])}
                 >
                   {p.label}

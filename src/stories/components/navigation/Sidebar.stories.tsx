@@ -41,6 +41,7 @@ const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
     label: 'Settings',
     icon: 'settings-line',
   },
+ 
 ];
 
 const BOTTOM_MENU_ITEMS: SidebarNavigationItemType[] = [

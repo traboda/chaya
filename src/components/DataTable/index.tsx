@@ -125,14 +125,14 @@ const DataTable = <Type extends { id: string }>({
             </div>
             <table
               className={clsx([
-                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0',
+                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-2  ',
                 'dsr-border-collapse dsr-border-gray-200',
               ])}
               style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
             >
               <thead
                 className={clsx([
-                  'dsr-sticky dsr-z-50',
+                  'dsr-sticky dsr-z-50 dark:dsr-bg-neutral-800 dsr-bg-[#F1F3F9]  dsr-border-b-2 dsr-border-gray-500  ',
                   variant === 'grid' ? grid : '',
                 ])}
                 ref={titleBarRef}
