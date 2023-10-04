@@ -55,7 +55,6 @@ const Sidebar = ({
               items={topNavigationItems}
               isCollapsed={isCollapsed}
               id={id ? `${id}-top-navigation` : undefined}
-
             />
           </div>
         ) : null}

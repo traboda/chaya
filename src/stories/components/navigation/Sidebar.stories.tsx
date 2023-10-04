@@ -33,7 +33,7 @@ const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
   },
   {
     key: 'Orders',
-    label: 'Orders',
+    label: 'All Kind of Orders',
     icon: 'stack-line',
   },
   {
@@ -100,6 +100,19 @@ Collapsed.args = {
   bottomNavigationItems: BOTTOM_MENU_ITEMS,
   isCollapsed: true,
 };
+
+export const CollapsedLineVariant = Template.bind({});
+
+CollapsedLineVariant.args = {
+  topNavigationItems: TOP_MENU_ITEMS,
+  bottomNavigationItems: BOTTOM_MENU_ITEMS,
+  isCollapsed: true,
+  navigationProps: {
+    variant: 'line',
+    activeItem: 'Products',
+  },
+};
+
 
 
 export default meta;

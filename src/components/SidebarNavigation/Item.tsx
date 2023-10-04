@@ -43,7 +43,7 @@ const SidebarNavigationItem = ({
 
   useEffect(() => setHeight(dropdownContentRef.current?.scrollHeight), [dropdownVisibility]);
 
-  const liClass = 'hover:dsr-bg-gray-400/20 hover:dsr-backdrop-blur dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
+  const liClass = 'hover:dsr-bg-neutral-300/20 hover:dsr-backdrop-blur dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
 
   const innerContent = (item: SidebarNavigationItemBaseType) => (
     <div
@@ -52,9 +52,9 @@ const SidebarNavigationItem = ({
         variant === 'line' && 'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-px-2',
       ])}
     >
-      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
-        {item.icon && <span className="dsr-w-[18px]"><Icon icon={item.icon} size={18} /></span>}
-        <span className={clsx([isCollapsed ? 'dsr-opacity-0' : '', item.labelClassName])}>{item.label}</span>
+      <div className="dsr-flex dsr-items-center dsr-gap-2 dst-text-lg dsr-text-left">
+        {item.icon && <span className="dsr-w-[24px]"><Icon icon={item.icon} size={24} /></span>}
+        <span className={clsx([isCollapsed ? 'dsr-hidden' : '', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -83,7 +83,7 @@ const SidebarNavigationItem = ({
       className: clsx([
         commonClasses,
         variant == 'pill' && (
-          activeItem === item.key ? 'dsr-bg-gray-500/30 active' : 'hover:dsr-bg-gray-500/20'
+          activeItem === item.key ? 'dsr-bg-neutral-300/30 active' : 'hover:dsr-bg-neutral-300/20'
         ),
       ]),
       isDisabled: item.isDisabled,

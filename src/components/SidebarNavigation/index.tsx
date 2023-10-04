@@ -28,7 +28,6 @@ const SidebarNavigation = ({
   const updateIndicator = () => {
     if (wrapperRef.current) {
       const tab = wrapperRef.current.querySelector('.active');
-      console.log(tab);
       if (tab) {
         const { height, top } = tab.getBoundingClientRect();
         const { top: containerTop } = wrapperRef.current.getBoundingClientRect();
@@ -53,7 +52,7 @@ const SidebarNavigation = ({
         'dsr-flex dsr-flex-col dsr-gap-1 dsr-overflow-hidden dsr-transition-all dsr-max-w-full',
         className,
       ])}
-      style={{ width: isCollapsed ? 38 : undefined }}
+      style={{ width: isCollapsed ? 50 : undefined }}
     >
       {items.filter((item) => !item.isHidden).map(item => (
         <SidebarNavigationItem
@@ -77,6 +76,7 @@ const SidebarNavigation = ({
           'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
           'dsr-border-2 dsr-border-primary dsr-rounded-lg dsr-left-0',
           'dsr-top-0 dsr-left-0 dsr-w-0',
+          items?.filter(item => item.key === activeItem)?.length == 0 ? 'dsr-hidden' : '',
         ])}
         style={{
           transform: `translateY(${indicatorStyle?.translate}px)`,
