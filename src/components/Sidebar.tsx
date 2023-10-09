@@ -29,8 +29,8 @@ const Sidebar = ({
     <div
       id={id}
       className={clsx([
-        'sidebar dsr-flex dsr-flex-col dsr-h-full dsr-justify-between dsr-relative dsr-border-r-2 dsr-border-gray-500/20 dsr-max-w-full',
-        !isCollapsed ? 'dsr-w-[280px]' : '!dsr-w-[50px]',
+        'sidebar dsr-flex dsr-flex-col dsr-h-full dsr-items-center dsr-justify-between dsr-relative dsr-border-r-2 dsr-border-gray-500/20 dsr-max-w-full',
+        !isCollapsed ? 'dsr-w-[280px]' : '!dsr-w-fit',
         'dsr-transition-all dsr-duration-300',
         className,
       ])}
