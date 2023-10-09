@@ -18,14 +18,15 @@ type ItemListerTitleBarProps<Type> = {
   colsWidth: (string | number)[];
   isAccordionsOpen?: boolean;
   toggleAccordions?: (state: boolean) => void;
+  variant?: string
 };
 
-const thClasses = 'dsr-h-full dsr-bg-primary dsr-text-primaryTextColor';
 
 const ItemListerTitleBar = <Type extends { id: string }>({
   properties,
   currentSortAttribute,
   sortOrder,
+  variant,
   isAccordionsOpen = undefined,
   toggleAccordions = () => {},
   colsWidth,
@@ -41,6 +42,12 @@ const ItemListerTitleBar = <Type extends { id: string }>({
 
   let i = 0;
 
+  const thClasses = clsx([
+    'dsr-h-full dsr-text-primary',
+    variant !== 'striped-column' && 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900',
+    variant === 'grid' && 'dsr-border-x dsr-border-neutral-600/50',
+  ]);
+
   return (
     <React.Fragment>
       {isAccordionsOpen != null && (
@@ -49,7 +56,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             borderBottomColor: Color(theme?.color).fade(0.85).toString(),
             width: colsWidth[i++],
           }}
-          className={clsx(['dsr-relative dsr-px-2 dsr-py-3', thClasses])}
+          className={clsx(['dsr-relative dsr-px-2', thClasses])}
         >
           <button
             onClick={() => toggleAccordions(!isAccordionsOpen)}
@@ -68,7 +75,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       )}
       {isSelectEnabled && (
         <th
-          className={clsx(['dsr-py-3', thClasses])}
+          className={clsx([thClasses])}
           style={{
             borderBottomColor: Color(theme?.color).fade(0.85).toString(),
             width: colsWidth[i++],
@@ -89,9 +96,12 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       {properties?.length > 0 &&
         properties
           .filter((p) => !p.isHidden)
-          .map((p) => (
+          .map((p, i) => (
             <th
-              className={clsx(['dsr-py-3', thClasses])}
+              className={clsx([
+                thClasses,
+                i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : 'dsr-bg-neutral-100 dark:dsr-bg-neutral-800',
+              ])}
               key={p.id}
               style={{
                 textAlign: p.textAlign,

@@ -146,6 +146,7 @@ const DataTable = <Type extends { id: string }>({
                   colsWidth={colsWidth}
                   isAccordionsOpen={canExpand ? activeIndex.length > 0 : undefined}
                   toggleAccordions={(open) => setActiveIndex(open ? items.map((_, i) => i) : [])}
+                  variant={variant}
                 />
                 {stickyRow && (
                   <ItemListerItem<Type>

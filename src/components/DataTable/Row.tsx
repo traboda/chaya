@@ -39,7 +39,7 @@ type ItemListerItemProps<Type> = {
 
 export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-row';
 
-const grid = 'dsr-border dsr-border-gray-500/80';
+const grid = 'dsr-border dsr-border-gray-500/50';
 const stripedColumn = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-800 odd:dsr-bg-white even:dsr-bg-[#f1f3f3]' ;
 const stripedRow = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-900 odd:dsr-bg-white even:dsr-bg-[#f1f3f3] ';
 
