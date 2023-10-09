@@ -43,7 +43,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   let i = 0;
 
   const thClasses = clsx([
-    'dsr-h-full dsr-text-primary',
+    'dsr-h-full dsr-text-primary dsr-py-2',
     variant !== 'striped-column' && 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900',
     variant === 'grid' && 'dsr-border-x dsr-border-neutral-600/50',
   ]);

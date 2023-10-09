@@ -29,27 +29,35 @@ const Sidebar = ({
     <div
       id={id}
       className={clsx([
-        'sidebar dsr-flex dsr-flex-col dsr-h-full dsr-items-center dsr-justify-between dsr-relative dsr-border-r-2 dsr-border-gray-500/20 dsr-max-w-full',
-        !isCollapsed ? 'dsr-w-[280px]' : '!dsr-w-fit',
+        'sidebar dsr-flex dsr-flex-col dsr-h-full dsr-justify-between dsr-relative dsr-border-r-2 dsr-border-gray-500/20 dsr-max-w-full',
+        !isCollapsed ? 'dsr-w-[280px]' : '!dsr-w-fit dsr-items-center',
         'dsr-transition-all dsr-duration-300',
         className,
       ])}
     >
-      <div className="sidebar-top-area dsr-px-2">
-        {typeof topRenderer === 'function' ? (
-          <div className="dsr-py-2">
-            {topRenderer({ isCollapsed })}
-          </div>
-        ) : null}
-        {allowCollapseToggling && (
-          <div className={clsx([!isCollapsed && typeof topRenderer === 'function' ? 'dsr-absolute dsr-top-0 dsr-right-0 dsr-px-2' : null, 'md:dsr-p-2'])}>
+      <div className="sidebar-top-area">
+        <div className="dsr-mb-3 dsr-px-1">
+          {typeof topRenderer === 'function' ? (
+            <div className="dsr-py-2dsr-flex dsr-justify-center">
+              {topRenderer({ isCollapsed })}
+            </div>
+          ) : null}
+          {allowCollapseToggling && (
+          <div
+            className={clsx([
+              !isCollapsed && typeof topRenderer === 'function' ? 'dsr-absolute dsr-top-0 dsr-right-0 dsr-px-2' : null,
+              isCollapsed && 'dsr-flex dsr-justify-center',
+              'md:dsr-py-2',
+            ])}
+          >
             <button type="button" onClick={() => setCollapsed(!isCollapsed)} title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
               <Icon icon={isCollapsed ? 'menu-unfold' : 'menu-fold'} />
             </button>
           </div>
-        )}
+          )}
+        </div>
         {(topNavigationItems && topNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
-          <div className="dsr-py-2 dsr-border-t dsr-border-neutral-50/20 dsr-mt-3">
+          <div className="dsr-py-2 dsr-border-t">
             <SidebarNavigation
               {...navigationProps}
               items={topNavigationItems}
@@ -59,9 +67,9 @@ const Sidebar = ({
           </div>
         ) : null}
       </div>
-      <div className="sidebar-bottom-area dsr-px-2">
+      <div className="sidebar-bottom-area dsr-px-1 dsr-border-t">
         {(bottomNavigationItems && bottomNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
-          <div className="dsr-py-2 dsr-border-t dsr-border-neutral-50/20 dsr-mt-3">
+          <div className="dsr-py-2 dsr-border-t dsr-border-neutral-50/20">
             <SidebarNavigation
               {...navigationProps}
               items={bottomNavigationItems}

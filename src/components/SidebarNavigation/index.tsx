@@ -49,7 +49,7 @@ const SidebarNavigation = ({
       role={role}
       aria-orientation="vertical"
       className={clsx([
-        'dsr-flex dsr-flex-col dsr-gap-1 dsr-items-center dsr-overflow-hidden dsr-transition-all dsr-max-w-full',
+        'dsr-flex dsr-flex-col dsr-gap-1 dsr-items-center dsr-overflow-hidden dsr-transition-all dsr-w-full',
         className,
       ])}
       style={{ width: isCollapsed ? 50 : undefined }}

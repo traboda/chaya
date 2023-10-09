@@ -43,18 +43,27 @@ const SidebarNavigationItem = ({
 
   useEffect(() => setHeight(dropdownContentRef.current?.scrollHeight), [dropdownVisibility]);
 
-  const liClass = 'hover:dsr-bg-neutral-300/20 hover:dsr-backdrop-blur dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg';
+  const liClass = clsx([
+    'hover:dsr-bg-neutral-300/20 hover:dsr-backdrop-blur',
+    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg',
+    'dsr-w-full',
+  ]);
 
   const innerContent = (item: SidebarNavigationItemBaseType) => (
     <div
       className={clsx([
-        'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2 dsr-py-1.5',
-        variant === 'line' && 'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-px-2',
+        'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5',
+        variant === 'line' && 'dsr-transition-all dsr-rounded-lg dsr-gap-2',
+        isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dst-text-lg dsr-text-left">
-        {item.icon && <span className="dsr-w-[24px]"><Icon icon={item.icon} size={24} /></span>}
-        <span className={clsx([isCollapsed ? 'dsr-hidden' : '', item.labelClassName])}>{item.label}</span>
+        {item.icon && (
+        <span className={clsx([!isCollapsed ? 'dsr-pl-2' : null])}>
+          <Icon icon={item.icon} size={24} />
+        </span>
+        )}
+        <span className={clsx([isCollapsed ? 'dsr-hidden' : 'dsr-pl-1.5', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -72,7 +81,7 @@ const SidebarNavigationItem = ({
   );
 
   const commonClasses = clsx([
-    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 dsr-px-2.5 focus-visible:dsr-outline dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary',
+    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary',
     activeItem === item.key && 'active',
   ]);
 
@@ -108,7 +117,7 @@ const SidebarNavigationItem = ({
     );
 
   return item.items?.length ? (
-    <li role={role}>
+    <li role={role} className={liClass}>
       <ul className="dsr-flex dsr-flex-col dsr-gap-1">
         <li
           className={clsx([
