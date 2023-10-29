@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
-import DSRContext from '../contexts/DSRContext';
 
 export type CircularProgressProps = {
   value: number,
@@ -51,7 +50,6 @@ const CircularProgress = ({
   value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
   isIndeterminate = false,
 }: CircularProgressProps) => {
-  const { theme, isDarkTheme } = useContext(DSRContext);
 
   return (
     <div
@@ -67,11 +65,11 @@ const CircularProgress = ({
         className={isIndeterminate ? 'dsr-animate-spin' : ''}
       >
         <circle
-          stroke={`rgba(237, 237, 237, ${isDarkTheme ? 0.1 : 0.75})`}
           cx={50}
           cy={50}
           r={radiusOptions[thickness]}
           fill="transparent"
+          className="dark:dsr-stroke-[#EDEDED]/[0.1] dsr-stroke-[#EDEDED]/[0.75]"
           strokeWidth={thicknesses[thickness]}
         />
         <circle
@@ -79,7 +77,8 @@ const CircularProgress = ({
           cy={50}
           r={radiusOptions[thickness]}
           fill="transparent"
-          stroke={strokeColor ?? theme?.primary}
+          stroke={strokeColor}
+          className={!(strokeColor?.length) ? 'dsr-stroke-primary' : undefined}
           strokeWidth={thicknesses[thickness]}
           strokeDashoffset={offsetOptions[thickness]}
           strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 
 import PinDigit from './digit';
@@ -39,7 +38,6 @@ const PinInput = ({
   const inputs = useRef<HTMLInputElement>(null);
   const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(_isInvalid);
-  const { isDarkTheme } = useContext(DSRContext);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
   const abortController = useRef<AbortController>();
 
@@ -148,7 +146,6 @@ const PinInput = ({
             isDisabled={isDisabled}
             isRequired={isRequired}
             className={digitClassName}
-            isDarkTheme={isDarkTheme}
             variant={variant}
           />
         ))}

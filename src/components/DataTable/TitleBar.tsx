@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import Color from 'color';
 import clsx from 'clsx';
 
-import DSRContext from '../../contexts/DSRContext';
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 
@@ -32,7 +30,6 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   colsWidth,
   onSort = () => null,
 }: ItemListerTitleBarProps<Type>) => {
-  const { theme } = useContext(DSRContext);
   const {
     isEnabled: isSelectEnabled,
     selectAll,
@@ -52,11 +49,10 @@ const ItemListerTitleBar = <Type extends { id: string }>({
     <React.Fragment>
       {isAccordionsOpen != null && (
         <th
-          style={{
-            borderBottomColor: Color(theme?.color).fade(0.85).toString(),
-            width: colsWidth[i++],
-          }}
-          className={clsx(['dsr-relative dsr-px-2', thClasses])}
+          style={{ width: colsWidth[i++] }}
+          className={clsx([
+            'dsr-relative dsr-px-2 dsr-border-b-color dsr-border-opacity-80', thClasses,
+          ])}
         >
           <button
             onClick={() => toggleAccordions(!isAccordionsOpen)}
@@ -75,11 +71,8 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       )}
       {isSelectEnabled && (
         <th
-          className={clsx([thClasses])}
-          style={{
-            borderBottomColor: Color(theme?.color).fade(0.85).toString(),
-            width: colsWidth[i++],
-          }}
+          className={clsx(['dsr-border-b-color dsr-border-opacity-80', thClasses])}
+          style={{ width: colsWidth[i++] }}
         >
           <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
             <Checkbox
@@ -99,13 +92,12 @@ const ItemListerTitleBar = <Type extends { id: string }>({
           .map((p, i) => (
             <th
               className={clsx([
-                thClasses,
+                'dsr-border-b-color dsr-border-opacity-80', thClasses,
                 i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : 'dsr-bg-neutral-100 dark:dsr-bg-neutral-800',
               ])}
               key={p.id}
               style={{
                 textAlign: p.textAlign,
-                borderBottomColor: Color(theme?.color).fade(0.85).toString(),
                 width: colsWidth[i++],
               }}
             >

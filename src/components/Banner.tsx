@@ -1,17 +1,15 @@
-import React, { useContext, useMemo } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import Color from 'color';
-import tailwindColors from 'tailwindcss/colors';
 
 import DocumentPortal from '../utils/Portal';
-import DSRContext from '../contexts/DSRContext';
+import useColors, { ChayaColorType } from '../hooks/useColors';
 
 import Icon, { IconInputType } from './Icon';
 
 export type BannerProps = {
   className?: string,
   variant?: 'full-width' | 'float' | 'card',
-  color?: 'primary' | 'secondary' | 'warning' | 'danger' | 'success' | 'shaded' | 'contrast' | 'white' | 'dark'
+  color?: ChayaColorType,
   position?: 'top' | 'bottom' | 'inline',
   text?: string,
   icon?: IconInputType,
@@ -30,26 +28,7 @@ const Banner = ({
   allowDismissal, children, learnMore,
 }: BannerProps) => {
 
-  const { theme, isDarkTheme } = useContext(DSRContext);
-
-  const activeColor = useMemo(() => {
-    const background = Color(theme?.background);
-
-    const colors = {
-      primary: theme?.primary,
-      secondary: theme?.secondary,
-      success: tailwindColors.green['600'],
-      danger: tailwindColors.red['500'],
-      warning: tailwindColors.yellow['500'],
-      white: tailwindColors.white,
-      dark: tailwindColors.neutral['400'],
-      contrast: background.negate().toString(),
-      shaded: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
-    };
-    return colors[color];
-  }, [theme, color]);
-
-  const textColor = useMemo(() => Color(activeColor).isDark() ? '#fff' : '#333', [activeColor]);
+  const { activeColor, textColor } = useColors('solid', color);
 
   const cardRenderer = (
     <div

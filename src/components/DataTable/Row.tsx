@@ -2,7 +2,6 @@ import React, { ReactNode, useContext } from 'react';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
-import DSRContext from '../../contexts/DSRContext';
 import Icon, { IconInputType } from '../Icon';
 import SkeletonItem from '../SkeletonItem';
 import Checkbox from '../Checkbox';
@@ -49,14 +48,13 @@ const ItemListerItem = <Type extends { id: string }>({
   onClick = () => {}, isLoading = false, isPinned = false, variant = 'default',
 }: ItemListerItemProps<Type>) => {
 
-  const { isDarkTheme } = useContext(DSRContext);
   const { isEnabled, selectedIDs, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
     'dsr-h-full dsr-text-color',
     variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
     isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : isDarkTheme ? 'group-hover:dsr-bg-neutral-800' : 'group-hover:dsr-bg-gray-500/20',
+    isPinned ? 'group-hover:dsr-bg-background' : 'dark:group-hover:dsr-bg-neutral-800 group-hover:dsr-bg-gray-500/20',
   ]);
 
   return (

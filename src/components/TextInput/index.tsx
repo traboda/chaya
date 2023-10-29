@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
+import React, { useEffect, useMemo, useState, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
 import clsx from 'clsx';
-import Color from 'color';
 import { nanoid } from 'nanoid';
 
-import DSRContext from '../../contexts/DSRContext';
 import Spinner from '../Spinner';
 import Label from '../Label';
 import Icon, { IconInputType } from '../Icon';
@@ -61,8 +59,6 @@ const TextInput = <Type extends string | number>({
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
   prefixClassName, postfixClassName, hideStepper = false,
 }: TextInputProps<Type>) => {
-
-  const { isDarkTheme, theme } = useContext(DSRContext);
 
   const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${nanoid()}`, [id, name]);
 
@@ -178,9 +174,9 @@ const TextInput = <Type extends string | number>({
             className={clsx([
               iconClassNameCalculated,
               prefixClassName,
+              'dark:dsr-bg-background-darken-3 dsr-bg-background-darken-1',
               'dsr-left-0 dsr-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
             ])}
-            style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
           >
             {prefixRenderer}
           </div>
@@ -208,9 +204,9 @@ const TextInput = <Type extends string | number>({
             className={clsx([
               iconClassNameCalculated,
               postfixClassName,
+              'dark:dsr-bg-background-darken-3 dsr-bg-background-darken-1',
               'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
             ])}
-            style={{ background: Color(theme?.background).darken(isDarkTheme ? 0.3 : 0.1).hex() }}
           >
             {postfixRenderer}
           </div>

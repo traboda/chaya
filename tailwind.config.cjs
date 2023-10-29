@@ -12,7 +12,15 @@ module.exports = {
         secondary: 'var(--secondary)',
         'secondary/50': 'var(--secondary50)',
         secondaryTextColor: 'var(--secondaryTextColor)',
+
         background: 'var(--background)',
+        'background-darken-1': 'var(--background-darken-1)',
+        'background-darken-2': 'var(--background-darken-2)',
+        'background-darken-3': 'var(--background-darken-3)',
+        'background-lighten-1': 'var(--background-lighten-1)',
+        'background-lighten-2': 'var(--background-lighten-2)',
+        'background-lighten-3': 'var(--background-lighten-3)',
+
         contrast: 'var(--contrast)',
         'contrast/50': 'var(--contrast50)',
         color: 'var(--color)',

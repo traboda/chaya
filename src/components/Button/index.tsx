@@ -45,15 +45,7 @@ const Button = ({
 }: ButtonProps) => {
   const [hover, setHover] = useState(false);
 
-  const { activeColor, backgroundColor, textColor } = useColors(variant, color, hover);
-
-  const hoverColor = useMemo(() => {
-    switch (variant) {
-      case 'solid': return Color(activeColor).darken(0.2).toString();
-      case 'outline': return activeColor;
-      case 'minimal': return Color(backgroundColor).darken(0.1).toString();
-    }
-  }, [activeColor]);
+  const { activeColor, backgroundColor, textColor, hoverColor } = useColors(variant, color, hover);
 
   const buttonContent = (
     <>

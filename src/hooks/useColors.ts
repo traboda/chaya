@@ -21,7 +21,7 @@ const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: bool
       danger: tailwindColors.red['500'],
       warning: tailwindColors.yellow['500'],
       contrast: background.negate().toString(),
-      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(0.6).toString(),
+      shade: isDarkTheme ? background.lighten(3).toString() : background.darken(1).toString(),
     };
 
     return colors[color];
@@ -48,7 +48,17 @@ const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: bool
     },
     [activeColor, variant, hover],
   );
-  return { activeColor, backgroundColor, textColor };
+
+  const hoverColor = useMemo(() => {
+    switch (variant) {
+      case 'solid': return Color(activeColor).darken(0.2).toString();
+      case 'outline': return activeColor;
+      case 'minimal': return Color(backgroundColor).darken(0.1).toString();
+    }
+  }, [activeColor]);
+
+  return { activeColor, backgroundColor, textColor, hoverColor };
+
 };
 
 export default useColors;

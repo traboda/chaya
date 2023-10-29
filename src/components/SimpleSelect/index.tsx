@@ -1,9 +1,8 @@
-import React, { ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import DSRContext from '../../contexts/DSRContext';
 import Label from '../Label';
 import Spinner from '../Spinner';
 import Icon, { IconInputType } from '../Icon';
@@ -76,7 +75,6 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
 
   const labels = { ...defaultLabels, ...propLabels };
   const inputID = useMemo(() => id ? id : `${name}-select-${nanoid()}`, [id, name]);
-  const { isDarkTheme } = useContext(DSRContext);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -280,7 +278,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 ])}
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
                 style={hideArrow ? {} : {
-                  backgroundImage: `url("data:image/svg+xml, <svg height='10px' width='10px' viewBox='0 0 16 16' fill='${isDarkTheme ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")`,
+                  backgroundImage: 'url("data:image/svg+xml, <svg height=\'10px\' width=\'10px\' viewBox=\'0 0 16 16\' fill=\'currentColor\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z\'/></svg>")',
                   backgroundPosition: 'calc(100% - 0.75rem) center',
                   backgroundRepeat: 'no-repeat',
                 }}
