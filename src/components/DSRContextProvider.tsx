@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
 import Color from 'color';
 

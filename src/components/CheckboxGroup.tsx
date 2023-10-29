@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 

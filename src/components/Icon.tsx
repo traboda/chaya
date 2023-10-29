@@ -1,3 +1,5 @@
+'use client';
+
 import React, { CSSProperties, ReactElement } from 'react';
 import { useContext } from 'react';
 

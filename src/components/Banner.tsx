@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext, useMemo } from 'react';
 import clsx from 'clsx';
 import Color from 'color';

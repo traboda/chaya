@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';

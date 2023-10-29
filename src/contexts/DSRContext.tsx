@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, ReactElement } from 'react';
 
 import { Theme } from '../types/theme';

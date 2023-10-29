@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext, useMemo } from 'react';
 import Color from 'color';
 import tailwindColors from 'tailwindcss/colors';

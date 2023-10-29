@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext, useEffect, useMemo, useState, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
 import clsx from 'clsx';
 import Color from 'color';

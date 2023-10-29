@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactNode, useEffect } from 'react';
 import clsx from 'clsx';
 import * as Dialog from '@radix-ui/react-dialog';
