@@ -1,3 +1,4 @@
+'use client';
 import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import { nanoid } from 'nanoid';

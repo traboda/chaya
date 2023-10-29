@@ -45,15 +45,15 @@ const SidebarNavigationItem = ({
 
   const liClass = clsx([
     'hover:dsr-bg-neutral-300/20 hover:dsr-backdrop-blur',
-    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded-lg',
+    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded',
     'dsr-w-full',
   ]);
 
   const innerContent = (item: SidebarNavigationItemBaseType) => (
     <div
       className={clsx([
-        'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5',
-        variant === 'line' && 'dsr-transition-all dsr-rounded-lg dsr-gap-2',
+        'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5 dsr-px-1',
+        variant === 'line' && 'dsr-transition-all dsr-rounded dsr-gap-2',
         isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
     >
@@ -67,12 +67,12 @@ const SidebarNavigationItem = ({
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
-          size="sm"
           {...{
-            color: 'shade',
-            variant: 'minimal',
+            color: 'white',
+            variant: 'solid',
             ...item?.badgeProps,
           }}
+          className="dsr-mr-1 dsr-font-semibold"
         >
           {item?.badge}
         </Badge>
@@ -131,7 +131,7 @@ const SidebarNavigationItem = ({
         >
           <button
             className={clsx([
-              'dsr-w-full dsr-items-center hello dsr-justify-between dsr-cursor-pointer dsr-flex dsr-rounded-lg',
+              'dsr-w-full dsr-items-center hello dsr-justify-between dsr-cursor-pointer dsr-flex dsr-rounded',
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >

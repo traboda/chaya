@@ -1,3 +1,4 @@
+'use client';
 import { createContext, ReactElement } from 'react';
 
 import { IconProps, Icons } from '../components/Icon';

@@ -1,3 +1,4 @@
+'use client';
 import React, { ReactNode, useMemo } from 'react';
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import clsx from 'clsx';

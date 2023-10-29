@@ -1,3 +1,4 @@
+'use client';
 import React, { Fragment, ReactNode } from 'react';
 import { Waypoint } from 'react-waypoint';
 

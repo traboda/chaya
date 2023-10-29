@@ -1,3 +1,4 @@
+'use client';
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';

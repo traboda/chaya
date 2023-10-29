@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import Color from 'color';
+'use client';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
@@ -34,6 +34,8 @@ const ringColor = {
   danger: 'dsr-ring-red-500/50',
   warning: 'dsr-ring-yellow-500/50',
   contrast: 'dsr-ring-contrast/50',
+  white: 'dsr-ring-white/50',
+  black: 'dsr-ring-black/50',
   shade: 'dsr-ring-current',
 };
 

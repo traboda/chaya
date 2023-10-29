@@ -2,24 +2,21 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import terser from '@rollup/plugin-terser';
+import preserveDirectives from "rollup-plugin-preserve-directives";
 
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
-
-import packageJson from './package.json' assert { type: 'json' };
 
 export default [
   {
     input: 'src/index.ts',
     output: [
       {
-        file: packageJson.main,
-        format: 'cjs',
-      },
-      {
-        file: packageJson.module,
-        format: 'esm',
+        dir: 'dist',
+        preserveModules: true,
+        exports: 'named',
+        entryFileNames: '[name].js',
       },
     ],
     plugins: [
@@ -35,12 +32,15 @@ export default [
       }),
       terser(),
       nodePolyfills(),
+      preserveDirectives({
+        supressPreserveModulesWarning: true,
+      }),
     ],
     external: ["react", "react-dom", "nanoid"]
   },
   {
-    input: 'dist/esm/types/index.d.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+    input: 'dist/types/index.d.ts',
+    output: [{ dir: 'dist', format: 'esm' }],
     plugins: [dts()],
   },
 ];

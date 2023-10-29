@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 
-import Breadcrumb, { BreadcrumbProps } from './Breadcrumb';
+import Breadcrumb, { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 
 export type PageHeaderProps = {
   title?: string,
@@ -14,18 +14,15 @@ export type PageHeaderProps = {
   className?: string,
   headingClassName?: string,
   breadcrumb?: BreadcrumbProps,
-  breadcrumbItems?: {
-    link: string,
-    title: string,
-    isActive?: boolean
-  }[],
+  homeLink?: BreadcrumbItemProps;
+  breadcrumbItems?: BreadcrumbItemProps[],
   titleBottomRenderer?: () => (React.ReactNode),
   sidebarRenderer?: () => (React.ReactNode)
   customRender?: () => (React.ReactNode),
 };
 
 const PageHeader = ({
-  title, description, className = '', headingClassName = '', id,
+  title, description, className = '', headingClassName = '', id, homeLink,
   breadcrumbItems = [], size = 'lg', fill = false,
   customRender = () => <div />,
   titleBottomRenderer = () => <div />,
@@ -51,6 +48,7 @@ const PageHeader = ({
             <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
               <Breadcrumb
                 {...breadcrumb}
+                homeLink={homeLink}
                 items={breadcrumbItems}
                 className={size === 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}
               />

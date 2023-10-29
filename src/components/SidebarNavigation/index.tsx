@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
@@ -40,7 +41,7 @@ const SidebarNavigation = ({
     if (activeItem) {
       updateIndicator();
     }
-  }, [activeItem]);
+  }, [activeItem, items]);
 
   const listRenderer = (
     <ul

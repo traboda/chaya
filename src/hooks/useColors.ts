@@ -1,3 +1,4 @@
+'use client';
 import { useContext, useMemo } from 'react';
 import Color from 'color';
 import tailwindColors from 'tailwindcss/colors';
@@ -5,7 +6,7 @@ import tailwindColors from 'tailwindcss/colors';
 import DSRContext from '../contexts/DSRContext';
 import { RGBAtoRGB } from '../utils/color';
 
-export type ChayaColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade';
+export type ChayaColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade' | 'white' | 'black';
 export type ChayaVariantType = 'solid' | 'outline' | 'minimal' | 'link';
 
 const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: boolean = false) => {
@@ -21,6 +22,8 @@ const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: bool
       danger: tailwindColors.red['500'],
       warning: tailwindColors.yellow['500'],
       contrast: background.negate().toString(),
+      white: '#fff',
+      black: '#000',
       shade: isDarkTheme ? background.lighten(3).toString() : background.darken(1).toString(),
     };
 
