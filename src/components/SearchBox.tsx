@@ -76,7 +76,7 @@ const SearchBox = ({
                 variant="link"
                 color="danger"
                 type="button"
-                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-opacity-100', buttonClassName])}
+                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-opacity-100 !dsr-no-underline', buttonClassName])}
                 onClick={() => {
                   setKeyword('');
                   onSearch('');
@@ -91,7 +91,7 @@ const SearchBox = ({
               <Button
                 variant="link"
                 color="contrast"
-                className={clsx(['search-box-button dsr-opacity-100', buttonClass, buttonClassName])}
+                className={clsx(['search-box-button dsr-opacity-100 !dsr-no-underline', buttonClass, buttonClassName])}
                 label={`${name} button`}
                 type="submit"
                 rightIcon="search"

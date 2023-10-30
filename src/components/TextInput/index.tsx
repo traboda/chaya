@@ -169,7 +169,7 @@ const TextInput = <Type extends string | number>({
           )}
         />
       )}
-      <div className="dsr-relative dsr-group dsr-flex">
+      <div className="dsr-relative dsr-group dsr-flex dsr-justify-between">
         {prefixRenderer && (
           <div
             className={clsx([
@@ -182,7 +182,7 @@ const TextInput = <Type extends string | number>({
             {prefixRenderer}
           </div>
         )}
-        <div className="dsr-relative dsr-w-full">
+        <div className="dsr-relative dsr-flex dsr-flex-grow">
           {leftIcon && (
             <Icon
               icon={leftIcon}

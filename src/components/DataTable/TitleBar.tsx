@@ -40,7 +40,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   let i = 0;
 
   const thClasses = clsx([
-    'dsr-h-full dsr-text-primary dsr-py-2',
+    'dsr-h-full dsr-text-color dsr-py-2',
     variant !== 'striped-column' && 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900',
     variant === 'grid' && 'dsr-border-x dsr-border-neutral-600/50',
   ]);
@@ -116,7 +116,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                     {p.icon ? <Icon icon={p.icon} /> : null}
                     {p.label}
                   </div>
-                  <div className="dsr-w-[30px] dsr-opacity-75 dsr-text-[90%] dsr-w-[14px]">
+                  <div className="dsr-w-[30px] dsr-opacity-75 dsr-text-[90%]">
                     <SortButton
                       attribute={p.id}
                       currentAttribute={currentSortAttribute}

@@ -18,6 +18,7 @@ export { default as Avatar, AvatarProps } from './components/Avatar';
 export { default as Button, ButtonProps } from './components/Button';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
+export { default as DateTimePicker, DateTimePickerProps } from './components/DateTimePicker';
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';

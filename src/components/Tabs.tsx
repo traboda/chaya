@@ -186,7 +186,7 @@ const Tabs = ({
     </button>
   );
 
-  const verticalSelector = (
+  const verticalSelector = useMemo(() => (
     <SidebarNavigation
       id={tabID}
       className={clsx(['tab-selector vertical-selector', menuClassName])}
@@ -205,6 +205,8 @@ const Tabs = ({
         onClick: () => t?.onClick && typeof t.onClick === 'function' ? (isDisabled ? onClickDisabled(t.key) : t.onClick?.()) : setTab(t.key),
       }))}
     />
+  ),
+  [tabItems, currentTab, variant, menuClassName, badgeProps, isDisabled, onClickDisabled, tabID],
   );
 
   const horizontalSelector = (

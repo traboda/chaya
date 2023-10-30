@@ -105,7 +105,7 @@ export const CollapsedVariant = (args: SidebarNavigationProps) => {
   const [isCollapsed, setCollapsed] = React.useState(args?.isCollapsed);
 
   return (
-    <div className="dsr-bg-gray-800 dsr-w-[280px] dsr-p-4 dsr-h-full">
+    <div className="dsr-w-[280px] dsr-p-4 dsr-h-full">
       <SidebarNavigation
         key={JSON.stringify(args)}
         {...args}

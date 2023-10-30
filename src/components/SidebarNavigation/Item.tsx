@@ -57,9 +57,9 @@ const SidebarNavigationItem = ({
         isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
     >
-      <div className="dsr-flex dsr-items-center dsr-gap-2 dst-text-lg dsr-text-left">
+      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
         {item.icon && (
-        <span className={clsx([!isCollapsed ? 'dsr-pl-2' : null])}>
+        <span>
           <Icon icon={item.icon} size={24} />
         </span>
         )}
@@ -118,7 +118,7 @@ const SidebarNavigationItem = ({
 
   return item.items?.length ? (
     <li role={role} className={liClass}>
-      <ul className="dsr-flex dsr-flex-col dsr-gap-1">
+      <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1">
         <li
           className={clsx([
             'hover:dsr-bg-gray-400/20',
@@ -131,19 +131,22 @@ const SidebarNavigationItem = ({
         >
           <button
             className={clsx([
-              'dsr-w-full dsr-items-center hello dsr-justify-between dsr-cursor-pointer dsr-flex dsr-rounded',
+              'dsr-w-full dsr-items-center dsr-cursor-pointer dsr-flex dsr-rounded',
+              isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >
             <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item)}</span>
-            <span
-              className={clsx([
-                'dsr-w-[18px] dsr-transform dsr-transition-transform',
-                dropdownVisibility ? 'dsr-rotate-180' : '',
-              ])}
-            >
-              <Icon icon="chevron-down" size={18} />
-            </span>
+            {!isCollapsed && (
+              <span
+                className={clsx([
+                  'dsr-w-[18px] dsr-transform dsr-transition-transform',
+                  dropdownVisibility ? 'dsr-rotate-180' : '',
+                ])}
+              >
+                <Icon icon="chevron-down" size={18} />
+              </span>
+            )}
           </button>
         </li>
 
@@ -152,19 +155,19 @@ const SidebarNavigationItem = ({
           className={clsx([
             'dsr-transition-all dsr-overflow-hidden dsr-relative',
             dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
-            isCollapsed ? '' : 'dsr-pl-4',
+            isCollapsed ? 'dsr-pl-1' : 'dsr-pl-5',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
           <div
             className={clsx([
               'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
-              isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-2',
+              isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
             ])}
           >
             <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
           </div>
-          <ul className="dsr-flex dsr-flex-col dsr-gap-1">
+          <ul className="dsr-flex dsr-flex-col dsr-gap-1 dsr-pb-1 dsr-pr-1">
             {item.items.map(subItem => (
               <li className={liClass} key={item.key + subItem.key}>
                 {contentRenderer(subItem)}

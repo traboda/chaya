@@ -11,7 +11,8 @@ const defaultLabels = {
   searchPlaceholder: 'Search',
   searchLabel: 'Search',
   optionsTitle: 'Options',
-  showAll: 'Show All',
+  selectAll: 'Select All',
+  clearAll: 'Clear All',
 };
 
 type DropdownCommonProps = {
@@ -19,7 +20,8 @@ type DropdownCommonProps = {
     searchPlaceholder?: string,
     searchLabel?: string,
     optionsTitle?: string,
-    showAll?: string,
+    selectAll?: string,
+    clearAll?: string,
   }
   options: {
     label: string,
@@ -102,14 +104,14 @@ const DropdownRender = ({
 
   return (
     <div>
-      <div className="dsr-pb-1">
+      <div>
         <SearchBox
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
+          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-neutral-200/50"
           buttonClassName="dsr-p-1 !dsr-border-none !dsr-outline-none !dsr-rounded-b-none !dsr-bg-transparent"
-          buttonWrapperClassName="!dsr-border-0 !dsr-outline-none !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-gray-100/20"
+          buttonWrapperClassName="!dsr-border-0 !dsr-outline-none !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-neutral-200/50"
           onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
@@ -118,16 +120,19 @@ const DropdownRender = ({
           setKeyword={setKeyword}
         />
       </div>
-      <div className="dsr-opacity-50 dsr-text-xs dsr-px-2 dsr-py-1 dsr-uppercase dsr-font-semibold">
-        {labels.optionsTitle}
-      </div>
-      <div className="dsr-max-h-[20vh] dsr-overflow-y-auto">
+      <div className="dsr-relative dsr-max-h-[20vh] dsr-overflow-y-auto">
+        <div className="dsr-sticky dsr-top-0 dsr-left-0 dsr-w-full dsr-px-2 dsr-py-2 dsr-bg-background dsr-z-[500]">
+          <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
+            {labels.optionsTitle}
+          </span>
+        </div>
         {availableOptions.map((field, index) => (
           <button
             key={nanoid()}
             ref={optionRefs.current[index]}
             className={clsx([
               'dsr-flex dsr-items-center dsr-justify-start dsr-gap-2 dsr-px-3 dsr-py-1 hover:dsr-bg-white/20 dsr-w-full',
+              'hover:dsr-bg-neutral-300/30',
               index == highlightedIndex && 'dsr-bg-white/20',
               optionButtonClassName,
             ])}
@@ -147,16 +152,29 @@ const DropdownRender = ({
           </button>
         ))}
       </div>
-      <div className="mt-1">
+      <div className="dsr-flex dsr-justify-between dsr-border-t dsr-border-neutral-200/50 dsr-items-center">
         <button
           key={nanoid()}
           className={clsx([
             'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
             'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
+            'dsr-border-r dsr-border-neutral-200/50',
+            'hover:dsr-bg-neutral-300/30 dsr-rounded-r-none',
           ])}
-          onClick={() => setSelections(null)}
+          onClick={() => setSelections(availableOptions.map((f) => f.value))}
         >
-          {labels.showAll}
+          {labels.selectAll}
+        </button>
+        <button
+          key={nanoid()}
+          className={clsx([
+            'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
+            'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
+            'hover:dsr-bg-neutral-300/30 dsr-rounded-l-none',
+          ])}
+          onClick={() => setSelections([])}
+        >
+          {labels.clearAll}
         </button>
       </div>
     </div>

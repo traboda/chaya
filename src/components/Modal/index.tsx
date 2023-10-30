@@ -10,10 +10,10 @@ import Button, { ButtonProps } from './../Button';
 import modalStyles from './modal.module.scss';
 
 export type ModalProps = {
-  isOpen: boolean,
   children: ReactNode,
+  isOpen?: boolean,
   overlayContent?: ReactNode,
-  onClose: () => void,
+  onClose?: () => void,
   title?: string,
   description?: string,
   hideBg?: boolean,
@@ -30,7 +30,7 @@ export type ModalProps = {
 };
 
 const Modal = ({
-  isOpen, children, onClose, title, description, containerClassName, overlayClassName = '', overlayContent, contentClassName = '', titleIcon,
+  isOpen = true, children, onClose = () => {}, title, description, containerClassName, overlayClassName = '', overlayContent, contentClassName = '', titleIcon,
   maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 

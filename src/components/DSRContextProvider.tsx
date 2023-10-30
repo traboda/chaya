@@ -16,7 +16,7 @@ const ThemeScript = memo(
         cssProperties.push(`--${key}: ${value};`);
       });
       cssProperties.push(`--primary50: ${Color(theme.primary).alpha(0.5).toString()};`);
-      cssProperties.push(`--secondary50: ${Color(theme.secondary).alpha(0.5).toString()}`);
+      cssProperties.push(`--secondary50: ${Color(theme.secondary).alpha(0.5).toString()};`);
 
       const background = Color(theme.background);
       cssProperties.push(`--contrast: ${background.negate().toString()};`);
@@ -24,7 +24,7 @@ const ThemeScript = memo(
 
       [0.1, 0.2, 0.3].forEach((n) => {
         cssProperties.push(`--background-lighten-${n * 10}: ${background.lighten(n).toString()};`);
-        cssProperties.push(`--background-darken-${n * 10}: ${background.darken(n).toString()}`);
+        cssProperties.push(`--background-darken-${n * 10}: ${background.darken(n).toString()};`);
       });
 
       return cssProperties.join('\n');
