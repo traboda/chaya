@@ -251,10 +251,7 @@ const Tabs = ({
         isOpen: currentTab === t.key,
         renderer: () => (
           <>
-            {tabItems.filter(t => t.key === currentTab).map(t => (
-              t?.renderer ? t.renderer :
-                t.rendererFunc ? t.rendererFunc() : null
-            ))}
+            {t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null}
           </>
         ),
       }))}
