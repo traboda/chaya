@@ -249,11 +249,7 @@ const Tabs = ({
           </>
         ),
         isOpen: currentTab === t.key,
-        renderer: () => (
-          <>
-            {t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null}
-          </>
-        ),
+        renderer: () => t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null,
       }))}
     />
   );
