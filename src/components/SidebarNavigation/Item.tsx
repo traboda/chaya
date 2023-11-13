@@ -140,7 +140,7 @@ const SidebarNavigationItem = ({
             {!isCollapsed && (
               <span
                 className={clsx([
-                  'dsr-w-[18px] dsr-transform dsr-transition-transform',
+                  'dsr-w-[18px] dsr-transform dsr-transition-transform dsr-mr-2',
                   dropdownVisibility ? 'dsr-rotate-180' : '',
                 ])}
               >
@@ -159,17 +159,27 @@ const SidebarNavigationItem = ({
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
-          <div
-            className={clsx([
-              'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
-              isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
-            ])}
-          >
-            <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
-          </div>
-          <ul className="dsr-flex dsr-flex-col dsr-gap-1 dsr-pb-1 dsr-pr-1">
+          {(variant == 'pill') && (
+            <div
+              className={clsx([
+                'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
+                isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
+              ])}
+            >
+              <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
+            </div>
+          )}
+          <ul className={clsx(['dsr-flex dsr-flex-col dsr-pb-1 dsr-pr-1', variant == 'line' ? 'dsr-gap-0' : 'dsr-gap-1'])}>
             {item.items.map(subItem => (
-              <li className={liClass} key={item.key + subItem.key}>
+              <li
+                className={clsx([
+                  liClass, 'dsr-rounded-l-none',
+                  variant === 'line' ?
+                    activeItem === subItem.key ? 'active dsr-border-l-4 dsr-border-primary' : 'dsr-border-l-4 dsr-border-gray-500/20'
+                    : null,
+                ])}
+                key={item.key + subItem.key}
+              >
                 {contentRenderer(subItem)}
               </li>
             ))}

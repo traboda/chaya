@@ -37,6 +37,28 @@ const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
     icon: 'stack-line',
   },
   {
+    key: 'Analytics',
+    label: 'Analytics',
+    icon: 'stack-line',
+    items: [
+      {
+        key: 'order-analytics',
+        label: 'Order Analytics',
+        icon: 'stack-line',
+      },
+      {
+        key: 'product-analytics',
+        label: 'Product Analytics',
+        icon: 'stack-line',
+      },
+      {
+        key: 'user-analytics',
+        label: 'User Analytics',
+        icon: 'stack-line',
+      },
+    ],
+  },
+  {
     key: 'Settings',
     label: 'Settings',
     icon: 'settings-line',
@@ -67,7 +89,7 @@ Basic.args = {
   topNavigationItems: TOP_MENU_ITEMS,
   bottomNavigationItems: BOTTOM_MENU_ITEMS,
   navigationProps: {
-    activeItem: 'Products',
+    activeItem: 'user-analytics',
   },
   topRenderer: ({ isCollapsed }) => (
     <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
@@ -84,7 +106,7 @@ Line.args = {
   bottomNavigationItems: BOTTOM_MENU_ITEMS,
   navigationProps: {
     variant: 'line',
-    activeItem: 'Products',
+    activeItem: 'user-analytics',
   },
   topRenderer: ({ isCollapsed }) => (
     <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
