@@ -4,27 +4,33 @@ import clsx from 'clsx';
 import Card from './Card';
 
 export type SettingCardProps = {
+  id?: string,
+  className?: string,
+  titleClassName?: string,
   labels: {
     title: string,
     description?: (string | React.ReactElement),
   },
+  isVertical?: boolean,
   children: React.ReactNode,
-  className?: string,
-  titleClassName?: string,
-  id?: string,
   subSettingRenderer?: () => React.ReactNode,
 };
 
 
 const SettingCard = ({
-  labels, children, id, className, subSettingRenderer, titleClassName,
+  id, className, labels, titleClassName, children, subSettingRenderer, isVertical = false,
 }: SettingCardProps) => (
-  <Card id={id} className={clsx(['dsr-p-2 dsr-w-full', className])}>
-    <div className="dsr-flex dsr-flex-wrap dsr-h-full dsr-mx-0">
-      <div className="dsr-w-full md:dsr-w-3/4 dsr-p-1">
+  <Card id={id} className={clsx(['dsr-p-2 dsr-w-full setting-card', className])}>
+    <div
+      className={clsx([
+        'dsr-flex dsr-h-full dsr-mx-0',
+        isVertical ? 'dsr-flex-col dsr-gap-3' : 'dsr-flex-row dsr-flex-wrap',
+      ])}
+    >
+      <div className={clsx(['dsr-w-full', !isVertical && 'md:dsr-w-3/4 dsr-p-1'])}>
         <div
           className={clsx([
-            labels?.description ? 'dsr-text-xl dsr-font-semibold' : 'dsr-text-lg',
+            'dsr-text-xl dsr-font-semibold setting-title',
             titleClassName,
           ])}
         >
@@ -37,13 +43,22 @@ const SettingCard = ({
           </p>
           ) : labels.description}
       </div>
-      <div className="dsr-block dsr-w-full md:dsr-w-1/4 md:dsr-flex dsr-mt-2 dsr-items-start dsr-justify-end">
+      <div
+        className={clsx([
+          'dsr-block dsr-w-full',
+          !isVertical && 'md:dsr-flex md:dsr-w-1/4 dsr-p-1 dsr-items-start dsr-justify-end',
+        ])}
+      >
         <div>
           {children}
         </div>
       </div>
     </div>
-    {typeof subSettingRenderer == 'function' && subSettingRenderer()}
+    {typeof subSettingRenderer == 'function' ? (
+      <div className="setting-subsection dsr-mt-3">
+        {subSettingRenderer()}
+      </div>
+    ) : null}
   </Card>
 );
 

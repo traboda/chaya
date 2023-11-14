@@ -11,7 +11,6 @@ export type AccordionProps = {
   text?: (string | React.ReactNode),
   isOpen?: boolean,
   onChange?: () => void,
-  keepExpanded?: boolean
   id?: string,
   className?: string,
   titleClassName?: string,
@@ -31,14 +30,14 @@ const Accordion = ({
     <div
       id={id}
       className={clsx([
-        'accordion dsr-p-2 dsr-rounded-lg dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
+        'accordion dsr-p-2 dsr-rounded-lg dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10 dsr-border',
         className,
       ])}
     >
       <button
         className={clsx([
-          'accordion-button dsr-w-full dsr-p-2 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-lg',
-          'dsr-justify-between dsr-text-color dsr-items-center dsr-bg-white/90 dark:dsr-bg-gray-200/20',
+          'accordion-button dsr-w-full dsr-p-2 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-lg dsr-border',
+          'dsr-justify-between dsr-text-color dsr-items-center dsr-bg-white/90 dark:dsr-bg-gray-200/20 dsr-shadow-sm',
           titleClassName,
         ])}
         aria-expanded={isOpen}

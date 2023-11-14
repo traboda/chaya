@@ -23,6 +23,12 @@ const Template: Story<SettingCardProps> = args => (
   </div>
 );
 
+const SettingSwitch = () => {
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  return <Switch value={isEnabled} onChange={() => setIsEnabled(!isEnabled)} />;
+};
+
+
 export const WithSwitch = Template.bind({});
 
 WithSwitch.args = {
@@ -30,9 +36,7 @@ WithSwitch.args = {
     title: 'Enable Notifications',
     description: 'Receive notifications for new messages',
   },
-  children: (
-    <Switch value={true} onChange={() => {}} />
-  ),
+  children: <SettingSwitch />,
 };
 
 export const WithTextInput = Template.bind({});
@@ -46,5 +50,37 @@ WithTextInput.args = {
     <TextInput hideLabel label="Username" name="username" value="" />
   ),
 };
+
+
+export const VerticalVariant = Template.bind({});
+
+VerticalVariant.args = {
+  labels: {
+    title: 'Username',
+    description: 'Your username is used to login to your account',
+  },
+  isVertical: true,
+  children: (
+    <TextInput hideLabel label="Username" name="username" value="" />
+  ),
+};
+
+
+export const WithSubSetting = Template.bind({});
+
+
+WithSubSetting.args = {
+  labels: {
+    title: 'Enable Notifications',
+    description: 'Receive notifications for new messages',
+  },
+  children: <SettingSwitch />,
+  subSettingRenderer: () => (
+    <div>
+      <TextInput hideLabel label="Username" name="username" value="" />
+    </div>
+  ),
+};
+
 
 
