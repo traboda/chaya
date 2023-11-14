@@ -2,10 +2,11 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import Checkbox from './Checkbox';
 import SearchBox from './SearchBox';
 import Dropdown from './Dropdown';
+import ListViewItem from './ListView/item';
 
 const defaultLabels = {
   searchPlaceholder: 'Search',
@@ -51,7 +52,7 @@ const DropdownRender = ({
 
   const labels = { ...defaultLabels, ..._labels };
   const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
-  const optionRefs = React.useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
+  const optionRefs = React.useRef<Array<React.RefObject<any>>>([]);
   const availableOptions = options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase()));
 
   useEffect(() => {
@@ -120,37 +121,46 @@ const DropdownRender = ({
           setKeyword={setKeyword}
         />
       </div>
-      <div className="dsr-relative dsr-max-h-[20vh] dsr-overflow-y-auto">
-        <div className="dsr-sticky dsr-top-0 dsr-left-0 dsr-w-full dsr-px-2 dsr-py-2 dsr-bg-background dsr-z-[500]">
-          <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
-            {labels.optionsTitle}
-          </span>
-        </div>
-        {availableOptions.map((field, index) => (
-          <button
-            key={nanoid()}
-            ref={optionRefs.current[index]}
-            className={clsx([
-              'dsr-flex dsr-items-center dsr-justify-start dsr-gap-2 dsr-px-3 dsr-py-1 hover:dsr-bg-white/20 dsr-w-full',
-              'hover:dsr-bg-neutral-300/30',
-              index == highlightedIndex && 'dsr-bg-white/20',
-              optionButtonClassName,
-            ])}
-            onClick={() => setSelections(
-              selections ? (
-                selections.includes(field.value) ?
-                  [...selections.filter((selection) => selection !== field.value)] :
-                  [...selections, field.value]
-              ) : [field.value],
-            )}
-          >
-            <Checkbox
-              value={field.value}
-              label={field.label}
-              isChecked={selections?.includes(field.value)}
-            />
-          </button>
-        ))}
+      <div className="dsr-w-full dsr-px-2 dsr-py-1 dsr-bg-background dsr-border-b dsr-border-neutral-200/50">
+        <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
+          {labels.optionsTitle}
+        </span>
+      </div>
+      <div className="dsr-max-h-[30vh] dsr-overflow-y-auto">
+        <ul tabIndex={-1} role="listbox">
+          {availableOptions.map((field, index) => (
+            <DropdownMenu.Item
+              key={nanoid()}
+              className="!dsr-outline-0"
+              ref={optionRefs.current[index]}
+            >
+              <ListViewItem
+                isHighlighted={index == highlightedIndex}
+                isSelectable
+                isSelected={selections?.includes(field.value)}
+                className={optionButtonClassName}
+                item={{
+                  title: field.label,
+                  id: field.value,
+                  onClick: () => setSelections(
+                    selections ? (
+                      selections.includes(field.value) ?
+                        [...selections.filter((selection) => selection !== field.value)] :
+                        [...selections, field.value]
+                    ) : [field.value],
+                  ),
+                }}
+                onSelect={() => setSelections(
+                  selections ? (
+                    selections.includes(field.value) ?
+                      [...selections.filter((selection) => selection !== field.value)] :
+                      [...selections, field.value]
+                  ) : [field.value],
+                )}
+              />
+            </DropdownMenu.Item>
+          ))}
+        </ul>
       </div>
       <div className="dsr-flex dsr-justify-between dsr-border-t dsr-border-neutral-200/50 dsr-items-center">
         <button

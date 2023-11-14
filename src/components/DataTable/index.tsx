@@ -16,17 +16,9 @@ export type DataTableProps<Type> = {
   items: Type[],
   maxHeight?: string,
   isLoading?: boolean,
-  canLoadMore?: boolean,
-  onLoadMore?: () => void,
-  itemPage?: number,
-  enablePagination?: boolean,
-  itemsPerPage?: number,
+
   emptyListRenderer?: () => ReactNode,
-  currentSortAttribute?: string,
-  allowSelection?: boolean,
-  onSelect?: (args: { selectedIDs: string[], excludedIDs: string[] }) => void,
-  sortOrder?: ('asc' | 'desc'),
-  onSort?: (attribute: string, order?: ('asc' | 'desc')) => void,
+
   customTopBarRenderer?: () => React.ReactElement,
   loadable?: boolean,
   stickyRow?: Type,
@@ -34,9 +26,27 @@ export type DataTableProps<Type> = {
   accordionRenderer?: (c: Type) => ReactNode,
   showTopBarOnEmpty?: boolean
   variant?: DataTableVariant,
+
+  // pagination
+  enablePagination?: boolean,
+  itemsPerPage?: number,
+  canLoadMore?: boolean,
+  onLoadMore?: () => void,
+  itemPage?: number,
   page?: number,
   setPage?: (page: number) => void,
   totalCount?: number,
+
+
+  // selection
+  allowSelection?: boolean,
+  onSelect?: (args: { selectedIDs: string[], excludedIDs: string[] }) => void,
+
+  // sorting
+  currentSortAttribute?: string,
+  sortOrder?: ('asc' | 'desc'),
+  onSort?: (attribute: string, order?: ('asc' | 'desc')) => void,
+
 };
 
 const grid = 'dsr-border dsr-border-gray-500/80';

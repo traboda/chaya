@@ -35,7 +35,6 @@ const Dropdown = ({
       <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
         {buttonRenderer}
       </DropdownMenu.Trigger>
-
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={clsx([
@@ -47,6 +46,9 @@ const Dropdown = ({
           sideOffset={5}
           align={align}
           side={side}
+          style={{
+            width: 'var(--radix-dropdown-menu-trigger-width)',
+          }}
         >
           {children}
         </DropdownMenu.Content>

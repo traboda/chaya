@@ -11,9 +11,11 @@ import Checkbox from '../Checkbox';
 
 import SimpleSelectOption from './option';
 
+export type SimpleSelectValue = string | number | null | undefined;
+
 type OptionType = {
   value: SimpleSelectValue,
-  label: string | number
+  label: string
   icon?: IconInputType,
   iconRenderer?: ReactNode
 };
@@ -24,8 +26,6 @@ type GroupType = {
 };
 
 export type SimpleSelectOptionType = OptionType | GroupType;
-
-export type SimpleSelectValue = string | number | null | undefined;
 
 export type SimpleSelectProps<Type> = {
   variant?: 'comma' | 'pill',
@@ -181,7 +181,6 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         isSelected={isMulti && Array.isArray(value) ? value.includes(option.value) : value === option.value}
         label={option.label}
         isHighlighted={highlightedIndex === index}
-        isClearable={!isRequired}
         onSelect={(value) => {
           onSelect(value);
           if (!isMulti)
@@ -249,12 +248,12 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     >
       <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
         {!hideLabel && (
-          <Label
-            id={`${inputID}-label`}
-            htmlFor={inputID}
-            children={labels.label}
-            isRequired={isRequired}
-          />
+        <Label
+          id={`${inputID}-label`}
+          htmlFor={inputID}
+          children={labels.label}
+          isRequired={isRequired}
+        />
         )}
         <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
           <div>
@@ -376,7 +375,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             className={clsx([
               'dsr-text-color dsr-grid dsr-z-[8000]',
               'dsr-transition-[grid-template-rows]',
-              isDropdownActive ? 'dsr-grid-rows-[1fr] dsr-border dsr-border-gray-50/20 dsr-rounded-lg' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
+              isDropdownActive ? 'dsr-grid-rows-[1fr]' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
               dropdownClassName,
             ])}
             style={{
@@ -385,12 +384,17 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             align="start"
             sideOffset={5}
           >
-            <div className="dsr-overflow-hidden dsr-bg-background dsr-rounded-lg">
+            <div
+              className={clsx([
+                'dsr-overflow-hidden dsr-bg-background dsr-rounded-lg',
+                isDropdownActive && 'dsr-border dsr-shadow dsr-border-gray-200/50',
+              ])}
+            >
               <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
                 {isFetching && (
-                  <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
-                    <Spinner size="lg" />
-                  </div>
+                <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
+                  <Spinner size="lg" />
+                </div>
                 )}
               </div>
               <ul
@@ -400,18 +404,18 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 className="dsr-max-h-[250px] dsr-overflow-y-auto"
               >
                 {(isMulti && !hideSelectAll) && (
-                  <DropdownMenu.Item className="!dsr-outline-0">
-                    <li role="option" className="dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
-                      <Checkbox
-                        value=""
-                        label={labels.selectAll}
-                        onChange={() => onSelectAll()}
-                        isChecked={Array.isArray(value) && value.length > 0}
-                        isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
-                        className="dsr-w-full"
-                      />
-                    </li>
-                  </DropdownMenu.Item>
+                <DropdownMenu.Item className="!dsr-outline-0">
+                  <li role="option" className="dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
+                    <Checkbox
+                      value=""
+                      label={labels.selectAll}
+                      onChange={() => onSelectAll()}
+                      isChecked={Array.isArray(value) && value.length > 0}
+                      isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
+                      className="dsr-w-full"
+                    />
+                  </li>
+                </DropdownMenu.Item>
                 )}
                 {filteredOptions().length > 0 ? (
                   filteredOptions().map((option, index) =>
@@ -432,9 +436,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                       </React.Fragment>
                     ) : renderDropdownOption(option, index, optionRefs.current[index]))
                 ) : !isCreatable && (
-                  <div className="dsr-px-3 dsr-py-2 dsr-text-center">
-                    {labels.noOptionsFound}
-                  </div>
+                <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                  {labels.noOptionsFound}
+                </div>
                 )}
                 {isCreatable && filteredOptions().length === 0 && searchKeyword?.length > 0 && (
                 <DropdownMenu.Item className="!dsr-outline-0" onClick={event => event.stopPropagation()}>
