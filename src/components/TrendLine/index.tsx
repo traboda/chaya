@@ -121,7 +121,6 @@ const TrendLine = ({
       {gradient && renderGradientDefinition()}
 
       <path
-        ref={(elem) => (path = elem)}
         id={`chaya-trendLine-${trendId}`}
         d={path}
         fill="none"
