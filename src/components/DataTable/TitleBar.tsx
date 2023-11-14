@@ -94,6 +94,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               className={clsx([
                 'dsr-border-b-color dsr-border-opacity-80', thClasses,
                 i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : 'dsr-bg-neutral-100 dark:dsr-bg-neutral-800',
+                'dsr-group',
               ])}
               key={p.id}
               style={{
@@ -109,14 +110,21 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                   ])}
                 >
                   <div
-                    className="dsr-px-2 dsr-m-auto dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2 dsr-w-full"
-                    style={{ textAlign: p.textAlign ?? 'left' }}
+                    className={clsx([
+                      'dsr-px-2 dsr-m-auto dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2 dsr-w-full',
+                      p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
+                    ])}
                   >
 
                     {p.icon ? <Icon icon={p.icon} /> : null}
                     {p.label}
                   </div>
-                  <div className="dsr-w-[30px] dsr-opacity-75 dsr-text-[90%]">
+                  <div
+                    className={clsx([
+                      'dsr-w-[30px] dsr-text-[90%]',
+                      currentSortAttribute !== p.id && 'dsr-opacity-30 group-hover:dsr-opacity-80',
+                    ])}
+                  >
                     <SortButton
                       attribute={p.id}
                       currentAttribute={currentSortAttribute}

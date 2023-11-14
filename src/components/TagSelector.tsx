@@ -67,8 +67,8 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
     return clsx([
       props.small ? 'dsr-px-1 dsr-py-4' : '',
       className || [
-        'hover:dsr-bg-primary hover:dsr-text-gray-100 hover:dsr-border-primary',
-        'focus:dsr-border-primary dsr-border-gray-500',
+        'hover:dark:dsr-bg-gray-500/30 hover:dsr-bg-gray-500/20',
+        'dsr-border-gray-500',
       ],
     ]);
   };
@@ -88,7 +88,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
             type="button"
             key={o.value}
             className={clsx([
-              'tag-option dsr-px-4 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
+              'tag-option dsr-px-3 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
               'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
               generateClassName(o.value),
               props?.tagClassName,

@@ -243,7 +243,6 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   return (
     <DropdownMenu.Root
       open={isDropdownActive}
-      onOpenChange={setIsDropdownActive}
       modal={false}
     >
       <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
