@@ -1,5 +1,5 @@
 'use client';
-import React, { memo, ReactElement, ReactNode, useMemo } from 'react';
+import React, { memo, ReactElement, ReactNode, useEffect, useMemo } from 'react';
 import Color from 'color';
 
 import DSRContext, { IconWrapperType, LinkWrapper } from '../contexts/DSRContext';
@@ -8,8 +8,7 @@ import { Theme } from '../types/theme';
 const defaultLinkWrapper = (link: string, component: ReactElement) => component;
 
 const ThemeScript = memo(
-  ({ theme, isDarkTheme }: { theme: Theme, isDarkTheme: boolean }) => {
-
+  ({ theme, isDarkTheme }: { theme: Theme; isDarkTheme: boolean }) => {
     const generateCSS = () => {
       const cssProperties = [];
       Object.entries(theme).forEach(([key, value]) => {
@@ -33,25 +32,58 @@ const ThemeScript = memo(
     const getScriptSrc = () => {
       const css = generateCSS();
       return `
-        var style = document.createElement('style'); 
+        var style = document.getElementById('dsr-theme-style');
+        if (!style) {
+          style = document.createElement('style');
+          style.id = 'dsr-theme-style';
+          document.head.appendChild(style);
+        }
         style.innerHTML = \`:root { ${css} }\`;
-        document.head.appendChild(style);
-        ${isDarkTheme ? 'document.body.classList.add("dsr-dark");' : 'document.body.classList.remove("dsr-dark");'}
+
+        if (${isDarkTheme}) {
+          document.body.classList.add("dsr-dark");
+        } else {
+          document.body.classList.remove("dsr-dark");
+        }
       `;
     };
 
+    useEffect(() => {
+      const script = document.getElementById('dsr-theme-script');
+
+      if (script) {
+        // Execute the script for style and class manipulation
+        eval(`!function(){${getScriptSrc()}}();`);
+      }
+    }, [theme, isDarkTheme]);
+
+    useEffect(() => {
+      // Create and append the script element
+      const newScript = document.createElement('script');
+      newScript.id = 'dsr-theme-script';
+      newScript.textContent = `!function(){${getScriptSrc()}}();`;
+      document.body.appendChild(newScript);
+
+      // Clean up function to remove the script when the component unmounts
+      return () => {
+        const scriptToRemove = document.getElementById('dsr-theme-script');
+        if (scriptToRemove) {
+          scriptToRemove.parentNode?.removeChild(scriptToRemove);
+        }
+      };
+    }, [theme, isDarkTheme]);
+
     return (
       <script
+        id="dsr-theme-script"
         dangerouslySetInnerHTML={{
           __html: `!function(){${getScriptSrc()}}();`,
         }}
       />
     );
-
   },
   (prevProps, nextProps) => prevProps.theme === nextProps.theme,
 );
-
 
 
 const DSRContextProvider = ({ children, linkWrapper = defaultLinkWrapper, theme, iconWrapper }: {
