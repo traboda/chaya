@@ -8,20 +8,30 @@ import { buildLinearPath, buildSmoothPath, injectStyleTag } from './helper/dom';
 
 export interface TrendLineProps {
   data: (number | { value: number })[];
-  smooth?: boolean;
+  smoothness?: number;
+  padding?: number
   autoDraw?: boolean;
   autoDrawDuration?: number;
   autoDrawEasing?: string;
   width?: number;
   height?: number;
-  padding?: number;
-  radius?: number;
+  thickness?: number;
   gradient: string[];
+  className?: string | null;
+  id?: string | null;
 }
 
+type TSVGProps = {
+  width: number | string;
+  height: number | string;
+  viewBox: string;
+  id?: string;
+  className?: string;
+};
+
 const TrendLine = ({
-  data, smooth, autoDraw = false, autoDrawDuration = 2000, autoDrawEasing = 'ease', 
-  width, height, padding = 8, radius = 10, gradient,
+  data, smoothness = 10, padding = 8, autoDraw = false, autoDrawDuration = 2000, id = null,
+  autoDrawEasing = 'ease', height, width, gradient, thickness = 1, className = null,
 } : TrendLineProps) => {
   
 
@@ -43,7 +53,7 @@ const TrendLine = ({
         injectStyleTag(css);
       }
     }
-  }, [data, gradient, smooth, autoDraw]);
+  }, [data, gradient, smoothness, autoDraw]);
 
   const renderGradientDefinition = () => {
     return (
@@ -91,17 +101,23 @@ const TrendLine = ({
     maxY: padding,
   });
 
-  let path = smooth
-    ? buildSmoothPath(normalizedValues, { radius })
+  let path = smoothness > 0
+    ? buildSmoothPath(normalizedValues, { radius: smoothness })
     : buildLinearPath(normalizedValues);
 
 
+  const svgProps: TSVGProps = {
+    width: svgWidth,
+    height: svgHeight,
+    viewBox: `0 0 ${viewBoxWidth} ${viewBoxHeight}`,
+
+  };
+
+  if (id) svgProps.id = id;
+  if (className) svgProps.className = className;
+  
   return (
-    <svg
-      width={svgWidth}
-      height={svgHeight}
-      viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-    >
+    <svg {...svgProps}>
       {gradient && renderGradientDefinition()}
 
       <path
@@ -109,6 +125,7 @@ const TrendLine = ({
         id={`chaya-trendLine-${trendId}`}
         d={path}
         fill="none"
+        strokeWidth={thickness}
         stroke={gradient ? `url(#chaya-trendLine-gradient-${trendId})` : undefined}
       />
     </svg>

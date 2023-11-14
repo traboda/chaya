@@ -24,5 +24,5 @@ export const Default = Template.bind({});
 Default.args = {
   data: [10, 20, 30, 40, 30, 20, 60],
   gradient: ['#b92b27', '#1565C0'],
-  smooth: true,
+  smoothness: 0,
 };
