@@ -52,26 +52,9 @@ const ThemeScript = memo(
       const script = document.getElementById('dsr-theme-script');
 
       if (script) {
-        // Execute the script for style and class manipulation
         eval(`!function(){${getScriptSrc()}}();`);
       }
-    }, [theme, isDarkTheme]);
-
-    useEffect(() => {
-      // Create and append the script element
-      const newScript = document.createElement('script');
-      newScript.id = 'dsr-theme-script';
-      newScript.textContent = `!function(){${getScriptSrc()}}();`;
-      document.body.appendChild(newScript);
-
-      // Clean up function to remove the script when the component unmounts
-      return () => {
-        const scriptToRemove = document.getElementById('dsr-theme-script');
-        if (scriptToRemove) {
-          scriptToRemove.parentNode?.removeChild(scriptToRemove);
-        }
-      };
-    }, [theme, isDarkTheme]);
+    }, [theme]);
 
     return (
       <script
