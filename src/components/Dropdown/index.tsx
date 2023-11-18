@@ -46,9 +46,9 @@ const Dropdown = ({
           sideOffset={5}
           align={align}
           side={side}
-          style={{
-            width: 'var(--radix-dropdown-menu-trigger-width)',
-          }}
+          // style={{
+          //   width: 'var(--radix-dropdown-menu-trigger-width)',
+          // }}
         >
           {children}
         </DropdownMenu.Content>
