@@ -10,7 +10,7 @@ export { default as Alert, AlertProps } from './components/Alert';
 export { default as Badge, BadgeProps } from './components/Badge';
 export { default as Label, LabelProps } from './components/Label';
 export { default as Radio, RadioProps } from './components/Radio';
-export { default as Stats, StatsProps } from './components/Stats';
+export { default as StatsCard, StatsCardProps } from './components/StatsCard';
 export { default as Drawer, DrawerProps } from './components/Drawer';
 export { default as Switch, SwitchProps } from './components/Switch';
 export { default as Banner, BannerProps } from './components/Banner';

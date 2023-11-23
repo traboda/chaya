@@ -88,7 +88,6 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       )}
       {properties?.length > 0 &&
         properties
-          .filter((p) => !p.isHidden)
           .map((p, i) => (
             <th
               className={clsx([

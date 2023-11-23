@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react';
 
 import useNumberFormatter from './useNumberFormatter';
+import useCurrencyFormatter from './useCurrencyFormatter';
 
-const useCountUp = (min: number, max: number, duration: number = 2000, roundFrom = 1000) => {
+const useCountUp = (min: number, max: number, duration: number = 2000, numberType: 'number' | 'currency' = 'number', roundFrom?: number | null) => {
   const [value, setValue] = useState(min);
   const fps = duration / 60;
-  const formatter = useNumberFormatter(roundFrom);
+  const formatter = numberType === 'number' ? useNumberFormatter(roundFrom) : useCurrencyFormatter(roundFrom);
 
   useEffect(() => {
     let last = Date.now(), diff = 0;

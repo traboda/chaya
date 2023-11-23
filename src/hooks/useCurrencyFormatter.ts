@@ -24,7 +24,7 @@ const CURRENCY_LOCALE_MAPPING = {
   'OMR': 'ar-OM',
 };
 
-const useCurrencyFormatter = () => {
+const useCurrencyFormatter = (roundFrom?: number | null) => {
 
   const numberFormatter = useRef<(amount: number, currency?: string, decimals?: number, locale?: string) => string>(
     (amount, currency = 'INR', decimals = 0, locale = undefined) => {
@@ -36,8 +36,9 @@ const useCurrencyFormatter = () => {
       }
       return amount.toLocaleString(lcl, {
         style: 'currency',
+        notation: roundFrom ? amount >= roundFrom ? 'compact' : 'standard' : undefined,
         currency,
-        maximumFractionDigits: decimals,
+        maximumFractionDigits: roundFrom ? amount >= roundFrom ? Math.max(2, decimals) : decimals : decimals,
       });
     },
   );

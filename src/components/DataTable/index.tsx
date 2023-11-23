@@ -9,10 +9,17 @@ import PageNavigator from '../PageNavigator';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
-import SelectionHelper from './SelectionHelper';
+import SelectionHelper, { SelectionType } from './SelectionHelper';
+
+export type {
+  SelectionType,
+};
 
 export type DataTableProps<Type> = {
   properties: ItemListerProperty<Type>[],
+  activePropertyIDs?: string[],
+  sortablePropertyIDs?: string[],
+
   items: Type[],
   maxHeight?: string,
   isLoading?: boolean,
@@ -40,7 +47,8 @@ export type DataTableProps<Type> = {
 
   // selection
   allowSelection?: boolean,
-  onSelect?: (args: { selectedIDs: string[], excludedIDs: string[] }) => void,
+  selections?: SelectionType,
+  onSelect?: (args: SelectionType) => void,
 
   // sorting
   currentSortAttribute?: string,
@@ -54,9 +62,11 @@ const grid = 'dsr-border dsr-border-gray-500/80';
 const DataTable = <Type extends { id: string }>({
   properties = [],
   items = [],
+  activePropertyIDs,
+  sortablePropertyIDs,
   emptyListRenderer = () => null,
   isLoading = false, canLoadMore = false,
-  allowSelection = false, onSelect = () => {},
+  selections, allowSelection = false, onSelect = () => {},
   onLoadMore = () => {}, maxHeight,
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />, loadable = true,
@@ -98,23 +108,34 @@ const DataTable = <Type extends { id: string }>({
     };
   }, [!isLoading && items?.length === 0]);
 
+  const activeProperties = useMemo(() => properties.filter(p => (
+    !p.isHidden && (!activePropertyIDs || activePropertyIDs.includes(p.id))
+  )).map((p) => ({
+    ...p,
+    isSortable: sortablePropertyIDs ? sortablePropertyIDs.includes(p.id) || p.allowSort : p.allowSort,
+  })), [properties, activePropertyIDs, sortablePropertyIDs]);
+
   const colsWidth = useMemo(() => {
     let divide: (string | number | undefined)[] = [];
     if (canExpand) divide.push(40);
     if (allowSelection) divide.push(40);
-    divide = [...divide, ...properties.filter(p => !p.isHidden).map(p => p.width)];
+    divide = [...divide, ...activeProperties.map(p => p.width)];
     return divide.map(col => col ?? 'auto');
-  }, [canExpand, allowSelection, properties]);
+  }, [canExpand, allowSelection, activeProperties]);
 
   const toggleAccordion = (index: number) => {
     if (activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
     else setActiveIndex([...activeIndex, index]);
   };
 
-  const colSpan = properties.filter(p => !p.isHidden).length + Number(canExpand) + Number(allowSelection);
+  const colSpan = activeProperties.length + Number(canExpand) + Number(allowSelection);
 
   return (
-    <SelectionHelper isEnabled={allowSelection} onSelect={onSelect}>
+    <SelectionHelper
+      isEnabled={allowSelection}
+      selections={selections}
+      onSelect={onSelect}
+    >
       {(!isLoading && items?.length === 0 && typeof emptyListRenderer === 'function' && !showTopBarOnEmpty) ?
         emptyListRenderer() : (
           <div
@@ -150,7 +171,7 @@ const DataTable = <Type extends { id: string }>({
                 style={{ top: titleTopHeight }}
               >
                 <ItemListerTitleBar<Type>
-                  properties={properties}
+                  properties={activeProperties}
                   onSort={onSort}
                   currentSortAttribute={currentSortAttribute}
                   sortOrder={sortOrder}
@@ -162,7 +183,7 @@ const DataTable = <Type extends { id: string }>({
                 {stickyRow && (
                   <ItemListerItem<Type>
                     isPinned
-                    properties={properties}
+                    properties={activeProperties}
                     item={stickyRow}
                     itemIndex={-1}
                     supportAccordion={canExpand}
@@ -177,7 +198,7 @@ const DataTable = <Type extends { id: string }>({
                       <>
                         <ItemListerItem<Type>
                           key={i?.id ?? nanoid()}
-                          properties={properties}
+                          properties={activeProperties}
                           item={i}
                           itemIndex={index}
                           onClick={() => toggleAccordion(index)}
@@ -194,7 +215,7 @@ const DataTable = <Type extends { id: string }>({
                     ) : (
                       <ItemListerItem<Type>
                         key={i.id ? i.id : nanoid()}
-                        properties={properties}
+                        properties={activeProperties}
                         item={i}
                         itemIndex={index}
                         variant={variant}
@@ -210,7 +231,7 @@ const DataTable = <Type extends { id: string }>({
                 {isLoading && Array(10).fill(0).map(() => (
                   <ItemListerItem<Type>
                     key={nanoid()}
-                    properties={properties}
+                    properties={activeProperties}
                     isLoading
                     variant={variant}
                   />

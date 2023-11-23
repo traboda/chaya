@@ -10,7 +10,7 @@ type SortButtonProps = {
 const SortButton = ({ attribute, currentAttribute, currentOrder, onSort = () => {} }: SortButtonProps) =>
   currentAttribute !== attribute || currentOrder !== 'asc' ? (
     <button
-      onClick={() => onSort(attribute, 'desc')}
+      onClick={() => onSort(attribute, 'asc')}
       className="dsr-p-0 dsr-m-0 dsr-bg-transparent dsr-outline-none dsr-cursor-pointer dsr-flex dsr-flex-col dsr-justify-center dsr-items-center"
     >
       <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 22 22" width="22" fill="currentColor">
@@ -26,7 +26,7 @@ const SortButton = ({ attribute, currentAttribute, currentOrder, onSort = () => 
     </button>
   ) : (
     <button
-      onClick={() => onSort(attribute, 'asc')}
+      onClick={() => onSort(attribute, 'desc')}
       className="dsr-p-0 dsr-m-0 dsr-bg-transparent dsr-outline-none dsr-cursor-pointer"
     >
       <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 22 22" width="22" fill="currentColor">

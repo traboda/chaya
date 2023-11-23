@@ -2,16 +2,28 @@ import React, { useEffect, useState } from 'react';
 
 import SelectionContext from './SelectionContext';
 
+
+export type SelectionType = {
+  selectedIDs?: string[],
+  excludedIDs?: string[],
+};
+
 type SelectionHelperProps = {
+  selections?: SelectionType,
   isEnabled?: boolean,
   children: React.ReactNode,
-  onSelect?: (args: { selectedIDs: string[], excludedIDs: string[] }) => void
+  onSelect?: (args: SelectionType) => void
 };
  
-const SelectionHelper = ({ isEnabled = false, children, onSelect }: SelectionHelperProps) => {
+const SelectionHelper = ({ selections = { selectedIDs: [], excludedIDs: [] }, isEnabled = false, children, onSelect }: SelectionHelperProps) => {
 
-  const [selectedIDs, setSelected] = useState<string[]>([]);
-  const [excludedIDs, setExcluded] = useState<string[]>([]);
+  const [selectedIDs, setSelected] = useState<string[]>(selections?.selectedIDs || []);
+  const [excludedIDs, setExcluded] = useState<string[]>(selections?.excludedIDs || []);
+
+  useEffect(() => {
+    if (selections?.selectedIDs !== selectedIDs) setSelected(selections?.selectedIDs || []);
+    if (selections?.excludedIDs !== excludedIDs) setExcluded(selections?.excludedIDs || []);
+  }, [selections]);
 
   const isAllSelected = () => selectedIDs?.length === 1 && selectedIDs[0] === '-1';
   const isExcluded = (id: string) => excludedIDs.filter((s) => s === id).length > 0;

@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-const useCurrencyFormatter = (roundFrom: number = 1000) => {
+const useNumberFormatter = (roundFrom?: number | null) => {
   const numberFormatter = useRef<(number: number, decimals?: number) => string>(
     (number, decimals = 0) => number.toFixed(decimals),
   );
   useEffect(() => {
     numberFormatter.current = (number, decimals = 0) =>
       new Intl.NumberFormat(window?.navigator?.language ?? 'en-IN', {
-        notation: number >= roundFrom ? 'compact' : 'standard',
-        maximumFractionDigits: decimals,
+        notation: roundFrom ? number >= roundFrom ? 'compact' : 'standard' : undefined,
+        maximumFractionDigits: roundFrom ? number >= roundFrom ? Math.max(2, decimals) : decimals : decimals,
       }).format(number);
   }, []);
 
   return numberFormatter.current;
 };
 
-export default useCurrencyFormatter;
+export default useNumberFormatter;
