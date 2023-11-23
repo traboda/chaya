@@ -87,6 +87,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const optionRefs = React.useRef<Array<React.RefObject<HTMLDivElement>>>([]);
 
+  const [cachedOptions, setCachedOptions] = useState<SimpleSelectOptionType[]>(_options);
+
   useEffect(() => {
     if (isDropdownActive) {
       if (searchBoxRef.current) searchBoxRef.current.focus();
@@ -97,6 +99,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   useEffect(() => {
     if (isAsync)
       onFetch(searchKeyword)?.then((options) => {
+        setCachedOptions([...cachedOptions, ...options]);
         setOptions(options);
         setIsFetching(false);
       });
@@ -106,6 +109,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   useEffect(() => {
     if (isAsync) return;
     if (previousOptions.current !== _options) {
+      setCachedOptions([...cachedOptions, ..._options]);
       setOptions(_options);
       previousOptions.current = _options;
     }
@@ -117,7 +121,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const getOption = (val: SimpleSelectValue) => {
-    const option = options.find(option => 'group' in option ? option.options.find(o => o.value === val) : option.value === val);
+    const optionsList = isAsync ? [...cachedOptions, ..._options] : options;
+    const option = optionsList.find(option => 'group' in option ? option.options.find(o => o.value === val) : option.value === val);
     return option && 'group' in option ? option.options.find(o => o.value === val) : option;
   };
   const getLabel = (val: SimpleSelectValue) => getOption(val)?.label;

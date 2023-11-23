@@ -25,7 +25,7 @@ const Template: Story = args => {
     setIntervalValue(Number(event.target.value));
   };
   return (
-    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-bg-gray-100 dsr-py-10" style={{ minHeight: '40vh' }}>
+    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-py-10" style={{ minHeight: '40vh' }}>
       <div className="dsr-pb-6">
         <p>
           Count:

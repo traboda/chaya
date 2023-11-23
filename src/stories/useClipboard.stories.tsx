@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { useClipboard } from '../index';
 
 const meta: Meta = {
-  title: 'Hooks / useClipboard',
+  title: 'Hooks/useClipboard',
   parameters: {
     controls: { expanded: true },
   },
@@ -15,7 +15,7 @@ export default meta;
 const Template: Story = () => {
   const [value, copy, isSupported] = useClipboard();
   return (
-    <div className="dsr-bg-gray-200 dsr-flex dsr-justify-center dsr-items-center dsr-flex-col" style={{ minHeight: '40vh' }}>
+    <div className="ddsr-flex dsr-justify-center dsr-items-center dsr-flex-col" style={{ minHeight: '40vh' }}>
       <div className="dsr-mb-6">
         {isSupported() ?
           <div className="dsr-bg-green-500 dsr-text-white dsr-font-bold dsr-rounded-lg dsr-py-0 dsr-px-3">
