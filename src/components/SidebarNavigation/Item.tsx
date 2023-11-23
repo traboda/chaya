@@ -35,11 +35,16 @@ const SidebarNavigationItem = ({
 
   const [height, setHeight] = useState<undefined | number>(undefined);
   const dropdownContentRef = useRef<HTMLLIElement>(null);
-  const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion || false);
+
+  const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
   useEffect(() => {
     if (isCollapsed) setDropdownVisibility(false);
   }, [isCollapsed]);
+
+  useEffect(() => {
+    if (!isCollapsed) setDropdownVisibility(defaultExpansion);
+  }, [activeItem]);
 
   useEffect(() => setHeight(dropdownContentRef.current?.scrollHeight), [dropdownVisibility]);
 
@@ -84,7 +89,6 @@ const SidebarNavigationItem = ({
     'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary',
     activeItem === item.key && 'active',
   ]);
-
 
   const contentRenderer = (item: SidebarNavigationItemBaseType) => item?.link ?
     LinkWrapper(item.link, innerContent(item), {

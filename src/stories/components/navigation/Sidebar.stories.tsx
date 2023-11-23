@@ -11,14 +11,59 @@ const meta: Meta = {
   },
 };
 
-const Template: Story<SidebarProps> = args => (
-  <div style={{ width: '280px' }}>
-    <Sidebar
-      key={JSON.stringify(args)}
-      {...args}
-    />
-  </div>
-);
+const Template: Story<SidebarProps> = args => {
+
+  const [activeItem, setActiveItem] = React.useState(args?.navigationProps?.activeItem);
+
+  return (
+    <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
+      <div style={{ width: '280px' }}>
+        <Sidebar
+          key={JSON.stringify(args)}
+          {...args}
+          navigationProps={{
+            ...args?.navigationProps,
+            activeItem,
+          }}
+          topNavigationItems={[
+            ...(args?.topNavigationItems ?? []).map((item: any) => ({
+              ...item,
+              onClick: () => setActiveItem(item.key),
+              items: item?.items ? (item.items?.map((subItem: any) => ({
+                ...subItem,
+                onClick: () => setActiveItem(subItem.key),
+              }))) : undefined,
+            })),
+          ]}
+        />
+      </div>
+      <div className="dsr-w-auto">
+        <ul className="dsr-list-none">
+          {args.topNavigationItems?.map((item: any) => (
+            <li key={item.key}>
+              <button
+                className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-4 dsr-block w-full dsr-text-left"
+                onClick={() => setActiveItem(item.key)}
+              >
+                {item.label}
+              </button>
+              {item?.items?.map((subItem: any) => (
+                <button
+                  key={subItem.key}
+                  className="dsr-text-sm dsr-font-semibold dsr-py-2 dsr-px-4 dsr-block w-full dsr-text-left"
+                  onClick={() => setActiveItem(subItem.key)}
+                >
+                  {subItem.label}
+                </button>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+};
 
 const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
   {
@@ -106,7 +151,7 @@ Line.args = {
   bottomNavigationItems: BOTTOM_MENU_ITEMS,
   navigationProps: {
     variant: 'line',
-    activeItem: 'user-analytics',
+    activeItem: 'Settings',
   },
   topRenderer: ({ isCollapsed }) => (
     <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
