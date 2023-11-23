@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import SelectionContext from './SelectionContext';
 
@@ -17,13 +17,16 @@ type SelectionHelperProps = {
  
 const SelectionHelper = ({ selections = { selectedIDs: [], excludedIDs: [] }, isEnabled = false, children, onSelect }: SelectionHelperProps) => {
 
-  const [selectedIDs, setSelected] = useState<string[]>(selections?.selectedIDs || []);
-  const [excludedIDs, setExcluded] = useState<string[]>(selections?.excludedIDs || []);
+  const selectedIDs = selections?.selectedIDs || [];
+  const excludedIDs = selections?.excludedIDs || [];
 
-  useEffect(() => {
-    if (selections?.selectedIDs !== selectedIDs) setSelected(selections?.selectedIDs || []);
-    if (selections?.excludedIDs !== excludedIDs) setExcluded(selections?.excludedIDs || []);
-  }, [selections]);
+  const setExcluded = (val: string[]) => {
+    if (onSelect) onSelect({ selectedIDs, excludedIDs: val });
+  };
+
+  const setSelected = (val: string[]) => {
+    if (onSelect) onSelect({ selectedIDs: val, excludedIDs });
+  };
 
   const isAllSelected = () => selectedIDs?.length === 1 && selectedIDs[0] === '-1';
   const isExcluded = (id: string) => excludedIDs.filter((s) => s === id).length > 0;

@@ -11,7 +11,7 @@ export type StatsCardProps = {
   value: number,
   deltaValue?: number,
   change?: 'positive' | 'negative',
-  valueType: 'currency' | 'number',
+  valueType?: 'currency' | 'number',
 
   labels: {
     deltaLabel?: string,
@@ -75,17 +75,17 @@ const StatsCard = ({
               <div
                 className={clsx([
                   'dsr-flex dsr-items-center dsr-text-lg',
-                  changeDirection ? changeDirection === 'positive' ? 'dsr-text-green-500' : 'dsr-text-red-500' : '',
+                  changeDirection ? changeDirection === 'positive' ? 'dsr-text-green-600 dark:dsr-text-green-500' : 'dsr-text-red-600 dark:dsr-text-red-500' : '',
                 ])}
               >
                 {changeDirection ? (
                   <Icon
                     icon={changeDirection === 'positive' ? 'chevron-up' : 'chevron-down'}
-                    size={32}
+                    size={24}
                   />
                 ) : null}
                 {(typeof deltaValue === 'number') ? (
-                  <div className="dsr-flex dsr-gap-2">{`${deltaString} ${labels.deltaLabel || ''}`}</div>
+                  <div className="dsr-flex dsr-gap-2 dsr-font-semibold">{`${deltaString} ${labels.deltaLabel || ''}`}</div>
                 ) : null}
               </div>
             ) : null}
