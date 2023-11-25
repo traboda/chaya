@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
+import ChevronUp from '../../utils/icons/chevron-up';
 
 export type SidebarNavigationItemBaseType = {
   key: string,
@@ -144,11 +145,11 @@ const SidebarNavigationItem = ({
             {!isCollapsed && (
               <span
                 className={clsx([
-                  'dsr-w-[18px] dsr-transform dsr-transition-transform dsr-mr-2',
+                  'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80',
                   dropdownVisibility ? 'dsr-rotate-180' : '',
                 ])}
               >
-                <Icon icon="chevron-down" size={18} />
+                <ChevronUp size={18} />
               </span>
             )}
           </button>

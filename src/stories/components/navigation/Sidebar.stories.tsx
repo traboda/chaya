@@ -17,8 +17,9 @@ const Template: Story<SidebarProps> = args => {
 
   return (
     <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-      <div style={{ width: '280px' }}>
+      <div style={{ width: '280px' }} className="dsr-h-screen">
         <Sidebar
+          className="dsr-h-full"
           key={JSON.stringify(args)}
           {...args}
           navigationProps={{
@@ -78,7 +79,7 @@ const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
   },
   {
     key: 'Orders',
-    label: 'All Kind of Orders',
+    label: 'Orders',
     icon: 'stack-line',
   },
   {
@@ -133,6 +134,100 @@ export const Basic = Template.bind({});
 Basic.args = {
   topNavigationItems: TOP_MENU_ITEMS,
   bottomNavigationItems: BOTTOM_MENU_ITEMS,
+  navigationProps: {
+    activeItem: 'user-analytics',
+  },
+  topRenderer: ({ isCollapsed }) => (
+    <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
+      {isCollapsed ? 'L' : 'Logo'}
+    </div>
+  ),
+};
+
+export const WithGroupedItems = Template.bind({});
+
+WithGroupedItems.args = {
+  topNavigationItems: TOP_MENU_ITEMS,
+  bottomNavigationItems: BOTTOM_MENU_ITEMS,
+  navigationGroups: [
+    {
+      title: 'Products',
+      items: [
+        {
+          key: 'product-1',
+          label: 'Product 1',
+          icon: 'stack-line',
+        },
+        {
+          key: 'product-2',
+          label: 'Product 2',
+          icon: 'stack-line',
+        },
+        {
+          key: 'product-3',
+          label: 'Product 3',
+          icon: 'stack-line',
+        },
+      ],
+    },
+    {
+      title: 'Orders',
+      items: [
+        {
+          key: 'order-1',
+          label: 'Order 1',
+          icon: 'stack-line',
+        },
+        {
+          key: 'order-2',
+          label: 'Order 2',
+          icon: 'stack-line',
+        },
+        {
+          key: 'order-3',
+          label: 'Order 3',
+          icon: 'stack-line',
+        },
+      ],
+    },
+    {
+      title: 'Analytics',
+      items: [
+        {
+          key: 'order-analytics',
+          label: 'Order Analytics',
+          icon: 'stack-line',
+        },
+        {
+          key: 'product-analytics',
+          label: 'Product Analytics',
+          icon: 'stack-line',
+        },
+        {
+          key: 'g-user-analytics',
+          label: 'User Analytics',
+          icon: 'stack-line',
+          items: [
+            {
+              key: 'user-analytics-1',
+              label: 'User Analytics 1',
+              icon: 'stack-line',
+            },
+            {
+              key: 'user-analytics-2',
+              label: 'User Analytics 2',
+              icon: 'stack-line',
+            },
+            {
+              key: 'user-analytics-3',
+              label: 'User Analytics 3',
+              icon: 'stack-line',
+            },
+          ],
+        },
+      ],
+    },
+  ],
   navigationProps: {
     activeItem: 'user-analytics',
   },

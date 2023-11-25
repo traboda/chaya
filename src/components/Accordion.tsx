@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import Icon from './Icon';
+import ChevronUp from '../utils/icons/chevron-up';
+import Lock from '../utils/icons/lock';
 
 export type AccordionProps = {
   title: string | React.ReactNode,
@@ -62,15 +63,7 @@ const Accordion = ({
               isOpen ? 'dsr-rotate-180' : '',
             ])}
           >
-            {isLocked ? (
-              <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 18 18" width="20" fill="currentColor">
-                <path d="M14.5,8H14V7A5,5,0,0,0,4,7V8H3.5a.5.5,0,0,0-.5.5v8a.5.5,0,0,0,.5.5h11a.5.5,0,0,0,.5-.5v-8A.5.5,0,0,0,14.5,8ZM6,7a3,3,0,0,1,6,0V8H6Zm4,6.111V14.5a.5.5,0,0,1-.5.5h-1a.5.5,0,0,1-.5-.5V13.111a1.5,1.5,0,1,1,2,0Z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 18 18" width="24" fill="currentColor">
-                <path d="M14,10.99a1,1,0,0,1-1.7055.7055l-3.289-3.286-3.289,3.286a1,1,0,0,1-1.437-1.3865l.0245-.0245L8.3,6.2925a1,1,0,0,1,1.4125,0L13.707,10.284A.9945.9945,0,0,1,14,10.99Z" />
-              </svg>
-            )}
+            {isLocked ? <Lock /> : <ChevronUp size={24} />}
           </div>
         ) : null}
       </button>
