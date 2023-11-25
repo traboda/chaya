@@ -67,3 +67,32 @@ KeepExpanded.args = {
     },
   ],
 };
+
+export const NumberedSteps = Template.bind({});
+
+NumberedSteps.args = {
+  numberItems: true,
+  activeIndex: 2,
+  items: [
+    {
+      title: 'Step 1',
+      text: 'This is a text',
+      isCompleted: true,
+    },
+    {
+      title: 'Step 2 (Disabled)',
+      isDisabled: true,
+      isCompleted: true,
+      text: 'This is a text',
+    },
+    {
+      title: 'Step 3 (Active)',
+      text: 'This is a text',
+    },
+    {
+      title: 'Step 4 (Locked)',
+      text: 'This is a text',
+      isLocked: true,
+    },
+  ],
+};

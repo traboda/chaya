@@ -9,26 +9,32 @@ export type AccordionGroupProps = {
     title: string | ReactNode,
     text?: string,
     renderer?: () => ReactNode,
-    isOpen?: boolean
+    isDisabled?: boolean,
+    isOpen?: boolean,
+    isHidden?: boolean,
+    isCompleted?: boolean,
+    isLocked?: boolean,
   }[],
   initialIndex?: number,
+  activeIndex?: number,
   keepExpanded?: boolean
   id?: string,
   className?: string,
   accordionClassName?: string,
   titleClassName?: string,
   bodyClassName?: string,
+  numberItems?: boolean,
 };
 
 const AccordionGroup = ({
   items, initialIndex, keepExpanded = false, id, className = '', accordionClassName = '',
-  titleClassName = '', bodyClassName = '',
+  titleClassName = '', bodyClassName = '', numberItems = false, activeIndex,
 }: AccordionGroupProps) => {
-  const [active, setActive] = useState(initialIndex ?? 0);
+  const [active, setActive] = useState(initialIndex ?? activeIndex ?? 0);
 
   return (
     <div id={id} className={className}>
-      {items.map((item, index) => (
+      {items.filter((item) => !item.isHidden).map((item, index) => (
         <Accordion
           id={id ? `${id}_accordion_${index + 1}` : undefined}
           isOpen={!keepExpanded ? active === index : (initialIndex === index || item?.isOpen)}
@@ -39,8 +45,28 @@ const AccordionGroup = ({
           onChange={() => {
             if (!keepExpanded) setActive(active === index ? -1 : index);
           }}
-          title={item.title}
+          title={numberItems || item.isCompleted ? (
+            <div className="dsr-flex dsr-items-center dsr-gap-2">
+              <div
+                className={clsx([
+                  'dsr-p-1 dsr-rounded-full dsr-h-[36px] dsr-w-[36px] border dsr-border-neutral-200/50',
+                  'dsr-flex dsr-justify-center dsr-text-base dsr-items-center',
+                  activeIndex === index || item?.isCompleted ? '' : 'dsr-border dark:dsr-border-neutral-500/80 dsr-border-neutral-500/20',
+                  activeIndex === index ? 'dsr-bg-primary dsr-text-primaryTextColor' : item.isCompleted ? 'dsr-bg-green-500 dsr-text-white' : 'dsr-bg-gray-200/80 dark:dsr-bg-gray-600/80',
+                ])}
+              >
+                {item.isCompleted ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 18 18" width="20" fill="currentColor">
+                    <path d="M15.656,3.8625l-.7275-.5665a.5.5,0,0,0-.7.0875L7.411,12.1415,4.0875,8.8355a.5.5,0,0,0-.707,0L2.718,9.5a.5.5,0,0,0,0,.707l4.463,4.45a.5.5,0,0,0,.75-.0465L15.7435,4.564A.5.5,0,0,0,15.656,3.8625Z" />
+                  </svg>
+                ) : `${index + 1}`}
+              </div>
+              {item.title}
+            </div>
+          ) : item.title}
           text={item.text}
+          isDisabled={item.isDisabled}
+          isLocked={item.isLocked}
           renderer={item.renderer}
         />
       ))}
