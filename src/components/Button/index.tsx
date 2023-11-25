@@ -12,11 +12,19 @@ import { ButtonProps } from './type';
 import Ripple from './Ripple';
 
 const sizeDefinitions = {
-  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs dsr-rounded',
-  sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm dsr-rounded-md',
-  md: 'dsr-px-3.5 dsr-py-2 dsr-text-base dsr-rounded-lg',
-  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg dsr-rounded-lg',
-  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl dsr-rounded-lg',
+  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-rounded',
+  sm: 'dsr-px-2.5 dsr-py-1 dsr-rounded-md',
+  md: 'dsr-px-3.5 dsr-py-2 dsr-rounded-lg',
+  lg: 'dsr-px-5 dsr-py-3 dsr-rounded-lg',
+  xl: 'dsr-px-6 dsr-py-4 dsr-rounded-lg',
+};
+
+const fontSizeDefinitions = {
+  xs: 'dsr-text-xs',
+  sm: 'dsr-text-sm',
+  md: 'dsr-text-base',
+  lg: 'dsr-text-lg',
+  xl: 'dsr-text-xl',
 };
 
 const iconSizes = {
@@ -59,13 +67,14 @@ const Button = ({
   );
 
   const computedClassName = clsx([
-    sizeDefinitions[size],
-    ringColor[color],
+    variant !== 'link' && sizeDefinitions[size],
+    fontSizeDefinitions[size],
+    variant !== 'link' && ringColor[color],
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
     'dsr-outline-0 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
-    'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
+    variant !== 'link' && 'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
     (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,

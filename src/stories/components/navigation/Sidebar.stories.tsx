@@ -17,7 +17,7 @@ const Template: Story<SidebarProps> = args => {
 
   return (
     <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-      <div style={{ width: '280px' }} className="dsr-h-screen">
+      <div style={{ width: '280px' }} className="dsr-h-screen -dsr-m-4">
         <Sidebar
           className="dsr-h-full"
           key={JSON.stringify(args)}
@@ -133,9 +133,19 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   topNavigationItems: TOP_MENU_ITEMS,
-  bottomNavigationItems: BOTTOM_MENU_ITEMS,
+  bottomNavigationItems: BOTTOM_MENU_ITEMS.filter((i) => i.key !== 'Logout'),
   navigationProps: {
     activeItem: 'user-analytics',
+  },
+  logoutButton: {
+    link: '#',
+    icon: 'logout-box-r-line text-3xl',
+  },
+  userProfile: {
+    name: 'John Doe',
+    avatar: {
+      alt: 'John Doe',
+    },
   },
   topRenderer: ({ isCollapsed }) => (
     <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
@@ -148,7 +158,7 @@ export const WithGroupedItems = Template.bind({});
 
 WithGroupedItems.args = {
   topNavigationItems: TOP_MENU_ITEMS,
-  bottomNavigationItems: BOTTOM_MENU_ITEMS,
+  bottomNavigationItems: BOTTOM_MENU_ITEMS.filter((i) => i.key !== 'Logout'),
   navigationGroups: [
     {
       title: 'Products',
@@ -228,6 +238,16 @@ WithGroupedItems.args = {
       ],
     },
   ],
+  userProfile: {
+    name: 'John Doe',
+    avatar: {
+      alt: 'John Doe',
+    },
+  },
+  logoutButton: {
+    link: '#',
+    icon: 'logout-box-r-line text-3xl',
+  },
   navigationProps: {
     activeItem: 'user-analytics',
   },

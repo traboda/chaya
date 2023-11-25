@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 export type AvatarProps = {
   alt: string,
-  src: string,
+  src?: string,
   size?: number | string,
   id?: string,
   className?: string,

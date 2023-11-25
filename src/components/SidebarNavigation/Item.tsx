@@ -126,7 +126,7 @@ const SidebarNavigationItem = ({
       <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1">
         <li
           className={clsx([
-            'hover:dsr-bg-gray-400/20',
+            'hover:dsr-bg-neutral-400/20',
             commonClasses,
             liClass,
             variant == 'pill' && (
@@ -146,7 +146,7 @@ const SidebarNavigationItem = ({
               <span
                 className={clsx([
                   'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80',
-                  dropdownVisibility ? 'dsr-rotate-180' : '',
+                  !dropdownVisibility ? 'dsr-rotate-180' : '',
                 ])}
               >
                 <ChevronUp size={18} />

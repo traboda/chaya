@@ -13,6 +13,7 @@ export type AlertProps = {
   className?: string,
   title?: string
   description?: string;
+  children?: React.ReactNode,
   allowDismissal?: boolean,
   onDismiss?: () => void,
   primaryButton?: ButtonProps,
@@ -26,7 +27,7 @@ const getBackgroundClassByType = (type: string) => {
     case 'info': return 'dark:dsr-bg-blue-900 dsr-bg-blue-100';
     case 'warning': return 'dark:dsr-bg-yellow-900 dsr-bg-yellow-100';
     case 'danger': return 'dark:dsr-bg-red-900 dsr-bg-red-100';
-    default: return 'dark:dsr-bg-gray-900 dsr-bg-gray-50';
+    default: return 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10';
   }
 };
 
@@ -52,7 +53,7 @@ const getBorderClassByType = (type: string) => {
 
 const Alert = ({
   type = 'default', variant = 'solid', id, className = '', title, description, allowDismissal = false,
-  onDismiss = () => {}, primaryButton, secondaryButton, titleIcon,
+  onDismiss = () => {}, primaryButton, secondaryButton, titleIcon, children, icon,
 }: AlertProps) => {
   const [hide, setHide] = useState(false);
   const computedClassName = clsx([
@@ -84,6 +85,7 @@ const Alert = ({
       </h4>
       )}
       {description && <p>{description}</p>}
+      {children}
       {(primaryButton || secondaryButton) && (
       <div className="dsr-flex dsr-items-center">
         {primaryButton && (
