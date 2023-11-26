@@ -1,3 +1,4 @@
+'use client';
 import React, { ChangeEvent, MouseEvent, KeyboardEvent, forwardRef } from 'react';
 import clsx from 'clsx';
 
