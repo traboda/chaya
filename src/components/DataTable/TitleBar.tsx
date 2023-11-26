@@ -41,7 +41,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
 
   const thClasses = clsx([
     'dsr-h-full dsr-text-color dsr-py-2',
-    variant !== 'striped-column' && 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900',
+    variant !== 'striped-column' && 'dsr-bg-background-lighten-1 dark:dsr-background-darken-2',
     variant === 'grid' && 'dsr-border-x dsr-border-neutral-600/50',
   ]);
 
@@ -51,7 +51,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
         <th
           style={{ width: colsWidth[i++] }}
           className={clsx([
-            'dsr-relative dsr-px-2 dsr-border-b-color dsr-border-opacity-80', thClasses,
+            'dsr-relative dsr-px-2', thClasses,
           ])}
         >
           <button
@@ -71,7 +71,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       )}
       {isSelectEnabled && (
         <th
-          className={clsx(['dsr-border-b-color dsr-border-opacity-80', thClasses])}
+          className={clsx([thClasses, 'dsr-bg-background'])}
           style={{ width: colsWidth[i++] }}
         >
           <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
@@ -91,8 +91,8 @@ const ItemListerTitleBar = <Type extends { id: string }>({
           .map((p, i) => (
             <th
               className={clsx([
-                'dsr-border-b-color dsr-border-opacity-80', thClasses,
-                i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : 'dsr-bg-neutral-100 dark:dsr-bg-neutral-800',
+                thClasses,
+                i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : '',
                 'dsr-group',
               ])}
               key={p.id}
@@ -101,27 +101,19 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                 width: colsWidth[i++],
               }}
             >
-              {p?.allowSort ? (
-                <div
-                  className={clsx([
-                    'dsr-flex dsr-items-center dsr-w-full dsr-gap-1',
-                    p?.labelClassName,
-                  ])}
-                >
+              <div
+                className={clsx([
+                  'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
+                  p?.labelClassName,
+                  p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
+                ])}
+              >
+                {p.label}
+                {p.allowSort ? (
                   <div
                     className={clsx([
-                      'dsr-px-2 dsr-m-auto dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2 dsr-w-full',
-                      p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
-                    ])}
-                  >
-
-                    {p.icon ? <Icon icon={p.icon} /> : null}
-                    {p.label}
-                  </div>
-                  <div
-                    className={clsx([
-                      'dsr-w-[30px] dsr-text-[90%]',
-                      currentSortAttribute !== p.id && 'dsr-opacity-30 group-hover:dsr-opacity-80',
+                      'dsr-w-[28px] dsr-ml-1',
+                      currentSortAttribute !== p.id && 'dsr-opacity-20 group-hover:dsr-opacity-80',
                     ])}
                   >
                     <SortButton
@@ -131,18 +123,8 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                       onSort={onSort}
                     />
                   </div>
-                </div>
-              ) : (
-                <div
-                  className={clsx([
-                    'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
-                    p?.labelClassName,
-                    p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
-                  ])}
-                >
-                  {p.label}
-                </div>
-              )}
+                ) : null}
+              </div>
             </th>
           ))}
     </React.Fragment>

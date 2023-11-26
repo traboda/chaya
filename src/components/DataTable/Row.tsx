@@ -54,7 +54,7 @@ const ItemListerItem = <Type extends { id: string }>({
     'dsr-h-full dsr-text-color',
     variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
     isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : 'dark:group-hover:dsr-bg-neutral-800 group-hover:dsr-bg-gray-500/20',
+    isPinned ? 'group-hover:dsr-bg-background' : 'dark:group-hover:dsr-bg-neutral-700/30 group-hover:dsr-bg-gray-300/30',
   ]);
 
   return (
@@ -131,7 +131,7 @@ const ItemListerItem = <Type extends { id: string }>({
               }
             }}
           >
-            {link ? LinkWrapper(link, renderer, { className: 'dsr-text-primary' }) : renderer}
+            {link ? LinkWrapper(link, renderer, { className: 'dsr-text-blue-600 dark:dsr-text-blue-300' }) : renderer}
           </td>
         );
       })}

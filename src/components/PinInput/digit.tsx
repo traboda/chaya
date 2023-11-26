@@ -32,9 +32,9 @@ const PinDigit = ({
     aria-disabled={isDisabled}
     className={clsx([
       'pin-digit dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-text-slate-400/40 dsr-text-color',
-      variant === 'minimal' ? 'dsr-border-b-2 dsr-bg-transparent focus:dsr-border-primary' : 'dsr-py-1.5 dsr-rounded-lg dsr-border focus:dsr-border-primary dsr-border-gray-500/50 dsr-bg-background',
+      variant === 'minimal' ? 'dsr-border-b-2 dsr-bg-transparent focus:dsr-border-primary' : 'dsr-py-1.5 dsr-rounded-lg dsr-border focus:dsr-border-primary dsr-bg-background-lighten-1 dsr-shadow-inner',
       className,
-      isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-400/40',
+      isInvalid ? 'dsr-border-red-500' : 'dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
       type === 'number' && pinInputStyle.hideStepper,
     ])}
     type={mask ? 'password' : type}

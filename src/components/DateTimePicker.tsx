@@ -56,7 +56,7 @@ const DateTimePicker = ({
 
   const inputClass = clsx([
     'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color focus:dsr-outline-none',
-    'dsr-text-color dsr-border dsr-rounded-lg placeholder:dsr-opacity-50 group-focus-within:dsr-border-primary dsr-text-base',
+    'dsr-text-color dsr-border dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20 dsr-bg-background-lighten-1 dsr-shadow-inner dsr-rounded-lg placeholder:dsr-opacity-50 group-focus-within:dsr-border-primary dsr-text-base',
     inputClassName,
   ]);
 

@@ -43,6 +43,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
                     'alert-triangle': <i className={`ri-error-warning-line`} {...props} />,
                     check: <i className={`ri-checkbox-circle-line`} {...props} />,
                     bin: <i className={`ri-delete-bin-line`} {...props} />,
+                    search: <i className={`ri-search-line`} {...props} />,
                 })[icon] ?? <i className={`ri-${icon}-line ri-${icon}`} {...props} />}
             >
                 {children}

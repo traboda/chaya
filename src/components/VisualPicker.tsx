@@ -55,13 +55,13 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
     if (isMulti && !Array.isArray(value)) throw new Error('VisualPicker: value must be an array when isMulti is true');
   }, []);
 
+
   return (
     <div className="dsr-w-full" id={generatedID}>
-      {label && <Label htmlFor="" isRequired={isRequired}>{label}</Label>}
-
+      {label && <Label isRequired={isRequired}>{label}</Label>}
       <div
         className={clsx([
-          'dsr-grid dsr-w-full dsr-gap-4',
+          'dsr-grid dsr-w-full dsr-gap-2',
           className,
           isVertical ? 'dsr-grid-cols-1' : fitHorizontal ? 'dsr-grid-cols-flexible-fit' : 'dsr-grid-cols-flexible-fill',
         ])}
@@ -76,10 +76,11 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
             aria-disabled={isDisabled || item.isDisabled}
             disabled={isDisabled || item.isDisabled}
             className={clsx([
-              'dsr-w-full dsr-bg-background dsr-border dsr-border-gray-500/70 dsr-rounded-lg dsr-p-4',
-              'dsr-transition dsr-flex dsr-flex-col dsr-gap-2 dsr-items-center dsr-justify-center',
+              'dsr-w-full dsr-rounded-lg dsr-border',
+              'dsr-transition dsr-flex',
               !isSelected(item.value) && !(isDisabled || item.isDisabled) && 'hover:dsr-border-gray-400/80',
-              isDisabled || item.isDisabled ? 'dsr-opacity-50' : '',
+              isDisabled || item.isDisabled ? 'dsr-opacity-90 dark:dsr-border-neutral-500/50 dsr-border-neutral-500/10' : 'dsr-bg-background-lighten-1 dark:dsr-bg-background-lighten-2 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+              isVertical ? 'dsr-items-center dsr-justify-start dsr-p-3 dsr-text-left dsr-gap-3' : 'dsr-flex-col dsr-gap-1 dsr-items-center dsr-justify-center dsr-px-3 dsr-py-4 dsr-min-h-[220px] dsr-text-center',
               itemClassName,
             ])}
             style={isSelected(item.value) ? {
@@ -89,9 +90,24 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
             } : undefined}
             onClick={() => onSelect(item.value)}
           >
-            {item.icon && <Icon icon={item.icon} size={44} className={item.title || item.description ? 'dsr-mb-2' : ''} />}
-            {item.title && <span className="dsr-text-2xl dsr-leading-8 dsr-font-semibold">{item.title}</span>}
-            {item.description && <span className="dsr-text-base dsr-leading-5">{item.description}</span>}
+            {(item.icon) && (
+              <div className={item.title || item.description ? 'dsr-mb-1 dsr-text-4xl' : 'dsr-text-4xl'}>
+                <Icon icon={item.icon} size={44} />
+              </div>
+            )}
+            <div
+              className={clsx([
+                'dsr-flex-col dsr-gap-1',
+                isVertical ? 'dsr-items-start dsr-justify-start' : 'dsr-items-center dsr-justify-center',
+              ])}
+            >
+              {item.title && <div className="dsr-text-lg md:dsr-text-xl dsr-font-semibold dsr-leading-6">{item.title}</div>}
+              {item.description && (
+              <div className={clsx(['dsr-text-sm', !isVertical && 'dsr-w-[80%] dsr-mx-auto'])}>
+                {item.description}
+              </div>
+              )}
+            </div>
           </button>
         ))}
       </div>

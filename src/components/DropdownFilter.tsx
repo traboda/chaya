@@ -169,7 +169,7 @@ const DropdownRender = ({
             'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
             'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
             'dsr-border-r dsr-border-neutral-200/50',
-            'hover:dsr-bg-neutral-300/30 dsr-rounded-r-none',
+            'hover:dsr-bg-neutral-500/10 dsr-rounded-r-none',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}
         >
@@ -180,7 +180,7 @@ const DropdownRender = ({
           className={clsx([
             'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
             'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
-            'hover:dsr-bg-neutral-300/30 dsr-rounded-l-none',
+            'hover:dsr-bg-neutral-500/10 dsr-rounded-l-none',
           ])}
           onClick={() => setSelections([])}
         >

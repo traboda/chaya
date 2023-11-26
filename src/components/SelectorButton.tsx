@@ -63,13 +63,13 @@ const SelectorButton = <Type extends string | number | null | undefined>({
           <Button
             variant="link"
             color="contrast"
-            className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
+            className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-px-2 dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
             type="submit"
             isDisabled={isDisabled}
           >
             {labels?.button}
           </Button>
-              )}
+        )}
       />
     </form>
   );

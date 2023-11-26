@@ -70,6 +70,7 @@ const Button = ({
     variant !== 'link' && sizeDefinitions[size],
     fontSizeDefinitions[size],
     variant !== 'link' && ringColor[color],
+    variant !== 'link' && 'dsr-shadow hover:dsr-shadow-none',
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',

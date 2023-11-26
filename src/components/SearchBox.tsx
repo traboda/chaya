@@ -1,6 +1,8 @@
 import React, { KeyboardEvent } from 'react';
 import clsx from 'clsx';
 
+import Search from '../utils/icons/search';
+
 import TextInput from './TextInput';
 import Button from './Button';
 
@@ -67,7 +69,7 @@ const SearchBox = ({
         isDisabled={isDisabled}
         isLoading={isLoading}
         inputClassName={inputClassName}
-        postfixClassName={clsx([hideButton && 'dsr-border-l-0 !dsr-bg-transparent', buttonWrapperClassName])}
+        postfixClassName={clsx([hideButton && 'dsr-border-l-0 dsr-shadow-inner', buttonWrapperClassName])}
         leftIcon={hideButton ? 'search' : undefined}
         postfixRenderer={(!hideButton || keyword?.length > 0) && (
           <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
@@ -76,7 +78,7 @@ const SearchBox = ({
                 variant="link"
                 color="danger"
                 type="button"
-                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-opacity-100 !dsr-no-underline', buttonClassName])}
+                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-px-2 dsr-opacity-100 !dsr-no-underline', buttonClassName])}
                 onClick={() => {
                   setKeyword('');
                   onSearch('');
@@ -91,12 +93,13 @@ const SearchBox = ({
               <Button
                 variant="link"
                 color="contrast"
-                className={clsx(['search-box-button dsr-opacity-100 !dsr-no-underline', buttonClass, buttonClassName])}
+                className={clsx(['search-box-button dsr-px-2 dsr-opacity-100 !dsr-no-underline', buttonClass, buttonClassName])}
                 label={`${name} button`}
                 type="submit"
-                rightIcon="search"
                 isDisabled={isDisabled || isLoading}
-              />
+              >
+                <Search />
+              </Button>
             )}
           </div>
         )}

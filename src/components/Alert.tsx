@@ -53,7 +53,7 @@ const getBorderClassByType = (type: string) => {
 
 const Alert = ({
   type = 'default', variant = 'solid', id, className = '', title, description, allowDismissal = false,
-  onDismiss = () => {}, primaryButton, secondaryButton, titleIcon, children, icon,
+  onDismiss = () => {}, primaryButton, secondaryButton, titleIcon, children,
 }: AlertProps) => {
   const [hide, setHide] = useState(false);
   const computedClassName = clsx([

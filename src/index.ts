@@ -2,11 +2,12 @@
 export { default as DSRContextProvider } from './components/DSRContextProvider';
 
 // components
+export { default as Accordion, AccordionProps } from './components/Accordion';
+export { default as Alert, AlertProps } from './components/Alert';
 export { default as Icon } from './components/Icon';
 export { default as Card, CardProps } from './components/Card';
 export { default as Tabs, TabsProps } from './components/Tabs';
 export { default as Modal, ModalProps } from './components/Modal';
-export { default as Alert, AlertProps } from './components/Alert';
 export { default as Badge, BadgeProps } from './components/Badge';
 export { default as Label, LabelProps } from './components/Label';
 export { default as Radio, RadioProps } from './components/Radio';
@@ -18,14 +19,14 @@ export { default as Avatar, AvatarProps } from './components/Avatar';
 export { default as Button, ButtonProps } from './components/Button';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
+export { default as DataTable, DataTableProps } from './components/DataTable';
+export { default as DataTableManager, DataTableManagerProps } from './components/DataTableManager';
 export { default as DateTimePicker, DateTimePickerProps } from './components/DateTimePicker';
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
 export { default as HoverCard } from './components/HoverCard';
 export { default as TextInput, TextInputProps } from './components/TextInput';
-export { default as Accordion, AccordionProps } from './components/Accordion';
-export { default as DataTable, DataTableProps } from './components/DataTable';
 export { default as SearchBox, SearchBoxProps } from './components/SearchBox';
 export { default as RadioGroup, RadioGroupProps } from './components/RadioGroup';
 export { default as Breadcrumb, BreadcrumbProps } from './components/Breadcrumb';

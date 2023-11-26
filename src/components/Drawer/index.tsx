@@ -38,10 +38,10 @@ const Drawer = ({
   }[position];
 
   const getPositionAlignmentChild = {
-    top: 'dsr-w-flex-1 dsr-rounded-b-lg',
-    right: 'dsr-h-full dsr-rounded-l-lg',
-    bottom: 'dsr-w-flex-1 dsr-rounded-t-lg',
-    left: 'dsr-h-full dsr-rounded-r-lg',
+    top: 'dsr-w-flex-1 dsr-rounded-lg',
+    right: 'dsr-h-full dsr-rounded-lg',
+    bottom: 'dsr-w-flex-1 dsr-rounded-lg',
+    left: 'dsr-h-full dsr-rounded-lg',
   }[position];
 
   const positionDirection = {
@@ -77,7 +77,7 @@ const Drawer = ({
       <div className="drawer dsr-relative dsr-z-7000">
         <section
           className={clsx([
-            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex',
+            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex dsr-p-2',
             'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
             getPositionAlignmentParent,
             overlayClassName,

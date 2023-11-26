@@ -34,7 +34,7 @@ const PageHeader = ({
     <section
       id={id}
       className={clsx([
-        'page-header dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
+        'page-header',
         !fill && 'dsr-flex dsr-items-center dsr-justify-center',
         className,
       ])}

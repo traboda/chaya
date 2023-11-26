@@ -89,7 +89,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
             key={o.value}
             className={clsx([
               'tag-option dsr-px-3 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
-              'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border',
+              'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border dsr-shadow hover:dsr-shadow-none',
               generateClassName(o.value),
               props?.tagClassName,
             ])}

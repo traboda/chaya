@@ -272,8 +272,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 onKeyDown={handleKeyDown}
                 className={clsx([
                   'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
+                  'dsr-bg-background-lighten-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20 dsr-shadow-inner',
                   'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
-                  'dsr-border-gray-500/70 dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
+                  'dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
                   'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
                   !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
                   !postfixRenderer ? 'dsr-border-r' : '!dsr-border-r-0 dsr-rounded-r-none',
@@ -390,7 +391,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           >
             <div
               className={clsx([
-                'dsr-overflow-hidden dsr-bg-background dsr-rounded-lg',
+                'dsr-overflow-hidden dsr-bg-background-lighten-1 dsr-rounded-lg',
                 isDropdownActive && 'dsr-border dsr-shadow dsr-border-gray-200/50',
               ])}
             >

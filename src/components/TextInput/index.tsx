@@ -122,29 +122,34 @@ const TextInput = <Type extends string | number>({
 
   const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
 
+  const commonClasses = clsx([
+    'dsr-text-color dsr-text-base',
+    'group-focus-within:dsr-border-gray-500/50',
+    // @TODO: invalid state for prefix and postfix when input is invalid - group-invalid is not a thing
+    isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-500/40',
+    isInvalid ? 'dsr-border-red-500' : 'dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+  ]);
+
   const inputClassNameCalculated = clsx([
-    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color focus:dsr-outline-none',
-    'dsr-text-color dsr-border-y placeholder:dsr-opacity-50 group-focus-within:dsr-border-primary dsr-text-base',
-    isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
+    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background-lighten-1 placeholder:dsr-text-color focus:dsr-outline-none',
+    'dsr-text-color dsr-border-y placeholder:dsr-opacity-50 dsr-shadow-inner ',
+    commonClasses,
     touched ? 'invalid:dsr-border-red-500' : '',
     prefixRenderer ? '' : 'dsr-rounded-l-lg dsr-border-l',
     postfixRenderer ? '' : 'dsr-rounded-r-lg dsr-border-r',
     inputClassName,
     leftIcon && 'dsr-pl-10',
     (rightIcon && isLoading) ? 'dsr-pr-20' : (rightIcon || isLoading ? 'dsr-pr-10' : ''),
-    isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
     hideStepper && textInputStyle.hideStepper,
   ]);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center dsr-text-base',
-    'dsr-text-color group-focus-within:dsr-border-primary',
-    isInvalid ? 'dsr-border-red-500' : 'dsr-border-gray-500/70',
-    isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
-    // @TODO: invalid state for prefix and postfix when input is invalid - group-invalid is not a thing
+    'dsr-border dsr-overflow-hidden dsr-items-center',
+    commonClasses,
   ]);
 
   const innerIconClassNameCalculated = 'dsr-absolute dsr-top-1/2 -dsr-translate-y-1/2 dsr-text-color dsr-pointer-events-none';
+  const postPrefixClassName = 'dark:dsr-bg-background-darken-3 dsr-bg-background-lighten-1 dsr-shrink-0 dsr-flex';
 
   return (
     <div
@@ -175,8 +180,8 @@ const TextInput = <Type extends string | number>({
             className={clsx([
               iconClassNameCalculated,
               prefixClassName,
-              'dark:dsr-bg-background-darken-3 dsr-bg-background-darken-1',
-              'dsr-left-0 dsr-flex dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
+              postPrefixClassName,
+              'dsr-left-0 dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
             ])}
           >
             {prefixRenderer}
@@ -184,11 +189,12 @@ const TextInput = <Type extends string | number>({
         )}
         <div className="dsr-relative dsr-flex dsr-flex-grow">
           {leftIcon && (
+          <div className={clsx(['dsr-left-3', innerIconClassNameCalculated])}>
             <Icon
               icon={leftIcon}
-              className={clsx(['dsr-left-3', innerIconClassNameCalculated])}
               size={18}
             />
+          </div>
           )}
           {type === 'textarea' ? (
             <textarea rows={rows} className={inputClassNameCalculated} {...props} />
@@ -205,8 +211,8 @@ const TextInput = <Type extends string | number>({
             className={clsx([
               iconClassNameCalculated,
               postfixClassName,
-              'dark:dsr-bg-background-darken-3 dsr-bg-background-darken-1',
-              'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+              postPrefixClassName,
+              'dsr-right-0 dsr-rounded-tr-lg dsr-rounded-br-lg',
             ])}
           >
             {postfixRenderer}

@@ -35,7 +35,7 @@ const useColors = (variant: ChayaVariantType, color: ChayaColorType, hover: bool
       solid: activeColor,
       outline: 'rgba(0, 0, 0, 0)',
       minimal: Color(RGBAtoRGB(
-        Color(activeColor).fade(0.70),
+        Color(activeColor).fade(isDarkTheme ? 0.75 : 0.9),
         isDarkTheme ? 40 : 255,
       )).toString(),
       link: 'rgba(0, 0, 0, 0)',

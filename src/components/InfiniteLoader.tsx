@@ -7,7 +7,6 @@ import Button from './Button';
 const defaultLabels = { endOfList: 'You have reached the end.' };
 
 interface InfiniteLoaderProps {
-  loadable?: boolean,
   canLoadMore?: boolean,
   isLoading?: boolean,
   onLoadMore?: () => void,
@@ -17,7 +16,6 @@ interface InfiniteLoaderProps {
 }
  
 const InfiniteLoader = ({
-  loadable = false,
   canLoadMore = false,
   isLoading = false,
   onLoadMore = () => {},
@@ -27,7 +25,7 @@ const InfiniteLoader = ({
 }: InfiniteLoaderProps) => (
   <Fragment>
     {renderer()}
-    {loadable && (canLoadMore ? (
+    {canLoadMore ? (
       <Waypoint onEnter={() => isLoading ? null : onLoadMore()}>
         <div>
           {!isLoading && (
@@ -43,7 +41,7 @@ const InfiniteLoader = ({
       <div className="dsr-my-4 dsr-text-center dsr-opacity-80">
         {labels.endOfList}
       </div>
-    ) : <div />)}
+    ) : <div />}
   </Fragment>
 );
 

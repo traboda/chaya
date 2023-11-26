@@ -27,7 +27,6 @@ export type DataTableProps<Type> = {
   emptyListRenderer?: () => ReactNode,
 
   customTopBarRenderer?: () => React.ReactElement,
-  loadable?: boolean,
   stickyRow?: Type,
   canExpand?: boolean,
   accordionRenderer?: (c: Type) => ReactNode,
@@ -57,8 +56,6 @@ export type DataTableProps<Type> = {
 
 };
 
-const grid = 'dsr-border dsr-border-gray-500/80';
-
 const DataTable = <Type extends { id: string }>({
   properties = [],
   items = [],
@@ -69,7 +66,7 @@ const DataTable = <Type extends { id: string }>({
   selections, allowSelection = false, onSelect = () => {},
   onLoadMore = () => {}, maxHeight,
   currentSortAttribute, sortOrder, onSort = () => null,
-  customTopBarRenderer = () => <div />, loadable = true,
+  customTopBarRenderer = () => <div />,
   canExpand = false, accordionRenderer = () => <div />,
   stickyRow, showTopBarOnEmpty = false, enablePagination = false,
   page = 1, setPage = () => {},
@@ -143,11 +140,12 @@ const DataTable = <Type extends { id: string }>({
               overflowX: maxHeight ? 'auto' : undefined,
               maxHeight: maxHeight,
             }}
+            className="dsr-bg-background dsr-shadow"
             ref={scrollElement}
           >
             <div
               ref={titleTopRef}
-              className="dsr-transition-opacity dsr-sticky dsr-left-0 dsr-top-0 dsr-z-40 dsr-bg-background"
+              className="dsr-transition-opacity dsr-sticky dsr-left-0 dsr-top-0 dsr-z-40 dsr-border-gray-200 dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dsr-border-b dsr-border-neutral-100/10"
               style={{
                 pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
                 opacity: scrollDir === 'up' ? 1 : 0,
@@ -164,8 +162,8 @@ const DataTable = <Type extends { id: string }>({
             >
               <thead
                 className={clsx([
-                  'dsr-sticky dsr-z-50',
-                  variant === 'grid' ? grid : '',
+                  'dsr-sticky dsr-z-50 mb-2 dsr-shadow-sm',
+                  variant === 'grid' ? 'dsr-border dsr-border-gray-500/80 dsr-shadow-gray-500/80' : 'dsr-shadow-gray-500/50',
                 ])}
                 ref={titleBarRef}
                 style={{ top: titleTopHeight }}
@@ -248,7 +246,6 @@ const DataTable = <Type extends { id: string }>({
               />
             ) : (
               <InfiniteLoader
-                loadable={loadable}
                 canLoadMore={canLoadMore}
                 isLoading={isLoading}
                 onLoadMore={onLoadMore}
