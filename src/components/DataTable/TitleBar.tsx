@@ -105,7 +105,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                 className={clsx([
                   'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
                   p?.labelClassName,
-                  p.textAlign == 'right' ? 'dsr-justify-end' : p.textAlign == 'center' ? 'dsr-justify-center' : null,
+                  p.textAlign == 'right' ? 'dsr-justify-end dsr-text-right' : p.textAlign == 'center' ? 'dsr-justify-center dsr-text-center' : 'dsr-justify-start dsr-text-left',
                 ])}
               >
                 {p.label}

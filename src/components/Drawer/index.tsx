@@ -1,9 +1,9 @@
 'use client';
 import React, { CSSProperties, ReactNode, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
+import * as Dialog from '@radix-ui/react-dialog';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
-import DocumentPortal from '../../utils/Portal';
 import Icon from '../Icon';
 
 import drawerStyles from './drawer.module.scss';
@@ -11,7 +11,7 @@ import drawerStyles from './drawer.module.scss';
 
 export type DrawerProps = {
   isOpen: boolean,
-  onClose: () => void,
+  onClose?: () => void,
   children: ReactNode,
   overlayClassName?: string,
   className?: string,
@@ -20,12 +20,13 @@ export type DrawerProps = {
   minHeight?: string | number,
   maxWidth?: string | number,
   maxHeight?: string | number,
-  closable?: boolean
+  closable?: boolean,
+  overlayContent?: ReactNode,
 };
 
 const Drawer = ({
-  isOpen, onClose, position = 'right', children, overlayClassName = '', className = '',
-  minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true,
+  isOpen, onClose = () => {}, position = 'right', children, overlayClassName = '', className = '',
+  minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true, overlayContent,
 }: DrawerProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
@@ -73,11 +74,14 @@ const Drawer = ({
   }, []);
 
   return shouldRenderChild ? (
-    <DocumentPortal>
-      <div className="drawer dsr-relative dsr-z-7000">
-        <section
+    <Dialog.Root open={isOpen} onOpenChange={() => closable ? onClose() : null} modal>
+      <Dialog.Portal>
+        <Dialog.Overlay>
+          {overlayContent}
+        </Dialog.Overlay>
+        <Dialog.Content
           className={clsx([
-            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-flex dsr-p-2',
+            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-z-[7200] dsr-flex dsr-p-2',
             'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
             getPositionAlignmentParent,
             overlayClassName,
@@ -87,7 +91,7 @@ const Drawer = ({
           <div
             className={clsx([
               'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
-              'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+              'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10 dsr-overflow-auto',
               getPositionAlignmentChild,
               getPositionAnimation,
               className,
@@ -103,21 +107,23 @@ const Drawer = ({
           >
             {closable && (
               <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
-                <button
-                  type="button"
-                  title="close"
-                  className="drawer-close-button dsr-outline-none"
-                  onClick={onClose}
-                >
-                  <Icon icon="times" size={20} />
-                </button>
+                <Dialog.Close asChild>
+                  <button
+                    type="button"
+                    title="close"
+                    className="drawer-close-button dsr-outline-none"
+                    onClick={onClose}
+                  >
+                    <Icon icon="times" size={20} />
+                  </button>
+                </Dialog.Close>
               </div>
             )}
-            <div>{children}</div>
+            {children}
           </div>
-        </section>
-      </div>
-    </DocumentPortal>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   ) : <div />;
 };
 

@@ -116,11 +116,11 @@ const ItemListerItem = <Type extends { id: string }>({
             className={clsx([
               'dsr-py-2 dsr-px-3',
               tdClasses,
+              p.textAlign == 'right' ? 'dsr-text-right' : p.textAlign == 'center' ? 'dsr-text-center' : 'dsr-text-left',
               variant === 'striped-column' ? stripedColumn : '',
               p?.className,
             ])}
             style={{
-              textAlign: p.textAlign ?? 'left',
               fontSize: p.fontSize,
             }}
             onClick={() => {

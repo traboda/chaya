@@ -33,8 +33,9 @@ export type SimpleSelectProps<Type> = {
   name: string,
   id?: string,
   className?: string,
+  listBoxClassName?: string,
   options?: SimpleSelectOptionType[],
-  onChange?: (v: Type) => void,
+  onChange?: (v: Type, option: SimpleSelectOptionType | null) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
   leftIcon?: IconInputType,
@@ -70,7 +71,7 @@ const defaultLabels = {
 const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false, side, hideLabel = false, hideSelectAll = false,
   id, className = '', labels: propLabels, hideArrow = false, variant = 'comma', rightIcon, leftIcon, isCreatable = false,
-  isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '',
+  isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '', listBoxClassName,
   isAsync = false, onFetch = () => new Promise(resolve => resolve([])), onCreate,
 }: SimpleSelectProps<Type>) => {
 
@@ -115,9 +116,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     }
   }, [_options]);
 
-  const onSelect = (option: SimpleSelectValue) => {
-    if (isMulti && Array.isArray(value)) onChange(value.includes(option) ? value.filter(v => v !== option) as Type : [...value, option] as Type);
-    else onChange(option as Type);
+  const onSelect = (selection: SimpleSelectValue, option: SimpleSelectOptionType) => {
+    if (isMulti && Array.isArray(value)) onChange(value.includes(selection) ? value.filter(v => v !== selection) as Type : [...value, selection] as Type, option);
+    else onChange(selection as Type, option);
   };
 
   const getOption = (val: SimpleSelectValue) => {
@@ -170,8 +171,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const onSelectAll = () => {
     const options = filteredOptions();
     const totalCount = options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0);
-    if (isMulti && Array.isArray(value) && value.length === totalCount) onChange([] as unknown as Type);
-    else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type);
+    if (isMulti && Array.isArray(value) && value.length === totalCount) onChange([] as unknown as Type, null);
+    else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type, null);
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
@@ -187,7 +188,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         label={option.label}
         isHighlighted={highlightedIndex === index}
         onSelect={(value) => {
-          onSelect(value);
+          onSelect(value, option);
           if (!isMulti)
             setIsDropdownActive(false);
           else {
@@ -233,9 +234,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         const highlightedOption = filteredOptions()[highlightedIndex];
         if (highlightedOption) {
           if ('group' in highlightedOption) {
-            onSelect(highlightedOption.options[0].value);
+            onSelect(highlightedOption.options[0].value, highlightedOption.options[0]);
           } else {
-            onSelect(highlightedOption.value);
+            onSelect(highlightedOption.value, highlightedOption);
           }
           setIsDropdownActive(false);
         }
@@ -292,7 +293,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
                   {variant === 'pill' && Array.isArray(value) ? value.map(val => {
                     const option = getOption(val);
-                    return (
+                    return option ? (
                       <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded dsr-items-center dsr-inline-flex dsr-px-1 dsr-overflow-hidden">
                         {option?.icon && (<Icon icon={option?.icon} size={16} />)}
                         {option?.iconRenderer && (
@@ -306,7 +307,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                         <button
                           onClick={event => {
                             event.stopPropagation();
-                            onChange(value.filter(v => v !== val) as Type);
+                            onChange(value.filter(v => v !== val) as Type, option);
                           }}
                           aria-label="Remove"
                           title="Remove"
@@ -319,7 +320,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           <Icon icon="times" size={14} />
                         </button>
                       </div>
-                    );
+                    ) : null;
                   }) : null}
 
                   <input
@@ -340,6 +341,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     type="text"
                     className={clsx([
                       'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
+                      'placeholder:dsr-text-color placeholder:dsr-opacity-50',
                       variant === 'pill' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
                     ])}
                   />
@@ -352,7 +354,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   aria-label="clear"
                   onClick={event => {
                     event.stopPropagation();
-                    onChange((Array.isArray(value) ? [] : null) as Type);
+                    onChange((Array.isArray(value) ? [] : null) as Type, null);
                   }}
                 >
                   <Icon icon="times" size={18} />
@@ -406,7 +408,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 tabIndex={-1}
                 role="listbox"
                 id={`${inputID}-listbox`}
-                className="dsr-max-h-[250px] dsr-overflow-y-auto"
+                className={clsx(['dsr-max-h-[250px] dsr-overflow-y-auto', listBoxClassName])}
               >
                 {(isMulti && !hideSelectAll) && (
                 <DropdownMenu.Item className="!dsr-outline-0">
@@ -456,7 +458,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                         onCreate(searchKeyword);
                       else {
                         setOptions([...options, { label: searchKeyword, value: searchKeyword }]);
-                        onSelect(searchKeyword as SimpleSelectValue);
+                        onSelect(searchKeyword as SimpleSelectValue, { label: searchKeyword, value: searchKeyword });
                       }
                     }}
                   />

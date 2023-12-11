@@ -9,6 +9,7 @@ import ColumnSettings from '../utils/icons/column-settings';
 import Button from './Button';
 import SearchBox from './SearchBox';
 import DropdownFilter from './DropdownFilter';
+import { IconInputType } from './Icon';
 
 
 export type FilterInputs = {
@@ -60,6 +61,10 @@ export type DataTableManagerProps = {
   selectionActions?: {
     label: string,
     onClick: () => void,
+    isDisabled?: boolean,
+    isHidden?: boolean,
+    leftIcon?: IconInputType,
+    rightIcon?: IconInputType,
   }[],
 };
 
@@ -232,13 +237,16 @@ const DataTableManager = ({
             />
           </div>
           <div className="dsr-w-full md:dsr-w-1/2 lg:dsr-w-2/3 dsr-px-2 dsr-py-2 dsr-flex dsr-items-center dsr-justify-end dsr-gap-1">
-            {selectionActions.map((a) => (
+            {selectionActions?.filter((a) => !a.isHidden).map((a) => (
               <Button
                 variant="minimal"
                 color="shade"
                 className="!dsr-py-1"
                 key={a.label}
                 title={a.label}
+                isDisabled={a.isDisabled}
+                leftIcon={a.leftIcon}
+                rightIcon={a.rightIcon}
                 onClick={a.onClick}
               >
                 {a.label}

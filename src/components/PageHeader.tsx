@@ -45,14 +45,16 @@ const PageHeader = ({
       <div className={clsx([fill ? '' : 'dsr-container'])}>
         <div className="dsr-flex dsr-flex-wrap">
           <div className="md:dsr-w-2/3 dsr-py-2">
-            <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
-              <Breadcrumb
-                {...breadcrumb}
-                homeLink={homeLink}
-                items={breadcrumbItems}
-                className={size === 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}
-              />
-            </div>
+            {breadcrumbItems?.length > 0 ? (
+              <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
+                <Breadcrumb
+                  homeLink={homeLink}
+                  className={size === 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}
+                  {...breadcrumb}
+                  items={breadcrumbItems}
+                />
+              </div>
+            ) : null}
             {customTitle ? customTitle : (
               <h1
                 aria-level={1}

@@ -9,7 +9,8 @@ export type CheckboxGroupProps<Type> = {
   value: Type[],
   options: {
     value: Type,
-    label: string
+    label: string,
+    isDisabled?: boolean,
   }[],
   onChange?: (values: Type[]) => void,
   color?: CheckboxColor,
@@ -124,7 +125,7 @@ const CheckboxGroup = <Type extends string | number>({
             value={option.value}
             label={option.label}
             isChecked={value.includes(option.value)}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || option.isDisabled}
             color={color}
             size={size}
             onChange={() => {
