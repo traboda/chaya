@@ -1,10 +1,9 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { Breadcrumb } from '../../../index';
-import { BreadcrumbProps } from '../../../components/Breadcrumb';
+import { Breadcrumb, BreadcrumbProps } from '../../../index';
 
-const meta: Meta = {
+const meta: Meta<BreadcrumbProps> = {
   title: 'Components/Navigation/Breadcrumb',
   component: Breadcrumb,
   parameters: {
@@ -14,17 +13,13 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<BreadcrumbProps> = args => (
-  <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center" style={{ minHeight: '5vh' }}>
-    <Breadcrumb {...args} />
-  </div>
-);
+type Story = StoryObj<BreadcrumbProps>;
 
-export const Default = Template.bind({});
-
-Default.args = {
-  items: [
-    { link:'#/abc/asdjh', title:'This is my long title' },
-    { link:'#/abc/efg/sadkl', title:'Home Page', isActive:true },
-  ],
+export const Primary: Story = {
+  args: {
+    items: [
+      { link:'#/abc/asdjh', title:'This is my long title' },
+      { link:'#/abc/efg/sadkl', title:'Home Page', isActive:true },
+    ],
+  },
 };
