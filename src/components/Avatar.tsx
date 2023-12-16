@@ -4,14 +4,14 @@ import clsx from 'clsx';
 
 export type AvatarProps = {
   alt: string,
-  src?: string,
+  src?: string | null,
   size?: number | string,
   id?: string,
   className?: string,
   title?: string,
 };
 
-const Avatar = ({ alt, src, size = undefined, id, className = '', title }: AvatarProps) => {
+const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps) => {
 
   const [show, setShow] = useState(false);
 

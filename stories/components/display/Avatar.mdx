@@ -1,0 +1,25 @@
+import { Meta, Primary, Title, Controls, Story } from '@storybook/blocks';
+import * as AvatarStories from "./Avatar.stories";
+
+<Meta
+    title="Components/Display/Avatar"
+    of={AvatarStories}
+/>
+
+<Title>Avatar</Title>
+
+**`import { Avatar } from 'chaya-ui';`**
+
+## Default Usage
+
+<Primary />
+
+<Controls />
+
+## Without Image
+
+```tsx
+<Avatar alt="John Doe" />
+```
+
+<Story story={AvatarStories.WithoutAvatar} />

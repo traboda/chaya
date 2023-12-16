@@ -55,34 +55,33 @@ const Breadcrumb = ({
   return (
     <ul
       className={clsx([
-        'breadcrumb dsr-text-lg dsr-flex dsr-flex-wrap dsr-gap-2 dsr-items-center dsr-opacity-75',
+        'breadcrumb dsr-text-lg dsr-flex dsr-flex-wrap dsr-gap-1 dsr-items-center dsr-opacity-75',
         className,
       ])}
     >
       {breadcrumbItems.length > 0 &&
         breadcrumbItems.map((item, index) => (
           <li key={nanoid()} className={computedItemClassName}>
-            {index !== 0 ? (<span className="dsr-px-1">/</span>) : null}
-            <span
-              className={clsx([
-                'dsr-rounded focus:dsr-outline-none dsr-transition dsr-text-color',
-                index == breadcrumbItems.length - 1 ? 'dsr-font-semibold' : 'hover:dsr-bg-gray-500/40 dsr-px-1 focus:dsr-bg-gray-500/50',
-              ])}
-            >
-              {LinkWrapper(
-                item?.link || '#',
-                <React.Fragment>
-                  {item?.icon && (
-                    <div className={item?.title ? 'dsr-mr-1' : undefined}>
-                      <Icon icon={item.icon} size={18} />
-                    </div>
-                  )}
-                  {item?.title}
-                </React.Fragment>,
-                { title: item?.label },
-              )}
-            </span>
-            
+            {index !== 0 ? (<span className="dsr-px-0.5">/</span>) : null}
+            {LinkWrapper(
+              item?.link || '#',
+              <React.Fragment>
+                {item?.icon && (
+                <div className={item?.title ? 'dsr-mr-1' : undefined}>
+                  <Icon icon={item.icon} size={18} />
+                </div>
+                )}
+                {item?.title}
+              </React.Fragment>,
+              {
+                title: item?.label,
+                className: clsx([
+                  'dsr-rounded focus:dsr-outline-none dsr-transition dsr-text-color dsr-px-2',
+                  index == breadcrumbItems.length - 1 ? 'dsr-font-semibold' : 'hover:dsr-bg-neutral-300/40 dsr-px-1 focus:dsr-bg-neutral-300/50',
+                ]),
+                tabIndex: item?.isActive ? -1 : undefined,
+              },
+            )}
           </li>
         ))}
     </ul>

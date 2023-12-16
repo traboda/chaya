@@ -1,0 +1,105 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta
+  title="Introduction"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+/>
+
+<section>
+    <div className="dsr-flex dsr-justify-center dsr-w-full dsr-items-center">
+        <div>
+            <div className="dsr-flex dsr-justify-center">
+                <div>
+                    <img src="chaya-icon.svg" height="100" alt="ChayaUI" className="dsr-mb-3" />
+                    <h1 className="dsr-semi-bold dsr-mb-2 dsr-text-5xl">Chaya UI</h1>
+                </div>
+            </div>
+            <p className="dsr-text-center dsr-text-xl">
+                Chaya UI is a modern, functional design system & component library for React.
+            </p>
+            <div className="dsr-flex dsr-items-center dsr-justify-center dsr-gap-2">
+                <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
+                <a href="https://www.npmjs.com/package/chaya-ui">
+                    <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/chaya-ui.svg?style=for-the-badge"/>
+                </a>
+                <a href="https://www.npmjs.com/package/chaya-ui">
+                    <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
+                </a>
+                <a href="https://github.com/traboda/chaya/stargazers">
+                    <img alt="Github Stars" src="https://img.shields.io/github/stars/traboda/chaya?style=for-the-badge" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style={{ height: "50px", width: '100%', padding: '25px 0' }} />
+
+---
+
+<div style={{ height: "50px", width: '100%', padding: '25px 0' }} />
+
+
+## Installation
+
+
+Install the package by running -
+```bash
+npm install chaya-ui
+```
+
+## Usage
+
+To use the components from `chaya-ui` in your React project, you need to setup a Context Provider in your app.
+This is required for the components to work properly.
+
+To do this, wrap your application with the `DSRContextProvider` component provided by `chaya-ui`, and pass the relevant
+props to it.
+
+Along with it, you can also import the `chaya-ui` CSS file in your app, to get the styling for the components.
+```tsx
+import 'chaya-ui/dist/style.css';
+```
+
+Here is an example on a AppView wrapper component for a Next.js app, that configures `chaya-ui` for use in the app -
+
+```tsx
+'use client';
+import { ReactNode, ReactElement } from "react";
+
+import { DSRContextProvider } from 'chaya-ui';
+import 'chaya-ui/dist/style.css';
+
+// external libraries for example usecase
+import Link from 'next/link';
+import { Search, X } from 'react-feather';
+
+
+const AppView = ({ children }: { children: ReactNode }) => (
+  <DSRContextProvider
+    linkWrapper={(link: string, component: ReactElement) => (
+      <Link passHref legacyBehavior href={link}>{component}</Link>
+    )}
+    theme={{
+      primary: '#019e4b',
+      secondary: '#019e4b',
+      background: '#fff',
+      color: '#333'
+    }}
+    iconWrapper={(icon, props) => ({
+      search: <Search {...props} />,
+      times: <X {...props} />,
+      // ...
+    })[icon] ?? <>n/a</>}
+  >
+    {children}
+  </DSRContextProvider>
+);
+```
+
+This `AppView` can be then used in the global `layouts.tsx` or `pages/_app.tsx` file of your Next.js app.

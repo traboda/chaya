@@ -1,10 +1,12 @@
 const path = require('path');
+
+
 module.exports = {
   "stories": [
-      "../src/stories/introduction/*.stories.mdx",
-      "../src/stories/components/**",
-      "../src/stories/compositions/*.mdx",
-      "../src/stories/*.stories.tsx"
+      "../stories/introduction/*.stories.mdx",
+      "../stories/components/**",
+      "../stories/compositions/*.mdx",
+      "../stories/*.stories.tsx"
   ],
   "addons": [
     "@storybook/addon-links",
@@ -34,6 +36,7 @@ module.exports = {
     return config;
   },
   docs: {
-    autodocs: false
+    autodocs: 'tag',
+    defaultName: 'Documentation',
   }
 };

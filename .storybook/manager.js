@@ -11,6 +11,11 @@ addons.setConfig({
     sidebar: {
         showRoots: false,
         collapsedRoots: ['other'],
+        filters: {
+            patterns: (item) => {
+                return !item.tags.includes('unlisted');
+            }
+        }
     },
     toolbar: {
         title: { hidden: false },
