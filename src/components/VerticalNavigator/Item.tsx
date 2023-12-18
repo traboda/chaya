@@ -6,6 +6,7 @@ import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
 import ChevronUp from '../../utils/icons/chevron-up';
+import useColors, { ChayaColorType } from '../../hooks/useColors';
 
 export type VerticalNavigatorItemBaseType = {
   key: string,
@@ -29,6 +30,7 @@ export type VerticalNavigatorItemProps = {
   item: VerticalNavigatorItemType,
   className?: string,
   variant?: 'pill' | 'line',
+  color?: ChayaColorType,
   activeItem?: string | null,
   role?: string,
   isCollapsed?: boolean,
@@ -38,11 +40,14 @@ export type VerticalNavigatorItemProps = {
 };
 
 const VerticalNavigatorItem = ({
-  item, className, role, variant = 'pill', isCollapsed, defaultExpansion, activeItem, onChangeExpansion = () => {}, onClickItem = () => {},
+  item, className, role, variant = 'pill', color = 'primary', isCollapsed, defaultExpansion, activeItem, onChangeExpansion = () => {}, onClickItem = () => {},
 }: VerticalNavigatorItemProps) => {
 
   const [height, setHeight] = useState<undefined | number>(undefined);
   const dropdownContentRef = useRef<HTMLLIElement>(null);
+
+  const { backgroundColor, activeColor } = useColors('minimal', color);
+  const { textColor } = useColors('solid', color);
 
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
@@ -66,10 +71,13 @@ const VerticalNavigatorItem = ({
       className={clsx([
         'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5 dsr-px-1',
         variant === 'line' && 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
-        variant === 'line' && activeItem === item.key && `${!hasChildren ? 'dsr-bg-primary/10' : ''} dsr-text-primary`,
         activeItem === item.key && (!isChild || dropdownVisibility) && 'active dsr-font-semibold',
         isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
+      style={{
+        background: (variant === 'line' && activeItem === item.key && !hasChildren) ? backgroundColor : undefined,
+        color: (variant === 'line' && activeItem === item.key) ? color === 'white' ? textColor : activeColor : undefined,
+      }}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
         {item.icon && (
@@ -133,8 +141,7 @@ const VerticalNavigatorItem = ({
             'hover:dsr-bg-neutral-400/20',
             commonClasses,
             liClass,
-            variant === 'line' && activeItem === item.key && 'dsr-bg-primary/10 dsr-text-primary',
-            activeItem === item.key && 'active dsr-text-primaryTextColor dsr-w-full',
+            activeItem === item.key && 'active dsr-w-full',
           ])}
         >
           <button
@@ -181,10 +188,13 @@ const VerticalNavigatorItem = ({
               <li
                 className={clsx([
                   liClass, 'dsr-rounded-l-none dsr-rounded-r-lg',
-                  variant === 'line' ?
-                    activeItem === subItem.key ? 'dsr-border-l-4 dsr-border-primary' : 'dsr-border-l-4 dsr-border-gray-500/20'
-                    : activeItem === subItem.key ? 'dsr-text-primaryTextColor hover:dsr-bg-neutral-900/30' : 'hover:dsr-bg-neutral-300/20',
+                  variant === 'line' && 'dsr-border-l-4 dsr-border-gray-500/20',
+                  variant === 'pill' && activeItem === subItem.key ? 'dsr-text-primaryTextColor hover:dsr-bg-neutral-900/30' : 'hover:dsr-bg-neutral-300/20',
                 ])}
+                style={{
+                  borderColor: variant === 'line' && activeItem === subItem.key ? activeColor : undefined,
+                  color: variant === 'pill' && activeItem === subItem.key ? textColor : undefined,
+                }}
                 key={item.key + subItem.key}
               >
                 {contentRenderer(subItem, true)}
@@ -201,10 +211,13 @@ const VerticalNavigatorItem = ({
         liClass,
         'dsr-z-[1000] dsr-rounded-lg',
         activeItem === item.key ? clsx([
-          'active dsr-text-primaryTextColor',
+          'active',
           variant === 'pill' && 'hover:dsr-bg-neutral-900/30',
         ]) : 'hover:dsr-bg-neutral-300/20',
       ])}
+      style={{
+        color: (activeItem === item.key && variant === 'pill') ? textColor : undefined,
+      }}
       key={item.key}
     >
       {contentRenderer(item)}

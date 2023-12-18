@@ -1,4 +1,4 @@
-import { Meta, Primary, Title, Controls } from '@storybook/blocks';
+import {Meta, Primary, Title, Controls, Canvas, Story} from '@storybook/blocks';
 import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
 
 <Meta
@@ -24,10 +24,16 @@ import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
 
 ### Line
 
-<Primary name="Vertical Navigator Line Variant" />
+<Canvas of={VerticalNavigatorStories.LineVariant} withToolbar />
+
+## Colors
+
+<Story of={VerticalNavigatorStories.NavigatorPillColors} />
+
+<Story of={VerticalNavigatorStories.NavigatorLineColors} />
 
 ## Collapsed
 
-<Primary name="Vertical Navigator Collapsed Variant" />
+<Canvas of={VerticalNavigatorStories.CollapsedVariant} withToolbar />
 
-<Primary name="Vertical Navigator Collapsed Line Variant" />
+<Canvas of={VerticalNavigatorStories.CollapsedLineVariant} withToolbar />

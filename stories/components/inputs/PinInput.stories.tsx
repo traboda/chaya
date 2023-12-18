@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { PinInput, PinInputProps } from '../../../src';
@@ -79,43 +79,6 @@ export const MaskedVariant: Story = {
   ),
 };
 
-//
-// const Template: Story<PinInputProps> = args => {
-//   const [value, setValue] = useState(args.value ?? '');
-//
-//   useEffect(() => {
-//     setValue(args.value);
-//   }, [args.value]);
-//
-//   return (
-//     <div style={{ width: '300px', maxWidth: '100%' }}>
-//       <Label htmlFor="">
-//         Value:
-//         {' '}
-//         {value}
-//       </Label>
-//       <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
-//     </div>
-//   );
-// };
-//
-// export const Default = Template.bind({});
-//
-// Default.args = {
-//   labels: {
-//     placeholder: '44kl4K',
-//   },
-// };
-//
-//
-// export const ClassVariant = Template.bind({});
-//
-// ClassVariant.args = {
-//   variant: 'classic',
-//   labels: {
-//     placeholder: '44kl4K',
-//   },
-// };
 //
 //
 // export const FormSubmission: Story<PinInputProps> = (args) => {

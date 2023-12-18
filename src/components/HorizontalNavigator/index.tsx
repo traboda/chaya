@@ -1,6 +1,9 @@
+'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
+
+import useColors, { ChayaColorType } from '../../hooks/useColors';
 
 import HorizontalNavigatorItem, { HorizontalNavigatorItemType } from './item';
 
@@ -8,6 +11,7 @@ export type HorizontalNavigatorProps = {
   items: HorizontalNavigatorItemType[],
   activeItem?: string | null,
   variant?: 'pill' | 'line',
+  color?: ChayaColorType,
   id?: string,
   className?: string,
   itemClassName?: string,
@@ -15,11 +19,14 @@ export type HorizontalNavigatorProps = {
 };
 
 const HorizontalNavigator = ({
-  id, items, variant = 'pill', className, itemClassName, activeItem, onClickItem = () => {},
+  id, items, variant = 'pill', color = 'primary',
+  className, itemClassName, activeItem, onClickItem = () => {},
 }: HorizontalNavigatorProps) => {
 
   const navigatorID = useMemo(() => id || `horizontal-navigator-${nanoid()}`, [id]);
   const tabRef = useRef<HTMLUListElement>(null);
+
+  const { backgroundColor } = useColors('solid', color);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
     width: number | null,
@@ -54,13 +61,14 @@ const HorizontalNavigator = ({
     <div
       className={clsx([
         'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
-        'dsr-border-2 dsr-border-primary dsr-rounded-lg dsr-left-0',
+        'dsr-border-2 dsr-rounded-lg dsr-left-0',
         'dsr-bottom-0 dsr-w-full',
       ])}
       style={{
         transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
         width: indicatorStyle?.width || 0,
         height: indicatorStyle?.height || 0,
+        borderColor: backgroundColor,
       }}
     />
   );
@@ -68,20 +76,25 @@ const HorizontalNavigator = ({
   const highlightRenderer = (
     <div
       className={clsx([
-        'tab-highlight dsr-transition-all dsr-ease-in-out dsr-absolute dsr-shadow-lg',
-        'dsr-rounded-lg dsr-bg-primary dsr-text-primaryTextColor',
-        'dsr-top-0 dsr-left-0 dsr-z-[500]',
+        'tab-highlight dsr-transition-all dsr-ease-in-out dsr-shadow-lg dsr-rounded-lg',
+        'dsr-absolute dsr-top-0 dsr-left-0 dsr-z-[500]',
       ])}
       style={{
         transform: `translateY(${indicatorStyle?.translateY}px) translateX(${indicatorStyle?.translateX}px)`,
         width: indicatorStyle?.width || 0,
         height: indicatorStyle?.height || 0,
+        backgroundColor,
       }}
     />
   );
 
   return (
-    <div className="tab-selector-container dsr-relative">
+    <div
+      className={clsx([
+        'tab-selector-container dsr-relative dsr-rounded-lg dsr-inline-flex',
+        variant === 'pill' && 'dsr-bg-gray-400/20 ',
+      ])}
+    >
       <ul
         id={navigatorID}
         role="tablist"
@@ -90,8 +103,8 @@ const HorizontalNavigator = ({
         className={clsx([
           'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
           'dsr-items-center dsr-rounded-lg',
-          variant === 'pill' ? 'dsr-bg-gray-400/20 bg-rounded-lg dsr-p-1.5 dsr-z-[1000] dsr-gap-x-1' : '',
-          variant === 'line' ? 'dsr-gap-x-4' : '',
+          variant === 'pill' && 'dsr-z-[1000] dsr-p-1.5 dsr-gap-x-1',
+          variant === 'line' && 'dsr-gap-x-4',
           className,
         ])}
       >
@@ -102,6 +115,7 @@ const HorizontalNavigator = ({
             activeItem={activeItem}
             navigatorID={navigatorID}
             variant={variant}
+            color={color}
             className={itemClassName}
             onClickItem={onClickItem}
           />

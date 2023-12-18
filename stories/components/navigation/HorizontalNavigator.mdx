@@ -1,4 +1,4 @@
-import { Meta, Primary, Title, Controls } from '@storybook/blocks';
+import {Meta, Primary, Title, Controls, Canvas, Story} from '@storybook/blocks';
 import * as HorizontalNavigatorStories from "./HorizontalNavigator.stories";
 
 <Meta
@@ -24,4 +24,16 @@ import * as HorizontalNavigatorStories from "./HorizontalNavigator.stories";
 
 ### Line
 
-<Primary name="Horizontal Navigator Line Variant" />
+<Canvas of={HorizontalNavigatorStories.LineVariant} withToolbar />
+
+## Colors
+
+<Story of={HorizontalNavigatorStories.PillColors} />
+
+<Story of={HorizontalNavigatorStories.LineColors} />
+
+## Disabled Items
+
+<Canvas of={HorizontalNavigatorStories.DisabledItems} withToolbar />
+
+<Canvas of={HorizontalNavigatorStories.DisabledLineItems} withToolbar />

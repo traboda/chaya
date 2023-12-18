@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState, lazy } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
+import { ChayaColorType } from '../hooks/useColors';
+
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
 import AccordionGroup from './AccordionGroup';
@@ -46,13 +48,14 @@ export type TabsProps = {
   isVertical?: boolean,
   disableResponsive?: boolean,
   alignCenter?: boolean,
-  variant?: 'pill' | 'line'
+  variant?: 'pill' | 'line',
+  color: ChayaColorType,
 };
 
 const Tabs = ({
   isVertical, items, isDisabled = false, onClickDisabled = () => {}, initialKey, id,
   className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
-  alignCenter, onChange = () => {}, disableResponsive = false, badgeProps, variant = 'pill',
+  alignCenter, onChange = () => {}, disableResponsive = false, badgeProps, variant = 'pill', color = 'primary',
 }: TabsProps) => {
 
   const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
@@ -130,6 +133,7 @@ const Tabs = ({
       itemClassName={menuButtonClassName}
       activeItem={currentTab}
       variant={variant}
+      color={color}
       items={tabItems.map(t => ({
         ...t, badgeProps: t.badgeProps || badgeProps,
       }))}
@@ -144,6 +148,7 @@ const Tabs = ({
       itemClassName={menuButtonClassName}
       activeItem={currentTab}
       variant={variant}
+      color={color}
       items={tabItems.map(t => ({
         ...t, badgeProps: t.badgeProps || badgeProps,
       }))}

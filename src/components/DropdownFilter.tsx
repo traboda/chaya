@@ -7,6 +7,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import SearchBox from './SearchBox';
 import Dropdown from './Dropdown';
 import ListViewItem from './ListView/item';
+import { IconInputType } from './Icon';
 
 const defaultLabels = {
   searchPlaceholder: 'Search',
@@ -14,6 +15,15 @@ const defaultLabels = {
   optionsTitle: 'Options',
   selectAll: 'Select All',
   clearAll: 'Clear All',
+};
+
+export type DropdownFilterOptionType = {
+  label: string,
+  value: any,
+  iconRenderer?: React.ReactNode,
+  icon?: IconInputType,
+  isDisabled?: boolean,
+  description?: string,
 };
 
 type DropdownCommonProps = {
@@ -24,10 +34,8 @@ type DropdownCommonProps = {
     selectAll?: string,
     clearAll?: string,
   }
-  options: {
-    label: string,
-    value: any,
-  }[];
+  options: DropdownFilterOptionType[] | null,
+  onFetchOptions?: (query: string) => DropdownFilterOptionType[] | Promise<DropdownFilterOptionType[]>,
   optionButtonClassName?: string;
   selections: null | any[];
   setSelections?: (selections: null | any[]) => void;
@@ -53,7 +61,7 @@ const DropdownRender = ({
   const labels = { ...defaultLabels, ..._labels };
   const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
   const optionRefs = React.useRef<Array<React.RefObject<any>>>([]);
-  const availableOptions = options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase()));
+  const availableOptions = options ? options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase())) : [];
 
   useEffect(() => {
     optionRefs.current = Array(availableOptions.length).fill(null).map(() => React.createRef());
@@ -142,6 +150,10 @@ const DropdownRender = ({
                 item={{
                   title: field.label,
                   id: field.value,
+                  description: field.description,
+                  iconRenderer: field.iconRenderer,
+                  icon: field.icon,
+                  isDisabled: field.isDisabled,
                   onClick: () => setSelections(
                     selections ? (
                       selections.includes(field.value) ?
@@ -212,16 +224,16 @@ const DropdownFilter = ({
 
   return (
     <Dropdown
-      align="end"
+      align="start"
       containerClassName={clsx([
         'dsr-z-[100] dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         dropdownContainerClassName,
       ])}
       buttonRenderer={(
-        <div>
+        <div className="dsr-w-fit">
           {children}
         </div>
-        )}
+      )}
     >
       <DropdownRender
         onLoad={() => onChangeKeyword(keyword)}

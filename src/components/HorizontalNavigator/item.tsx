@@ -2,9 +2,10 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
+import useColors, { ChayaColorType } from '../../hooks/useColors';
+import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
-import { LinkWrapper } from '../../utils/misc';
 
 export type HorizontalNavigatorItemType = {
   key: string,
@@ -24,6 +25,7 @@ export type HorizontalNavigatorItemProps = {
   item: HorizontalNavigatorItemType,
   navigatorID: string,
   variant?: 'pill' | 'line',
+  color?: ChayaColorType,
   activeItem?: string | null,
   badgeProps?: BaseBadgeProps,
   className?: string,
@@ -31,26 +33,31 @@ export type HorizontalNavigatorItemProps = {
 };
 
 const HorizontalNavigatorItem = ({
-  item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {},
+  item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {}, color = 'primary',
 }: HorizontalNavigatorItemProps) => {
 
   const menuButtonClassName = clsx([className, item.className]);
 
+  const { backgroundColor } = useColors('minimal', color);
+
   const pillVariantClassName = (key: string) => clsx([
     'border border-neutral-300/20 dsr-px-5 dsr-py-2',
-    activeItem === key ? 'active dsr-font-semibold dsr-text-primaryTextColor' : 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80',
+    item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
+    activeItem === key ? 'active dsr-font-semibold dsr-text-primaryTextColor' : !item?.isDisabled ? 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80' : null,
   ]);
 
   const lineVariantClassName = (key: string) => clsx([
     'dsr-border-0 dsr-py-1 dsr-mb-2',
-    activeItem === key && 'active dsr-font-semibold dsr-bg-primary/10',
-    'dsr-transition-all dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-gap-2 dsr-py-0.5 dsr-px-3 hover:dsr-backdrop-blur',
+    item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
+    activeItem === key ? 'active dsr-font-semibold' : !item?.isDisabled ? 'hover:dsr-bg-neutral-400/20' : null,
+    'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-py-0.5 dsr-px-3',
   ]);
 
   const menuButtonClassNameGenerator = (key: string) => clsx([
     'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
-    'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-text-color dsr-no-underline',
+    'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-no-underline',
     menuButtonClassName,
+    color === 'white' && variant === 'pill' ? 'dsr-text-neutral-900' : 'dsr-text-color',
     variant === 'pill' ? pillVariantClassName(key) : lineVariantClassName(key),
   ]);
 
@@ -85,6 +92,9 @@ const HorizontalNavigatorItem = ({
       onClick={() =>
         item?.onClick && typeof item.onClick === 'function' ? item.onClick() : onClickItem(item.key, item)
       }
+      style={{
+        background: (variant === 'line' && item.key === activeItem) ? backgroundColor : undefined,
+      }}
       className={menuButtonClassNameGenerator(item.key)}
       role="tab"
       id={`${navigatorID}-${item.key}-tab`}
@@ -106,6 +116,9 @@ const HorizontalNavigatorItem = ({
       {item.link ? LinkWrapper(!item.isDisabled ? item.link : '', renderOption(item), {
         className: menuButtonClassNameGenerator(item.key),
         id: `${navigatorID}-${item.key}-tab`,
+        style: {
+          background: variant === 'line' && item.key === activeItem ? backgroundColor : undefined,
+        },
       }) : renderButton(item)}
     </li>
   );

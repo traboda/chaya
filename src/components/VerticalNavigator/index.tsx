@@ -2,11 +2,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
+import useColors, { ChayaColorType } from '../../hooks/useColors';
+
 import VerticalNavigatorItem, { VerticalNavigatorItemType } from './Item';
 
 export type VerticalNavigatorProps = {
   items: VerticalNavigatorItemType[],
   variant?: 'pill' | 'line',
+  color?: ChayaColorType,
   activeItem?: string | null,
   className?: string,
   itemClassName?: string,
@@ -18,7 +21,7 @@ export type VerticalNavigatorProps = {
 };
 
 const VerticalNavigator = ({
-  items, className, itemClassName, variant = 'pill', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
+  items, className, itemClassName, variant = 'pill', color = 'primary', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
 }: VerticalNavigatorProps) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{
@@ -27,6 +30,8 @@ const VerticalNavigator = ({
     translateX: number | null,
     translateY: number | null,
   }>(({ width: null, height: null, translateX: null, translateY: null }));
+
+  const { backgroundColor } = useColors('solid', color);
 
   const updateIndicator = () => {
     if (wrapperRef.current) {
@@ -74,6 +79,7 @@ const VerticalNavigator = ({
           key={item.key}
           item={item}
           variant={variant}
+          color={color}
           role={itemRole ?? 'presentation'}
           className={itemClassName}
           activeItem={activeItem}
@@ -96,16 +102,19 @@ const VerticalNavigator = ({
         <div
           className={clsx([
             'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
-            'dsr-top-0 dsr-left-0 dsr-w-0 dsr-z-[500]',
-            variant === 'pill' ?
-              items.some((item) => item.key === activeItem) ? 'dsr-rounded-lg' : 'dsr-rounded-l-0 dsr-rounded-r-lg'
-              : null,
-            variant == 'pill' ? 'dsr-bg-primary dsr-shadow-lg dsr-text-primaryTextColor' : 'dsr-border-2 dsr-border-primary',
+            'dsr-top-0 dsr-left-0',
+            variant === 'pill' && clsx([
+              items.some((item) => item.key === activeItem) ? 'dsr-rounded-lg' : 'dsr-rounded-l-0 dsr-rounded-r-lg',
+              'dsr-shadow-lg dsr-z-[500]',
+            ]),
+            variant == 'line' && 'dsr-border-2 dsr-z-[1000]',
           ])}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
             width: indicatorStyle?.width || 0,
             height: indicatorStyle?.height || 0,
+            borderColor: variant === 'line' ? backgroundColor : undefined,
+            backgroundColor: variant === 'pill' ? backgroundColor : undefined,
           }}
         />
       )}

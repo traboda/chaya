@@ -1,10 +1,9 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { DropdownFilter, Button } from '../../../src';
-import { DropdownFilterProps } from '../../../src/components/DropdownFilter';
+import { DropdownFilter, Button, DropdownFilterProps } from '../../../src';
 
-const meta: Meta = {
+const meta: Meta<DropdownFilterProps> = {
   title: 'Components/Inputs/DropdownFilter',
   component: DropdownFilter,
   parameters: {
@@ -14,38 +13,46 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DropdownFilterProps> = args => {
+type Story = StoryObj<DropdownFilterProps>;
 
-  const [selections, setSelections] = React.useState(args?.selections);
+const DEFAULT_OPTIONS: DropdownFilterProps['options'] = [
+  { label: 'ID', value: 'id' },
+  { label: 'Name', value: 'name' },
+  { label: 'Username', value: 'username' },
+  { label: 'Created At', value: 'created_at' },
+  { label: 'Updated At', value: 'updated_at' },
+  { label: 'Email', value: 'email' },
+  { label: 'Phone', value: 'phone' },
+  { label: 'Website', value: 'website' },
+  { label: 'Company', value: 'company' },
+  { label: 'A Really Long Field Name That Cant Fit For Sure', value: 'address' },
+];
+
+const DefaultChildButton = () => (
+  <Button>
+    Filter Button
+  </Button>
+);
+
+const DefaultDropdownFilterTemplate = (args: DropdownFilterProps) => {
+
+  const [selections, setSelections] = useState<string[] | null>([]);
 
   return (
-    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
-      <DropdownFilter {...args} selections={selections} setSelections={setSelections}>
-        <Button>
-          Filter
-        </Button>
-      </DropdownFilter>
-    </div>
+    <DropdownFilter
+      {...args}
+      selections={selections}
+      setSelections={setSelections}
+      children={args.children}
+    />
   );
+
 };
 
-export const BasicUsage = Template.bind({});
-
-BasicUsage.args = {
-  selections: [
-    'id', 'name',
-  ],
-  options: [
-    { label: 'ID', value: 'id' },
-    { label: 'Name', value: 'name' },
-    { label: 'Username', value: 'username' },
-    { label: 'Created At', value: 'created_at' },
-    { label: 'Updated At', value: 'updated_at' },
-    { label: 'Email', value: 'email' },
-    { label: 'Phone', value: 'phone' },
-    { label: 'Website', value: 'website' },
-    { label: 'Company', value: 'company' },
-    { label: 'A Really Long Field Name That Cant Fit For Sure', value: 'address' },
-  ],
+export const Primary: Story = {
+  args: {
+    options: DEFAULT_OPTIONS,
+    children: <DefaultChildButton />,
+  },
+  render: (args) => <DefaultDropdownFilterTemplate {...args} children={args.children} />,
 };
-
