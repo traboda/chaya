@@ -42,8 +42,8 @@ export { default as SettingCard, SettingCardProps } from './components/SettingCa
 export { default as SkeletonItem, SkeletonItemProps } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 
-export { default as SidebarNavigation, SidebarNavigationProps } from './components/SidebarNavigation';
-export { SidebarNavigatorItemType } from './components/SidebarNavigation/Item';
+export { default as VerticalNavigator, VerticalNavigatorProps } from './components/VerticalNavigator';
+export { VerticalNavigatorItemType } from './components/VerticalNavigator/Item';
 
 export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';

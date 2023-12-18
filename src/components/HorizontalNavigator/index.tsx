@@ -68,7 +68,7 @@ const HorizontalNavigator = ({
   const highlightRenderer = (
     <div
       className={clsx([
-        'tab-highlight dsr-transition-all dsr-ease-in-out dsr-absolute',
+        'tab-highlight dsr-transition-all dsr-ease-in-out dsr-absolute dsr-shadow-lg',
         'dsr-rounded-lg dsr-bg-primary dsr-text-primaryTextColor',
         'dsr-top-0 dsr-left-0 dsr-z-[500]',
       ])}
@@ -90,7 +90,7 @@ const HorizontalNavigator = ({
         className={clsx([
           'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
           'dsr-items-center dsr-rounded-lg',
-          variant === 'pill' ? 'dsr-bg-gray-400/20 bg-rounded-lg dsr-p-1.5 dsr-z-[1000]' : '',
+          variant === 'pill' ? 'dsr-bg-gray-400/20 bg-rounded-lg dsr-p-1.5 dsr-z-[1000] dsr-gap-x-1' : '',
           variant === 'line' ? 'dsr-gap-x-4' : '',
           className,
         ])}

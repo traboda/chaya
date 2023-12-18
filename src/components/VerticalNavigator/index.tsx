@@ -2,10 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import SidebarNavigationItem, { SidebarNavigatorItemType } from './Item';
+import VerticalNavigatorItem, { VerticalNavigatorItemType } from './Item';
 
-export type SidebarNavigationProps = {
-  items: SidebarNavigatorItemType[],
+export type VerticalNavigatorProps = {
+  items: VerticalNavigatorItemType[],
   variant?: 'pill' | 'line',
   activeItem?: string | null,
   className?: string,
@@ -14,12 +14,12 @@ export type SidebarNavigationProps = {
   id?: string,
   role?: string,
   itemRole?: string,
-  onClickItem?: (key: string, item: SidebarNavigatorItemType) => void,
+  onClickItem?: (key: string, item: VerticalNavigatorItemType) => void,
 };
 
-const SidebarNavigation = ({
+const VerticalNavigator = ({
   items, className, itemClassName, variant = 'pill', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
-}: SidebarNavigationProps) => {
+}: VerticalNavigatorProps) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{
     width: number | null,
@@ -55,7 +55,7 @@ const SidebarNavigation = ({
     if (activeItem) {
       updateIndicator();
     }
-  }, [activeItem, items]);
+  });
 
   const listRenderer = (
     <ul
@@ -70,14 +70,14 @@ const SidebarNavigation = ({
       style={{ width: isCollapsed ? 50 : undefined }}
     >
       {items.filter((item) => !item.isHidden).map(item => (
-        <SidebarNavigationItem
+        <VerticalNavigatorItem
           key={item.key}
           item={item}
           variant={variant}
           role={itemRole ?? 'presentation'}
           className={itemClassName}
           activeItem={activeItem}
-          isExpanded={!isCollapsed}
+          isCollapsed={isCollapsed}
           defaultExpansion={!!item.items?.find(item => item.key === activeItem)}
           onChangeExpansion={updateIndicator}
           onClickItem={onClickItem}
@@ -100,7 +100,7 @@ const SidebarNavigation = ({
             variant === 'pill' ?
               items.some((item) => item.key === activeItem) ? 'dsr-rounded-lg' : 'dsr-rounded-l-0 dsr-rounded-r-lg'
               : null,
-            variant == 'pill' ? 'dsr-bg-primary dsr-text-primaryTextColor' : 'dsr-border-2 dsr-border-primary',
+            variant == 'pill' ? 'dsr-bg-primary dsr-shadow-lg dsr-text-primaryTextColor' : 'dsr-border-2 dsr-border-primary',
           ])}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
@@ -114,4 +114,4 @@ const SidebarNavigation = ({
 
 };
 
-export default SidebarNavigation;
+export default VerticalNavigator;

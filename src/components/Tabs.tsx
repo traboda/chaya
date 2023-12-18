@@ -8,7 +8,7 @@ import Icon, { IconInputType } from './Icon';
 import AccordionGroup from './AccordionGroup';
 
 const HorizontalNavigator = lazy(() => import('./HorizontalNavigator'));
-const SidebarNavigation = lazy(() => import('./SidebarNavigation'));
+const VerticalNavigator = lazy(() => import('./VerticalNavigator'));
 
 export type TabItemObject = {
   key?: string,
@@ -124,7 +124,7 @@ const Tabs = ({
   ) : <div />;
 
   const verticalSelector = isVertical ? useMemo(() => (
-    <SidebarNavigation
+    <VerticalNavigator
       id={tabID}
       className={clsx(['tab-selector vertical-selector', menuClassName])}
       itemClassName={menuButtonClassName}

@@ -38,7 +38,7 @@ const HorizontalNavigatorItem = ({
 
   const pillVariantClassName = (key: string) => clsx([
     'border border-neutral-300/20 dsr-px-5 dsr-py-2',
-    activeItem === key && 'active dsr-font-semibold dsr-text-primaryTextColor',
+    activeItem === key ? 'active dsr-font-semibold dsr-text-primaryTextColor' : 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80',
   ]);
 
   const lineVariantClassName = (key: string) => clsx([

@@ -7,7 +7,7 @@ import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
 import ChevronUp from '../../utils/icons/chevron-up';
 
-export type SidebarNavigationItemBaseType = {
+export type VerticalNavigatorItemBaseType = {
   key: string,
   label: string,
   link?: string,
@@ -21,35 +21,35 @@ export type SidebarNavigationItemBaseType = {
   badgeProps?: BaseBadgeProps,
 };
 
-export type SidebarNavigatorItemType = SidebarNavigationItemBaseType & {
-  items?: SidebarNavigationItemBaseType[]
+export type VerticalNavigatorItemType = VerticalNavigatorItemBaseType & {
+  items?: VerticalNavigatorItemBaseType[]
 };
 
-export type SidebarNavigationProps = {
-  item: SidebarNavigatorItemType,
+export type VerticalNavigatorItemProps = {
+  item: VerticalNavigatorItemType,
   className?: string,
   variant?: 'pill' | 'line',
   activeItem?: string | null,
   role?: string,
-  isExpanded?: boolean,
+  isCollapsed?: boolean,
   defaultExpansion?: boolean
   onChangeExpansion?: () => void,
-  onClickItem?: (key: string, item: SidebarNavigatorItemType) => void,
+  onClickItem?: (key: string, item: VerticalNavigatorItemType) => void,
 };
 
-const SidebarNavigationItem = ({
-  item, className, role, variant = 'pill', isExpanded, defaultExpansion, activeItem, onChangeExpansion = () => {}, onClickItem = () => {},
-}: SidebarNavigationProps) => {
+const VerticalNavigatorItem = ({
+  item, className, role, variant = 'pill', isCollapsed, defaultExpansion, activeItem, onChangeExpansion = () => {}, onClickItem = () => {},
+}: VerticalNavigatorItemProps) => {
 
   const [height, setHeight] = useState<undefined | number>(undefined);
   const dropdownContentRef = useRef<HTMLLIElement>(null);
 
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
-  useEffect(() => setDropdownVisibility(isExpanded), [isExpanded]);
+  useEffect(() => setDropdownVisibility(!isCollapsed), [isCollapsed]);
 
   useEffect(() => {
-    if (isExpanded) setDropdownVisibility(defaultExpansion);
+    if (!isCollapsed) setDropdownVisibility(defaultExpansion);
   }, [activeItem]);
 
   useEffect(() => {
@@ -61,14 +61,14 @@ const SidebarNavigationItem = ({
     'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-w-full', className,
   ]);
 
-  const innerContent = (item: SidebarNavigationItemBaseType, hasChildren: boolean = false) => (
+  const innerContent = (item: VerticalNavigatorItemBaseType, hasChildren: boolean = false, isChild: boolean = false) => (
     <div
       className={clsx([
         'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5 dsr-px-1',
         variant === 'line' && 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
         variant === 'line' && activeItem === item.key && `${!hasChildren ? 'dsr-bg-primary/10' : ''} dsr-text-primary`,
-        activeItem === item.key && 'active dsr-font-semibold',
-        isExpanded ? 'dsr-justify-between' : 'dsr-justify-center',
+        activeItem === item.key && (!isChild || dropdownVisibility) && 'active dsr-font-semibold',
+        isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
@@ -77,7 +77,7 @@ const SidebarNavigationItem = ({
           <Icon icon={item.icon} size={24} />
         </span>
         )}
-        <span className={clsx([isExpanded ? 'dsr-pl-1.5' : 'dsr-hidden', item.labelClassName])}>{item.label}</span>
+        <span className={clsx([isCollapsed ? 'dsr-hidden' : 'dsr-pl-1.5', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -99,8 +99,8 @@ const SidebarNavigationItem = ({
     variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
   ]);
 
-  const contentRenderer = (item: SidebarNavigationItemBaseType, isChild: boolean = false) => item?.link ?
-    LinkWrapper(item.link, innerContent(item), {
+  const contentRenderer = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => item?.link ?
+    LinkWrapper(item.link, innerContent(item, false, isChild), {
       role: item.role ?? 'tab',
       className: clsx([
         commonClasses,
@@ -121,7 +121,7 @@ const SidebarNavigationItem = ({
           (isChild && variant === 'line') && 'dsr-my-0.5',
         ])}
       >
-        {innerContent(item)}
+        {innerContent(item, false, isChild)}
       </button>
     );
 
@@ -140,12 +140,12 @@ const SidebarNavigationItem = ({
           <button
             className={clsx([
               'dsr-w-full dsr-items-center dsr-cursor-pointer dsr-flex dsr-rounded',
-              isExpanded ? 'dsr-justify-between' : 'dsr-justify-center',
+              isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >
-            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item, true)}</span>
-            {isExpanded && (
+            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item, true, false)}</span>
+            {!isCollapsed && (
               <span
                 className={clsx([
                   'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80',
@@ -162,7 +162,7 @@ const SidebarNavigationItem = ({
           className={clsx([
             'dsr-transition-all dsr-overflow-hidden dsr-relative',
             dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
-            isExpanded ? 'dsr-pl-5' : 'dsr-pl-1',
+            isCollapsed ? 'dsr-pl-1' : 'dsr-pl-5',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
@@ -170,7 +170,7 @@ const SidebarNavigationItem = ({
             <div
               className={clsx([
                 'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
-                isExpanded ? 'dsr-block dsr-pl-3' : 'dsr-hidden',
+                isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
               ])}
             >
               <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
@@ -210,6 +210,7 @@ const SidebarNavigationItem = ({
       {contentRenderer(item)}
     </li>
   );
+
 };
 
-export default SidebarNavigationItem;
+export default VerticalNavigatorItem;

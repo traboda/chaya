@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import { Avatar, Button } from '../index';
 
 import Icon, { IconInputType } from './Icon';
-import SidebarNavigation, { SidebarNavigationProps } from './SidebarNavigation';
-import { SidebarNavigatorItemType } from './SidebarNavigation/Item';
+import VerticalNavigator, { VerticalNavigatorProps } from './VerticalNavigator';
+import { VerticalNavigatorItemType } from './VerticalNavigator/Item';
 import { AvatarProps } from './Avatar';
 
 export type SidebarProps = {
@@ -14,16 +14,16 @@ export type SidebarProps = {
   className?: string,
   allowCollapseToggling?: boolean,
   isCollapsed?: boolean,
-  topNavigationItems?: SidebarNavigatorItemType[],
-  bottomNavigationItems?: SidebarNavigatorItemType[],
+  topNavigationItems?: VerticalNavigatorItemType[],
+  bottomNavigationItems?: VerticalNavigatorItemType[],
   navigationGroups?: {
     title: string,
-    items: SidebarNavigatorItemType[],
+    items: VerticalNavigatorItemType[],
   }[],
   topRenderer?: ({ isCollapsed }: { isCollapsed: boolean }) => React.ReactNode,
   bottomRenderer?: ({ isCollapsed }: { isCollapsed: boolean }) => React.ReactNode,
   bottomTopRenderer?: ({ isCollapsed }: { isCollapsed: boolean }) => React.ReactNode,
-  navigationProps?: Partial<SidebarNavigationProps>,
+  navigationProps?: Partial<VerticalNavigatorProps>,
   userProfile?: {
     name: string,
     avatar?: AvatarProps,
@@ -89,7 +89,7 @@ const Sidebar = ({
           <div className="sidebar-top-area">
             {(topNavigationItems && topNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
               <div className="dsr-py-2 dsr-px-1 ">
-                <SidebarNavigation
+                <VerticalNavigator
                   {...navigationProps}
                   items={topNavigationItems}
                   isCollapsed={isCollapsed}
@@ -106,7 +106,7 @@ const Sidebar = ({
                       {group.title}
                     </div>
                     )}
-                    <SidebarNavigation
+                    <VerticalNavigator
                       {...navigationProps}
                       items={group.items}
                       isCollapsed={isCollapsed}
@@ -124,7 +124,7 @@ const Sidebar = ({
         {typeof bottomTopRenderer === 'function' ? bottomTopRenderer({ isCollapsed }) : null}
         {(bottomNavigationItems && bottomNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
           <div className="dsr-py-2 dsr-px-1 dsr-mt-1 dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
-            <SidebarNavigation
+            <VerticalNavigator
               {...navigationProps}
               items={bottomNavigationItems}
               isCollapsed={isCollapsed}
