@@ -125,8 +125,7 @@ const PinInput = ({
         ref={inputs}
         className={clsx([
           'pin-input dsr-grid dsr-pin-input dsr-gap-2 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
-          'dsr-shadow-inner dsr-bg-background-lighten-1',
-          variant === 'minimal' ? 'dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
+          variant === 'minimal' ? 'dsr-bg-background-lighten-1 dsr-shadow-inner dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
           className,
         ])}
         style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
