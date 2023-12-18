@@ -36,15 +36,15 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
                     'chevron-down': <i className={`ri-arrow-down-s-fill`} />,
                     'chevrons-left': <i className={`ri-arrow-left-double-line`} />,
                     'chevron-left': <i className={`ri-arrow-left-s-fill`} />,
-                    'chevron-right': <i className={`ri-arrow-right-s-fill`} {...props} />,
-                    'chevrons-right': <i className={`ri-arrow-right-double-line`} {...props} />,
-                    plus: <i className={`ri-add-line`} {...props} />,
-                    info: <i className={`ri-information-line`} {...props} />,
-                    'alert-triangle': <i className={`ri-error-warning-line`} {...props} />,
-                    check: <i className={`ri-checkbox-circle-line`} {...props} />,
-                    bin: <i className={`ri-delete-bin-line`} {...props} />,
-                    search: <i className={`ri-search-line`} {...props} />,
-                })[icon] ?? <i className={`ri-${icon}-line ri-${icon}`} {...props} />}
+                    'chevron-right': <i {...props}  className={`ri-arrow-right-s-fill ${props?.className}`}/>,
+                    'chevrons-right': <i {...props} className={`ri-arrow-right-double-line ${props?.className}`} />,
+                    plus: <i  {...props} className={`ri-add-line ${props?.className}`} />,
+                    info: <i  {...props} className={`ri-information-line ${props?.className}`} />,
+                    'alert-triangle': <i {...props}  className={`ri-error-warning-line ${props?.className}`} />,
+                    check: <i  {...props} className={`ri-checkbox-circle-line ${props?.className}`}  />,
+                    bin: <i {...props} className={`ri-delete-bin-line ${props?.className}`} />,
+                    search: <i {...props}  className={`ri-search-line ${props?.className}`} />,
+                })[icon] ?? <i  {...props} className={`ri-${icon}-line ri-${icon} ${props?.className}`} />}
             >
                 {children}
             </DSRContextProvider>

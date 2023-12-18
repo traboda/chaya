@@ -46,9 +46,9 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
   return (
     <div
       className={clsx([
-        'radio dsr-inline-flex dsr-items-center dsr-cursor-pointer dsr-relative',
+        'radio dsr-inline-flex dsr-items-center dsr-relative',
+        isDisabled ? 'dsr-opacity-80 dsr-cursor-not-allowed' : 'dsr-cursor-pointer',
         className,
-        isDisabled && 'dsr-opacity-70',
       ])}
       onClick={() => !isDisabled && onChange(value)}
     >

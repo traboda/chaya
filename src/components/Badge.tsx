@@ -47,8 +47,9 @@ const Badge = ({
   const computedClassName = clsx([
     className,
     sizeDefinitions[size],
-    'badge dsr-inline-flex dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
+    'badge dsr-inline-flex dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent',
     'dsr-transition dsr-items-center dsr-justify-center',
+    variant === 'outline' ? 'dsr-border-2' : 'dsr-border',
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
 
@@ -65,9 +66,9 @@ const Badge = ({
       className={computedClassName}
       style={computedStyle}
     >
-      {leftIcon && <Icon icon={leftIcon} className={iconSizes[size][1]} size={iconSizes[size][0]} />}
+      {leftIcon && <Icon className={iconSizes[size][1]} icon={leftIcon} size={iconSizes[size][0]} />}
       {children}
-      {rightIcon && <Icon icon={rightIcon} className={iconSizes[size][2]} size={iconSizes[size][0]} />}
+      {rightIcon && <Icon className={iconSizes[size][2]} icon={rightIcon} size={iconSizes[size][0]} />}
     </span>
   );
 };

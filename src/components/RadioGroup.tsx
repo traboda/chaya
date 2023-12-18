@@ -8,7 +8,8 @@ export type RadioGroupProps<Type> = {
   value: Type,
   options: {
     value: Type,
-    label: string
+    label: string,
+    isDisabled?: boolean,
   }[],
   onChange?: (values: Type) => void,
   color?: RadioColor, 
@@ -76,11 +77,10 @@ const RadioGroup = <Type extends string | number>({
   };
 
   return (
-    <div>
+    <React.Fragment>
       {label && (
       <Label
-        htmlFor=""
-        className={isDisabled ? 'dsr-opacity-70' : ''}
+        className={clsx([isDisabled && 'dsr-opacity-70', 'dsr-mb-2'])}
         children={label}
         isRequired={isRequired}
       />
@@ -105,11 +105,11 @@ const RadioGroup = <Type extends string | number>({
             onKeyDown={(e) => handleKeydown(e, index)}
             onChange={() => onChange(option.value)}
             isSelected={value === option.value}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || option.isDisabled}
           />
         ))}
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

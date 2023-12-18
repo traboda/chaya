@@ -71,9 +71,10 @@ const Button = ({
     fontSizeDefinitions[size],
     variant !== 'link' && ringColor[color],
     variant !== 'link' && 'dsr-shadow hover:dsr-shadow-none',
+    variant === 'outline' ? 'dsr-border-2' : 'dsr-border',
     buttonStyle.button,
     variant === 'link' ? 'hover:dsr-underline' : '',
-    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border dsr-border-transparent',
+    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent',
     'dsr-outline-0 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
     variant !== 'link' && 'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
     size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
@@ -82,8 +83,8 @@ const Button = ({
   ]);
 
   const computedStyle = {
-    background: hover ? hoverColor : backgroundColor,
-    color: textColor,
+    background: hover ? hoverColor : variant === 'minimal' ? color === 'white' ? '#F9F9F9' : color === 'black' ? '#444' : backgroundColor : backgroundColor,
+    color: variant === 'minimal' ? color === 'white' ? '#333' : color === 'black' ? '#EEE' : textColor : textColor,
     borderColor: variant === 'outline' ? activeColor : 'none',
     ...style,
   };
