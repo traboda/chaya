@@ -1,0 +1,38 @@
+import { Meta, Primary, Title, Controls, Story } from '@storybook/blocks';
+import * as BadgeStories from "./Badge.stories";
+
+<Meta
+    title="Components/Display/Badge"
+    of={BadgeStories}
+/>
+
+<Title>Badge</Title>
+
+**`import { Badge } from 'chaya-ui';`**
+
+<Primary />
+
+## Props
+
+<Controls />
+
+
+## Variants
+
+Badge component comes in 3 variants: `solid`, `minimal` and `outline`. The default variant is `minimal`.
+
+### Solid
+
+<Story name="Solid Variant" />
+
+### Minimal (Default)
+
+<Story name="Minimal Variant" />
+
+### Outline
+
+<Story name="Outline Variant" />
+
+## Sizes
+
+<Story name="Badge Sizes" />

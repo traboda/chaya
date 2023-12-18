@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         primary: 'var(--primary)',
         'primary/50': 'var(--primary50)',
+        'primary/10': 'var(--primary10)',
         primaryTextColor: 'var(--primaryTextColor)',
         secondary: 'var(--secondary)',
         'secondary/50': 'var(--secondary50)',

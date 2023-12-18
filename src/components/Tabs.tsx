@@ -1,14 +1,14 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState, lazy } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
-
-import { LinkWrapper } from '../utils/misc';
 
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
 import AccordionGroup from './AccordionGroup';
-import SidebarNavigation from './SidebarNavigation';
+
+const HorizontalNavigator = lazy(() => import('./HorizontalNavigator'));
+const SidebarNavigation = lazy(() => import('./SidebarNavigation'));
 
 export type TabItemObject = {
   key?: string,
@@ -72,23 +72,6 @@ const Tabs = ({
   };
 
   const [currentTab, setTab] = useState<string | null>(initialKey ?? getInitialTab());
-  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, height: 0, translate: 0 });
-  const tabRef = useRef<HTMLUListElement>(null);
-
-  const updateIndicator = () => {
-    console.log(tabRef.current);
-    if (tabRef.current) {
-      const tab = tabRef.current.querySelector('.active');
-      console.log(tab);
-      if (tab) {
-        const { left, width, height, top } = tab.getBoundingClientRect();
-        const { left: containerLeft, top: containerTop } = tabRef.current.getBoundingClientRect();
-        if (isVertical) setIndicatorStyle({ height, translate: (top - containerTop), width: 0 });
-        else setIndicatorStyle({ height: 0, translate: (left - containerLeft), width });
-      }
-    }
-  };
-
 
   useEffect(() => {
     if (initialKey && initialKey?.length) setTab(initialKey);
@@ -96,7 +79,6 @@ const Tabs = ({
 
   useEffect(() => {
     if (currentTab) {
-      updateIndicator();
       onChange(currentTab);
     }
   }, [currentTab]);
@@ -105,7 +87,6 @@ const Tabs = ({
     <div
       className={clsx([
         'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2',
-        variant === 'line' && 'dsr-transition-all dsr-rounded-lg hover:dsr-bg-gray-400/20 dsr-gap-2 dsr-py-0.5 dsr-px-2 hover:dsr-backdrop-blur',
       ])}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
@@ -142,104 +123,35 @@ const Tabs = ({
     </div>
   ) : <div />;
 
-  const underlineRenderer = (
-    <div
-      className={clsx([
-        'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
-        'dsr-border-2 dsr-border-primary dsr-rounded-lg dsr-left-0',
-        'dsr-bottom-0 dsr-w-full',
-      ])}
-      style={{
-        transform: isVertical ?
-          `translateY(${indicatorStyle?.translate}px)` :
-          `translateX(${indicatorStyle?.translate}px)`,
-        width: indicatorStyle?.width,
-        height: indicatorStyle?.height,
-      }}
-    />
-  );
-
-  const menuButtonClassNameGenerator = (key: string) => clsx([
-    'dsr-text-lg dsr-font-semibold dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
-    'dsr-border-0 dsr-text-color dsr-no-underline dsr-rounded-lg dsr-transition-background dsr-outline-2',
-    menuButtonClassName,
-    currentTab === key ? variant === 'pill' ? 'active dsr-bg-primary dsr-text-primaryTextColor' : 'active' : '',
-    variant === 'pill' ? isVertical ? 'dsr-px-5 dsr-py-2 dsr-w-full dsr-text-left' : 'dsr-px-5 dsr-py-2' : isVertical ? 'dsr-w-full dsr-px-2' : 'dsr-py-2',
-  ]);
-
-  const renderButton = (t: TabItemWithKeys) => (
-    <button
-      onClick={() =>
-        t?.onClick && typeof t.onClick === 'function' ? (isDisabled ? onClickDisabled(t.key) : t.onClick?.())
-          : setTab(t.key)
-          }
-      className={menuButtonClassNameGenerator(t.key)}
-      role="tab"
-      id={`${tabID}-${t.key}-tab`}
-      data-toggle="tab"
-      aria-selected={currentTab === t.key}
-      aria-controls={`${tabID}-${t.key}-panel`}
-      disabled={t.isDisabled}
-      aria-disabled={t.isDisabled}
-    >
-      {renderOption(t)}
-    </button>
-  );
-
-  const verticalSelector = useMemo(() => (
+  const verticalSelector = isVertical ? useMemo(() => (
     <SidebarNavigation
       id={tabID}
       className={clsx(['tab-selector vertical-selector', menuClassName])}
+      itemClassName={menuButtonClassName}
       activeItem={currentTab}
       variant={variant}
       items={tabItems.map(t => ({
-        key: t.key,
-        label: t.label,
-        icon: t.icon,
-        badge: t.badge,
-        badgeProps: t.badgeProps || badgeProps,
-        labelClassName: t.labelClassName,
-        isDisabled: t.isDisabled,
-        isHidden: t.isHidden,
-        link: t.link,
-        onClick: () => t?.onClick && typeof t.onClick === 'function' ? (isDisabled ? onClickDisabled(t.key) : t.onClick?.()) : setTab(t.key),
+        ...t, badgeProps: t.badgeProps || badgeProps,
       }))}
+      onClickItem={(key: string) => isDisabled ? onClickDisabled(key) : setTab(key)}
     />
-  ),
-  [tabItems, currentTab, variant, menuClassName, badgeProps, isDisabled, onClickDisabled, tabID],
-  );
+  ), [tabItems, currentTab, variant, menuClassName, badgeProps, isDisabled, onClickDisabled, tabID]) : null;
 
-  const horizontalSelector = (
-    <ul
+  const horizontalSelector = !isVertical ? useMemo(() => (
+    <HorizontalNavigator
       id={tabID}
-      role="tablist"
-      aria-orientation="horizontal"
-      ref={tabRef}
-      className={clsx([
-        'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
-        'dsr-items-center dsr-rounded-lg',
-        variant === 'pill' ? 'dsr-bg-gray-400/20 bg-rounded-lg' : '',
-        variant === 'line' ? 'dsr-gap-x-4' : '',
-        menuClassName,
-      ])}
-    >
-      {tabItems.filter((t) => !t.isHidden).map(t => (
-        <li
-          key={t?.key ? `tab_selector_${t?.key}` : nanoid()}
-          className={isVertical ? 'dsr-w-full' : undefined}
-          role="presentation"
-        >
-          {t?.onClick && typeof t.onClick === 'function' ? renderButton(t) :
-            t.link ? LinkWrapper(!t.isDisabled ? t.link : '', renderOption(t), {
-              className: menuButtonClassNameGenerator(t.key),
-              id: `${tabID}-${t.key}-tab`,
-            }) : renderButton(t)}
-        </li>
-      ))}
-    </ul>
-  );
+      className={clsx(['tab-selector horizontal-selector', menuClassName])}
+      itemClassName={menuButtonClassName}
+      activeItem={currentTab}
+      variant={variant}
+      items={tabItems.map(t => ({
+        ...t, badgeProps: t.badgeProps || badgeProps,
+      }))}
+      onClickItem={(key: string) => isDisabled ? onClickDisabled(key) : setTab(key)}
+    />
+  ), [tabItems, currentTab, variant, menuClassName, badgeProps, isDisabled, onClickDisabled, tabID]) : null;
 
-  const ResponsiveView = (
+  const ResponsiveView = !disableResponsive ? useMemo(() => (
     <AccordionGroup
       accordionClassName="!dsr-p-1"
       items={tabItems.filter((t) => !t.isHidden).map((t) => ({
@@ -249,10 +161,12 @@ const Tabs = ({
           </>
         ),
         isOpen: currentTab === t.key,
+        isDisabled: t.isDisabled,
+        isHidden: t.isHidden,
         renderer: () => t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null,
       }))}
     />
-  );
+  ), [tabItems, currentTab]) : null;
 
   return (
     <React.Fragment>
@@ -268,13 +182,8 @@ const Tabs = ({
           className,
         ])}
       >
-        <div className={clsx([isVertical ? 'dsr-w-full md:dsr-w-1/5 dsr-p-0' : 'dsr-relative'])}>
-          {isVertical ? verticalSelector : (
-            <div className="dsr-relative">
-              {horizontalSelector}
-              {variant === 'line' && underlineRenderer}
-            </div>
-          )}
+        <div className={clsx([isVertical && 'dsr-w-full md:dsr-w-1/5 dsr-p-0'])}>
+          {isVertical ? verticalSelector : horizontalSelector}
         </div>
         <div
           className={clsx([

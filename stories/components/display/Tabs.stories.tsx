@@ -1,8 +1,7 @@
 import React from 'react';
-import { Meta, Story, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { Tabs } from '../../../src';
-import { TabsProps } from '../../../src/components/Tabs';
+import { Tabs, TabsProps } from '../../../src';
 
 const meta: Meta = {
   title: 'Components/Display/Tabs',
@@ -14,11 +13,10 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<TabsProps> = args => (
-  <Tabs {...args} />
-);
+type Story = StoryObj<typeof Tabs>;
 
-const items = [
+
+const defaulItems: TabsProps['items'] = [
   {
     label: 'Item 1',
     renderer: 'tab 1',
@@ -39,17 +37,74 @@ const items = [
   },
 ];
 
-export const Default = Template.bind({});
-
-Default.args = { items };
-
-type StoryType = StoryObj<typeof Tabs>;
-
-export const Mobile: StoryType = {
-  name: 'Mobile View',
+export const Primary: Story = {
   args: {
+    items: defaulItems,
+  },
+};
+
+export const LineVariant: Story = {
+  storyName: 'Line Variant',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+    variant: 'line',
+  },
+};
+
+export const Vertical: Story = {
+  storyName: 'Vertical Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
     isVertical: true,
-    items,
+  },
+};
+
+export const VerticalLineVariant: Story = {
+  storyName: 'Vertical Line Variant',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+    isVertical: true,
+    variant: 'line',
+  },
+};
+
+export const ResponsiveView: Story = {
+  storyName: 'Responsive Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphoneSE',
+    },
+  },
+};
+
+export const ResponsiveLineView: Story = {
+  storyName: 'Responsive Line Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+    variant: 'line',
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphoneSE',
+    },
+  },
+};
+
+export const ResponsiveDisabledView: Story = {
+  storyName: 'Responsive Disabled Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+    variant: 'line',
+    disableResponsive: true,
   },
   parameters: {
     viewport: {
@@ -59,43 +114,48 @@ export const Mobile: StoryType = {
 };
 
 
-Default.args = { items };
-
-
-export const UnderlineVariant = Template.bind({});
-
-UnderlineVariant.args = { items, variant: 'line' };
-
-export const WithBadge = Template.bind({});
- 
-WithBadge.args = {
-  items: items.map((i, index) => {
-    return {
-      ...i,
-      badge: index * index,
-    };
-  }),
+export const ResponsivePreview: Story = {
+  storyName: 'Responsive Preview Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+  },
+  render: () => (
+    <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">
+      <div>
+        <div>
+          Pill Variant
+        </div>
+        <iframe
+          src="/iframe.html?id=components-display-tabs--responsive-view"
+          style={{ height: '45vh' }}
+        />
+      </div>
+      <div>
+        <div>
+          Line Variant
+        </div>
+        <iframe
+          src="/iframe.html?id=components-display-tabs--responsive-line-view"
+          style={{ height: '45vh' }}
+        />
+      </div>
+    </div>
+  ),
 };
 
-export const Vertical = Template.bind({});
-
-Vertical.args = {
-  isVertical: true,
-  items,
-  className: 'font-semibold',
-};
-
-export const VerticalUnderlineVariant = Template.bind({});
-
-VerticalUnderlineVariant.args = {
-  variant: 'line',
-  isVertical: true,
-  items,
-};
-
-export const WithBadgeVertical = Template.bind({});
-
-WithBadgeVertical.args = {
-  isVertical: true,
-  ...WithBadge.args,
+export const DisableResponsivePreview: Story = {
+  storyName: 'Responsive Disabled Preview Tabs',
+  tags: ['unlisted'],
+  args: {
+    items: defaulItems,
+  },
+  render: () => (
+    <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">
+      <iframe
+        src="/iframe.html?id=components-display-tabs--responsive-disabled-view"
+        style={{ height: '45vh' }}
+      />
+    </div>
+  ),
 };

@@ -16,23 +16,29 @@ export type SidebarNavigationItemBaseType = {
   labelClassName?: string,
   role?: string,
   isDisabled?: boolean,
+  isHidden?: boolean,
   badge?: React.ReactNode,
   badgeProps?: BaseBadgeProps,
 };
 
+export type SidebarNavigatorItemType = SidebarNavigationItemBaseType & {
+  items?: SidebarNavigationItemBaseType[]
+};
+
 export type SidebarNavigationProps = {
-  item: SidebarNavigationItemBaseType & {
-    items?: SidebarNavigationItemBaseType[]
-  },
+  item: SidebarNavigatorItemType,
+  className?: string,
   variant?: 'pill' | 'line',
   activeItem?: string | null,
   role?: string,
-  isCollapsed?: boolean,
+  isExpanded?: boolean,
   defaultExpansion?: boolean
+  onChangeExpansion?: () => void,
+  onClickItem?: (key: string, item: SidebarNavigatorItemType) => void,
 };
 
 const SidebarNavigationItem = ({
-  item, role, variant = 'pill', isCollapsed, defaultExpansion, activeItem,
+  item, className, role, variant = 'pill', isExpanded, defaultExpansion, activeItem, onChangeExpansion = () => {}, onClickItem = () => {},
 }: SidebarNavigationProps) => {
 
   const [height, setHeight] = useState<undefined | number>(undefined);
@@ -40,28 +46,29 @@ const SidebarNavigationItem = ({
 
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
-  useEffect(() => {
-    if (isCollapsed) setDropdownVisibility(false);
-  }, [isCollapsed]);
+  useEffect(() => setDropdownVisibility(isExpanded), [isExpanded]);
 
   useEffect(() => {
-    if (!isCollapsed) setDropdownVisibility(defaultExpansion);
+    if (isExpanded) setDropdownVisibility(defaultExpansion);
   }, [activeItem]);
 
-  useEffect(() => setHeight(dropdownContentRef.current?.scrollHeight), [dropdownVisibility]);
+  useEffect(() => {
+    setHeight(dropdownContentRef.current?.scrollHeight);
+    onChangeExpansion();
+  }, [dropdownVisibility]);
 
   const liClass = clsx([
-    'hover:dsr-bg-neutral-300/20 hover:dsr-backdrop-blur',
-    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-rounded',
-    'dsr-w-full',
+    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-w-full', className,
   ]);
 
-  const innerContent = (item: SidebarNavigationItemBaseType) => (
+  const innerContent = (item: SidebarNavigationItemBaseType, hasChildren: boolean = false) => (
     <div
       className={clsx([
         'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5 dsr-px-1',
-        variant === 'line' && 'dsr-transition-all dsr-rounded dsr-gap-2',
-        isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
+        variant === 'line' && 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
+        variant === 'line' && activeItem === item.key && `${!hasChildren ? 'dsr-bg-primary/10' : ''} dsr-text-primary`,
+        activeItem === item.key && 'active dsr-font-semibold',
+        isExpanded ? 'dsr-justify-between' : 'dsr-justify-center',
       ])}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
@@ -70,7 +77,7 @@ const SidebarNavigationItem = ({
           <Icon icon={item.icon} size={24} />
         </span>
         )}
-        <span className={clsx([isCollapsed ? 'dsr-hidden' : 'dsr-pl-1.5', item.labelClassName])}>{item.label}</span>
+        <span className={clsx([isExpanded ? 'dsr-pl-1.5' : 'dsr-hidden', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -88,34 +95,30 @@ const SidebarNavigationItem = ({
   );
 
   const commonClasses = clsx([
-    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline dsr-rounded-lg -dsr-outline-offset-1 dsr-outline-primary',
-    activeItem === item.key && 'active',
+    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline -dsr-outline-offset-1 dsr-outline-primary hover:dsr-bg-neutral-300/20',
+    variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
   ]);
 
-  const contentRenderer = (item: SidebarNavigationItemBaseType) => item?.link ?
+  const contentRenderer = (item: SidebarNavigationItemBaseType, isChild: boolean = false) => item?.link ?
     LinkWrapper(item.link, innerContent(item), {
       role: item.role ?? 'tab',
       className: clsx([
         commonClasses,
-        variant == 'pill' && (
-          activeItem === item.key ? 'dsr-bg-neutral-300/30 active' : 'hover:dsr-bg-neutral-300/20'
-        ),
+        (isChild && variant === 'line') && 'dsr-my-0.5',
       ]),
       isDisabled: item.isDisabled,
-      onClick: typeof item?.onClick === 'function' ? item.onClick : () => {},
+      onClick: typeof item?.onClick === 'function' ? item.onClick : () => onClickItem(item.key, item),
     }) : (
       <button
         type="button"
         role={item.role ?? 'tab'}
-        onClick={typeof item?.onClick === 'function' ? item.onClick : () => {}}
+        onClick={typeof item?.onClick === 'function' ? item.onClick : () => onClickItem(item.key, item)}
         disabled={item.isDisabled}
         aria-selected={activeItem === item.key}
         aria-disabled={item.isDisabled}
         className={clsx([
           commonClasses,
-          variant == 'pill' && (
-            activeItem === item.key ? 'dsr-bg-primary dsr-text-primaryTextColor active' : 'hover:dsr-bg-gray-500/20'
-          ),
+          (isChild && variant === 'line') && 'dsr-my-0.5',
         ])}
       >
         {innerContent(item)}
@@ -123,27 +126,26 @@ const SidebarNavigationItem = ({
     );
 
   return item.items?.length ? (
-    <li role={role} className={liClass}>
+    <li role={role} className={clsx([liClass, 'dsr-z-[1000]'])}>
       <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1">
         <li
           className={clsx([
             'hover:dsr-bg-neutral-400/20',
             commonClasses,
             liClass,
-            variant == 'pill' && (
-              activeItem === item.key ? 'dsr-bg-primary dsr-text-primaryTextColor active' : ''
-            ),
+            variant === 'line' && activeItem === item.key && 'dsr-bg-primary/10 dsr-text-primary',
+            activeItem === item.key && 'active dsr-text-primaryTextColor dsr-w-full',
           ])}
         >
           <button
             className={clsx([
               'dsr-w-full dsr-items-center dsr-cursor-pointer dsr-flex dsr-rounded',
-              isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
+              isExpanded ? 'dsr-justify-between' : 'dsr-justify-center',
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >
-            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item)}</span>
-            {!isCollapsed && (
+            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item, true)}</span>
+            {isExpanded && (
               <span
                 className={clsx([
                   'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80',
@@ -155,13 +157,12 @@ const SidebarNavigationItem = ({
             )}
           </button>
         </li>
-
         <li
           ref={dropdownContentRef}
           className={clsx([
             'dsr-transition-all dsr-overflow-hidden dsr-relative',
             dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
-            isCollapsed ? 'dsr-pl-1' : 'dsr-pl-5',
+            isExpanded ? 'dsr-pl-5' : 'dsr-pl-1',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
@@ -169,7 +170,7 @@ const SidebarNavigationItem = ({
             <div
               className={clsx([
                 'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
-                isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
+                isExpanded ? 'dsr-block dsr-pl-3' : 'dsr-hidden',
               ])}
             >
               <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
@@ -179,14 +180,14 @@ const SidebarNavigationItem = ({
             {item.items.map(subItem => (
               <li
                 className={clsx([
-                  liClass, 'dsr-rounded-l-none',
+                  liClass, 'dsr-rounded-l-none dsr-rounded-r-lg',
                   variant === 'line' ?
-                    activeItem === subItem.key ? 'active dsr-border-l-4 dsr-border-primary' : 'dsr-border-l-4 dsr-border-gray-500/20'
-                    : null,
+                    activeItem === subItem.key ? 'dsr-border-l-4 dsr-border-primary' : 'dsr-border-l-4 dsr-border-gray-500/20'
+                    : activeItem === subItem.key ? 'dsr-text-primaryTextColor hover:dsr-bg-neutral-900/30' : 'hover:dsr-bg-neutral-300/20',
                 ])}
                 key={item.key + subItem.key}
               >
-                {contentRenderer(subItem)}
+                {contentRenderer(subItem, true)}
               </li>
             ))}
           </ul>
@@ -196,7 +197,14 @@ const SidebarNavigationItem = ({
   ) : (
     <li
       role={role}
-      className={liClass}
+      className={clsx([
+        liClass,
+        'dsr-z-[1000] dsr-rounded-lg',
+        activeItem === item.key ? clsx([
+          'active dsr-text-primaryTextColor',
+          variant === 'pill' && 'hover:dsr-bg-neutral-900/30',
+        ]) : 'hover:dsr-bg-neutral-300/20',
+      ])}
       key={item.key}
     >
       {contentRenderer(item)}

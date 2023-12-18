@@ -68,7 +68,16 @@ const PageHeader = ({
                 {title}
               </h1>
             )}
-            {description && description?.length > 0 ? <p className="dsr-text-md dsr-opacity-80 dsr-mt-2 dsr-max-w-full dsr-w-[600px]">{description}</p> : null}
+            {description && description?.length > 0 ? (
+              <p
+                className={clsx([
+                  'dsr-opacity-80 dsr-max-w-full dsr-w-[600px]',
+                  size == 'lg' ? 'dsr-text-base dsr-mt-3' : 'dsr-text-sm dsr-mt-2',
+                ])}
+              >
+                {description}
+              </p>
+            ) : null}
             {titleBottomRenderer()}
           </div>
           <div className="md:dsr-w-1/3 dsr-py-2 dsr-flex dsr-justify-end dsr-items-center">

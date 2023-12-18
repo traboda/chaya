@@ -15,6 +15,7 @@ const ThemeScript = memo(
         cssProperties.push(`--${key}: ${value};`);
       });
       cssProperties.push(`--primary50: ${Color(theme.primary).alpha(0.5).toString()};`);
+      cssProperties.push(`--primary10: ${Color(theme.primary).alpha(0.1).toString()};`);
       cssProperties.push(`--secondary50: ${Color(theme.secondary).alpha(0.5).toString()};`);
 
       const background = Color(theme.background);

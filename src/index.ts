@@ -25,6 +25,9 @@ export { default as DateTimePicker, DateTimePickerProps } from './components/Dat
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
+export { default as HorizontalNavigator, HorizontalNavigatorProps } from './components/HorizontalNavigator';
+export { HorizontalNavigatorItemType } from './components/HorizontalNavigator/item';
+
 export { default as HoverCard } from './components/HoverCard';
 export { default as TextInput, TextInputProps } from './components/TextInput';
 export { default as SearchBox, SearchBoxProps } from './components/SearchBox';
@@ -38,7 +41,10 @@ export { default as SelectorButton } from './components/SelectorButton';
 export { default as SettingCard, SettingCardProps } from './components/SettingCard';
 export { default as SkeletonItem, SkeletonItemProps } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
-export { default as SidebarNavigation, SidebarNavigationProps, SidebarNavigationItemType } from './components/SidebarNavigation';
+
+export { default as SidebarNavigation, SidebarNavigationProps } from './components/SidebarNavigation';
+export { SidebarNavigatorItemType } from './components/SidebarNavigation/Item';
+
 export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';
 export { default as SearchResults, SearchResultsProps, SearchResultType, SearchResultGroupType } from './components/SearchResults';

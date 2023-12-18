@@ -9,7 +9,7 @@ export type CardProps = {
   title?: string,
   description?: string,
   titleClassName?: string,
-  icon?: IconInputType,
+  titleIcon?: IconInputType,
   id?: string,
   className?: string,
   sidebarRenderer?: ReactNode
@@ -17,51 +17,49 @@ export type CardProps = {
 
 const Card = ({
   id, children, title, description, variant = 'shaded',
-  className = '', titleClassName = '', icon,
+  className, titleClassName, titleIcon,
   sidebarRenderer,
-}: CardProps) => {
-
-  return (
-    <div
-      id={id}
-      className={clsx([
-        'card dsr-p-3 dsr-rounded-lg dsr-h-full',
-        'dsr-border dark:dsr-border-neutral-500/70 dsr-border-neutral-500/10',
-        variant === 'outline' ? 'dsr-border-neutral-500/70' : '',
-        variant === 'shaded' && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
-        className,
-      ])}
-    >
-      {title ? (
-        <div
-          className={clsx([
-            'dsr-flex dsr-items-start dsr-justify-between dsr-gap-4 dsr-w-full',
-            children && 'dsr-mb-4',
-          ])}
-        >
-          <div>
-            {title && (
-              <h3
-                className={clsx([
-                  'dsr-text-2xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
-                  titleClassName,
-                ])}
-              >
-                {icon ? <Icon icon={icon} /> : null}
-                {title}
-              </h3>
-            )}
-            {description && <p className="dsr-opacity-90 mt-2">{description}</p>}
-          </div>
-
-          <div>{sidebarRenderer}</div>
+}: CardProps) => (
+  <div
+    id={id}
+    className={clsx([
+      'card dsr-rounded-lg dsr-h-full dsr-border',
+      variant === 'outline' && 'dark:dsr-border-neutral-300/70 dsr-border-neutral-500/40',
+      variant === 'shaded' && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/10',
+      className,
+    ])}
+  >
+    {title ? (
+      <div
+        className={clsx([
+          'card-header dsr-flex dsr-items-start dsr-justify-between dsr-gap-3 dsr-w-full',
+          'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
+          variant === 'shaded' && 'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+          variant === 'outline' && 'dark:dsr-border-neutral-300/70 dsr-border-neutral-500/40',
+        ])}
+      >
+        <div>
+          {title && (
+          <h3
+            className={clsx([
+              'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+              titleClassName,
+            ])}
+          >
+            {titleIcon ? <Icon icon={titleIcon} /> : null}
+            {title}
+          </h3>
+          )}
+          {description && <p className="dsr-opacity-80 dsr-text-sm">{description}</p>}
         </div>
-      ) : null}
-
+        <div>{sidebarRenderer}</div>
+      </div>
+    ) : null}
+    <div className="card-body dsr-p-3">
       {children}
     </div>
-  );
-};
+  </div>
+);
 
 
 export default Card;

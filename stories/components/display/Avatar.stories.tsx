@@ -25,6 +25,7 @@ export const Primary: Story = {
 
 export const WithoutAvatar: Story = {
   tags: ['unlisted'],
+  storyName: 'Without Avatar',
   args: {
     alt: 'John Doe',
   },

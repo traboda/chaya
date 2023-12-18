@@ -5,7 +5,8 @@ import clsx from 'clsx';
 import { Avatar, Button } from '../index';
 
 import Icon, { IconInputType } from './Icon';
-import SidebarNavigation, { SidebarNavigationItemType, SidebarNavigationProps } from './SidebarNavigation';
+import SidebarNavigation, { SidebarNavigationProps } from './SidebarNavigation';
+import { SidebarNavigatorItemType } from './SidebarNavigation/Item';
 import { AvatarProps } from './Avatar';
 
 export type SidebarProps = {
@@ -13,11 +14,11 @@ export type SidebarProps = {
   className?: string,
   allowCollapseToggling?: boolean,
   isCollapsed?: boolean,
-  topNavigationItems?: SidebarNavigationItemType[],
-  bottomNavigationItems?: SidebarNavigationItemType[],
+  topNavigationItems?: SidebarNavigatorItemType[],
+  bottomNavigationItems?: SidebarNavigatorItemType[],
   navigationGroups?: {
     title: string,
-    items: SidebarNavigationItemType[],
+    items: SidebarNavigatorItemType[],
   }[],
   topRenderer?: ({ isCollapsed }: { isCollapsed: boolean }) => React.ReactNode,
   bottomRenderer?: ({ isCollapsed }: { isCollapsed: boolean }) => React.ReactNode,

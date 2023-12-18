@@ -1,0 +1,51 @@
+import { Meta, Primary, Title, Controls } from '@storybook/blocks';
+import * as TabsStories from "./Tabs.stories";
+
+<Meta
+    title="Components/Display/Tabs"
+    of={TabsStories}
+/>
+
+<Title>Tabs</Title>
+
+**`import { Tabs } from 'chaya-ui';`**
+
+<Primary />
+
+## Props
+
+<Controls />
+
+## Variants
+
+Tabs component comes in two variants: `pill` and `line`. By default, `pill` variant is used, and you can change it
+by passing `variant` prop.
+
+### Pill (default)
+
+<Primary />
+
+### Line
+
+<Primary name="Line Variant" />
+
+## Vertical Layout
+
+Tabs supports both horizontal and vertical layouts. By default, tabs are shown horizontally. You can use `isVertical`
+prop to use vertical layout
+
+<Primary name="Vertical Tabs" />
+
+<Primary name="Vertical Line Variant" />
+
+
+## Responsive Behavior
+
+The `Tabs` component by default comes with responsive view, and collapses into an accordion group when the screen size
+is small.
+
+<Primary name="Responsive Preview Tabs" />
+
+You can also disable this responsive behaviour by passing `disableResponsive` prop as `true`.
+
+<Primary name="Responsive Disabled Preview Tabs" />
