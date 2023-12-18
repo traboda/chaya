@@ -56,3 +56,37 @@ export const Primary: Story = {
   },
   render: (args) => <DefaultDropdownFilterTemplate {...args} children={args.children} />,
 };
+
+
+const AsyncDropdownFilterTemplate = (args: DropdownFilterProps) => {
+
+  const [selections, setSelections] = useState<string[] | null>([]);
+
+  const fetchCompany = async (keyword: string) => {
+    const res = await fetch(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${keyword}`);
+    const data = await res.json();
+    return data.map((d: { name: string, logo: string }) => ({ label: d.name, value: d.name, iconURL: d.logo }));
+  };
+
+  return (
+    <DropdownFilter
+      {...args}
+      selections={selections}
+      setSelections={setSelections}
+      isAsync
+      options={undefined}
+      onFetch={fetchCompany}
+      children={args.children}
+    />
+  );
+
+};
+
+export const Async: Story = {
+  args: {
+    children: <DefaultChildButton />,
+    isAsync: true,
+    onFetch: async () => [],
+  },
+  render: (args) => <AsyncDropdownFilterTemplate {...args} children={args.children} />,
+};

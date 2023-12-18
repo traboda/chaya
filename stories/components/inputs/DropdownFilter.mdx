@@ -1,4 +1,4 @@
-import { Meta, Primary, Title, Controls } from '@storybook/blocks';
+import { Meta, Primary, Title, Controls, Canvas } from '@storybook/blocks';
 import * as DropdownFilterStories from "./DropdownFilter.stories";
 
 <Meta
@@ -15,3 +15,7 @@ import * as DropdownFilterStories from "./DropdownFilter.stories";
 ## Props
 
 <Controls />
+
+## Async Options
+
+<Canvas of={DropdownFilterStories.Async} withToolbar />

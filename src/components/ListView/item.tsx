@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Icon, { IconInputType } from '../Icon';
 import Checkbox from '../Checkbox';
 import { LinkWrapper } from '../../utils/misc';
+import Avatar from '../Avatar';
 
 export type ListViewItem = {
   id: string,
@@ -12,6 +13,7 @@ export type ListViewItem = {
   onClick?: (event: MouseEvent | ChangeEvent) => void,
   href?: string,
   iconRenderer?: React.ReactNode,
+  iconURL?: string,
   icon?: IconInputType,
   isDisabled?: boolean,
 };
@@ -51,6 +53,11 @@ const ListViewItem = ({
             <div className="dsr-w-[24px] dsr-h-[24px]">
               {item?.iconRenderer}
             </div>
+          </div>
+        )}
+        {item?.iconURL && (
+          <div className="dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
+            <Avatar alt={item?.title || item?.id} src={item?.iconURL} size={24} />
           </div>
         )}
         <div>
