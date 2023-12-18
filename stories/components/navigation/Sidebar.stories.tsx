@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import { Sidebar, SidebarProps, SidebarNavigationItemType } from '../../../src';
+import { Sidebar, SidebarProps, VerticalNavigatorItemType } from '../../../src';
 
 const meta: Meta = {
   title: 'Components/Navigation/Sidebar',
@@ -66,7 +66,7 @@ const Template: Story<SidebarProps> = args => {
 
 };
 
-const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
+const TOP_MENU_ITEMS: VerticalNavigatorItemType[] = [
   {
     key: 'DASHBOARD',
     label: 'Dashboard',
@@ -111,7 +111,7 @@ const TOP_MENU_ITEMS: SidebarNavigationItemType[] = [
   },
 ];
 
-const BOTTOM_MENU_ITEMS: SidebarNavigationItemType[] = [
+const BOTTOM_MENU_ITEMS: VerticalNavigatorItemType[] = [
   {
     key: 'Upgrade',
     label: 'Upgrade',
