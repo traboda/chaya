@@ -61,7 +61,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps<string | number>>(
         className={clsx([
           'checkbox-container dsr-inline-flex dsr-items-center dsr-text-left dsr-relative',
           className,
-          isDisabled ? 'dsr-opacity-70' : 'dsr-cursor-pointer',
+          isDisabled ? 'dsr-opacity-80 dsr-cursor-not-allowed' : 'dsr-cursor-pointer',
         ])}
       >
         <input

@@ -8,13 +8,21 @@ import useColors, { ChayaColorType } from '../../hooks/useColors';
 import HorizontalNavigatorItem, { HorizontalNavigatorItemType } from './item';
 
 export type HorizontalNavigatorProps = {
-  items: HorizontalNavigatorItemType[],
-  activeItem?: string | null,
-  variant?: 'pill' | 'line',
-  color?: ChayaColorType,
+  // id of the navigator
   id?: string,
+  // className for the navigator
   className?: string,
+  // className for each item
   itemClassName?: string,
+  // items to be rendered in the navigator
+  items: HorizontalNavigatorItemType[],
+  // key of the active item. If null, no item will be active.
+  activeItem?: string | null,
+  // variant of the navigator. Can be 'pill' or 'line', defaults to 'pill'
+  variant?: 'pill' | 'line',
+  // color of the navigator.
+  color?: ChayaColorType,
+  // callback when an item is clicked. Passes the key and the item as arguments.
   onClickItem?: (key: string, item: HorizontalNavigatorItemType) => void,
 };
 

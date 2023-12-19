@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import DocumentPortal from '../utils/Portal';
 import useColors, { ChayaColorType } from '../hooks/useColors';
 
 import Icon, { IconInputType } from './Icon';
 
 export type BannerProps = {
+  id?: string,
   className?: string,
   variant?: 'full-width' | 'float' | 'card',
   color?: ChayaColorType,
@@ -24,7 +24,7 @@ export type BannerProps = {
 
 
 const Banner = ({
-  className, variant, onClose, position = 'top', text, color = 'primary', icon,
+  id, className, variant, onClose, position = 'top', text, color = 'primary', icon,
   allowDismissal, children, learnMore,
 }: BannerProps) => {
 
@@ -38,6 +38,7 @@ const Banner = ({
       ])}
     >
       <div
+        id={id}
         className={clsx([
           'dsr-p-5 dsr-flex dsr-flex-col dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
           variant !== 'full-width' ? 'dsr-rounded-lg' : '',
@@ -83,6 +84,7 @@ const Banner = ({
       ])}
     >
       <div
+        id={id}
         className={clsx([
           'dsr-w-full dsr-p-5 dsr-flex dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
           variant !== 'full-width' ? 'dsr-rounded-lg dsr-shadow-lg' : '',
@@ -110,17 +112,8 @@ const Banner = ({
     </div>
   );
 
-  const renderer = () => (variant === 'card') ? cardRenderer : bannerRenderer;
+  return (variant === 'card') ? cardRenderer : bannerRenderer;
 
-  return (
-    <div className="dsr-w-full">
-      {position === 'inline' ? (renderer()) : (
-        <DocumentPortal position={position === 'top' ? 'start' : 'end'}>
-          {renderer()}
-        </DocumentPortal>
-      )}
-    </div>
-  );
 };
 
 export default Banner;

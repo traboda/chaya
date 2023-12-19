@@ -18,7 +18,7 @@ const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className 
   return (
     <label
       id={id}
-      className={clsx(['dsr-tracking-wide dsr-opacity-80 dsr-flex dsr-items-center dsr-mb-1', className])}
+      className={clsx(['dsr-tracking-wide dsr-opacity-90 dsr-flex dsr-items-center dsr-mb-1', className])}
       htmlFor={htmlFor}
       aria-hidden={false}
     >

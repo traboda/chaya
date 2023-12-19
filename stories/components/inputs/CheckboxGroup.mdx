@@ -1,0 +1,37 @@
+import {Meta, Primary, Title, Controls, Canvas, Story} from '@storybook/blocks';
+import * as CheckboxGroupStories from "./CheckboxGroup.stories";
+
+<Meta
+    title="Components/Inputs/CheckboxGroup"
+    of={CheckboxGroupStories}
+/>
+
+<Title>CheckboxGroup</Title>
+
+**`import { CheckboxGroup } from 'chaya-ui';`**
+
+<Primary />
+
+## Props
+
+<Controls />
+
+## Alignment
+
+### Vertical (default)
+
+<Primary />
+
+### Horizontal
+
+<Canvas of={CheckboxGroupStories.HorizontalPrimary} withToolbar />
+
+## Disabled
+
+### All Options Disabled
+
+<Canvas of={CheckboxGroupStories.Disabled} withToolbar />
+
+### Single Option Disabled
+
+<Canvas of={CheckboxGroupStories.OptionDisabled} withToolbar />
