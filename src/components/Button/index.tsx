@@ -6,7 +6,10 @@ import { cva } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
-import { badgeColorBorderConfig, badgeColorVariantConfig, Colors } from '../../utils/classes/badge';
+import {
+  colorVariantMapper,
+  BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP, SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
+} from '../../utils/classMaps/colors';
 
 import buttonStyle from './button.module.scss';
 import { ButtonProps } from './type';
@@ -57,16 +60,10 @@ const buttonStyling = cva({
     },
   },
   compoundVariants: [
-    ...badgeColorVariantConfig,
-    ...(Object.keys(badgeColorBorderConfig) as Colors[]).map((color: Colors) => ({
-      color,
-      variant: 'outline',
-      className: badgeColorBorderConfig[color],
-    })) as {
-      color: Colors,
-      variant: 'outline',
-      className: string,
-    }[],
+    ...colorVariantMapper([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
+    ...colorVariantMapper([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
+    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP], 'link'),
   ],
 });
 

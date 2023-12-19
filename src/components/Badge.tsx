@@ -3,7 +3,10 @@ import clsx from 'clsx';
 import { cva } from 'cva';
 
 import { ChayaColorType } from '../hooks/useColors';
-import { badgeColorBorderConfig, badgeColorVariantConfig } from '../utils/classes/badge';
+import {
+  colorVariantMapper,
+  BORDER_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
+} from '../utils/classMaps/colors';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -48,10 +51,15 @@ const badgeStyling = cva({
       solid: '',
       outline: 'dsr-border-2',
       minimal: 'dsr-border-0',
+      link: '', // @todo added for using with colorVariantMapper
     },
-    color: badgeColorBorderConfig,
+    color: BORDER_COLOR_MAP,
   },
-  compoundVariants: badgeColorVariantConfig,
+  compoundVariants: [
+    ...colorVariantMapper([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
+    ...colorVariantMapper([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
+    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+  ],
 });
 
 
