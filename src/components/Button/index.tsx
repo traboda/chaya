@@ -1,31 +1,16 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
+import { cva } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
-import useColors from '../../hooks/useColors';
+import { badgeColorBorderConfig, badgeColorVariantConfig, Colors } from '../../utils/classes/badge';
 
 import buttonStyle from './button.module.scss';
 import { ButtonProps } from './type';
 import Ripple from './Ripple';
-
-const sizeDefinitions = {
-  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-rounded',
-  sm: 'dsr-px-2.5 dsr-py-1 dsr-rounded-md',
-  md: 'dsr-px-3.5 dsr-py-2 dsr-rounded-lg',
-  lg: 'dsr-px-5 dsr-py-3 dsr-rounded-lg',
-  xl: 'dsr-px-6 dsr-py-4 dsr-rounded-lg',
-};
-
-const fontSizeDefinitions = {
-  xs: 'dsr-text-xs',
-  sm: 'dsr-text-sm',
-  md: 'dsr-text-base',
-  lg: 'dsr-text-lg',
-  xl: 'dsr-text-xl',
-};
 
 const iconSizes = {
   xs: 14,
@@ -35,17 +20,55 @@ const iconSizes = {
   xl: 22,
 };
 
-const ringColor = {
-  primary: 'dsr-ring-primary/50',
-  secondary: 'dsr-ring-secondary/50',
-  success: 'dsr-ring-green-600/50',
-  danger: 'dsr-ring-red-500/50',
-  warning: 'dsr-ring-yellow-500/50',
-  contrast: 'dsr-ring-contrast/50',
-  white: 'dsr-ring-white/50',
-  black: 'dsr-ring-black/50',
-  shade: 'dsr-ring-current',
-};
+const buttonStyling = cva({
+  base: [
+    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent dsr-transition',
+    'dsr-outline-0 dsr-inline-flex dsr-items-center dsr-justify-center',
+    'dsr-border dsr-shadow hover:dsr-shadow-none dsr-gap-2',
+    'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
+  ],
+  variants: {
+    size: {
+      xs: 'dsr-gap-1 dsr-px-1.5 dsr-py-0.5 dsr-rounded dsr-text-xs',
+      sm: 'dsr-px-2.5 dsr-py-1 dsr-rounded-md dsr-text-sm',
+      md: 'dsr-px-3.5 dsr-py-2 dsr-rounded-lg dsr-text-base',
+      lg: 'dsr-px-5 dsr-py-3 dsr-rounded-lg dsr-text-lg',
+      xl: 'dsr-px-6 dsr-py-4 dsr-rounded-lg dsr-text-xl',
+    },
+    color: {
+      primary: 'dsr-ring-primary/50',
+      secondary: 'dsr-ring-secondary/50',
+      success: 'dsr-ring-green-600/50',
+      danger: 'dsr-ring-red-500/50',
+      warning: 'dsr-ring-yellow-500/50',
+      contrast: 'dsr-ring-contrast/50',
+      white: 'dsr-ring-white/50',
+      black: 'dsr-ring-black/50',
+      shade: 'dsr-ring-current',
+    },
+    variant: {
+      solid: '',
+      outline: 'dsr-border-2',
+      minimal: '',
+      link: [
+        'hover:dsr-underline',
+        'dsr-p-0 dsr-shadow-none dsr-rounded-none dsr-ring-transparent focus:dsr-ring-0',
+      ],
+    },
+  },
+  compoundVariants: [
+    ...badgeColorVariantConfig,
+    ...(Object.keys(badgeColorBorderConfig) as Colors[]).map((color: Colors) => ({
+      color,
+      variant: 'outline',
+      className: badgeColorBorderConfig[color],
+    })) as {
+      color: Colors,
+      variant: 'outline',
+      className: string,
+    }[],
+  ],
+});
 
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
@@ -53,9 +76,6 @@ const Button = ({
   id, className = '', style, label, disableRipple = false, tabIndex, autoFocus,
   target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false,
 }: ButtonProps) => {
-  const [hover, setHover] = useState(false);
-
-  const { activeColor, backgroundColor, textColor, hoverColor } = useColors(variant, color, hover);
 
   const buttonContent = (
     <>
@@ -67,27 +87,11 @@ const Button = ({
   );
 
   const computedClassName = clsx([
-    variant !== 'link' && sizeDefinitions[size],
-    fontSizeDefinitions[size],
-    variant !== 'link' && ringColor[color],
-    variant !== 'link' && 'dsr-shadow hover:dsr-shadow-none',
-    variant === 'outline' ? 'dsr-border-2' : 'dsr-border',
+    buttonStyling({ variant, size, color }),
     buttonStyle.button,
-    variant === 'link' ? 'hover:dsr-underline' : '',
-    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent',
-    'dsr-outline-0 dsr-transition dsr-inline-flex dsr-items-center dsr-justify-center',
-    variant !== 'link' && 'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
-    size === 'xs' ? 'dsr-gap-1' : 'dsr-gap-2',
     (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,
   ]);
-
-  const computedStyle = {
-    background: hover ? hoverColor : variant === 'minimal' ? color === 'white' ? '#F9F9F9' : color === 'black' ? '#444' : backgroundColor : backgroundColor,
-    color: variant === 'minimal' ? color === 'white' ? '#333' : color === 'black' ? '#EEE' : textColor : textColor,
-    borderColor: variant === 'outline' ? activeColor : 'none',
-    ...style,
-  };
 
   const buttonRenderer = () => (
     <button
@@ -103,9 +107,7 @@ const Button = ({
       }}
       disabled={isDisabled || isLoading}
       className={computedClassName}
-      style={computedStyle}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      style={style}
     >
       {isLoading ? <Spinner size={size} /> : buttonContent}
     </button>
@@ -114,9 +116,7 @@ const Button = ({
   return link ? LinkWrapper(link, buttonContent, {
     target, rel, id, label, size,
     className: computedClassName,
-    style: computedStyle,
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => setHover(false),
+    style,
     isDisabled: isDisabled || isLoading,
     isLoading,
     tabIndex,

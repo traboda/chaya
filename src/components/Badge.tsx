@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+import { cva } from 'cva';
 
-import useColors, { ChayaColorType } from '../hooks/useColors';
+import { ChayaColorType } from '../hooks/useColors';
+import { badgeColorBorderConfig, badgeColorVariantConfig } from '../utils/classes/badge';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -21,14 +23,6 @@ export type BadgeProps = BaseBadgeProps & {
   children: React.ReactNode,
 };
 
-const sizeDefinitions = {
-  xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs',
-  sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
-  md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
-  lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
-  xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
-} as const;
-
 const iconSizes = {
   xs: [12, 'dsr-mr-1', 'dsr-ml-1'],
   sm: [14, 'dsr-mr-1', 'dsr-ml-1'],
@@ -37,34 +31,46 @@ const iconSizes = {
   xl: [20, 'dsr-mr-2', 'dsr-ml-2'],
 } as const;
 
+const badgeStyling = cva({
+  base: [
+    'badge dsr-relative dsr-transition dsr-overflow-hidden dsr-border',
+    'dsr-inline-flex  dsr-items-center dsr-justify-center dsr-text-center',
+  ],
+  variants: {
+    size: {
+      xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs',
+      sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
+      md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
+      lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
+      xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
+    },
+    variant: {
+      solid: '',
+      outline: 'dsr-border-2',
+      minimal: 'dsr-border-0',
+    },
+    color: badgeColorBorderConfig,
+  },
+  compoundVariants: badgeColorVariantConfig,
+});
+
+
 const Badge = ({
   children, variant = 'minimal', color = 'primary', size = 'sm',
   id, className = '', style, circular = false, leftIcon, rightIcon,
 }: BadgeProps) => {
 
-  const { activeColor, backgroundColor, textColor } = useColors(variant, color);
-
   const computedClassName = clsx([
     className,
-    sizeDefinitions[size],
-    'badge dsr-inline-flex dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent',
-    'dsr-transition dsr-items-center dsr-justify-center',
-    variant === 'outline' ? 'dsr-border-2' : 'dsr-border',
+    badgeStyling({ variant, size, color }),
     circular ? 'dsr-rounded-full' : 'dsr-rounded',
   ]);
-
-  const computedStyle = {
-    background: backgroundColor,
-    color: textColor,
-    borderColor: variant === 'outline' ? activeColor : 'none',
-    ...style,
-  };
 
   return (
     <span
       id={id}
       className={computedClassName}
-      style={computedStyle}
+      style={style}
     >
       {leftIcon && <Icon className={iconSizes[size][1]} icon={leftIcon} size={iconSizes[size][0]} />}
       {children}

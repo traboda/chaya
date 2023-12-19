@@ -72,6 +72,12 @@ export const OutlineVariant: Story = {
   render: () => <ButtonVariants variant="outline" />,
 };
 
+export const LinkVariant: Story = {
+  storyName: 'Link Button Variant',
+  tags: ['unlisted'],
+  render: () => <ButtonVariants variant="link" />,
+};
+
 
 const ButtonSizesShowcase = ({ variant }: { variant: ButtonProps['variant'] }) => (
   <div
@@ -104,6 +110,7 @@ export const ButtonSizes: Story = {
       <ButtonSizesShowcase variant="solid" />
       <ButtonSizesShowcase variant="minimal" />
       <ButtonSizesShowcase variant="outline" />
+      <ButtonSizesShowcase variant="link" />
     </div>
   ),
 };
