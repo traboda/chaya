@@ -209,7 +209,8 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
-        'dsr-z-[1000] dsr-rounded-lg',
+        variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
+        'dsr-z-[1000]',
         activeItem === item.key ? clsx([
           'active',
           variant === 'pill' && 'hover:dsr-bg-neutral-900/30',

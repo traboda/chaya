@@ -1,7 +1,6 @@
+export type ChayaColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade' | 'white' | 'black';
+type ColorClassMap = { [color in ChayaColorType]: string };
 
-type VariantTypes = 'solid' | 'outline' | 'minimal' | 'link';
-export type Colors = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade' | 'white' | 'black';
-type ColorClassMap = { [color in Colors]: string };
 
 export const SOLID_BG_COLOR_MAP: ColorClassMap = {
   primary: 'dsr-bg-primary',
@@ -70,13 +69,13 @@ export const BORDER_COLOR_MAP: ColorClassMap = {
   black: 'dsr-border-black',
 };
 
-export const colorVariantMapper = (maps: ColorClassMap[], variant: Partial<VariantTypes>) => {
+export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], variant: Type) => {
   return maps.map((map) => {
     return Object.keys(map).map((color) => {
       return {
-        variant,
-        color: color as Colors,
-        className: map[color as Colors],
+        variant: variant as Type,
+        color: color as ChayaColorType,
+        className: map[color as ChayaColorType],
       };
     });
   }).flat();

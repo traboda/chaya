@@ -68,7 +68,7 @@ const HorizontalNavigator = ({
   const underlineRenderer = (
     <div
       className={clsx([
-        'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
+        'horizontal-navigator-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
         'dsr-border-2 dsr-rounded-lg dsr-left-0',
         'dsr-bottom-0 dsr-w-full',
       ])}
@@ -84,7 +84,7 @@ const HorizontalNavigator = ({
   const highlightRenderer = (
     <div
       className={clsx([
-        'tab-highlight dsr-transition-all dsr-ease-in-out dsr-shadow-lg dsr-rounded-lg',
+        'horizontal-navigator-highlight dsr-transition-all dsr-ease-in-out dsr-shadow-lg dsr-rounded-lg',
         'dsr-absolute dsr-top-0 dsr-left-0 dsr-z-[500]',
       ])}
       style={{

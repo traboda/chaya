@@ -2,18 +2,21 @@ import React from 'react';
 import clsx from 'clsx';
 import { cva } from 'cva';
 
-import { ChayaColorType } from '../hooks/useColors';
 import {
-  colorVariantMapper,
-  BORDER_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
+  colorVariantMapper, ChayaColorType,
+  BORDER_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_BG_COLOR_MAP,
+  SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
 } from '../utils/classMaps/colors';
 
 import Icon, { IconInputType } from './Icon';
 
+export type BadgeVariantsType = 'solid' | 'outline' | 'minimal';
+export type BadgeSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export type BaseBadgeProps = {
-  variant?: 'solid' | 'outline' | 'minimal',
+  variant?: BadgeVariantsType,
   color?: ChayaColorType,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  size?: BadgeSizesType,
   style?: React.CSSProperties,
   className?: string,
   circular?: boolean,
@@ -56,9 +59,9 @@ const badgeStyling = cva({
     color: BORDER_COLOR_MAP,
   },
   compoundVariants: [
-    ...colorVariantMapper([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
-    ...colorVariantMapper([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
-    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+    ...colorVariantMapper<BadgeVariantsType>([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
+    ...colorVariantMapper<BadgeVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
+    ...colorVariantMapper<BadgeVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
   ],
 });
 

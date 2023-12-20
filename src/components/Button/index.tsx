@@ -8,11 +8,12 @@ import Icon from '../Icon';
 import Spinner from '../Spinner';
 import {
   colorVariantMapper,
-  BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP, SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
+  BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
+  SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
 } from '../../utils/classMaps/colors';
 
 import buttonStyle from './button.module.scss';
-import { ButtonProps } from './type';
+import { ButtonProps, ButtonVariantsType } from './type';
 import Ripple from './Ripple';
 
 const iconSizes = {
@@ -60,10 +61,10 @@ const buttonStyling = cva({
     },
   },
   compoundVariants: [
-    ...colorVariantMapper([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
-    ...colorVariantMapper([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
-    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
-    ...colorVariantMapper([TRANSPARENT_BG_TEXT_COLOR_MAP], 'link'),
+    ...colorVariantMapper<ButtonVariantsType>([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
+    ...colorVariantMapper<ButtonVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
+    ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+    ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP], 'link'),
   ],
 });
 

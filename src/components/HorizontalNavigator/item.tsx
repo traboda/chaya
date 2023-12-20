@@ -2,10 +2,11 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import useColors, { ChayaColorType } from '../../hooks/useColors';
+import { cva } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
+import { colorVariantMapper, ChayaColorType, MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP } from '../../utils/classMaps/colors';
 
 export type HorizontalNavigatorItemType = {
   key: string,
@@ -21,10 +22,12 @@ export type HorizontalNavigatorItemType = {
   badgeProps?: BaseBadgeProps,
 };
 
+export type HorizontalNavigatorVariantType = 'pill' | 'line';
+
 export type HorizontalNavigatorItemProps = {
   item: HorizontalNavigatorItemType,
   navigatorID: string,
-  variant?: 'pill' | 'line',
+  variant?: HorizontalNavigatorVariantType,
   color?: ChayaColorType,
   activeItem?: string | null,
   badgeProps?: BaseBadgeProps,
@@ -36,31 +39,56 @@ const HorizontalNavigatorItem = ({
   item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {}, color = 'primary',
 }: HorizontalNavigatorItemProps) => {
 
-  const menuButtonClassName = clsx([className, item.className]);
 
-  const { backgroundColor } = useColors('minimal', color);
+  const liClassNames = cva({
+    base: [
+      'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
+      'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-no-underline',
+      item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
+      activeItem === item.key && 'active dsr-font-semibold',
+    ],
+    variants: {
+      color: {
+        primary: '',
+        secondary: '',
+        success: '',
+        warning: '',
+        danger: '',
+        shade: '',
+        contrast: '',
+        white: '',
+        black: '',
+      },
+      variant: {
+        pill: [
+          'border border-neutral-300/20 ',
+          activeItem === item.key && 'dsr-text-primaryTextColor',
+          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80',
+        ],
+        line: [
+          'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-border-0 dsr-mb-2',
+          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-400/20',
+        ],
+      },
+    },
+    compoundVariants: [
+      ...(activeItem === item.key ? colorVariantMapper<HorizontalNavigatorVariantType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'line') : []),
+      {
+        variant: 'pill',
+        color: 'white',
+        class: activeItem === item.key ? 'dsr-text-neutral-900 dsr-bg-neutral-50/80 dark:dsr-bg-neutral-800/80' : '',
+      },
+    ],
+  });
 
-  const pillVariantClassName = (key: string) => clsx([
-    'border border-neutral-300/20 dsr-px-5 dsr-py-2',
-    item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
-    activeItem === key ? 'active dsr-font-semibold dsr-text-primaryTextColor' : !item?.isDisabled ? 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80' : null,
-  ]);
-
-  const lineVariantClassName = (key: string) => clsx([
-    'dsr-border-0 dsr-py-1 dsr-mb-2',
-    item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
-    activeItem === key ? 'active dsr-font-semibold' : !item?.isDisabled ? 'hover:dsr-bg-neutral-400/20' : null,
-    'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-py-0.5 dsr-px-3',
-  ]);
-
-  const menuButtonClassNameGenerator = (key: string) => clsx([
-    'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
-    'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-no-underline',
-    menuButtonClassName,
-    color === 'white' && variant === 'pill' ? 'dsr-text-neutral-900' : 'dsr-text-color',
-    variant === 'pill' ? pillVariantClassName(key) : lineVariantClassName(key),
-  ]);
-
+  const buttonClassNames = cva({
+    variants: {
+      variant: {
+        pill: 'dsr-px-5 dsr-py-2',
+        line: 'dsr-py-1 dsr-px-3',
+      },
+    },
+  });
 
   const renderOption = (item: HorizontalNavigatorItemType) => (
     <div
@@ -92,10 +120,7 @@ const HorizontalNavigatorItem = ({
       onClick={() =>
         item?.onClick && typeof item.onClick === 'function' ? item.onClick() : onClickItem(item.key, item)
       }
-      style={{
-        background: (variant === 'line' && item.key === activeItem) ? backgroundColor : undefined,
-      }}
-      className={menuButtonClassNameGenerator(item.key)}
+      className={buttonClassNames({ variant })}
       role="tab"
       id={`${navigatorID}-${item.key}-tab`}
       data-toggle="tab"
@@ -112,13 +137,15 @@ const HorizontalNavigatorItem = ({
     <li
       key={item?.key ? `tab_selector_${item?.key}` : nanoid()}
       role="presentation"
+      className={clsx([
+        color === 'white' && variant === 'pill' ? 'dsr-text-neutral-900' : 'dsr-text-color',
+        liClassNames({ color, variant }),
+        className, item.className,
+      ])}
     >
       {item.link ? LinkWrapper(!item.isDisabled ? item.link : '', renderOption(item), {
-        className: menuButtonClassNameGenerator(item.key),
         id: `${navigatorID}-${item.key}-tab`,
-        style: {
-          background: variant === 'line' && item.key === activeItem ? backgroundColor : undefined,
-        },
+        className: buttonClassNames({ variant }),
       }) : renderButton(item)}
     </li>
   );

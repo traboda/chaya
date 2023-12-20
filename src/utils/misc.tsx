@@ -2,7 +2,7 @@ import React from 'react';
 
 import DSRContext from '../contexts/DSRContext';
 import Spinner from '../components/Spinner';
-import { ButtonSize } from '../components/Button/type';
+import { ButtonSizesType } from '../components/Button/type';
  
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');
 export type LinkRelType = (
@@ -26,7 +26,7 @@ export type LinkOptions = {
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void,
   isDisabled?: boolean,
   isLoading?: boolean,
-  size?: ButtonSize
+  size?: ButtonSizesType
 };
 
 export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (

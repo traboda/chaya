@@ -2,14 +2,15 @@ import { CSSProperties, ReactNode, MouseEvent } from 'react';
 
 import { LinkRelType, LinkTargetType } from '../../utils/misc';
 import { IconInputType } from '../Icon';
-import { ChayaColorType, ChayaVariantType } from '../../hooks/useColors';
+import { ChayaColorType } from '../../utils/classMaps/colors';
 
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonVariantsType = 'solid' | 'outline' | 'minimal' | 'link';
 
 export type ButtonProps = {
-  variant?: ChayaVariantType,
+  variant?: ButtonVariantsType,
   color?: ChayaColorType,
-  size?: ButtonSize,
+  size?: ButtonSizesType,
   children?: ReactNode,
   id?: string,
   className?: string,
