@@ -11,67 +11,85 @@ const { cva, cx, compose } = defineConfig({
   },
 });
 
-const recurCVA = (variants: any, nest: any, cleaned: any, computed: any) => {
-  if (typeof variants === 'string' || Array.isArray(variants)) return;
+// Define the Variants type
+type Variants = {
+  [key: string]: string | string[] | Variants;
+};
 
-  Object.keys(variants).forEach((variant) => {
-    if (typeof variants[variant] === 'string' || Array.isArray(variants[variant])) return;
+// Recursive function to handle compound variants
+const recurCVA = (
+  variants: Variants,
+  nest: string[] = [],
+  cleaned: Variants = {},
+  computed: Variants[] = [],
+): void => {
+  if (typeof variants !== 'object' || Array.isArray(variants)) return;
+
+  Object.entries(variants).forEach(([variant, value]) => {
+    if (typeof value !== 'object' || Array.isArray(value)) return;
 
     nest.push(variant);
 
-    Object.keys(variants[variant]).forEach((prop) => {
+    Object.entries(value).forEach(([prop, propValue]) => {
       if (prop === '__default') return;
 
       nest.push(prop);
-      
-      if (typeof variants[variant][prop] === 'string' || Array.isArray(variants[variant][prop])) {
-        const temp: any = {};
-        for (let i = 0; i < nest.length; i += 2) temp[nest[i]] = nest[i + 1];
+
+      if (typeof propValue !== 'object' || Array.isArray(propValue)) {
         computed.push({
-          ...temp,
-          className: variants[variant][prop],
+          ...nest.reduce((acc, _, i, arr) => {
+            if (i % 2 === 0) acc[arr[i]] = arr[i + 1];
+            return acc;
+          }, {} as Variants),
+          className: propValue,
         });
         nest.pop();
       }
 
-      recurCVA(variants[variant][prop], nest, cleaned, computed);
+      recurCVA(propValue as Variants, nest, cleaned, computed);
     });
 
     nest.pop();
   });
 };
 
+// Main function to handle variants and compound variants
 const rcva = (input: any): any => {
   const { variants } = input;
-  const cleaned: any = {}, computed: any = [];
-  
-  Object.keys(variants).forEach((variant) => {
-    Object.keys(variants[variant]).forEach((prop) => {
-      if (typeof variants[variant][prop] === 'string' || Array.isArray(variants[variant][prop])) {
-        cleaned[variant] = {
-          ...cleaned[variant],
-          [prop]: variants[variant][prop],
-        };
-      } else {
-        if (variants[variant][prop].__default) {
-          cleaned[variant] = {
-            ...cleaned[variant],
-            [prop]: variants[variant][prop].__default,
-          };
-        }
+  const cleaned: Variants = {}, computed: Variants[] = [];
 
-        recurCVA(variants[variant][prop], [variant, prop], cleaned, computed);
+  if (variants) {
+    Object.entries(variants).forEach(([variant, value]) => {
+      if (value) {
+        Object.entries(value).forEach(([prop, propValue]) => {
+          if (typeof propValue !== 'object' || Array.isArray(propValue)) {
+            cleaned[variant] = {
+              ...(cleaned[variant] as Variants),
+              [prop]: propValue,
+            };
+          } else {
+            if ((propValue as Variants).__default) {
+              cleaned[variant] = {
+                ...(cleaned[variant] as Variants),
+                [prop]: (propValue as Variants).__default,
+              };
+            }
+  
+            recurCVA(propValue as Variants, [variant, prop], cleaned, computed);
+          }
+        });
       }
     });
-  });
+  }
 
   input.variants = cleaned;
-  input.compoundVariants = [ 
+  input.compoundVariants = [
     ...(input.compoundVariants ?? []),
     ...computed,
   ];
 
   return cva(input);
 };
+
 
 export { rcva, cva, cx, compose };

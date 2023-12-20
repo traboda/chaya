@@ -55,10 +55,10 @@ const buttonStyling = rcva({
       },
       outline: {
         __default: 'dsr-border-2',
-        color: colorMerger(MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP),
+        color: colorMerger(TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP),
       },
       minimal: {
-        color: colorMerger(TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP),
+        color: colorMerger(MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP),
       },
       link: {
         __default: [
