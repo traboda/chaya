@@ -12,7 +12,40 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/addon-postcss",
+    {
+      name: '@storybook/addon-styling-webpack',
+      options: {
+        rules: [
+          {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader'],
+          },
+          {
+            test: /\.s[ac]ss$/i,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    ident: 'postcss',
+                    plugins: [
+                      require('tailwindcss'),
+                      require('autoprefixer'),
+                    ],
+                  },
+                },
+              },
+              {
+                loader: 'sass-loader',
+                options: { implementation: require.resolve('sass') }
+              },
+            ],
+          },
+        ]
+      }
+    },
     '@storybook/addon-a11y',
     "@storybook/addon-viewport",
     "@storybook/theming",
@@ -25,16 +58,6 @@ module.exports = {
     options: {}
   },
   "staticDirs": ['./public'],
-  "webpackFinal": async (config, {
-    configType
-  }) => {
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../src/')
-    });
-    return config;
-  },
   docs: {
     autodocs: 'tag',
     defaultName: 'Docs',
