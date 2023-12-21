@@ -1,19 +1,18 @@
 'use client';
-import React from 'react';
-import clsx from 'clsx';
 
-import { cva } from '../../utils/cva';
+import React from 'react';
+
+import { rcva, cx } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 import {
-  colorVariantMapper,
+  colorMerger,
   BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
   SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
 } from '../../utils/classMaps/colors';
 
-import buttonStyle from './button.module.scss';
-import { ButtonProps, ButtonVariantsType } from './type';
+import { ButtonProps } from './type';
 import Ripple from './Ripple';
 
 const iconSizes = {
@@ -24,7 +23,7 @@ const iconSizes = {
   xl: 22,
 };
 
-const buttonStyling = cva({
+const buttonStyling = rcva({
   base: [
     'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent dsr-transition',
     'dsr-outline-0 dsr-inline-flex dsr-items-center dsr-justify-center',
@@ -51,21 +50,25 @@ const buttonStyling = cva({
       shade: 'dsr-ring-current',
     },
     variant: {
-      solid: '',
-      outline: 'dsr-border-2',
-      minimal: '',
-      link: [
-        'hover:dsr-underline',
-        'dsr-p-0 dsr-shadow-none dsr-rounded-none dsr-ring-transparent focus:dsr-ring-0',
-      ],
+      solid: {
+        color: colorMerger(SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP),
+      },
+      outline: {
+        __default: 'dsr-border-2',
+        color: colorMerger(TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP),
+      },
+      minimal: {
+        color: colorMerger(MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP),
+      },
+      link: {
+        __default: [
+          'hover:dsr-underline',
+          'dsr-p-0 dsr-shadow-none dsr-rounded-none dsr-ring-transparent focus:dsr-ring-0',
+        ],
+        color: TRANSPARENT_BG_TEXT_COLOR_MAP,
+      },
     },
   },
-  compoundVariants: [
-    ...colorVariantMapper<ButtonVariantsType>([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
-    ...colorVariantMapper<ButtonVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
-    ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
-    ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP], 'link'),
-  ],
 });
 
 const Button = ({
@@ -84,9 +87,8 @@ const Button = ({
     </>
   );
 
-  const computedClassName = clsx([
+  const computedClassName = cx([
     buttonStyling({ variant, size, color }),
-    buttonStyle.button,
     (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
     className,
   ]);

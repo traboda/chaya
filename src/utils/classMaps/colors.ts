@@ -70,7 +70,7 @@ export const BORDER_COLOR_MAP: ColorClassMap = {
 };
 
 export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], variant: Type) => {
-  return maps.map((map) => {
+  return maps.flatMap((map) => {
     return Object.keys(map).map((color) => {
       return {
         variant: variant as Type,
@@ -78,5 +78,20 @@ export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], v
         className: map[color as ChayaColorType],
       };
     });
-  }).flat();
+  });
 };
+
+export const colorMerger = (...props: ColorClassMap[]) => {
+  const merged: ColorClassMap = {} as ColorClassMap;
+  props.forEach((prop) => {
+    Object.keys(prop).forEach((key: string) => {
+      if (merged[key as ChayaColorType]) {
+        merged[key as ChayaColorType] = `${merged[key as ChayaColorType].trim()} ${prop[key as ChayaColorType].trim()}`;
+      } else {
+        merged[key as ChayaColorType] = prop[key as ChayaColorType].trim();
+      }
+    });
+  });
+  return merged;
+};
+
