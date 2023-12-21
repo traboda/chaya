@@ -1,4 +1,4 @@
-import { defineConfig } from 'cva';
+import { defineConfig, CVA } from 'cva';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const merge = extendTailwindMerge({
@@ -53,29 +53,60 @@ const recurCVA = (
   });
 };
 
+type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
+
+type ClassValue = ClassArray | ClassDictionary | string | number | null | boolean | undefined;
+type ClassDictionary = Record<string, any>;
+type ClassArray = ClassValue[];
+type CVAConfigBase = {
+  base?: ClassValue;
+};
+type CVAVariantShape = Record<string, Record<string, ClassValue>>;
+type CVAVariantSchema<V extends CVAVariantShape> = {
+  [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | undefined;
+};
+type CVAClassProp = {
+  class?: ClassValue;
+  className?: never;
+} | {
+  class?: never;
+  className?: ClassValue;
+};
+
 // Main function to handle variants and compound variants
-const rcva = (input: any): any => {
+const rcva: CVA = <V>(input: V extends CVAVariantShape ? CVAConfigBase & {
+  variants?: V;
+  compoundVariants?: (V extends CVAVariantShape ? (CVAVariantSchema<V> | {
+    [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | StringToBoolean<keyof V[Variant]>[] | undefined;
+  }) & CVAClassProp : CVAClassProp)[];
+  defaultVariants?: CVAVariantSchema<V>;
+} : CVAConfigBase & {
+  variants?: never;
+  compoundVariants?: never;
+  defaultVariants?: never;
+}) => {
   const { variants } = input;
-  const cleaned: Variants = {}, computed: Variants[] = [];
+  const cleaned: typeof input.variants = {} as typeof input.variants, 
+    computed: typeof input.compoundVariants = [];
 
   if (variants) {
     Object.entries(variants).forEach(([variant, value]) => {
       if (value) {
         Object.entries(value).forEach(([prop, propValue]) => {
-          if (typeof propValue !== 'object' || Array.isArray(propValue)) {
-            cleaned[variant] = {
-              ...(cleaned[variant] as Variants),
+          if (cleaned && (typeof propValue !== 'object' || Array.isArray(propValue))) {
+            (cleaned[variant] as { [x: string]: any[] | ClassValue; }) = {
+              ...cleaned[variant],
               [prop]: propValue,
             };
           } else {
-            if ((propValue as Variants).__default) {
-              cleaned[variant] = {
+            if (cleaned && (propValue as Variants).__default) {
+              (cleaned[variant] as { [x: string]: any[] | ClassValue; }) = {
                 ...(cleaned[variant] as Variants),
                 [prop]: (propValue as Variants).__default,
               };
             }
-  
-            recurCVA(propValue as Variants, [variant, prop], cleaned, computed);
+
+            recurCVA(propValue as Variants, [variant, prop], cleaned as Variants, computed as Variants[]);
           }
         });
       }
