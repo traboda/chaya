@@ -6,7 +6,10 @@ import { cva } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
-import { colorVariantMapper, ChayaColorType, MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP } from '../../utils/classMaps/colors';
+import {
+  colorVariantMapper, ChayaColorType,
+  MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
+} from '../../utils/classMaps/colors';
 
 export type HorizontalNavigatorItemType = {
   key: string,
@@ -35,6 +38,15 @@ export type HorizontalNavigatorItemProps = {
   onClickItem?: (key: string, item: HorizontalNavigatorItemType) => void,
 };
 
+const buttonClassNames = cva({
+  variants: {
+    variant: {
+      pill: 'dsr-px-5 dsr-py-2',
+      line: 'dsr-py-1 dsr-px-3',
+    },
+  },
+});
+
 const HorizontalNavigatorItem = ({
   item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {}, color = 'primary',
 }: HorizontalNavigatorItemProps) => {
@@ -42,28 +54,18 @@ const HorizontalNavigatorItem = ({
 
   const liClassNames = cva({
     base: [
-      'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition',
+      'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition dsr-text-color',
       'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-no-underline',
       item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
       activeItem === item.key && 'active dsr-font-semibold',
     ],
     variants: {
-      color: {
-        primary: '',
-        secondary: '',
-        success: '',
-        warning: '',
-        danger: '',
-        shade: '',
-        contrast: '',
-        white: '',
-        black: '',
-      },
+      color: EMPTY_COLOR_MAP,
       variant: {
         pill: [
           'border border-neutral-300/20 ',
           activeItem === item.key && 'dsr-text-primaryTextColor',
-          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-800/80',
+          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-500/80',
         ],
         line: [
           'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-border-0 dsr-mb-2',
@@ -74,20 +76,19 @@ const HorizontalNavigatorItem = ({
     compoundVariants: [
       ...(activeItem === item.key ? colorVariantMapper<HorizontalNavigatorVariantType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'line') : []),
       {
-        variant: 'pill',
-        color: 'white',
-        class: activeItem === item.key ? 'dsr-text-neutral-900 dsr-bg-neutral-50/80 dark:dsr-bg-neutral-800/80' : '',
+        variant: 'pill', color: 'white',
+        className: [
+          'dark:dsr-text-neutral-100',
+          activeItem === item.key && 'dsr-text-neutral-900 dsr-bg-neutral-50/80 dark:dsr-bg-neutral-100/80 dark:dsr-text-neutral-900',
+        ],
+      },
+      {
+        variant: 'pill', color: 'contrast',
+        className: [
+          activeItem === item.key && 'dsr-text-neutral-100 dark:dsr-text-neutral-900',
+        ],
       },
     ],
-  });
-
-  const buttonClassNames = cva({
-    variants: {
-      variant: {
-        pill: 'dsr-px-5 dsr-py-2',
-        line: 'dsr-py-1 dsr-px-3',
-      },
-    },
   });
 
   const renderOption = (item: HorizontalNavigatorItemType) => (
@@ -138,7 +139,6 @@ const HorizontalNavigatorItem = ({
       key={item?.key ? `tab_selector_${item?.key}` : nanoid()}
       role="presentation"
       className={clsx([
-        color === 'white' && variant === 'pill' ? 'dsr-text-neutral-900' : 'dsr-text-color',
         liClassNames({ color, variant }),
         className, item.className,
       ])}

@@ -3,9 +3,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import useColors, { ChayaColorType } from '../../hooks/useColors';
+import { cva } from '../../utils/cva';
+import {
+  colorVariantMapper, ChayaColorType, EMPTY_COLOR_MAP, BORDER_COLOR_MAP, SOLID_BG_COLOR_MAP,
+} from '../../utils/classMaps/colors';
 
-import HorizontalNavigatorItem, { HorizontalNavigatorItemType } from './item';
+import HorizontalNavigatorItem, { HorizontalNavigatorItemType, HorizontalNavigatorVariantType } from './item';
 
 export type HorizontalNavigatorProps = {
   // id of the navigator
@@ -19,12 +22,30 @@ export type HorizontalNavigatorProps = {
   // key of the active item. If null, no item will be active.
   activeItem?: string | null,
   // variant of the navigator. Can be 'pill' or 'line', defaults to 'pill'
-  variant?: 'pill' | 'line',
+  variant?: HorizontalNavigatorVariantType,
   // color of the navigator.
   color?: ChayaColorType,
   // callback when an item is clicked. Passes the key and the item as arguments.
   onClickItem?: (key: string, item: HorizontalNavigatorItemType) => void,
 };
+
+const activeMarkerClassName = cva({
+  base: [
+    'dsr-absolute dsr-left-0 dsr-rounded-lg',
+    'dsr-transition-all dsr-ease-in-out',
+  ],
+  variants: {
+    variant: {
+      line: 'horizontal-navigator-underline dsr-border-2 dsr-w-full dsr-bottom-0',
+      pill: 'horizontal-navigator-pill dsr-shadow-lg dsr-z-[500] dsr-top-0',
+    },
+    color: EMPTY_COLOR_MAP,
+  },
+  compoundVariants: [
+    ...colorVariantMapper<HorizontalNavigatorVariantType>([BORDER_COLOR_MAP], 'line'),
+    ...colorVariantMapper<HorizontalNavigatorVariantType>([SOLID_BG_COLOR_MAP], 'pill'),
+  ],
+});
 
 const HorizontalNavigator = ({
   id, items, variant = 'pill', color = 'primary',
@@ -33,8 +54,6 @@ const HorizontalNavigator = ({
 
   const navigatorID = useMemo(() => id || `horizontal-navigator-${nanoid()}`, [id]);
   const tabRef = useRef<HTMLUListElement>(null);
-
-  const { backgroundColor } = useColors('solid', color);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
     width: number | null,
@@ -64,37 +83,6 @@ const HorizontalNavigator = ({
       updateIndicator();
     }
   }, [activeItem]);
-  
-  const underlineRenderer = (
-    <div
-      className={clsx([
-        'horizontal-navigator-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
-        'dsr-border-2 dsr-rounded-lg dsr-left-0',
-        'dsr-bottom-0 dsr-w-full',
-      ])}
-      style={{
-        transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
-        width: indicatorStyle?.width || 0,
-        height: indicatorStyle?.height || 0,
-        borderColor: backgroundColor,
-      }}
-    />
-  );
-
-  const highlightRenderer = (
-    <div
-      className={clsx([
-        'horizontal-navigator-highlight dsr-transition-all dsr-ease-in-out dsr-shadow-lg dsr-rounded-lg',
-        'dsr-absolute dsr-top-0 dsr-left-0 dsr-z-[500]',
-      ])}
-      style={{
-        transform: `translateY(${indicatorStyle?.translateY}px) translateX(${indicatorStyle?.translateX}px)`,
-        width: indicatorStyle?.width || 0,
-        height: indicatorStyle?.height || 0,
-        backgroundColor,
-      }}
-    />
-  );
 
   return (
     <div
@@ -129,7 +117,14 @@ const HorizontalNavigator = ({
           />
         ))}
       </ul>
-      {variant === 'line' ? underlineRenderer : highlightRenderer}
+      <div
+        className={activeMarkerClassName({ variant: variant, color: color })}
+        style={{
+          transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
+          width: indicatorStyle?.width || 0,
+          height: indicatorStyle?.height || 0,
+        }}
+      />
     </div>
   );
 

@@ -1,6 +1,18 @@
 export type ChayaColorType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'contrast' | 'shade' | 'white' | 'black';
 type ColorClassMap = { [color in ChayaColorType]: string };
 
+export const EMPTY_COLOR_MAP: ColorClassMap = {
+  primary: '',
+  secondary: '',
+  success: '',
+  danger: '',
+  warning: '',
+  contrast: '',
+  shade: '',
+  white: '',
+  black: '',
+};
+
 
 export const SOLID_BG_COLOR_MAP: ColorClassMap = {
   primary: 'dsr-bg-primary',
@@ -69,14 +81,18 @@ export const BORDER_COLOR_MAP: ColorClassMap = {
   black: 'dsr-border-black',
 };
 
-export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], variant: Type) => {
+export const colorMapper = <Type extends { [key: string]: string }>(maps: ColorClassMap[], object: Type) => {
   return maps.map((map) => {
     return Object.keys(map).map((color) => {
       return {
-        variant: variant as Type,
         color: color as ChayaColorType,
         className: map[color as ChayaColorType],
+        ...object,
       };
     });
   }).flat();
+};
+
+export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], variant: Type) => {
+  return colorMapper(maps, { variant });
 };

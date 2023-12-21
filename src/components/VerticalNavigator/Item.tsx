@@ -6,7 +6,11 @@ import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
 import ChevronUp from '../../utils/icons/chevron-up';
-import useColors, { ChayaColorType } from '../../hooks/useColors';
+import { cva } from '../../utils/cva';
+import {
+  ChayaColorType, colorMapper,
+  EMPTY_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP,
+} from '../../utils/classMaps/colors';
 
 export type VerticalNavigatorItemBaseType = {
   key: string,
@@ -25,6 +29,8 @@ export type VerticalNavigatorItemBaseType = {
 export type VerticalNavigatorItemType = VerticalNavigatorItemBaseType & {
   items?: VerticalNavigatorItemBaseType[]
 };
+
+export type VerticalNavigatorVariantType = 'pill' | 'line';
 
 export type VerticalNavigatorItemProps = {
   item: VerticalNavigatorItemType,
@@ -46,9 +52,6 @@ const VerticalNavigatorItem = ({
   const [height, setHeight] = useState<undefined | number>(undefined);
   const dropdownContentRef = useRef<HTMLLIElement>(null);
 
-  const { backgroundColor, activeColor } = useColors('minimal', color);
-  const { textColor } = useColors('solid', color);
-
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
   useEffect(() => setDropdownVisibility(!isCollapsed), [isCollapsed]);
@@ -66,18 +69,39 @@ const VerticalNavigatorItem = ({
     'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-w-full', className,
   ]);
 
-  const innerContent = (item: VerticalNavigatorItemBaseType, hasChildren: boolean = false, isChild: boolean = false) => (
+  const innerContentClassName = cva({
+    base: [
+      'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-text-color dsr-py-1.5 dsr-px-1',
+      isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
+    ],
+    variants: {
+      variant: {
+        line: 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
+        pill: '',
+      },
+      color: EMPTY_COLOR_MAP,
+      state: {
+        active: '',
+        inactive: '',
+      },
+    },
+    compoundVariants: [
+      ...colorMapper<{ variant: VerticalNavigatorVariantType, state: 'active' | 'inactive' }>([SOLID_TEXT_COLOR_MAP], { variant: 'pill', state: 'active' }),
+      ...colorMapper<{ variant: VerticalNavigatorVariantType, state: 'active' | 'inactive' }>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], { variant: 'line', state: 'active' }),
+      {
+        variant: 'line',
+        color: 'white',
+        className: activeItem === item.key ? 'dark:dsr-bg-neutral-100/80' : '',
+      },
+    ],
+  });
+
+  const innerContent = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => (
     <div
       className={clsx([
-        'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-py-1.5 dsr-px-1',
-        variant === 'line' && 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
+        innerContentClassName({ variant, color, state: activeItem === item.key ? 'active' : 'inactive' }),
         activeItem === item.key && (!isChild || dropdownVisibility) && 'active dsr-font-semibold',
-        isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
       ])}
-      style={{
-        background: (variant === 'line' && activeItem === item.key && !hasChildren) ? backgroundColor : undefined,
-        color: (variant === 'line' && activeItem === item.key) ? color === 'white' ? textColor : activeColor : undefined,
-      }}
     >
       <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
         {item.icon && (
@@ -108,7 +132,7 @@ const VerticalNavigatorItem = ({
   ]);
 
   const contentRenderer = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => item?.link ?
-    LinkWrapper(item.link, innerContent(item, false, isChild), {
+    LinkWrapper(item.link, innerContent(item, isChild), {
       role: item.role ?? 'tab',
       className: clsx([
         commonClasses,
@@ -129,7 +153,7 @@ const VerticalNavigatorItem = ({
           (isChild && variant === 'line') && 'dsr-my-0.5',
         ])}
       >
-        {innerContent(item, false, isChild)}
+        {innerContent(item, isChild)}
       </button>
     );
 
@@ -151,11 +175,11 @@ const VerticalNavigatorItem = ({
             ])}
             onClick={() => setDropdownVisibility(!dropdownVisibility)}
           >
-            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item, true, false)}</span>
+            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item)}</span>
             {!isCollapsed && (
               <span
                 className={clsx([
-                  'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80',
+                  'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80 dsr-text-color',
                   !dropdownVisibility ? 'dsr-rotate-180' : '',
                 ])}
               >
@@ -188,13 +212,7 @@ const VerticalNavigatorItem = ({
               <li
                 className={clsx([
                   liClass, 'dsr-rounded-l-none dsr-rounded-r-lg',
-                  variant === 'line' && 'dsr-border-l-4 dsr-border-gray-500/20',
-                  variant === 'pill' && activeItem === subItem.key ? 'dsr-text-primaryTextColor hover:dsr-bg-neutral-900/30' : 'hover:dsr-bg-neutral-300/20',
                 ])}
-                style={{
-                  borderColor: variant === 'line' && activeItem === subItem.key ? activeColor : undefined,
-                  color: variant === 'pill' && activeItem === subItem.key ? textColor : undefined,
-                }}
                 key={item.key + subItem.key}
               >
                 {contentRenderer(subItem, true)}
@@ -216,9 +234,6 @@ const VerticalNavigatorItem = ({
           variant === 'pill' && 'hover:dsr-bg-neutral-900/30',
         ]) : 'hover:dsr-bg-neutral-300/20',
       ])}
-      style={{
-        color: (activeItem === item.key && variant === 'pill') ? textColor : undefined,
-      }}
       key={item.key}
     >
       {contentRenderer(item)}

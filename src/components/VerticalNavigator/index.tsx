@@ -2,13 +2,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import useColors, { ChayaColorType } from '../../hooks/useColors';
+import { cva } from '../../utils/cva';
+import {
+  colorVariantMapper, ChayaColorType,
+  EMPTY_COLOR_MAP, SOLID_BG_COLOR_MAP, BORDER_COLOR_MAP,
+} from '../../utils/classMaps/colors';
 
-import VerticalNavigatorItem, { VerticalNavigatorItemType } from './Item';
+import VerticalNavigatorItem, { VerticalNavigatorItemType, VerticalNavigatorVariantType } from './Item';
+
 
 export type VerticalNavigatorProps = {
   items: VerticalNavigatorItemType[],
-  variant?: 'pill' | 'line',
+  variant?: VerticalNavigatorVariantType,
   color?: ChayaColorType,
   activeItem?: string | null,
   className?: string,
@@ -20,6 +25,21 @@ export type VerticalNavigatorProps = {
   onClickItem?: (key: string, item: VerticalNavigatorItemType) => void,
 };
 
+const activeMarkerClassNames = cva({
+  base: 'vertical-navigator-active-marker dsr-transition-all dsr-ease-in-out dsr-absolute dsr-top-0 dsr-left-0',
+  variants: {
+    variant: {
+      pill: 'dsr-shadow-lg dsr-z-[500]',
+      line: 'dsr-border-2 dsr-z-[1000]',
+    },
+    color: EMPTY_COLOR_MAP,
+  },
+  compoundVariants: [
+    ...colorVariantMapper<VerticalNavigatorVariantType>([SOLID_BG_COLOR_MAP], 'pill'),
+    ...colorVariantMapper<VerticalNavigatorVariantType>([BORDER_COLOR_MAP], 'line'),
+  ],
+});
+
 const VerticalNavigator = ({
   items, className, itemClassName, variant = 'pill', color = 'primary', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
 }: VerticalNavigatorProps) => {
@@ -30,8 +50,6 @@ const VerticalNavigator = ({
     translateX: number | null,
     translateY: number | null,
   }>(({ width: null, height: null, translateX: null, translateY: null }));
-
-  const { backgroundColor } = useColors('solid', color);
 
   const updateIndicator = () => {
     if (wrapperRef.current) {
@@ -101,20 +119,15 @@ const VerticalNavigator = ({
       ) && (
         <div
           className={clsx([
-            'tab-underline dsr-transition-all dsr-ease-in-out dsr-absolute',
-            'dsr-top-0 dsr-left-0',
+            activeMarkerClassNames({ variant, color: color }),
             variant === 'pill' && clsx([
               items.some((item) => item.key === activeItem) ? 'dsr-rounded-lg' : 'dsr-rounded-l-0 dsr-rounded-r-lg',
-              'dsr-shadow-lg dsr-z-[500]',
             ]),
-            variant == 'line' && 'dsr-border-2 dsr-z-[1000]',
           ])}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
             width: indicatorStyle?.width || 0,
             height: indicatorStyle?.height || 0,
-            borderColor: variant === 'line' ? backgroundColor : undefined,
-            backgroundColor: variant === 'pill' ? backgroundColor : undefined,
           }}
         />
       )}
