@@ -1,0 +1,38 @@
+import { Meta, Primary, Title, Controls, Canvas } from '@storybook/blocks';
+import * as AlertStories from "./Alert.stories";
+
+<Meta
+    title="Components/Feedback/Alert"
+    of={AlertStories}
+/>
+
+<Title>Alert</Title>
+
+**`import { Alert } from 'chaya-ui';`**
+
+<Primary />
+
+## Props
+
+<Controls />
+
+## Variants
+
+### Solid
+
+<Primary />
+
+### Outline
+
+<Canvas of={AlertStories.OutlineVariant} />
+
+## Colors
+
+<Canvas of={AlertStories.SolidColorVariants} />
+
+<Canvas of={AlertStories.OutlineColorVariants} />
+
+
+## Dismissible
+
+<Canvas of={AlertStories.DismissibleAlert} />

@@ -2,13 +2,20 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 
+import { cva } from '../utils/cva';
+import {
+  ChayaColorType, colorVariantMapper,
+  EMPTY_COLOR_MAP, MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, BORDER_COLOR_MAP,
+} from '../utils/classMaps/colors';
+
 import Button, { ButtonProps } from './Button';
 import Icon, { IconInputType } from './Icon';
 
+export type AlertVariantsType = 'solid' | 'outline';
 
 export type AlertProps = {
-  type?: 'success' | 'info' | 'warning' | 'danger' | 'default';
-  variant?: 'solid' | 'outline';
+  type?: ChayaColorType;
+  variant?: AlertVariantsType;
   id?: string,
   className?: string,
   title?: string
@@ -21,52 +28,44 @@ export type AlertProps = {
   titleIcon?: IconInputType,
 };
 
-const getBackgroundClassByType = (type: string) => {
-  switch (type) {
-    case 'success': return 'dark:dsr-bg-green-900 dsr-bg-green-100';
-    case 'info': return 'dark:dsr-bg-blue-900 dsr-bg-blue-100';
-    case 'warning': return 'dark:dsr-bg-yellow-900 dsr-bg-yellow-100';
-    case 'danger': return 'dark:dsr-bg-red-900 dsr-bg-red-100';
-    default: return 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10';
-  }
-};
-
-const getColorClassByType = (type: string) => {
-  switch (type) {
-    case 'success': return 'dark:dsr-text-green-300 dsr-text-green-600';
-    case 'info': return 'dark:dsr-text-blue-300 dsr-text-blue-600';
-    case 'warning': return 'dark:dsr-text-yellow-300 dsr-text-yellow-600';
-    case 'danger': return 'dark:dsr-text-red-300 dsr-text-red-600';
-    default: return 'dark:dsr-text-gray-300 dsr-text-gray-600';
-  }
-};
-
-const getBorderClassByType = (type: string) => {
-  switch (type) {
-    case 'success': return 'dark:dsr-border-green-600 dsr-border-green-600';
-    case 'info': return 'dark:dsr-border-blue-500 dsr-border-blue-500';
-    case 'warning': return 'dark:dsr-border-yellow-500 dsr-border-yellow-600';
-    case 'danger': return 'dark:dsr-border-red-500 dsr-border-red-500';
-    default: return 'dark:dsr-border-gray-500 dsr-border-gray-500';
-  }
-};
+const alertClassName = cva({
+  base: [
+    'alert dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-0.5 dsr-border',
+  ],
+  variants: {
+    variant: {
+      solid: 'dark:dsr-border-opacity-70 dsr-border-opacity-20',
+      outline: 'dark:dsr-border-opacity-80 dsr-border-opacity-60',
+    },
+    color: EMPTY_COLOR_MAP,
+  },
+  compoundVariants: [
+    ...colorVariantMapper<AlertVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'solid'),
+    ...colorVariantMapper<AlertVariantsType>([BORDER_COLOR_MAP, TEXT_COLOR_MAP], 'outline'),
+    { variant: 'solid', color: 'black', className: 'dark:dsr-bg-neutral-800' },
+    { variant: 'solid', color: 'white', className: 'dsr-bg-white dsr-border dsr-border-neutral-200 dsr-border-opacity-100' },
+    { variant: 'outline', color: 'black', className: 'dsr-text-black dark:dsr-text-black' },
+    { variant: 'outline', color: 'white', className: 'dsr-text-white dark:dsr-text-white dsr-border-white' },
+    { variant: 'outline', color: 'contrast', className: 'dsr-text-neutral-800 dark:dsr-text-white' },
+  ],
+});
 
 const Alert = ({
-  type = 'default', variant = 'solid', id, className = '', title, description, allowDismissal = false,
+  type = 'primary', variant = 'solid', id, className = '', title, description, allowDismissal = false,
   onDismiss = () => {}, primaryButton, secondaryButton, titleIcon, children,
 }: AlertProps) => {
+
   const [hide, setHide] = useState(false);
-  const computedClassName = clsx([
-    description ? 'dsr-py-4' : 'dsr-py-3',
-    'alert dsr-relative dsr-rounded-lg dsr-px-3 dsr-flex dsr-flex-col dsr-gap-2',
-    'dsr-border', getBorderClassByType(type), getColorClassByType(type),
-    variant === 'solid' && getBackgroundClassByType(type),
-    variant === 'outline' ? 'dark:dsr-border-opacity-80 dsr-border-opacity-60' : 'dark:dsr-border-opacity-70 dsr-border-opacity-20',
-    className,
-  ]);
 
   return !hide ? (
-    <div id={id} className={computedClassName}>
+    <div
+      id={id}
+      className={clsx([
+        alertClassName({ variant, color: type }),
+        description ? 'dsr-py-4' : 'dsr-py-3',
+        className,
+      ])}
+    >
       {allowDismissal && (
       <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-3 dsr-pt-2">
         <button
@@ -87,7 +86,7 @@ const Alert = ({
       {description && <p>{description}</p>}
       {children}
       {(primaryButton || secondaryButton) && (
-      <div className="dsr-flex dsr-items-center">
+      <div className="dsr-flex dsr-items-center dsr-mt-2">
         {primaryButton && (
         <div className="dsr-mr-2">
           <Button
