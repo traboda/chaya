@@ -39,8 +39,8 @@ export const SOLID_TEXT_COLOR_MAP: ColorClassMap = {
 };
 
 export const MINIMAL_BG_COLOR_MAP: ColorClassMap = {
-  primary: 'dsr-bg-primary/50',
-  secondary: 'dsr-bg-secondary/50',
+  primary: 'dsr-bg-primary-minimal',
+  secondary: 'dsr-bg-secondary-minimal',
   success: 'dsr-bg-green-200 dark:dsr-bg-green-800',
   danger: 'dsr-bg-red-200 dark:dsr-bg-red-800',
   warning: 'dsr-bg-yellow-100 dark:dsr-bg-yellow-600',
@@ -51,8 +51,8 @@ export const MINIMAL_BG_COLOR_MAP: ColorClassMap = {
 };
 
 export const TEXT_COLOR_MAP: ColorClassMap = {
-  primary: 'dsr-text-primary',
-  secondary: 'dsr-text-secondary',
+  primary: 'dsr-text-primary dark:dsr-text-primary-bright',
+  secondary: 'dsr-text-secondary dark:dsr-text-secondary-bright',
   success: 'dsr-text-green-600 dark:dsr-text-green-300',
   danger: 'dsr-text-red-600 dark:dsr-text-red-300',
   warning: 'dsr-text-yellow-600 dark:dsr-text-yellow-300',

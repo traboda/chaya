@@ -11,9 +11,15 @@ module.exports = {
         primary: 'var(--primary)',
         'primary/50': 'var(--primary50)',
         'primary/10': 'var(--primary10)',
+        'primary-minimal': 'var(--primary-minimal)',
+        'primary-bright': 'var(--primary-bright)',
         primaryTextColor: 'var(--primaryTextColor)',
+
         secondary: 'var(--secondary)',
         'secondary/50': 'var(--secondary50)',
+        'secondary/10': 'var(--secondary10)',
+        'secondary-minimal': 'var(--secondary-minimal)',
+        'secondary-bright': 'var(--secondary-bright)',
         secondaryTextColor: 'var(--secondaryTextColor)',
 
         background: 'var(--background)',

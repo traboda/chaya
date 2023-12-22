@@ -4,6 +4,7 @@ import Color from 'color';
 
 import DSRContext, { IconWrapperType, LinkWrapper } from '../contexts/DSRContext';
 import { Theme } from '../types/theme';
+import { RGBAtoRGB } from '../utils/color';
 
 const defaultLinkWrapper = (link: string, component: ReactElement) => component;
 
@@ -14,9 +15,27 @@ const ThemeScript = memo(
       Object.entries(theme).forEach(([key, value]) => {
         cssProperties.push(`--${key}: ${value};`);
       });
-      cssProperties.push(`--primary50: ${Color(theme.primary).alpha(0.5).toString()};`);
-      cssProperties.push(`--primary10: ${Color(theme.primary).alpha(0.1).toString()};`);
-      cssProperties.push(`--secondary50: ${Color(theme.secondary).alpha(0.5).toString()};`);
+
+      const primaryColor = Color(theme.primary);
+
+      cssProperties.push(`--primary50: ${primaryColor.alpha(0.5).toString()};`);
+      cssProperties.push(`--primary10: ${primaryColor.alpha(0.1).toString()};`);
+
+      cssProperties.push(`--primary-bright: ${primaryColor.lighten(0.8).saturate(0.8).toString()};`);
+
+      cssProperties.push(`--primary-minimal: ${Color(RGBAtoRGB(
+        primaryColor.fade(isDarkTheme ? 0.3 : 0.9),
+        isDarkTheme ? 5 : 255,
+      )).toString()};`);
+
+      const secondaryColor = Color(theme.secondary);
+      cssProperties.push(`--secondary50: ${secondaryColor.alpha(0.5).toString()};`);
+      cssProperties.push(`--secondary10: ${secondaryColor.alpha(0.1).toString()};`);
+      cssProperties.push(`--secondary-bright: ${secondaryColor.lighten(0.8).saturate(0.8).toString()};`);
+      cssProperties.push(`--secondary-minimal: ${Color(RGBAtoRGB(
+        secondaryColor.fade(isDarkTheme ? 0.3 : 0.9),
+        isDarkTheme ? 5 : 255,
+      )).toString()};`);
 
       const background = Color(theme.background);
       cssProperties.push(`--contrast: ${background.negate().toString()};`);

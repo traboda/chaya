@@ -29,7 +29,7 @@ const activeMarkerClassNames = cva({
   base: 'vertical-navigator-active-marker dsr-transition-all dsr-ease-in-out dsr-absolute dsr-top-0 dsr-left-0',
   variants: {
     variant: {
-      pill: 'dsr-shadow-lg dsr-z-[500]',
+      pill: 'dsr-shadow-lg dsr-z-[500] dsr-rounded-lg',
       line: 'dsr-border-2 dsr-z-[1000]',
     },
     color: EMPTY_COLOR_MAP,
@@ -37,6 +37,11 @@ const activeMarkerClassNames = cva({
   compoundVariants: [
     ...colorVariantMapper<VerticalNavigatorVariantType>([SOLID_BG_COLOR_MAP], 'pill'),
     ...colorVariantMapper<VerticalNavigatorVariantType>([BORDER_COLOR_MAP], 'line'),
+    {
+      variant: 'line',
+      color: 'white',
+      className: 'dsr-border-white',
+    },
   ],
 });
 
@@ -118,12 +123,7 @@ const VerticalNavigator = ({
         && (variant === 'pill' || items.some((item) => item.key === activeItem))
       ) && (
         <div
-          className={clsx([
-            activeMarkerClassNames({ variant, color: color }),
-            variant === 'pill' && clsx([
-              items.some((item) => item.key === activeItem) ? 'dsr-rounded-lg' : 'dsr-rounded-l-0 dsr-rounded-r-lg',
-            ]),
-          ])}
+          className={activeMarkerClassNames({ variant, color: color })}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
             width: indicatorStyle?.width || 0,

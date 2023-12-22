@@ -8,6 +8,7 @@ import Badge, { BaseBadgeProps } from '../Badge';
 import ChevronUp from '../../utils/icons/chevron-up';
 import { cva } from '../../utils/cva';
 import {
+  BORDER_COLOR_MAP,
   ChayaColorType, colorMapper,
   EMPTY_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP,
 } from '../../utils/classMaps/colors';
@@ -91,7 +92,7 @@ const VerticalNavigatorItem = ({
       {
         variant: 'line',
         color: 'white',
-        className: activeItem === item.key ? 'dark:dsr-bg-neutral-100/80' : '',
+        className: activeItem === item.key ? 'dsr-bg-neutral-50 dark:dsr-bg-neutral-100/80' : '',
       },
     ],
   });
@@ -127,17 +128,20 @@ const VerticalNavigatorItem = ({
   );
 
   const commonClasses = clsx([
-    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline -dsr-outline-offset-1 dsr-outline-primary hover:dsr-bg-neutral-300/20',
-    variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
+    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline -dsr-outline-offset-1 dsr-outline-primary ',
+    variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg hover:dsr-bg-neutral-300/10' : 'dsr-rounded-lg hover:dsr-bg-neutral-300/30',
+  ]);
+
+  const contentRendererClassName = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => clsx([
+    commonClasses,
+    (isChild && variant === 'line') && 'dsr-border-l-4',
+    item.key === activeItem && BORDER_COLOR_MAP[color],
   ]);
 
   const contentRenderer = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => item?.link ?
     LinkWrapper(item.link, innerContent(item, isChild), {
       role: item.role ?? 'tab',
-      className: clsx([
-        commonClasses,
-        (isChild && variant === 'line') && 'dsr-my-0.5',
-      ]),
+      className: contentRendererClassName(item, isChild),
       isDisabled: item.isDisabled,
       onClick: typeof item?.onClick === 'function' ? item.onClick : () => onClickItem(item.key, item),
     }) : (
@@ -148,23 +152,26 @@ const VerticalNavigatorItem = ({
         disabled={item.isDisabled}
         aria-selected={activeItem === item.key}
         aria-disabled={item.isDisabled}
-        className={clsx([
-          commonClasses,
-          (isChild && variant === 'line') && 'dsr-my-0.5',
-        ])}
+        className={contentRendererClassName(item, isChild)}
       >
         {innerContent(item, isChild)}
       </button>
     );
 
   return item.items?.length ? (
-    <li role={role} className={clsx([liClass, 'dsr-z-[1000]'])}>
-      <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1">
+    <li
+      role={role}
+      className={clsx([
+        liClass,
+        (dropdownVisibility && variant === 'pill') && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-400/20 dsr-rounded-lg dsr-pb-2',
+      ])}
+    >
+      <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1 dsr-z-[1000]">
         <li
           className={clsx([
-            'hover:dsr-bg-neutral-400/20',
             commonClasses,
             liClass,
+            variant === 'line' && 'hover:!dsr-border-l-4',
             activeItem === item.key && 'active dsr-w-full',
           ])}
         >
@@ -191,27 +198,18 @@ const VerticalNavigatorItem = ({
         <li
           ref={dropdownContentRef}
           className={clsx([
-            'dsr-transition-all dsr-overflow-hidden dsr-relative',
+            'dsr-transition-all dsr-overflow-hidden dsr-relative dsr-mr-1',
             dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
-            isCollapsed ? 'dsr-pl-1' : 'dsr-pl-5',
+            isCollapsed ? 'dsr-ml-1' : 'dsr-ml-4',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
-          {(variant == 'pill') && (
-            <div
-              className={clsx([
-                'dsr-absolute dsr-top-0 dsr-left-0 dsr-h-full',
-                isCollapsed ? 'dsr-hidden' : 'dsr-block dsr-pl-3',
-              ])}
-            >
-              <div className="dsr-bg-gray-500/20 dsr-rounded-full dsr-w-1 dsr-h-full" />
-            </div>
-          )}
           <ul className={clsx(['dsr-flex dsr-flex-col dsr-pb-1 dsr-pr-1', variant == 'line' ? 'dsr-gap-0' : 'dsr-gap-1'])}>
             {item.items.map(subItem => (
               <li
                 className={clsx([
-                  liClass, 'dsr-rounded-l-none dsr-rounded-r-lg',
+                  liClass,
+                  variant === 'line' ? 'dsr-rounded-l-none dsr-rounded-r-lg' : 'dsr-rounded-lg',
                 ])}
                 key={item.key + subItem.key}
               >
@@ -227,12 +225,13 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
+        variant === 'line' && 'hover:!dsr-border-l-4',
         variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
         'dsr-z-[1000]',
         activeItem === item.key ? clsx([
           'active',
           variant === 'pill' && 'hover:dsr-bg-neutral-900/30',
-        ]) : 'hover:dsr-bg-neutral-300/20',
+        ]) : 'hover:dsr-bg-neutral-300/10',
       ])}
       key={item.key}
     >
