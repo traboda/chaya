@@ -1,4 +1,4 @@
-import { defineConfig, CVA } from 'cva';
+import { defineConfig } from 'cva';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const merge = extendTailwindMerge({
@@ -11,17 +11,40 @@ const { cva, cx, compose } = defineConfig({
   },
 });
 
-// Define the Variants type
-type Variants = {
-  [key: string]: string | string[] | Variants;
+type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
+
+type ClassBasicValue = string | number | null | boolean | undefined;
+type ClassValue = ClassArray | ClassDictionary | ClassBasicValue;
+type ClassDictionary = Record<string, any>;
+type ClassArray = ClassValue[];
+type CVAConfigBase = {
+  base?: ClassValue;
+};
+type CVAVariantIndiv = Record<string, ClassValue>;
+type CVAVariantShape = Record<string, Record<string, ClassValue>>;
+type CVAVariantSchema<V extends CVAVariantShape> = {
+  [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | undefined;
+};
+type CVAClassProp = {
+  class?: ClassValue;
+  className?: never;
+} | {
+  class?: never;
+  className?: ClassValue;
 };
 
+type RCVAVariantShape<T extends CVAVariantShape> = Partial<{
+  [K in keyof T]?: Record<keyof T[K], ClassBasicValue> | RCVAVariantShape<T>;
+}>;
+type CVACompoundVariantType<V> = { [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | StringToBoolean<keyof V[Variant]>[] | undefined };
+type CVACompoundVariants<V> = (CVAClassProp & CVACompoundVariantType<V>)[];
+
 // Recursive function to handle compound variants
-const recurCVA = (
-  variants: Variants,
+const recurCVA = <T extends CVAVariantShape>(
+  variants: RCVAVariantShape<T>,
   nest: string[] = [],
-  cleaned: Variants = {},
-  computed: Variants[] = [],
+  cleaned: CVAVariantIndiv = {},
+  computed: CVACompoundVariants<T> = [],
 ): void => {
   if (typeof variants !== 'object' || Array.isArray(variants)) return;
 
@@ -37,89 +60,62 @@ const recurCVA = (
 
       if (typeof propValue !== 'object' || Array.isArray(propValue)) {
         computed.push({
-          ...nest.reduce((acc, _, i, arr) => {
+          ...nest.reduce((acc: CVAVariantIndiv, _, i, arr) => {
             if (i % 2 === 0) acc[arr[i]] = arr[i + 1];
             return acc;
-          }, {} as Variants),
-          className: propValue,
+          }, {}) as CVACompoundVariantType<T>,
+          className: propValue as ClassValue,
         });
         nest.pop();
-      }
-
-      recurCVA(propValue as Variants, nest, cleaned, computed);
+      } else recurCVA(propValue as RCVAVariantShape<T>, nest, cleaned, computed);
     });
 
     nest.pop();
   });
 };
 
-type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
-
-type ClassValue = ClassArray | ClassDictionary | string | number | null | boolean | undefined;
-type ClassDictionary = Record<string, any>;
-type ClassArray = ClassValue[];
-type CVAConfigBase = {
-  base?: ClassValue;
-};
-type CVAVariantShape = Record<string, Record<string, ClassValue>>;
-type CVAVariantSchema<V extends CVAVariantShape> = {
-  [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | undefined;
-};
-type CVAClassProp = {
-  class?: ClassValue;
-  className?: never;
-} | {
-  class?: never;
-  className?: ClassValue;
-};
 
 // Main function to handle variants and compound variants
-const rcva: CVA = <V>(input: V extends CVAVariantShape ? CVAConfigBase & {
-  variants?: V;
-  compoundVariants?: (V extends CVAVariantShape ? (CVAVariantSchema<V> | {
-    [Variant in keyof V]?: StringToBoolean<keyof V[Variant]> | StringToBoolean<keyof V[Variant]>[] | undefined;
-  }) & CVAClassProp : CVAClassProp)[];
-  defaultVariants?: CVAVariantSchema<V>;
-} : CVAConfigBase & {
-  variants?: never;
-  compoundVariants?: never;
-  defaultVariants?: never;
-}) => {
+const rcva = <V extends Record<string, Record<string, ClassBasicValue | RCVAVariantShape<V>>>>(input: CVAConfigBase & {
+  variants?: V,
+  compoundVariants?: CVACompoundVariants<V>,
+  defaultVariants?: CVAVariantSchema<V>
+}): (props?: CVAVariantSchema<V> & CVAClassProp) => string => {
   const { variants } = input;
-  const cleaned: typeof input.variants = {} as typeof input.variants, 
-    computed: typeof input.compoundVariants = [];
+  const cleaned: CVAVariantShape = {}, 
+    computed: CVACompoundVariants<V> = [];
 
   if (variants) {
     Object.entries(variants).forEach(([variant, value]) => {
       if (value) {
         Object.entries(value).forEach(([prop, propValue]) => {
-          if (cleaned && (typeof propValue !== 'object' || Array.isArray(propValue))) {
-            (cleaned[variant] as { [x: string]: any[] | ClassValue; }) = {
+          if (typeof propValue !== 'object' || Array.isArray(propValue)) {
+            cleaned[variant] = {
               ...cleaned[variant],
               [prop]: propValue,
             };
           } else {
-            if (cleaned && (propValue as Variants).__default) {
-              (cleaned[variant] as { [x: string]: any[] | ClassValue; }) = {
-                ...(cleaned[variant] as Variants),
-                [prop]: (propValue as Variants).__default,
+            if (propValue?.__default) {
+              cleaned[variant] = {
+                ...cleaned[variant],
+                [prop]: propValue.__default,
               };
             }
 
-            recurCVA(propValue as Variants, [variant, prop], cleaned as Variants, computed as Variants[]);
+            recurCVA(propValue as RCVAVariantShape<V>, [variant, prop], cleaned, computed);
           }
         });
       }
     });
   }
 
-  input.variants = cleaned;
+  input.variants = cleaned as V;
   input.compoundVariants = [
     ...(input.compoundVariants ?? []),
     ...computed,
   ];
 
-  return cva(input);
+  return cva(input as Parameters<typeof cva>[0]);
 };
 
 
