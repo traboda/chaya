@@ -81,18 +81,18 @@ export const BORDER_COLOR_MAP: ColorClassMap = {
   black: 'dsr-border-black',
 };
 
-export const colorMapper = <Type extends { [key: string]: string }>(maps: ColorClassMap[], object: Type) => {
+export const colorMapper = <Type extends { [key: string]: string | string[] }>(maps: ColorClassMap[], object: Type) => {
   return maps.map((map) => {
     return Object.keys(map).map((color) => {
       return {
         color: color as ChayaColorType,
         className: map[color as ChayaColorType],
-        ...object,
+        ...object as { [key: string]: string | string[] },
       };
     });
   }).flat();
 };
 
-export const colorVariantMapper = <Type extends string>(maps: ColorClassMap[], variant: Type) => {
+export const colorVariantMapper = <Type extends string | string[]>(maps: ColorClassMap[], variant: Type) => {
   return colorMapper(maps, { variant });
 };

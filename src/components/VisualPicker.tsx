@@ -3,7 +3,11 @@ import React, { useEffect, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import useColors, { ChayaColorType } from '../hooks/useColors';
+import { cva } from '../utils/cva';
+import {
+  colorMapper, ChayaColorType,
+  EMPTY_COLOR_MAP, SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, BORDER_COLOR_MAP,
+} from '../utils/classMaps/colors';
 
 import Label from './Label';
 import Icon, { IconInputType } from './Icon';
@@ -33,13 +37,40 @@ export type VisualPickerProps<Type> = {
   colMinWidth?: number
 };
 
+const buttonClassNames = cva({
+  base: [
+    'dsr-w-full dsr-rounded-lg dsr-border',
+    'dsr-transition dsr-flex',
+  ],
+  variants: {
+    direction: {
+      vertical: 'dsr-items-center dsr-justify-start dsr-p-3 dsr-text-left dsr-gap-3',
+      horizontal: 'dsr-flex-col dsr-gap-1 dsr-items-center dsr-justify-center dsr-px-3 dsr-py-4 dsr-min-h-[220px] dsr-text-center',
+    },
+    color: EMPTY_COLOR_MAP,
+    variant: {
+      solid: '',
+    },
+    state: {
+      active: '',
+      inactive: '',
+    },
+  },
+  compoundVariants: [
+    ...colorMapper<{ state: 'active' | 'inactive', variant: 'solid' }>([
+      SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, BORDER_COLOR_MAP,
+    ], {
+      state: 'active',
+      variant: 'solid',
+    }),
+  ],
+});
+
 const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType[]>({
   items, isVertical, className, value, label, onChange, id, itemClassName, isRequired = false,
   isDisabled = false, fitHorizontal = true, color = 'primary', isMulti = false, colMinWidth = 200,
 }: VisualPickerProps<Type>) => {
   const generatedID = useMemo(() => id ?? `vp-${nanoid()}`, [id]);
-
-  const { backgroundColor, textColor } = useColors('solid', color);
 
   const onSelect = (item: VisualPickerValueType) => {
     if (isMulti && Array.isArray(value)) {
@@ -76,18 +107,16 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
             aria-disabled={isDisabled || item.isDisabled}
             disabled={isDisabled || item.isDisabled}
             className={clsx([
-              'dsr-w-full dsr-rounded-lg dsr-border',
-              'dsr-transition dsr-flex',
+              buttonClassNames({
+                direction: isVertical ? 'vertical' : 'horizontal',
+                color,
+                variant: 'solid',
+                state: isSelected(item.value) ? 'active' : 'inactive',
+              }),
               !isSelected(item.value) && !(isDisabled || item.isDisabled) && 'hover:dsr-border-gray-400/80',
               isDisabled || item.isDisabled ? 'dsr-opacity-90 dark:dsr-border-neutral-500/50 dsr-border-neutral-500/10' : 'dsr-bg-background-lighten-1 dark:dsr-bg-background-lighten-2 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
-              isVertical ? 'dsr-items-center dsr-justify-start dsr-p-3 dsr-text-left dsr-gap-3' : 'dsr-flex-col dsr-gap-1 dsr-items-center dsr-justify-center dsr-px-3 dsr-py-4 dsr-min-h-[220px] dsr-text-center',
               itemClassName,
             ])}
-            style={isSelected(item.value) ? {
-              backgroundColor,
-              color: textColor,
-              borderColor: backgroundColor,
-            } : undefined}
             onClick={() => onSelect(item.value)}
           >
             {(item.icon) && (

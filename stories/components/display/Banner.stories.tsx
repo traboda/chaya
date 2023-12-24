@@ -25,18 +25,46 @@ type Story = StoryObj<BannerProps>;
 export const Primary: Story = {
   args: {
     variant: 'float',
-    position: 'bottom',
+    position: 'inline',
     learnMore: {
       link: '',
       text: 'Learn More',
     },
     className: 'dsr-w-full',
     allowDismissal: true,
-    icon: 'chevronUp',
-    color: 'danger',
+    icon: 'ri-home-line',
     text: 'This is example text for the banner. Give your own text here.',
   },
 };
+
+export const CardVariant: Story = {
+  args: {
+    variant: 'card',
+    learnMore: {
+      link: '',
+      text: 'Learn More',
+    },
+    className: 'dsr-w-full',
+    allowDismissal: true,
+    icon: 'ri-home-line',
+    text: 'This is example text for the banner. Give your own text here.',
+  },
+};
+
+export const FullWidthVariant: Story = {
+  args: {
+    variant: 'full-width',
+    learnMore: {
+      link: '',
+      text: 'Learn More',
+    },
+    className: 'dsr-w-full',
+    allowDismissal: true,
+    icon: 'ri-home-line',
+    text: 'This is example text for the banner. Give your own text here.',
+  },
+};
+
 
 // const Template: Story<BannerProps> = args => (
 //   <div style={{ maxWidth: '100%', height: '1000px' }}>

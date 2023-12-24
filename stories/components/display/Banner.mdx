@@ -1,4 +1,4 @@
-import { Meta, Primary, Title, Controls, } from '@storybook/blocks';
+import {Meta, Primary, Title, Controls, Canvas,} from '@storybook/blocks';
 import * as BannerStories from "./Banner.stories";
 
 <Meta
@@ -15,3 +15,17 @@ import * as BannerStories from "./Banner.stories";
 ## Props
 
 <Controls />
+
+## Variants
+
+## Float (default)
+
+<Primary />
+
+### Card
+
+<Canvas story={BannerStories.CardVariant} withToolbar />
+
+### Full Width
+
+<Canvas story={BannerStories.FullWidthVariant} withToolbar />
