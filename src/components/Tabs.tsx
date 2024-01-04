@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState, lazy } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import { ChayaColorType } from '../hooks/useColors';
+import { ChayaColorType } from '../utils/classMaps/colors';
 
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
