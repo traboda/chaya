@@ -43,18 +43,19 @@ export type TabsProps = {
   className?: string,
   bodyClassName?: string,
   menuClassName?: string,
+  panelClassName?: string,
   menuButtonClassName?: string,
   initialKey?: string,
   isVertical?: boolean,
   disableResponsive?: boolean,
   alignCenter?: boolean,
   variant?: 'pill' | 'line',
-  color: ChayaColorType,
+  color?: ChayaColorType,
 };
 
 const Tabs = ({
   isVertical, items, isDisabled = false, onClickDisabled = () => {}, initialKey, id,
-  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '',
+  className = '', menuButtonClassName = '', menuClassName = '', bodyClassName = '', panelClassName = '',
   alignCenter, onChange = () => {}, disableResponsive = false, badgeProps, variant = 'pill', color = 'primary',
 }: TabsProps) => {
 
@@ -117,7 +118,7 @@ const Tabs = ({
       role="tabpanel"
       id="tab-panel"
       aria-labelledby="tab-panel"
-      className="dsr-fade-in"
+      className={clsx(['dsr-fade-in', panelClassName])}
     >
       {tabItems.filter(t => t.key === currentTab).map(t => (
         t?.renderer ? t.renderer :

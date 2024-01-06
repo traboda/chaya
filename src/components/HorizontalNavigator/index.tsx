@@ -85,38 +85,31 @@ const HorizontalNavigator = ({
   }, [activeItem]);
 
   return (
-    <div
+    <ul
+      id={navigatorID}
+      role="tablist"
+      aria-orientation="horizontal"
+      ref={tabRef}
       className={clsx([
-        'tab-selector-container dsr-relative dsr-rounded-lg dsr-inline-flex',
-        variant === 'pill' && 'dsr-bg-gray-400/20 ',
+        'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
+        'dsr-items-center dsr-rounded-lg',
+        variant === 'pill' && 'dsr-z-[1000] dsr-bg-gray-400/20 dsr-p-1.5 dsr-gap-x-1',
+        variant === 'line' && 'dsr-gap-2',
+        className,
       ])}
     >
-      <ul
-        id={navigatorID}
-        role="tablist"
-        aria-orientation="horizontal"
-        ref={tabRef}
-        className={clsx([
-          'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
-          'dsr-items-center dsr-rounded-lg',
-          variant === 'pill' && 'dsr-z-[1000] dsr-p-1.5 dsr-gap-x-1',
-          variant === 'line' && 'dsr-gap-2',
-          className,
-        ])}
-      >
-        {items.filter((item) => !item.isHidden).map(item => (
-          <HorizontalNavigatorItem
-            key={item.key}
-            item={item}
-            activeItem={activeItem}
-            navigatorID={navigatorID}
-            variant={variant}
-            color={color}
-            className={itemClassName}
-            onClickItem={onClickItem}
-          />
-        ))}
-      </ul>
+      {items.filter((item) => !item.isHidden).map(item => (
+        <HorizontalNavigatorItem
+          key={item.key}
+          item={item}
+          activeItem={activeItem}
+          navigatorID={navigatorID}
+          variant={variant}
+          color={color}
+          className={itemClassName}
+          onClickItem={onClickItem}
+        />
+      ))}
       {activeItem ? (
         <div
           className={activeMarkerClassName({ variant: variant, color: color })}
@@ -127,7 +120,7 @@ const HorizontalNavigator = ({
           }}
         />
       ) : null}
-    </div>
+    </ul>
   );
 
 };
