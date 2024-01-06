@@ -294,7 +294,14 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                   {variant === 'pill' && Array.isArray(value) ? value.map(val => {
                     const option = getOption(val);
                     return option ? (
-                      <div key={val} className="dsr-bg-black/10 dark:dsr-bg-white/10 dsr-rounded dsr-items-center dsr-inline-flex dsr-px-1 dsr-overflow-hidden">
+                      <div
+                        key={val}
+                        className={clsx([
+                          'dsr-bg-black/10 dark:dsr-bg-white/10 dsr-border dsr-border-neutral-200',
+                          'dsr-rounded dsr-inline-flex dsr-items-center dsr-px-1 dsr-overflow-hidden',
+                          'hover:dsr-shadow hover:dsr-border-neutral-300',
+                        ])}
+                      >
                         {option?.icon && (<Icon icon={option?.icon} size={16} />)}
                         {option?.iconRenderer && (
                         <div className="dsr-p-1 dsr-flex dsr-items-center dsr-justify-center dsr-h-full">

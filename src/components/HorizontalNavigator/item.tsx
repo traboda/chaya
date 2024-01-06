@@ -2,7 +2,7 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
-import { cva } from '../../utils/cva';
+import { cva, cx } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
@@ -38,15 +38,6 @@ export type HorizontalNavigatorItemProps = {
   onClickItem?: (key: string, item: HorizontalNavigatorItemType) => void,
 };
 
-const buttonClassNames = cva({
-  variants: {
-    variant: {
-      pill: 'dsr-px-5 dsr-py-2',
-      line: 'dsr-py-1 dsr-px-3',
-    },
-  },
-});
-
 const HorizontalNavigatorItem = ({
   item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {}, color = 'primary',
 }: HorizontalNavigatorItemProps) => {
@@ -63,13 +54,14 @@ const HorizontalNavigatorItem = ({
       color: EMPTY_COLOR_MAP,
       variant: {
         pill: [
-          'border border-neutral-300/20 ',
+          'border border-neutral-300/20 dsr-px-5 dsr-py-2',
           activeItem === item.key && 'dsr-text-primaryTextColor',
           activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-500/80',
         ],
         line: [
-          'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-border-0 dsr-mb-2',
+          'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-border-0 dsr-py-1 dsr-px-3',
           activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-400/20',
+          activeItem && 'dsr-mb-2',
         ],
       },
     },
@@ -121,7 +113,6 @@ const HorizontalNavigatorItem = ({
       onClick={() =>
         item?.onClick && typeof item.onClick === 'function' ? item.onClick() : onClickItem(item.key, item)
       }
-      className={buttonClassNames({ variant })}
       role="tab"
       id={`${navigatorID}-${item.key}-tab`}
       data-toggle="tab"
@@ -138,14 +129,13 @@ const HorizontalNavigatorItem = ({
     <li
       key={item?.key ? `tab_selector_${item?.key}` : nanoid()}
       role="presentation"
-      className={clsx([
+      className={cx([
         liClassNames({ color, variant }),
         className, item.className,
       ])}
     >
       {item.link ? LinkWrapper(!item.isDisabled ? item.link : '', renderOption(item), {
         id: `${navigatorID}-${item.key}-tab`,
-        className: buttonClassNames({ variant }),
       }) : renderButton(item)}
     </li>
   );

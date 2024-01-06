@@ -100,7 +100,7 @@ const HorizontalNavigator = ({
           'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
           'dsr-items-center dsr-rounded-lg',
           variant === 'pill' && 'dsr-z-[1000] dsr-p-1.5 dsr-gap-x-1',
-          variant === 'line' && 'dsr-gap-x-4',
+          variant === 'line' && 'dsr-gap-2',
           className,
         ])}
       >
@@ -117,14 +117,16 @@ const HorizontalNavigator = ({
           />
         ))}
       </ul>
-      <div
-        className={activeMarkerClassName({ variant: variant, color: color })}
-        style={{
-          transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
-          width: indicatorStyle?.width || 0,
-          height: indicatorStyle?.height || 0,
-        }}
-      />
+      {activeItem ? (
+        <div
+          className={activeMarkerClassName({ variant: variant, color: color })}
+          style={{
+            transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
+            width: indicatorStyle?.width || 0,
+            height: indicatorStyle?.height || 0,
+          }}
+        />
+      ) : null}
     </div>
   );
 

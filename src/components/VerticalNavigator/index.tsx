@@ -83,7 +83,7 @@ const VerticalNavigator = ({
     if (activeItem) {
       updateIndicator();
     }
-  });
+  }, [activeItem]);
 
   const listRenderer = (
     <ul
