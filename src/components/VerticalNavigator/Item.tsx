@@ -55,7 +55,9 @@ const VerticalNavigatorItem = ({
 
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
-  useEffect(() => setDropdownVisibility(!isCollapsed), [isCollapsed]);
+  useEffect(() => {
+    setDropdownVisibility(!isCollapsed ? defaultExpansion : false);
+  }, [isCollapsed]);
 
   useEffect(() => {
     if (!isCollapsed) setDropdownVisibility(defaultExpansion);
@@ -171,7 +173,7 @@ const VerticalNavigatorItem = ({
           className={clsx([
             commonClasses,
             liClass,
-            variant === 'line' && 'hover:!dsr-border-l-4',
+            variant === 'line' && 'dsr-pl-[4px] hover:dsr-pl-0 hover:!dsr-border-l-4',
             activeItem === item.key && 'active dsr-w-full',
           ])}
         >
@@ -225,7 +227,7 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
-        variant === 'line' && 'hover:!dsr-border-l-4',
+        variant === 'line' && 'dsr-pl-[4px] hover:dsr-pl-0 hover:!dsr-border-l-4',
         variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
         'dsr-z-[1000]',
         activeItem === item.key ? clsx([

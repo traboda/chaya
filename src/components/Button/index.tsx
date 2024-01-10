@@ -71,7 +71,7 @@ const buttonStyling = cva({
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
-  id, className = '', style, label, disableRipple = false, tabIndex, autoFocus,
+  id, className = '', style, label, disableRipple = false, tabIndex, autoFocus, blurOnClick = true,
   target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false,
 }: ButtonProps) => {
 
@@ -101,6 +101,9 @@ const Button = ({
       autoFocus={autoFocus}
       onClick={e => {
         e.stopPropagation();
+        if (blurOnClick) {
+          e.currentTarget.blur();
+        }
         onClick(e);
       }}
       disabled={isDisabled || isLoading}

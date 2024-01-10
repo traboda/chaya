@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import {
@@ -54,6 +54,10 @@ const defaultMenuItems: VerticalNavigatorItemType[] = [
 const DefaultTemplate = ({ items, activeItem: _active, ...args }: VerticalNavigatorProps) => {
 
   const [activeItem, setActiveItem] = React.useState(_active);
+
+  useEffect(() => {
+    setActiveItem(_active);
+  }, [_active]);
 
   return (
     <VerticalNavigator

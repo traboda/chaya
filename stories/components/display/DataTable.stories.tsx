@@ -261,7 +261,10 @@ const Template: Story<DataTableProps<ItemType>> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  sortOrder: 'asc',
+  currentSortAttribute: 'name',
+};
 
 export const Grid = Template.bind({});
 Grid.args = { variant:'grid' };

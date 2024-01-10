@@ -39,7 +39,7 @@ const PageHeader = ({
         className,
       ])}
       style={{
-        padding: size === 'lg' ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
+        padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
       }}
     >
       <div className={clsx([fill ? '' : 'dsr-container'])}>

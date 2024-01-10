@@ -112,7 +112,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
                 {p.allowSort ? (
                   <div
                     className={clsx([
-                      'dsr-w-[28px] dsr-ml-1',
+                      'dsr-w-[16px] dsr-flex dsr-items-center dsr-ml-1',
                       currentSortAttribute !== p.id && 'dsr-opacity-20 group-hover:dsr-opacity-80',
                     ])}
                   >

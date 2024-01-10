@@ -9,6 +9,7 @@ export type CardProps = {
   title?: string,
   description?: string,
   titleClassName?: string,
+  bodyClassName?: string,
   titleIcon?: IconInputType,
   id?: string,
   className?: string,
@@ -17,7 +18,7 @@ export type CardProps = {
 
 const Card = ({
   id, children, title, description, variant = 'shaded',
-  className, titleClassName, titleIcon,
+  className, bodyClassName, titleClassName, titleIcon,
   sidebarRenderer,
 }: CardProps) => (
   <div
@@ -55,7 +56,7 @@ const Card = ({
         <div>{sidebarRenderer}</div>
       </div>
     ) : null}
-    <div className="card-body dsr-p-3">
+    <div className={clsx(['card-body dsr-p-3', bodyClassName])}>
       {children}
     </div>
   </div>

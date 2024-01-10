@@ -135,7 +135,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
       const values = value.map(v => getLabel(v)).filter(v => !!v);
       label = values.length > 5 ? `${values.length} options selected` : values.join(', ');
     } else label = getLabel(value as SimpleSelectValue)?.toString();
-    return label || labels?.placeholder;
+    return label;
   };
 
   const filteredOptions = () => {
@@ -335,7 +335,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     id={inputID}
                     aria-autocomplete="list"
                     value={isDropdownActive ? searchKeyword : getValue()}
-                    placeholder={isDropdownActive ? getValue() : ''}
+                    placeholder={labels?.placeholder}
                     onChange={event => {
                       setIsDropdownActive(true);
                       setSearchKeyword(event.target.value);

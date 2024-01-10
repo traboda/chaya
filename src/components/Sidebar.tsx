@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { nanoid } from 'nanoid';
 
 import { Avatar, Button } from '../index';
 
@@ -64,27 +65,29 @@ const Sidebar = ({
         className,
       ])}
     >
-      <div className="dsr-mb-3 dsr-h-fit dsr-px-1">
-        {typeof topRenderer === 'function' ? (
-          <div className="dsr-py-2dsr-flex dsr-justify-center">
-            {topRenderer({ isCollapsed })}
-          </div>
-        ) : null}
-        {allowCollapseToggling && (
-          <div
-            className={clsx([
-              !isCollapsed && typeof topRenderer === 'function' ? 'dsr-absolute dsr-top-0 dsr-right-0 dsr-px-2' : null,
-              isCollapsed && 'dsr-flex dsr-justify-center',
-              'md:dsr-py-2',
-            ])}
-          >
-            <button type="button" onClick={() => setCollapsed(!isCollapsed)} title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
-              <Icon icon={isCollapsed ? 'menu-unfold' : 'menu-fold'} />
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="dsr-h-full dsr-overflow-y-auto dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
+      {(typeof topRenderer === 'function' || allowCollapseToggling) ? (
+        <div className="dsr-mb-3 dsr-h-fit dsr-px-1 dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
+          {typeof topRenderer === 'function' ? (
+            <div className="dsr-py-2 dsr-flex dsr-justify-center">
+              {topRenderer({ isCollapsed })}
+            </div>
+          ) : null}
+          {allowCollapseToggling ? (
+            <div
+              className={clsx([
+                !isCollapsed && typeof topRenderer === 'function' ? 'dsr-absolute dsr-top-0 dsr-right-0 dsr-px-2' : null,
+                isCollapsed && 'dsr-flex dsr-justify-center',
+                'md:dsr-py-2',
+              ])}
+            >
+              <button type="button" onClick={() => setCollapsed(!isCollapsed)} title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
+                <Icon icon={isCollapsed ? 'menu-unfold' : 'menu-fold'} />
+              </button>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+      <div className="dsr-h-full dsr-overflow-y-auto">
         <div className="dsr-flex dsr-flex-col dsr-gap-2">
           <div className="sidebar-top-area">
             {(topNavigationItems && topNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
@@ -93,7 +96,8 @@ const Sidebar = ({
                   {...navigationProps}
                   items={topNavigationItems}
                   isCollapsed={isCollapsed}
-                  id={id ? `${id}-top-navigation` : undefined}
+                  key={isCollapsed ? `collapsed-sidebar-${nanoid()}` : `expanded-sidebar-${nanoid()}`}
+                  id={id ? `${id}-sidebar-navigator` : undefined}
                 />
               </div>
             ) : null}

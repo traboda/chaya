@@ -48,6 +48,7 @@ const activeMarkerClassNames = cva({
 const VerticalNavigator = ({
   items, className, itemClassName, variant = 'pill', color = 'primary', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
 }: VerticalNavigatorProps) => {
+
   const wrapperRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{
     width: number | null,
@@ -119,8 +120,15 @@ const VerticalNavigator = ({
     <div className="dsr-relative">
       {listRenderer}
       {(
-        (indicatorStyle?.width || indicatorStyle?.height)
-        && (variant === 'pill' || items.some((item) => item.key === activeItem))
+        (indicatorStyle?.width || indicatorStyle?.height) &&
+        (
+          (variant === 'pill' &&
+            items.some((item) =>
+              item.key === activeItem || item.items?.some((subItem) => subItem.key === activeItem),
+            )
+          ) ||
+          (variant === 'line' && items.some((item) => item.key === activeItem))
+        )
       ) && (
         <div
           className={activeMarkerClassNames({ variant, color: color })}

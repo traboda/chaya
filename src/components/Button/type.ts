@@ -15,7 +15,8 @@ export type ButtonProps = {
   id?: string,
   className?: string,
   style?: CSSProperties,
-  disableRipple?: boolean
+  disableRipple?: boolean,
+  blurOnClick?: boolean,
 
   link?: string
   target?: LinkTargetType,
