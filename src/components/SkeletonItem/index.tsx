@@ -9,10 +9,11 @@ export type SkeletonItemProps = {
   variant?: 'wave' | 'pulse'
   w?: string | number
   h?: string | number
-  className?: string
+  className?: string,
+  children?: React.ReactNode,
 };
 
-const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave' } : SkeletonItemProps) => (
+const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave', children } : SkeletonItemProps) => (
   <div
     className={clsx([
       circular ? 'dsr-rounded-full' : 'dsr-rounded-lg',
@@ -25,7 +26,9 @@ const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave' } 
       width: w ?? '20px',
       height: h ?? '20px',
     }}
-  />
+  >
+    {children}
+  </div>
 );
 
 

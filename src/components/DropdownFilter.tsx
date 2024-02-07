@@ -9,6 +9,7 @@ import SearchBox from './SearchBox';
 import Dropdown from './Dropdown';
 import ListViewItem from './ListView/item';
 import { IconInputType } from './Icon';
+import SkeletonItem from './SkeletonItem';
 
 const defaultLabels = {
   searchPlaceholder: 'Search',
@@ -68,7 +69,10 @@ const DropdownRender = ({
 
   useEffect(onLoad, []);
 
-  const availableOptions = options ? options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase())) : [];
+  const availableOptions =
+  options ?
+    options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase()))
+    : [];
 
   useEffect(() => {
     optionRefs.current = Array(availableOptions.length).fill(null).map(() => React.createRef());
@@ -134,16 +138,28 @@ const DropdownRender = ({
           setKeyword={setKeyword}
         />
       </div>
-      <div className="dsr-w-full dsr-px-2 dsr-py-1 dsr-bg-background dsr-border-b dsr-border-neutral-200/50">
-        <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
-          {labels.optionsTitle}
-        </span>
-      </div>
-      <div className="dsr-max-h-[30vh] dsr-overflow-y-auto">
+      {labels.optionsTitle?.length > 0 ? (
+        <div className="dsr-w-full dsr-px-2 dsr-py-1 dsr-bg-background dsr-border-b dsr-border-neutral-200/50">
+          <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
+            {labels.optionsTitle}
+          </span>
+        </div>
+      ) : null}
+      <div
+        className={clsx([
+          !(labels.optionsTitle?.length > 0) && 'dsr-border-t dsr-border-neutral-200/50',
+          'dsr-max-h-[30vh] dsr-overflow-y-auto',
+        ])}
+      >
         {isFetching ? (
-          <div>
-            Fetching
-          </div>
+          <ul>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="dsr-flex dsr-items-center dsr-p-2 dsr-gap-2">
+                <SkeletonItem variant="wave" w={24} h={24} />
+                <SkeletonItem variant="wave" w="80%" h={24} />
+              </div>
+            ))}
+          </ul>
         ) : (
           <ul tabIndex={-1} role="listbox">
             {availableOptions.map((field, index) => (
@@ -245,7 +261,7 @@ const DropdownFilter = ({
       try {
         const fetchedOptions = await onFetch(searchKeyword);
         setOptions((prev) => {
-          const newOptions = fetchedOptions.filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
+          const newOptions = (fetchedOptions || []).filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
           return [...prev, ...newOptions];
         });
       } catch (error) {

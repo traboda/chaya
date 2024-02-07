@@ -399,7 +399,7 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
         <DataTableManager
           keyword={keyword}
           setKeyword={setKeyword}
-          onDownload={() => window.alert('Download')}
+          onDownload={() => { window.alert('Download'); return []; }}
           onCreate={() => window.alert('Create')}
           tabs={[
             { label: 'All', key: 'all' },
@@ -416,7 +416,6 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
               labels: {
                 label: 'Category',
                 searchLabel: 'Search Category',
-                optionsTitle: 'Category',
               },
               options: [
                 { value: 'hardware', label: 'Hardware' },

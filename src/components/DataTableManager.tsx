@@ -1,5 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+import { flatten } from 'flatten-anything';
 
 import Close from '../utils/icons/close';
 import Filter from '../utils/icons/filter';
@@ -58,7 +60,7 @@ export type DataTableManagerProps = {
   isFilteringInitialised?: boolean,
 
   // download
-  onDownload?: () => void,
+  onDownload?: () => Promise<object[]> | object[],
   isDownloadLoading?: boolean,
 
   // create
@@ -108,6 +110,21 @@ const DataTableManager = ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_keyword, _setKeyword] = useState(keyword || '');
   const [showFilters, setShowFilters] = useState(isFilteringInitialised);
+
+  const handleDownload = async () => {
+    if (typeof onDownload !== 'function')
+      return;
+    const data = await onDownload();
+    if (!data) return;
+    const csv = Papa.unparse(data?.map((i) => flatten(i)));
+    const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const csvURL = window.URL.createObjectURL(csvData);
+    const link = document.createElement('a');
+    link.setAttribute('href', csvURL);
+    link.setAttribute('download', `${labels.label || 'data'}_${new Date().getTime()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+  };
 
   useEffect(() => {
     _setKeyword(keyword || '');
@@ -199,7 +216,7 @@ const DataTableManager = ({
               type="button"
               variant="minimal"
               color="shade"
-              onClick={onDownload}
+              onClick={handleDownload}
               isLoading={isDownloadLoading}
               isDisabled={isDownloadLoading}
             >
@@ -297,7 +314,7 @@ const DataTableManager = ({
               onClick={onCancelSelections}
             />
           </div>
-          <div className="dsr-w-full md:dsr-w-1/2 lg:dsr-w-2/3 dsr-px-2 dsr-py-2 dsr-flex dsr-items-center dsr-justify-end dsr-gap-1">
+          <div className="dsr-w-full md:dsr-w-1/2 lg:dsr-w-2/3 dsr-px-2 dsr-py-2 dsr-flex dsr-items-center dsr-justify-end dsr-gap-2">
             {selectionActions?.filter((a) => !a.isHidden).map((a) => (
               <Button
                 variant="minimal"
