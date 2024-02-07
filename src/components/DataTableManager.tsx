@@ -135,9 +135,13 @@ const DataTableManager = ({
   }, [isFilteringInitialised]);
 
   const [cachedOptions, setCachedOptions] = useState<{ [key: string]: { label: string, value: string }[] }>({});
+  const [lastFetchKeyword, setFetchKeyword] = useState<string | null>(null);
   const onFetch = async (key: string, keyword: string, onFetch: (keyword: string) => Promise<{ label: string, value: string }[]>) => {
+    if (lastFetchKeyword === keyword)
+      return cachedOptions[key];
     const options = await onFetch(keyword);
     setCachedOptions({ ...cachedOptions, [key]: options });
+    setFetchKeyword(keyword);
     return options;
   };
 
