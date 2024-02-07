@@ -399,8 +399,14 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
         <DataTableManager
           keyword={keyword}
           setKeyword={setKeyword}
-          showDownloadButton
           onDownload={() => window.alert('Download')}
+          onCreate={() => window.alert('Create')}
+          tabs={[
+            { label: 'All', key: 'all' },
+            { label: 'Selected', key: 'selected' },
+            { label: 'Excluded', key: 'excluded' },
+          ]}
+          currentTab="all"
           isFilteringInitialised
           filters={filters}
           setFilters={setFilters}

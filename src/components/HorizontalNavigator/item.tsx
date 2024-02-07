@@ -55,7 +55,7 @@ const HorizontalNavigatorItem = ({
       variant: {
         pill: [
           'border border-neutral-300/20 dsr-px-5 dsr-py-2',
-          activeItem === item.key && 'dsr-text-primaryTextColor',
+          activeItem === item.key && 'dsr-text-primaryTextColor dsr-z-[1000]',
           activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-500/80',
         ],
         line: [
