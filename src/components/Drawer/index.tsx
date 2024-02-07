@@ -4,15 +4,15 @@ import clsx from 'clsx';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
-import Icon from '../Icon';
+import Icon, { IconInputType } from '../Icon';
 
 import drawerStyles from './drawer.module.scss';
 
 
 export type DrawerProps = {
-  isOpen: boolean,
-  onClose?: () => void,
   children: ReactNode,
+  isOpen?: boolean,
+  onClose?: () => void,
   overlayClassName?: string,
   className?: string,
   position?: 'top' | 'right' | 'bottom' | 'left',
@@ -22,11 +22,15 @@ export type DrawerProps = {
   maxHeight?: string | number,
   closable?: boolean,
   overlayContent?: ReactNode,
+  title?: string,
+  description?: string,
+  titleIcon?: IconInputType,
 };
 
 const Drawer = ({
-  isOpen, onClose = () => {}, position = 'right', children, overlayClassName = '', className = '',
+  isOpen = true, onClose = () => {}, position = 'right', children, overlayClassName = '', className = '',
   minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true, overlayContent,
+  title, description, titleIcon,
 }: DrawerProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
@@ -105,20 +109,49 @@ const Drawer = ({
             } as CSSProperties}
             onClick={e => e.stopPropagation()}
           >
-            {closable && (
-              <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
-                <Dialog.Close asChild>
-                  <button
-                    type="button"
-                    title="close"
-                    className="drawer-close-button dsr-outline-none"
-                    onClick={onClose}
+            <div
+              className={clsx([
+                'modal-header dsr-flex dsr-flex-col dsr-items-start dsr-justify-between dsr-gap-1 dsr-w-full',
+                'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
+                'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+              ])}
+            >
+              {closable && (
+                <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
+                  <Dialog.Close asChild>
+                    <button
+                      tabIndex={-1}
+                      type="button"
+                      title="close"
+                      className={clsx([
+                        'dsr-font-mono dsr-rounded dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0',
+                        'focus:dsr-ring-2',
+                      ])}
+                      onClick={onClose}
+                    >
+                      <Icon aria-hidden="true" icon="times" size={18} />
+                    </button>
+                  </Dialog.Close>
+                </div>
+              )}
+              {title && (
+                <Dialog.Title asChild>
+                  <h3
+                    className={clsx([
+                      'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+                    ])}
                   >
-                    <Icon icon="times" size={20} />
-                  </button>
-                </Dialog.Close>
-              </div>
-            )}
+                    {titleIcon ? <Icon icon={titleIcon} /> : null}
+                    {title}
+                  </h3>
+                </Dialog.Title>
+              )}
+              {description && (
+                <p className="dsr-opacity-80 dsr-text-sm">
+                  {description}
+                </p>
+              )}
+            </div>
             {children}
           </div>
         </Dialog.Content>

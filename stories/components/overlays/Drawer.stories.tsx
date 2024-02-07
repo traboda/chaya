@@ -50,4 +50,6 @@ Default.args = {
   isOpen: true,
   position: 'right',
   maxWidth: '300px',
+  title: 'Amazing Drawer',
+  description: 'This drawer pulls out amazing thins you may like',
 };
