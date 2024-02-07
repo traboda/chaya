@@ -61,44 +61,38 @@ const ConfirmationDialog = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      contentClassName={clsx('confirmation-dialog', className)}
+      contentClassName={clsx('confirmation-dialog dsr-w-[450px] dsr-max-w-full', className)}
+      title={labels?.title}
+      description={labels.description}
     >
       <form id={formID} onSubmit={confirmAction}>
-        <div className="dsr-p-1">
-          <h2 className="dsr-font-semibold dsr-text-2xl dsr-mb-1">{labels?.title}</h2>
-          {labels?.description && labels?.description?.length > 0 && (
-            <p style={{ width: '450px' }} className="dsr-opacity-90 dsr-max-w-full">
-              {labels.description}
-            </p>
-          )}
-          {(requireConfirmationText || requirePassword) && (
-            <div className="dsr-my-4">
-              {requireConfirmationText && (
-                <TextInput
-                  className="dsr-mb-3"
-                  label={labels?.confirmationTextLabel}
-                  placeholder={`Enter "${labels?.confirmationText}" to confirm`}
-                  name="confirmationText"
-                  value={confirmText}
-                  onChange={setConfirmText}
-                  isRequired
-                />
-              )}
-              {requirePassword && (
-                <TextInput
-                  className="dsr-mb-3"
-                  label={labels?.passwordLabel}
-                  placeholder={labels?.passwordPlaceholder}
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={setPassword}
-                  isRequired
-                />
-              )}
-            </div>
-          )}
-        </div>
+        {(requireConfirmationText || requirePassword) && (
+          <div className="dsr-p-1 dsr-my-4">
+            {requireConfirmationText && (
+              <TextInput
+                className="dsr-mb-3"
+                label={labels?.confirmationTextLabel}
+                placeholder={`Enter "${labels?.confirmationText}" to confirm`}
+                name="confirmationText"
+                value={confirmText}
+                onChange={setConfirmText}
+                isRequired
+              />
+            )}
+            {requirePassword && (
+              <TextInput
+                className="dsr-mb-3"
+                label={labels?.passwordLabel}
+                placeholder={labels?.passwordPlaceholder}
+                name="password"
+                type="password"
+                value={password}
+                onChange={setPassword}
+                isRequired
+              />
+            )}
+          </div>
+        )}
         <div className="dsr-flex dsr-justify-end dsr-gap-2">
           <Button
             color="contrast"

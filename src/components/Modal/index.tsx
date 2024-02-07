@@ -31,7 +31,7 @@ export type ModalProps = {
 
 const Modal = ({
   isOpen = true, children, onClose = () => {}, title, description, containerClassName, overlayClassName = '', overlayContent, contentClassName = '', titleIcon,
-  maxWidth = 720, hideBg = false, minHeight, maxHeight, primaryButton, secondaryButton, closable = true,
+  maxWidth = 720, hideBg = false, minHeight, maxHeight = '75vh', primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 300);
@@ -69,7 +69,7 @@ const Modal = ({
           <div
             className={clsx([
               'modal-container dsr-relative dsr-rounded-t-lg sm:dsr-rounded-b-lg dsr-shadow-lg sm:dsr-w-auto dsr-w-full',
-              'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto dsr-p-2',
+              'dsr-text-color dsr-max-w-screen dsr-max-h-[100dvh] dsr-overflow-auto',
               'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
@@ -78,56 +78,77 @@ const Modal = ({
             style={{ maxWidth }}
             onClick={e => e.stopPropagation()}
           >
-            {closable && (
-            <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
-              <Dialog.Close asChild>
-                <button
-                  tabIndex={-1}
-                  type="button"
-                  title="close"
-                  className={clsx([
-                    'dsr-font-mono dsr-rounded dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0',
-                    'focus:dsr-ring-2',
-                  ])}
-                >
-                  <Icon aria-hidden="true" icon="times" size={18} />
-                </button>
-              </Dialog.Close>
-            </div>
-            )}
-            {title && (
-              <Dialog.Title asChild>
-                <h2 className="dsr-text-2xl dsr-mb-2 dsr-font-semibold">
-                  {titleIcon ? <Icon icon={titleIcon} /> : null}
-                  {title}
-                </h2>
-              </Dialog.Title>
-            )}
-            {description && (
-            <p className="dsr-opacity-80 mb-2">
-              {description}
-            </p>
-            )}
             <div
-              className={clsx([contentClassName, 'dsr-overflow-auto'])}
+              className={clsx([
+                'modal-header dsr-flex dsr-flex-col dsr-items-start dsr-justify-between dsr-gap-1 dsr-w-full',
+                'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
+                'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+              ])}
+            >
+              {closable && (
+                <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
+                  <Dialog.Close asChild>
+                    <button
+                      tabIndex={-1}
+                      type="button"
+                      title="close"
+                      className={clsx([
+                        'dsr-font-mono dsr-rounded dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0',
+                        'focus:dsr-ring-2',
+                      ])}
+                    >
+                      <Icon aria-hidden="true" icon="times" size={18} />
+                    </button>
+                  </Dialog.Close>
+                </div>
+              )}
+              {title && (
+                <Dialog.Title asChild>
+                  <h3
+                    className={clsx([
+                      'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+                    ])}
+                  >
+                    {titleIcon ? <Icon icon={titleIcon} /> : null}
+                    {title}
+                  </h3>
+                </Dialog.Title>
+              )}
+              {description && (
+                <p className="dsr-opacity-80 dsr-text-sm">
+                  {description}
+                </p>
+              )}
+            </div>
+            <div
+              className={clsx([contentClassName, 'dsr-overflow-auto dsr-p-2'])}
               style={{ maxWidth, minHeight, maxHeight }}
             >
               {children}
             </div>
-            {(primaryButton && secondaryButton) ? (
-              <div className="dsr-flex dsr-items-center dsr-justify-end dsr-py-2 dsr-px-3 dsr-gap-2">
-                {secondaryButton && <Button {...secondaryButton} />}
-                {primaryButton && <Button {...primaryButton} />}
+            {(primaryButton || secondaryButton) ? (
+              <div
+                className={clsx([
+                  'modal-footer dsr-px-3 dsr-py-1 dsr-rounded-b-lg dsr-border-t',
+                  'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+                ])}
+              >
+                {(primaryButton && secondaryButton) ? (
+                  <div className="dsr-flex dsr-items-center dsr-justify-end dsr-gap-2">
+                    {secondaryButton && <Button {...secondaryButton} />}
+                    {primaryButton && <Button {...primaryButton} />}
+                  </div>
+                ) : primaryButton && (
+                  <Button
+                    variant="solid"
+                    color="primary"
+                    size="lg"
+                    className={clsx(['dsr-w-full', primaryButton?.className])}
+                    {...primaryButton}
+                  />
+                )}
               </div>
-            ) : primaryButton && (
-              <Button
-                variant="solid"
-                color="primary"
-                size="lg"
-                className={clsx(['dsr-w-full dsr-mt-2', primaryButton?.className])}
-                {...primaryButton}
-              />
-            )}
+            ) : null}
           </div>
         </Dialog.Content>
       </Dialog.Portal>

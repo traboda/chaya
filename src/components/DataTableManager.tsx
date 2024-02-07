@@ -65,6 +65,7 @@ export type DataTableManagerProps = {
 
   // create
   onCreate?: () => void,
+  creatorPopupRenderer?: (isCreating: boolean, setCreating: (isCreating: boolean) => void) => React.ReactNode,
 
   // selections
   selections?: {
@@ -101,7 +102,8 @@ const defaultLabels = {
 const DataTableManager = ({
   keyword, setKeyword, labels: _labels, isLoading = false, totalCount,
   filterConfig, filters, setFilters = () => {}, isFilteringInitialised,
-  onDownload, isDownloadLoading = false, onCreate, tabs, currentTab, onTabChange = () => {},
+  onDownload, isDownloadLoading = false, onCreate, creatorPopupRenderer,
+  tabs, currentTab, onTabChange = () => {},
   columns, selectedColumns = [], setColumns = () => {},
   selections, onCancelSelections = () => {}, selectionActions = [],
 }: DataTableManagerProps) => {
@@ -152,8 +154,17 @@ const DataTableManager = ({
     return [];
   };
 
+  const [showCreator, setShowCreator] = useState(false);
+  const handleCreate = () => {
+    if (typeof onCreate === 'function') onCreate();
+    if (typeof creatorPopupRenderer == 'function') setShowCreator(true);
+  };
+
   return (
     <div>
+      {typeof creatorPopupRenderer == 'function' && (
+        creatorPopupRenderer(showCreator, setShowCreator)
+      )}
       <div className="md:dsr-flex dsr-justify-between dsr-items-center dsr-gap-3">
         <div className="md:dsr-flex dsr-items-center dsr-w-full dsr-p-2">
           {(typeof keyword === 'string' && typeof setKeyword === 'function') ? (
@@ -227,12 +238,12 @@ const DataTableManager = ({
               <Download />
             </Button>
           )}
-          {typeof onCreate === 'function' && (
+          {(typeof onCreate === 'function' || typeof creatorPopupRenderer == 'function') && (
             <Button
               type="button"
               variant="solid"
               color="primary"
-              onClick={onCreate}
+              onClick={handleCreate}
               rightIcon="plus"
               className="!dsr-py-1.5"
             >
