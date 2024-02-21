@@ -65,7 +65,7 @@ const CheckboxGroup = <Type extends string | number>({
       case 'Enter':
         event.preventDefault();
         const option = options[index];
-        onChange(value.includes(option.value) ?
+        onChange(value && value.includes(option.value) ?
           value.filter(value => value !== option.value) :
           [...value, option.value]);
         break;
@@ -124,12 +124,12 @@ const CheckboxGroup = <Type extends string | number>({
             key={index}
             value={option.value}
             label={option.label}
-            isChecked={value.includes(option.value)}
+            isChecked={value && value.includes(option.value)}
             isDisabled={isDisabled || option.isDisabled}
             color={color}
             size={size}
             onChange={() => {
-              onChange(value.includes(option.value) ?
+              onChange(value && value.includes(option.value) ?
                 value.filter(value => value !== option.value) :
                 [...value, option.value]);
             }}

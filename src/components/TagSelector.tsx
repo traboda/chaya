@@ -43,7 +43,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
 
   const handleTagClick = (tagSelect: OptionType) => {
     if (props.multiple) {
-      if (tags.includes(tagSelect.value)) {
+      if (tags && tags.includes(tagSelect.value)) {
         const tempTags = [...tags];
         const index = tags.indexOf(tagSelect.value);
         tempTags.splice(index, index + 1);
@@ -60,7 +60,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
 
   const generateClassName = (value: string | number) => {
     const className = clsx([
-      props?.multiple && tags.includes(value) && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
+      props?.multiple && tags && tags.includes(value) && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
       !props.multiple && tag === value && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
     ]);
 

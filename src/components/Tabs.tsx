@@ -83,7 +83,6 @@ const Tabs = ({
 
   useEffect(() => {
     if (currentTab) {
-      console.log('current Tab changed', currentTab);
       onChange(currentTab);
     }
   }, [currentTab]);

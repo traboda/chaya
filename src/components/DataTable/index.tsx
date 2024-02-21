@@ -121,7 +121,7 @@ const DataTable = <Type extends { id: string }>({
   }, [canExpand, allowSelection, activeProperties]);
 
   const toggleAccordion = (index: number) => {
-    if (activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
+    if (activeIndex && activeIndex.includes(index)) setActiveIndex(activeIndex.filter((i) => i !== index));
     else setActiveIndex([...activeIndex, index]);
   };
 
@@ -201,10 +201,10 @@ const DataTable = <Type extends { id: string }>({
                           itemIndex={index}
                           onClick={() => toggleAccordion(index)}
                           supportAccordion={canExpand}
-                          isAccordionOpen={activeIndex.includes(index)}
+                          isAccordionOpen={activeIndex && activeIndex.includes(index)}
                           variant={variant}
                         />
-                        {activeIndex.includes(index) && (
+                        {activeIndex?.includes(index) && (
                         <tr className="accordion-content data-table-row dsr-group dsr-w-full">
                           <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                         </tr>
