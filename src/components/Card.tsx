@@ -43,7 +43,7 @@ const Card = ({
           {title && (
           <h3
             className={clsx([
-              'dsr-text-xl lg:dsr-text-2xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+              'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
               titleClassName,
             ])}
           >

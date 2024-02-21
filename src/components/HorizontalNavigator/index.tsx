@@ -95,7 +95,7 @@ const HorizontalNavigator = ({
         'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
         'dsr-items-center dsr-rounded-lg',
         (variant === 'pill' || variant === 'boxed') && 'dsr-z-[1000] dsr-gap-x-1',
-        variant === 'boxed' && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-600/20 dsr-p-1.5',
+        variant === 'boxed' && 'dsr-bg-neutral-400/20 dark:dsr-bg-neutral-600/20 dsr-p-1.5',
         variant === 'line' && 'dsr-gap-2',
         className,
       ])}

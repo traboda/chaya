@@ -61,6 +61,7 @@ const ConfirmationDialog = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
+      headerClassName="dsr-w-[450px]"
       contentClassName={clsx('confirmation-dialog dsr-w-[450px] dsr-max-w-full', className)}
       title={labels?.title}
       description={labels.description}

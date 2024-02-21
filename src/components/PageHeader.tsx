@@ -36,7 +36,7 @@ const PageHeader = ({
       id={id}
       className={clsx([
         'page-header',
-        !fill && 'dsr-container dsr-mx-auto p-2',
+        fill ? 'dsr-p-2 md:dsr-p-4' : 'dsr-container dsr-mx-auto dsr-p-2',
         className,
       ])}
       style={{

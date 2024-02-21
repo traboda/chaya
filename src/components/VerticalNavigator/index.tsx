@@ -121,7 +121,7 @@ const VerticalNavigator = ({
   return (
     <div
       className={clsx([
-        variant === 'boxed' && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-600/20 dsr-rounded-lg dsr-p-1.5',
+        variant === 'boxed' && 'dsr-bg-neutral-400/20 dark:dsr-bg-neutral-600/20 dsr-rounded-lg dsr-p-1.5',
       ])}
     >
       <div className="dsr-relative">
