@@ -30,12 +30,14 @@ const activeMarkerClassNames = cva({
   variants: {
     variant: {
       pill: 'dsr-shadow-lg dsr-z-[500] dsr-rounded-lg',
+      boxed: 'dsr-shadow-lg dsr-z-[500] dsr-rounded-lg',
       line: 'dsr-border-2 dsr-z-[1000]',
     },
     color: EMPTY_COLOR_MAP,
   },
   compoundVariants: [
     ...colorVariantMapper<VerticalNavigatorVariantType>([SOLID_BG_COLOR_MAP], 'pill'),
+    ...colorVariantMapper<VerticalNavigatorVariantType>([SOLID_BG_COLOR_MAP], 'boxed'),
     ...colorVariantMapper<VerticalNavigatorVariantType>([BORDER_COLOR_MAP], 'line'),
     {
       variant: 'line',
@@ -117,28 +119,34 @@ const VerticalNavigator = ({
   );
 
   return (
-    <div className="dsr-relative">
-      {listRenderer}
-      {(
-        (indicatorStyle?.width || indicatorStyle?.height) &&
-        (
-          (variant === 'pill' &&
-            items.some((item) =>
-              item.key === activeItem || item.items?.some((subItem) => subItem.key === activeItem),
-            )
-          ) ||
-          (variant === 'line' && items.some((item) => item.key === activeItem))
-        )
-      ) && (
-        <div
-          className={activeMarkerClassNames({ variant, color: color })}
-          style={{
-            transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
-            width: indicatorStyle?.width || 0,
-            height: indicatorStyle?.height || 0,
-          }}
-        />
-      )}
+    <div
+      className={clsx([
+        variant === 'boxed' && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-600/20 dsr-rounded-lg dsr-p-1.5',
+      ])}
+    >
+      <div className="dsr-relative">
+        {listRenderer}
+        {(
+          (indicatorStyle?.width || indicatorStyle?.height) &&
+          (
+            ((variant === 'pill' || variant === 'boxed') &&
+              items.some((item) =>
+                item.key === activeItem || item.items?.some((subItem) => subItem.key === activeItem),
+              )
+            ) ||
+            (variant === 'line' && items.some((item) => item.key === activeItem))
+          )
+        ) && (
+          <div
+            className={activeMarkerClassNames({ variant, color: color })}
+            style={{
+              transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
+              width: indicatorStyle?.width || 0,
+              height: indicatorStyle?.height || 0,
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 

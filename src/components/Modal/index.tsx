@@ -20,6 +20,8 @@ export type ModalProps = {
   overlayClassName?: string,
   containerClassName?: string,
   contentClassName?: string,
+  titleClassName?: string,
+  headerClassName?: string,
   maxWidth?: number | string,
   minHeight?: number | string,
   maxHeight?: number | string,
@@ -30,7 +32,9 @@ export type ModalProps = {
 };
 
 const Modal = ({
-  isOpen = true, children, onClose = () => {}, title, description, containerClassName, overlayClassName = '', overlayContent, contentClassName = '', titleIcon,
+  isOpen = true, children, onClose = () => {}, title, description,
+  containerClassName, overlayClassName = '', titleClassName = '', headerClassName = '',
+  overlayContent, contentClassName = '', titleIcon,
   maxWidth = 720, hideBg = false, minHeight, maxHeight = '75vh', primaryButton, secondaryButton, closable = true,
 }: ModalProps) => {
 
@@ -83,6 +87,7 @@ const Modal = ({
                 'modal-header dsr-flex dsr-flex-col dsr-items-start dsr-justify-between dsr-gap-1 dsr-w-full',
                 'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
                 'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+                headerClassName,
               ])}
             >
               {closable && (
@@ -107,6 +112,7 @@ const Modal = ({
                   <h3
                     className={clsx([
                       'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+                      titleClassName,
                     ])}
                   >
                     {titleIcon ? <Icon icon={titleIcon} /> : null}

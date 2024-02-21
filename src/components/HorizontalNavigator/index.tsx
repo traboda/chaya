@@ -21,7 +21,7 @@ export type HorizontalNavigatorProps = {
   items: HorizontalNavigatorItemType[],
   // key of the active item. If null, no item will be active.
   activeItem?: string | null,
-  // variant of the navigator. Can be 'pill' or 'line', defaults to 'pill'
+  // variant of the navigator. Can be 'pill', 'boxed' or 'line', defaults to 'pill'
   variant?: HorizontalNavigatorVariantType,
   // color of the navigator.
   color?: ChayaColorType,
@@ -38,6 +38,7 @@ const activeMarkerClassName = cva({
     variant: {
       line: 'horizontal-navigator-underline dsr-border-2 dsr-w-full dsr-bottom-0',
       pill: 'horizontal-navigator-pill dsr-shadow-lg dsr-z-[500] dsr-top-0',
+      boxed: 'horizontal-navigator-boxed dsr-shadow-lg dsr-z-[500] dsr-top-0',
     },
     color: EMPTY_COLOR_MAP,
   },
@@ -93,7 +94,8 @@ const HorizontalNavigator = ({
       className={clsx([
         'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
         'dsr-items-center dsr-rounded-lg',
-        variant === 'pill' && 'dsr-z-[1000] dsr-bg-gray-400/20 dsr-p-1.5 dsr-gap-x-1',
+        (variant === 'pill' || variant === 'boxed') && 'dsr-z-[1000] dsr-gap-x-1',
+        variant === 'boxed' && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-600/20 dsr-p-1.5',
         variant === 'line' && 'dsr-gap-2',
         className,
       ])}
@@ -104,7 +106,7 @@ const HorizontalNavigator = ({
           item={item}
           activeItem={activeItem}
           navigatorID={navigatorID}
-          variant={variant}
+          variant={variant == 'boxed' ? 'pill' : variant}
           color={color}
           className={itemClassName}
           onClickItem={onClickItem}
@@ -112,7 +114,7 @@ const HorizontalNavigator = ({
       ))}
       {activeItem ? (
         <div
-          className={activeMarkerClassName({ variant: variant, color: color })}
+          className={activeMarkerClassName({ variant: variant === 'boxed' ? 'pill' : variant, color: color })}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
             width: indicatorStyle?.width || 0,

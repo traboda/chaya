@@ -47,6 +47,17 @@ export const Primary: Story = {
   render: (args) => <DefaultTemplate {...args} />,
 };
 
+export const BoxedVariant: Story = {
+  tags: ['unlisted'],
+  storyName: 'Horizontal Navigator Box Variant',
+  args: {
+    items: defaultMenuItems,
+    activeItem: 'OPENED',
+    variant: 'boxed',
+  },
+  render: (args) => <DefaultTemplate {...args} />,
+};
+
 export const LineVariant: Story = {
   tags: ['unlisted'],
   storyName: 'Horizontal Navigator Line Variant',

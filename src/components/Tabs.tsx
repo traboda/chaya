@@ -49,7 +49,7 @@ export type TabsProps = {
   isVertical?: boolean,
   disableResponsive?: boolean,
   alignCenter?: boolean,
-  variant?: 'pill' | 'line',
+  variant?: 'pill' | 'line' | 'boxed',
   color?: ChayaColorType,
 };
 
@@ -83,6 +83,7 @@ const Tabs = ({
 
   useEffect(() => {
     if (currentTab) {
+      console.log('current Tab changed', currentTab);
       onChange(currentTab);
     }
   }, [currentTab]);
@@ -112,7 +113,7 @@ const Tabs = ({
     </div>
   );
 
-  const renderPanels = tabItems?.length > 0 ? (
+  const renderPanels = tabItems?.length > 0 ? useMemo(() => (
     <div
       key="tab_panel"
       role="tabpanel"
@@ -125,7 +126,7 @@ const Tabs = ({
           t.rendererFunc ? t.rendererFunc() : null
       ))}
     </div>
-  ) : <div />;
+  ), [tabItems, currentTab, panelClassName]) : <div />;
 
   const verticalSelector = isVertical ? useMemo(() => (
     <VerticalNavigator

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Tabs, TabsProps } from '../../../src';
+import { Tabs, Card, TabsProps } from '../../../src';
 
 const meta: Meta = {
   title: 'Components/Display/Tabs',
@@ -16,30 +16,38 @@ export default meta;
 type Story = StoryObj<typeof Tabs>;
 
 
-const defaulItems: TabsProps['items'] = [
+const defaultItems: TabsProps['items'] = [
   {
     label: 'Item 1',
-    renderer: 'tab 1',
+    rendererFunc: () => (
+      <Card>
+        Item 1 is here
+      </Card>
+    ),
     badge: 3,
+    key: 'item-1',
   },
   {
     label: 'Item 2',
-    renderer: 'tab 2',
+    rendererFunc: () => 'tab 2',
     badge: 5,
+    key: 'item-2',
   },
   {
     label: 'Item 3',
-    renderer: 'tab 3',
+    rendererFunc: () => 'tab 3',
+    key: 'item-3',
   },
   {
     label: 'Item 4',
-    renderer: 'tab 4',
+    rendererFunc: () => 'tab 4',
+    key: 'item-4',
   },
 ];
 
 export const Primary: Story = {
   args: {
-    items: defaulItems,
+    items: defaultItems,
   },
 };
 
@@ -47,8 +55,17 @@ export const LineVariant: Story = {
   storyName: 'Line Variant',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
     variant: 'line',
+  },
+};
+
+export const BoxedVariant: Story = {
+  storyName: 'Boxed Variant',
+  tags: ['unlisted'],
+  args: {
+    items: defaultItems,
+    variant: 'boxed',
   },
 };
 
@@ -56,7 +73,7 @@ export const Vertical: Story = {
   storyName: 'Vertical Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
     isVertical: true,
   },
 };
@@ -65,9 +82,19 @@ export const VerticalLineVariant: Story = {
   storyName: 'Vertical Line Variant',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
     isVertical: true,
     variant: 'line',
+  },
+};
+
+export const VerticalBoxedVariant: Story = {
+  storyName: 'Vertical Boxed Variant',
+  tags: ['unlisted'],
+  args: {
+    items: defaultItems,
+    variant: 'boxed',
+    isVertical: true,
   },
 };
 
@@ -75,7 +102,7 @@ export const ResponsiveView: Story = {
   storyName: 'Responsive Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
   },
   parameters: {
     viewport: {
@@ -88,7 +115,7 @@ export const ResponsiveLineView: Story = {
   storyName: 'Responsive Line Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
     variant: 'line',
   },
   parameters: {
@@ -102,7 +129,7 @@ export const ResponsiveDisabledView: Story = {
   storyName: 'Responsive Disabled Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
     variant: 'line',
     disableResponsive: true,
   },
@@ -118,7 +145,7 @@ export const ResponsivePreview: Story = {
   storyName: 'Responsive Preview Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
   },
   render: () => (
     <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">
@@ -148,7 +175,7 @@ export const DisableResponsivePreview: Story = {
   storyName: 'Responsive Disabled Preview Tabs',
   tags: ['unlisted'],
   args: {
-    items: defaulItems,
+    items: defaultItems,
   },
   render: () => (
     <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">

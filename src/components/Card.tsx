@@ -43,7 +43,7 @@ const Card = ({
           {title && (
           <h3
             className={clsx([
-              'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+              'dsr-text-xl lg:dsr-text-2xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
               titleClassName,
             ])}
           >
@@ -51,7 +51,7 @@ const Card = ({
             {title}
           </h3>
           )}
-          {description && <p className="dsr-opacity-80 dsr-text-sm">{description}</p>}
+          {description && <p className="dsr-opacity-80 dsr-mt-1 dsr-text-sm">{description}</p>}
         </div>
         <div>{sidebarRenderer}</div>
       </div>

@@ -18,14 +18,14 @@ const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className 
   return (
     <label
       id={id}
-      className={clsx(['dsr-tracking-wide dsr-opacity-90 dsr-flex dsr-items-center dsr-mb-1', className])}
+      className={clsx(['dsr-opacity-90 dsr-flex dsr-items-center dsr-font-medium dsr-mb-1 dsr-text-sm', className])}
       htmlFor={htmlFor}
       aria-hidden={false}
     >
       <span className="dsr-flex dsr-items-center dsr-gap-1">
         <span>
           {children}
-          {isRequired && <span className="dsr-ml-1 dsr-text-red-500 dsr-text-sm">*</span>}
+          {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
         </span>
         {tooltip && (
           <ToolTip overlay={tooltip} side="right">

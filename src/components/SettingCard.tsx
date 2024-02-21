@@ -20,17 +20,17 @@ export type SettingCardProps = {
 const SettingCard = ({
   id, className, labels, titleClassName, children, subSettingRenderer, isVertical = false,
 }: SettingCardProps) => (
-  <Card id={id} className={clsx(['dsr-p-2 dsr-w-full setting-card', className])}>
+  <Card id={id} className={clsx(['dsr-p-0 dsr-w-full setting-card', className])}>
     <div
       className={clsx([
         'dsr-flex dsr-h-full dsr-mx-0',
-        isVertical ? 'dsr-flex-col dsr-gap-3' : 'dsr-flex-row dsr-flex-wrap',
+        isVertical ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-flex-wrap',
       ])}
     >
       <div className={clsx(['dsr-w-full', !isVertical && 'md:dsr-w-3/4 dsr-p-1'])}>
         <div
           className={clsx([
-            'dsr-text-xl dsr-font-semibold setting-title',
+            'dsr-text-lg dsr-font-semibold setting-title',
             titleClassName,
           ])}
         >
@@ -38,7 +38,7 @@ const SettingCard = ({
         </div>
         {labels?.description &&
         typeof labels?.description === 'string' ? (
-          <p style={{ width: '600px', maxWidth: '100%' }} className="dsr-mt-1 dsr-text-sm dsr-opacity-80">
+          <p style={{ width: '600px', maxWidth: '100%' }} className="dsr-mt-0.5 dsr-text-sm dsr-opacity-80">
             {labels?.description}
           </p>
           ) : labels.description}

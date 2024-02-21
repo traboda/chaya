@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-
 import Breadcrumb, { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
+import Button, { ButtonProps } from './Button';
 
 export type PageHeaderProps = {
   title?: string,
@@ -19,15 +19,16 @@ export type PageHeaderProps = {
   titleBottomRenderer?: () => (React.ReactNode),
   sidebarRenderer?: () => (React.ReactNode)
   customRender?: () => (React.ReactNode),
+  backButton?: ButtonProps
 };
 
 const PageHeader = ({
   title, description, className = '', headingClassName = '', id, homeLink,
-  breadcrumbItems = [], size = 'lg', fill = false,
+  breadcrumbItems = [], size = 'sm', fill = false,
   customRender = () => <div />,
   titleBottomRenderer = () => <div />,
   sidebarRenderer = () => <div />,
-  customTitle, breadcrumb,
+  customTitle, breadcrumb, backButton,
 } : PageHeaderProps) => {
 
   return (
@@ -35,16 +36,29 @@ const PageHeader = ({
       id={id}
       className={clsx([
         'page-header',
-        !fill && 'dsr-flex dsr-items-center dsr-justify-center',
+        !fill && 'dsr-container dsr-mx-auto p-2',
         className,
       ])}
       style={{
-        padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : '1.5vh 1.5vw',
+        padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : '',
       }}
     >
-      <div className={clsx([fill ? '' : 'dsr-container'])}>
+      <div>
         <div className="dsr-flex dsr-flex-wrap">
           <div className="md:dsr-w-2/3 dsr-py-2">
+            {backButton && (
+              <Button
+                variant="link"
+                color="contrast"
+                leftIcon="arrow-left"
+                {...backButton}
+                size={size === 'lg' ? 'lg' : 'sm'}
+                className={clsx([
+                  '!dsr-no-underline dsr-px-1.5 dsr-py-1 !dsr-rounded-lg hover:dsr-bg-neutral-100 hover:dark:hover:dsr-bg-neutral-200',
+                  backButton?.className,
+                ])}
+              />
+            )}
             {breadcrumbItems?.length > 0 ? (
               <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
                 <Breadcrumb

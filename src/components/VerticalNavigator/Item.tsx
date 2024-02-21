@@ -31,12 +31,12 @@ export type VerticalNavigatorItemType = VerticalNavigatorItemBaseType & {
   items?: VerticalNavigatorItemBaseType[]
 };
 
-export type VerticalNavigatorVariantType = 'pill' | 'line';
+export type VerticalNavigatorVariantType = 'pill' | 'boxed' | 'line';
 
 export type VerticalNavigatorItemProps = {
   item: VerticalNavigatorItemType,
   className?: string,
-  variant?: 'pill' | 'line',
+  variant?: VerticalNavigatorVariantType,
   color?: ChayaColorType,
   activeItem?: string | null,
   role?: string,
@@ -81,6 +81,7 @@ const VerticalNavigatorItem = ({
       variant: {
         line: 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
         pill: '',
+        boxed: '',
       },
       color: EMPTY_COLOR_MAP,
       state: {
@@ -90,6 +91,7 @@ const VerticalNavigatorItem = ({
     },
     compoundVariants: [
       ...colorMapper<{ variant: VerticalNavigatorVariantType, state: 'active' | 'inactive' }>([SOLID_TEXT_COLOR_MAP], { variant: 'pill', state: 'active' }),
+      ...colorMapper<{ variant: VerticalNavigatorVariantType, state: 'active' | 'inactive' }>([SOLID_TEXT_COLOR_MAP], { variant: 'boxed', state: 'active' }),
       ...colorMapper<{ variant: VerticalNavigatorVariantType, state: 'active' | 'inactive' }>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], { variant: 'line', state: 'active' }),
       {
         variant: 'line',
@@ -165,7 +167,7 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
-        (dropdownVisibility && variant === 'pill') && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-400/20 dsr-rounded-lg dsr-pb-2',
+        (dropdownVisibility && (variant === 'pill' || variant === 'boxed')) && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-400/20 dsr-rounded-lg dsr-pb-2',
       ])}
     >
       <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1 dsr-z-[1000]">
@@ -232,7 +234,7 @@ const VerticalNavigatorItem = ({
         'dsr-z-[1000]',
         activeItem === item.key ? clsx([
           'active',
-          variant === 'pill' && 'hover:dsr-bg-neutral-900/30',
+          (variant === 'pill' || variant === 'boxed') && 'hover:dsr-bg-neutral-900/30',
         ]) : 'hover:dsr-bg-neutral-300/10',
       ])}
       key={item.key}

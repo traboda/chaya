@@ -25,7 +25,7 @@ export type HorizontalNavigatorItemType = {
   badgeProps?: BaseBadgeProps,
 };
 
-export type HorizontalNavigatorVariantType = 'pill' | 'line';
+export type HorizontalNavigatorVariantType = 'pill' | 'line' | 'boxed';
 
 export type HorizontalNavigatorItemProps = {
   item: HorizontalNavigatorItemType,
@@ -53,8 +53,9 @@ const HorizontalNavigatorItem = ({
     variants: {
       color: EMPTY_COLOR_MAP,
       variant: {
+        boxed: [],
         pill: [
-          'border border-neutral-300/20 dsr-px-5 dsr-py-2',
+          'dsr-px-5 dsr-py-2',
           activeItem === item.key && 'dsr-text-primaryTextColor dsr-z-[1000]',
           activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-500/80',
         ],
@@ -114,6 +115,7 @@ const HorizontalNavigatorItem = ({
         item?.onClick && typeof item.onClick === 'function' ? item.onClick() : onClickItem(item.key, item)
       }
       role="tab"
+      type="button"
       id={`${navigatorID}-${item.key}-tab`}
       data-toggle="tab"
       aria-selected={activeItem === item.key}

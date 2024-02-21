@@ -9,6 +9,7 @@ import Icon, { IconInputType } from './Icon';
 import Dropdown, { AlignOptions, SideOptions } from './Dropdown';
 
 export type OptionType = {
+  isHidden?: boolean,
   title: string,
   iconClassName?: string,
   icon?: IconInputType,
@@ -19,6 +20,7 @@ export type OptionType = {
 };
 
 export type GroupType = {
+  isHidden?: boolean,
   title?: string,
   icon?: IconInputType,
   options: OptionType[],
@@ -51,8 +53,8 @@ const DropdownMenu = ({
 
   const optionRenderer: (o: OptionType, index: number) => React.ReactNode = (o, index) => {
     const content = o?.renderer ? o.renderer() : (
-      <div className="dsr-flex dsr-items-center dsr-text-left dsr-gap-2">
-        {o.icon && <Icon icon={o.icon} size={16} />}
+      <div className="dsr-flex dsr-items-center dsr-text-left dsr-text-sm dsr-gap-2">
+        {o.icon && <Icon icon={o.icon} size={14} />}
         {o?.title}
       </div>
     );
@@ -62,14 +64,17 @@ const DropdownMenu = ({
         role="menuitem"
         key={`dropdown-menu-item-${index}-${o?.title}`}
         tabIndex={-1}
-        className={clsx(['dropdown-menu-item', linkClasses(o?.className)])}
+        className={clsx(['dropdown-menu-item dsr-cursor-pointer', linkClasses(o?.className)])}
       >
         {content}
       </RadixDropdownMenu.Item>, { className: 'dsr-w-full' }) : (
         <RadixDropdownMenu.Item
           role="menuitem"
           key={`dropdown-menu-item-${index}-${o?.title}`}
-          className={clsx(['dropdown-menu-item', linkClasses(o?.className)])}
+          className={clsx([
+            'dropdown-menu-item', 'dsr-cursor-pointer',
+            linkClasses(o?.className),
+          ])}
           onClick={o?.onClick}
         >
           {content}
@@ -92,7 +97,7 @@ const DropdownMenu = ({
             {g?.title}
           </div>
         )}
-        {g?.options.map((o, i) => optionRenderer(o, i))}
+        {g?.options.filter((o) => !o.isHidden).map((o, i) => optionRenderer(o, i))}
       </RadixDropdownMenu.Group>
     );
   };
@@ -104,7 +109,7 @@ const DropdownMenu = ({
       id={id}
       className={className}
       containerClassName={clsx([
-        'dsr-rounded-lg dsr-p-1 dsr-flex dsr-flex-col dsr-gap-1',
+        'dsr-rounded-lg dsr-p-1 dsr-flex dsr-flex-col dsr-gap-1 dsr-background dsr-z-[5000]',
         'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
         containerClassName,
       ])}
@@ -113,7 +118,7 @@ const DropdownMenu = ({
       side={side}
     >
       {customHeaderRenderer?.()}
-      {(options && options.length > 0) && options.map((o, i) =>
+      {(options && options.length > 0) && options.filter((o) => !o.isHidden).map((o, i) =>
         'options' in o ? groupRenderer(o, i) : optionRenderer(o, i),
       )}
     </Dropdown>
