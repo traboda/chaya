@@ -87,12 +87,12 @@ const colorVariants: {
 
 const NavigatorVariants = ({ variant }: { variant: HorizontalNavigatorProps['variant'] }) => (
   <table
-    className="dsr-flex dsr-flex-col dsr-items-start dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex flex-col items-start border-dashed border gap-2"
     style={{ padding: '5vh 5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <tr className="dsr-flex dsr-flex-wrap dsr-mx-0 dsr-w-full">
-        <td style={{ width: '30%' }} className="dsr-p-3 dsr-opacity-80 dsr-flex dsr-justify-end dsr-text-sm">{label}</td>
+      <tr className="flex flex-wrap mx-0 w-full">
+        <td style={{ width: '30%' }} className="p-3 opacity-80 flex justify-end text-sm">{label}</td>
         <td style={{ width: '70%' }}>
           <DefaultTemplate items={defaultMenuItems} color={color} activeItem={activeItem} variant={variant} />
         </td>

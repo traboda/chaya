@@ -122,14 +122,14 @@ const colorVariants: {
 
 const NavigatorVariants = ({ variant }: { variant: VerticalNavigatorProps['variant'] }) => (
   <div
-    className="dsr-flex dsr-flex-wrap dsr-mx-0 dsr-items-start dsr-justify-center dsr-border-dashed dsr-border"
+    className="flex flex-wrap mx-0 items-start justify-center border-dashed border"
     style={{ padding: '5vh 2.5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <div className="dsr-w-1/3 dsr-text-left dsr-p-4">
-        <div className="dsr-p-3 dsr-opacity-80 dsr-text-sm">{label}</div>
+      <div className="w-1/3 text-left p-4">
+        <div className="p-3 opacity-80 text-sm">{label}</div>
         <div
-          className="dsr-border-2 dsr-border-dashed dsr-p-2"
+          className="border-2 border-dashed p-2"
           style={{
             background: 'rgba(200, 200, 200, 0.2)',
           }}

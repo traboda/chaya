@@ -1,6 +1,7 @@
 'use client';
 import React, { FormEvent, useState } from 'react';
-import clsx from 'clsx';
+
+import mcs from '../utils/merge';
 
 import SimpleSelect, { SimpleSelectOptionType } from './SimpleSelect';
 import Button from './Button';
@@ -43,8 +44,8 @@ const SelectorButton = <Type extends string | number | null | undefined>({
   return (
     <form
       id={id}
-      className={clsx([
-        'selector-button dsr-flex dsr-items-stretch w-full',
+      className={mcs([
+        'selector-button flex items-stretch w-full',
         className,
       ])}
       onSubmit={onSubmit}
@@ -57,13 +58,13 @@ const SelectorButton = <Type extends string | number | null | undefined>({
         options={options}
         isDisabled={isDisabled}
         isRequired
-        className="dsr-rounded-r-none"
+        className="rounded-r-none"
         labels={{ placeholder: labels?.placeholder, label: labels?.label || '' }}
         postfixRenderer={(
           <Button
             variant="link"
             color="contrast"
-            className="hover:dsr-no-underline dsr-w-full dsr-h-full dsr-px-2 dsr-border-0 dsr-rounded-none dsr-text-color dsr-bg-transparent dsr-opacity-100"
+            className="hover:no-underline w-full h-full px-2 border-0 rounded-none text-color bg-transparent opacity-100"
             type="submit"
             isDisabled={isDisabled}
           >

@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<SettingCardProps> = args => (
-  <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+  <div className="flex flex-col dar-justify-center items-center p-30">
     <SettingCard {...args}>
       {args?.children}
     </SettingCard>

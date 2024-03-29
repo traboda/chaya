@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Badge, { BaseBadgeProps } from './Badge';
 import Label from './Label';
 
@@ -60,21 +62,21 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
 
   const generateClassName = (value: string | number) => {
     const className = clsx([
-      props?.multiple && tags && tags.includes(value) && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
-      !props.multiple && tag === value && '!dsr-bg-primary dsr-text-gray-100 dsr-border-primary',
+      props?.multiple && tags && tags.includes(value) && '!bg-primary text-gray-100 border-primary',
+      !props.multiple && tag === value && '!bg-primary text-gray-100 border-primary',
     ]);
 
     return clsx([
-      props.small ? 'dsr-px-1 dsr-py-4' : '',
+      props.small ? 'px-1 py-4' : '',
       className || [
-        'hover:dark:dsr-bg-gray-500/30 hover:dsr-bg-gray-500/20',
-        'dsr-border-gray-500',
+        'hover:dark:bg-gray-500/30 hover:bg-gray-500/20',
+        'border-gray-500',
       ],
     ]);
   };
 
   return (
-    <div id={props?.id} className={clsx(['tag-selector', props?.className])}>
+    <div id={props?.id} className={mcs(['tag-selector', props?.className])}>
       {props?.labels && (
       <Label
         htmlFor=""
@@ -82,14 +84,14 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
         tooltip={props.labels.helpText}
       />
       )}
-      <div className="dsr-flex dsr-flex-wrap dsr-items-center dsr-gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {props.options.map(o => (
           <button
             type="button"
             key={o.value}
-            className={clsx([
-              'tag-option dsr-px-3 dsr-py-2 dsr-rounded-lg dsr-text-base dsr-flex dsr-items-center dsr-gap-2',
-              'dsr-transition-all dsr-duration-200ms dsr-ease dsr-border dsr-shadow hover:dsr-shadow-none',
+            className={mcs([
+              'tag-option px-3 py-2 rounded-lg text-base flex items-center gap-2',
+              'transition-all duration-200ms ease border shadow hover:shadow-none',
               generateClassName(o.value),
               props?.tagClassName,
             ])}

@@ -29,7 +29,7 @@ const InfiniteLoader = ({
       <Waypoint onEnter={() => isLoading ? null : onLoadMore()}>
         <div>
           {!isLoading && (
-            <div className="dsr-flex dsr-justify-center dsr-items-center dsr-text-center dsr-my-4">
+            <div className="flex justify-center items-center text-center my-4">
               <Button onClick={onLoadMore}>
                 Load more
               </Button>
@@ -38,7 +38,7 @@ const InfiniteLoader = ({
         </div>
       </Waypoint>
     ) : showEndOfListMessage ? (
-      <div className="dsr-my-4 dsr-text-center dsr-opacity-80">
+      <div className="my-4 text-center opacity-80">
         {labels.endOfList}
       </div>
     ) : <div />}

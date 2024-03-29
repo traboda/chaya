@@ -148,7 +148,7 @@ export const ResponsivePreview: Story = {
     items: defaultItems,
   },
   render: () => (
-    <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">
+    <div style={{ minHeight: '45vh' }} className="flex justify-center items-center gap-2">
       <div>
         <div>
           Pill Variant
@@ -178,7 +178,7 @@ export const DisableResponsivePreview: Story = {
     items: defaultItems,
   },
   render: () => (
-    <div style={{ minHeight: '45vh' }} className="dsr-flex dsr-justify-center dsr-items-center dsr-gap-2">
+    <div style={{ minHeight: '45vh' }} className="flex justify-center items-center gap-2">
       <iframe
         src="/iframe.html?id=components-display-tabs--responsive-disabled-view"
         style={{ height: '45vh' }}

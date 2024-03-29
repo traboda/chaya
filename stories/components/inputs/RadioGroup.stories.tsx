@@ -79,20 +79,20 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 const RadioGroupSizesShowcase = ({ alignment }: { alignment: RadioGroupProps<string>['alignment'] }) => (
   <div
     className={clsx([
-      'dsr-flex dsr-border-dashed dsr-border',
-      alignment === 'vertical' ? 'dsr-flex-wrap dsr-justify-center' : 'dsr-flex-col dsr-gap-3',
+      'flex border-dashed border',
+      alignment === 'vertical' ? 'flex-wrap justify-center' : 'flex-col gap-3',
     ])}
     style={{ padding: '2.5vh 2.5vw', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
   >
     {sizes.map((size, index) => (
       <div
         className={clsx([
-          alignment === 'horizontal' ? 'dsr-flex dsr-flex-wrap dsr-mx-0' : 'dsr-flex dsr-flex-col dsr-gap-2',
+          alignment === 'horizontal' ? 'flex flex-wrap mx-0' : 'flex flex-col gap-2',
         ])}
         style={{ width: alignment === 'horizontal' ? '100%' : '50%' }}
       >
-        <div style={{ width: '10%' }} className="dsr-p-3 dsr-opacity-80 dsr-flex dsr-justify-end dsr-text-sm">{size}</div>
-        <div style={{ width: '90%', background: 'rgba(200, 200, 200, 0.35)', borderColor: 'rgba(180, 180, 180, 0.8)' }} className="dsr-border-dashed dsr-flex dsr-items-center dsr-border dsr-p-1">
+        <div style={{ width: '10%' }} className="p-3 opacity-80 flex justify-end text-sm">{size}</div>
+        <div style={{ width: '90%', background: 'rgba(200, 200, 200, 0.35)', borderColor: 'rgba(180, 180, 180, 0.8)' }} className="border-dashed flex items-center border p-1">
           <StoryTemplate alignment={alignment} size={size as keyof RadioGroupProps<string>['size']} value={options[index].value} />
         </div>
       </div>
@@ -135,12 +135,12 @@ const colorVariants: {
 
 const RadioGroupColorShowcase = ({ alignment }: { alignment: RadioGroupProps<string>['alignment'] }) => (
   <table
-    className="dsr-flex dsr-flex-col dsr-items-start dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex flex-col items-start border-dashed border gap-2"
     style={{ padding: '5vh 5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <tr className="dsr-flex dsr-flex-wrap dsr-mx-0 dsr-w-full">
-        <td style={{ width: '10%' }} className="dsr-p-3 dsr-opacity-80 dsr-flex dsr-justify-end dsr-text-sm">{label}</td>
+      <tr className="flex flex-wrap mx-0 w-full">
+        <td style={{ width: '10%' }} className="p-3 opacity-80 flex justify-end text-sm">{label}</td>
         <td style={{ width: '90%' }}>
           <StoryTemplate color={color} value={activeItem} alignment={alignment} />
         </td>

@@ -15,33 +15,33 @@ export default meta;
 const Template: Story = () => {
   const [value, copy, isSupported] = useClipboard();
   return (
-    <div className="ddsr-flex dsr-justify-center dsr-items-center dsr-flex-col" style={{ minHeight: '40vh' }}>
-      <div className="dsr-mb-6">
+    <div className="dflex justify-center items-center flex-col" style={{ minHeight: '40vh' }}>
+      <div className="mb-6">
         {isSupported() ?
-          <div className="dsr-bg-green-500 dsr-text-white dsr-font-bold dsr-rounded-lg dsr-py-0 dsr-px-3">
+          <div className="bg-green-500 text-white font-bold rounded-lg py-0 px-3">
             clipboard is supported
           </div> :
-          <div className="dsr-bg-red-500 dsr-text-white dsr-font-bold dsr-rounded-lg dsr-py-0 dsr-px-3">
+          <div className="bg-red-500 text-white font-bold rounded-lg py-0 px-3">
             Clipboard is not supported!!
           </div>
                 }
       </div>
-      <div className="dsr-flex dsr-mb-6">
+      <div className="flex mb-6">
         <h1>Click to copy:</h1>
         <button
-          className="dsr-bg-blue-900 dsr-py-0 dsr-px-3 dsr-rounded-lg dsr-text-white dsr-font-bold dsr-mx-3"
+          className="bg-blue-900 py-0 px-3 rounded-lg text-white font-bold mx-3"
           onClick={() => copy('ABCD')}
         >
           ABCD
         </button>
         <button
-          className="dsr-bg-yellow-900 dsr-py-0 dsr-px-3 dsr-rounded-lg dsr-text-white dsr-font-bold dsr-mx-3"
+          className="bg-yellow-900 py-0 px-3 rounded-lg text-white font-bold mx-3"
           onClick={() => copy('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')}
         >
           Lorem ipsum
         </button>
         <button
-          className="dsr-bg-red-900 dsr-py-0 dsr-px-3 dsr-rounded-lg dsr-text-white dsr-font-bold dsr-mx-3"
+          className="bg-red-900 py-0 px-3 rounded-lg text-white font-bold mx-3"
           onClick={() => copy('123')}
         >
           123

@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, MouseEvent } from 'react';
+import React, { CSSProperties, ReactNode, MouseEvent } from 'react';
 
 import { LinkRelType, LinkTargetType } from '../../utils/misc';
 import { IconInputType } from '../Icon';
@@ -7,7 +7,7 @@ import { ChayaColorType } from '../../utils/classMaps/colors';
 export type ButtonSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonVariantsType = 'solid' | 'outline' | 'minimal' | 'link';
 
-export type ButtonProps = {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariantsType,
   color?: ChayaColorType,
   size?: ButtonSizesType,
@@ -35,4 +35,4 @@ export type ButtonProps = {
 
   leftIcon?: IconInputType
   rightIcon?: IconInputType
-};
+}

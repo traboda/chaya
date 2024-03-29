@@ -24,14 +24,14 @@ export default meta;
 
 const Template: Story<TooltipProps> = args => (
   <div
-    className="dsr-fixed dsr-top-1/2 dsr-left-0 dsr-w-full dsr-h-full"
+    className="fixed top-1/2 left-0 w-full h-full"
   >
-    <div className="dsr-fixed dsr-top-0 dsr-left-0">
+    <div className="fixed top-0 left-0">
       <Tooltip {...args} overlay={<div>Shows at the bottom of the button.</div>} >
         <Button className="text-white">Top Left</Button>
       </Tooltip>
     </div>
-    <div className="dsr-fixed dsr-top-0 dsr-right-0">
+    <div className="fixed top-0 right-0">
       <Tooltip
         {...args}
         overlay={<div>Shows at the bottom of the button.</div>}
@@ -39,7 +39,7 @@ const Template: Story<TooltipProps> = args => (
         <Button className="text-white">Top Right</Button>
       </Tooltip>
     </div>
-    <div className="dsr-fixed dsr-bottom-0 dsr-right-0">
+    <div className="fixed bottom-0 right-0">
       <Tooltip
         {...args}
         overlay={<div>Shows the content at the top of the button.</div>}
@@ -48,7 +48,7 @@ const Template: Story<TooltipProps> = args => (
         <Button className="text-white">Bottom Right</Button>
       </Tooltip>
     </div>
-    <div className="dsr-fixed dsr-bottom-0 dsr-left-0">
+    <div className="fixed bottom-0 left-0">
       <Tooltip
         {...args}
         overlay={<div>Shows the content at the top of the button.</div>}
@@ -57,7 +57,7 @@ const Template: Story<TooltipProps> = args => (
         <Button className="text-white">Bottom Left</Button>
       </Tooltip>
     </div>
-    <div className="dsr-fixed dsr-top-1/2 dsr-left-1/2">
+    <div className="fixed top-1/2 left-1/2">
       <Tooltip
         {...args}
         overlay={<div>Shows content at the top of the button.</div>}

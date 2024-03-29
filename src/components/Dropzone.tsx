@@ -1,7 +1,8 @@
 'use client';
 import React, { useState, DragEvent, useRef, ChangeEvent, MouseEvent, useMemo } from 'react';
-import clsx from 'clsx';
 import { nanoid } from 'nanoid';
+
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 import Label from './Label';
@@ -89,33 +90,33 @@ const Dropzone = ({
         onDragOver={dragOver}
         onDragEnter={dragEnter}
         onDragLeave={dragLeave}
-        className={clsx([
-          'dsr-w-full dsr-rounded-md dsr-min-h-[10rem] dsr-flex dsr-border-dashed dsr-border-gray-400/80',
-          'dsr-flex-col dsr-text-center dsr-p-4 dsr-border-2 dsr-items-center dsr-justify-center',
-          !isDisabled && isDragging ? 'dark:dsr-bg-gray-500/50 dsr-bg-gray-500/30' : 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
+        className={mcs([
+          'w-full rounded-md min-h-[10rem] flex border-dashed border-gray-400/80',
+          'flex-col text-center p-4 border-2 items-center justify-center',
+          !isDisabled && isDragging ? 'dark:bg-gray-500/50 bg-gray-500/30' : 'dark:bg-gray-500/20 bg-gray-500/10',
+          isDisabled ? 'opacity-75 cursor-not-allowed' : 'hover:border-primary',
           className,
-          isDisabled ? 'dsr-opacity-75 dsr-cursor-not-allowed' : 'hover:dsr-border-primary',
         ])}
         onClick={() => fileInputRef.current?.click()}
       >
         {isDragging && !isDisabled ? (
-          <span className="dsr-w-full dsr-h-full dsr-pointer-events-none">Drop Items here</span>
+          <span className="w-full h-full pointer-events-none">Drop Items here</span>
         ) : (
-          <div className="dsr-text-center">
+          <div className="text-center">
             {icon && (
-              <div className="dsr-flex dsr-mb-4 dsr-justify-center">
+              <div className="flex mb-4 justify-center">
                 <Icon icon={icon} size={48} />
               </div>
             )}
-            {labels?.text && <div className="dsr-mb-2">{labels.text}</div>}
-            {labels?.hint && <div className="dsr-opacity-75 dsr-text-sm">{labels.hint}</div>}
+            {labels?.text && <div className="mb-2">{labels.text}</div>}
+            {labels?.hint && <div className="opacity-75 text-sm">{labels.hint}</div>}
           </div>
         )}
       </button>
 
       <UploadStatusIndicator
         removeFile={removeFile}
-        className="dsr-mt-4"
+        className="mt-4"
         files={value}
         statuses={uploadIndicator}
       />
@@ -123,7 +124,7 @@ const Dropzone = ({
       <input
         id={inputId}
         type="file"
-        className="dsr-hidden"
+        className="hidden"
         ref={fileInputRef}
         onChange={onFileUpload}
         accept={accept?.join(', ')}

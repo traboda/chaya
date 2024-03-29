@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import clsx from 'clsx';
 
-import Icon from '../Icon';
 import Checkbox from '../Checkbox';
+import mcs from '../../utils/merge';
 
 import SortButton from './SortButton';
 import { ItemListerProperty } from './Row';
@@ -40,9 +40,9 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   let i = 0;
 
   const thClasses = clsx([
-    'dsr-h-full dsr-text-color dsr-py-2',
-    variant !== 'striped-column' && 'dsr-bg-background-lighten-1 dark:dsr-background-darken-2',
-    variant === 'grid' && 'dsr-border-x dsr-border-neutral-600/50',
+    'h-full text-color py-2',
+    variant !== 'striped-column' && 'bg-background-lighten-1 dark:background-darken-2',
+    variant === 'grid' && 'border-x border-neutral-600/50',
   ]);
 
   return (
@@ -51,19 +51,18 @@ const ItemListerTitleBar = <Type extends { id: string }>({
         <th
           style={{ width: colsWidth[i++] }}
           className={clsx([
-            'dsr-relative dsr-px-2', thClasses,
+            'relative px-2', thClasses,
           ])}
         >
           <button
             onClick={() => toggleAccordions(!isAccordionsOpen)}
-            className="dsr-flex"
+            className="flex"
           >
-            <Icon
-              icon="chevron-right"
-              size={18}
+            <i
               className={clsx([
-                'dsr-transition-transform',
-                isAccordionsOpen ? 'dsr-rotate-90' : '',
+                'ri-arrow-right-s-line',
+                'transition-transform',
+                isAccordionsOpen ? 'rotate-90' : '',
               ])}
             />
           </button>
@@ -71,10 +70,10 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       )}
       {isSelectEnabled && (
         <th
-          className={clsx([thClasses, 'dsr-bg-background'])}
+          className={clsx([thClasses, 'bg-background'])}
           style={{ width: colsWidth[i++] }}
         >
-          <div className="dsr-flex dsr-justify-center dsr-h-full dsr-items-center dsr-text-center">
+          <div className="flex justify-center h-full items-center text-center">
             <Checkbox
               label=""
               value=""
@@ -92,8 +91,8 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             <th
               className={clsx([
                 thClasses,
-                i % 2 == 0 && variant === 'striped-column' ? 'dsr-bg-neutral-200 dark:dsr-bg-neutral-900' : '',
-                'dsr-group',
+                i % 2 == 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : '',
+                'group',
               ])}
               key={p.id}
               style={{
@@ -102,18 +101,18 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               }}
             >
               <div
-                className={clsx([
-                  'dsr-flex dsr-font-semibold dsr-w-full dsr-items-center dsr-px-3 dsr-m-auto',
+                className={mcs([
+                  'flex font-semibold w-full items-center px-3 m-auto',
                   p?.labelClassName,
-                  p.textAlign == 'right' ? 'dsr-justify-end dsr-text-right' : p.textAlign == 'center' ? 'dsr-justify-center dsr-text-center' : 'dsr-justify-start dsr-text-left',
+                  p.textAlign == 'right' ? 'justify-end text-right' : p.textAlign == 'center' ? 'justify-center text-center' : 'justify-start text-left',
                 ])}
               >
                 {p.label}
                 {p.allowSort ? (
                   <div
                     className={clsx([
-                      'dsr-w-[16px] dsr-flex dsr-items-center dsr-ml-1',
-                      currentSortAttribute !== p.id && 'dsr-opacity-20 group-hover:dsr-opacity-80',
+                      'w-[16px] flex items-center ml-1',
+                      currentSortAttribute !== p.id && 'opacity-20 group-hover:opacity-80',
                     ])}
                   >
                     <SortButton

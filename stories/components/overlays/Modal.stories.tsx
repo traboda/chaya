@@ -85,8 +85,8 @@ const Template: Story<ModalProps> = args => {
           onChange={setSubject}
         />
         {Array(8).fill(lorem).map(l => <p>{l}</p>)}
-        <div className="dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-p-4" style={{ bottom: '0dvh' }}>
-          <Button className="dsr-w-full">Sticky Button</Button>
+        <div className="absolute bottom-0 left-0 w-full p-4" style={{ bottom: '0dvh' }}>
+          <Button className="w-full">Sticky Button</Button>
         </div>
       </Modal>
     </div>
@@ -100,7 +100,7 @@ Default.args = {
   onClose: () => {},
   title: 'Playback Settings',
   description: 'Get queue and radio updates based on your listening behaviour. You can change this at any time in your settings.',
-  contentClassName: 'dsr-p-1',
+  contentClassName: 'p-1',
   maxHeight: 500,
 };
  
@@ -111,7 +111,7 @@ WithButtons.args = {
   isOpen: true,
   onClose: () => {},
   title: 'Delete Challenge',
-  contentClassName: 'dsr-p-4',
+  contentClassName: 'p-4',
   primaryButton: {
     children: 'Delete',
     color: 'danger',

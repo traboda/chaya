@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import { ChayaColorType } from '../utils/classMaps/colors';
+import mcs from '../utils/merge';
 
 import Badge, { BaseBadgeProps } from './Badge';
 import Icon, { IconInputType } from './Icon';
@@ -90,11 +91,11 @@ const Tabs = ({
   const renderOption = (t: TabItemObject) => (
     <div
       className={clsx([
-        'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2',
+        'flex w-full justify-between items-center gap-2',
       ])}
     >
-      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
-        {t.icon && <span className="dsr-w-[16px]"><Icon icon={t.icon} size={16} /></span>}
+      <div className="flex items-center gap-2 text-left">
+        {t.icon && <span className="w-[16px]"><Icon icon={t.icon} size={16} /></span>}
         <span className={t.labelClassName}>{t.label}</span>
       </div>
       {(t?.badge !== undefined || badgeProps || t.badgeProps) && (
@@ -118,7 +119,7 @@ const Tabs = ({
       role="tabpanel"
       id="tab-panel"
       aria-labelledby="tab-panel"
-      className={clsx(['dsr-fade-in', panelClassName])}
+      className={mcs(['fade-in', panelClassName])}
     >
       {tabItems.filter(t => t.key === currentTab).map(t => (
         t?.renderer ? t.renderer :
@@ -130,7 +131,7 @@ const Tabs = ({
   const verticalSelector = isVertical ? useMemo(() => (
     <VerticalNavigator
       id={tabID}
-      className={clsx(['tab-selector vertical-selector', menuClassName])}
+      className={mcs(['tab-selector vertical-selector', menuClassName])}
       itemClassName={menuButtonClassName}
       activeItem={currentTab}
       variant={variant}
@@ -145,7 +146,7 @@ const Tabs = ({
   const horizontalSelector = !isVertical ? useMemo(() => (
     <HorizontalNavigator
       id={tabID}
-      className={clsx(['tab-selector horizontal-selector', menuClassName])}
+      className={mcs(['tab-selector horizontal-selector', menuClassName])}
       itemClassName={menuButtonClassName}
       activeItem={currentTab}
       variant={variant}
@@ -159,7 +160,7 @@ const Tabs = ({
 
   const ResponsiveView = !disableResponsive ? useMemo(() => (
     <AccordionGroup
-      accordionClassName="!dsr-p-1"
+      accordionClassName="!p-1"
       items={tabItems.filter((t) => !t.isHidden).map((t) => ({
         title: (
           <>
@@ -177,25 +178,25 @@ const Tabs = ({
   return (
     <React.Fragment>
       <div
-        className={clsx([
-          isVertical ? 'dsr-flex-wrap dsr-mx-0' : 'dsr-px-0',
-          (!isVertical && alignCenter) && 'dsr-flex-col dsr-items-center',
+        className={mcs([
+          isVertical ? 'flex-wrap mx-0' : 'px-0',
+          (!isVertical && alignCenter) && 'flex-col items-center',
           isVertical ?
-            !disableResponsive ? 'dsr-hidden md:dsr-flex' : 'dsr-flex' :
+            !disableResponsive ? 'hidden md:flex' : 'flex' :
             !disableResponsive ?
-              alignCenter ? 'dsr-hidden md:dsr-flex' : 'dsr-hidden md:dsr-block'
-              : alignCenter ? 'dsr-flex' : 'dsr-block',
+              alignCenter ? 'hidden md:flex' : 'hidden md:block'
+              : alignCenter ? 'flex' : 'block',
           className,
         ])}
       >
-        <div className={clsx([isVertical && 'dsr-w-full md:dsr-w-1/5 dsr-p-0'])}>
+        <div className={clsx([isVertical && 'w-full md:w-1/5 p-0'])}>
           {isVertical ? verticalSelector : horizontalSelector}
         </div>
         <div
-          className={clsx([
+          className={mcs([
             isVertical ?
-              'dsr-w-full md:dsr-w-4/5 dsr-pl-0 dsr-pr-0 md:dsr-pr-4 md:dsr-pl-4'
-              : 'dsr-py-3',
+              'w-full md:w-4/5 pl-0 pr-0 md:pr-4 md:pl-4'
+              : 'py-3',
             bodyClassName,
           ])}
         >
@@ -203,7 +204,7 @@ const Tabs = ({
         </div>
       </div>
       {!disableResponsive && (
-        <div className="dsr-block md:dsr-hidden">
+        <div className="block md:hidden">
             {ResponsiveView}
         </div>
       )}

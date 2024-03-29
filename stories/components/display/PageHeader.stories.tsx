@@ -52,7 +52,7 @@ export const FullWidth: Story = {
     fill: true,
   },
   render: (args) => (
-    <div className="dsr-bg-background-lighten-1" style={{ zoom: 0.4 }}>
+    <div className="bg-background-lighten-1" style={{ zoom: 0.4 }}>
       <PageHeader {...args} />
     </div>
   ),
@@ -65,7 +65,7 @@ export const ContainedHeader: Story = {
     ...defaultArgs,
   },
   render: (args) => (
-    <div className="dsr-bg-background-lighten-1" style={{ zoom: 0.4 }}>
+    <div className="bg-background-lighten-1" style={{ zoom: 0.4 }}>
       <PageHeader {...args} />
     </div>
   ),

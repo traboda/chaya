@@ -21,7 +21,7 @@ const Template: Story<PageNavigatorProps> = args => {
   const [page, setPage] = useState(args.page ?? 11);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   return (
-    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-p-30" style={{ minHeight: '35vh' }}>
+    <div className="flex flex-col justify-center items-center p-30" style={{ minHeight: '35vh' }}>
       <PageNavigator
         {...args}
         page={page}

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { LinkWrapper } from '../utils/misc';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 import Dropdown, { AlignOptions, SideOptions } from './Dropdown';
@@ -34,7 +35,6 @@ export type DropdownMenuProps = {
   isOpen?: boolean,
   onClose?: () => void,
   id?: string,
-  className?: string,
   containerClassName?: string,
   customHeaderRenderer?: () => React.ReactNode,
   align?: AlignOptions,
@@ -42,18 +42,18 @@ export type DropdownMenuProps = {
 };
 
 const DropdownMenu = ({
-  children: buttonRenderer, options, isOpen = false, onClose = () => {}, id, className = '',
+  children: buttonRenderer, options, isOpen = false, onClose = () => {}, id,
   containerClassName, customHeaderRenderer, align = 'center', side = 'bottom',
 } : DropdownMenuProps) => {
-  const linkClasses = (className?: string) => clsx([
-    'dsr-flex dsr-rounded-lg dsr-transition dsr-px-2.5 dsr-py-1.5 dsr-w-full dsr-text-left',
-    'hover:dsr-bg-gray-400/20 focus:dsr-bg-gray-400/20 focus:dsr-outline-none',
+  const linkClasses = (className?: string) => mcs([
+    'flex rounded-lg transition px-2.5 py-1.5 w-full text-left',
+    'hover:bg-gray-400/20 focus:bg-gray-400/20 focus:outline-none',
     className,
   ]);
 
   const optionRenderer: (o: OptionType, index: number) => React.ReactNode = (o, index) => {
     const content = o?.renderer ? o.renderer() : (
-      <div className="dsr-flex dsr-items-center dsr-text-left dsr-text-sm dsr-gap-2">
+      <div className="flex items-center text-left text-sm gap-2">
         {o.icon && <Icon icon={o.icon} size={14} />}
         {o?.title}
       </div>
@@ -64,15 +64,15 @@ const DropdownMenu = ({
         role="menuitem"
         key={`dropdown-menu-item-${index}-${o?.title}`}
         tabIndex={-1}
-        className={clsx(['dropdown-menu-item dsr-cursor-pointer', linkClasses(o?.className)])}
+        className={mcs(['dropdown-menu-item cursor-pointer', linkClasses(o?.className)])}
       >
         {content}
-      </RadixDropdownMenu.Item>, { className: 'dsr-w-full' }) : (
+      </RadixDropdownMenu.Item>, { className: 'w-full' }) : (
         <RadixDropdownMenu.Item
           role="menuitem"
           key={`dropdown-menu-item-${index}-${o?.title}`}
-          className={clsx([
-            'dropdown-menu-item', 'dsr-cursor-pointer',
+          className={mcs([
+            'dropdown-menu-item', 'cursor-pointer',
             linkClasses(o?.className),
           ])}
           onClick={o?.onClick}
@@ -87,13 +87,13 @@ const DropdownMenu = ({
       <RadixDropdownMenu.Group
         key={`dropdown-menu-group-${index}-${g?.title || ''}`}
         className={clsx([
-          'dsr-pb-1',
-          'dsr-border-b dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+          'pb-1',
+          'border-b dark:border-gray-500/70 border-gray-500/10',
         ])}
       >
         {g?.title && (
-          <div className="dsr-opacity-80 dsr-flex dsr-items-center dsr-uppercase dsr-px-1 dsr-text-xs dsr-my-2">
-            {g.icon && <Icon className="dsr-inline-block dsr-mr-1" icon={g.icon} size={12} />}
+          <div className="opacity-80 flex items-center uppercase px-1 text-xs my-2">
+            {g.icon && <Icon className="inline-block mr-1" icon={g.icon} size={12} />}
             {g?.title}
           </div>
         )}
@@ -107,10 +107,9 @@ const DropdownMenu = ({
       isOpen={isOpen}
       onClose={onClose}
       id={id}
-      className={className}
-      containerClassName={clsx([
-        'dsr-rounded-lg dsr-p-1 dsr-flex dsr-flex-col dsr-gap-1 dsr-background dsr-z-[5000]',
-        'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+      containerClassName={mcs([
+        'rounded-lg p-1 flex flex-col gap-1 background z-[5000]',
+        'border dark:border-gray-500/70 border-gray-500/10',
         containerClassName,
       ])}
       buttonRenderer={buttonRenderer}

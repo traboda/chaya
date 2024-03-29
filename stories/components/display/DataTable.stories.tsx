@@ -292,8 +292,8 @@ export const AccordionTable = Template.bind({});
 AccordionTable.args = {
   canExpand: true,
   accordionRenderer: (c) => (
-    <div className="dsr-p-4">
-      <div className="dsr-text-sm dsr-text-gray-500">
+    <div className="p-4">
+      <div className="text-sm text-gray-500">
         {c?.name}
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
         atque eius esse molestiae molestias, nobis, quasi quidem quis, sequi sit
@@ -368,7 +368,7 @@ EmptyTableListing.args = {
   items: [],
   showTopBarOnEmpty: true,
   emptyListRenderer: () => (
-    <div className="dsr-text-center dsr-py-4 dsr-flex dsr-items-center dsr-justify-center dsr-gap-2">
+    <div className="text-center py-4 flex items-center justify-center gap-2">
       <Icon icon="info" />
       The datatable is empty
     </div>

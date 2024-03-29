@@ -2,9 +2,10 @@ import React, { ReactNode, useContext } from 'react';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../../utils/misc';
-import Icon, { IconInputType } from '../Icon';
+import { IconInputType } from '../Icon';
 import SkeletonItem from '../SkeletonItem';
 import Checkbox from '../Checkbox';
+import mcs from '../../utils/merge';
 
 import SelectionContext from './SelectionContext';
 
@@ -38,9 +39,9 @@ type ItemListerItemProps<Type> = {
 
 export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-row';
 
-const grid = 'dsr-border dsr-border-gray-500/50';
-const stripedColumn = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-800 odd:dsr-bg-white even:dsr-bg-[#f1f3f3]' ;
-const stripedRow = 'dark:odd:dsr-bg-neutral-900/50 dark:even:dsr-bg-neutral-900 odd:dsr-bg-white even:dsr-bg-[#f1f3f3] ';
+const grid = 'border border-gray-500/50';
+const stripedColumn = 'dark:odd:bg-neutral-900/50 dark:even:bg-neutral-800 odd:bg-white even:bg-[#f1f3f3]' ;
+const stripedRow = 'dark:odd:bg-neutral-900/50 dark:even:bg-neutral-900 odd:bg-white even:bg-[#f1f3f3] ';
 
 
 const ItemListerItem = <Type extends { id: string }>({
@@ -51,29 +52,28 @@ const ItemListerItem = <Type extends { id: string }>({
   const { isEnabled, selectedIDs, selectItem, isSelected, deselectItem } = useContext(SelectionContext);
 
   const tdClasses = clsx([
-    'dsr-h-full dsr-text-color',
-    variant === 'grid' ? grid : 'dsr-border-b dsr-border-gray-500/20',
-    isPinned ? 'dsr-bg-background' : '',
-    isPinned ? 'group-hover:dsr-bg-background' : 'dark:group-hover:dsr-bg-neutral-700/30 group-hover:dsr-bg-gray-300/30',
+    'h-full text-color',
+    variant === 'grid' ? grid : 'border-b border-gray-500/20',
+    isPinned ? 'bg-background' : '',
+    isPinned ? 'group-hover:bg-background' : 'dark:group-hover:bg-neutral-700/30 group-hover:bg-gray-300/30',
   ]);
 
   return (
-    <tr className={clsx(['dsr-group', variant === 'striped-row' ? stripedRow : ''])}>
+    <tr className={clsx(['group', variant === 'striped-row' ? stripedRow : ''])}>
       {supportAccordion && (
         <td
           className={clsx([
-            'dsr-px-2 dsr-text-center',
+            'px-2 text-center',
             tdClasses,
             variant === 'striped-column' ? stripedColumn : '',
           ])}
         >
-          <button onClick={onClick} className="dsr-flex">
-            <Icon
-              icon="chevron-right"
-              size={18}
+          <button onClick={onClick} className="flex">
+            <i
               className={clsx([
-                'dsr-transition-transform',
-                isAccordionOpen ? 'dsr-rotate-90' : '',
+                'ri-arrow-right-s-line',
+                'transition-transform',
+                isAccordionOpen ? 'rotate-90' : '',
               ])}
             />
           </button>
@@ -82,7 +82,7 @@ const ItemListerItem = <Type extends { id: string }>({
       {isEnabled && (
         <td
           className={clsx([
-            'dsr-px-2 dsr-text-center',
+            'px-2 text-center',
             tdClasses,
             variant === 'striped-column' ? stripedColumn : '',
           ])}
@@ -105,18 +105,18 @@ const ItemListerItem = <Type extends { id: string }>({
         const renderer = link || (p?.onClick && typeof (p?.onClick) === 'function') ? (
           <span className={`group-[${p?.id}-${index}]-row`}>
             {contentRenderer}
-            <span className="dsr-w-[16px] dsr-opacity-0 group-hover:dsr-opacity-100 dsr-inline-block dsr-ml-1">
-              <Icon className="dsr-inline" icon="external-link" size={16} />
+            <span className="w-[16px] opacity-0 group-hover:opacity-100 inline-block ml-1">
+              <i className="ri-external-link-line" />
             </span>
           </span>
         ) : contentRenderer;
         return (
           <td
             key={link ? null : p.id}
-            className={clsx([
-              'dsr-py-2 dsr-px-3',
+            className={mcs([
+              'py-2 px-3',
               tdClasses,
-              p.textAlign == 'right' ? 'dsr-text-right' : p.textAlign == 'center' ? 'dsr-text-center' : 'dsr-text-left',
+              p.textAlign == 'right' ? 'text-right' : p.textAlign == 'center' ? 'text-center' : 'text-left',
               variant === 'striped-column' ? stripedColumn : '',
               p?.className,
             ])}
@@ -131,7 +131,7 @@ const ItemListerItem = <Type extends { id: string }>({
               }
             }}
           >
-            {link ? LinkWrapper(link, renderer, { className: 'dsr-text-blue-600 dark:dsr-text-blue-300' }) : renderer}
+            {link ? LinkWrapper(link, renderer, { className: 'text-blue-600 dark:text-blue-300' }) : renderer}
           </td>
         );
       })}

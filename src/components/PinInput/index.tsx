@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
-import clsx from 'clsx';
 
 import Label from '../Label';
+import mcs from '../../utils/merge';
 
 import PinDigit from './digit';
 
@@ -119,13 +119,13 @@ const PinInput = ({
   }, []);
 
   return (
-    <div className={isDisabled ? 'dsr-opacity-70' : ''}>
+    <div className={isDisabled ? 'opacity-70' : ''}>
       {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
       <div
         ref={inputs}
-        className={clsx([
-          'pin-input dsr-grid dsr-pin-input dsr-gap-2 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
-          variant === 'minimal' ? 'dsr-bg-background-lighten-1 dsr-shadow-inner dsr-rounded-lg dsr-border dsr-px-2 dsr-py-1.5 focus-within:dsr-border-primary' : 'dsr-gap-2',
+        className={mcs([
+          'pin-input grid pin-input gap-2 dark:border-neutral-500/70 border-neutral-500/20',
+          variant === 'minimal' ? 'bg-background-lighten-1 shadow-inner rounded-lg border px-2 py-1.5 focus-within:border-primary' : 'gap-2',
           className,
         ])}
         style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
@@ -152,7 +152,7 @@ const PinInput = ({
         ))}
       </div>
       {(invalidLength && value?.length < digits && !isDisabled) &&
-      <div className="dsr-text-red-600 dsr-text-base">
+      <div className="text-red-600 mt-1 text-sm">
         {labels?.invalidLength ?? `The code should be ${digits} digits.`}
       </div>}
     </div>

@@ -22,28 +22,28 @@ const Template: Story = (args) => {
 
   return (
     <div>
-      <div className="dsr-pb-6">
-        <div className="dsr-text-lg">
+      <div className="pb-6">
+        <div className="text-lg">
           <span>
-            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.days}</b>
+            <b className="font-mono text-2xl text-secondary">{delta.days}</b>
             {' '}
             Days
             {' '}
           </span>
           <span>
-            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.hours}</b>
+            <b className="font-mono text-2xl text-secondary">{delta.hours}</b>
             {' '}
             Hours
             {' '}
           </span>
           <span>
-            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.minutes}</b>
+            <b className="font-mono text-2xl text-secondary">{delta.minutes}</b>
             {' '}
             Minutes
             {' '}
           </span>
           <span>
-            <b className="dsr-font-mono dsr-text-2xl dsr-text-secondary">{delta.seconds}</b>
+            <b className="font-mono text-2xl text-secondary">{delta.seconds}</b>
             {' '}
             Seconds
             {' '}

@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import { LinkWrapper } from '../utils/misc';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -11,6 +12,7 @@ export type BreadcrumbItemProps = {
   link?: string;
   title?: ReactNode;
   icon?: IconInputType;
+  iconClassName?: string;
   label?: string;
   isActive?: boolean;
 };
@@ -24,7 +26,7 @@ export type BreadcrumbProps = {
 };
 
 const defaultHomeLink = {
-  icon: 'home',
+  iconClassName: 'ri-home-2-line',
   link: '/',
   label: 'Go to home page',
 };
@@ -36,8 +38,8 @@ const Breadcrumb = ({
   hideHomeLink = false,
   homeLink: _homeLink,
 }: BreadcrumbProps) => {
-  const computedItemClassName = clsx([
-    'breadcrumb-item dsr-flex dsr-items-center dsr-gap-1 dsr-text-color',
+  const computedItemClassName = mcs([
+    'breadcrumb-item flex items-center gap-1 text-color',
     itemClassName,
   ]);
 
@@ -54,30 +56,32 @@ const Breadcrumb = ({
 
   return (
     <ul
-      className={clsx([
-        'breadcrumb dsr-text-lg dsr-flex dsr-flex-wrap dsr-gap-1 dsr-items-center dsr-opacity-75',
+      className={mcs([
+        'breadcrumb text-lg flex flex-wrap gap-1 items-center opacity-75',
         className,
       ])}
     >
       {breadcrumbItems.length > 0 &&
         breadcrumbItems.map((item, index) => (
           <li key={nanoid()} className={computedItemClassName}>
-            {index !== 0 ? (<span className="dsr-px-0.5">/</span>) : null}
+            {index !== 0 ? (<span className="px-0.5">/</span>) : null}
             {LinkWrapper(
               item?.link || '#',
               <React.Fragment>
-                {item?.icon && (
-                <div className={item?.title ? 'dsr-mr-1' : undefined}>
-                  <Icon icon={item.icon} size={18} />
-                </div>
-                )}
+                {item?.icon ? (
+                  <div className={item?.title ? 'mr-1' : undefined}>
+                    <Icon icon={item.icon} size={18} />
+                  </div>
+                ) : item?.iconClassName ? (
+                  <i className={clsx([item.iconClassName, 'mr-1'])} />
+                ) : null}
                 {item?.title}
               </React.Fragment>,
               {
                 title: item?.label,
                 className: clsx([
-                  'dsr-rounded focus:dsr-outline-none dsr-transition dsr-text-color dsr-px-2',
-                  index == breadcrumbItems.length - 1 ? 'dsr-font-semibold' : 'hover:dsr-bg-neutral-300/40 dsr-px-1 focus:dsr-bg-neutral-300/50',
+                  'rounded focus:outline-none transition text-color px-2',
+                  index == breadcrumbItems.length - 1 ? 'font-semibold' : 'hover:bg-neutral-300/40 px-1 focus:bg-neutral-300/50',
                 ]),
                 tabIndex: item?.isActive ? -1 : undefined,
               },

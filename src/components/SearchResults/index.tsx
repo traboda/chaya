@@ -1,5 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
+
+import mcs from '../../utils/merge';
 
 import SearchResult, { SearchResultType } from './result';
 
@@ -24,13 +25,13 @@ const SearchResults = ({
 }: SearchResultsProps) => {
 
   return (
-    <ul id={id} className={clsx('dsr-flex dsr-flex-col dsr-gap-2', className)}>
+    <ul id={id} className={mcs('flex flex-col gap-2', className)}>
       {results.map((result, i) => {
         if ('results' in result) {
           return (
             <li key={i}>
-              <div className="dsr-font-semibold dsr-mb-1">{result.title}</div>
-              <ul className="dsr-flex dsr-flex-col dsr-gap-2">
+              <div className="font-semibold mb-1">{result.title}</div>
+              <ul className="flex flex-col gap-2">
                 {result.results.map((result, j) => (
                   <li key={`${j}_${i}`}>
                     <SearchResult result={result} className={resultClassName} />

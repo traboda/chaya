@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import clsx from 'clsx';
+
+import mcs from '../utils/merge';
 
 export type AvatarProps = {
   alt: string,
@@ -26,7 +27,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
   const renderPlaceholder = () => (
     <svg
       id={id}
-      className={clsx('avatar-placeholder dsr-rounded-lg', className)}
+      className={mcs('avatar-placeholder rounded-lg', className)}
       width={size}
       height={size}
       viewBox="0 0 75 75"
@@ -51,7 +52,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
 
   return !(src?.length) || show ? renderPlaceholder() : (
     <img
-      className={clsx('avatar dsr-rounded-lg dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10', className)}
+      className={mcs('avatar rounded-lg border dark:border-gray-500/70 border-gray-500/10', className)}
       height={size}
       width={size}
       title={title}

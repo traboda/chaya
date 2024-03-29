@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import _ from 'lodash';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
+import mcs from '../utils/merge';
+
 import SearchBox from './SearchBox';
 import Dropdown from './Dropdown';
 import ListViewItem from './ListView/item';
@@ -47,6 +49,8 @@ type DropdownCommonProps = {
 
 export type DropdownFilterProps = DropdownCommonProps & {
   children: ReactElement;
+  side?: 'top' | 'bottom' | 'left' | 'right';
+  align?: 'start' | 'end' | 'center';
   dropdownContainerClassName?: string;
   onChangeKeyword?: (keyword: string) => void;
 };
@@ -127,9 +131,9 @@ const DropdownRender = ({
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="dsr-py-1 dsr-px-2 !dsr-border-0 !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-neutral-200/50"
-          buttonClassName="dsr-p-1 !dsr-border-none !dsr-outline-none !dsr-rounded-b-none !dsr-bg-transparent"
-          buttonWrapperClassName="!dsr-border-0 !dsr-outline-none !dsr-rounded-b-none !dsr-border-b !dsr-bg-transparent !dsr-border-neutral-200/50"
+          inputClassName="py-1 px-2 !border-0 !rounded-b-none !border-b !bg-transparent !border-neutral-200/50"
+          buttonClassName="p-1 !border-none !outline-none !rounded-b-none !bg-transparent"
+          buttonWrapperClassName="!border-0 !outline-none !rounded-b-none !border-b !bg-transparent !border-neutral-200/50"
           onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
@@ -139,22 +143,22 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="dsr-w-full dsr-px-2 dsr-py-1 dsr-bg-background dsr-border-b dsr-border-neutral-200/50">
-          <span className="dsr-opacity-80 dsr-uppercase dsr-font-semibold dsr-text-xs">
+        <div className="w-full px-2 py-1 bg-background border-b border-neutral-200/50">
+          <span className="opacity-80 uppercase font-semibold text-xs">
             {labels.optionsTitle}
           </span>
         </div>
       ) : null}
       <div
         className={clsx([
-          !(labels.optionsTitle?.length > 0) && 'dsr-border-t dsr-border-neutral-200/50',
-          'dsr-max-h-[30vh] dsr-overflow-y-auto',
+          !(labels.optionsTitle?.length > 0) && 'border-t border-neutral-200/50',
+          'max-h-[30vh] overflow-y-auto',
         ])}
       >
         {isFetching ? (
           <ul>
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="dsr-flex dsr-items-center dsr-p-2 dsr-gap-2">
+              <div key={index} className="flex items-center p-2 gap-2">
                 <SkeletonItem variant="wave" w={24} h={24} />
                 <SkeletonItem variant="wave" w="80%" h={24} />
               </div>
@@ -165,7 +169,7 @@ const DropdownRender = ({
             {availableOptions.map((field, index) => (
               <DropdownMenu.Item
                 key={nanoid()}
-                className="!dsr-outline-0"
+                className="!outline-0"
                 ref={optionRefs.current[index]}
               >
                 <ListViewItem
@@ -202,14 +206,14 @@ const DropdownRender = ({
           </ul>
         )}
       </div>
-      <div className="dsr-flex dsr-justify-between dsr-border-t dsr-border-neutral-200/50 dsr-items-center">
+      <div className="flex justify-between border-t border-neutral-200/50 items-center">
         <button
           key={nanoid()}
           className={clsx([
-            'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
-            'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
-            'dsr-border-r dsr-border-neutral-200/50',
-            'hover:dsr-bg-neutral-500/10 dsr-rounded-r-none',
+            'flex items-center text-center rounded-b-lg font-semibold justify-center',
+            'gap-2 px-3 py-2 hover:bg-white/20 w-full',
+            'border-r border-neutral-200/50',
+            'hover:bg-neutral-500/10 rounded-r-none',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}
         >
@@ -218,9 +222,9 @@ const DropdownRender = ({
         <button
           key={nanoid()}
           className={clsx([
-            'dsr-flex dsr-items-center dsr-text-center dsr-rounded-b-lg dsr-font-semibold dsr-justify-center',
-            'dsr-gap-2 dsr-px-3 dsr-py-2 hover:dsr-bg-white/20 dsr-w-full',
-            'hover:dsr-bg-neutral-500/10 dsr-rounded-l-none',
+            'flex items-center text-center rounded-b-lg font-semibold justify-center',
+            'gap-2 px-3 py-2 hover:bg-white/20 w-full',
+            'hover:bg-neutral-500/10 rounded-l-none',
           ])}
           onClick={() => setSelections([])}
         >
@@ -234,7 +238,7 @@ const DropdownRender = ({
 const DropdownFilter = ({
   children, selections, options: _options = [], labels: _labels,
   dropdownContainerClassName,
-  optionButtonClassName,
+  optionButtonClassName, align = 'start', side = 'bottom',
   setSelections = () => {},
   onChangeKeyword = () => {},
   isAsync = false,
@@ -256,25 +260,25 @@ const DropdownFilter = ({
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<DropdownFilterOptionType[]>(_options ?? []);
 
-  useEffect(() => {
-    const fetchOptions = _.debounce(async (searchKeyword: string) => {
-      try {
-        const fetchedOptions = await onFetch(searchKeyword);
-        setOptions((prev) => {
-          const newOptions = (fetchedOptions || []).filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
-          return [...prev, ...newOptions];
-        });
-      } catch (error) {
-      } finally {
-        setIsFetching(false);
-      }
-    }, 500);
+  const fetchOptions = _.debounce(async (searchKeyword: string) => {
+    try {
+      const fetchedOptions = await onFetch(searchKeyword);
+      const options = typeof fetchedOptions === 'object' && fetchedOptions.length ? fetchedOptions : [];
+      setOptions((prev) => {
+        const newOptions = options.filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
+        return [...prev, ...newOptions];
+      });
+    } catch (error) {
+    } finally {
+      setIsFetching(false);
+    }
+  }, 500);
 
+  useEffect(() => {
     if (isAsync) {
       setIsFetching(true);
       fetchOptions(keyword);
     }
-
     return () => {
       fetchOptions.cancel();
     };
@@ -282,13 +286,14 @@ const DropdownFilter = ({
 
   return (
     <Dropdown
-      align="start"
-      containerClassName={clsx([
-        'dsr-z-[100] dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+      align={align}
+      side={side}
+      containerClassName={mcs([
+        'z-[100] border dark:border-gray-500/70 border-gray-500/10',
         dropdownContainerClassName,
       ])}
       buttonRenderer={(
-        <div className="dsr-w-fit">
+        <div className="w-fit">
           {children}
         </div>
       )}

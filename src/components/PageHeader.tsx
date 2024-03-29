@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Breadcrumb, { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 import Button, { ButtonProps } from './Button';
 
@@ -34,9 +36,9 @@ const PageHeader = ({
   return (
     <section
       id={id}
-      className={clsx([
+      className={mcs([
         'page-header',
-        fill ? 'dsr-p-2 md:dsr-p-4' : 'dsr-container dsr-mx-auto dsr-p-2',
+        fill ? 'p-2 md:p-4' : 'container mx-auto p-2',
         className,
       ])}
       style={{
@@ -44,8 +46,8 @@ const PageHeader = ({
       }}
     >
       <div>
-        <div className="dsr-flex dsr-flex-wrap">
-          <div className="md:dsr-w-2/3 dsr-py-2">
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-2/3 py-2">
             {backButton && (
               <Button
                 variant="link"
@@ -53,17 +55,17 @@ const PageHeader = ({
                 leftIcon="arrow-left"
                 {...backButton}
                 size={size === 'lg' ? 'lg' : 'sm'}
-                className={clsx([
-                  '!dsr-no-underline dsr-px-1.5 dsr-py-1 !dsr-rounded-lg hover:dsr-bg-neutral-100 hover:dark:hover:dsr-bg-neutral-200',
+                className={mcs([
+                  '!no-underline px-1.5 py-1 !rounded-lg hover:bg-neutral-100 hover:dark:hover:bg-neutral-200',
                   backButton?.className,
                 ])}
               />
             )}
             {breadcrumbItems?.length > 0 ? (
-              <div className={size === 'lg' ? 'dsr-px-2 dsr-mb-4' : 'dsr-mb-2'}>
+              <div className={size === 'lg' ? 'px-2 mb-4' : 'mb-2'}>
                 <Breadcrumb
                   homeLink={homeLink}
-                  className={size === 'sm' ? 'dsr-text-sm dsr-mb-0' : ''}
+                  className={size === 'sm' ? 'text-sm mb-0' : ''}
                   {...breadcrumb}
                   items={breadcrumbItems}
                 />
@@ -72,9 +74,9 @@ const PageHeader = ({
             {customTitle ? customTitle : (
               <h1
                 aria-level={1}
-                className={clsx([
-                  size == 'lg' ? 'dsr-text-6xl' : 'dsr-text-3xl',
-                  'dsr-mt-1 dsr-font-semibold',
+                className={mcs([
+                  size == 'lg' ? 'text-6xl' : 'text-3xl',
+                  'mt-1 font-semibold',
                   headingClassName,
                 ])}
                 role="heading"
@@ -85,8 +87,8 @@ const PageHeader = ({
             {description && description?.length > 0 ? (
               <p
                 className={clsx([
-                  'dsr-opacity-80 dsr-max-w-full dsr-w-[600px]',
-                  size == 'lg' ? 'dsr-text-base dsr-mt-3' : 'dsr-text-sm dsr-mt-2',
+                  'opacity-80 max-w-full w-[600px]',
+                  size == 'lg' ? 'text-base mt-3' : 'text-sm mt-2',
                 ])}
               >
                 {description}
@@ -94,7 +96,7 @@ const PageHeader = ({
             ) : null}
             {titleBottomRenderer()}
           </div>
-          <div className="md:dsr-w-1/3 dsr-py-2 dsr-flex dsr-justify-end dsr-items-center">
+          <div className="w-full md:w-1/3 py-2 flex justify-end items-center">
             {sidebarRenderer()}
           </div>
         </div>

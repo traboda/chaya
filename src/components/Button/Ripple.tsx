@@ -47,12 +47,12 @@ const Ripple = () => {
   };
 
   return (
-    <span className="dsr-absolute dsr-inset-0" onMouseDown={addRipple}>
+    <span className="absolute inset-0" onMouseDown={addRipple}>
       {rippleArray.length > 0 && rippleArray.map((ripple, index) => (
         <span
           className={clsx([
             style.animation,
-            'dsr-transform dsr-scale-[0.01] dsr-rounded-full dsr-absolute dsr-opacity-75 dsr-bg-white',
+            'transform scale-[0.01] rounded-full absolute opacity-75 bg-white',
           ])}
           key={'span-' + index}
           style={{

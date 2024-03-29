@@ -36,14 +36,14 @@ Default.args = {
   },
   icon: {
     icon: 'home',
-    className: 'ri-home-line dsr-text-3xl',
+    className: 'ri-home-line text-3xl',
   },
   duration: 2000,
 };
 
 const MultipleCardsTemplate: Story<StatsCardProps> = args => (
-  <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-    <div className="dsr-w-full md:dsr-w-1/3 dsr-p-4">
+  <div className="flex flex-wrap mx-0">
+    <div className="w-full md:w-1/3 p-4">
       <StatsCard
         {...args}
         labels={{
@@ -55,7 +55,7 @@ const MultipleCardsTemplate: Story<StatsCardProps> = args => (
         deltaValue={20}
       />
     </div>
-    <div className="dsr-w-full md:dsr-w-1/3 dsr-p-4">
+    <div className="w-full md:w-1/3 p-4">
       <StatsCard
         {...args}
         labels={{
@@ -68,7 +68,7 @@ const MultipleCardsTemplate: Story<StatsCardProps> = args => (
         roundFrom={100000}
       />
     </div>
-    <div className="dsr-w-full md:dsr-w-1/3 dsr-p-4">
+    <div className="w-full md:w-1/3 p-4">
       <StatsCard
         {...args}
         labels={{

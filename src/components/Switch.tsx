@@ -3,9 +3,11 @@ import React, { useMemo, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Label from './Label';
 
-export type SwitchProps = {
+export interface SwitchProps {
   value: boolean,
   onChange?: (v: boolean) => void,
   size?: number,
@@ -15,24 +17,24 @@ export type SwitchProps = {
   isRequired?: boolean,
   isDisabled?: boolean,
   variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
-};
+}
 
 const borders = {
-  'primary': 'dsr-border-primary',
-  'secondary': 'dsr-border-secondary',
-  'success': 'dsr-border-green-500',
-  'danger': 'dsr-border-red-500',
-  'warning': 'dsr-border-yellow-400',
-  'transparent': 'dsr-border-inherit',
+  'primary': 'border-primary',
+  'secondary': 'border-secondary',
+  'success': 'border-green-500',
+  'danger': 'border-red-500',
+  'warning': 'border-yellow-400',
+  'transparent': 'border-inherit',
 };
 
 const variants = {
-  'primary': 'dsr-bg-primary',
-  'secondary': 'dsr-bg-secondary',
-  'success': 'dsr-bg-green-500',
-  'danger': 'dsr-bg-red-500',
-  'warning': 'dsr-bg-yellow-400',
-  'transparent': 'dsr-bg-inherit',
+  'primary': 'bg-primary',
+  'secondary': 'bg-secondary',
+  'success': 'bg-green-500',
+  'danger': 'bg-red-500',
+  'warning': 'bg-yellow-400',
+  'transparent': 'bg-inherit',
 };
 
 const Switch = ({
@@ -47,18 +49,18 @@ const Switch = ({
   return (
     <div
       className={clsx([
-        'switch-container dsr-w-full dsr-flex dsr-flex-col',
-        isDisabled && 'dsr-opacity-70',
+        'switch-container w-full flex flex-col',
+        isDisabled && 'opacity-70',
       ])}
     >
       {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
       <label
-        className={clsx([
-          'dsr-inline-block dsr-rounded-full dsr-shadow-inner dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+        className={mcs([
+          'inline-block rounded-full shadow-inner border dark:border-gray-500/70 border-gray-500/10',
           value && variants[variant],
           className,
-          isDisabled && 'dsr-cursor-not-allowed',
-          !value && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
+          isDisabled && 'cursor-not-allowed',
+          !value && 'dark:bg-gray-500/20 bg-gray-500/10',
         ])}
         style={{
           height: size,
@@ -75,16 +77,16 @@ const Switch = ({
           aria-checked={value}
           aria-disabled={isDisabled}
           disabled={isDisabled}
-          className="switch dsr-absolute dsr-opacity-0"
+          className="switch absolute opacity-0"
           required={isRequired}
           checked={value}
           onChange={({ target }) => onChange(target.checked)}
         />
         <div
           className={clsx([
-            'dsr-rounded-full dsr-bg-white dsr-transition dsr-shadow-md dsr-border',
+            'rounded-full bg-white transition shadow-md border',
             value && borders[variant],
-            value && 'dsr-translate-x-full',
+            value && 'translate-x-full',
           ])}
           style={{ height: size - 2, width: size - 1 }}
         />

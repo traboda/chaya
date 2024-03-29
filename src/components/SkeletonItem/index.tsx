@@ -1,5 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
+
+import mcs from '../../utils/merge';
 
 import skeletonItemStyles from './skeletonItem.module.scss';
 
@@ -15,10 +16,10 @@ export type SkeletonItemProps = {
 
 const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave', children } : SkeletonItemProps) => (
   <div
-    className={clsx([
-      circular ? 'dsr-rounded-full' : 'dsr-rounded-lg',
-      variant === 'pulse' ? 'dsr-animate-pulse' : skeletonItemStyles.animate,
-      'skeleton dsr-relative dsr-overflow-hidden dsr-bg-gray-500/20',
+    className={mcs([
+      circular ? 'rounded-full' : 'rounded-lg',
+      variant === 'pulse' ? 'animate-pulse' : skeletonItemStyles.animate,
+      'skeleton relative overflow-hidden bg-gray-500/20',
       className,
     ])}
     style={{

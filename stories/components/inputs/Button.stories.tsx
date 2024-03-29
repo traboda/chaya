@@ -21,7 +21,7 @@ export const Primary: Story = {
 
 const ButtonVariants = ({ variant }: { variant: ButtonProps['variant'] }) => (
   <div
-    className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex justify-center items-center border-dashed border gap-2"
     style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
   >
     <Button variant={variant} color="primary">
@@ -81,7 +81,7 @@ export const LinkVariant: Story = {
 
 const ButtonSizesShowcase = ({ variant }: { variant: ButtonProps['variant'] }) => (
   <div
-    className="dsr-flex dsr-justify-center dsr-items-end dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex justify-center items-end border-dashed border gap-2"
     style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
   >
     <Button variant={variant} color="primary" size="xs">
@@ -106,7 +106,7 @@ export const ButtonSizes: Story = {
   storyName: 'Button Sizes',
   tags: ['unlisted'],
   render: () => (
-    <div className="dsr-flex dsr-flex-col dsr-gap-2">
+    <div className="flex flex-col gap-2">
       <ButtonSizesShowcase variant="solid" />
       <ButtonSizesShowcase variant="minimal" />
       <ButtonSizesShowcase variant="outline" />

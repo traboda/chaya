@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
 import { Avatar, Button } from '../index';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 import VerticalNavigator, { VerticalNavigatorProps } from './VerticalNavigator';
@@ -58,26 +59,26 @@ const Sidebar = ({
   return (
     <div
       id={id}
-      className={clsx([
-        'sidebar dsr-flex dsr-flex-col dsr-h-full dsr-justify-between dsr-relative dsr-border-r-2 dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10 dsr-max-w-full',
-        !isCollapsed ? 'dsr-w-[280px]' : '!dsr-w-fit dsr-items-center',
-        'dsr-transition-all dsr-duration-300 relative',
+      className={mcs([
+        'sidebar flex flex-col h-full justify-between relative border-r-2 dark:border-neutral-500/20 border-neutral-500/10 max-w-full',
+        !isCollapsed ? 'w-[280px]' : '!w-fit items-center',
+        'transition-all duration-300 relative',
         className,
       ])}
     >
       {(typeof topRenderer === 'function' || allowCollapseToggling) ? (
-        <div className="dsr-mb-3 dsr-h-fit dsr-px-1 dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
+        <div className="mb-3 h-fit px-1 border-t dark:border-neutral-500/20 border-neutral-500/10">
           {typeof topRenderer === 'function' ? (
-            <div className="dsr-py-2 dsr-flex dsr-justify-center">
+            <div className="py-2 flex justify-center">
               {topRenderer({ isCollapsed })}
             </div>
           ) : null}
           {allowCollapseToggling ? (
             <div
               className={clsx([
-                !isCollapsed && typeof topRenderer === 'function' ? 'dsr-absolute dsr-top-0 dsr-right-0 dsr-px-2' : null,
-                isCollapsed && 'dsr-flex dsr-justify-center',
-                'md:dsr-py-2',
+                !isCollapsed && typeof topRenderer === 'function' ? 'absolute top-0 right-0 px-2' : null,
+                isCollapsed && 'flex justify-center',
+                'md:py-2',
               ])}
             >
               <button type="button" onClick={() => setCollapsed(!isCollapsed)} title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
@@ -87,11 +88,11 @@ const Sidebar = ({
           ) : null}
         </div>
       ) : null}
-      <div className="dsr-h-full dsr-overflow-y-auto">
-        <div className="dsr-flex dsr-flex-col dsr-gap-2">
+      <div className="h-full overflow-y-auto">
+        <div className="flex flex-col gap-2">
           <div className="sidebar-top-area">
             {(topNavigationItems && topNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
-              <div className="dsr-py-2 dsr-px-1 ">
+              <div className="py-2 px-1 ">
                 <VerticalNavigator
                   {...navigationProps}
                   items={topNavigationItems}
@@ -104,9 +105,9 @@ const Sidebar = ({
             {navigationGroups && navigationGroups.length > 0 ? (
               <React.Fragment>
                 {navigationGroups.map((group, index) => (
-                  <div key={index} className="dsr-py-2 dsr-px-1 dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
+                  <div key={index} className="py-2 px-1 border-t dark:border-neutral-500/20 border-neutral-500/10">
                     {!isCollapsed && (
-                    <div className="dsr-text-sm dsr-font-semibold dsr-opacity-80 dsr-mb-2 dsr-px-2">
+                    <div className="text-sm font-semibold opacity-80 mb-2 px-2">
                       {group.title}
                     </div>
                     )}
@@ -122,12 +123,12 @@ const Sidebar = ({
             ) : null}
           </div>
         </div>
-        <div style={{ height: footerHeight + 15, width: 1 }} className="dsr-w-full" />
+        <div style={{ height: footerHeight + 15, width: 1 }} className="w-full" />
       </div>
-      <div ref={footerRef} className="sidebar-bottom-area dsr-absolute dsr-bottom-0 dsr-left-0 dsr-w-full dsr-bg-background">
+      <div ref={footerRef} className="sidebar-bottom-area absolute bottom-0 left-0 w-full bg-background">
         {typeof bottomTopRenderer === 'function' ? bottomTopRenderer({ isCollapsed }) : null}
         {(bottomNavigationItems && bottomNavigationItems.filter((i) => !i.isHidden).length > 0) ? (
-          <div className="dsr-py-2 dsr-px-1 dsr-mt-1 dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10">
+          <div className="py-2 px-1 mt-1 border-t dark:border-neutral-500/20 border-neutral-500/10">
             <VerticalNavigator
               {...navigationProps}
               items={bottomNavigationItems}
@@ -139,9 +140,9 @@ const Sidebar = ({
         {(logoutButton || userProfile) ? (
           <div
             className={clsx([
-              'dsr-flex dsr-items-center dsr-gap-1 dsr-px-1 dsr-py-2',
-              'dsr-border-t dark:dsr-border-neutral-500/20 dsr-border-neutral-500/10',
-              isCollapsed ? 'dsr-flex-col ' : 'dsr-flex-row dsr-justify-between',
+              'flex items-center gap-1 px-1 py-2',
+              'border-t dark:border-neutral-500/20 border-neutral-500/10',
+              isCollapsed ? 'flex-col ' : 'flex-row justify-between',
             ])}
           >
             {userProfile ? (
@@ -149,13 +150,13 @@ const Sidebar = ({
                 variant="link"
                 color="shade"
                 className={clsx([
-                  '!dsr-no-underline dsr-flex hover:!dsr-bg-neutral-400/20 dsr-rounded-lg dsr-truncate dsr-items-center',
-                  !isCollapsed && '!dsr-justify-start dsr-text-left dsr-p-1 dsr-w-full',
+                  '!no-underline flex hover:!bg-neutral-400/20 rounded-lg truncate items-center',
+                  !isCollapsed && '!justify-start text-left p-1 w-full',
                 ])}
                 link={userProfile.link}
                 onClick={userProfile.onClick}
               >
-                <Avatar alt={userProfile.name} size={isCollapsed ? 42 : 32} className="dsr-rounded-full" {...userProfile.avatar} />
+                <Avatar alt={userProfile.name} size={isCollapsed ? 42 : 32} className="rounded-full" {...userProfile.avatar} />
                 {!isCollapsed ? userProfile.name : null}
               </Button>
             ) : null}
@@ -164,7 +165,7 @@ const Sidebar = ({
                 size="lg"
                 variant="link"
                 color="shade"
-                className="!dsr-no-underline dsr-flex dsr-py-1 dsr-px-3 hover:!dsr-bg-neutral-400/20 dsr-rounded-lg"
+                className="!no-underline flex py-1 px-3 hover:!bg-neutral-400/20 rounded-lg"
                 link={logoutButton.link}
                 onClick={logoutButton.onClick}
                 rightIcon={logoutButton.icon || 'logout'}

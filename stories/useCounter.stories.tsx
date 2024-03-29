@@ -25,25 +25,25 @@ const Template: Story = args => {
     setIntervalValue(Number(event.target.value));
   };
   return (
-    <div className="dsr-flex dsr-flex-col dsr-justify-center dsr-items-center dsr-py-10" style={{ minHeight: '40vh' }}>
-      <div className="dsr-pb-6">
+    <div className="flex flex-col justify-center items-center py-10" style={{ minHeight: '40vh' }}>
+      <div className="pb-6">
         <p>
           Count:
-          <span className="dsr-text-3xl dsr-bg-indigo-600 dsr-text-white dsr-p-3 dsr-rounded dsr-font-bold">{count}</span>
+          <span className="text-3xl bg-indigo-600 text-white p-3 rounded font-bold">{count}</span>
         </p>
       </div> 
-      <div className="dsr-pb-6">
+      <div className="pb-6">
         <input
           type="number"
           value={intervalValue}
           onChange={handleChangeIntervalValue}
-          className="dsr-border-2 dsr-border-gray-300 dsr-p-2 dsr-rounded"
+          className="border-2 border-gray-300 p-2 rounded"
         />
       </div>
       <div>
-        <button className="dsr-bg-green-600 dsr-font-bold dsr-py-0 dsr-px-3 dsr-text-white dsr-rounded dsr-m-2" onClick={start}>start</button>
-        <button className="dsr-bg-red-600 dsr-font-bold dsr-py-0 dsr-px-3 dsr-text-white dsr-rounded dsr-m-2" onClick={stop}>stop</button>
-        <button className="dsr-bg-blue-600 dsr-font-bold dsr-py-0 dsr-px-3 dsr-text-white dsr-rounded dsr-m-2" onClick={reset}>reset</button>
+        <button className="bg-green-600 font-bold py-0 px-3 text-white rounded m-2" onClick={start}>start</button>
+        <button className="bg-red-600 font-bold py-0 px-3 text-white rounded m-2" onClick={stop}>stop</button>
+        <button className="bg-blue-600 font-bold py-0 px-3 text-white rounded m-2" onClick={reset}>reset</button>
       </div>
     </div>
   );

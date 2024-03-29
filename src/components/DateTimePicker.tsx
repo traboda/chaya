@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { formatISO, format, parse, parseISO } from 'date-fns';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Label from './Label';
 
 export type DateTimePickerProps = {
@@ -54,20 +56,20 @@ const DateTimePicker = ({
     if (date && time) onChange(parseDateTime());
   }, [date, time]);
 
-  const inputClass = clsx([
-    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background placeholder:dsr-text-color focus:dsr-outline-none',
-    'dsr-text-color dsr-border dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20 dsr-bg-background-lighten-1 dsr-shadow-inner dsr-rounded-lg placeholder:dsr-opacity-50 group-focus-within:dsr-border-primary dsr-text-base',
+  const inputClass = mcs([
+    'px-2.5 py-2 block w-full bg-background placeholder:text-color focus:outline-none',
+    'text-color border dark:border-neutral-500/70 border-neutral-500/20 bg-background-lighten-1 shadow-inner rounded-lg placeholder:opacity-50 group-focus-within:border-primary text-base',
     inputClassName,
   ]);
 
   return (
     <div className={className}>
       {(!hideLabel) && (
-        <div className="dsr-flex dsr-flex-wrap dsr-px-1 dsr-mx-0">
-          <div className="dsr-w-3/4 dsr-text-md dsr-px-0">
+        <div className="flex flex-wrap px-1 mx-0">
+          <div className="w-3/4 text-md px-0">
             <Label>
               {label}
-              {isRequired && <span className="dsr-required-marker">*</span>}
+              {isRequired && <span className="required-marker">*</span>}
             </Label>
           </div>
         </div>
@@ -118,7 +120,7 @@ const DateTimePicker = ({
             disabled={isDisabled}
             aria-disabled={isDisabled}
             value={time ? time : undefined}
-            className={clsx(['dsr-mt-2', inputClassName])}
+            className={clsx(['mt-2', inputClassName])}
             min={min ? format(min, stringTimeFormat) : undefined}
             max={max ? format(max, stringTimeFormat) : undefined}
             onChange={(e) => parseTime(e.target.value)}

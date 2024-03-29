@@ -45,24 +45,24 @@ const HorizontalNavigatorItem = ({
 
   const liClassNames = cva({
     base: [
-      'dsr-outline-1 focus-visible:dsr-outline dsr-duration-200 dsr-transition dsr-text-color',
-      'dsr-rounded-lg dsr-transition-background dsr-outline-2 dsr-no-underline',
-      item?.isDisabled && 'dsr-opacity-60 dsr-cursor-not-allowed',
-      activeItem === item.key && 'active dsr-font-semibold',
+      'outline-1 focus-visible:outline duration-200 transition text-color',
+      'rounded-lg transition-background outline-2 no-underline',
+      item?.isDisabled && 'opacity-60 cursor-not-allowed',
+      activeItem === item.key && 'active font-semibold',
     ],
     variants: {
       color: EMPTY_COLOR_MAP,
       variant: {
         boxed: [],
         pill: [
-          'dsr-px-5 dsr-py-2',
-          activeItem === item.key && 'dsr-text-primaryTextColor dsr-z-[1000]',
-          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-50/80 dark:hover:dsr-bg-neutral-500/80',
+          'px-5 py-2',
+          activeItem === item.key && 'text-primaryTextColor z-[1000]',
+          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-50/80 dark:hover:bg-neutral-500/80',
         ],
         line: [
-          'dsr-transition-all dsr-rounded-lg dsr-gap-2 dsr-border-0 dsr-py-1 dsr-px-3',
-          activeItem !== item.key && !item?.isDisabled && 'hover:dsr-bg-neutral-400/20',
-          activeItem && 'dsr-mb-2',
+          'transition-all rounded-lg gap-2 border-0 py-1 px-3',
+          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-400/20',
+          activeItem && 'mb-2',
         ],
       },
     },
@@ -71,14 +71,14 @@ const HorizontalNavigatorItem = ({
       {
         variant: 'pill', color: 'white',
         className: [
-          'dark:dsr-text-neutral-100',
-          activeItem === item.key && 'dsr-text-neutral-900 dsr-bg-neutral-50/80 dark:dsr-bg-neutral-100/80 dark:dsr-text-neutral-900',
+          'dark:text-neutral-100',
+          activeItem === item.key && 'text-neutral-900 bg-neutral-50/80 dark:bg-neutral-100/80 dark:text-neutral-900',
         ],
       },
       {
         variant: 'pill', color: 'contrast',
         className: [
-          activeItem === item.key && 'dsr-text-neutral-100 dark:dsr-text-neutral-900',
+          activeItem === item.key && 'text-neutral-100 dark:text-neutral-900',
         ],
       },
     ],
@@ -87,11 +87,11 @@ const HorizontalNavigatorItem = ({
   const renderOption = (item: HorizontalNavigatorItemType) => (
     <div
       className={clsx([
-        'dsr-flex dsr-w-full dsr-justify-between dsr-items-center dsr-gap-2',
+        'flex w-full justify-between items-center gap-2',
       ])}
     >
-      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-text-left">
-        {item.icon && <span className="dsr-w-[16px]"><Icon icon={item.icon} size={16} /></span>}
+      <div className="flex items-center gap-2 text-left">
+        {item.icon && <span className="w-[16px]"><Icon icon={item.icon} size={16} /></span>}
         <span className={item.labelClassName}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || badgeProps || item.badgeProps) && (

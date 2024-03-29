@@ -1,7 +1,7 @@
 import React, { KeyboardEvent } from 'react';
 import clsx from 'clsx';
 
-import Search from '../utils/icons/search';
+import mcs from '../utils/merge';
 
 import TextInput from './TextInput';
 import Button from './Button';
@@ -35,7 +35,7 @@ export type SearchBoxProps = {
   hideButton?: boolean,
 };
 
-const buttonClass = 'dsr-w-full dsr-h-full dsr-rounded-none dsr-text-color dsr-bg-transparent';
+const buttonClass = 'w-full h-full rounded-none text-color bg-transparent';
 
 const SearchBox = ({
   keyword, name = 'search', setKeyword = () => {}, hideLabel = false, inputStyle = {}, id, className = '',
@@ -69,36 +69,36 @@ const SearchBox = ({
         isDisabled={isDisabled}
         isLoading={isLoading}
         inputClassName={inputClassName}
-        postfixClassName={clsx([hideButton && 'dsr-border-l-0 dsr-shadow-inner', buttonWrapperClassName])}
+        postfixClassName={mcs([hideButton && 'border-l-0 shadow-inner', buttonWrapperClassName])}
         leftIcon={hideButton ? 'search' : undefined}
         postfixRenderer={(!hideButton || keyword?.length > 0) && (
-          <div className="dsr-flex dsr-items-center dsr-w-full dsr-h-full">
+          <div className="flex items-center gap-2 w-full h-full">
             {keyword.length > 0 && (
               <Button
                 variant="link"
                 color="danger"
                 type="button"
-                className={clsx([buttonClass, !hideButton && '-dsr-mr-3.5', 'dsr-px-2 dsr-opacity-100 !dsr-no-underline', buttonClassName])}
+                className={mcs([buttonClass, !hideButton && '-mr-3.5', 'px-2 opacity-100 !no-underline', buttonClassName])}
                 onClick={() => {
                   setKeyword('');
                   onSearch('');
                   onClear();
                 }}
-                rightIcon="times"
                 isDisabled={isDisabled || isLoading}
-              />
+              >
+                <i className="ri-close-line text-red-600 text-lg" />
+              </Button>
             )}
-
             {!hideButton && (
               <Button
                 variant="link"
                 color="contrast"
-                className={clsx(['search-box-button dsr-px-2 dsr-opacity-100 !dsr-no-underline', buttonClass, buttonClassName])}
+                className={mcs(['search-box-button px-2 opacity-100 !no-underline', buttonClass, buttonClassName])}
                 label={`${name} button`}
                 type="submit"
                 isDisabled={isDisabled || isLoading}
               >
-                <Search />
+                <i className="ri-search-line text-lg" />
               </Button>
             )}
           </div>

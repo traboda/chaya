@@ -6,17 +6,21 @@ import { nanoid } from 'nanoid';
 import Spinner from '../Spinner';
 import Label from '../Label';
 import Icon, { IconInputType } from '../Icon';
+import mcs from '../../utils/merge';
 
 import textInputStyle from './textInput.module.scss';
 
 const emptyFunc = () => {};
 
-export type TextInputProps<Type> = {
+type TextInputA = Omit<React.HTMLProps<HTMLInputElement | HTMLTextAreaElement>, 'onChange'>;
+type TextInputBase = Omit<TextInputA, 'ref'>;
+
+export interface TextInputProps<Type extends string | number> extends TextInputBase {
   label: string
   name: string
   id?: string
   placeholder?: string
-  type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url')
+  type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url' | 'tel' | 'search')
   value: Type
   isRequired?: boolean
   isDisabled?: boolean
@@ -49,7 +53,7 @@ export type TextInputProps<Type> = {
   prefixClassName?: string,
   postfixClassName?: string,
   hideStepper?: boolean
-};
+}
 
 const TextInput = <Type extends string | number>({
   id, label, name, placeholder, value: val, charLimit = null,
@@ -58,7 +62,7 @@ const TextInput = <Type extends string | number>({
   rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
   inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
   onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
-  prefixClassName, postfixClassName, hideStepper = false,
+  prefixClassName, postfixClassName, hideStepper = false, ..._props
 }: TextInputProps<Type>) => {
 
   const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${nanoid()}`, [id, name]);
@@ -118,45 +122,46 @@ const TextInput = <Type extends string | number>({
     onChange: handleChange,
     onKeyDown,
     style: inputStyle,
+    ..._props,
   };
 
   const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
 
   const commonClasses = clsx([
-    'dsr-text-color dsr-text-base',
-    'group-focus-within:dsr-border-gray-500/50',
+    'text-color text-base',
+    'group-focus-within:border-gray-500/50',
     // @TODO: invalid state for prefix and postfix when input is invalid - group-invalid is not a thing
-    isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:dsr-border-gray-500/40',
-    isInvalid ? 'dsr-border-red-500' : 'dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+    isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:border-gray-500/40',
+    isInvalid ? 'border-red-500' : 'dark:border-neutral-500/70 border-neutral-500/20',
   ]);
 
-  const inputClassNameCalculated = clsx([
-    'dsr-px-2.5 dsr-py-2 dsr-block dsr-w-full dsr-bg-background-lighten-1 placeholder:dsr-text-color focus:dsr-outline-none',
-    'dsr-text-color dsr-border-y placeholder:dsr-opacity-50 dsr-shadow-inner ',
+  const inputClassNameCalculated = mcs([
+    'px-2.5 py-2 block w-full bg-background-lighten-1 placeholder:text-color focus:outline-none',
+    'text-color border-y placeholder:opacity-50 shadow-inner ',
     commonClasses,
-    touched ? 'invalid:dsr-border-red-500' : '',
-    prefixRenderer ? 'invalid:dsr-border-l' : 'dsr-rounded-l-lg dsr-border-l',
-    postfixRenderer ? 'invalid:dsr-border-r' : 'dsr-rounded-r-lg dsr-border-r',
+    touched ? 'invalid:border-red-500' : '',
+    prefixRenderer ? 'invalid:border-l' : 'rounded-l-lg border-l',
+    postfixRenderer ? 'invalid:border-r' : 'rounded-r-lg border-r',
     inputClassName,
-    leftIcon && 'dsr-pl-10',
-    (rightIcon && isLoading) ? 'dsr-pr-20' : (rightIcon || isLoading ? 'dsr-pr-10' : ''),
+    leftIcon && 'pl-10',
+    (rightIcon && isLoading) ? 'pr-20' : (rightIcon || isLoading ? 'pr-10' : ''),
     hideStepper && textInputStyle.hideStepper,
   ]);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border dsr-overflow-hidden dsr-items-center',
+    'border overflow-hidden items-center',
     commonClasses,
   ]);
 
-  const innerIconClassNameCalculated = 'dsr-absolute dsr-top-1/2 -dsr-translate-y-1/2 dsr-text-color dsr-pointer-events-none';
-  const postPrefixClassName = 'dark:dsr-bg-background-darken-3 dsr-bg-background-lighten-1 dsr-shrink-0 dsr-flex';
+  const innerIconClassNameCalculated = 'absolute top-1/2 -translate-y-1/2 text-color pointer-events-none';
+  const postPrefixClassName = 'dark:bg-background-darken-3 bg-background-lighten-1 shrink-0 flex';
 
   return (
     <div
-      className={clsx([
+      className={mcs([
+        'text-input w-full h-full overflow-hidden',
         className,
-        'text-input dsr-w-full dsr-h-full dsr-overflow-hidden',
-        (isDisabled || isLoading) && 'dsr-opacity-70',
+        (isDisabled || isLoading) && 'opacity-70',
       ])}
       style={style}
     >
@@ -166,7 +171,7 @@ const TextInput = <Type extends string | number>({
           isRequired={isRequired}
           children={label}
           sidebar={(showLimit && typeof value !== 'number') && (
-          <span className="text-input-char-limit dsr-opacity-80 dsr-px-1">
+          <span className="text-input-char-limit opacity-80 px-1">
             {(value as string)?.length}
             /
             {charLimit}
@@ -174,22 +179,22 @@ const TextInput = <Type extends string | number>({
           )}
         />
       )}
-      <div className="dsr-relative dsr-group dsr-flex dsr-justify-between">
+      <div className="relative group flex justify-between">
         {prefixRenderer && (
           <div
-            className={clsx([
+            className={mcs([
               iconClassNameCalculated,
               prefixClassName,
               postPrefixClassName,
-              'dsr-left-0 dsr-rounded-tl-lg dsr-rounded-bl-lg dsr-shrink-0',
+              'left-0 rounded-tl-lg rounded-bl-lg shrink-0',
             ])}
           >
             {prefixRenderer}
           </div>
         )}
-        <div className="dsr-relative dsr-flex dsr-flex-grow">
+        <div className="relative flex flex-grow">
           {leftIcon && (
-          <div className={clsx(['dsr-left-3', innerIconClassNameCalculated])}>
+          <div className={clsx(['left-3', innerIconClassNameCalculated])}>
             <Icon
               icon={leftIcon}
               size={18}
@@ -200,7 +205,7 @@ const TextInput = <Type extends string | number>({
             <textarea rows={rows} className={inputClassNameCalculated} {...props} />
           ) : <input type={type} className={inputClassNameCalculated} {...props} />}
           {(rightIcon || isLoading) && (
-            <div className={clsx(['dsr-right-3 dsr-flex dsr-gap-3 dsr-items-center', innerIconClassNameCalculated])}>
+            <div className={clsx(['right-3 flex gap-3 items-center', innerIconClassNameCalculated])}>
               {isLoading && <Spinner size="md" />}
               {rightIcon && <Icon icon={rightIcon} size={18} />}
             </div>
@@ -208,19 +213,19 @@ const TextInput = <Type extends string | number>({
         </div>
         {postfixRenderer && (
           <div
-            className={clsx([
+            className={mcs([
               iconClassNameCalculated,
               postfixClassName,
               postPrefixClassName,
-              'dsr-right-0 dsr-rounded-tr-lg dsr-rounded-br-lg',
+              'right-0 rounded-tr-lg rounded-br-lg',
             ])}
           >
             {postfixRenderer}
           </div>
         )}
       </div>
-      {errorText && <div className="dsr-text-red-400 dsr-mt-1">{errorText}</div>}
-      {description && <div className="dsr-mt-2 dsr-opacity-75 dsr-text-sm">{description}</div>}
+      {errorText && <div className="text-red-400 mt-1">{errorText}</div>}
+      {description && <div className="mt-2 opacity-75 text-sm">{description}</div>}
     </div>
   );
 

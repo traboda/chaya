@@ -2,6 +2,8 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Modal from './Modal';
 import Button, { ButtonProps } from './Button';
 import TextInput from './TextInput';
@@ -61,17 +63,17 @@ const ConfirmationDialog = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      headerClassName="dsr-w-[450px]"
-      contentClassName={clsx('confirmation-dialog dsr-w-[450px] dsr-max-w-full', className)}
+      headerClassName="w-[450px]"
+      contentClassName={mcs('confirmation-dialog w-[450px] max-w-full', className)}
       title={labels?.title}
       description={labels.description}
     >
       <form id={formID} onSubmit={confirmAction}>
         {(requireConfirmationText || requirePassword) && (
-          <div className="dsr-p-1 dsr-my-4">
+          <div className="p-1 my-4">
             {requireConfirmationText && (
               <TextInput
-                className="dsr-mb-3"
+                className="mb-3"
                 label={labels?.confirmationTextLabel}
                 placeholder={`Enter "${labels?.confirmationText}" to confirm`}
                 name="confirmationText"
@@ -82,7 +84,7 @@ const ConfirmationDialog = ({
             )}
             {requirePassword && (
               <TextInput
-                className="dsr-mb-3"
+                className="mb-3"
                 label={labels?.passwordLabel}
                 placeholder={labels?.passwordPlaceholder}
                 name="password"
@@ -94,7 +96,7 @@ const ConfirmationDialog = ({
             )}
           </div>
         )}
-        <div className="dsr-flex dsr-justify-end dsr-gap-2">
+        <div className="flex justify-end gap-2">
           <Button
             color="contrast"
             onClick={onCancel}

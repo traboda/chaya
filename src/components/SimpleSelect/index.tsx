@@ -8,6 +8,7 @@ import Label from '../Label';
 import Spinner from '../Spinner';
 import Icon, { IconInputType } from '../Icon';
 import Checkbox from '../Checkbox';
+import mcs from '../../utils/merge';
 
 import SimpleSelectOption from './option';
 
@@ -163,9 +164,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   }, []);
 
   const iconClassNameCalculated = clsx([
-    'dsr-border group-focus-within:dsr-border-primary dsr-border-gray-500/70 dsr-text-base',
-    'dsr-text-color group-focus-within:dsr-border-primary dsr-overflow-hidden dsr-items-center',
-    !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
+    'border group-focus-within:border-primary border-gray-500/70 text-base',
+    'text-color group-focus-within:border-primary overflow-hidden items-center',
+    !isDisabled && 'group-[:not(:focus-within):hover]:border-gray-400/80',
   ]);
 
   const onSelectAll = () => {
@@ -176,7 +177,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
-    <DropdownMenu.Item ref={ref} className="!dsr-outline-0">
+    <DropdownMenu.Item ref={ref} className="!outline-0">
       <SimpleSelectOption
         isMulti={isMulti}
         className={className}
@@ -251,7 +252,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
       open={isDropdownActive}
       modal={false}
     >
-      <div ref={containerRef} className={clsx(['dsr-w-full simple-select-container dsr-overflow-hidden', isDisabled && 'dsr-opacity-70'])}>
+      <div ref={containerRef} className={clsx(['w-full simple-select-container overflow-hidden', isDisabled && 'opacity-70'])}>
         {!hideLabel && (
         <Label
           id={`${inputID}-label`}
@@ -260,9 +261,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           isRequired={isRequired}
         />
         )}
-        <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
+        <DropdownMenu.Trigger asChild className="hover:outline-none">
           <div>
-            <div className="dsr-w-full dsr-flex dsr-group" ref={selectRef}>
+            <div className="w-full flex group" ref={selectRef}>
               <div
                 tabIndex={0}
                 role="combobox"
@@ -271,15 +272,15 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 aria-owns={`${inputID}-listbox`}
                 aria-controls={`${inputID}-listbox`}
                 onKeyDown={handleKeyDown}
-                className={clsx([
-                  'simple-select dsr-w-full dsr-text-base dsr-p-2 dsr-rounded-lg dsr-appearance-none dsr-text-color',
-                  'dsr-bg-background-lighten-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20 dsr-shadow-inner',
-                  'focus:dsr-outline-none group-focus-within:dsr-border-primary dsr-border-y dsr-border-l',
-                  'dsr-bg-background dsr-bg-no-repeat dsr-text-left dsr-cursor-default',
-                  'dsr-gap-2 dsr-flex dsr-items-center dsr-justify-between',
-                  !isDisabled && 'group-[:not(:focus-within):hover]:dsr-border-gray-400/80',
-                  !postfixRenderer ? 'dsr-border-r' : '!dsr-border-r-0 dsr-rounded-r-none',
-                  !hideArrow && 'dsr-pr-8',
+                className={mcs([
+                  'simple-select w-full text-base p-2 rounded-lg appearance-none text-color',
+                  'bg-background-lighten-1 dark:border-neutral-500/70 border-neutral-500/20 shadow-inner',
+                  'focus:outline-none group-focus-within:border-primary border-y border-l',
+                  'bg-background bg-no-repeat text-left cursor-default',
+                  'gap-2 flex items-center justify-between',
+                  !isDisabled && 'group-[:not(:focus-within):hover]:border-gray-400/80',
+                  !postfixRenderer ? 'border-r' : '!border-r-0 rounded-r-none',
+                  !hideArrow && 'pr-8',
                   className,
                 ])}
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
@@ -290,27 +291,27 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 }}
               >
                 {leftIcon && <Icon icon={leftIcon} size={18} />}
-                <div className="dsr-w-full dsr-flex dsr-gap-x-1 dsr-gap-y-2 dsr-flex-wrap">
+                <div className="w-full flex gap-x-1 gap-y-2 flex-wrap">
                   {variant === 'pill' && Array.isArray(value) ? value.map(val => {
                     const option = getOption(val);
                     return option ? (
                       <div
                         key={val}
                         className={clsx([
-                          'dsr-bg-black/10 dark:dsr-bg-white/10 dsr-border dsr-border-neutral-200',
-                          'dsr-rounded dsr-inline-flex dsr-items-center dsr-px-1 dsr-overflow-hidden',
-                          'hover:dsr-shadow hover:dsr-border-neutral-300',
+                          'bg-black/10 dark:bg-white/10 border border-neutral-200',
+                          'rounded inline-flex items-center px-1 overflow-hidden',
+                          'hover:shadow hover:border-neutral-300',
                         ])}
                       >
                         {option?.icon && (<Icon icon={option?.icon} size={16} />)}
                         {option?.iconRenderer && (
-                        <div className="dsr-p-1 dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
-                          <div className="dsr-w-[24px] dsr-h-[24px]">
+                        <div className="p-1 flex items-center justify-center h-full">
+                          <div className="w-[24px] h-[24px]">
                             {option.iconRenderer}
                           </div>
                         </div>
                         )}
-                        <div className="dsr-px-1">{option?.label}</div>
+                        <div className="px-1">{option?.label}</div>
                         <button
                           onClick={event => {
                             event.stopPropagation();
@@ -320,11 +321,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           title="Remove"
                           type="button"
                           className={clsx([
-                            'dsr-px-1 dsr-h-full dsr-transition',
-                            'hover:dsr-text-red-400',
+                            'px-1 h-full transition',
+                            'hover:text-red-400',
                           ])}
                         >
-                          <Icon icon="times" size={14} />
+                          <i className="ri-close-line" />
                         </button>
                       </div>
                     ) : null;
@@ -347,33 +348,33 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     }}
                     type="text"
                     className={clsx([
-                      'dsr-outline-none dsr-border-none dsr-bg-transparent dsr-truncate',
-                      'placeholder:dsr-text-color placeholder:dsr-opacity-50',
-                      variant === 'pill' && Array.isArray(value) && value.length > 0 ? '' : 'dsr-basis-full',
+                      'outline-none border-none bg-transparent truncate',
+                      'placeholder:text-color placeholder:opacity-50',
+                      variant === 'pill' && Array.isArray(value) && value.length > 0 ? '' : 'basis-full',
                     ])}
                   />
                 </div>
 
                 {(Array.isArray(value) ? value.length > 0 : !isRequired && !!value) && (
-                <button
-                  type="button"
-                  title="clear"
-                  aria-label="clear"
-                  onClick={event => {
-                    event.stopPropagation();
-                    onChange((Array.isArray(value) ? [] : null) as Type, null);
-                  }}
-                >
-                  <Icon icon="times" size={18} />
-                </button>
+                  <button
+                    type="button"
+                    title="clear"
+                    aria-label="clear"
+                    onClick={event => {
+                      event.stopPropagation();
+                      onChange((Array.isArray(value) ? [] : null) as Type, null);
+                    }}
+                  >
+                    <i className="ri-close-line" />
+                  </button>
                 )}
-                {rightIcon && <Icon className="dsr-mr-1" icon={rightIcon} size={18} />}
+                {rightIcon && <Icon className="mr-1" icon={rightIcon} size={18} />}
               </div>
               {postfixRenderer && (
               <div
                 className={clsx([
                   iconClassNameCalculated,
-                  'dsr-right-0 dsr-flex dsr-rounded-tr-lg dsr-rounded-br-lg dsr-shrink-0',
+                  'right-0 flex rounded-tr-lg rounded-br-lg shrink-0',
                 ])}
               >
                 {postfixRenderer}
@@ -386,10 +387,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           <DropdownMenu.Content
             forceMount
             side={side}
-            className={clsx([
-              'dsr-text-color dsr-grid dsr-z-[8000]',
-              'dsr-transition-[grid-template-rows]',
-              isDropdownActive ? 'dsr-grid-rows-[1fr]' : 'dsr-grid-rows-[0fr] dsr-pointer-events-none',
+            className={mcs([
+              'text-color grid z-[8000]',
+              'transition-[grid-template-rows]',
+              isDropdownActive ? 'grid-rows-[1fr]' : 'grid-rows-[0fr] pointer-events-none',
               dropdownClassName,
             ])}
             style={{
@@ -400,13 +401,13 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           >
             <div
               className={clsx([
-                'dsr-overflow-hidden dsr-bg-background-lighten-1 dsr-rounded-lg',
-                isDropdownActive && 'dsr-border dsr-shadow dsr-border-gray-200/50',
+                'overflow-hidden bg-background-lighten-1 rounded-lg',
+                isDropdownActive && 'border shadow border-gray-200/50',
               ])}
             >
-              <div className="dsr-bg-black/10 dark:dsr-bg-white/10">
+              <div className="bg-black/10 dark:bg-white/10">
                 {isFetching && (
-                <div className="dsr-px-3 dsr-py-2 dsr-flex dsr-justify-center">
+                <div className="px-3 py-2 flex justify-center">
                   <Spinner size="lg" />
                 </div>
                 )}
@@ -415,18 +416,18 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 tabIndex={-1}
                 role="listbox"
                 id={`${inputID}-listbox`}
-                className={clsx(['dsr-max-h-[250px] dsr-overflow-y-auto', listBoxClassName])}
+                className={mcs(['max-h-[250px] overflow-y-auto', listBoxClassName])}
               >
                 {(isMulti && !hideSelectAll) && (
-                <DropdownMenu.Item className="!dsr-outline-0">
-                  <li role="option" className="dsr-px-3 dsr-py-2" onClick={event => event.stopPropagation()}>
+                <DropdownMenu.Item className="!outline-0">
+                  <li role="option" className="px-3 py-2" onClick={event => event.stopPropagation()}>
                     <Checkbox
                       value=""
                       label={labels.selectAll}
                       onChange={() => onSelectAll()}
                       isChecked={Array.isArray(value) && value.length > 0}
                       isHalf={Array.isArray(value) && value.length < options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0)}
-                      className="dsr-w-full"
+                      className="w-full"
                     />
                   </li>
                 </DropdownMenu.Item>
@@ -437,29 +438,29 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                       <React.Fragment>
                         <div
                           className={clsx([
-                            'dsr-uppercase dsr-font-semibold dsr-text-sm dsr-tracking-wider dsr-opacity-60',
-                            'dsr-px-3 dsr-py-2 dsr-flex dsr-gap-2',
+                            'uppercase font-semibold text-sm tracking-wider opacity-60',
+                            'px-3 py-2 flex gap-2',
                           ])}
                         >
                           <div>{option.group}</div>
-                          <div className="dsr-bg-black/20 dark:dsr-bg-white/20 dsr-rounded-full dsr-px-1 dsr-text-sm">
+                          <div className="bg-black/20 dark:bg-white/20 rounded-full px-1 text-sm">
                             {option.options.length}
                           </div>
                         </div>
-                        {option.options.map(opt => renderDropdownOption(opt, index, optionRefs.current[index], 'dsr-pl-5'))}
+                        {option.options.map(opt => renderDropdownOption(opt, index, optionRefs.current[index], 'pl-5'))}
                       </React.Fragment>
                     ) : renderDropdownOption(option, index, optionRefs.current[index]))
                 ) : !isCreatable && (
-                <div className="dsr-px-3 dsr-py-2 dsr-text-center">
+                <div className="px-3 py-2 text-center">
                   {labels.noOptionsFound}
                 </div>
                 )}
                 {isCreatable && filteredOptions().length === 0 && searchKeyword?.length > 0 && (
-                <DropdownMenu.Item className="!dsr-outline-0" onClick={event => event.stopPropagation()}>
+                <DropdownMenu.Item className="!outline-0" onClick={event => event.stopPropagation()}>
                   <SimpleSelectOption
                     label={`${labels.create} ${searchKeyword}`}
                     value={searchKeyword}
-                    icon="plus"
+                    iconRenderer={<i className="ri-add-line" />}
                     onSelect={() => {
                       if (typeof onCreate === 'function')
                         onCreate(searchKeyword);

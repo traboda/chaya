@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import clsx from 'clsx';
 
 import Button from '../Button';
+import mcs from '../../utils/merge';
 
 export type SearchResultType = {
   title: string,
@@ -22,27 +22,27 @@ const SearchResult = ({
 
   return (
     <Button
-      className={clsx([
-        '!dsr-p-2 hover:!dsr-bg-gray-500/30 focus:!dsr-bg-gray-500/50 !dsr-rounded',
-        'dark:!dsr-border-gray-500/70 !dsr-border-gray-500/10',
-        '!dsr-block dsr-w-full',
+      className={mcs([
+        '!p-2 hover:!bg-gray-500/30 focus:!bg-gray-500/50 !rounded',
+        'dark:!border-gray-500/70 !border-gray-500/10',
+        '!block w-full',
         className,
       ])}
       variant="outline"
       color="contrast"
       link={result?.link}
     >
-      <div className="dsr-flex dsr-justify-between dsr-items-center dsr-w-full dsr-text-left">
+      <div className="flex justify-between items-center w-full text-left">
         {result?.iconRenderer && (
-        <div className="dsr-mr-1 dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
-          <div className="dsr-w-[24px] dsr-h-[24px]">
+        <div className="mr-1 flex items-center justify-center h-full">
+          <div className="w-[24px] h-[24px]">
             {result.iconRenderer}
           </div>
         </div>
         )}
-        <div className="dsr-flex-grow">
-          <div className="dsr-text-sm">{result.title}</div>
-          {result?.description?.length && (<p className="dsr-text-xs dsr-opacity-80">
+        <div className="flex-grow">
+          <div className="text-sm">{result.title}</div>
+          {result?.description?.length && (<p className="text-xs opacity-80">
             {result.description}
           </p>
           )}

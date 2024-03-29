@@ -130,7 +130,7 @@ npm run type-check
 
 ## Credits
 
-- Icons used in the package are from [Adobe Spectrum-CSS Workflow Icons](https://github.com/adobe/spectrum-css-workflow-icons).
+- Icons used in the package are from [Remix Icons](https://remixicons.com).
 
 ## Contributions
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 export type ProgressBarProps = {
   value: number,
   isStriped?: boolean,
@@ -26,9 +28,9 @@ const ProgressBar = ({ value, isStriped = false, size = 'md', className = '', id
   return (
     <div
       id={id}
-      className={clsx([
-        'progress-bar dsr-w-full dsr-rounded-lg dsr-bg-gray-500/20',
-        'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
+      className={mcs([
+        'progress-bar w-full rounded-lg bg-gray-500/20',
+        'border dark:border-gray-500/70 border-gray-500/10',
         className,
       ])}
       style={{ height: height ? height : sizes[size] }}
@@ -36,8 +38,8 @@ const ProgressBar = ({ value, isStriped = false, size = 'md', className = '', id
       <div
         role="progressbar"
         className={clsx([
-          'progress-bar-progress dsr-rounded-lg dsr-h-full dsr-bg-primary',
-          isLoading && 'dsr-animate-stripes',
+          'progress-bar-progress rounded-lg h-full bg-primary',
+          isLoading && 'animate-stripes',
         ])}
         style={{
           width: `${value || 0}%`,

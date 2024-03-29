@@ -26,9 +26,9 @@ const HoverCard = ({ children, cardRenderer, id, className, minWidth = 250, maxW
         <RadixHoverCard.Content
           className={clsx([
             'hover-card-content',
-            'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10',
-            'dsr-rounded-lg dsr-shadow-lg dsr-text-color dsr-backdrop-blur-md dsr-transform-gpu',
-            'dark:dsr-bg-background-lighten-1 dsr-bg-background-darken-1 dsr-bg-opacity-80',
+            'border dark:border-gray-500/70 border-gray-500/10',
+            'rounded-lg shadow-lg text-color backdrop-blur-md transform-gpu',
+            'dark:bg-background-lighten-1 bg-background-darken-1 bg-opacity-80',
             className,
           ])}
           style={{ minWidth, maxWidth }}

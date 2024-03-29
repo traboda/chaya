@@ -36,10 +36,10 @@ export const AsPaper: Story = {
   tags: ['unlisted'],
   args: {
     children: (
-      <div className="dsr-border-2 dsr-border-dashed dsr-p-3" style={{ borderColor: 'rgba(200, 200, 200, 0.8)' }}>
-        <div className="dsr-flex dsr-flex-col dsr-gap-2">
-          <h1 className="dsr-text-3xl dsr-font-semibold">Some Title</h1>
-          <div className="dsr-flex dsr-justify-between dsr-gap-3">
+      <div className="border-2 border-dashed p-3" style={{ borderColor: 'rgba(200, 200, 200, 0.8)' }}>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-semibold">Some Title</h1>
+          <div className="flex justify-between gap-3">
             <img src="https://picsum.photos/seed/picsum/200/200" alt="Some Image" width={200} />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies,
@@ -48,7 +48,7 @@ export const AsPaper: Story = {
               nisl nunc vitae nisl Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
             </p>
           </div>
-          <div className="dsr-flex dsr-justify-end">
+          <div className="flex justify-end">
             <Button>
               Some Button
             </Button>
@@ -67,7 +67,7 @@ export const NestedCards: Story = {
     description: 'Customize the appearance of your storefront.',
     children: (
       <Card title="Theme" description="Set theme for your store.">
-        <div className="dsr-flex dsr-flex-col dsr-gap-3">
+        <div className="flex flex-col gap-3">
           <p>child card content goes here</p>
           <Card title="Colors" description="Set your brand colors to make your store truly yours.">
             <p>grand child card content goes here</p>
@@ -88,9 +88,9 @@ export const NestedCardsWithCustomContent: Story = {
   args: {
     children: (
       <div>
-        <p className="dsr-mb-2">parent card content goes here</p>
+        <p className="mb-2">parent card content goes here</p>
         <Card>
-          <p className="dsr-mb-2">child card content goes here</p>
+          <p className="mb-2">child card content goes here</p>
           <Card>
             <p>Grand child card content goes here</p>
           </Card>
@@ -112,7 +112,7 @@ export const OutlineVariant: Story = {
   },
   render: (args) => (
     <div
-      className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border-2"
+      className="flex justify-center items-center border-dashed border-2"
       style={{ background: 'rgba(200,200,200,0.2)', padding: '5vh 2vw', borderColor: 'rgba(200, 200, 200, 0.8)' }}
     >
       <Card {...args} />

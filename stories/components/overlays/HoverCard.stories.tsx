@@ -16,26 +16,26 @@ export default meta;
 
 
 const Card = () => (
-  <figure className="dsr-rounded-lg dsr-p-8">
+  <figure className="rounded-lg p-8">
     <img
-      className="dsr-w-24 dsr-h-24 dsr-rounded-full dsr-mx-auto"
+      className="w-24 h-24 rounded-full mx-auto"
       src="https://fakeface.rest/face/view"
       alt=""
       width="384"
       height="512"
     />
-    <div className="dsr-pt-6 dsr-text-center dsr-space-y-4">
+    <div className="pt-6 text-center space-y-4">
       <blockquote>
-        <p className="dsr-text-lg dsr-font-medium">
+        <p className="text-lg font-medium">
           “Lorem ipsum dolor sit amet, ut labore et dolore magna aliqua. Ut enim ad minim veniam,
           quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”
         </p>
       </blockquote>
-      <figcaption className="dsr-font-medium">
-        <div className="dsr-text-primary">
+      <figcaption className="font-medium">
+        <div className="text-primary">
           Jane Doe
         </div>
-        <div className="dsr-text-color dsr-opacity-50">
+        <div className="text-color opacity-50">
           Staff Engineer, Algolia
         </div>
       </figcaption>
@@ -45,32 +45,32 @@ const Card = () => (
 );
 
 const Template: Story = args => (
-  <div className="dsr-fixed dsr-top-1/2 dsr-left-0 dsr-w-full dsr-h-full">
-    <div className="dsr-fixed dsr-top-0 dsr-left-0">
+  <div className="fixed top-1/2 left-0 w-full h-full">
+    <div className="fixed top-0 left-0">
       <HoverCard cardRenderer={<Card />} {...args}>
         <Button className="text-white">Hover Top-Left</Button>
       </HoverCard>
     </div>
-    <div className="dsr-fixed dsr-top-0 dsr-right-0">
+    <div className="fixed top-0 right-0">
       <HoverCard cardRenderer={<Card />} {...args}>
 
         <button className="text-white">Hover Here</button>
       </HoverCard>
     </div>
-    <div className="dsr-fixed dsr-bottom-0 dsr-right-0">
+    <div className="fixed bottom-0 right-0">
       <HoverCard cardRenderer={<Card />} {...args}>
         <button>Hover Here</button>
       </HoverCard>
     </div>
-    <div className="dsr-fixed dsr-bottom-0 dsr-left-0">
+    <div className="fixed bottom-0 left-0">
       <HoverCard
-        className="dsr-text-white !dsr-bg-amber-300"
+        className="text-white !bg-amber-300"
         children={<div className="text-white">Hover Here</div>}
         cardRenderer={<Card />}
         {...args}
       />
     </div>
-    <div className="dsr-fixed dsr-top-3/4 dsr-left-1/2">
+    <div className="fixed top-3/4 left-1/2">
       <HoverCard
         children={<div className="text-white">Hover Here</div>}
         cardRenderer={<Card />}

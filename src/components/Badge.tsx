@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import { cva } from 'cva';
 
 import {
@@ -7,6 +6,7 @@ import {
   BORDER_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_BG_COLOR_MAP,
   SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
 } from '../utils/classMaps/colors';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -30,30 +30,30 @@ export type BadgeProps = BaseBadgeProps & {
 };
 
 const iconSizes = {
-  xs: [12, 'dsr-mr-1', 'dsr-ml-1'],
-  sm: [14, 'dsr-mr-1', 'dsr-ml-1'],
-  md: [16, 'dsr-mr-2', 'dsr-ml-2'],
-  lg: [18, 'dsr-mr-2', 'dsr-ml-2'],
-  xl: [20, 'dsr-mr-2', 'dsr-ml-2'],
+  xs: [12, 'mr-1', 'ml-1'],
+  sm: [14, 'mr-1', 'ml-1'],
+  md: [16, 'mr-2', 'ml-2'],
+  lg: [18, 'mr-2', 'ml-2'],
+  xl: [20, 'mr-2', 'ml-2'],
 } as const;
 
 const badgeStyling = cva({
   base: [
-    'badge dsr-relative dsr-transition dsr-overflow-hidden dsr-border',
-    'dsr-inline-flex  dsr-items-center dsr-justify-center dsr-text-center',
+    'badge relative transition overflow-hidden border',
+    'inline-flex  items-center justify-center text-center',
   ],
   variants: {
     size: {
-      xs: 'dsr-px-1.5 dsr-py-0.5 dsr-text-xs',
-      sm: 'dsr-px-2.5 dsr-py-1 dsr-text-sm',
-      md: 'dsr-px-3.5 dsr-py-2 dsr-text-base',
-      lg: 'dsr-px-5 dsr-py-3 dsr-text-lg',
-      xl: 'dsr-px-6 dsr-py-4 dsr-text-xl',
+      xs: 'px-1.5 py-0.5 text-xs',
+      sm: 'px-2.5 py-1 text-sm',
+      md: 'px-3.5 py-2 text-base',
+      lg: 'px-5 py-3 text-lg',
+      xl: 'px-6 py-4 text-xl',
     },
     variant: {
       solid: '',
-      outline: 'dsr-border-2',
-      minimal: 'dsr-border-0',
+      outline: 'border-2',
+      minimal: 'border-0',
       link: '', // @todo added for using with colorVariantMapper
     },
     color: BORDER_COLOR_MAP,
@@ -71,10 +71,10 @@ const Badge = ({
   id, className = '', style, circular = false, leftIcon, rightIcon,
 }: BadgeProps) => {
 
-  const computedClassName = clsx([
-    className,
+  const computedClassName = mcs([
     badgeStyling({ variant, size, color }),
-    circular ? 'dsr-rounded-full' : 'dsr-rounded',
+    circular ? 'rounded-full' : 'rounded',
+    className,
   ]);
 
   return (

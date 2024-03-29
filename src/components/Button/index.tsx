@@ -11,6 +11,7 @@ import {
   BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
   SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
 } from '../../utils/classMaps/colors';
+import mcs from '../../utils/merge';
 
 import buttonStyle from './button.module.scss';
 import { ButtonProps, ButtonVariantsType } from './type';
@@ -26,37 +27,37 @@ const iconSizes = {
 
 const buttonStyling = cva({
   base: [
-    'button dsr-relative dsr-overflow-hidden dsr-text-center dsr-border-transparent dsr-transition',
-    'dsr-outline-0 dsr-inline-flex dsr-items-center dsr-justify-center',
-    'dsr-border dsr-shadow hover:dsr-shadow-none dsr-gap-2',
-    'focus:dsr-ring-1 focus:dsr-ring-offset-2 focus:dsr-ring-offset-transparent',
+    'button relative overflow-hidden text-center border-transparent transition',
+    'outline-0 inline-flex items-center justify-center',
+    'border shadow hover:shadow-none gap-2',
+    'focus:ring-1 focus:ring-offset-2 focus:ring-offset-transparent',
   ],
   variants: {
     size: {
-      xs: 'dsr-gap-1 dsr-px-1.5 dsr-py-0.5 dsr-rounded dsr-text-xs',
-      sm: 'dsr-px-2.5 dsr-py-1 dsr-rounded-md dsr-text-sm',
-      md: 'dsr-px-3.5 dsr-py-2 dsr-rounded-lg dsr-text-base',
-      lg: 'dsr-px-5 dsr-py-3 dsr-rounded-lg dsr-text-lg',
-      xl: 'dsr-px-6 dsr-py-4 dsr-rounded-lg dsr-text-xl',
+      xs: 'gap-1 px-1.5 py-0.5 rounded text-xs',
+      sm: 'px-2.5 py-1 rounded-md text-sm',
+      md: 'px-3.5 py-2 rounded-lg text-base',
+      lg: 'px-5 py-3 rounded-lg text-lg',
+      xl: 'px-6 py-4 rounded-lg text-xl',
     },
     color: {
-      primary: 'dsr-ring-primary/50',
-      secondary: 'dsr-ring-secondary/50',
-      success: 'dsr-ring-green-600/50',
-      danger: 'dsr-ring-red-500/50',
-      warning: 'dsr-ring-yellow-500/50',
-      contrast: 'dsr-ring-contrast/50',
-      white: 'dsr-ring-white/50',
-      black: 'dsr-ring-black/50',
-      shade: 'dsr-ring-current',
+      primary: 'ring-primary/50',
+      secondary: 'ring-secondary/50',
+      success: 'ring-green-600/50',
+      danger: 'ring-red-500/50',
+      warning: 'ring-yellow-500/50',
+      contrast: 'ring-contrast/50',
+      white: 'ring-white/50',
+      black: 'ring-black/50',
+      shade: 'ring-current',
     },
     variant: {
       solid: '',
-      outline: 'dsr-border-2',
+      outline: 'border-2',
       minimal: '',
       link: [
-        'hover:dsr-underline',
-        'dsr-p-0 dsr-shadow-none dsr-rounded-none dsr-ring-transparent focus:dsr-ring-0',
+        'hover:underline',
+        'p-0 shadow-none rounded-none ring-transparent focus:ring-0',
       ],
     },
   },
@@ -72,7 +73,7 @@ const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
   children, link, onClick = () => {},
   id, className = '', style, label, disableRipple = false, tabIndex, autoFocus, blurOnClick = true,
-  target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false,
+  target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false, ...props
 }: ButtonProps) => {
 
   const buttonContent = (
@@ -84,12 +85,12 @@ const Button = ({
     </>
   );
 
-  const computedClassName = clsx([
+  const computedClassName = mcs(clsx([
     buttonStyling({ variant, size, color }),
     buttonStyle.button,
-    (isDisabled || isLoading) && 'dsr-opacity-70 dsr-cursor-not-allowed',
+    (isDisabled || isLoading) && 'opacity-70 cursor-not-allowed',
     className,
-  ]);
+  ]));
 
   const buttonRenderer = () => (
     <button
@@ -109,6 +110,7 @@ const Button = ({
       disabled={isDisabled || isLoading}
       className={computedClassName}
       style={style}
+      {...props}
     >
       {isLoading ? <Spinner size={size} /> : buttonContent}
     </button>

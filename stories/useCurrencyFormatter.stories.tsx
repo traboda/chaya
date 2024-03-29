@@ -18,12 +18,12 @@ const Template: Story = () => {
 
   return (
     <div>
-      <div className="dsr-flex dsr-flex-col dsr-flex-gap-3">
-        <div className="dsr-font-mono dsr-text-2xl">{format(23000, 'INR')}</div>
-        <div className="dsr-font-mono dsr-text-2xl">{format(320000, 'INR')}</div>
-        <div className="dsr-font-mono dsr-text-2xl">{format(2300000, 'INR')}</div>
-        <div className="dsr-font-mono dsr-text-2xl">{format(32000000, 'INR')}</div>
-        <div className="dsr-font-mono dsr-text-2xl">{format(230000000, 'INR')}</div>
+      <div className="flex flex-col flex-gap-3">
+        <div className="font-mono text-2xl">{format(23000, 'INR')}</div>
+        <div className="font-mono text-2xl">{format(320000, 'INR')}</div>
+        <div className="font-mono text-2xl">{format(2300000, 'INR')}</div>
+        <div className="font-mono text-2xl">{format(32000000, 'INR')}</div>
+        <div className="font-mono text-2xl">{format(230000000, 'INR')}</div>
       </div>
     </div>
   );

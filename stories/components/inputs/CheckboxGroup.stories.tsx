@@ -103,7 +103,7 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 // };
 //
 // const RequiredTemplate: Story<CheckboxGroupProps<number>> = args => (
-//   <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
+//   <div className="flex flex-wrap flex-start mx-0">
 //     <form
 //       onSubmit={(e) => {
 //         console.log(e);
@@ -112,7 +112,7 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 //       }}
 //     >
 //       <CheckboxExample {...args} options={args?.options} color="default" />
-//       <Button size="sm" className="dsr-mt-3" type="submit">
+//       <Button size="sm" className="mt-3" type="submit">
 //         Submit
 //       </Button>
 //     </form>
@@ -146,23 +146,23 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 // };
 //
 // const CheckboxColorsTemplate: Story<CheckboxGroupProps<number>> = args => (
-//   <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//   <div className="flex flex-wrap flex-start mx-0">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="default" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="primary" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="secondary" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="danger" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="warning" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} color="success" />
 //     </div>
 //   </div>
@@ -173,20 +173,20 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 //
 //
 // const SizesColorsTemplate: Story<CheckboxGroupProps<number>> = args => (
-//   <div className="dsr-flex dsr-flex-wrap dsr-flex-start dsr-mx-0">
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//   <div className="flex flex-wrap flex-start mx-0">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} size="xs" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} size="sm" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} size="md" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} size="lg" />
 //     </div>
-//     <div className="md:dsr-w-1/3 dsr-p-2">
+//     <div className="md:w-1/3 p-2">
 //       <CheckboxExample {...args} options={args?.options} size="xl" />
 //     </div>
 //   </div>

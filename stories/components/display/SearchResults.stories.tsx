@@ -14,9 +14,9 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<SearchResultsProps> = args => (
-  <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+  <div className="flex flex-col dar-justify-center items-center p-30">
     <Card>
-      <div className="dsr-mb-2">
+      <div className="mb-2">
         Inside a Card
       </div>
       <SearchResults {...args} />

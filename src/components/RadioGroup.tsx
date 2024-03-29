@@ -81,7 +81,7 @@ const RadioGroup = <Type extends string | number>({
     <React.Fragment>
       {label && (
       <Label
-        className={clsx([isDisabled && 'dsr-opacity-70', 'dsr-mb-2'])}
+        className={clsx([isDisabled && 'opacity-70', 'mb-2'])}
         children={label}
         isRequired={isRequired}
       />
@@ -89,8 +89,8 @@ const RadioGroup = <Type extends string | number>({
       <div
         role="group"
         className={clsx([
-          'radio-group dsr-flex',
-          alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-gap-4',
+          'radio-group flex',
+          alignment === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4',
         ])}
       >
         {options.map((option, index) => (

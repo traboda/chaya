@@ -30,7 +30,7 @@ export const Primary: Story = {
       link: '',
       text: 'Learn More',
     },
-    className: 'dsr-w-full',
+    className: 'w-full',
     allowDismissal: true,
     icon: 'ri-home-line',
     text: 'This is example text for the banner. Give your own text here.',
@@ -44,7 +44,7 @@ export const CardVariant: Story = {
       link: '',
       text: 'Learn More',
     },
-    className: 'dsr-w-full',
+    className: 'w-full',
     allowDismissal: true,
     icon: 'ri-home-line',
     text: 'This is example text for the banner. Give your own text here.',
@@ -58,7 +58,7 @@ export const FullWidthVariant: Story = {
       link: '',
       text: 'Learn More',
     },
-    className: 'dsr-w-full',
+    className: 'w-full',
     allowDismissal: true,
     icon: 'ri-home-line',
     text: 'This is example text for the banner. Give your own text here.',
@@ -69,7 +69,7 @@ export const FullWidthVariant: Story = {
 // const Template: Story<BannerProps> = args => (
 //   <div style={{ maxWidth: '100%', height: '1000px' }}>
 //     <Banner {...args} >
-//       <button className="dsr-bg-indigo-500 dsr-px-5 dsr-py-2 dsr-text-white dsr-rounded-md hover:dsr-bg-indigo-700 focus:dsr-outline-none">Button</button>
+//       <button className="bg-indigo-500 px-5 py-2 text-white rounded-md hover:bg-indigo-700 focus:outline-none">Button</button>
 //     </Banner>
 //   </div>
 // );
@@ -83,7 +83,7 @@ export const FullWidthVariant: Story = {
 //     link: '',
 //     text: 'Learn More',
 //   },
-//   className: 'dsr-w-full',
+//   className: 'w-full',
 //   allowDismissal: true,
 //   icon: 'chevronUp',
 //   color: 'danger',

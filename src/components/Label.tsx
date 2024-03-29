@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
-import clsx from 'clsx';
+
+import mcs from '../utils/merge';
 
 import ToolTip from './Tooltip';
 import Icon from './Icon';
 
-export type LabelProps = {
+export interface LabelProps extends React.HTMLProps<HTMLLabelElement> {
   children: ReactNode,
   isRequired?: boolean,
   htmlFor?: string,
@@ -12,20 +13,21 @@ export type LabelProps = {
   sidebar?: ReactNode,
   tooltip?: string,
   className?: string
-};
+}
 
-const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className }: LabelProps) => {
+const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className, ...props }: LabelProps) => {
   return (
     <label
       id={id}
-      className={clsx(['dsr-opacity-90 dsr-flex dsr-items-center dsr-font-medium dsr-mb-1 dsr-text-sm', className])}
+      className={mcs(['opacity-90 flex items-center font-medium mb-1 text-sm', className])}
       htmlFor={htmlFor}
-      aria-hidden={false}
+      aria-hidden={props?.['aria-hidden'] ?? false}
+      {...props}
     >
-      <span className="dsr-flex dsr-items-center dsr-gap-1">
+      <span className="flex items-center gap-1">
         <span>
           {children}
-          {isRequired && <span className="dsr-ml-1 dsr-text-red-500">*</span>}
+          {isRequired && <span className="ml-1 text-red-500">*</span>}
         </span>
         {tooltip && (
           <ToolTip overlay={tooltip} side="right">
@@ -33,7 +35,7 @@ const Label = ({ children, isRequired, htmlFor, id, sidebar, tooltip, className 
           </ToolTip>
         )}
       </span>
-      <span className="dsr-ml-auto">{sidebar}</span>
+      <span className="ml-auto">{sidebar}</span>
     </label>
   );
 };

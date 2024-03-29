@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
 import { cva } from '../../utils/cva';
 import {
   colorVariantMapper, ChayaColorType, EMPTY_COLOR_MAP, BORDER_COLOR_MAP, SOLID_BG_COLOR_MAP,
 } from '../../utils/classMaps/colors';
+import mcs from '../../utils/merge';
 
 import HorizontalNavigatorItem, { HorizontalNavigatorItemType, HorizontalNavigatorVariantType } from './item';
 
@@ -31,14 +31,14 @@ export type HorizontalNavigatorProps = {
 
 const activeMarkerClassName = cva({
   base: [
-    'dsr-absolute dsr-left-0 dsr-rounded-lg',
-    'dsr-transition-all dsr-ease-in-out',
+    'absolute left-0 rounded-lg',
+    'transition-all ease-in-out',
   ],
   variants: {
     variant: {
-      line: 'horizontal-navigator-underline dsr-border-2 dsr-w-full dsr-bottom-0',
-      pill: 'horizontal-navigator-pill dsr-shadow-lg dsr-z-[500] dsr-top-0',
-      boxed: 'horizontal-navigator-boxed dsr-shadow-lg dsr-z-[500] dsr-top-0',
+      line: 'horizontal-navigator-underline border-2 w-full bottom-0',
+      pill: 'horizontal-navigator-pill shadow-lg z-[500] top-0',
+      boxed: 'horizontal-navigator-boxed shadow-lg z-[500] top-0',
     },
     color: EMPTY_COLOR_MAP,
   },
@@ -91,12 +91,12 @@ const HorizontalNavigator = ({
       role="tablist"
       aria-orientation="horizontal"
       ref={tabRef}
-      className={clsx([
-        'dsr-list-none tab-selector horizontal-tabs dsr-relative dsr-inline-flex',
-        'dsr-items-center dsr-rounded-lg',
-        (variant === 'pill' || variant === 'boxed') && 'dsr-z-[1000] dsr-gap-x-1',
-        variant === 'boxed' && 'dsr-bg-neutral-400/20 dark:dsr-bg-neutral-600/20 dsr-p-1.5',
-        variant === 'line' && 'dsr-gap-2',
+      className={mcs([
+        'list-none tab-selector horizontal-tabs relative inline-flex',
+        'items-center rounded-lg',
+        (variant === 'pill' || variant === 'boxed') && 'z-[1000] gap-x-1',
+        variant === 'boxed' && 'bg-neutral-400/20 dark:bg-neutral-600/20 p-1.5',
+        variant === 'line' && 'gap-2',
         className,
       ])}
     >

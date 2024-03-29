@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Button from './Button';
 import SimpleSelect from './SimpleSelect';
 import Icon from './Icon';
@@ -57,17 +59,17 @@ const PageNavigator = ({
   return (
     <div
       id={id}
-      className={clsx([
-        'page-navigator dsr-flex dsr-items-center dsr-justify-center dsr-text-center dsr-pt-4 page-navigator',
+      className={mcs([
+        'page-navigator flex items-center justify-center text-center pt-4 page-navigator',
         className,
       ])}
     >
-      <div className="dsr-select-none">
-        <div className="dsr-flex dsr-items-stretch dsr-justify-center">
+      <div className="select-none">
+        <div className="flex items-stretch justify-center">
           {(showEdges && page > 2) && (
           <Button
             label="Go to first page"
-            className="first-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            className="first-page-button w-12 flex items-center justify-center mx-1"
             onClick={() => setPage(1)}
           >
             <Icon icon="chevrons-left" size={18} />
@@ -76,7 +78,7 @@ const PageNavigator = ({
           {(showControls && page > 1) && (
           <Button
             label="Go to previous page"
-            className="previous-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            className="previous-page-button w-12 flex items-center justify-center mx-1"
             onClick={() => setPage(page - 1)}
           >
             <Icon icon="chevron-left" size={18} />
@@ -91,8 +93,8 @@ const PageNavigator = ({
                 isDisabled={page === item}
                 key={`page_${item}_${index}`}
                 className={clsx([
-                  'page-number-button dsr-w-12 dsr-mx-1',
-                  page === item ? 'active !dsr-opacity-100' : '',
+                  'page-number-button w-12 mx-1',
+                  page === item ? 'active !opacity-100' : '',
                 ])}
                 onClick={() => setPage(item)}
               >
@@ -103,7 +105,7 @@ const PageNavigator = ({
           {(showControls && !(page + 1 >= length)) && (
           <Button
             label="Go to next page"
-            className="next-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            className="next-page-button w-12 flex items-center justify-center mx-1"
             onClick={() => setPage(page + 1)}
           >
             <Icon icon="chevron-right" size={18} />
@@ -112,7 +114,7 @@ const PageNavigator = ({
           {(showEdges && (page + 1 < length)) && (
           <Button
             label="Go to last page"
-            className="last-page-button dsr-w-12 dsr-flex dsr-items-center dsr-justify-center dsr-mx-1"
+            className="last-page-button w-12 flex items-center justify-center mx-1"
             onClick={() => setPage(length)}
           >
             <Icon icon="chevrons-right" size={18} />
@@ -120,8 +122,8 @@ const PageNavigator = ({
           )}
         </div>
         {!hideItemsPerPage && (
-          <div className="dsr-flex dsr-items-center dsr-justify-center dsr-mt-3">
-            <div className="dsr-mr-1 dsr-w-12">
+          <div className="flex items-center justify-center mt-3">
+            <div className="mr-1 w-12">
               <SimpleSelect
                 value={itemsPerPage}
                 hideLabel
@@ -133,7 +135,7 @@ const PageNavigator = ({
                   setItemsPerPage(typeof n === 'number' ? n : parseInt(n));
                 }}
                 name="items_per_page"
-                className="!dsr-p-1 dsr-text-sm dsr-text-center"
+                className="!p-1 text-sm text-center"
                 hideArrow={true}
                 isRequired
                 options={[

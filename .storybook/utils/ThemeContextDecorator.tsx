@@ -26,7 +26,7 @@ const ThemeContextDecorator = ({ children }: { children: ReactNode }) => {
     const theme = useDarkMode() ? darkTheme : defaultTheme;
 
     return (
-        <div key={nanoid()} className="dsr-p-4">
+        <div key={nanoid()} className="p-4">
             <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
             <DSRContextProvider
                 theme={theme}

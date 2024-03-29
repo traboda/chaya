@@ -3,6 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import useCountUp from '../hooks/useCountUp';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 import Card from './Card';
@@ -42,31 +43,32 @@ const StatsCard = ({
 
   return (
     <Card id={id} className={className}>
-      <div className="dsr-flex dsr-justify-between dsr-items-center">
+      <div className="flex justify-between items-center">
         <div>
-          <div className="dsr-flex dsr-items-end">
+          <div className="flex items-end">
             {icon && (
-              <div className="dsr-flex dsr-rounded dsr-mr-2">
+              <div className="flex rounded mr-2">
                 <Icon icon={icon} size={36} />
               </div>
             )}
             <div>
               {labels?.title ? (
-                <div className="dsr-text-lg md:dsr-text-xl dsr-font-semibold">
+                <div className="text-lg md:text-xl font-semibold">
                   {labels.title}
                 </div>
               ) : null}
             </div>
           </div>
           {labels?.description ? (
-            <p className="dsr-opacity-90 dsr-text-sm dsr-break-all">
+            <p className="opacity-90 text-sm break-all">
               {labels.description}
             </p>
           ) : null}
-          <div className="dsr-flex dsr-flex-col dsr-gap-1 dsr-mt-2">
+          <div className="flex flex-col gap-1 mt-2">
             <div
-              className={clsx([
-                'dsr-flex dsr-gap-1 text-color dsr-text-2xl md:dsr-text-3xl lg:dsr-text-4xl dsr-font-bold', valueClassName,
+              className={mcs([
+                'flex gap-1 text-color text-2xl md:text-3xl lg:text-4xl font-bold', 
+                valueClassName,
               ])}
             >
               {valueString}
@@ -74,8 +76,8 @@ const StatsCard = ({
             {(typeof deltaValue === 'number' || change) ? (
               <div
                 className={clsx([
-                  'dsr-flex dsr-items-center dsr-text-lg',
-                  changeDirection ? changeDirection === 'positive' ? 'dsr-text-green-600 dark:dsr-text-green-500' : 'dsr-text-red-600 dark:dsr-text-red-500' : '',
+                  'flex items-center text-lg',
+                  changeDirection ? changeDirection === 'positive' ? 'text-green-600 dark:text-green-500' : 'text-red-600 dark:text-red-500' : '',
                 ])}
               >
                 {changeDirection ? (
@@ -85,20 +87,20 @@ const StatsCard = ({
                   />
                 ) : null}
                 {(typeof deltaValue === 'number') ? (
-                  <div className="dsr-flex dsr-gap-2 dsr-font-semibold">{`${deltaString} ${labels.deltaLabel || ''}`}</div>
+                  <div className="flex gap-2 font-semibold">{`${deltaString} ${labels.deltaLabel || ''}`}</div>
                 ) : null}
               </div>
             ) : null}
           </div>
         </div>
         {typeof sideRenderer === 'function' ? (
-          <div className="dsr-flex dsr-items-center">
+          <div className="flex items-center">
             {sideRenderer()}
           </div>
         ) : null}
       </div>
       {typeof bottomRenderer === 'function' ? (
-        <div className="dsr-mt-2">
+        <div className="mt-2">
           {bottomRenderer()}
         </div>
       ) : null}

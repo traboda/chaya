@@ -2,7 +2,7 @@ import { defineConfig } from 'cva';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const merge = extendTailwindMerge({
-  prefix: 'dsr-',
+  prefix: '',
 });
 
 export const { cva, cx, compose } = defineConfig({

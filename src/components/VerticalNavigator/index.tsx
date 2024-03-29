@@ -26,12 +26,12 @@ export type VerticalNavigatorProps = {
 };
 
 const activeMarkerClassNames = cva({
-  base: 'vertical-navigator-active-marker dsr-transition-all dsr-ease-in-out dsr-absolute dsr-top-0 dsr-left-0',
+  base: 'vertical-navigator-active-marker transition-all ease-in-out absolute top-0 left-0',
   variants: {
     variant: {
-      pill: 'dsr-shadow-lg dsr-z-[500] dsr-rounded-lg',
-      boxed: 'dsr-shadow-lg dsr-z-[500] dsr-rounded-lg',
-      line: 'dsr-border-2 dsr-z-[1000]',
+      pill: 'shadow-lg z-[500] rounded-lg',
+      boxed: 'shadow-lg z-[500] rounded-lg',
+      line: 'border-2 z-[1000]',
     },
     color: EMPTY_COLOR_MAP,
   },
@@ -42,7 +42,7 @@ const activeMarkerClassNames = cva({
     {
       variant: 'line',
       color: 'white',
-      className: 'dsr-border-white',
+      className: 'border-white',
     },
   ],
 });
@@ -95,7 +95,7 @@ const VerticalNavigator = ({
       role={role}
       aria-orientation="vertical"
       className={clsx([
-        'dsr-flex dsr-flex-col dsr-gap-1 dsr-items-center dsr-overflow-hidden dsr-transition-all dsr-w-full',
+        'flex flex-col gap-1 items-center overflow-hidden transition-all w-full',
         className,
       ])}
       style={{ width: isCollapsed ? 50 : undefined }}
@@ -121,10 +121,10 @@ const VerticalNavigator = ({
   return (
     <div
       className={clsx([
-        variant === 'boxed' && 'dsr-bg-neutral-400/20 dark:dsr-bg-neutral-600/20 dsr-rounded-lg dsr-p-1.5',
+        variant === 'boxed' && 'bg-neutral-400/20 dark:bg-neutral-600/20 rounded-lg p-1.5',
       ])}
     >
-      <div className="dsr-relative">
+      <div className="relative">
         {listRenderer}
         {(
           (indicatorStyle?.width || indicatorStyle?.height) &&

@@ -1,10 +1,10 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
-import clsx from 'clsx';
 
 import Icon, { IconInputType } from '../Icon';
 import Checkbox from '../Checkbox';
 import { LinkWrapper } from '../../utils/misc';
 import Avatar from '../Avatar';
+import mcs from '../../utils/merge';
 
 export type ListViewItem = {
   id: string,
@@ -37,7 +37,7 @@ const ListViewItem = ({
 
   const itemBody = (
     <React.Fragment>
-      <div className="dsr-flex dsr-gap-2">
+      <div className="flex gap-2">
         {isSelectable && (
           <Checkbox
             onClick={event => event.stopPropagation()}
@@ -49,25 +49,25 @@ const ListViewItem = ({
         )}
         {item?.icon && (<Icon icon={item?.icon} size={16} />)}
         {item?.iconRenderer && (
-          <div className="dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
-            <div className="dsr-w-[24px] dsr-h-[24px]">
+          <div className="flex items-center justify-center h-full">
+            <div className="w-[24px] h-[24px]">
               {item?.iconRenderer}
             </div>
           </div>
         )}
         {item?.iconURL && (
-          <div className="dsr-flex dsr-items-center dsr-justify-center dsr-h-full">
+          <div className="flex items-center justify-center h-full">
             <Avatar alt={item?.title || item?.id} src={item?.iconURL} size={24} />
           </div>
         )}
         <div>
           {item?.title && item?.title?.length > 0 ? (
-            <div className={hasDescription ? 'dsr-text-lg' : ''}>
+            <div className={hasDescription ? 'text-lg' : ''}>
               {item.title}
             </div>
           ) : null}
           {hasDescription ? (
-            <div className="dsr-text-sm dsr-opacity-80">
+            <div className="text-sm opacity-80">
               {item.description}
             </div>
           ) : null}
@@ -79,10 +79,10 @@ const ListViewItem = ({
     </React.Fragment>
   );
 
-  const wrapperClassName = clsx([
-    'dsr-flex dsr-w-full dsr-px-3 dsr-py-1.5 dsr-transition hover:dsr-bg-black/10 hover:dark:dsr-bg-white/20',
-    'dsr-justify-between dsr-items-center dsr-cursor-pointer dsr-text-left simple-select-option !dsr-outline-0',
-    isHighlighted && 'dsr-bg-black/10 dark:dsr-bg-white/10',
+  const wrapperClassName = mcs([
+    'flex w-full px-3 py-1.5 transition hover:bg-black/10 hover:dark:bg-white/20',
+    'justify-between items-center cursor-pointer text-left simple-select-option !outline-0',
+    isHighlighted && 'bg-black/10 dark:bg-white/10',
     className,
   ]);
 

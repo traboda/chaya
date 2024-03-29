@@ -1,7 +1,8 @@
 'use client';
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import clsx from 'clsx';
+
+import mcs from '../../utils/merge';
 
 import styles from './dropdown.module.scss';
 
@@ -14,7 +15,6 @@ export type DropdownProps = {
   isOpen?: boolean,
   onClose?: () => void,
   id?: string,
-  className?: string,
   containerClassName?: string,
   align?: AlignOptions,
   side?: SideOptions
@@ -32,14 +32,14 @@ const Dropdown = ({
 
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen} modal={false}>
-      <DropdownMenu.Trigger asChild className="hover:dsr-outline-none">
+      <DropdownMenu.Trigger asChild className="hover:outline-none">
         {buttonRenderer}
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className={clsx([
-            'dsr-w-[240px] dsr-rounded-lg dsr-text-color dsr-shadow-md',
-            'dsr-bg-background-lighten-3 dark:dsr-bg-background-darken-1',
+          className={mcs([
+            'w-[240px] rounded-lg text-color shadow-md',
+            'bg-background-lighten-3 dark:bg-background-darken-1',
             styles.animateEntry,
             containerClassName,
           ])}

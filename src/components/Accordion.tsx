@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import ChevronUp from '../utils/icons/chevron-up';
-import Lock from '../utils/icons/lock';
+import mcs from '../utils/merge';
 
 export type AccordionProps = {
   title: string | React.ReactNode,
@@ -32,19 +31,19 @@ const Accordion = ({
   return (
     <div
       id={id}
-      className={clsx([
-        'accordion dsr-p-2 dsr-rounded-lg dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10',
-        'dsr-border dark:dsr-border-neutral-500/70 dsr-border-neutral-500/10',
+      className={mcs([
+        'accordion p-2 rounded-lg dark:bg-gray-500/20 bg-gray-500/10',
+        'border dark:border-neutral-500/70 border-neutral-500/10',
         className,
       ])}
     >
       <button
-        className={clsx([
-          'accordion-button dsr-w-full dsr-px-3 dsr-py-2 dsr-font-semibold dsr-flex dsr-rounded-lg dsr-text-lg',
-          'dsr-justify-between dsr-text-color dsr-items-center dsr-bg-white/90 dark:dsr-bg-black/20 dsr-shadow-sm',
-          'dsr-border dark:dsr-border-neutral-500/70 dsr-border-neutral-500/10',
-          (isDisabled || isLocked) && 'dsr-cursor-not-allowed',
+        className={mcs([
+          'accordion-button w-full px-3 py-2 font-semibold flex rounded-lg text-lg',
+          'justify-between text-color items-center bg-white/90 dark:bg-black/20 shadow-sm',
+          'border dark:border-neutral-500/70 border-neutral-500/10',
           titleClassName,
+          (isDisabled || isLocked) && 'cursor-not-allowed',
         ])}
         aria-expanded={isOpen}
         aria-controls={`${id}_content`}
@@ -59,11 +58,11 @@ const Accordion = ({
         {(!isDisabled) ? (
           <div
             className={clsx([
-              'dsr-transition dsr-transform dsr-duration-200',
-              isOpen ? 'dsr-rotate-180' : '',
+              'transition transform duration-200',
+              isOpen ? 'rotate-180' : '',
             ])}
           >
-            {isLocked ? <Lock /> : <ChevronUp size={24} />}
+            {isLocked ? <i className="ri-lock-2-line" /> : <i className="ri-arrow-up-s-line" />}
           </div>
         ) : null}
       </button>
@@ -71,8 +70,8 @@ const Accordion = ({
         id={`${id}_content`}
         aria-hidden={!isOpen}
         className={clsx([
-          'accordion-content dsr-transition-all dsr-opacity-0 dsr-h-0 dsr-text-color dsr-px-3',
-          isOpen ? clsx([bodyClassName, 'dsr-opacity-100 dsr-h-auto dsr-py-3']) : '',
+          'accordion-content transition-all opacity-0 h-0 text-color px-3',
+          isOpen ? mcs(['opacity-100 h-auto py-3', bodyClassName]) : '',
         ])}
       >
         {isOpen && renderer ? renderer() : text}

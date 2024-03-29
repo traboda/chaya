@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: 'dsr-',
   content: [
       './src/**/*.{tsx,jsx,ts}',
   ],
@@ -44,8 +43,8 @@ module.exports = {
         },
       },
       gridTemplateColumns: {
-        'flexible-fit': 'repeat(auto-fit, minmax(var(--dsr-flexible-cols-min-width), 1fr))',
-        'flexible-fill': 'repeat(auto-fill, minmax(var(--dsr-flexible-cols-min-width), 1fr))'
+        'flexible-fit': 'repeat(auto-fit, minmax(var(--flexible-cols-min-width), 1fr))',
+        'flexible-fill': 'repeat(auto-fill, minmax(var(--flexible-cols-min-width), 1fr))'
       }
     },
   },

@@ -18,7 +18,7 @@ const Template: Story<VisualPickerProps<string[]>> = args => {
   const [value, setValue] = useState(args.value ?? '');
 
   return (
-    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+    <div className="flex flex-col dar-justify-center items-center p-30">
       <VisualPicker {...args} value={value} onChange={setValue} />
     </div>
   );

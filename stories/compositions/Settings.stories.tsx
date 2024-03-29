@@ -20,16 +20,16 @@ const SwitchSettingTemplate: Story = () => {
   const [isPolicyEmailsActivated, setIsPolicyEmailsActivated] = React.useState(true);
 
   return (
-    <div className="dsr-flex dsr-flex-col dar-justify-center dsr-items-center dsr-p-30">
+    <div className="flex flex-col dar-justify-center items-center p-30">
       <SettingCard
         labels={{
           title: 'Enable Notifications',
           description: 'Receive notifications for new messages',
         }}
         subSettingRenderer={() => isActivated && (
-          <Card className="dsr-flex dsr-flex-col dsr-gap-3 dsr-mt-3 px-2">
+          <Card className="flex flex-col gap-3 mt-3 px-2">
             <div>
-              <div className="dsr-text-lg dsr-font-medium mb-2">
+              <div className="text-lg font-medium mb-2">
                 Emails You Receive
               </div>
             </div>

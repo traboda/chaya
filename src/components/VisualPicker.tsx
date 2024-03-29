@@ -8,6 +8,7 @@ import {
   colorMapper, ChayaColorType,
   EMPTY_COLOR_MAP, SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, BORDER_COLOR_MAP,
 } from '../utils/classMaps/colors';
+import mcs from '../utils/merge';
 
 import Label from './Label';
 import Icon, { IconInputType } from './Icon';
@@ -39,13 +40,13 @@ export type VisualPickerProps<Type> = {
 
 const buttonClassNames = cva({
   base: [
-    'dsr-w-full dsr-rounded-lg dsr-border',
-    'dsr-transition dsr-flex',
+    'w-full rounded-lg border',
+    'transition flex',
   ],
   variants: {
     direction: {
-      vertical: 'dsr-items-center dsr-justify-start dsr-p-3 dsr-text-left dsr-gap-3',
-      horizontal: 'dsr-flex-col dsr-gap-1 dsr-items-center dsr-justify-center dsr-px-3 dsr-py-4 dsr-min-h-[220px] dsr-text-center',
+      vertical: 'items-center justify-start p-3 text-left gap-3',
+      horizontal: 'flex-col gap-1 items-center justify-center px-3 py-4 min-h-[220px] text-center',
     },
     color: EMPTY_COLOR_MAP,
     variant: {
@@ -88,16 +89,16 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
 
 
   return (
-    <div className="dsr-w-full" id={generatedID}>
+    <div className="w-full" id={generatedID}>
       {label && <Label isRequired={isRequired}>{label}</Label>}
       <div
-        className={clsx([
-          'dsr-grid dsr-w-full dsr-gap-2',
+        className={mcs([
+          'grid w-full gap-2',
+          isVertical ? 'grid-cols-1' : fitHorizontal ? 'grid-cols-flexible-fit' : 'grid-cols-flexible-fill',
           className,
-          isVertical ? 'dsr-grid-cols-1' : fitHorizontal ? 'dsr-grid-cols-flexible-fit' : 'dsr-grid-cols-flexible-fill',
         ])}
         style={{
-          ['--dsr-flexible-cols-min-width' as string]: `${colMinWidth}px`,
+          ['--flexible-cols-min-width' as string]: `${colMinWidth}px`,
         }}
       >
         {items.map((item, i) => (
@@ -106,33 +107,33 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
             type="button"
             aria-disabled={isDisabled || item.isDisabled}
             disabled={isDisabled || item.isDisabled}
-            className={clsx([
+            className={mcs([
               buttonClassNames({
                 direction: isVertical ? 'vertical' : 'horizontal',
                 color,
                 variant: 'solid',
                 state: isSelected(item.value) ? 'active' : 'inactive',
               }),
-              !isSelected(item.value) && !(isDisabled || item.isDisabled) && 'hover:dsr-border-gray-400/80',
-              isDisabled || item.isDisabled ? 'dsr-opacity-90 dark:dsr-border-neutral-500/50 dsr-border-neutral-500/10' : 'dsr-bg-background-lighten-1 dark:dsr-bg-background-lighten-2 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+              !isSelected(item.value) && !(isDisabled || item.isDisabled) && 'hover:border-gray-400/80',
+              isDisabled || item.isDisabled ? 'opacity-90 dark:border-neutral-500/50 border-neutral-500/10' : 'bg-background-lighten-1 dark:bg-background-lighten-2 dark:border-neutral-500/70 border-neutral-500/20',
               itemClassName,
             ])}
             onClick={() => onSelect(item.value)}
           >
             {(item.icon) && (
-              <div className={item.title || item.description ? 'dsr-mb-1 dsr-text-4xl' : 'dsr-text-4xl'}>
+              <div className={item.title || item.description ? 'mb-1 text-4xl' : 'text-4xl'}>
                 <Icon icon={item.icon} size={44} />
               </div>
             )}
             <div
               className={clsx([
-                'dsr-flex-col dsr-gap-1',
-                isVertical ? 'dsr-items-start dsr-justify-start' : 'dsr-items-center dsr-justify-center',
+                'flex-col gap-1',
+                isVertical ? 'items-start justify-start' : 'items-center justify-center',
               ])}
             >
-              {item.title && <div className="dsr-text-lg md:dsr-text-xl dsr-font-semibold dsr-leading-6">{item.title}</div>}
+              {item.title && <div className="text-lg md:text-xl font-semibold leading-6">{item.title}</div>}
               {item.description && (
-              <div className={clsx(['dsr-text-sm', !isVertical && 'dsr-w-[80%] dsr-mx-auto'])}>
+              <div className={clsx(['text-sm', !isVertical && 'w-[80%] mx-auto'])}>
                 {item.description}
               </div>
               )}

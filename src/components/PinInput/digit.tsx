@@ -1,5 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
+
+import mcs from '../../utils/merge';
 
 import pinInputStyle from './pinInput.module.scss';
 
@@ -30,11 +31,11 @@ const PinDigit = ({
     autoComplete="off"
     aria-labelledby={ariaLabelledBy}
     aria-disabled={isDisabled}
-    className={clsx([
-      'pin-digit dsr-text-lg dsr-outline-none dsr-text-center dsr-w-full placeholder:dsr-text-slate-400/40 dsr-text-color',
-      variant === 'minimal' ? 'dsr-border-b-2 dsr-bg-transparent focus:dsr-border-primary' : 'dsr-py-1.5 dsr-rounded-lg dsr-border focus:dsr-border-primary dsr-bg-background-lighten-1 dsr-shadow-inner',
+    className={mcs([
+      'pin-digit text-lg outline-none text-center w-full placeholder:text-slate-400/40 text-color',
+      variant === 'minimal' ? 'border-b-2 bg-transparent focus:border-primary' : 'py-1.5 rounded-lg border focus:border-primary bg-background-lighten-1 shadow-inner',
       className,
-      isInvalid ? 'dsr-border-red-500' : 'dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+      isInvalid ? 'border-red-500' : 'dark:border-neutral-500/70 border-neutral-500/20',
       type === 'number' && pinInputStyle.hideStepper,
     ])}
     type={mask ? 'password' : type}

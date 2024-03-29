@@ -16,10 +16,10 @@ const Template: Story<SidebarProps> = args => {
   const [activeItem, setActiveItem] = React.useState(args?.navigationProps?.activeItem);
 
   return (
-    <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-      <div style={{ width: '280px' }} className="dsr-h-screen -dsr-m-4">
+    <div className="flex flex-wrap mx-0">
+      <div style={{ width: '280px' }} className="h-screen -m-4">
         <Sidebar
-          className="dsr-h-full"
+          className="h-full"
           key={JSON.stringify(args)}
           {...args}
           navigationProps={{
@@ -38,12 +38,12 @@ const Template: Story<SidebarProps> = args => {
           ]}
         />
       </div>
-      <div className="dsr-w-auto">
-        <ul className="dsr-list-none">
+      <div className="w-auto">
+        <ul className="list-none">
           {args.topNavigationItems?.map((item: any) => (
             <li key={item.key}>
               <button
-                className="dsr-text-lg dsr-font-semibold dsr-py-2 dsr-px-4 dsr-block w-full dsr-text-left"
+                className="text-lg font-semibold py-2 px-4 block w-full text-left"
                 onClick={() => setActiveItem(item.key)}
               >
                 {item.label}
@@ -51,7 +51,7 @@ const Template: Story<SidebarProps> = args => {
               {item?.items?.map((subItem: any) => (
                 <button
                   key={subItem.key}
-                  className="dsr-text-sm dsr-font-semibold dsr-py-2 dsr-px-4 dsr-block w-full dsr-text-left"
+                  className="text-sm font-semibold py-2 px-4 block w-full text-left"
                   onClick={() => setActiveItem(subItem.key)}
                 >
                   {subItem.label}
@@ -148,7 +148,7 @@ Basic.args = {
     },
   },
   topRenderer: ({ isCollapsed }) => (
-    <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
+    <div className="text-4xl text-center font-semibold">
       {isCollapsed ? 'L' : 'Logo'}
     </div>
   ),
@@ -252,7 +252,7 @@ WithGroupedItems.args = {
     activeItem: 'user-analytics',
   },
   topRenderer: ({ isCollapsed }) => (
-    <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
+    <div className="text-4xl text-center font-semibold">
       {isCollapsed ? 'L' : 'Logo'}
     </div>
   ),
@@ -269,7 +269,7 @@ Line.args = {
     activeItem: 'Settings',
   },
   topRenderer: ({ isCollapsed }) => (
-    <div className="dsr-text-4xl dsr-text-center dsr-font-semibold">
+    <div className="text-4xl text-center font-semibold">
       {isCollapsed ? 'L' : 'Logo'}
     </div>
   ),

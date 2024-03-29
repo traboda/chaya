@@ -62,15 +62,15 @@ export const MaskedVariant: Story = {
     mask: true,
   },
   render: (args) => (
-    <div className="dsr-flex dsr-flex-col dsr-gap-6">
+    <div className="flex flex-col gap-6">
       <div
-        className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border"
+        className="flex justify-center items-center border-dashed border"
         style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
       >
         <DefaultTemplate {...args} />
       </div>
       <div
-        className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border dsr-mt-3"
+        className="flex justify-center items-center border-dashed border mt-3"
         style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
       >
         <DefaultTemplate {...args} variant="classic" />
@@ -88,7 +88,7 @@ export const MaskedVariant: Story = {
 //   return (
 //     <form onSubmit={(e) => { e.preventDefault(); console.log('pin submitted'); }}>
 //       <div style={{ width: '450px', maxWidth: '100%' }}>
-//         <div className="dsr-mb-3">
+//         <div className="mb-3">
 //           Value:
 //           {value}
 //         </div>

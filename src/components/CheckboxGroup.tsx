@@ -101,7 +101,7 @@ const CheckboxGroup = <Type extends string | number>({
       {label && (
         <Label
           htmlFor={id}
-          className={isDisabled ? 'dsr-opacity-70' : ''}
+          className={isDisabled ? 'opacity-70' : ''}
           children={label}
           isRequired={isRequired}
         />
@@ -110,9 +110,9 @@ const CheckboxGroup = <Type extends string | number>({
         id={id}
         role="group"
         className={clsx([
-          'checkbox-group dsr-flex',
-          isRequired && 'dsr-relative',
-          alignment === 'vertical' ? 'dsr-flex-col dsr-gap-2' : 'dsr-flex-row dsr-flex-wrap dsr-gap-4',
+          'checkbox-group flex',
+          isRequired && 'relative',
+          alignment === 'vertical' ? 'flex-col gap-2' : 'flex-row flex-wrap gap-4',
         ])}
       >
         {options?.length > 0 && options.map((option, index) => (
@@ -135,7 +135,7 @@ const CheckboxGroup = <Type extends string | number>({
             }}
           />
         ))}
-        {isRequired && <input type="text" tabIndex={-1} className="dsr-absolute dsr-top-0 dsr-left-0 dsr-h-1 dsr-opacity-0" required value={hiddenInputValue} />}
+        {isRequired && <input type="text" tabIndex={-1} className="absolute top-0 left-0 h-1 opacity-0" required value={hiddenInputValue} />}
       </div>
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
 
+import mcs from '../utils/merge';
 
 export type CircularProgressProps = {
   value: number,
@@ -47,7 +47,7 @@ const offsetOptions = {
 };
 
 const CircularProgress = ({
-  value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className = '', strokeColor,
+  value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className, strokeColor,
   isIndeterminate = false,
 }: CircularProgressProps) => {
 
@@ -57,19 +57,19 @@ const CircularProgress = ({
       aria-valuenow={(value / 100) * maxVal}
       aria-valuemin={minVal}
       aria-valuemax={maxVal}
-      className={clsx(['circular-progress', className])}
+      className={mcs(['circular-progress', className])}
     >
       <svg
         viewBox="0 0 100 100"
         height={height ?? sizes[size]}
-        className={isIndeterminate ? 'dsr-animate-spin' : ''}
+        className={isIndeterminate ? 'animate-spin' : ''}
       >
         <circle
           cx={50}
           cy={50}
           r={radiusOptions[thickness]}
           fill="transparent"
-          className="dark:dsr-stroke-[#EDEDED]/[0.1] dsr-stroke-[#EDEDED]/[0.75]"
+          className="dark:stroke-[#EDEDED]/[0.1] stroke-[#EDEDED]/[0.75]"
           strokeWidth={thicknesses[thickness]}
         />
         <circle
@@ -78,7 +78,7 @@ const CircularProgress = ({
           r={radiusOptions[thickness]}
           fill="transparent"
           stroke={strokeColor}
-          className={!(strokeColor?.length) ? 'dsr-stroke-primary' : undefined}
+          className={!(strokeColor?.length) ? 'stroke-primary' : undefined}
           strokeWidth={thicknesses[thickness]}
           strokeDashoffset={offsetOptions[thickness]}
           strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}

@@ -151,7 +151,7 @@ withAsyncMulti.args = {
         <img
           width={28}
           height={28}
-          className="dsr-bg-white dsr-rounded"
+          className="bg-white rounded"
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.url.split('/')[6]}.png`}
         />
       ),
@@ -222,13 +222,13 @@ const VariantsTemplate: Story<SimpleSelectProps<string[]>> = args => {
   const [value, setValue] = useState(args.value);
   return (
     <Card>
-      <div className="dsr-flex dsr-flex-wrap dsr-mx-0">
-        <div className="w-full md:dsr-w-1/2 dsr-p-2">
+      <div className="flex flex-wrap mx-0">
+        <div className="w-full md:w-1/2 p-2">
           <Card title="Comma Variant">
             <SimpleSelect {...args} value={value} onChange={setValue} variant="comma" />
           </Card>
         </div>
-        <div className="w-full md:dsr-w-1/2 dsr-p-2">
+        <div className="w-full md:w-1/2 p-2">
           <Card title="Chip Variant">
             <SimpleSelect {...args} value={value} onChange={setValue} variant="pill" />
           </Card>

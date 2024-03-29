@@ -140,12 +140,12 @@ const DataTable = <Type extends { id: string }>({
               overflowX: maxHeight ? 'auto' : undefined,
               maxHeight: maxHeight,
             }}
-            className="dsr-bg-background dsr-shadow"
+            className="bg-background shadow"
             ref={scrollElement}
           >
             <div
               ref={titleTopRef}
-              className="dsr-transition-opacity dsr-sticky dsr-left-0 dsr-top-0 dsr-z-40 dsr-border-gray-200 dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dsr-border-b dsr-border-neutral-100/10"
+              className="transition-opacity sticky left-0 top-0 z-40 border-gray-200 bg-background-lighten-1 dark:bg-background-darken-1 border-b border-neutral-100/10"
               style={{
                 pointerEvents: scrollDir === 'up' ? 'auto' : 'none',
                 opacity: scrollDir === 'up' ? 1 : 0,
@@ -155,15 +155,15 @@ const DataTable = <Type extends { id: string }>({
             </div>
             <table
               className={clsx([
-                'data-table dsr-transition-transform dsr-min-w-full dsr-border-spacing-0',
-                'dsr-border-collapse dsr-border-gray-200',
+                'data-table transition-transform min-w-full border-spacing-0',
+                'border-collapse border-gray-200',
               ])}
               style={{ transform: scrollDir === 'down' ? `translateY(-${titleTopHeight}px)` : undefined }}
             >
               <thead
                 className={clsx([
-                  'dsr-sticky dsr-z-50 mb-2 dsr-shadow-sm',
-                  variant === 'grid' ? 'dsr-border dsr-border-gray-500/80 dsr-shadow-gray-500/80' : 'dsr-shadow-gray-500/50',
+                  'sticky z-50 mb-2 shadow-sm',
+                  variant === 'grid' ? 'border border-gray-500/80 shadow-gray-500/80' : 'shadow-gray-500/50',
                 ])}
                 ref={titleBarRef}
                 style={{ top: titleTopHeight }}
@@ -205,7 +205,7 @@ const DataTable = <Type extends { id: string }>({
                           variant={variant}
                         />
                         {activeIndex?.includes(index) && (
-                        <tr className="accordion-content data-table-row dsr-group dsr-w-full">
+                        <tr className="accordion-content data-table-row group w-full">
                           <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                         </tr>
                         )}

@@ -52,24 +52,24 @@ const ThemeScript = memo(
     const getScriptSrc = () => {
       const css = generateCSS();
       return `
-        var style = document.getElementById('dsr-theme-style');
+        var style = document.getElementById('theme-style');
         if (!style) {
           style = document.createElement('style');
-          style.id = 'dsr-theme-style';
+          style.id = 'theme-style';
           document.head.appendChild(style);
         }
         style.innerHTML = \`:root { ${css} }\`;
 
         if (${isDarkTheme}) {
-          document.body.classList.add("dsr-dark");
+          document.body.classList.add("dark");
         } else {
-          document.body.classList.remove("dsr-dark");
+          document.body.classList.remove("dark");
         }
       `;
     };
 
     useEffect(() => {
-      const script = document.getElementById('dsr-theme-script');
+      const script = document.getElementById('theme-script');
 
       if (script) {
         eval(`!function(){${getScriptSrc()}}();`);
@@ -78,7 +78,7 @@ const ThemeScript = memo(
 
     return (
       <script
-        id="dsr-theme-script"
+        id="theme-script"
         dangerouslySetInnerHTML={{
           __html: `!function(){${getScriptSrc()}}();`,
         }}

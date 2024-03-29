@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Icon, { IconInputType } from './Icon';
 
 export type CardProps = {
@@ -23,27 +25,27 @@ const Card = ({
 }: CardProps) => (
   <div
     id={id}
-    className={clsx([
-      'card dsr-rounded-lg dsr-h-full dsr-border',
-      variant === 'outline' && 'dark:dsr-border-neutral-300/70 dsr-border-neutral-500/40',
-      variant === 'shaded' && 'dark:dsr-bg-gray-500/20 dsr-bg-gray-500/10 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/10',
+    className={mcs([
+      'card rounded-lg h-full border',
+      variant === 'outline' && 'dark:border-neutral-300/70 border-neutral-500/40',
+      variant === 'shaded' && 'dark:bg-gray-500/20 bg-gray-500/10 dark:border-neutral-500/70 border-neutral-500/10',
       className,
     ])}
   >
     {title ? (
       <div
         className={clsx([
-          'card-header dsr-flex dsr-items-start dsr-justify-between dsr-gap-3 dsr-w-full',
-          'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
-          variant === 'shaded' && 'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
-          variant === 'outline' && 'dark:dsr-border-neutral-300/70 dsr-border-neutral-500/40',
+          'card-header flex items-start justify-between gap-3 w-full',
+          'px-3 py-2 rounded-t-lg border-b',
+          variant === 'shaded' && 'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
+          variant === 'outline' && 'dark:border-neutral-300/70 border-neutral-500/40',
         ])}
       >
         <div>
           {title && (
           <h3
-            className={clsx([
-              'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+            className={mcs([
+              'text-xl font-semibold flex items-center gap-2',
               titleClassName,
             ])}
           >
@@ -51,12 +53,12 @@ const Card = ({
             {title}
           </h3>
           )}
-          {description && <p className="dsr-opacity-80 dsr-mt-1 dsr-text-sm">{description}</p>}
+          {description && <p className="opacity-80 mt-1 text-sm">{description}</p>}
         </div>
         <div>{sidebarRenderer}</div>
       </div>
     ) : null}
-    <div className={clsx(['card-body dsr-p-3', bodyClassName])}>
+    <div className={mcs(['card-body p-3', bodyClassName])}>
       {children}
     </div>
   </div>

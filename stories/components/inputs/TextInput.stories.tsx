@@ -25,7 +25,7 @@ const Template: Story<TextInputProps<string>> = args => {
   const [value, setValue] = useState('');
 
   return (
-    <div className="dsr-flex dsr-gap-4 dsr-items-center">
+    <div className="flex gap-4 items-center">
       <TextInput {...args} value={value} onChange={setValue} />
       <TextInput {...args} value={value} onChange={setValue} isDisabled />
     </div>
@@ -44,8 +44,8 @@ Default.args = {};
 export const WithPostfix = Template.bind({});
 
 WithPostfix.args = {
-  prefixRenderer: <div className="dsr-px-2.5">Points</div>,
-  postfixRenderer: <div className="dsr-px-2.5">pts</div>,
+  prefixRenderer: <div className="px-2.5">Points</div>,
+  postfixRenderer: <div className="px-2.5">pts</div>,
 };
 
 const InvalidInputsTemplate: Story<TextInputProps<string | number>> = args => (

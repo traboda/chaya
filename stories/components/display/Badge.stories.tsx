@@ -23,7 +23,7 @@ export const Primary: Story = {
 
 const BadgeVariants = ({ variant }: { variant: BadgeProps['variant'] }) => (
   <div
-    className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex justify-center items-center border-dashed border gap-2"
     style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
   >
     <Badge variant={variant} color="primary">
@@ -76,7 +76,7 @@ export const OutlineVariant: Story = {
 
 const BadgeSizesShowcase = ({ variant }: { variant: BadgeProps['variant'] }) => (
   <div
-    className="dsr-flex dsr-justify-center dsr-items-end dsr-border-dashed dsr-border dsr-gap-2"
+    className="flex justify-center items-end border-dashed border gap-2"
     style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
   >
     <Badge variant={variant} color="primary" size="xs">
@@ -101,7 +101,7 @@ export const BadgeSizes: Story = {
   storyName: 'Badge Sizes',
   tags: ['unlisted'],
   render: () => (
-    <div className="dsr-flex dsr-flex-col dsr-gap-2">
+    <div className="flex flex-col gap-2">
       <BadgeSizesShowcase variant="solid" />
       <BadgeSizesShowcase variant="minimal" />
       <BadgeSizesShowcase variant="outline" />
@@ -113,7 +113,7 @@ export const BadgeWithIcon: Story = {
   storyName: 'Badge with Icon',
   tags: ['unlisted'],
   render: () => (
-    <div className="dsr-flex dsr-justify-center dsr-items-center dsr-border-dashed dsr-border dsr-gap-2" style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}>
+    <div className="flex justify-center items-center border-dashed border gap-2" style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}>
       <Badge variant="solid" size="md" color="primary" leftIcon="info">
         Information
       </Badge>

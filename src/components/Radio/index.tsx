@@ -2,6 +2,8 @@
 import React, { forwardRef, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 
+import mcs from '../../utils/merge';
+
 import styled from './radio.module.scss';
 
 export type RadioColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
@@ -21,20 +23,20 @@ export type RadioProps<Type> = {
 };
 
 const colors = {
-  'primary': 'dsr-bg-primary',
-  'secondary': 'dsr-bg-secondary',
-  'success': 'dsr-bg-green-500',
-  'danger': 'dsr-bg-red-500',
-  'warning': 'dsr-bg-yellow-400',
-  'default': 'dsr-bg-gray-500/70',
+  'primary': 'bg-primary',
+  'secondary': 'bg-secondary',
+  'success': 'bg-green-500',
+  'danger': 'bg-red-500',
+  'warning': 'bg-yellow-400',
+  'default': 'bg-gray-500/70',
 };
 
 const sizes = {
-  'xs': { button: 'dsr-h-2 dsr-w-2', label: 'dsr-text-xs' },
-  'sm': { button: 'dsr-h-3 dsr-w-3', label: 'dsr-text-sm' },
-  'md': { button: 'dsr-h-4 dsr-w-4', label: 'dsr-text-md' },
-  'lg': { button: 'dsr-h-5 dsr-w-5', label: 'dsr-text-lg' },
-  'xl': { button: 'dsr-h-6 dsr-w-6', label: 'dsr-text-xl' },
+  'xs': { button: 'h-2 w-2', label: 'text-xs' },
+  'sm': { button: 'h-3 w-3', label: 'text-sm' },
+  'md': { button: 'h-4 w-4', label: 'text-md' },
+  'lg': { button: 'h-5 w-5', label: 'text-lg' },
+  'xl': { button: 'h-6 w-6', label: 'text-xl' },
 };
 
 const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
@@ -46,9 +48,9 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
 
   return (
     <div
-      className={clsx([
-        'radio dsr-inline-flex dsr-items-center dsr-relative',
-        isDisabled ? 'dsr-opacity-80 dsr-cursor-not-allowed' : 'dsr-cursor-pointer',
+      className={mcs([
+        'radio inline-flex items-center relative',
+        isDisabled ? 'opacity-80 cursor-not-allowed' : 'cursor-pointer',
         className,
       ])}
       onClick={() => !isDisabled && onChange(value)}
@@ -64,8 +66,8 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
         checked={isSelected}
         disabled={isDisabled}
         className={clsx([
-          'radio-input dsr-border-0 dsr-border-none dsr-h-px dsr-w-px dsr-p-0 dsr-whitespace-nowrap',
-          'dsr-overflow-hidden dsr-absolute -dsr-m-1',
+          'radio-input border-0 border-none h-px w-px p-0 whitespace-nowrap',
+          'overflow-hidden absolute -m-1',
         ])}
         style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
         onFocus={() => setIsFocused(true)}
@@ -73,15 +75,15 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
       />
       <span
         className={clsx([
-          'dsr-inline-flex dsr-items-center dsr-justify-center dsr-flex-shrink-0',
-          'dsr-border-none dsr-rounded-full dsr-text-white dsr-transition',
+          'inline-flex items-center justify-center flex-shrink-0',
+          'border-none rounded-full text-white transition',
           sizes[size]?.button,
           isSelected ? styled.radioButton : '',
-          isSelected ? colors[color] : 'dark:dsr-bg-white/20 dsr-bg-gray-500/20',
-          isFocused && 'dsr-ring-2 dsr-ring-white dsr-ring-offset-1 dsr-ring-offset-gray-900',
+          isSelected ? colors[color] : 'dark:bg-white/20 bg-gray-500/20',
+          isFocused && 'ring-2 ring-white ring-offset-1 ring-offset-gray-900',
         ])}
       />
-      <span className={clsx(['dsr-ml-2', sizes[size]?.label])}>{label}</span>
+      <span className={clsx(['ml-2', sizes[size]?.label])}>{label}</span>
     </div>
   );
 });

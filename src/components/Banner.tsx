@@ -6,6 +6,7 @@ import {
   colorVariantMapper, ChayaColorType,
   SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
 } from '../utils/classMaps/colors';
+import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 
@@ -31,23 +32,23 @@ const wrapperClassName = cva({
   variants: {
     variant: {
       'full-width': '',
-      'float': 'dsr-p-4',
-      'card': 'dsr-max-w-[700px]',
+      'float': 'p-4',
+      'card': 'max-w-[700px]',
     },
     position: {
-      'top': 'dsr-absolute dsr-top-0',
-      'bottom': 'dsr-absolute dsr-bottom-0',
+      'top': 'absolute top-0',
+      'bottom': 'absolute bottom-0',
       'inline': '',
     },
   },
   compoundVariants: [
     {
       variant: ['full-width', 'float'],
-      className: 'dsr-w-full dsr-left-0 dsr-right-0',
+      className: 'w-full left-0 right-0',
     },
     {
       variant: ['float', 'card'],
-      className: 'dsr-rounded-lg dsr-shadow-lg',
+      className: 'rounded-lg shadow-lg',
     },
   ],
 });
@@ -73,17 +74,17 @@ const Banner = ({
 
   const contentRenderer = (
     <React.Fragment>
-      <div className="dsr-w-full dsr-flex dsr-gap-4 dsr-place-items-center">
+      <div className="w-full flex gap-4 place-items-center">
         {icon && <Icon icon={icon} size={20} />}
         <p>
           {text}
-          {learnMore && <a href={learnMore.link} className="dsr-whitespace-nowrap  hover:dsr-underline dsr-inline">{learnMore.text}</a>}
+          {learnMore && <a href={learnMore.link} className="whitespace-nowrap  hover:underline inline">{learnMore.text}</a>}
         </p>
       </div>
-      <div className="dsr-flex dsr-gap-4 dsr-items-center dsr-flex-shrink-0">
+      <div className="flex gap-4 items-center flex-shrink-0">
         {children}
         {allowDismissal && (
-          <button type="button" className="dsr-flex dsr-place-items-center" onClick={onClose}>
+          <button type="button" className="flex place-items-center" onClick={onClose}>
             <Icon icon="times" size={20} />
           </button>
         )}
@@ -94,7 +95,7 @@ const Banner = ({
   const cardRenderer = (
     <div
       className={clsx([
-        'dsr-p-5 dsr-flex dsr-flex-col dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
+        'p-5 flex flex-col gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between',
       ])}
     >
       {contentRenderer}
@@ -104,7 +105,7 @@ const Banner = ({
   const bannerRenderer = (
     <div
       className={clsx([
-        'dsr-w-full dsr-p-5 dsr-flex dsr-gap-4 dsr-flex-wrap md:dsr-flex-nowrap dsr-text-center md:dsr-text-left dsr-items-center dsr-justify-center md:dsr-justify-between',
+        'w-full p-5 flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between',
       ])}
     >
       {contentRenderer}
@@ -119,7 +120,7 @@ const Banner = ({
     >
       <div
         id={id}
-        className={clsx([
+        className={mcs([
           containerClassName({ variant, color }),
           className,
         ])}

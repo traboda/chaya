@@ -16,9 +16,9 @@ export default meta;
 
 const Template: Story<SkeletonItemProps> = args => (
   <div style={{ width: '450px', maxWidth: '100%' }}>
-    <SkeletonItem {...args} h={150} w={150} className="dsr-my-2" />
-    <SkeletonItem {...args} h={35} w={120} className="dsr-my-2" />
-    <SkeletonItem {...args} h={30} w={150} className="dsr-my-2" />
+    <SkeletonItem {...args} h={150} w={150} className="my-2" />
+    <SkeletonItem {...args} h={35} w={120} className="my-2" />
+    <SkeletonItem {...args} h={30} w={150} className="my-2" />
   </div>
 );
 

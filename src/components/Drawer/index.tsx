@@ -5,6 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import Icon, { IconInputType } from '../Icon';
+import mcs from '../../utils/merge';
 
 import drawerStyles from './drawer.module.scss';
 
@@ -36,17 +37,17 @@ const Drawer = ({
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
 
   const getPositionAlignmentParent = {
-    top: 'dsr-justify-start dsr-items-start',
-    right: 'dsr-justify-end dsr-items-start',
-    bottom: 'dsr-justify-start dsr-items-end',
-    left: 'dsr-justify-start dsr-items-start',
+    top: 'justify-start items-start',
+    right: 'justify-end items-start',
+    bottom: 'justify-start items-end',
+    left: 'justify-start items-start',
   }[position];
 
   const getPositionAlignmentChild = {
-    top: 'dsr-w-flex-1 dsr-rounded-lg',
-    right: 'dsr-h-full dsr-rounded-lg',
-    bottom: 'dsr-w-flex-1 dsr-rounded-lg',
-    left: 'dsr-h-full dsr-rounded-lg',
+    top: 'w-flex-1 rounded-lg',
+    right: 'h-full rounded-lg',
+    bottom: 'w-flex-1 rounded-lg',
+    left: 'h-full rounded-lg',
   }[position];
 
   const positionDirection = {
@@ -84,18 +85,18 @@ const Drawer = ({
           {overlayContent}
         </Dialog.Overlay>
         <Dialog.Content
-          className={clsx([
-            'dsr-fixed dsr-top-0 dsr-left-0 dsr-w-screen dsr-h-[100dvh] dsr-z-[7200] dsr-flex dsr-p-2',
-            'dsr-backdrop-filter dsr-backdrop-blur-sm dsr-bg-black dsr-bg-opacity-30',
+          className={mcs([
+            'fixed top-0 left-0 w-screen h-[100dvh] z-[7200] flex p-2',
+            'backdrop-filter backdrop-blur-sm bg-black bg-opacity-30',
             getPositionAlignmentParent,
             overlayClassName,
           ])}
           onClick={() => closable && onClose()}
         >
           <div
-            className={clsx([
-              'dsr-relative dsr-shadow-lg dsr-sm:w-auto dsr-w-full dsr-bg-background dsr-text-color',
-              'dsr-border dark:dsr-border-gray-500/70 dsr-border-gray-500/10 dsr-overflow-auto',
+            className={mcs([
+              'relative shadow-lg sm:w-auto w-full bg-background text-color',
+              'border dark:border-gray-500/70 border-gray-500/10 overflow-auto',
               getPositionAlignmentChild,
               getPositionAnimation,
               className,
@@ -111,21 +112,21 @@ const Drawer = ({
           >
             <div
               className={clsx([
-                'modal-header dsr-flex dsr-flex-col dsr-items-start dsr-justify-between dsr-gap-1 dsr-w-full',
-                'dsr-px-3 dsr-py-2 dsr-rounded-t-lg dsr-border-b',
-                'dsr-bg-background-lighten-1 dark:dsr-bg-background-darken-1 dark:dsr-border-neutral-500/70 dsr-border-neutral-500/20',
+                'modal-header flex flex-col items-start justify-between gap-1 w-full',
+                'px-3 py-2 rounded-t-lg border-b',
+                'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
               ])}
             >
               {closable && (
-                <div className="dsr-absolute dsr-top-0 dsr-right-0 dsr-pr-2 dsr-pt-2">
+                <div className="absolute top-0 right-0 pr-2 pt-2">
                   <Dialog.Close asChild>
                     <button
                       tabIndex={-1}
                       type="button"
                       title="close"
                       className={clsx([
-                        'dsr-font-mono dsr-rounded dsr-outline-none dsr-font-bold dsr-text-2xl dsr-p-0',
-                        'focus:dsr-ring-2',
+                        'font-mono rounded outline-none font-bold text-2xl p-0',
+                        'focus:ring-2',
                       ])}
                       onClick={onClose}
                     >
@@ -138,7 +139,7 @@ const Drawer = ({
                 <Dialog.Title asChild>
                   <h3
                     className={clsx([
-                      'dsr-text-xl dsr-font-semibold dsr-flex dsr-items-center dsr-gap-2',
+                      'text-xl font-semibold flex items-center gap-2',
                     ])}
                   >
                     {titleIcon ? <Icon icon={titleIcon} /> : null}
@@ -147,7 +148,7 @@ const Drawer = ({
                 </Dialog.Title>
               )}
               {description && (
-                <p className="dsr-opacity-80 dsr-text-sm">
+                <p className="opacity-80 text-sm">
                   {description}
                 </p>
               )}

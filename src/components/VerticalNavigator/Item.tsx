@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { LinkWrapper } from '../../utils/misc';
 import Icon, { IconInputType } from '../Icon';
 import Badge, { BaseBadgeProps } from '../Badge';
-import ChevronUp from '../../utils/icons/chevron-up';
 import { cva } from '../../utils/cva';
 import {
   BORDER_COLOR_MAP,
@@ -55,31 +54,36 @@ const VerticalNavigatorItem = ({
 
   const [dropdownVisibility, setDropdownVisibility] = useState(defaultExpansion);
 
+  const setVisibility = (isVisible: boolean) => {
+    setDropdownVisibility(isVisible);
+    setHeight(dropdownContentRef.current?.scrollHeight);
+    onChangeExpansion();
+  };
+
   useEffect(() => {
-    setDropdownVisibility(!isCollapsed ? defaultExpansion : false);
+    setVisibility(!isCollapsed ? defaultExpansion ?? false : false);
   }, [isCollapsed]);
 
   useEffect(() => {
-    if (!isCollapsed) setDropdownVisibility(defaultExpansion);
+    if (!isCollapsed) {
+      setVisibility(defaultExpansion ?? false);
+    }
   }, [activeItem]);
 
-  useEffect(() => {
-    setHeight(dropdownContentRef.current?.scrollHeight);
-    onChangeExpansion();
-  }, [dropdownVisibility]);
+
 
   const liClass = clsx([
-    'dsr-flex dsr-justify-between dsr-items-center dsr-transition dsr-w-full', className,
+    'flex justify-between items-center transition w-full', className,
   ]);
 
   const innerContentClassName = cva({
     base: [
-      'dsr-flex dsr-w-full dsr-items-center dsr-gap-2 dsr-text-color dsr-py-1.5 dsr-px-1',
-      isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
+      'flex w-full items-center gap-2 text-color py-1.5 px-1',
+      isCollapsed ? 'justify-center' : 'justify-between',
     ],
     variants: {
       variant: {
-        line: 'dsr-transition-all dsr-rounded-r-lg dsr-gap-2',
+        line: 'transition-all rounded-r-lg gap-2',
         pill: '',
         boxed: '',
       },
@@ -96,7 +100,7 @@ const VerticalNavigatorItem = ({
       {
         variant: 'line',
         color: 'white',
-        className: activeItem === item.key ? 'dsr-bg-neutral-50 dark:dsr-bg-neutral-100/80' : '',
+        className: activeItem === item.key ? 'bg-neutral-50 dark:bg-neutral-100/80' : '',
       },
     ],
   });
@@ -105,16 +109,16 @@ const VerticalNavigatorItem = ({
     <div
       className={clsx([
         innerContentClassName({ variant, color, state: activeItem === item.key ? 'active' : 'inactive' }),
-        activeItem === item.key && (!isChild || dropdownVisibility) && 'active dsr-font-semibold',
+        activeItem === item.key && (!isChild || dropdownVisibility) && 'active font-semibold',
       ])}
     >
-      <div className="dsr-flex dsr-items-center dsr-gap-2 dsr-px-1 dst-text-lg dsr-text-left">
+      <div className="flex items-center gap-2 px-1 dst-text-lg text-left">
         {item.icon && (
         <span>
           <Icon icon={item.icon} size={24} />
         </span>
         )}
-        <span className={clsx([isCollapsed ? 'dsr-hidden' : 'dsr-pl-1.5', item.labelClassName])}>{item.label}</span>
+        <span className={clsx([isCollapsed ? 'hidden' : 'pl-1.5', item.labelClassName])}>{item.label}</span>
       </div>
       {(item?.badge !== undefined || item?.badgeProps) && (
         <Badge
@@ -123,7 +127,7 @@ const VerticalNavigatorItem = ({
             variant: 'solid',
             ...item?.badgeProps,
           }}
-          className="dsr-mr-1 dsr-font-semibold"
+          className="mr-1 font-semibold"
         >
           {item?.badge}
         </Badge>
@@ -132,13 +136,13 @@ const VerticalNavigatorItem = ({
   );
 
   const commonClasses = clsx([
-    'dsr-flex dsr-items-center dsr-transition dsr-w-full dsr-gap-2.5 focus-visible:dsr-outline -dsr-outline-offset-1 dsr-outline-primary ',
-    variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg hover:dsr-bg-neutral-300/10' : 'dsr-rounded-lg hover:dsr-bg-neutral-300/30',
+    'flex items-center transition w-full gap-2.5 focus-visible:outline -outline-offset-1 outline-primary ',
+    variant === 'line' ? 'rounded-l-0 rounded-r-lg hover:bg-neutral-300/10' : 'rounded-lg hover:bg-neutral-300/30',
   ]);
 
   const contentRendererClassName = (item: VerticalNavigatorItemBaseType, isChild: boolean = false) => clsx([
     commonClasses,
-    (isChild && variant === 'line') && 'dsr-border-l-4',
+    (isChild && variant === 'line') && 'border-l-4',
     item.key === activeItem && BORDER_COLOR_MAP[color],
   ]);
 
@@ -167,34 +171,35 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
-        (dropdownVisibility && (variant === 'pill' || variant === 'boxed')) && 'dsr-bg-neutral-300/20 dark:dsr-bg-neutral-400/20 dsr-rounded-lg dsr-pb-2',
+        (dropdownVisibility && (variant === 'pill' || variant === 'boxed'))
+        && 'bg-neutral-300/20 dark:bg-neutral-400/20 rounded-lg pb-2',
       ])}
     >
-      <ul className="dsr-flex dsr-flex-col dsr-w-full dsr-gap-1 dsr-z-[1000]">
+      <ul className="flex flex-col w-full gap-1 z-[1000]">
         <li
           className={clsx([
             commonClasses,
             liClass,
-            variant === 'line' && 'dsr-pl-[4px] hover:dsr-pl-0 hover:!dsr-border-l-4',
-            activeItem === item.key && 'active dsr-w-full',
+            variant === 'line' && 'pl-[4px] hover:pl-0 hover:!border-l-4',
+            (activeItem === item.key && dropdownVisibility) && 'active w-full',
           ])}
         >
           <button
             className={clsx([
-              'dsr-w-full dsr-items-center dsr-cursor-pointer dsr-flex dsr-rounded',
-              isCollapsed ? 'dsr-justify-center' : 'dsr-justify-between',
+              'w-full items-center cursor-pointer flex rounded',
+              isCollapsed ? 'justify-center' : 'justify-between',
             ])}
-            onClick={() => setDropdownVisibility(!dropdownVisibility)}
+            onClick={() => setVisibility(!dropdownVisibility)}
           >
-            <span className="dsr-flex dsr-items-center dsr-gap-2.5">{innerContent(item)}</span>
+            <span className="flex items-center gap-2.5">{innerContent(item)}</span>
             {!isCollapsed && (
               <span
                 className={clsx([
-                  'dsr-transform dsr-transition-transform dsr-mr-2 dsr-opacity-80 dsr-text-color',
-                  !dropdownVisibility ? 'dsr-rotate-180' : '',
+                  'transform transition-transform mr-2 opacity-80 text-color',
+                  !dropdownVisibility ? 'rotate-180' : '',
                 ])}
               >
-                <ChevronUp size={18} />
+                <i className="ri-arrow-up-s-line" />
               </span>
             )}
           </button>
@@ -202,18 +207,18 @@ const VerticalNavigatorItem = ({
         <li
           ref={dropdownContentRef}
           className={clsx([
-            'dsr-transition-all dsr-overflow-hidden dsr-relative dsr-mr-1',
-            dropdownVisibility ? 'dsr-opacity-100' : 'dsr-opacity-50',
-            isCollapsed ? 'dsr-ml-1' : 'dsr-ml-4',
+            'transition-all overflow-hidden relative mr-1',
+            dropdownVisibility ? 'opacity-100' : 'opacity-50',
+            isCollapsed ? 'ml-1' : 'ml-4',
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
-          <ul className={clsx(['dsr-flex dsr-flex-col dsr-pb-1 dsr-pr-1', variant == 'line' ? 'dsr-gap-0' : 'dsr-gap-1'])}>
+          <ul className={clsx(['flex flex-col pb-1 pr-1', variant == 'line' ? 'gap-0' : 'gap-1'])}>
             {item.items.map(subItem => (
               <li
                 className={clsx([
                   liClass,
-                  variant === 'line' ? 'dsr-rounded-l-none dsr-rounded-r-lg' : 'dsr-rounded-lg',
+                  variant === 'line' ? 'rounded-l-none rounded-r-lg' : 'rounded-lg',
                 ])}
                 key={item.key + subItem.key}
               >
@@ -229,13 +234,13 @@ const VerticalNavigatorItem = ({
       role={role}
       className={clsx([
         liClass,
-        variant === 'line' && 'dsr-pl-[4px] hover:dsr-pl-0 hover:!dsr-border-l-4',
-        variant === 'line' ? 'dsr-rounded-l-0 dsr-rounded-r-lg' : 'dsr-rounded-lg',
-        'dsr-z-[1000]',
+        variant === 'line' && 'pl-[4px] hover:pl-0 hover:!border-l-4',
+        variant === 'line' ? 'rounded-l-0 rounded-r-lg' : 'rounded-lg',
+        'z-[1000]',
         activeItem === item.key ? clsx([
           'active',
-          (variant === 'pill' || variant === 'boxed') && 'hover:dsr-bg-neutral-900/30',
-        ]) : 'hover:dsr-bg-neutral-300/10',
+          (variant === 'pill' || variant === 'boxed') && 'hover:bg-neutral-900/30',
+        ]) : 'hover:bg-neutral-300/10',
       ])}
       key={item.key}
     >

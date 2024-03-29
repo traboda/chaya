@@ -2,6 +2,8 @@
 import React, { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 
+import mcs from '../utils/merge';
+
 import Accordion from './Accordion';
 
 export type AccordionGroupProps = {
@@ -39,20 +41,20 @@ const AccordionGroup = ({
           id={id ? `${id}_accordion_${index + 1}` : undefined}
           isOpen={!keepExpanded ? active === index : (initialIndex === index || item?.isOpen)}
           key={index}
-          className={clsx(['dsr-mb-2', accordionClassName])}
+          className={mcs(['mb-2', accordionClassName])}
           titleClassName={titleClassName}
           bodyClassName={bodyClassName}
           onChange={() => {
             if (!keepExpanded) setActive(active === index ? -1 : index);
           }}
           title={numberItems || item.isCompleted ? (
-            <div className="dsr-flex dsr-items-center dsr-gap-2">
+            <div className="flex items-center gap-2">
               <div
                 className={clsx([
-                  'dsr-p-1 dsr-rounded-full dsr-h-[36px] dsr-w-[36px] border dsr-border-neutral-200/50',
-                  'dsr-flex dsr-justify-center dsr-text-base dsr-items-center',
-                  activeIndex === index || item?.isCompleted ? '' : 'dsr-border dark:dsr-border-neutral-500/80 dsr-border-neutral-500/20',
-                  activeIndex === index ? 'dsr-bg-primary dsr-text-primaryTextColor' : item.isCompleted ? 'dsr-bg-green-500 dsr-text-white' : 'dsr-bg-gray-200/80 dark:dsr-bg-gray-600/80',
+                  'p-1 rounded-full h-[36px] w-[36px] border border-neutral-200/50',
+                  'flex justify-center text-base items-center',
+                  activeIndex === index || item?.isCompleted ? '' : 'border dark:border-neutral-500/80 border-neutral-500/20',
+                  activeIndex === index ? 'bg-primary text-primaryTextColor' : item.isCompleted ? 'bg-green-500 text-white' : 'bg-gray-200/80 dark:bg-gray-600/80',
                 ])}
               >
                 {item.isCompleted ? (
