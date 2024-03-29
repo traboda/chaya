@@ -158,7 +158,7 @@ const DataTableManager = ({
           />
         ) : null}
         <div className="flex items-center gap-3 p-2">
-          {(filters && !showFilters) && (
+          {(filters && !showFilters) ? (
             <Button
               type="button"
               variant="minimal"
@@ -169,7 +169,23 @@ const DataTableManager = ({
             >
               <i className="ri-filter-line text-lg" title="filter" />
             </Button>
-          )}
+          ) : filters && showFilters ? (
+            <Button
+              variant="minimal"
+              color="shade"
+              className="px-2 py-0.5"
+              onClick={() => {
+                setFilters({
+                  ...filters,
+                  ...Object.fromEntries((filterConfig || []).map((f) => [f.key, []])),
+                });
+                setShowFilters(false);
+              }}
+              title="Clear Filters"
+            >
+              <i className="ri-filter-off-line text-lg" title="close" />
+            </Button>
+          ) : null}
           {(columns && columns?.length > 0) ? (
             <DropdownFilter
               align="end"
@@ -221,12 +237,11 @@ const DataTableManager = ({
           )}
         </div>
       </div>
-      {filterConfig && filterConfig?.length > 0 ? (
+      {showFilters && filterConfig && filterConfig?.length > 0 ? (
         <DataTableManagerFilters
           filterConfig={filterConfig}
           filters={filters}
           setFilters={setFilters}
-          showFilters={showFilters}
         />
       ) : null}
       {(selections && (selections?.selected || selections.excluded)) ? (

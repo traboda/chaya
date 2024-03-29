@@ -407,7 +407,6 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
             { label: 'Excluded', key: 'excluded' },
           ]}
           currentTab="all"
-          isFilteringInitialised
           filters={filters}
           setFilters={setFilters}
           filterConfig={[

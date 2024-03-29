@@ -106,7 +106,6 @@ const FiveCorners: Story<DropdownMenuProps> = args => {
 export const DynamicPosition = FiveCorners.bind({});
 
 Default.args = DynamicPosition.args = {
-  className: '',
   options: [
     {
       'icon': 'home',

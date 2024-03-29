@@ -2,7 +2,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
-import _ from 'lodash';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import mcs from '../utils/merge';
@@ -131,9 +130,9 @@ const DropdownRender = ({
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="py-1 px-2 !border-0 !rounded-b-none !border-b !bg-transparent !border-neutral-200/50"
-          buttonClassName="p-1 !border-none !outline-none !rounded-b-none !bg-transparent"
-          buttonWrapperClassName="!border-0 !outline-none !rounded-b-none !border-b !bg-transparent !border-neutral-200/50"
+          inputClassName="py-1 px-2 border-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
+          buttonClassName="py-1 px-2 border-none outline-none rounded-b-none bg-transparent"
+          buttonWrapperClassName="border-none outline-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
           onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
@@ -143,7 +142,7 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="w-full px-2 py-1 bg-background border-b border-neutral-200/50">
+        <div className="w-full px-2 py-1 bg-background border-b dark:border-gray-500/70 border-gray-500/10">
           <span className="opacity-80 uppercase font-semibold text-xs">
             {labels.optionsTitle}
           </span>
@@ -151,7 +150,7 @@ const DropdownRender = ({
       ) : null}
       <div
         className={clsx([
-          !(labels.optionsTitle?.length > 0) && 'border-t border-neutral-200/50',
+          !(labels.optionsTitle?.length > 0) && 'border-t dark:border-gray-500/70 border-gray-500/10',
           'max-h-[30vh] overflow-y-auto',
         ])}
       >
@@ -206,13 +205,13 @@ const DropdownRender = ({
           </ul>
         )}
       </div>
-      <div className="flex justify-between border-t border-neutral-200/50 items-center">
+      <div className="flex justify-between border-t dark:border-gray-500/70 border-gray-500/10 items-center">
         <button
           key={nanoid()}
           className={clsx([
             'flex items-center text-center rounded-b-lg font-semibold justify-center',
             'gap-2 px-3 py-2 hover:bg-white/20 w-full',
-            'border-r border-neutral-200/50',
+            'border-r dark:border-gray-500/70 border-gray-500/10',
             'hover:bg-neutral-500/10 rounded-r-none',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}
@@ -260,7 +259,7 @@ const DropdownFilter = ({
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<DropdownFilterOptionType[]>(_options ?? []);
 
-  const fetchOptions = _.debounce(async (searchKeyword: string) => {
+  const fetchOptions = async (searchKeyword: string) => {
     try {
       const fetchedOptions = await onFetch(searchKeyword);
       const options = typeof fetchedOptions === 'object' && fetchedOptions.length ? fetchedOptions : [];
@@ -272,17 +271,14 @@ const DropdownFilter = ({
     } finally {
       setIsFetching(false);
     }
-  }, 500);
+  };
 
   useEffect(() => {
     if (isAsync) {
       setIsFetching(true);
       fetchOptions(keyword);
     }
-    return () => {
-      fetchOptions.cancel();
-    };
-  }, [isAsync, keyword, onFetch]);
+  }, [isAsync, keyword]);
 
   return (
     <Dropdown
