@@ -175,7 +175,7 @@ const VerticalNavigatorItem = ({
         && 'bg-neutral-300/20 dark:bg-neutral-400/20 rounded-lg pb-2',
       ])}
     >
-      <ul className="flex flex-col w-full gap-1 z-[1000]">
+      <ul className="flex flex-col w-full gap-1 z-[10]">
         <li
           className={clsx([
             commonClasses,

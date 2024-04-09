@@ -23,6 +23,7 @@ export type ItemListerProperty<Type> = {
   fontSize?: string
   allowSort?: boolean,
   isHidden?: boolean,
+  stickRight?: boolean,
 };
 
 type ItemListerItemProps<Type> = {
@@ -41,7 +42,7 @@ export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-
 
 const grid = 'border border-gray-500/50';
 const stripedColumn = 'dark:odd:bg-neutral-900/50 dark:even:bg-neutral-800 odd:bg-white even:bg-[#f1f3f3]' ;
-const stripedRow = 'dark:odd:bg-neutral-900/50 dark:even:bg-neutral-900 odd:bg-white even:bg-[#f1f3f3] ';
+const stripedRow = 'dark:odd:bg-neutral-900/50 odd:bg-white dark:even:bg-neutral-900 even:bg-[#f1f3f3]';
 
 
 const ItemListerItem = <Type extends { id: string }>({
@@ -116,12 +117,20 @@ const ItemListerItem = <Type extends { id: string }>({
             className={mcs([
               'py-2 px-3',
               tdClasses,
+              p.stickRight ? 'sticky right-0 z-[5]' : '',
+              p.stickRight ?
+                index % 2 == 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' :
+                  variant == 'striped-row' ? 
+                    (itemIndex || 1) % 2 != 0 ? 'dark:!bg-neutral-900 !bg-[#f1f3f3]' : 'dark:!bg-neutral-900/50 !bg-white'
+                    : 'bg-background' : '',
               p.textAlign == 'right' ? 'text-right' : p.textAlign == 'center' ? 'text-center' : 'text-left',
               variant === 'striped-column' ? stripedColumn : '',
               p?.className,
             ])}
             style={{
               fontSize: p.fontSize,
+              margin: '1px',
+              boxShadow: p.stickRight ? 'inset 2px 0px 0px 0px rgba(50, 50, 50, 0.1)' : undefined,
             }}
             onClick={() => {
               if (p?.onClick && typeof (p.onClick) === 'function' && item) p.onClick(item);

@@ -29,9 +29,9 @@ const activeMarkerClassNames = cva({
   base: 'vertical-navigator-active-marker transition-all ease-in-out absolute top-0 left-0',
   variants: {
     variant: {
-      pill: 'shadow-lg z-[500] rounded-lg',
-      boxed: 'shadow-lg z-[500] rounded-lg',
-      line: 'border-2 z-[1000]',
+      pill: 'shadow-lg z-[5] rounded-lg',
+      boxed: 'shadow-lg z-[5] rounded-lg',
+      line: 'border-2 z-[10]',
     },
     color: EMPTY_COLOR_MAP,
   },

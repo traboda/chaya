@@ -22,6 +22,12 @@ const defaultItems: TabsProps['items'] = [
     rendererFunc: () => (
       <Card>
         Item 1 is here
+        <div style={{ width: '100%', height: '100vh' }}>
+          s
+        </div>
+        <div style={{ width: '100%', height: '100vh' }}>
+          s
+        </div>
       </Card>
     ),
     badge: 3,

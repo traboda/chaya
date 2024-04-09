@@ -240,6 +240,7 @@ const columns: ItemListerProperty<ItemType>[] = [
   {
     id: 'points4',
     label: 'Points',
+    stickRight: true,
     value: (i) => i?.points,
     allowSort: true,
   },

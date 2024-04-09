@@ -189,8 +189,12 @@ const Tabs = ({
           className,
         ])}
       >
-        <div className={clsx([isVertical && 'w-full md:w-1/5 p-0'])}>
-          {isVertical ? verticalSelector : horizontalSelector}
+        <div className={clsx([isVertical && 'relative w-full md:w-1/5 p-0'])}>
+          {isVertical ? (
+            <div className="top-2 sticky w-full">
+              {verticalSelector}
+            </div>
+          ) : horizontalSelector}
         </div>
         <div
           className={mcs([

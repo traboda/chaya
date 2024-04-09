@@ -91,6 +91,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             <th
               className={clsx([
                 thClasses,
+                p.stickRight ? 'sticky right-0 z-[10]' : '',
                 i % 2 == 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : '',
                 'group',
               ])}
@@ -98,6 +99,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               style={{
                 textAlign: p.textAlign,
                 width: colsWidth[i++],
+                boxShadow: p.stickRight ? 'inset 2px 0px 0px 0px rgba(50, 50, 50, 0.1)' : undefined,
               }}
             >
               <div

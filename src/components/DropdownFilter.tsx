@@ -142,7 +142,7 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="w-full px-2 py-1 bg-background border-b dark:border-gray-500/70 border-gray-500/10">
+        <div className="w-full px-2 py-1 bg-background border-y dark:border-gray-500/70 border-gray-500/10">
           <span className="opacity-80 uppercase font-semibold text-xs">
             {labels.optionsTitle}
           </span>

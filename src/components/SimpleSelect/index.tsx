@@ -275,7 +275,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 className={mcs([
                   'simple-select w-full text-base p-2 rounded-lg appearance-none text-color',
                   'bg-background-lighten-1 dark:border-neutral-500/70 border-neutral-500/20 shadow-inner',
-                  'focus:outline-none group-focus-within:border-primary border-y border-l',
+                  'focus:outline-none border-y border-l',
+                  'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
                   'bg-background bg-no-repeat text-left cursor-default',
                   'gap-2 flex items-center justify-between',
                   !isDisabled && 'group-[:not(:focus-within):hover]:border-gray-400/80',
@@ -298,7 +299,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                       <div
                         key={val}
                         className={clsx([
-                          'bg-black/10 dark:bg-white/10 border border-neutral-200',
+                          'bg-black/10 dark:bg-white/10 border dark:border-neutral-500/70 border-neutral-500/10',
                           'rounded inline-flex items-center px-1 overflow-hidden',
                           'hover:shadow hover:border-neutral-300',
                         ])}

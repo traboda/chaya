@@ -129,7 +129,7 @@ const TextInput = <Type extends string | number>({
 
   const commonClasses = clsx([
     'text-color text-base',
-    'group-focus-within:border-gray-500/50',
+    'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
     // @TODO: invalid state for prefix and postfix when input is invalid - group-invalid is not a thing
     isDisabled || isLoading ? '' : 'group-[:not(:focus-within):hover]:border-gray-500/40',
     isInvalid ? 'border-red-500' : 'dark:border-neutral-500/70 border-neutral-500/20',
