@@ -5,7 +5,6 @@ import mcs from '../utils/merge';
 
 import Button from './Button';
 import SimpleSelect from './SimpleSelect';
-import Icon from './Icon';
 
 export type PageNavigatorProps = {
   totalCount: number,
@@ -14,6 +13,7 @@ export type PageNavigatorProps = {
   setPage?: (no: number) => void,
   setItemsPerPage?: (count: number) => void,
   hideItemsPerPage?: boolean
+  showEdgePages?: boolean,
   showPages?: boolean,
   showControls?: boolean,
   showEdges?: boolean,
@@ -30,7 +30,7 @@ const DEFAULT_LABELS = {
 
 const PageNavigator = ({
   totalCount, page, itemsPerPage, id, className = '', hideItemsPerPage = false,
-  showControls = true, showEdges = true, showPages = true,
+  showControls = true, showEdges = true, showPages = true, showEdgePages = false,
   setPage = () => {}, setItemsPerPage = () => {}, labels: _labels,
 }: PageNavigatorProps) => {
 
@@ -68,32 +68,56 @@ const PageNavigator = ({
         <div className="flex items-stretch justify-center">
           {(showEdges && page > 2) && (
           <Button
+            color="contrast"
+            variant="minimal"
             label="Go to first page"
-            className="first-page-button w-12 flex items-center justify-center mx-1"
+            className="first-page-button w-10 h-10 flex items-center justify-center mx-1"
             onClick={() => setPage(1)}
           >
-            <Icon icon="chevrons-left" size={18} />
+            <i className="ri-skip-left-fill text-xl" />
           </Button>
           )}
           {(showControls && page > 1) && (
           <Button
+            color="contrast"
+            variant="minimal"
             label="Go to previous page"
-            className="previous-page-button w-12 flex items-center justify-center mx-1"
+            className="previous-page-button w-10 h-10 flex items-center justify-center mx-1"
             onClick={() => setPage(page - 1)}
           >
-            <Icon icon="chevron-left" size={18} />
+            <i className="ri-arrow-left-s-fill text-xl" />
           </Button>
+          )}
+          {showEdgePages && showPages && (length > 5 && (page > 3)) && (
+            <React.Fragment>
+              <Button
+                label="Go to page 1"
+                variant="minimal"
+                color="shade"
+                isDisabled={page === 1}
+                className={clsx([
+                  'page-number-button w-10 h-10 mx-1',
+                  page === 1 ? 'active !opacity-100' : '',
+                ])}
+                onClick={() => setPage(1)}
+              >
+                1
+              </Button>
+              <div className="flex justify-center h-10 w-4 opacity-70 items-end">
+                <i className="ri-more-fill h-5" />
+              </div>
+            </React.Fragment>
           )}
           {showPages && (
             getPageNo().map((item, index) => (
               <Button
                 label={`Go to page ${item}`}
-                variant={page === item ? 'solid' : 'outline'}
-                color={page === item ? 'primary' : 'primary'}
+                variant="minimal"
+                color={page === item ? 'primary' : 'shade'}
                 isDisabled={page === item}
                 key={`page_${item}_${index}`}
                 className={clsx([
-                  'page-number-button w-12 mx-1',
+                  'page-number-button w-10 h-10 mx-1',
                   page === item ? 'active !opacity-100' : '',
                 ])}
                 onClick={() => setPage(item)}
@@ -102,22 +126,43 @@ const PageNavigator = ({
               </Button>
             ))
           )}
+          {(showEdgePages && showPages && length > 5 && (page < length - 2)) && (
+            <React.Fragment>
+              <div className="flex justify-center h-10 w-4 opacity-70 items-end">
+                <i className="ri-more-fill h-5" />
+              </div>
+              <Button
+                label={`Go to page ${length}`}
+                variant="minimal"
+                color="shade"
+                isDisabled={page === length}
+                className="page-number-button w-10 h-10 mx-1"
+                onClick={() => setPage(length)}
+              >
+                {length}
+              </Button>
+            </React.Fragment>
+          )}
           {(showControls && !(page + 1 >= length)) && (
-          <Button
-            label="Go to next page"
-            className="next-page-button w-12 flex items-center justify-center mx-1"
-            onClick={() => setPage(page + 1)}
-          >
-            <Icon icon="chevron-right" size={18} />
-          </Button>
+            <Button
+              color="contrast"
+              variant="minimal"
+              label="Go to next page"
+              className="next-page-button w-10 h-10 flex items-center justify-center mx-1"
+              onClick={() => setPage(page + 1)}
+            >
+              <i className="ri-arrow-right-s-fill text-xl" />
+            </Button>
           )}
           {(showEdges && (page + 1 < length)) && (
           <Button
+            color="contrast"
+            variant="minimal"
             label="Go to last page"
-            className="last-page-button w-12 flex items-center justify-center mx-1"
+            className="last-page-button w-10 h-10 flex items-center justify-center mx-1"
             onClick={() => setPage(length)}
           >
-            <Icon icon="chevrons-right" size={18} />
+            <i className="ri-skip-right-fill text-xl" />
           </Button>
           )}
         </div>
