@@ -61,10 +61,24 @@ This is required for the components to work properly.
 To do this, wrap your application with the `DSRContextProvider` component provided by `chaya-ui`, and pass the relevant
 props to it.
 
-Along with it, you can also import the `chaya-ui` CSS file in your app, to get the styling for the components.
-```tsx
-import 'chaya-ui/dist/style.css';
-```
+Update your `tailwind.config.js` to include the components from `chaya-ui` in the `content` array for TailwindCSS to process.
+
+ ```js
+ const theme = require('chaya-ui/tailwind-theme');
+
+ /** @type {import('tailwindcss').Config} */
+ module.exports = {
+  content: [
+      'node_modules/chaya-ui/**/*.js',
+      // ...
+  ],
+  // ...
+  theme: {
+      extend: theme,
+  },
+  // ...
+ };
+    ```
 
 Here is an example on a AppView wrapper component for a Next.js app, that configures `chaya-ui` for use in the app -
 

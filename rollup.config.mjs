@@ -43,4 +43,13 @@ export default [
     output: [{ dir: 'dist', format: 'esm' }],
     plugins: [dts()],
   },
+  {
+    input: 'tailwind-theme.js',
+    output: [
+      {
+        file: 'dist/tailwind-theme.js',
+        format: 'esm',
+      },
+    ],
+  }
 ];

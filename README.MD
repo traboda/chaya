@@ -56,11 +56,6 @@ To start using the components, please follow the below steps:
     import { Search, X } from 'react-feather';
 
     import { DSRContextProvider } from 'chaya-ui';
-   
-    // import styles in your _app.tsx file
-    // make sure that this is the first css file that you importing 
-    // that will allow your styles to overide the package styling
-    import 'chaya-ui/dist/style.css'; 
 
     const AppView = ({ children }: { children: ReactNode }) => (
       <DSRContextProvider
@@ -89,7 +84,26 @@ To start using the components, please follow the below steps:
     - `iconWrapper` lets you wrap icons with a custom component, for example, `react-feather` or `react-icons` so that the icons
     are rendered by the icon library of your choice.
 
-2. Import the components from `chaya-ui` and use them in your application.
+2. Update your `tailwind.config.js` to process styles for components from `chaya-ui`
+
+    ```js
+    const theme = require('chaya-ui/tailwind-theme');
+    
+    /** @type {import('tailwindcss').Config} */
+    module.exports = {
+     content: [
+         'node_modules/chaya-ui/**/*.js',
+         // ...
+     ],
+     // ...
+     theme: {
+         extend: theme,
+     },
+     // ...
+    };
+    ```
+
+3. Import the components from `chaya-ui` and use them in your application.
 
     ```tsx
     import { Button } from 'chaya-ui';

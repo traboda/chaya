@@ -6,7 +6,7 @@
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
     "build-components": "rm -rf dist && rollup -c",
     "build-tailwind": "npm run tailwind -- --minify",
-    "build": "npm run build-components && npm run build-tailwind",
+    "build": "npm run build-components",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint-fix": "eslint --fix src/ --ext .ts,.tsx",
     "watch-tailwind": "npm run tailwind -- --watch",
