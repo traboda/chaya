@@ -37,7 +37,6 @@ export { default as PageHeader, PageHeaderProps } from './components/PageHeader'
 export { default as Spinner, SpinnerProps } from './components/Spinner';
 export { default as ProgressBar, ProgressBarProps } from './components/ProgressBar';
 export { default as TagSelector, TagSelectorProps } from './components/TagSelector';
-export { default as SelectorButton } from './components/SelectorButton';
 export { default as SettingCard, SettingCardProps } from './components/SettingCard';
 export { default as SkeletonItem, SkeletonItemProps } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';

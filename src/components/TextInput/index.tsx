@@ -159,7 +159,7 @@ const TextInput = <Type extends string | number>({
   return (
     <div
       className={mcs([
-        'text-input w-full h-full overflow-hidden',
+        'text-input',
         className,
         (isDisabled || isLoading) && 'opacity-70',
       ])}

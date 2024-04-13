@@ -4,7 +4,6 @@ import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
-import Icon, { IconInputType } from './Icon';
 import Label from './Label';
 import UploadStatusIndicator from './UploadStatusIndicator';
 
@@ -22,7 +21,6 @@ export type DropzoneProps = {
   isRequired?: boolean,
   isDisabled?: boolean,
   className?: string,
-  icon?: IconInputType,
   maxCount?: number,
   maxSize?: number,
   uploadIndicator?: {
@@ -38,7 +36,7 @@ const defaultLabels = {
 };
 
 const Dropzone = ({
-  value, accept, allowMultiple = false, onChange = () => {}, id, icon, labels: _labels, isRequired = false, className,
+  value, accept, allowMultiple = false, onChange = () => {}, id, labels: _labels, isRequired = false, className,
   isDisabled, maxCount = -1, maxSize = 5 * 1024 * 1024, uploadIndicator,
 }: DropzoneProps) => {
   const inputId = useMemo(() => id ?? nanoid(), [id]);
@@ -84,43 +82,51 @@ const Dropzone = ({
   return (
     <div>
       {labels && <Label htmlFor={inputId} children={labels?.label} isRequired={isRequired} />}
-      <button
-        type="button"
-        onDrop={drop}
-        onDragOver={dragOver}
-        onDragEnter={dragEnter}
-        onDragLeave={dragLeave}
-        className={mcs([
-          'w-full rounded-md min-h-[10rem] flex border-dashed border-gray-400/80',
-          'flex-col text-center p-4 border-2 items-center justify-center',
-          !isDisabled && isDragging ? 'dark:bg-gray-500/50 bg-gray-500/30' : 'dark:bg-gray-500/20 bg-gray-500/10',
-          isDisabled ? 'opacity-75 cursor-not-allowed' : 'hover:border-primary',
-          className,
-        ])}
-        onClick={() => fileInputRef.current?.click()}
-      >
-        {isDragging && !isDisabled ? (
-          <span className="w-full h-full pointer-events-none">Drop Items here</span>
-        ) : (
-          <div className="text-center">
-            {icon && (
-              <div className="flex mb-4 justify-center">
-                <Icon icon={icon} size={48} />
-              </div>
-            )}
-            {labels?.text && <div className="mb-2">{labels.text}</div>}
-            {labels?.hint && <div className="opacity-75 text-sm">{labels.hint}</div>}
-          </div>
-        )}
-      </button>
-
-      <UploadStatusIndicator
-        removeFile={removeFile}
-        className="mt-4"
-        files={value}
-        statuses={uploadIndicator}
-      />
-
+      {(allowMultiple || typeof value && value?.length == 0) ? (
+        <button
+          type="button"
+          onDrop={drop}
+          onDragOver={dragOver}
+          onDragEnter={dragEnter}
+          onDragLeave={dragLeave}
+          className={mcs([
+            'w-full rounded-md min-h-[10rem] flex border-dashed border-gray-400/80',
+            'flex-col text-center p-4 border-2 mt-1 items-center justify-center',
+            !isDisabled && isDragging ? 'dark:bg-gray-500/50 bg-gray-500/30' : 'dark:bg-gray-500/20 bg-gray-500/10',
+            isDisabled ? 'opacity-75 cursor-not-allowed' : 'hover:border-primary',
+            className,
+          ])}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          {isDragging && !isDisabled ? (
+            <span className="w-full h-full pointer-events-none">Drop Items here</span>
+          ) : (
+            <div className="text-center flex flex-col items-center gap-2">
+              <i className="ri-upload-2-line text-3xl lg:text-4xl xl:text-5xl" title={labels.text} />
+              {labels?.text && <div className="mb-2 w-[75%]">{labels.text}</div>}
+              {labels?.hint && <div className="opacity-75 text-sm">{labels.hint}</div>}
+            </div>
+          )}
+        </button>
+      ) : (
+        <div>
+          <UploadStatusIndicator
+            removeFile={removeFile}
+            className="mt-2"
+            files={value}
+            statuses={uploadIndicator}
+            hideTitle
+          />
+        </div>
+      )}
+      {allowMultiple ? (
+        <UploadStatusIndicator
+          removeFile={removeFile}
+          className="mt-4"
+          files={value}
+          statuses={uploadIndicator}
+        />
+      ) : null}
       <input
         id={inputId}
         type="file"
