@@ -88,23 +88,23 @@ const ItemListerItem = <Type extends { id: string }>({
             variant === 'striped-column' ? stripedColumn : '',
           ])}
         >
-            {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
-              <Checkbox
-                label=""
-                value=""
-                isChecked={isSelected?.(item?.id ?? '')}
-                onChange={() => isSelected?.(item?.id ?? '')
-                  ? deselectItem?.(item?.id ?? '')
-                  : selectItem?.(item?.id ?? '')}
-              />
-            )}
+          {isLoading ? <SkeletonItem h="1.25rem" w="1.25rem" /> : (
+            <Checkbox
+              label=""
+              value=""
+              isChecked={isSelected?.(item?.id ?? '')}
+              onChange={() => isSelected?.(item?.id ?? '')
+                ? deselectItem?.(item?.id ?? '')
+                : selectItem?.(item?.id ?? '')}
+            />
+          )}
         </td>
       )}
       {properties?.length > 0 && properties.map((p, index) => {
         const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
         const contentRenderer = isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex);
         const renderer = link || (p?.onClick && typeof (p?.onClick) === 'function') ? (
-          <span className={`group-[${p?.id}-${index}]-row`}>
+          <span className={`group-[${p?.id}-${index}]-row flex`}>
             {contentRenderer}
             <span className="w-[16px] opacity-0 group-hover:opacity-100 inline-block ml-1">
               <i className="ri-external-link-line" />
@@ -117,10 +117,11 @@ const ItemListerItem = <Type extends { id: string }>({
             className={mcs([
               'py-2 px-3',
               tdClasses,
+              link && 'cursor-pointer text-blue-600',
               p.stickRight ? 'sticky right-0 z-[5]' : '',
               p.stickRight ?
                 index % 2 == 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' :
-                  variant == 'striped-row' ? 
+                  variant == 'striped-row' ?
                     (itemIndex || 1) % 2 != 0 ? 'dark:!bg-neutral-900 !bg-[#f1f3f3]' : 'dark:!bg-neutral-900/50 !bg-white'
                     : 'bg-background' : '',
               p.textAlign == 'right' ? 'text-right' : p.textAlign == 'center' ? 'text-center' : 'text-left',
@@ -140,7 +141,7 @@ const ItemListerItem = <Type extends { id: string }>({
               }
             }}
           >
-            {link ? LinkWrapper(link, renderer, { className: 'text-blue-600 dark:text-blue-300' }) : renderer}
+            {link ? LinkWrapper(link, renderer) : renderer}
           </td>
         );
       })}
