@@ -7,7 +7,6 @@ import {
   PageNavigator,
   PinInput,
   SearchBox,
-  SelectorButton,
   SimpleSelect,
   Switch,
   TagSelector,
@@ -39,7 +38,7 @@ const HeightPreviewCardTemplate: Story = () => (
         <SearchBox keyword="abc" setKeyword={() => {}} />
       </div>
       <div className="w-1/4 p-1">
-        <SelectorButton name="hello" options={[{ label: 'hello', value: 'hello' }]} />
+        {/*<SelectorButton name="hello" options={[{ label: 'hello', value: 'hello' }]} />*/}
       </div>
       <div className="w-1/4 p-1">
         {/*// @ts-ignore*/}

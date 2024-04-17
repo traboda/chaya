@@ -28,7 +28,6 @@ const Template: Story<DropzoneProps> = args => {
       {...args}
       value={files}
       onChange={setFiles}
-      icon="info"
       labels={{
         label: 'Select Photos',
         text: 'Drag and drop photos here or click to upload',
