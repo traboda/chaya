@@ -337,7 +337,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     id={inputID}
                     aria-autocomplete="list"
                     value={isDropdownActive ? searchKeyword : getValue()}
-                    placeholder={labels?.placeholder}
+                    placeholder={value && (typeof value === 'number' || value?.length > 0) ? '' : labels?.placeholder}
                     onChange={event => {
                       setIsDropdownActive(true);
                       setSearchKeyword(event.target.value);

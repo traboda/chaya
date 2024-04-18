@@ -69,6 +69,18 @@ export const LineVariant: Story = {
   render: (args) => <DefaultTemplate {...args} />,
 };
 
+export const MinimalVariant: Story = {
+  tags: ['unlisted'],
+  storyName: 'Horizontal Navigator Minimal Variant',
+  args: {
+    items: defaultMenuItems,
+    activeItem: 'OPENED',
+    variant: 'minimal',
+  },
+  render: (args) => <DefaultTemplate {...args} />,
+};
+
+
 const colorVariants: {
   color: HorizontalNavigatorProps['color'],
   label: string,
@@ -112,6 +124,7 @@ export const LineColors: Story = {
   tags: ['unlisted'],
   render: () => <NavigatorVariants variant="line" />,
 };
+
 
 
 const MENU_WITH_DISABLED_ITEMS: HorizontalNavigatorItemType[] = [

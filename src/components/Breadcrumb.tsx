@@ -23,6 +23,7 @@ export type BreadcrumbProps = {
   itemClassName?: string;
   hideHomeLink?: boolean;
   homeLink?: BreadcrumbItemProps;
+  lastItemAsTitle?: boolean;
 };
 
 const defaultHomeLink = {
@@ -31,11 +32,35 @@ const defaultHomeLink = {
   label: 'Go to home page',
 };
 
+const BreadcrumItem = ({ item, index, length }: { item: BreadcrumbItemProps, index: number, length: number }) =>
+  LinkWrapper(
+    item?.link || '#',
+    <React.Fragment>
+      {item?.icon ? (
+        <div className={item?.title ? 'mr-1' : undefined}>
+          <Icon icon={item.icon} size={18} />
+        </div>
+      ) : item?.iconClassName ? (
+        <i className={clsx([item.iconClassName, 'mr-1'])} />
+      ) : null}
+      {item?.title}
+    </React.Fragment>,
+    {
+      title: item?.label,
+      className: clsx([
+        'rounded focus:outline-none transition text-color px-2',
+        index == length - 1 ? 'font-semibold' : 'hover:bg-neutral-400/20 dark:hover:bg-neutral-500/30 px-1',
+      ]),
+      tabIndex: item?.isActive ? -1 : undefined,
+    },
+  );
+
 const Breadcrumb = ({
   items,
   className = '',
   itemClassName = '',
   hideHomeLink = false,
+  lastItemAsTitle = false,
   homeLink: _homeLink,
 }: BreadcrumbProps) => {
   const computedItemClassName = mcs([
@@ -62,32 +87,19 @@ const Breadcrumb = ({
       ])}
     >
       {breadcrumbItems.length > 0 &&
-        breadcrumbItems.map((item, index) => (
+        breadcrumbItems.filter((item, index) =>
+          (lastItemAsTitle && index < breadcrumbItems.length - 1) || !lastItemAsTitle,
+        ).map((item, index) => (
           <li key={nanoid()} className={computedItemClassName}>
             {index !== 0 ? (<span className="px-0.5">/</span>) : null}
-            {LinkWrapper(
-              item?.link || '#',
-              <React.Fragment>
-                {item?.icon ? (
-                  <div className={item?.title ? 'mr-1' : undefined}>
-                    <Icon icon={item.icon} size={18} />
-                  </div>
-                ) : item?.iconClassName ? (
-                  <i className={clsx([item.iconClassName, 'mr-1'])} />
-                ) : null}
-                {item?.title}
-              </React.Fragment>,
-              {
-                title: item?.label,
-                className: clsx([
-                  'rounded focus:outline-none transition text-color px-2',
-                  index == breadcrumbItems.length - 1 ? 'font-semibold' : 'hover:bg-neutral-300/40 px-1 focus:bg-neutral-300/50',
-                ]),
-                tabIndex: item?.isActive ? -1 : undefined,
-              },
-            )}
+            <BreadcrumItem item={item} index={index} length={breadcrumbItems.length} />
           </li>
         ))}
+      {lastItemAsTitle && breadcrumbItems.length > 0 && (
+        <li className="w-full mt-0.5 text-xl md:text-2xl">
+          <BreadcrumItem item={breadcrumbItems[breadcrumbItems.length - 1]} index={breadcrumbItems.length - 1} length={breadcrumbItems.length} />
+        </li>
+      )}
     </ul>
   );
 };

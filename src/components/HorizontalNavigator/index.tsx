@@ -39,6 +39,7 @@ const activeMarkerClassName = cva({
       line: 'horizontal-navigator-underline border-2 w-full bottom-0',
       pill: 'horizontal-navigator-pill shadow-lg z-[500] top-0',
       boxed: 'horizontal-navigator-boxed shadow-lg z-[500] top-0',
+      minimal: 'horizontal-navigator-minimal w-full bottom-0',
     },
     color: EMPTY_COLOR_MAP,
   },
@@ -94,9 +95,9 @@ const HorizontalNavigator = ({
       className={mcs([
         'list-none tab-selector horizontal-tabs relative inline-flex',
         'items-center rounded-lg',
-        (variant === 'pill' || variant === 'boxed') && 'z-[1000] gap-x-1',
+        (variant === 'pill' || variant === 'boxed') && 'z-[1000] gap-x-0.5',
         variant === 'boxed' && 'bg-neutral-400/20 dark:bg-neutral-600/20 p-1.5',
-        variant === 'line' && 'gap-2',
+        variant === 'line' && 'gap-1',
         className,
       ])}
     >

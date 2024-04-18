@@ -1,10 +1,11 @@
 'use client';
-import React, { ReactNode, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
 
 import InfiniteLoader from '../InfiniteLoader';
-import PageNavigator from '../PageNavigator';
+import PageNavigator, { PageNavigatorProps } from '../PageNavigator';
+import mcs from '../../utils/merge';
 
 import ItemListerTitleBar from './TitleBar';
 import ItemListerItem, { DataTableVariant, ItemListerProperty } from './Row';
@@ -20,7 +21,7 @@ export type DataTableProps<Type> = {
   sortablePropertyIDs?: string[],
 
   items: Type[],
-  maxHeight?: string,
+  maxHeight?: string | number,
   isLoading?: boolean,
 
   emptyListRenderer?: () => ReactNode,
@@ -43,7 +44,7 @@ export type DataTableProps<Type> = {
   itemsPerPage?: number,
   canLoadMore?: boolean,
   onLoadMore?: () => void,
-  itemPage?: number,
+  paginatorProps?: Omit<PageNavigatorProps, 'totalCount' | 'itemsPerPage' | 'page' | 'setPage' | 'setItemsPerPage'>,
   page?: number,
   setPage?: (page: number) => void,
   totalCount?: number,
@@ -70,24 +71,17 @@ const DataTable = <Type extends { id: string }>({
   emptyListRenderer = () => null,
   isLoading = false, canLoadMore = false,
   selections, allowSelection = false, onSelect = () => {},
-  onLoadMore = () => {}, maxHeight,
+  onLoadMore = () => {}, maxHeight = 600,
   currentSortAttribute, sortOrder, onSort = () => null,
   customTopBarRenderer = () => <div />,
   canExpand = false, accordionRenderer = () => <div />,
   stickyRow, showTopBarOnEmpty = false, enablePagination = false,
-  page = 1, setPage = () => {},
+  page = 1, setPage = () => {}, paginatorProps,
   variant = 'default', totalCount = 1,
 }: DataTableProps<Type>) => {
 
   const tableTopbarRef = useRef<HTMLTableSectionElement>(null);
   const tableWrapperRef = useRef<HTMLDivElement>(null);
-
-  const [height, setHeight] = useState(600);
-
-  useLayoutEffect(() => {
-    if (tableWrapperRef?.current && tableTopbarRef?.current)
-      setHeight(tableWrapperRef.current?.clientHeight - tableTopbarRef.current?.clientHeight - 20);
-  }, []);
 
   const [activeIndex, setActiveIndex] = useState<number[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -101,8 +95,8 @@ const DataTable = <Type extends { id: string }>({
 
   const colsWidth = useMemo(() => {
     let divide: (string | number | undefined)[] = [];
-    if (canExpand) divide.push(40);
-    if (allowSelection) divide.push(40);
+    if (canExpand) divide.push(60);
+    if (allowSelection) divide.push(60);
     divide = [...divide, ...activeProperties.map(p => p.width)];
     return divide.map(col => col ?? 'auto');
   }, [canExpand, allowSelection, activeProperties]);
@@ -124,21 +118,17 @@ const DataTable = <Type extends { id: string }>({
         emptyListRenderer() : (
           <div
             ref={tableWrapperRef}
-            className={clsx([
-              'p-2 flex flex-col flex-grow',
-              classNames?.wrapper,
-            ])}
-            style={{ maxHeight: maxHeight }}
+            className={mcs(['p-2 flex flex-col flex-grow', classNames?.wrapper])}
           >
             <div
               ref={tableTopbarRef}
-              className="transition-opacity sticky left-0 top-0 z-40 border-gray-200 text-color bg-background-lighten-1 dark:bg-background-darken-1 border-b border-neutral-100/10"
+              className="border-gray-200 text-color bg-background-lighten-1 dark:bg-background-darken-1 border-b border-neutral-100/10"
             >
               {customTopBarRenderer()}
             </div>
             <div
-              style={{ maxHeight: height }}
-              className="table-container overflow-auto border border-neutral-300 dark:border-neutral-600"
+              style={{ maxHeight }}
+              className="table-container overflow-auto border dark:border-neutral-500/70 border-neutral-500/20"
             >
               <table
                 className={clsx([
@@ -150,7 +140,7 @@ const DataTable = <Type extends { id: string }>({
                 <thead
                   className={clsx([
                     'sticky z-50 mb-2 shadow-sm top-0',
-                    variant === 'grid' ? 'border border-gray-500/80 shadow-gray-500/80' : 'shadow-gray-500/50',
+                    variant === 'grid' ? 'border dark:border-neutral-500/70 border-neutral-500/20' : 'shadow-gray-500/50',
                     classNames?.thead,
                   ])}
                 >
@@ -191,7 +181,7 @@ const DataTable = <Type extends { id: string }>({
                             variant={variant}
                           />
                           {activeIndex?.includes(index) && (
-                            <tr className="accordion-content data-table-row group w-full">
+                            <tr className="accordion-content border-y dark:border-neutral-500/70 border-neutral-500/20 data-table-row group w-full">
                               <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                             </tr>
                           )}
@@ -222,22 +212,33 @@ const DataTable = <Type extends { id: string }>({
                   ))}
                 </tbody>
               </table>
-              {enablePagination ? (
+              {!enablePagination ? (
+                <InfiniteLoader
+                  canLoadMore={canLoadMore}
+                  isLoading={isLoading}
+                  onLoadMore={onLoadMore}
+                />
+              ) : null}
+            </div>
+            {enablePagination ? (
+              <div
+                className={clsx([
+                  'dark:bg-gray-900 bg-neutral-500/10 border dark:border-neutral-500/70 border-neutral-500/10',
+                  'shadow-inner rounded-b-lg p-3 flex justify-start',
+                ])}
+              >
                 <PageNavigator
                   totalCount={totalCount}
                   itemsPerPage={itemsPerPage}
                   setItemsPerPage={setItemsPerPage}
                   page={page}
                   setPage={setPage}
+                  hideItemsPerPage
+                  buttonClassName="bg-white dark:bg-neutral-900"
+                  {...paginatorProps}
                 />
-              ) : (
-                <InfiniteLoader
-                  canLoadMore={canLoadMore}
-                  isLoading={isLoading}
-                  onLoadMore={onLoadMore}
-                />
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
         )}
     </SelectionHelper>

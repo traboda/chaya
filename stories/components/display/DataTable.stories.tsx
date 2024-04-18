@@ -451,3 +451,82 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
 export const WithDataTableManager = DataTableManagerTemplate.bind({});
 
 WithDataTableManager.args = {};
+
+const DataTableManagerPaginationTemplate: Story<DataTableProps<ItemType>> = (args) => {
+
+  const [keyword, setKeyword] = useState<string>('');
+  const [columnsSelected, setColumns] = useState<string[]>(columns.map(c => c.id));
+  const [selections, setSelections] = useState<any>({
+    selectedIDs: [ITEMS[0].id, ITEMS[1].id],
+  });
+  const [filters, setFilters] = useState<any>({
+    category: ['hardware'],
+  });
+
+  return (
+    <DataTable
+      items={ITEMS}
+      properties={columns}
+      activePropertyIDs={columnsSelected}
+      allowSelection
+      selections={selections}
+      onSelect={setSelections}
+      enablePagination
+      totalCount={500}
+      itemsPerPage={5}
+      page={5}
+      setPage={(page) => console.log(page)}
+      customTopBarRenderer={() => (
+        <DataTableManager
+          keyword={keyword}
+          setKeyword={setKeyword}
+          onDownload={() => { window.alert('Download'); return []; }}
+          onCreate={() => window.alert('Create')}
+          tabs={[
+            { label: 'All', key: 'all' },
+            { label: 'Selected', key: 'selected' },
+            { label: 'Excluded', key: 'excluded' },
+          ]}
+          currentTab="all"
+          filters={filters}
+          setFilters={setFilters}
+          filterConfig={[
+            {
+              key: 'category',
+              labels: {
+                label: 'Category',
+                searchLabel: 'Search Category',
+              },
+              options: [
+                { value: 'hardware', label: 'Hardware' },
+                { value: 'reversing', label: 'Reversing' },
+                { value: 'pentesting', label: 'Pentesting' },
+                { value: 'programming', label: 'Programming' },
+                { value: 'cryptography', label: 'Cryptography' },
+              ],
+            },
+          ]}
+          selections={{
+            selected: selections?.selectedIDs?.length || 0,
+            excluded: selections?.excludedIDs?.length || 0,
+            total: ITEMS.length,
+          }}
+          selectionActions={[
+            {
+              label: 'Delete',
+              onClick: () => window.alert('Delete'),
+            },
+          ]}
+          onCancelSelections={() => setSelections({ selectedIDs: [], excludedIDs: [] })}
+          selectedColumns={columnsSelected}
+          setColumns={setColumns}
+          columns={columns.map(c => ({ value: c.id || '-', label: c?.label ? c.label.toString() : '-' }))}
+        />
+      )}
+    />
+  );
+
+};
+export const WithDataTableManagerPagination = DataTableManagerPaginationTemplate.bind({});
+
+WithDataTableManagerPagination.args = {};

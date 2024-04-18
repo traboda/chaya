@@ -40,7 +40,7 @@ type ItemListerItemProps<Type> = {
 
 export type DataTableVariant = 'default' | 'grid' | 'striped-column' | 'striped-row';
 
-const grid = 'border border-gray-500/50';
+const grid = 'border dark:border-neutral-500/70 border-neutral-500/20';
 const stripedColumn = 'dark:odd:bg-neutral-900/50 dark:even:bg-neutral-800 odd:bg-white even:bg-[#f1f3f3]' ;
 const stripedRow = 'dark:odd:bg-neutral-900/50 odd:bg-white dark:even:bg-neutral-900 even:bg-[#f1f3f3]';
 
@@ -54,8 +54,8 @@ const ItemListerItem = <Type extends { id: string }>({
 
   const tdClasses = clsx([
     'h-full text-color',
-    variant === 'grid' ? grid : 'border-b border-gray-500/20',
-    isPinned ? 'bg-background' : '',
+    variant === 'grid' ? grid : 'border-b dark:border-neutral-500/70 border-neutral-500/20',
+    isSelected?.(item?.id ?? '') ? 'bg-blue-200/20' : isPinned ? 'bg-background' : '',
     isPinned ? 'group-hover:bg-background' : 'dark:group-hover:bg-neutral-700/30 group-hover:bg-gray-300/30',
   ]);
 
@@ -64,15 +64,21 @@ const ItemListerItem = <Type extends { id: string }>({
       {supportAccordion && (
         <td
           className={clsx([
-            'px-2 text-center',
+            'p-2 text-center',
             tdClasses,
             variant === 'striped-column' ? stripedColumn : '',
           ])}
         >
-          <button onClick={onClick} className="flex">
+          <button
+            aria-label={isAccordionOpen ? 'Collapse' : 'Expand'}
+            onClick={onClick}
+            className="flex w-full justify-center"
+            title={isAccordionOpen ? 'Collapse' : 'Expand'}
+          >
             <i
+              title={isAccordionOpen ? 'Open' : 'Closed'}
               className={clsx([
-                'ri-arrow-right-s-line',
+                'ri-arrow-right-s-line text-xl',
                 'transition-transform',
                 isAccordionOpen ? 'rotate-90' : '',
               ])}
@@ -83,7 +89,7 @@ const ItemListerItem = <Type extends { id: string }>({
       {isEnabled && (
         <td
           className={clsx([
-            'px-2 text-center',
+            'p-2 text-center',
             tdClasses,
             variant === 'striped-column' ? stripedColumn : '',
           ])}
@@ -115,7 +121,7 @@ const ItemListerItem = <Type extends { id: string }>({
           <td
             key={link ? null : p.id}
             className={mcs([
-              'py-2 px-3',
+              'p-3',
               tdClasses,
               link && 'cursor-pointer text-blue-600',
               p.stickRight ? 'sticky right-0 z-[5]' : '',

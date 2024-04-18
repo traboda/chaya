@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import clsx from 'clsx';
 
 import { cva } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
@@ -9,7 +8,7 @@ import Spinner from '../Spinner';
 import {
   colorVariantMapper,
   BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
-  SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP,
+  SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
 } from '../../utils/classMaps/colors';
 import mcs from '../../utils/merge';
 
@@ -53,7 +52,7 @@ const buttonStyling = cva({
     },
     variant: {
       solid: '',
-      outline: 'border-2',
+      outline: 'border',
       minimal: '',
       link: [
         'hover:underline',
@@ -69,9 +68,21 @@ const buttonStyling = cva({
   ],
 });
 
+const SpinnerWrapper = cva({
+  base: [],
+  variants: {
+    variant: { solid: '', minimal: '', outline: '', link: '' },
+    color: EMPTY_COLOR_MAP,
+  },
+  compoundVariants: [
+    ...colorVariantMapper<ButtonVariantsType>([SOLID_BG_COLOR_MAP], 'solid'),
+    ...colorVariantMapper<ButtonVariantsType>([MINIMAL_BG_COLOR_MAP], 'minimal'),
+  ],
+});
+
 const Button = ({
   variant = 'solid', color = 'primary', size = 'md',
-  children, link, onClick = () => {},
+  children, link, onClick = () => {}, loadingText,
   id, className = '', style, label, disableRipple = false, tabIndex, autoFocus, blurOnClick = true,
   target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false, ...props
 }: ButtonProps) => {
@@ -85,12 +96,13 @@ const Button = ({
     </>
   );
 
-  const computedClassName = mcs(clsx([
+  const computedClassName = mcs([
     buttonStyling({ variant, size, color }),
     buttonStyle.button,
-    (isDisabled || isLoading) && 'opacity-70 cursor-not-allowed',
+    isDisabled && 'opacity-70 cursor-not-allowed',
+    isLoading && 'relative',
     className,
-  ]));
+  ]);
 
   const buttonRenderer = () => (
     <button
@@ -112,7 +124,18 @@ const Button = ({
       style={style}
       {...props}
     >
-      {isLoading ? <Spinner size={size} /> : buttonContent}
+      {isLoading ? (
+        <div
+          className={mcs([
+            'w-full h-full z-5 absolute flex items-center gap-2 justify-center',
+            SpinnerWrapper({ color, variant }),
+          ])}
+        >
+          <Spinner size={size} />
+          {loadingText && loadingText?.length > 0 ? `${loadingText}...` : null}
+        </div>
+      ) : null}
+      {isLoading && loadingText?.length ? `......${loadingText}...` : buttonContent}
     </button>
   );
 

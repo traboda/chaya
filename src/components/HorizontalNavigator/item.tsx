@@ -25,7 +25,7 @@ export type HorizontalNavigatorItemType = {
   badgeProps?: BaseBadgeProps,
 };
 
-export type HorizontalNavigatorVariantType = 'pill' | 'line' | 'boxed';
+export type HorizontalNavigatorVariantType = 'pill' | 'line' | 'boxed' | 'minimal';
 
 export type HorizontalNavigatorItemProps = {
   item: HorizontalNavigatorItemType,
@@ -54,14 +54,19 @@ const HorizontalNavigatorItem = ({
       color: EMPTY_COLOR_MAP,
       variant: {
         boxed: [],
+        minimal: [
+          'transition-all rounded-lg gap-2 border-0 py-1 px-3',
+          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-400/20 dark:hover:bg-neutral-500/20',
+          activeItem === item.key && 'bg-neutral-300/20 dark:bg-neutral-500/20 mx-1',
+        ],
         pill: [
           'px-5 py-2',
           activeItem === item.key && 'text-primaryTextColor z-[1000]',
-          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-50/80 dark:hover:bg-neutral-500/80',
+          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-400/20 dark:hover:bg-neutral-500/3',
         ],
         line: [
           'transition-all rounded-lg gap-2 border-0 py-1 px-3',
-          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-400/20',
+          activeItem !== item.key && !item?.isDisabled && 'hover:bg-neutral-400/20 dark:hover:bg-neutral-500/20',
           activeItem && 'mb-2',
         ],
       },

@@ -32,7 +32,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   onFocus?: () => void
   label?: string
   title?: string
-
+  loadingText?: string
   leftIcon?: IconInputType
   rightIcon?: IconInputType
 }

@@ -123,12 +123,12 @@ const DataTableManager = ({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {typeof creatorPopupRenderer == 'function' && (
         creatorPopupRenderer(showCreator, setShowCreator)
       )}
-      <div className="md:flex justify-between items-center gap-3">
-        <div className="md:flex items-center justify-between w-full p-2">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        <div className="md:flex items-center justify-between w-full">
           {(typeof keyword === 'string' && typeof setKeyword === 'function') ? (
             <SearchBox
               hideLabel
@@ -143,7 +143,7 @@ const DataTableManager = ({
             />
           ) : null}
           {!isLoading && (
-            <div className="p-2 flex justify-end" style={{ width: 'inherit' }}>
+            <div className="p-2 flex md:justify-end" style={{ width: 'inherit' }}>
               {`${totalCount ?? 0} ${labels.labelPlural}`}
             </div>
           )}
@@ -153,76 +153,78 @@ const DataTableManager = ({
             items={tabs}
             activeItem={currentTab}
             onClickItem={onTabChange}
-            itemClassName="py-1 text-base px-2"
-            className="py-1 px-2"
+            itemClassName="py-1 px-3 text-base"
           />
         ) : null}
-        <div className="flex items-center gap-3 p-2">
-          {(filters && !showFilters) ? (
-            <Button
-              type="button"
-              variant="minimal"
-              color="shade"
-              onClick={() => setShowFilters(true)}
-              title="Filter Table"
-              className="px-2 py-1"
-            >
-              <i className="ri-filter-line text-lg" title="filter" />
-            </Button>
-          ) : filters && showFilters ? (
-            <Button
-              variant="minimal"
-              color="shade"
-              className="px-2 py-0.5"
-              onClick={() => {
-                setFilters({
-                  ...filters,
-                  ...Object.fromEntries((filterConfig || []).map((f) => [f.key, []])),
-                });
-                setShowFilters(false);
-              }}
-              title="Clear Filters"
-            >
-              <i className="ri-filter-off-line text-lg" title="close" />
-            </Button>
-          ) : null}
-          {(columns && columns?.length > 0) ? (
-            <DropdownFilter
-              align="end"
-              options={columns}
-              labels={{
-                searchLabel: 'Search for Columns',
-                optionsTitle: 'Columns',
-                searchPlaceholder: 'Search Columns',
-              }}
-              selections={selectedColumns}
-              setSelections={(columns) => setColumns(columns ?? [])}
-            >
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {(filters && !showFilters) ? (
               <Button
                 type="button"
-                color="shade"
                 variant="minimal"
-                title="Select Columns to Display"
+                color="shade"
+                onClick={() => setShowFilters(true)}
+                title="Filter Table"
                 className="px-2 py-1"
               >
-                <i className="ri-kanban-view-2 text-lg" title="columns" />
+                <i className="ri-filter-line text-lg" title="filter" />
               </Button>
-            </DropdownFilter>
-          ) : null}
-          {(typeof onDownload === 'function' || typeof onDownloadClick === 'function') ? (
-            <Button
-              type="button"
-              variant="minimal"
-              color="shade"
-              onClick={() => typeof onDownload === 'function' ? handleDownload() : onDownloadClick?.()}
-              isLoading={isDownloadLoading}
-              isDisabled={isDownloadLoading}
-              className="px-2 py-1"
-              title="Download Table"
-            >
-              <i className="ri-download-line text-lg" title="download" />
-            </Button>
-          ) : null}
+            ) : filters && showFilters ? (
+              <Button
+                variant="minimal"
+                color="shade"
+                className="px-2 py-0.5"
+                onClick={() => {
+                  setFilters({
+                    ...filters,
+                    ...Object.fromEntries((filterConfig || []).map((f) => [f.key, []])),
+                  });
+                  setShowFilters(false);
+                }}
+                title="Clear Filters"
+              >
+                <i className="ri-filter-off-line text-lg" title="close" />
+              </Button>
+            ) : null}
+            {(columns && columns?.length > 0) ? (
+              <DropdownFilter
+                align="end"
+                options={columns}
+                labels={{
+                  searchLabel: 'Search for Columns',
+                  optionsTitle: 'Columns',
+                  searchPlaceholder: 'Search Columns',
+                }}
+                selections={selectedColumns}
+                setSelections={(columns) => setColumns(columns ?? [])}
+              >
+                <Button
+                  type="button"
+                  color="shade"
+                  variant="minimal"
+                  title="Select Columns to Display"
+                  className="px-2 py-1"
+                >
+                  <i className="ri-kanban-view-2 text-lg" title="columns" />
+                </Button>
+              </DropdownFilter>
+            ) : null}
+            {(typeof onDownload === 'function' || typeof onDownloadClick === 'function') ? (
+              <Button
+                type="button"
+                variant="minimal"
+                color="shade"
+                onClick={() => typeof onDownload === 'function' ? handleDownload() : onDownloadClick?.()}
+                isLoading={isDownloadLoading}
+                isDisabled={isDownloadLoading}
+                className="px-2 py-1"
+                title="Download Table"
+              >
+                <i className="ri-download-line text-lg" title="download" />
+              </Button>
+            ) : null}
+
+          </div>
           {(typeof onCreate === 'function' || typeof creatorPopupRenderer == 'function') && (
             <Button
               type="button"
@@ -245,7 +247,9 @@ const DataTableManager = ({
         />
       ) : null}
       {(selections && (selections?.selected || selections.excluded)) ? (
-        <div className="flex flex-wrap dark:bg-gray-500/20 bg-gray-500/10 border dark:border-neutral-500/70 border-neutral-500/10 shadow px-2 py-1 mx-0">
+        <div
+          className="flex flex-wrap dark:bg-gray-500/20 bg-gray-500/10 rounded-t-lg border dark:border-neutral-500/70 border-neutral-500/10 shadow px-2 py-1 mx-0"
+        >
           <div className="w-full md:w-1/2 lg:w-1/3 px-3 py-2 flex items-center font-semibold gap-2">
             {selections?.selected ? `${selections?.selected} selected` : null}
             {selections?.excluded ? `${selections?.excluded} excluded` : null}

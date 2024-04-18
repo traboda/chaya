@@ -40,9 +40,9 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   let i = 0;
 
   const thClasses = clsx([
-    'h-full text-color py-2',
+    'h-full text-color py-3',
     variant !== 'striped-column' && 'bg-background-lighten-1 dark:background-darken-2',
-    variant === 'grid' && 'border-x border-neutral-600/50',
+    variant === 'grid' && 'border-x dark:border-neutral-500/70 border-neutral-500/20',
   ]);
 
   return (
@@ -55,12 +55,14 @@ const ItemListerTitleBar = <Type extends { id: string }>({
           ])}
         >
           <button
+            aria-label={isAccordionsOpen ? 'Collapse All' : 'Expand All'}
             onClick={() => toggleAccordions(!isAccordionsOpen)}
-            className="flex"
+            className="flex w-full justify-center"
+            title={isAccordionsOpen ? 'Collapse All' : 'Expand All'}
           >
             <i
               className={clsx([
-                'ri-arrow-right-s-line',
+                'ri-arrow-right-s-line text-xl',
                 'transition-transform',
                 isAccordionsOpen ? 'rotate-90' : '',
               ])}
@@ -92,7 +94,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               className={clsx([
                 thClasses,
                 p.stickRight ? 'sticky right-0 z-[10]' : '',
-                i % 2 == 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : '',
+                i % 2 != 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : 'bg-white',
                 'group',
               ])}
               key={p.id}
