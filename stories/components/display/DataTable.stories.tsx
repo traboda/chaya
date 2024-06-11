@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
+import { nanoid } from 'nanoid';
 
 import { DataTable, Icon } from '../../../src';
 import { DataTableProps } from '../../../src/components/DataTable';
@@ -376,12 +377,14 @@ EmptyTableListing.args = {
   ),
 };
 
+const UNIQUE_ITEMS = ITEMS.map((i) => ({ ...i, id: nanoid() }));
+
 const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
 
   const [keyword, setKeyword] = useState<string>('');
   const [columnsSelected, setColumns] = useState<string[]>(columns.map(c => c.id));
   const [selections, setSelections] = useState<any>({
-    selectedIDs: [ITEMS[0].id, ITEMS[1].id],
+    selectedIDs: [UNIQUE_ITEMS[0].id, UNIQUE_ITEMS[1].id],
   });
   const [filters, setFilters] = useState<any>({
     category: ['hardware'],
@@ -390,7 +393,7 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
   return (
     <DataTable
       {...args}
-      items={ITEMS}
+      items={UNIQUE_ITEMS}
       properties={columns}
       activePropertyIDs={columnsSelected}
       allowSelection
@@ -426,11 +429,7 @@ const DataTableManagerTemplate: Story<DataTableProps<ItemType>> = (args) => {
               ],
             },
           ]}
-          selections={{
-            selected: selections?.selectedIDs?.length || 0,
-            excluded: selections?.excludedIDs?.length || 0,
-            total: ITEMS.length,
-          }}
+          selections={selections}
           selectionActions={[
             {
               label: 'Delete',
@@ -465,7 +464,7 @@ const DataTableManagerPaginationTemplate: Story<DataTableProps<ItemType>> = (arg
 
   return (
     <DataTable
-      items={ITEMS}
+      items={UNIQUE_ITEMS}
       properties={columns}
       activePropertyIDs={columnsSelected}
       allowSelection
@@ -506,11 +505,7 @@ const DataTableManagerPaginationTemplate: Story<DataTableProps<ItemType>> = (arg
               ],
             },
           ]}
-          selections={{
-            selected: selections?.selectedIDs?.length || 0,
-            excluded: selections?.excludedIDs?.length || 0,
-            total: ITEMS.length,
-          }}
+          selections={selections}
           selectionActions={[
             {
               label: 'Delete',

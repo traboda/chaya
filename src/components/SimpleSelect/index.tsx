@@ -177,7 +177,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
-    <DropdownMenu.Item ref={ref} className="!outline-0">
+    <DropdownMenu.Item ref={ref} key={`${option.value}_op_${index}`} className="!outline-0">
       <SimpleSelectOption
         isMulti={isMulti}
         className={className}
@@ -436,7 +436,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 {filteredOptions().length > 0 ? (
                   filteredOptions().map((option, index) =>
                     'group' in option && option?.group ? (
-                      <React.Fragment>
+                      <React.Fragment key={`${option.group}_og_${index}`}>
                         <div
                           className={clsx([
                             'uppercase font-semibold text-sm tracking-wider opacity-60',

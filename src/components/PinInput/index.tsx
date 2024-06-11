@@ -109,7 +109,7 @@ const PinInput = ({
         signal: abortController.current?.signal,
       }).then(otp => {
         if (otp) onChange(otp.code);
-      });
+      }).catch(() => {});
     }
 
     return () => {

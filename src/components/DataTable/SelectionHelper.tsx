@@ -15,7 +15,10 @@ type SelectionHelperProps = {
   onSelect?: (args: SelectionType) => void
 };
  
-const SelectionHelper = ({ selections = { selectedIDs: [], excludedIDs: [] }, isEnabled = false, children, onSelect }: SelectionHelperProps) => {
+const SelectionHelper = ({
+  selections = { selectedIDs: [], excludedIDs: [] }, isEnabled = false, children,
+  onSelect = () => {},
+}: SelectionHelperProps) => {
 
   const selectedIDs = selections?.selectedIDs || [];
   const excludedIDs = selections?.excludedIDs || [];
@@ -32,7 +35,11 @@ const SelectionHelper = ({ selections = { selectedIDs: [], excludedIDs: [] }, is
   const isExcluded = (id: string) => excludedIDs.filter((s) => s === id).length > 0;
 
   const isSelected = (id: string) => {
-    if (isAllSelected() && !isExcluded(id)) return true;
+    if (isExcluded(id)) {
+      return false;
+    }
+    if (isAllSelected())
+      return true;
     return selectedIDs.filter((s) => s === id)?.length > 0;
   };
 
@@ -46,23 +53,19 @@ const SelectionHelper = ({ selections = { selectedIDs: [], excludedIDs: [] }, is
   };
 
   const deselectItem = (id: string) => {
-    if (isAllSelected())
-      setExcluded(excludedIDs?.length ? [...excludedIDs, id] : [id]);
-    const newIDs = selectedIDs.filter((s) => s !== id);
-    setSelected(newIDs?.length ? [...newIDs] : []);
-  };
-
-  const selectAll = () => {
-    if (!isAllSelected()) {
-      setExcluded([]);
-      setSelected(['-1']);
+    if (isAllSelected()) {
+      onSelect({
+        selectedIDs: ['-1'], excludedIDs: [...(excludedIDs || []), id],
+      });
+    } else {
+      const newIDs = selectedIDs.filter((s) => s !== id);
+      setSelected(newIDs?.length ? [...newIDs] : []);
     }
   };
 
-  const deselectAll = () => {
-    setSelected([]);
-    setExcluded([]);
-  };
+  const selectAll = () => onSelect({ selectedIDs: ['-1'], excludedIDs: [] });
+
+  const deselectAll = () => onSelect({ selectedIDs: [], excludedIDs: [] });
 
   useEffect(() => {
     if (isEnabled && onSelect) onSelect({ selectedIDs, excludedIDs });

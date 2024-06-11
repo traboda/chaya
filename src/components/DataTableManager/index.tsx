@@ -46,9 +46,8 @@ export type DataTableManagerProps = {
 
   // selections
   selections?: {
-    total: number,
-    selected: number,
-    excluded: number,
+    selectedIDs: string[],
+    excludedIDs: string[],
   },
   onCancelSelections?: () => void,
   selectionActions?: {
@@ -246,18 +245,26 @@ const DataTableManager = ({
           setFilters={setFilters}
         />
       ) : null}
-      {(selections && (selections?.selected || selections.excluded)) ? (
+      {(selections && (selections?.selectedIDs?.length || selections.excludedIDs?.length)) ? (
         <div
           className="flex flex-wrap dark:bg-gray-500/20 bg-gray-500/10 rounded-t-lg border dark:border-neutral-500/70 border-neutral-500/10 shadow px-2 py-1 mx-0"
         >
-          <div className="w-full md:w-1/2 lg:w-1/3 px-3 py-2 flex items-center font-semibold gap-2">
-            {selections?.selected ? `${selections?.selected} selected` : null}
-            {selections?.excluded ? `${selections?.excluded} excluded` : null}
+          <div className="w-full md:w-1/2 lg:w-1/3 px-3 py-2 flex items-center gap-2">
+            {selections?.selectedIDs?.length == 1 && selections?.selectedIDs?.[0] === '-1' ? (
+              <span>
+                All selected
+                {selections?.excludedIDs?.length ? `, excluding ${selections?.excludedIDs?.length}` : null}
+              </span>
+            ) : selections?.selectedIDs?.length ? (
+              <span>
+                {`${selections?.selectedIDs?.length} selected`}
+              </span>
+            ) : null}
             <Button
-              variant="link"
-              color="danger"
+              variant="minimal"
+              color="shade"
               size="xl"
-              className="!no-underline"
+              className="px-1 py-0 text-red-600"
               title="Cancel Selections"
               rightIcon="times"
               onClick={onCancelSelections}
