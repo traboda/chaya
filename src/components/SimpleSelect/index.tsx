@@ -27,16 +27,18 @@ type GroupType = {
 };
 
 export type SimpleSelectOptionType = OptionType | GroupType;
+export type SimpleSelectOptionData<Type> = Type extends Array<any> ? SimpleSelectOptionType[] : (SimpleSelectOptionType | null);
+
 
 export type SimpleSelectProps<Type> = {
-  variant?: 'comma' | 'pill',
   value: Type,
   name: string,
+  variant?: 'comma' | 'pill',
   id?: string,
   className?: string,
   listBoxClassName?: string,
   options?: SimpleSelectOptionType[],
-  onChange?: (v: Type, option: SimpleSelectOptionType | null) => void,
+  onChange?: (v: Type, op: SimpleSelectOptionData<Type>) => void,
   isRequired?: boolean,
   isDisabled?: boolean,
   leftIcon?: IconInputType,
@@ -51,6 +53,7 @@ export type SimpleSelectProps<Type> = {
   hideSelectAll?: boolean,
   onCreate?: (keyword: string) => void,
   onFetch?: (keyword: string) => Promise<SimpleSelectOptionType[]> | undefined,
+  onBlur?: () => void,
   labels: {
     label: string,
     placeholder?: string,
@@ -73,7 +76,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   value, onChange = () => {}, postfixRenderer, isMulti = false, side, hideLabel = false, hideSelectAll = false,
   id, className = '', labels: propLabels, hideArrow = false, variant = 'comma', rightIcon, leftIcon, isCreatable = false,
   isRequired = false, isDisabled = false, name, options: _options = [], dropdownClassName = '', listBoxClassName,
-  isAsync = false, onFetch = () => new Promise(resolve => resolve([])), onCreate,
+  isAsync = false, onFetch = () => new Promise(resolve => resolve([])), onCreate, onBlur,
 }: SimpleSelectProps<Type>) => {
 
   const labels = { ...defaultLabels, ...propLabels };
@@ -117,16 +120,28 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
     }
   }, [_options]);
 
-  const onSelect = (selection: SimpleSelectValue, option: SimpleSelectOptionType) => {
-    if (isMulti && Array.isArray(value)) onChange(value.includes(selection) ? value.filter(v => v !== selection) as Type : [...value, selection] as Type, option);
-    else onChange(selection as Type, option);
-  };
-
   const getOption = (val: SimpleSelectValue) => {
     const optionsList = isAsync ? [...cachedOptions, ..._options] : options;
     const option = optionsList.find(option => 'group' in option ? option.options.find(o => o.value === val) : option.value === val);
-    return option && 'group' in option ? option.options.find(o => o.value === val) : option;
+    return (
+      option && 'group' in option ? option.options.find(o => o.value === val) : option
+    ) as OptionType;
   };
+
+  const onSelect = (
+    selection: SimpleSelectValue,
+    option: SimpleSelectOptionType,
+  ) => {
+    if (isMulti && Array.isArray(value)) {
+      const values: SimpleSelectValue[] = value.includes(selection) ?
+        value.filter((v: SimpleSelectValue) => v !== selection) : [...value, selection];
+      const options: SimpleSelectOptionType[] = values.map(v => getOption(v));
+      onChange(values as Type, options as SimpleSelectOptionData<Type>);
+    } else {
+      onChange(selection as Type, option as SimpleSelectOptionData<Type>);
+    }
+  };
+
   const getLabel = (val: SimpleSelectValue) => getOption(val)?.label;
 
   const getValue = () => {
@@ -151,7 +166,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   }, [filteredOptions]);
 
   useEffect(() => {
-    if (isMulti && !Array.isArray(value)) throw new Error('SimpleSelect: value must be an array when isMulti is true');
+    if (isMulti && !Array.isArray(value))
+      throw new Error('SimpleSelect: value must be an array when isMulti is true');
 
     const onClick = (event: MouseEvent) => {
       if (!containerRef.current || containerRef.current.contains(event.target as Node)) return;
@@ -172,8 +188,14 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   const onSelectAll = () => {
     const options = filteredOptions();
     const totalCount = options.reduce((acc, option) => 'group' in option ? acc + option.options.length : acc + 1, 0);
-    if (isMulti && Array.isArray(value) && value.length === totalCount) onChange([] as unknown as Type, null);
-    else onChange(options.map(option => 'group' in option ? option.options.map(o => o.value) : option.value) as Type, null);
+    if (isMulti && Array.isArray(value) && value.length === totalCount) {
+      const values: SimpleSelectValue[] = [];
+      const ops: SimpleSelectOptionType[] = [];
+      onChange(values as Type, ops as SimpleSelectOptionData<Type>);
+    } else onChange(
+      options.map(option =>
+        'group' in option ? option.options.map(o => o.value) : option.value,
+      ) as Type, null as SimpleSelectOptionData<Type>);
   };
 
   const renderDropdownOption = (option: SimpleSelectOptionType, index: number, ref: RefObject<HTMLDivElement>, className?: string) => 'value' in option ? (
@@ -190,9 +212,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
         isHighlighted={highlightedIndex === index}
         onSelect={(value) => {
           onSelect(value, option);
-          if (!isMulti)
+          if (!isMulti) {
             setIsDropdownActive(false);
-          else {
+            if (onBlur) onBlur();
+          } else {
             setSearchKeyword('');
             searchBoxRef?.current?.focus();
           }
@@ -241,6 +264,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           }
           setIsDropdownActive(false);
         }
+        break;
+      case 'Escape':
+        setIsDropdownActive(false);
+        if (onBlur) onBlur();
         break;
       default:
         break;
@@ -316,7 +343,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                         <button
                           onClick={event => {
                             event.stopPropagation();
-                            onChange(value.filter(v => v !== val) as Type, option);
+                            const values = value.filter(v => v !== val);
+                            const options = values.map((v) => getOption(v));
+                            onChange(values as Type, options as SimpleSelectOptionData<Type>);
                           }}
                           aria-label="Remove"
                           title="Remove"
@@ -363,7 +392,10 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                     aria-label="clear"
                     onClick={event => {
                       event.stopPropagation();
-                      onChange((Array.isArray(value) ? [] : null) as Type, null);
+                      onChange(
+                        (Array.isArray(value) ? [] : null) as Type,
+                        (Array.isArray(value) ? [] as SimpleSelectOptionType[] : null) as SimpleSelectOptionData<Type>,
+                      );
                     }}
                   >
                     <i className="ri-close-line" />
@@ -457,21 +489,27 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 </div>
                 )}
                 {isCreatable && filteredOptions().length === 0 && searchKeyword?.length > 0 && (
-                <DropdownMenu.Item className="!outline-0" onClick={event => event.stopPropagation()}>
-                  <SimpleSelectOption
-                    label={`${labels.create} ${searchKeyword}`}
-                    value={searchKeyword}
-                    iconRenderer={<i className="ri-add-line" />}
-                    onSelect={() => {
-                      if (typeof onCreate === 'function')
-                        onCreate(searchKeyword);
-                      else {
-                        setOptions([...options, { label: searchKeyword, value: searchKeyword }]);
-                        onSelect(searchKeyword as SimpleSelectValue, { label: searchKeyword, value: searchKeyword });
-                      }
-                    }}
-                  />
-                </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    className="!outline-0"
+                    onClick={event => event.stopPropagation()}
+                  >
+                    <SimpleSelectOption
+                      label={`${labels.create} ${searchKeyword}`}
+                      value={searchKeyword}
+                      iconRenderer={<i className="ri-add-line" />}
+                      onSelect={() => {
+                        if (typeof onCreate === 'function')
+                          onCreate(searchKeyword);
+                        else {
+                          setOptions([...options, { label: searchKeyword, value: searchKeyword }]);
+                          onSelect(
+                            searchKeyword,
+                            { label: searchKeyword, value: searchKeyword },
+                          );
+                        }
+                      }}
+                    />
+                  </DropdownMenu.Item>
                 )}
               </ul>
             </div>

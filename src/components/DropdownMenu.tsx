@@ -62,12 +62,13 @@ const DropdownMenu = ({
     return o?.link?.length ? LinkWrapper(o.link,
       <RadixDropdownMenu.Item
         role="menuitem"
-        key={`dropdown-menu-item-${index}-${o?.title}`}
         tabIndex={-1}
         className={mcs(['dropdown-menu-item cursor-pointer', linkClasses(o?.className)])}
       >
         {content}
-      </RadixDropdownMenu.Item>, { className: 'w-full' }) : (
+      </RadixDropdownMenu.Item>, {
+        className: 'w-full', key: `dropdown-menu-item-${index}-${o?.title}`,
+      }) : (
         <RadixDropdownMenu.Item
           role="menuitem"
           key={`dropdown-menu-item-${index}-${o?.title}`}

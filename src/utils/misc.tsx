@@ -16,6 +16,7 @@ export type LinkOptions = {
   tabIndex?: number,
   autoFocus?: boolean,
   id?: string,
+  key?: string,
   className?: string,
   title?: string,
   label?: string,
@@ -36,6 +37,7 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
         link,
         <a
           id={options?.id}
+          key={options?.key}
           autoFocus={options?.autoFocus}
           role={options?.role}
           tabIndex={options?.tabIndex}

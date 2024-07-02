@@ -83,32 +83,33 @@ const Modal = ({
             style={{ maxWidth }}
             onClick={e => e.stopPropagation()}
           >
-            <div
-              className={mcs([
-                'modal-header flex flex-col items-start justify-between gap-1 w-full',
-                'px-3 py-2 rounded-t-lg border-b',
-                'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
-                headerClassName,
-              ])}
-            >
-              {closable && (
-                <div className="absolute top-0 right-0 pr-2 pt-2">
-                  <Dialog.Close asChild>
-                    <button
-                      tabIndex={-1}
-                      type="button"
-                      title="close"
-                      className={clsx([
-                        'font-mono rounded outline-none font-bold text-2xl p-0',
-                        'focus:ring-2',
-                      ])}
-                    >
-                      <Icon aria-hidden="true" icon="times" size={18} />
-                    </button>
-                  </Dialog.Close>
-                </div>
-              )}
-              {title && (
+            {closable && (
+              <div className="absolute top-0 right-0 pr-2 pt-2">
+                <Dialog.Close asChild>
+                  <button
+                    tabIndex={-1}
+                    type="button"
+                    title="close"
+                    className={clsx([
+                      'font-mono rounded outline-none font-bold text-2xl p-0',
+                      'focus:ring-2',
+                    ])}
+                  >
+                    <Icon aria-hidden="true" icon="times" size={18} />
+                  </button>
+                </Dialog.Close>
+              </div>
+            )}
+            {(title?.length || description?.length) ? (
+              <div
+                className={mcs([
+                  'modal-header flex flex-col items-start justify-between gap-1 w-full',
+                  'px-3 py-2 rounded-t-lg border-b',
+                  'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
+                  headerClassName,
+                ])}
+              >
+                {title && (
                 <Dialog.Title asChild>
                   <h3
                     className={mcs([
@@ -120,15 +121,16 @@ const Modal = ({
                     {title}
                   </h3>
                 </Dialog.Title>
-              )}
-              {description && (
+                )}
+                {description && (
                 <p className="opacity-80 text-sm">
                   {description}
                 </p>
-              )}
-            </div>
+                )}
+              </div>
+            ) : null}
             <div
-              className={mcs([contentClassName, 'overflow-auto p-2'])}
+              className={mcs([contentClassName, 'modal-content overflow-auto p-2'])}
               style={{ maxWidth, minHeight, maxHeight }}
             >
               {children}

@@ -101,6 +101,7 @@ const Tabs = ({
       {(t?.badge !== undefined || badgeProps || t.badgeProps) && (
       <Badge
         size="sm"
+        className="mr-2 md:mr-0"
         {...{
           color: 'shade',
           variant: 'minimal',
@@ -160,7 +161,8 @@ const Tabs = ({
 
   const ResponsiveView = !disableResponsive ? useMemo(() => (
     <AccordionGroup
-      accordionClassName="!p-1"
+      accordionClassName="!p-0 bg-transparent border-none"
+      bodyClassName="!px-1"
       items={tabItems.filter((t) => !t.isHidden).map((t) => ({
         title: (
           <>

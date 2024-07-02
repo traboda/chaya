@@ -18,19 +18,19 @@ export type OptionType = {
 
 export type SingleValueType = string | number;
 export type TagSelectorProps<Type> = {
+  options: OptionType[],
+  value: Type,
+  onChange: (arg: Type) => void,
   labels?: {
     helpText: string,
     title: string,
   },
-  value: Type,
-  onChange: (arg: Type) => void,
   id?: string,
   className?: string,
   tagClassName?: string,
   small?: boolean,
-  options: OptionType[],
   isClearable?: boolean,
-  multiple?: boolean,
+  isMulti?: boolean,
   countBadgeProps?: BaseBadgeProps,
 };
 
@@ -39,12 +39,12 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
   const [tags, setTags] = useState<SingleValueType[]>(Array.isArray(props.value) ? props.value : []);
 
   useEffect(() => {
-    if (props.multiple) setTags(props.value as SingleValueType[]);
+    if (props.isMulti) setTags(props.value as SingleValueType[]);
     else setTag(props.value as SingleValueType);
   }, [props.value]);
 
   const handleTagClick = (tagSelect: OptionType) => {
-    if (props.multiple) {
+    if (props.isMulti) {
       if (tags && tags.includes(tagSelect.value)) {
         const tempTags = [...tags];
         const index = tags.indexOf(tagSelect.value);
@@ -62,8 +62,8 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
 
   const generateClassName = (value: string | number) => {
     const className = clsx([
-      props?.multiple && tags && tags.includes(value) && '!bg-primary text-gray-100 border-primary',
-      !props.multiple && tag === value && '!bg-primary text-gray-100 border-primary',
+      props?.isMulti && tags && tags.includes(value) && '!bg-primary text-gray-100 border-primary',
+      !props.isMulti && tag === value && '!bg-primary text-gray-100 border-primary',
     ]);
 
     return clsx([
@@ -85,10 +85,10 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(props: Ta
       />
       )}
       <div className="flex flex-wrap items-center gap-2">
-        {props.options.map(o => (
+        {props.options.map((o, index) => (
           <button
+            key={`${o.value}-${index}`}
             type="button"
-            key={o.value}
             className={mcs([
               'tag-option px-3 py-2 rounded-lg text-base flex items-center gap-2',
               'transition-all duration-200ms ease border shadow hover:shadow-none',

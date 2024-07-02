@@ -110,7 +110,7 @@ const ItemListerItem = <Type extends { id: string }>({
         const link = isLoading ? null : item && typeof p.link === 'function' ? p.link(item) : null;
         const contentRenderer = isLoading ? <SkeletonItem h="1.75rem" w="80%" /> : item && p.value(item, itemIndex);
         const renderer = link || (p?.onClick && typeof (p?.onClick) === 'function') ? (
-          <span className={`group-[${p?.id}-${index}]-row flex`}>
+          <span className={`group-[${p?.id}-${index}]-row`}>
             {contentRenderer}
             <span className="w-[16px] opacity-0 group-hover:opacity-100 inline-block ml-1">
               <i className="ri-external-link-line" />

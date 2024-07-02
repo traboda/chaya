@@ -37,14 +37,14 @@ const PinInput = ({
 }: PinInputProps) => {
 
   const inputs = useRef<HTMLInputElement>(null);
-  const [invalidLength, setInvalidLength] = useState(false);
   const [isInvalid, setInvalid] = useState(_isInvalid);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
   const abortController = useRef<AbortController>();
 
   const onChange = (val: string) => {
     onChangeProp(val.trim().slice(0, digits));
-    setInvalid(false);
+    const hasValidLength = val.length === digits;
+    setInvalid(!hasValidLength);
   };
 
   const selectDigit = (index: number) => {
@@ -129,8 +129,6 @@ const PinInput = ({
           className,
         ])}
         style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
-        onFocus={() => setInvalidLength(false)}
-        onBlur={() => setInvalidLength(value?.length < digits)}
       >
         {Array(digits).fill(null).map((_, i) => (
           <PinDigit
@@ -151,10 +149,6 @@ const PinInput = ({
           />
         ))}
       </div>
-      {(invalidLength && value?.length < digits && !isDisabled) &&
-      <div className="text-red-600 mt-1 text-sm">
-        {labels?.invalidLength ?? `The code should be ${digits} digits.`}
-      </div>}
     </div>
   );
 };

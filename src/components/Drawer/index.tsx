@@ -15,6 +15,7 @@ export type DrawerProps = {
   isOpen?: boolean,
   onClose?: () => void,
   overlayClassName?: string,
+  contentClassName?: string,
   className?: string,
   position?: 'top' | 'right' | 'bottom' | 'left',
   minWidth?: string | number,
@@ -31,7 +32,7 @@ export type DrawerProps = {
 const Drawer = ({
   isOpen = true, onClose = () => {}, position = 'right', children, overlayClassName = '', className = '',
   minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true, overlayContent,
-  title, description, titleIcon,
+  title, description, titleIcon, contentClassName,
 }: DrawerProps) => {
 
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
@@ -102,63 +103,68 @@ const Drawer = ({
               className,
             ])}
             style={{
-              minHeight,
-              maxHeight,
               maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
-              minWidth,
               '--drawer-position-direction': positionDirection,
             } as CSSProperties}
             onClick={e => e.stopPropagation()}
           >
-            <div
-              className={clsx([
-                'modal-header flex flex-col items-start justify-between gap-1 w-full',
-                'px-3 py-2 rounded-t-lg border-b',
-                'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
-              ])}
-            >
-              {closable && (
-                <div className="absolute top-0 right-0 pr-2 pt-2">
-                  <Dialog.Close asChild>
-                    <button
-                      tabIndex={-1}
-                      type="button"
-                      title="close"
-                      className={clsx([
-                        'font-mono rounded outline-none font-bold text-2xl p-0',
-                        'focus:ring-2',
-                      ])}
-                      onClick={onClose}
-                    >
-                      <Icon aria-hidden="true" icon="times" size={18} />
-                    </button>
-                  </Dialog.Close>
-                </div>
-              )}
-              {title && (
-                <Dialog.Title asChild>
-                  <h3
+            {closable && (
+              <div className="absolute top-0 right-0 pr-2 pt-2">
+                <Dialog.Close asChild>
+                  <button
+                    tabIndex={-1}
+                    type="button"
+                    title="close"
                     className={clsx([
-                      'text-xl font-semibold flex items-center gap-2',
+                      'font-mono rounded outline-none font-bold text-2xl p-0',
+                      'focus:ring-2',
                     ])}
                   >
-                    {titleIcon ? <Icon icon={titleIcon} /> : null}
-                    {title}
-                  </h3>
-                </Dialog.Title>
-              )}
-              {description && (
-                <p className="opacity-80 text-sm">
-                  {description}
-                </p>
-              )}
+                    <Icon aria-hidden="true" icon="times" size={18} />
+                  </button>
+                </Dialog.Close>
+              </div>
+            )}
+            {(title?.length || description?.length) ? (
+              <div
+                className={clsx([
+                  'modal-header flex flex-col items-start justify-between gap-1 w-full',
+                  'px-3 py-2 rounded-t-lg border-b',
+                  'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
+                ])}
+              >
+                {title && (
+                  <Dialog.Title asChild>
+                    <h3
+                      className={clsx([
+                        'text-xl font-semibold flex items-center gap-2',
+                      ])}
+                    >
+                      {titleIcon ? <Icon icon={titleIcon} /> : null}
+                      {title}
+                    </h3>
+                  </Dialog.Title>
+                )}
+                {description && (
+                  <p className="opacity-80 text-sm">
+                    {description}
+                  </p>
+                )}
+              </div>
+            ) : null}
+            <div
+              className={mcs([contentClassName, 'drawer-content overflow-auto p-2'])}
+              style={{ minWidth, maxWidth, minHeight, maxHeight }}
+            >
+              {children}
             </div>
-            {children}
           </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  ) : <div />;
+  ) :
+    <div />
+  ;
 };
 
 export default Drawer;
