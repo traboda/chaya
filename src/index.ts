@@ -1,5 +1,5 @@
 // contexts
-export { default as DSRContextProvider } from './components/DSRContextProvider';
+export { default as ChayaProvider } from './components/ChayaProvider';
 
 // components
 export { default as Accordion, AccordionProps } from './components/Accordion';
@@ -16,7 +16,8 @@ export { default as Drawer, DrawerProps } from './components/Drawer';
 export { default as Switch, SwitchProps } from './components/Switch';
 export { default as Banner, BannerProps } from './components/Banner';
 export { default as Avatar, AvatarProps } from './components/Avatar';
-export { default as Button, ButtonProps } from './components/Button';
+export { default as Button } from './components/Button';
+export { ButtonProps } from './components/Button/type';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
 export { default as DataTable, DataTableProps } from './components/DataTable';
@@ -46,7 +47,8 @@ export { VerticalNavigatorItemType } from './components/VerticalNavigator/Item';
 
 export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';
-export { default as SearchResults, SearchResultsProps, SearchResultType, SearchResultGroupType } from './components/SearchResults';
+export { default as SearchResults, SearchResultsProps, SearchResultGroupType } from './components/SearchResults';
+export { SearchResultType } from './components/SearchResults/result';
 export { default as DropdownFilter, DropdownFilterProps } from './components/DropdownFilter';
 export { default as VisualPicker, VisualPickerProps } from './components/VisualPicker';
 export { default as CheckboxGroup, CheckboxGroupProps } from './components/CheckboxGroup';
@@ -65,3 +67,7 @@ export { default as useClipboard } from './hooks/useClipboard';
 export { default as useCountdown } from './hooks/useCountDown';
 export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
+
+
+// depreciated
+export { default as DSRContextProvider } from './components/ChayaProvider';

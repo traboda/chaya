@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import {
-  VerticalNavigator,
-  VerticalNavigatorProps,
-  VerticalNavigatorItemType,
-} from '../../../src';
+import VerticalNavigator, { VerticalNavigatorProps } from '../../../src/components/VerticalNavigator';
+import { VerticalNavigatorItemType } from '../../../src/components/VerticalNavigator/Item';
 
 const meta: Meta<VerticalNavigatorProps> = {
   title: 'Components/Navigation/VerticalNavigator',
@@ -82,7 +79,7 @@ export const Primary: Story = {
 
 export const BoxedVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Boxed Variant',
+  name: 'Vertical Navigator Boxed Variant',
   args: {
     items: defaultMenuItems,
     activeItem: 'third-second',
@@ -94,7 +91,7 @@ export const BoxedVariant: Story = {
 
 export const LineVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Line Variant',
+  name: 'Vertical Navigator Line Variant',
   args: {
     items: defaultMenuItems,
     activeItem: 'third-second',
@@ -143,20 +140,20 @@ const NavigatorVariants = ({ variant }: { variant: VerticalNavigatorProps['varia
 
 export const NavigatorPillColors: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Pill Colors',
+  name: 'Vertical Navigator Pill Colors',
   render: () => <NavigatorVariants variant="pill" />,
 };
 
 export const NavigatorLineColors: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Line Colors',
+  name: 'Vertical Navigator Line Colors',
   render: () => <NavigatorVariants variant="line" />,
 };
 
 
 export const CollapsedVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Collapsed Variant',
+  name: 'Vertical Navigator Collapsed Variant',
   args: {
     isCollapsed: true,
     items: defaultMenuItems,
@@ -168,7 +165,7 @@ export const CollapsedVariant: Story = {
 
 export const CollapsedLineVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Vertical Navigator Collapsed Line Variant',
+  name: 'Vertical Navigator Collapsed Line Variant',
   args: {
     variant: 'line',
     isCollapsed: true,

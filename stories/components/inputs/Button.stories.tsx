@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Button, ButtonProps } from '../../../src';
+import Button from '../../../src/components/Button';
+import { ButtonProps } from '../../../src/components/Button/type';
 
 const meta: Meta<ButtonProps> = {
   title: 'Components/Inputs/Button',
@@ -55,25 +56,25 @@ const ButtonVariants = ({ variant }: { variant: ButtonProps['variant'] }) => (
 );
 
 export const SolidVariant: Story = {
-  storyName: 'Solid Button Variant',
+  name: 'Solid Button Variant',
   tags: ['unlisted'],
   render: () => <ButtonVariants variant="solid" />,
 };
 
 export const MinimalVariant: Story = {
-  storyName: 'Minimal Button Variant',
+  name: 'Minimal Button Variant',
   tags: ['unlisted'],
   render: () => <ButtonVariants variant="minimal" />,
 };
 
 export const OutlineVariant: Story = {
-  storyName: 'Outline Button Variant',
+  name: 'Outline Button Variant',
   tags: ['unlisted'],
   render: () => <ButtonVariants variant="outline" />,
 };
 
 export const LinkVariant: Story = {
-  storyName: 'Link Button Variant',
+  name: 'Link Button Variant',
   tags: ['unlisted'],
   render: () => <ButtonVariants variant="link" />,
 };
@@ -103,7 +104,7 @@ const ButtonSizesShowcase = ({ variant }: { variant: ButtonProps['variant'] }) =
 );
 
 export const ButtonSizes: Story = {
-  storyName: 'Button Sizes',
+  name: 'Button Sizes',
   tags: ['unlisted'],
   render: () => (
     <div className="flex flex-col gap-2">

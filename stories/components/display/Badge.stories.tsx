@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Badge, BadgeProps } from '../../../src';
+import Badge, { BadgeProps } from '../../../src/components/Badge';
 
 const meta: Meta<BadgeProps> = {
   title: 'Components/Display/Badge',
@@ -57,19 +57,19 @@ const BadgeVariants = ({ variant }: { variant: BadgeProps['variant'] }) => (
 );
 
 export const SolidVariant: Story = {
-  storyName: 'Solid Variant',
+  name: 'Solid Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="solid" />,
 };
 
 export const MinimalVariant: Story = {
-  storyName: 'Minimal Variant',
+  name: 'Minimal Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="minimal" />,
 };
 
 export const OutlineVariant: Story = {
-  storyName: 'Outline Variant',
+  name: 'Outline Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="outline" />,
 };
@@ -98,7 +98,7 @@ const BadgeSizesShowcase = ({ variant }: { variant: BadgeProps['variant'] }) => 
 );
 
 export const BadgeSizes: Story = {
-  storyName: 'Badge Sizes',
+  name: 'Badge Sizes',
   tags: ['unlisted'],
   render: () => (
     <div className="flex flex-col gap-2">
@@ -110,7 +110,7 @@ export const BadgeSizes: Story = {
 };
 
 export const BadgeWithIcon: Story = {
-  storyName: 'Badge with Icon',
+  name: 'Badge with Icon',
   tags: ['unlisted'],
   render: () => (
     <div className="flex justify-center items-center border-dashed border gap-2" style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}>

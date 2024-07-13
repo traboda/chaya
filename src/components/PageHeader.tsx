@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import mcs from '../utils/merge';
 
 import Breadcrumb, { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
-import Button, { ButtonProps } from './Button';
+import Button from './Button';
+import { ButtonProps } from './Button/type';
 
 export type PageHeaderProps = {
   title?: string,

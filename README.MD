@@ -1,25 +1,23 @@
 <div align="center">
-    <img src="/.storybook/public/chaya-icon.svg" height="100" alt="ChayaUI" />
+    <img src="/public/chaya-icon.svg" height="100" alt="ChayaUI" />
     <h1 style="margin-top: 12px">Chaya UI</h1>
-    <p style="font-size: 110%">Chaya UI is a modern, functional design system & component library for React.</p>
+    <p style="font-size: 110%">Chaya UI is a modern, data-first component library for React.</p>
     <div align="center">
-      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
+      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/chaya-ui/chaya-ui?style=for-the-badge"/>
       <a href="https://www.npmjs.com/package/chaya-ui">
         <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/chaya-ui.svg?style=for-the-badge"/>
       </a>
       <a href="https://www.npmjs.com/package/chaya-ui">
         <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
       </a>
-      <a href="https://github.com/traboda/chaya/stargazers">
-        <img alt="Github Stars" src="https://img.shields.io/github/stars/traboda/chaya?style=for-the-badge" />
+      <a href="https://github.com/chaya-ui/chaya-ui/stargazers">
+        <img alt="Github Stars" src="https://img.shields.io/github/stars/chaya-ui/chaya-ui?style=for-the-badge" />
       </a>
     </div>
 </div>
 
-Chaya features a collection of reusable components, and other frontend utility functions for React, 
-that are used to design a consistent, modern and accessible frontend for Traboda platforms.
-Chaya makes it seamless to build a consistent and accessible frontend for your platforms made
-with React.
+Chaya features a collection of data-first reusable components and utility functions for React that can help you 
+to design a consistent, modern and accessible SaaS applications in speed.
 
 - 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
@@ -46,7 +44,7 @@ yarn add chaya-ui
 
 To start using the components, please follow the below steps:
 
-1. Wrap your Application in a `DSRContextProvider` provided by `chaya-ui`
+1. Wrap your Application in a `ChayaProvider` provided by `chaya-ui`
 
     ```tsx
     import { ReactNode } from "react";
@@ -55,10 +53,10 @@ To start using the components, please follow the below steps:
     import Link from 'next/link';
     import { Search, X } from 'react-feather';
 
-    import { DSRContextProvider } from 'chaya-ui';
+    import { ChayaProvider } from 'chaya-ui';
 
     const AppView = ({ children }: { children: ReactNode }) => (
-      <DSRContextProvider
+      <ChayaProvider
         linkWrapper={(link: string, component: ReactElement) => <Link href={link}>{component}</Link>}
         theme={{
           primary: '#019e4b',
@@ -73,7 +71,7 @@ To start using the components, please follow the below steps:
         })[icon] ?? <>n/a</>}
       >
         {children}
-      </DSRContextProvider>
+      </ChayaProvider>
     );
     ```
 
@@ -153,5 +151,3 @@ Contributions are welcome. Please open an issue or a PR.
 ## Licensing
 
 This project is licensed under the [GNU General Public License V3](LICENSE).
-
-Made by Traboda with ❤️ in India 🇮🇳.

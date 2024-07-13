@@ -4,6 +4,8 @@ const theme = require('./tailwind-theme');
 module.exports = {
   content: [
       './src/**/*.{tsx,jsx,ts}',
+      './stories/**/*.{mdx,tsx,jsx,ts}',
+      './.storybook/**/*.{mdx,tsx,jsx,ts}'
   ],
   darkMode: 'class',
   theme: {

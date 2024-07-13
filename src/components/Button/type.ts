@@ -7,7 +7,8 @@ import { ChayaColorType } from '../../utils/classMaps/colors';
 export type ButtonSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonVariantsType = 'solid' | 'outline' | 'minimal' | 'link';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonPropsInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** prop1 description */
   variant?: ButtonVariantsType,
   color?: ChayaColorType,
   size?: ButtonSizesType,
@@ -36,3 +37,5 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   leftIcon?: IconInputType
   rightIcon?: IconInputType
 }
+
+export type ButtonProps = ButtonPropsInterface;

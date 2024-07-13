@@ -41,7 +41,7 @@ const BreadcrumItem = ({ item, index, length }: { item: BreadcrumbItemProps, ind
           <Icon icon={item.icon} size={18} />
         </div>
       ) : item?.iconClassName ? (
-        <i className={clsx([item.iconClassName, 'mr-1'])} />
+        <i className={clsx([item.iconClassName])} />
       ) : null}
       {item?.title}
     </React.Fragment>,

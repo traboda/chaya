@@ -1,14 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
 export type AccordionProps = {
   title: string | React.ReactNode,
-  renderer?: () => React.ReactNode,
   text?: (string | React.ReactNode),
+  children?: (isOpen: boolean, onClose: () => void) => React.ReactNode,
   isOpen?: boolean,
   onChange?: () => void,
   id?: string,
@@ -20,8 +19,9 @@ export type AccordionProps = {
 };
 
 const Accordion = ({
-  title, renderer, text, isOpen: _isOpen, onChange = () => {}, id = nanoid(),
-  className = '', titleClassName = '', bodyClassName = '', isDisabled = false, isLocked = false,
+  title, children, text, isOpen: _isOpen, onChange = () => {}, id,
+  isDisabled = false, isLocked = false,
+  className = '', titleClassName = '', bodyClassName = '',
 }: AccordionProps) => {
 
   const [isOpen, setOpen] = useState(isDisabled ? false : _isOpen ?? false);
@@ -74,7 +74,7 @@ const Accordion = ({
           isOpen ? mcs(['opacity-100 h-auto py-3', bodyClassName]) : '',
         ])}
       >
-        {isOpen && renderer ? renderer() : text}
+        {typeof children === 'function' ? children(isOpen, () => setOpen(false)) : isOpen ? text : null}
       </div>
     </div>
   );

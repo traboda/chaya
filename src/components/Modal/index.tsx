@@ -6,8 +6,9 @@ import * as Dialog from '@radix-ui/react-dialog';
 import useDelayUnmount from '../../hooks/useDelayUnmount';
 import Icon, { IconInputType } from '../Icon';
 import mcs from '../../utils/merge';
+import { ButtonProps } from '../Button/type';
 
-import Button, { ButtonProps } from './../Button';
+import Button from './../Button';
 import modalStyles from './modal.module.scss';
 
 export type ModalProps = {
@@ -138,7 +139,7 @@ const Modal = ({
             {(primaryButton || secondaryButton) ? (
               <div
                 className={clsx([
-                  'modal-footer px-3 py-1 rounded-b-lg border-t',
+                  'modal-footer p-3 rounded-b-lg border-t',
                   'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
                 ])}
               >

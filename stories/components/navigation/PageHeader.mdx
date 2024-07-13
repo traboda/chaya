@@ -1,0 +1,21 @@
+import { Meta, Title, Primary, Controls } from '@storybook/blocks';
+import * as PageHeaderStories from "./PageHeader.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Navigation/PageHeader"
+    of={PageHeaderStories}
+/>
+
+<Title>PageHeader</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { PageHeader } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Props
+
+<Controls />
+

@@ -150,5 +150,4 @@ const Button = ({
   }) : buttonRenderer();
 };
 
-export { ButtonProps as ButtonProps };
 export default Button;

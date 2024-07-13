@@ -1,0 +1,20 @@
+import {Meta, Story, Title, Controls, Primary} from '@storybook/blocks';
+import * as ModalStories from "./Modal.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/Modal"
+    of={ModalStories}
+/>
+
+<Title>Modal</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Modal } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Props
+
+<Controls />

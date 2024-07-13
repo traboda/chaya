@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { DropdownFilter, Button, DropdownFilterProps } from '../../../src';
+import DropdownFilter, { DropdownFilterProps } from '../../../src/components/DropdownFilter';
+import Button from '../../../src/components/Button';
 
 const meta: Meta<DropdownFilterProps> = {
   title: 'Components/Inputs/DropdownFilter',

@@ -1,5 +1,6 @@
 import { Meta, Primary, Title, Controls } from '@storybook/blocks';
 import * as AccordionGroupStories from "./AccordionGroup.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Display/AccordionGroup"
@@ -8,19 +9,12 @@ import * as AccordionGroupStories from "./AccordionGroup.stories";
 
 <Title>AccordionGroup</Title>
 
-**`import { AccordionGroup } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { AccordionGroup } from 'chaya-ui';`} />
+</div>
 
 <Primary />
 
 ## Props
 
 <Controls />
-
-
-## Keeping Open Items Expanded
-
-<Primary name="Keep Expanded" />
-
-## Numbered Items / Stepper
-
-<Primary name="Numbered Steps" />

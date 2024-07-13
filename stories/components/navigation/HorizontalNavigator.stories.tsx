@@ -1,11 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import {
-  HorizontalNavigator,
-  HorizontalNavigatorProps,
-  HorizontalNavigatorItemType,
-} from '../../../src';
+import HorizontalNavigator, { HorizontalNavigatorProps } from '../../../src/components/HorizontalNavigator';
+import { HorizontalNavigatorItemType } from '../../../src/components/HorizontalNavigator/item';
 
 const meta: Meta<HorizontalNavigatorProps> = {
   title: 'Components/Navigation/HorizontalNavigator',
@@ -49,7 +46,7 @@ export const Primary: Story = {
 
 export const BoxedVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Horizontal Navigator Box Variant',
+  name: 'Horizontal Navigator Box Variant',
   args: {
     items: defaultMenuItems,
     activeItem: 'OPENED',
@@ -60,7 +57,7 @@ export const BoxedVariant: Story = {
 
 export const LineVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Horizontal Navigator Line Variant',
+  name: 'Horizontal Navigator Line Variant',
   args: {
     items: defaultMenuItems,
     activeItem: 'OPENED',
@@ -71,7 +68,7 @@ export const LineVariant: Story = {
 
 export const MinimalVariant: Story = {
   tags: ['unlisted'],
-  storyName: 'Horizontal Navigator Minimal Variant',
+  name: 'Horizontal Navigator Minimal Variant',
   args: {
     items: defaultMenuItems,
     activeItem: 'OPENED',
@@ -114,13 +111,13 @@ const NavigatorVariants = ({ variant }: { variant: HorizontalNavigatorProps['var
 );
 
 export const PillColors: Story = {
-  storyName: 'Pill Navigator Colors',
+  name: 'Pill Navigator Colors',
   tags: ['unlisted'],
   render: () => <NavigatorVariants variant="pill" />,
 };
 
 export const LineColors: Story = {
-  storyName: 'Line Navigator Colors',
+  name: 'Line Navigator Colors',
   tags: ['unlisted'],
   render: () => <NavigatorVariants variant="line" />,
 };
@@ -154,7 +151,7 @@ const MENU_WITH_DISABLED_ITEMS: HorizontalNavigatorItemType[] = [
 
 export const DisabledItems: Story = {
   tags: ['unlisted'],
-  storyName: 'Horizontal Navigator Disabled Items',
+  name: 'Horizontal Navigator Disabled Items',
   args: {
     items: MENU_WITH_DISABLED_ITEMS,
     activeItem: 'OPENED',
@@ -164,7 +161,7 @@ export const DisabledItems: Story = {
 
 export const DisabledLineItems: Story = {
   tags: ['unlisted'],
-  storyName: 'Horizontal Line Navigator Disabled Items',
+  name: 'Horizontal Line Navigator Disabled Items',
   args: {
     items: MENU_WITH_DISABLED_ITEMS,
     activeItem: 'OPENED',

@@ -1,5 +1,6 @@
 import { Meta, Primary, Title, Controls, Story } from '@storybook/blocks';
 import * as CardStories from "./Card.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Display/Card"
@@ -8,7 +9,9 @@ import * as CardStories from "./Card.stories";
 
 <Title>Card</Title>
 
-**`import { Card } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Card } from 'chaya-ui';`} />
+</div>
 
 <Primary />
 
@@ -21,18 +24,18 @@ import * as CardStories from "./Card.stories";
 Card can be used a wrapper or container for other components, like a `Paper`, by simply passing the sub-components as
 children. This quickly adds some padding, a border, and a subtle background color.
 
-<Story story={CardStories.AsPaper} />
+<Story of={CardStories.AsPaper} />
 
 ## Nesting Cards
 
 Cards can be nested inside other cards, which would create a "card stack" effect. This is useful for creating a
 hierarchical information structure.
 
-<Primary name="Nested Cards" />
+<Story of={CardStories.NestedCards} />
 
 This can also be done with custom content, without `title` or `description` props, by simply nesting the cards.
 
-<Primary name="Nested Cards With Custom Content" />
+<Story of={CardStories.NestedCardsWithCustomContent} />
 
 ## Variants
 
@@ -42,4 +45,4 @@ This can also be done with custom content, without `title` or `description` prop
 
 ### Outline
 
-<Primary name="Outline Variant" />
+<Story of={CardStories.OutlineVariant} />

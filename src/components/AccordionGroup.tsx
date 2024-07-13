@@ -10,7 +10,7 @@ export type AccordionGroupProps = {
   items: {
     title: string | ReactNode,
     text?: string,
-    renderer?: () => ReactNode,
+    renderer?: (isOpen: boolean, onClose: () => void) => ReactNode,
     isDisabled?: boolean,
     isOpen?: boolean,
     isHidden?: boolean,
@@ -69,7 +69,7 @@ const AccordionGroup = ({
           text={item.text}
           isDisabled={item.isDisabled}
           isLocked={item.isLocked}
-          renderer={item.renderer}
+          children={item.renderer}
         />
       ))}
     </div>

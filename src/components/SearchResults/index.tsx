@@ -4,9 +4,6 @@ import mcs from '../../utils/merge';
 
 import SearchResult, { SearchResultType } from './result';
 
-export { SearchResultType };
-
-
 export type SearchResultGroupType = {
   title: string,
   results: SearchResultType[],

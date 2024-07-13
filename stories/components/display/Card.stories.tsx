@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Card, CardProps, Button } from '../../../src';
+import Card, { CardProps } from '../../../src/components/Card';
+import Button from '../../../src/components/Button';
 
 const meta: Meta<CardProps> = {
   title: 'Components/Display/Card',
@@ -32,7 +33,7 @@ export const Primary: Story = {
 
 
 export const AsPaper: Story = {
-  storyName: 'As Paper',
+  name: 'AsPaper',
   tags: ['unlisted'],
   args: {
     children: (
@@ -60,7 +61,7 @@ export const AsPaper: Story = {
 };
 
 export const NestedCards: Story = {
-  storyName: 'Nested Cards',
+  name: 'Nested Cards',
   tags: ['unlisted'],
   args: {
     title: 'Appearance',
@@ -83,7 +84,7 @@ export const NestedCards: Story = {
 };
 
 export const NestedCardsWithCustomContent: Story = {
-  storyName: 'Nested Cards With Custom Content',
+  name: 'Nested Cards With Custom Content',
   tags: ['unlisted'],
   args: {
     children: (
@@ -102,7 +103,7 @@ export const NestedCardsWithCustomContent: Story = {
 };
 
 export const OutlineVariant: Story = {
-  storyName: 'Outline Variant',
+  name: 'Outline Variant',
   tags: ['unlisted'],
   args: {
     title: 'Add Members',

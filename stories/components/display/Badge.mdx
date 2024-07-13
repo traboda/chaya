@@ -1,5 +1,6 @@
 import { Meta, Primary, Title, Controls, Story } from '@storybook/blocks';
 import * as BadgeStories from "./Badge.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Display/Badge"
@@ -8,7 +9,9 @@ import * as BadgeStories from "./Badge.stories";
 
 <Title>Badge</Title>
 
-**`import { Badge } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Badge } from 'chaya-ui';`} />
+</div>
 
 <Primary />
 
@@ -16,26 +19,25 @@ import * as BadgeStories from "./Badge.stories";
 
 <Controls />
 
-
 ## Variants
 
 Badge component comes in 3 variants: `solid`, `minimal` and `outline`. The default variant is `minimal`.
 
 ### Solid
 
-<Story name="Solid Variant" />
+<Story of={BadgeStories.SolidVariant} />
 
 ### Minimal (Default)
 
-<Story name="Minimal Variant" />
+<Story of={BadgeStories.MinimalVariant} />
 
 ### Outline
 
-<Story name="Outline Variant" />
+<Story of={BadgeStories.OutlineVariant} />
 
 ## Sizes
 
-<Story name="Badge Sizes" />
+<Story of={BadgeStories.BadgeSizes} />
 
 ## With Icons
 
