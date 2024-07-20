@@ -3,12 +3,12 @@ import React, {useEffect, useState} from "react";
 import { DocsContainer } from "@storybook/blocks";
 import { themes } from '@storybook/theming';
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
-
-export { decorators } from "./decorators";
-
-import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
 // @ts-ignore
 import { addons } from '@storybook/preview-api';
+import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
+
+import ThemeProvider from "./ThemeProvider";
+export { decorators } from "./decorators";
 
 const channel = addons.getChannel();
 
@@ -63,7 +63,9 @@ const preview: Preview = {
         const props = { ...context, theme: isDark ? themes.dark : themes.normal }
 
         return (
-          <DocsContainer {...props} />
+            <ThemeProvider isDarkTheme={isDark ?? false}>
+              <DocsContainer {...props} />
+            </ThemeProvider>
         );
       }
     },

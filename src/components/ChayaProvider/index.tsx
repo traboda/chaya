@@ -2,11 +2,12 @@
 import React, { memo, ReactElement, ReactNode, useEffect, useMemo } from 'react';
 import Color from 'color';
 
-import ChayaContext, { IconWrapperType, LinkWrapper } from '../contexts/ChayaContext';
-import { Theme } from '../types/theme';
-import { RGBAtoRGB } from '../utils/color';
+import ChayaContext, { IconWrapperType, LinkWrapper } from '../../contexts/ChayaContext';
+import { Theme } from '../../types/theme';
+import { RGBAtoRGB } from '../../utils/color';
+import { IconProps, Icons } from '../Icon';
 
-const defaultLinkWrapper = (link: string, component: ReactElement) => component;
+import { getTheme } from './themes';
 
 const ThemeScript = memo(
   ({ theme, isDarkTheme }: { theme: Theme; isDarkTheme: boolean }) => {
@@ -72,7 +73,9 @@ const ThemeScript = memo(
       const script = document.getElementById('theme-script');
 
       if (script) {
-        eval(`!function(){${getScriptSrc()}}();`);
+        eval(`!function () {
+            ${getScriptSrc()}
+        }();`);
       }
     }, [theme]);
 
@@ -88,26 +91,39 @@ const ThemeScript = memo(
   (prevProps, nextProps) => prevProps.theme === nextProps.theme,
 );
 
+const defaultIconWrapper = (icon: Icons, props?: IconProps) => (
+  <i {...props} className={`ri-${icon}-line ri-${icon} ${props?.className}`} />
+);
 
-const ChayaProvider = ({ children, linkWrapper = defaultLinkWrapper, theme, iconWrapper }: {
+const defaultLinkWrapper = (link: string, component: ReactElement) => component;
+
+export type ChayaProviderType = {
   children: ReactNode,
   linkWrapper?: LinkWrapper,
   iconWrapper?: IconWrapperType,
-  theme: Theme
-}) => {
+  theme?: Theme,
+  isDarkTheme?: boolean,
+};
 
-  const isDarkTheme = useMemo(() => Color(theme?.background).isDark(), [theme]);
+const ChayaProvider = ({
+  children, theme,
+  linkWrapper = defaultLinkWrapper, iconWrapper = defaultIconWrapper, isDarkTheme: _dark = false,
+}: ChayaProviderType) => {
+
+  const isDarkTheme = theme ? useMemo(() => Color(theme?.background).isDark(), [theme]) : _dark;
+
+  const currentTheme = theme ? theme : getTheme('DEFAULT', _dark);
 
   return (
     <ChayaContext.Provider
       value={{
         linkWrapper,
         iconWrapper,
-        theme,
+        theme: currentTheme,
         isDarkTheme,
       }}
     >
-      <ThemeScript theme={theme} isDarkTheme={isDarkTheme} />
+      <ThemeScript theme={currentTheme} isDarkTheme={isDarkTheme} />
       {children}
     </ChayaContext.Provider>
   );

@@ -14,6 +14,7 @@ const SingleLineCodeBlock = ({ text }: { text: string }) => {
       isDisabled
       label="Copy"
       hideLabel
+      inputClassName="font-mono"
       postfixRenderer={isSupported() ? (
         <button onClick={() => copy(text)} className="p-2">
           <svg width={18} height={18} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

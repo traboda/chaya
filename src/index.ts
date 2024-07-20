@@ -69,5 +69,5 @@ export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
 
 
-// depreciated
+// deprecated
 export { default as DSRContextProvider } from './components/ChayaProvider';

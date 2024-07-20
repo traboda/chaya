@@ -16,8 +16,9 @@
     </div>
 </div>
 
-Chaya features a collection of data-first reusable components and utility functions for React that can help you 
-to design a consistent, modern and accessible SaaS applications in speed.
+Chaya UI provides a wide range of modern, data-first components that help you build your SaaS applications faster,
+and with less code. Our components are designed to be minimal, modern, and fully accessible, and are built on top
+of best-in-class tools/libraries like **TypeScript**,  **Tailwind CSS**,  **Radix Primitives**, etc.
 
 - 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
@@ -48,39 +49,14 @@ To start using the components, please follow the below steps:
 
     ```tsx
     import { ReactNode } from "react";
-
-    // external libraries for example usecase
-    import Link from 'next/link';
-    import { Search, X } from 'react-feather';
-
     import { ChayaProvider } from 'chaya-ui';
 
     const AppView = ({ children }: { children: ReactNode }) => (
-      <ChayaProvider
-        linkWrapper={(link: string, component: ReactElement) => <Link href={link}>{component}</Link>}
-        theme={{
-          primary: '#019e4b',
-          secondary: '#019e4b',
-          background: '#fff',
-          color: '#333'
-        }}
-        iconWrapper={(icon, props) => ({
-          search: <Search {...props} />,
-          times: <X {...props} />,
-          // ...
-        })[icon] ?? <>n/a</>}
-      >
+      <ChayaProvider>
         {children}
       </ChayaProvider>
     );
     ```
-
-    - `linkWrapper` lets you wrap links with a custom component, for example, `next/link` or `react-router-dom/Link`
-    so that the links are handled by the router of your choice.
-    - `theme` lets you define the primary, secondary, background and color colors for the theme. These colors are used to
-    generate the CSS variables for the theme.
-    - `iconWrapper` lets you wrap icons with a custom component, for example, `react-feather` or `react-icons` so that the icons
-    are rendered by the icon library of your choice.
 
 2. Update your `tailwind.config.js` to process styles for components from `chaya-ui`
 

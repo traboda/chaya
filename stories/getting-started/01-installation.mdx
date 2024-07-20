@@ -21,16 +21,19 @@ To use ChayaUI in your project, run one of the following commands in your termin
                 bodyClassName="px-0 pt-3 pb-0"
                 items={[
                     {
+                        key: 'npm',
                         label: "NPM",
                         icon: () => <img src="https://cdnlogo.com/logos/n/39/npm-square-red.svg" alt="npm version" />,
                         renderer: <SingleLineCodeBlock text={`npm install chaya-ui`} />
                     },
                     {
+                        key: 'yarn',
                         label: "Yarn",
                         icon: () => <img src="https://cdnlogo.com/logos/y/61/yarn.svg" alt="yarn version" />,
                         renderer: <SingleLineCodeBlock text={`yarn add chaya-ui`} />
                     },
                     {
+                        key: 'bun',
                         label: "Bun",
                         icon: () => <img src="https://bun.sh/logo.svg" alt="yarn version" />,
                         renderer: <SingleLineCodeBlock text={`bun install chaya-ui`} />
