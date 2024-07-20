@@ -2,26 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-import mcs from '../utils/merge';
+import mcs from '../../utils/merge';
 
-export type AccordionProps = {
-  title: string | React.ReactNode,
-  text?: (string | React.ReactNode),
-  children?: (isOpen: boolean, onClose: () => void) => React.ReactNode,
-  isOpen?: boolean,
-  onChange?: () => void,
-  id?: string,
-  className?: string,
-  titleClassName?: string,
-  bodyClassName?: string,
-  isDisabled?: boolean,
-  isLocked?: boolean,
-};
+import { AccordionProps } from './Accordion.types';
 
 const Accordion = ({
-  title, children, text, isOpen: _isOpen, onChange = () => {}, id,
-  isDisabled = false, isLocked = false,
-  className = '', titleClassName = '', bodyClassName = '',
+  title, children, isOpen: _isOpen, onChange = () => {}, id,
+  isDisabled = false, isLocked = false, className = '', titleClassName = '', bodyClassName = '',
 }: AccordionProps) => {
 
   const [isOpen, setOpen] = useState(isDisabled ? false : _isOpen ?? false);
@@ -74,7 +61,7 @@ const Accordion = ({
           isOpen ? mcs(['opacity-100 h-auto py-3', bodyClassName]) : '',
         ])}
       >
-        {typeof children === 'function' ? children(isOpen, () => setOpen(false)) : isOpen ? text : null}
+        {children(isOpen, () => setOpen(false))}
       </div>
     </div>
   );

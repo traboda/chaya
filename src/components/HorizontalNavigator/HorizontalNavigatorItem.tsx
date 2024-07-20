@@ -4,39 +4,20 @@ import clsx from 'clsx';
 
 import { cva, cx } from '../../utils/cva';
 import { LinkWrapper } from '../../utils/misc';
-import Icon, { IconInputType } from '../Icon';
-import Badge, { BaseBadgeProps } from '../Badge';
+import Icon from '../Icon';
+import Badge from '../Badge';
 import {
-  colorVariantMapper, ChayaColorType,
+  colorVariantMapper,
   MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
 } from '../../utils/classMaps/colors';
 
-export type HorizontalNavigatorItemType = {
-  key: string,
-  label: string,
-  link?: string,
-  onClick?: () => void,
-  icon?: IconInputType,
-  labelClassName?: string,
-  className?: string,
-  isDisabled?: boolean,
-  isHidden?: boolean,
-  badge?: React.ReactNode,
-  badgeProps?: BaseBadgeProps,
-};
+import {
+  HorizontalNavigatorItemProps,
+  HorizontalNavigatorItemType,
+  HorizontalNavigatorVariantType,
+} from './HorizontalNavigatorItem.types';
 
-export type HorizontalNavigatorVariantType = 'pill' | 'line' | 'boxed' | 'minimal';
 
-export type HorizontalNavigatorItemProps = {
-  item: HorizontalNavigatorItemType,
-  navigatorID: string,
-  variant?: HorizontalNavigatorVariantType,
-  color?: ChayaColorType,
-  activeItem?: string | null,
-  badgeProps?: BaseBadgeProps,
-  className?: string,
-  onClickItem?: (key: string, item: HorizontalNavigatorItemType) => void,
-};
 
 const HorizontalNavigatorItem = ({
   item, activeItem, badgeProps, variant = 'pill', className, navigatorID, onClickItem = () => {}, color = 'primary',

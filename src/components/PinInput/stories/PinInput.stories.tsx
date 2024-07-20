@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import PinInput, { PinInputProps } from '../../../src/components/PinInput';
-import Button from '../../../src/components/Button';
+import PinInput from '../PinInput';
+import { PinInputProps } from '../PinInput.types';
+import Button from '../../Button/Button';
 
 const meta: Meta<PinInputProps> = {
   title: 'Components/Inputs/PinInput',

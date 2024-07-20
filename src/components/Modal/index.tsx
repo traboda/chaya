@@ -4,11 +4,10 @@ import clsx from 'clsx';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
-import Icon, { IconInputType } from '../Icon';
 import mcs from '../../utils/merge';
-import { ButtonProps } from '../Button/type';
+import Icon, { IconInputType } from '../Icon';
+import Button, { ButtonProps } from '../Button';
 
-import Button from './../Button';
 import modalStyles from './modal.module.scss';
 
 export type ModalProps = {

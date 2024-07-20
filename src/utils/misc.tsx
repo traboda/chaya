@@ -2,8 +2,8 @@ import React from 'react';
 
 import ChayaContext from '../contexts/ChayaContext';
 import Spinner from '../components/Spinner';
-import { ButtonSizesType } from '../components/Button/type';
- 
+import { ButtonSizesType } from '../components/Button';
+
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');
 export type LinkRelType = (
     'noopener' | 'noreferrer' | 'noopener noreferrer' | 'alternate' | 'author' | 'bookmark' |

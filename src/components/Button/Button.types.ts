@@ -8,7 +8,6 @@ export type ButtonSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonVariantsType = 'solid' | 'outline' | 'minimal' | 'link';
 
 interface ButtonPropsInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** prop1 description */
   variant?: ButtonVariantsType,
   color?: ChayaColorType,
   size?: ButtonSizesType,

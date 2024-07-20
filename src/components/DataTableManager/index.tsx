@@ -7,8 +7,7 @@ import Button from '../Button';
 import SearchBox from '../SearchBox';
 import DropdownFilter from '../DropdownFilter';
 import { IconInputType } from '../Icon';
-import { HorizontalNavigatorItemType } from '../HorizontalNavigator/item';
-import HorizontalNavigator from '../HorizontalNavigator';
+import HorizontalNavigator, { HorizontalNavigatorItemType } from '../HorizontalNavigator';
 
 import DataTableManagerFilters, { DataTableFilterConfig, FilterInputs } from './filters';
 

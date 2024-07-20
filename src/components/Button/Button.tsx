@@ -12,8 +12,8 @@ import {
 } from '../../utils/classMaps/colors';
 import mcs from '../../utils/merge';
 
-import buttonStyle from './button.module.scss';
-import { ButtonProps, ButtonVariantsType } from './type';
+import buttonStyle from './Button.module.scss';
+import { ButtonProps, ButtonVariantsType } from './Button.types';
 import Ripple from './Ripple';
 
 const iconSizes = {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import Radio, { RadioProps } from '../../../src/components/Radio';
+import Radio from '../Radio';
+import { RadioProps } from '../Radio.types';
 
 const meta: Meta<RadioProps<string | number>> = {
   title: 'Components/Inputs/Radio',

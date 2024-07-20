@@ -1,8 +1,9 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import HorizontalNavigator, { HorizontalNavigatorProps } from '../../../src/components/HorizontalNavigator';
-import { HorizontalNavigatorItemType } from '../../../src/components/HorizontalNavigator/item';
+import HorizontalNavigator from '../HorizontalNavigator';
+import { HorizontalNavigatorItemType } from '../HorizontalNavigatorItem.types';
+import { HorizontalNavigatorProps } from '../HorizontalNavigator.types';
 
 const meta: Meta<HorizontalNavigatorProps> = {
   title: 'Components/Navigation/HorizontalNavigator',

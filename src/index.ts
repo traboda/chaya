@@ -18,18 +18,16 @@ export { default as Drawer, DrawerProps } from './components/Drawer';
 export { default as Switch, SwitchProps } from './components/Switch';
 export { default as Banner, BannerProps } from './components/Banner';
 export { default as Avatar, AvatarProps } from './components/Avatar';
-export { default as Button } from './components/Button';
-export { ButtonProps } from './components/Button/type';
+export { default as Button, ButtonProps } from './components/Button';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
 export { default as DateTimeInput, DateTimeInputProps } from './components/DateTimeInput';
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
-export { default as HorizontalNavigator, HorizontalNavigatorProps } from './components/HorizontalNavigator';
-export { HorizontalNavigatorItemType } from './components/HorizontalNavigator/item';
+export { default as HorizontalNavigator, HorizontalNavigatorProps, HorizontalNavigatorItemType } from './components/HorizontalNavigator';
 
-export { default as HoverCard } from './components/HoverCard';
+export { default as Popover, PopoverProps } from './components/Popover';
 export { default as TextInput, TextInputProps } from './components/TextInput';
 export { default as SearchBox, SearchBoxProps } from './components/SearchBox';
 export { default as RadioGroup, RadioGroupProps } from './components/RadioGroup';
@@ -69,6 +67,7 @@ export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
 
 
-// deprecated - renamed
-export { default as DateTimePicker, DateTimeInputProps as DateTimePickerProps } from './components/DateTimeInput';
-export { default as DSRContextProvider } from './components/ChayaProvider';
+// deprecated
+export { default as HoverCard } from './legacy/HoverCard';
+export { default as DateTimePicker, DateTimePickerProps } from './legacy/DateTimePicker';
+export { default as DSRContextProvider } from './legacy/DSRContextProvider';

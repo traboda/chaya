@@ -2,9 +2,9 @@ import React from 'react';
 
 import mcs from '../../utils/merge';
 
-import pinInputStyle from './pinInput.module.scss';
+import styles from './PinDigit.module.scss';
 
-type PinDigitProps = {
+export type PinDigitProps = {
   id?: string,
   mask?: boolean,
   type?: string,
@@ -19,7 +19,6 @@ type PinDigitProps = {
   className?: string,
   variant?: 'minimal' | 'classic',
 };
-
 
 const PinDigit = ({
   type = 'text', id, ariaLabelledBy, mask = false, value, onChange,
@@ -36,7 +35,7 @@ const PinDigit = ({
       variant === 'minimal' ? 'border-b-2 bg-transparent focus:border-primary' : 'py-1.5 rounded-lg border focus:border-primary bg-background-lighten-1 shadow-inner',
       className,
       isInvalid ? 'border-red-500' : 'dark:border-neutral-500/70 border-neutral-500/20',
-      type === 'number' && pinInputStyle.hideStepper,
+      type === 'number' && styles.hideStepper,
     ])}
     type={mask ? 'password' : type}
     value={value}

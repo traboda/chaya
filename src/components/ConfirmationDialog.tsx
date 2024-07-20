@@ -5,9 +5,8 @@ import clsx from 'clsx';
 import mcs from '../utils/merge';
 
 import Modal from './Modal';
-import Button from './Button';
+import Button, { ButtonProps } from './Button';
 import TextInput from './TextInput';
-import { ButtonProps } from './Button/type';
 
 export type ConfirmationDialogProps = {
   labels: {

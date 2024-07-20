@@ -1,26 +1,11 @@
 'use client';
-import React, { forwardRef, KeyboardEvent } from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import mcs from '../../utils/merge';
 
-import styled from './radio.module.scss';
-
-export type RadioColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
-export type RadioSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-export type RadioProps<Type> = {
-  label: string,
-  value: Type,
-  tabIndex?: number,
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void,
-  onChange?: (value: Type) => void,
-  color?: RadioColor,
-  size?: RadioSize,
-  isDisabled?: boolean,
-  isSelected?: boolean,
-  className?: string
-};
+import styles from './radio.module.scss';
+import { RadioProps } from './Radio.types';
 
 const colors = {
   'primary': 'bg-primary',
@@ -78,7 +63,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(({
           'inline-flex items-center justify-center flex-shrink-0',
           'border-none rounded-full text-white transition',
           sizes[size]?.button,
-          isSelected ? styled.radioButton : '',
+          isSelected ? styles.radioButton : '',
           isSelected ? colors[color] : 'dark:bg-white/20 bg-gray-500/20',
           isFocused && 'ring-2 ring-white ring-offset-1 ring-offset-gray-900',
         ])}
