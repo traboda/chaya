@@ -7,6 +7,8 @@ export { default as Alert, AlertProps } from './components/Alert';
 export { default as Icon } from './components/Icon';
 export { default as Card, CardProps } from './components/Card';
 export { default as Tabs, TabsProps } from './components/Tabs';
+export { default as DataTable, DataTableProps } from './components/DataTable';
+export { default as DataTableManager, DataTableManagerProps } from './components/DataTableManager';
 export { default as Modal, ModalProps } from './components/Modal';
 export { default as Badge, BadgeProps } from './components/Badge';
 export { default as Label, LabelProps } from './components/Label';
@@ -20,9 +22,7 @@ export { default as Button } from './components/Button';
 export { ButtonProps } from './components/Button/type';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
-export { default as DataTable, DataTableProps } from './components/DataTable';
-export { default as DataTableManager, DataTableManagerProps } from './components/DataTableManager';
-export { default as DateTimePicker, DateTimePickerProps } from './components/DateTimePicker';
+export { default as DateTimeInput, DateTimeInputProps } from './components/DateTimeInput';
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
@@ -69,5 +69,6 @@ export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
 
 
-// deprecated
+// deprecated - renamed
+export { default as DateTimePicker, DateTimeInputProps as DateTimePickerProps } from './components/DateTimeInput';
 export { default as DSRContextProvider } from './components/ChayaProvider';

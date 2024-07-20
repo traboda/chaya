@@ -29,14 +29,14 @@ const preview: Preview = {
       dark: {
         ...themes.dark,
         brandTitle: 'Chaya UI',
-        brandUrl: 'https://chaya.traboda.com',
+        brandUrl: 'https://storybook.chaya-ui.com',
         brandImage: 'chaya-white-logo.svg',
         brandTarget: '_self',
       },
       light: {
         ...themes.normal,
         brandTitle: 'Chaya UI',
-        brandUrl: 'https://chaya.traboda.com',
+        brandUrl: 'https://storybook.chaya-ui.com',
         brandImage: 'chaya-black-logo.svg',
         brandTarget: '_self',
       }

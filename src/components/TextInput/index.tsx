@@ -36,9 +36,9 @@ export interface TextInputProps<Type extends string | number> extends TextInputB
   min?: number
   max?: number
   spellCheck?: boolean,
-  autoComplete?: ('off' | 'on' | 'email' | 'current-password' | 'username')
-  autoCorrect?: ('off' | 'on')
-  autoCapitalize?: ('off' | 'on')
+  autoComplete?: 'off' | 'on' | 'email' | 'current-password' | 'username'
+  autoCorrect?: 'off' | 'on'
+  autoCapitalize?: 'off' | 'on'
   onFocus?: (event: FocusEvent) => void
   onBlur?: (event: FocusEvent) => void
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void,

@@ -7,11 +7,11 @@ import mcs from '../utils/merge';
 
 import Label from './Label';
 
-export type DateTimePickerProps = {
+export type DateTimeInputProps = {
+  //* time in ISO timestamp format */
+  value: string | null
   name: string
   label: string
-  // time in ISO timestamp
-  value?: string
   id?: string
   className?: string
   inputClassName?: string
@@ -25,10 +25,10 @@ export type DateTimePickerProps = {
 
 const getUnixZero = () => '1970-01-01T00:00:00.000Z';
 
-const DateTimePicker = ({
+const DateTimeInput = ({
   name, label, value, min, max, onChange = () => {}, isRequired = false, hideLabel = false,
   id, className, inputClassName, isDisabled = false,
-}: DateTimePickerProps) => {
+}: DateTimeInputProps) => {
 
   const [supported, setSupported] = useState(true);
   const [date, setDate] = useState<string | null>(null);
@@ -137,4 +137,4 @@ const DateTimePicker = ({
 
 };
 
-export default DateTimePicker;
+export default DateTimeInput;

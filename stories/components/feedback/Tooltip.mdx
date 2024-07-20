@@ -1,0 +1,22 @@
+import { Meta, Primary, Title, Controls } from '@storybook/blocks';
+import * as TooltipStories from "./Tooltip.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/Tooltip"
+    of={TooltipStories}
+/>
+
+<Title>Tooltip</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Tooltip } from 'chaya-ui';`} />
+</div>
+
+This component is built on top of [Radix Tooltip](https://www.radix-ui.com/primitives/docs/components/tooltip)
+
+<Primary />
+
+## Props
+
+<Controls />

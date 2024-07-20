@@ -40,129 +40,19 @@ of best-in-class tools/libraries like **TypeScript**,  **Tailwind CSS**,  **Radi
 While designing Chaya UI, our goal was to abstract away as much code and complexity as possible from the downstream
 applications, while still providing a powerful and flexible set of tools for building interfaces downstream.
 
-### Data-First Approach
+Here are some highlights:
+- **Data first Approach** - Lesser composition & client-side code
+- **Type-Safety & Built-in Documentation**
+- **Styling** - Tailwind (compiled at client), styling props like - `variant`, `size`, `color`, and props for adding styles, classNames
+- **Theming** - Custom Themes, Dark/Light Mode
+- **Accessibility** - Uses Radix Primitives, Keyboard Navigation, Works with Screen Readers
 
-Our components are opinionated to be data-first, which means that they can consume data directly, without needing
-extra components or mapping functions. This makes it easier to consume data from APIs, and reduces the amount of
-boilerplate code that you need to write (less composition, more flexible / powerful base components).
+[Click here](/docs/features-overview--docs) to read more about features & design choices we made for Chaya.
 
-For example, this is how you would normally create a select input with other popular libraries  -
-```jsx
-<Label>Select Item</Label>
-<Select placeholder="Select">
-  {data.map((item) => (
-    <option key={item.id} value={item.id}>{item.name}</option>
-  ))}
-</Select>
-```
+## Installation
 
-In Chaya, the same code would look like this -
-```jsx
-<SimpleSelect
-    label="Select Item"
-    placeholder="Select"
-    items={data.map((i) => ({ label: i.name, value: i.id }))}
-/>
-```
+[Click here](/docs/features-overview--docs) for viewing instructions to install & setup Chaya into your projects.
 
-This design choice and approach becomes even more obvious with more complex components like Tables, where you
-normally would -
-```tsx
-<TableContainer>
-  <Table variant='simple'>
-    <Thead>
-      <Tr>
-        <Th>To convert</Th>
-        <Th>into</Th>
-        <Th isNumeric>multiply by</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      <Tr>
-        <Td>inches</Td>
-        <Td>millimetres (mm)</Td>
-        <Td isNumeric>25.4</Td>
-      </Tr>
-    </Tbody>
-  </Table>
-</TableContainer>
-```
+## License
 
-With ChayaUI, this becomes -
-
-```tsx
-<DataTable
-    properties={[
-        { label: 'To convert', key: 'from', value: (i) => i.from },
-        { label: 'into', key: 'to', value: (i) => i.to },
-        { label: 'multiply by', key: 'factor', textAlign: 'right', value: (i) => i.factor },
-    ]}
-    data={[
-        { id: '1', from: 'inches', to: 'millimetres (mm)', factor: 25.4 },
-    ]}
-/>
-```
-
-Because we use typescript generics, you can be sure that the data you pass into the components is correct, and
-`value: (i) => i.from` will be type-checked against the data you pass in, and in-fact you will get auto-complete
-for not just the props, or `properties`, but also for the value `i`.
-
-We do not claim that our approach is better than the other, but it is certainly different, and for us
-it has been more convenient and less error-prone. We follow this approach consistently across all our components,
-and **rarely have sub-components that need to be used in conjunction with the main component**.
-
-We, thus, **do not follow the principle of composition**, which we understand is an anti-pattern in React,
-but we believe that it is a trade-off we make.
-
-### Type-Safety & Built-in Documentation
-
-Chaya UI is built with TypeScript, which means that you can be sure that your components are used correctly, and
-that data is passed into and out of the components correctly with type-safety.
-
-It can be often difficult to learn a new component library and understand its API. Thanks to TypeScript, and
-`react-docgen-typescript`, and our simple and consistent API, you can easily understand the API of each component.
-We also accept and use typescript generics for our components so that our callbacks and props are type-safe.
-
-
-### Styling
-
-All styling in Chaya UI is done with **Tailwind CSS**, which is a utility-first CSS framework that allows you to build
-beautiful and responsive interfaces with minimal CSS. Our components are designed to be minimal and modern, and
-are designed to be easy to be overridden with in-built props such as `variant`, `size`, `color` etc., your own
-custom tailwind classes, or your own CSS overrides.
-
-All our components expose atleast one `className` prop, which allows you to add your own custom tailwind classes,
-and many expose more specific `className` props that allow you to style the component in a more granular way.
-We sometimes also expose `style` props, which allow you to add your own custom CSS styles.
-
-We let you _*compile the tailwind CSS for the components in your downstream application*_, so that you can customize
-and override the styles as you see fit.
-
-### Theming
-
-ChayaUI supports **Runtime Theming** out of the box. You can easily change the theme of your application at runtime
-(such as based on tenant, user preferences, etc) by changing the theme object that you pass to the `ThemeProvider`,
-and all the components will automatically update to reflect the new theme.
-
-ChayaUI also of-course supports **Dark Mode** out of the box, but goes a step further by integrating it with the
-theme, and **automatically deciding whether the UI must be in dark or light scheme based on the theme colors**. All
-components are designed to work well in both light and dark color themes.
-
-Such as if your theme has a dark background color, the text color will automatically switch to white, and vice-versa.
-We do not require you to pass any additional props to enable dark mode, it just works out of the box, based on
-the theme colors.
-
-If you need a switch to toggle dark mode in your application, simply switch the theme colors provided to the
-`ThemeProvider`, and the components will automatically switch to the appropriate mode.
-
-
-### Accessibility
-
-Chaya UI is built on top of **Radix Primitives**, which provides a solid foundation for building accessible
-and responsive components.
-
-We have used native HTML elements and attributes, whenever available and appropriate, instead of purely styling
-generic html elements, which makes our components more accessible.
-
-Our components also support **Keyboard Navigation**, and **Screen Readers**, and have been written with
-correct ARIA attributes and semantics.
+This project is licensed under the [GNU General Public License V3](LICENSE).
