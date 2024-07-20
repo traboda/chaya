@@ -33,3 +33,20 @@ export const Primary: Story = {
     ),
   },
 };
+
+export const WithArrow: Story = {
+  tags: ['unlisted'],
+  args: {
+    showArrow: true,
+    overlay: (
+      <div>
+        Tooltip points to its trigger
+      </div>
+    ),
+    children: (
+      <div>
+        Hover for Tooltip with Arrow
+      </div>
+    ),
+  },
+};

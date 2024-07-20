@@ -10,8 +10,8 @@
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint-fix": "eslint --fix src/ --ext .ts,.tsx",
     "watch-tailwind": "npm run tailwind -- --watch",
-    "dev": "npm run build-tailwind && storybook dev -p 6006",
-    "build-storybook": "concurrently \"npm run watch-tailwind\" \"storybook build\"",
+    "dev": "concurrently \"npm run watch-tailwind\" \"storybook dev -p 6006\"",
+    "build-storybook": "npm run build-tailwind && storybook build",
     "type-check": "tsc --noEmit --emitDeclarationOnly false",
     "storybook": "storybook dev -p 6006"
   },
