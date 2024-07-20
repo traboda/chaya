@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import mcs from '../../utils/merge';
 
-import styles from './radio.module.scss';
+import styles from './Radio.module.scss';
 import { RadioProps } from './Radio.types';
 
 const colors = {

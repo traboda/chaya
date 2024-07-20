@@ -18,6 +18,6 @@ type Story = StoryObj<AccordionProps>;
 export const Primary: Story = {
   args: {
     title: 'How do you install ChayaUI?',
-    text: 'Run `npm install chaya-ui` in your project directory.',
+    children: 'Run `npm install chaya-ui` in your project directory.',
   },
 };

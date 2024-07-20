@@ -61,7 +61,7 @@ const Accordion = ({
           isOpen ? mcs(['opacity-100 h-auto py-3', bodyClassName]) : '',
         ])}
       >
-        {children(isOpen, () => setOpen(false))}
+        {typeof children === 'function' ? children(isOpen, () => setOpen(false)) : children}
       </div>
     </div>
   );

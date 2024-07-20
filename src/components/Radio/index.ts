@@ -1,4 +1,4 @@
 import Radio from './Radio';
-export { RadioProps } from './Radio.types';
+export { type RadioProps, type RadioColor, type RadioSize } from './Radio.types';
 
 export default Radio;
