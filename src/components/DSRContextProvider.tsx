@@ -51,28 +51,27 @@ const ThemeScript = memo(
 
     const getScriptSrc = () => {
       const css = generateCSS();
-      return `
+
         var style = document.getElementById('theme-style');
         if (!style) {
           style = document.createElement('style');
           style.id = 'theme-style';
           document.head.appendChild(style);
         }
-        style.innerHTML = \`:root { ${css} }\`;
+        style.innerHTML = `:root { ${css} }`;
 
-        if (${isDarkTheme}) {
+        if (isDarkTheme) {
           document.body.classList.add("dark");
         } else {
           document.body.classList.remove("dark");
         }
-      `;
     };
 
     useEffect(() => {
       const script = document.getElementById('theme-script');
 
       if (script) {
-        eval(`!function(){${getScriptSrc()}}();`);
+        getScriptSrc();
       }
     }, [theme]);
 
