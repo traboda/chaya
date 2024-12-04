@@ -83,9 +83,9 @@ const ThemeScript = memo(
         style.innerHTML = `:root { ${css} }`;
 
         if (isDarkTheme) {
-          document.body.classList.add("dark");
+          document.body.classList.add('dark');
         } else {
-          document.body.classList.remove("dark");
+          document.body.classList.remove('dark');
         }
       }
     }, [theme]);
