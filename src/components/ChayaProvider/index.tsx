@@ -73,9 +73,20 @@ const ThemeScript = memo(
       const script = document.getElementById('theme-script');
 
       if (script) {
-        eval(`!function () {
-            ${getScriptSrc()}
-        }();`);
+        const css = generateCSS();
+        var style = document.getElementById('theme-style');
+        if (!style) {
+          style = document.createElement('style');
+          style.id = 'theme-style';
+          document.head.appendChild(style);
+        }
+        style.innerHTML = `:root { ${css} }`;
+
+        if (isDarkTheme) {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
       }
     }, [theme]);
 
