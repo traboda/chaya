@@ -1,0 +1,45 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/blocks';
+import * as ButtonStories from "./Button.stories";
+import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/Button"
+    of={ButtonStories}
+/>
+
+<Title>Button</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Button } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Variants
+
+Buttons component comes in 3 variants: `solid`, `minimal` and `outline`. The default variant is `solid`.
+
+### Solid (Default)
+
+<Story of={ButtonStories.SolidVariant} />
+
+### Minimal
+
+<Story of={ButtonStories.MinimalVariant} />
+
+### Outline
+
+<Story of={ButtonStories.OutlineVariant} />
+
+
+### Link
+
+<Story of={ButtonStories.LinkVariant} />
+
+## Sizes
+
+<Story of={ButtonStories.ButtonSizes} />
+
+## API
+
+<ArgTypes />

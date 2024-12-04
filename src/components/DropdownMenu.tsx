@@ -37,21 +37,23 @@ export type DropdownMenuProps = {
   id?: string,
   containerClassName?: string,
   customHeaderRenderer?: () => React.ReactNode,
+  customFooterRenderer?: () => React.ReactNode,
   align?: AlignOptions,
   side?: SideOptions
 };
 
 const DropdownMenu = ({
   children: buttonRenderer, options, isOpen = false, onClose = () => {}, id,
-  containerClassName, customHeaderRenderer, align = 'center', side = 'bottom',
+  containerClassName, customHeaderRenderer, customFooterRenderer, align = 'center', side = 'bottom',
 } : DropdownMenuProps) => {
+
   const linkClasses = (className?: string) => mcs([
     'flex rounded-lg transition px-2.5 py-1.5 w-full text-left',
     'hover:bg-gray-400/20 focus:bg-gray-400/20 focus:outline-none',
     className,
   ]);
 
-  const optionRenderer: (o: OptionType, index: number) => React.ReactNode = (o, index) => {
+  const optionRenderer: (o: OptionType) => React.ReactNode = (o) => {
     const content = o?.renderer ? o.renderer() : (
       <div className="flex items-center text-left text-sm gap-2">
         {o.icon && <Icon icon={o.icon} size={14} />}
@@ -66,12 +68,9 @@ const DropdownMenu = ({
         className={mcs(['dropdown-menu-item cursor-pointer', linkClasses(o?.className)])}
       >
         {content}
-      </RadixDropdownMenu.Item>, {
-        className: 'w-full', key: `dropdown-menu-item-${index}-${o?.title}`,
-      }) : (
+      </RadixDropdownMenu.Item>, { className: 'w-full' }) : (
         <RadixDropdownMenu.Item
           role="menuitem"
-          key={`dropdown-menu-item-${index}-${o?.title}`}
           className={mcs([
             'dropdown-menu-item', 'cursor-pointer',
             linkClasses(o?.className),
@@ -83,25 +82,26 @@ const DropdownMenu = ({
     );
   };
 
-  const groupRenderer: (g: GroupType, index: number) => React.ReactNode = (g, index) => {
-    return (
-      <RadixDropdownMenu.Group
-        key={`dropdown-menu-group-${index}-${g?.title || ''}`}
-        className={clsx([
-          'pb-1',
-          'border-b dark:border-gray-500/70 border-gray-500/10',
-        ])}
-      >
-        {g?.title && (
-          <div className="opacity-80 flex items-center uppercase px-1 text-xs my-2">
-            {g.icon && <Icon className="inline-block mr-1" icon={g.icon} size={12} />}
-            {g?.title}
-          </div>
-        )}
-        {g?.options.filter((o) => !o.isHidden).map((o, i) => optionRenderer(o, i))}
-      </RadixDropdownMenu.Group>
-    );
-  };
+  const groupRenderer: (g: GroupType) => React.ReactNode = (g) => (
+    <RadixDropdownMenu.Group
+      className={clsx([
+        'pb-1',
+        'border-b dark:border-gray-500/70 border-gray-500/10',
+      ])}
+    >
+      {g?.title && (
+      <div className="opacity-80 flex items-center uppercase px-1 text-xs my-2">
+        {g.icon && <Icon className="inline-block mr-1" icon={g.icon} size={12} />}
+        {g?.title}
+      </div>
+      )}
+      {g?.options.filter((o) => !o.isHidden).map((o, i) => (
+        <React.Fragment key={`dropdown_option_${g.title ?? ''}_${o?.title ?? ''}_${i}`}>
+          {optionRenderer(o)}
+        </React.Fragment>
+      ))}
+    </RadixDropdownMenu.Group>
+  );
 
   return (
     <Dropdown
@@ -118,9 +118,12 @@ const DropdownMenu = ({
       side={side}
     >
       {customHeaderRenderer?.()}
-      {(options && options.length > 0) && options.filter((o) => !o.isHidden).map((o, i) =>
-        'options' in o ? groupRenderer(o, i) : optionRenderer(o, i),
-      )}
+      {(options && options.length > 0) && options.filter((o) => !o.isHidden).map((o, i) => (
+        <React.Fragment key={`dropdown-menu-${'options' in o ? 'group' : 'item'}-${i}-${o?.title || ''}`}>
+          {'options' in o ? groupRenderer(o) : optionRenderer(o)}
+        </React.Fragment>
+      ))}
+      {customFooterRenderer?.()}
     </Dropdown>
   );
 };

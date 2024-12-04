@@ -1,5 +1,6 @@
-import {Meta, Primary, Title, Controls, Canvas, Story} from '@storybook/blocks';
+import {Meta, Primary, Title, ArgTypes, Canvas, Story} from '@storybook/blocks';
 import * as RadioGroupStories from "./RadioGroup.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Inputs/RadioGroup"
@@ -8,13 +9,11 @@ import * as RadioGroupStories from "./RadioGroup.stories";
 
 <Title>RadioGroup</Title>
 
-**`import { RadioGroup } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { RadioGroup } from 'chaya-ui';`} />
+</div>
 
 <Primary />
-
-## Props
-
-<Controls />
 
 ## Alignment
 
@@ -45,3 +44,8 @@ import * as RadioGroupStories from "./RadioGroup.stories";
 ### Single Option Disabled
 
 <Canvas of={RadioGroupStories.OptionDisabled} withToolbar />
+
+
+## API
+
+<ArgTypes />

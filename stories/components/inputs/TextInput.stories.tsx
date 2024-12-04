@@ -1,19 +1,11 @@
-import React, { useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { useMemo, useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { TextInput } from '../../../src';
-import { TextInputProps } from '../../../src/components/TextInput';
+import TextInput, { TextInputProps } from '../../../src/components/TextInput';
 
-const meta: Meta = {
-  title: 'Components/Inputs/Text Input',
+const meta: Meta<TextInputProps<string | number>> = {
+  title: 'Components/Inputs/TextInput',
   component: TextInput,
-  argTypes: {
-    children: {
-      control: {
-        type: 'text',
-      },
-    },
-  },
   parameters: {
     controls: { expanded: true },
   },
@@ -21,62 +13,28 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<TextInputProps<string>> = args => {
-  const [value, setValue] = useState('');
+export type Story = StoryObj<TextInputProps<string | number>>;
 
-  return (
-    <div className="flex gap-4 items-center">
+const DefaultTemplate = (args: TextInputProps<string | number>) => {
+
+  const [value, setValue] = useState(args.value || '');
+
+  const render = useMemo(() => (
+    <div style={{ width: '300px', maxWidth: '100%' }}>
       <TextInput {...args} value={value} onChange={setValue} />
-      <TextInput {...args} value={value} onChange={setValue} isDisabled />
     </div>
-  );
+  ), [value]);
+
+  return render;
 };
 
-export const Default = Template.bind({
+
+export const Primary: Story = {
   args: {
-    label: 'Label',
-    name: 'field-name',
+    label: 'Your Name',
+    value: 'Ashwin',
   },
-});
-
-Default.args = {};
-
-export const WithPostfix = Template.bind({});
-
-WithPostfix.args = {
-  prefixRenderer: <div className="px-2.5">Points</div>,
-  postfixRenderer: <div className="px-2.5">pts</div>,
-};
-
-const InvalidInputsTemplate: Story<TextInputProps<string | number>> = args => (
-  <div style={{ width: '720px', maxWidth: '100%' }}>
-    <div style={{ paddingBottom: '1rem' }}>
-      <div style={{ paddingBottom: '0.5rem' }}>Should be valid</div>
-      <TextInput {...args} label="Email" name="email" type="email" isRequired value="" />
-    </div>
-    <div style={{ paddingBottom: '1rem' }}>
-      <div style={{ paddingBottom: '0.5rem' }}>Input with invalid parameter set</div>
-      <TextInput {...args} label="Password" name="password" type="password" isInvalid value="wrong_password" />
-    </div>
-    <div style={{ paddingBottom: '1rem' }}>
-      <div style={{ paddingBottom: '0.5rem' }}>Number Input with value in invalid range (35 for 1-5)</div>
-      <TextInput {...args} label="Rate (scale of 1-5)" name="rating" type="number" value={35} min={1} max={5} isRequired />
-    </div>
-    <div style={{ paddingBottom: '1rem' }}>
-      <div style={{ paddingBottom: '0.5rem' }}>Email Input with invalid email as value</div>
-      <TextInput {...args} label="Your Email" name="email" type="email" value="as@" />
-    </div>
-  </div>
-);
-
-export const InvalidInputs = InvalidInputsTemplate.bind({});
-
-InvalidInputs.args = {};
-
-export const WithIcons = Template.bind({});
-
-WithIcons.args = {
-  leftIcon: 'search',
-  rightIcon: 'home',
-  isLoading: true,
+  render: (args) => (
+    <DefaultTemplate {...args} />
+  ),
 };

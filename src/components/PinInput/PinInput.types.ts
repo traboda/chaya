@@ -1,0 +1,21 @@
+export type PinInputProps = {
+  value: string,
+  onChange?: (value: string) => void,
+  digits?: number,
+  label?: string,
+  type?: ('text' | 'number'),
+  mask?: boolean,
+  id?: string,
+  className?: string,
+  digitClassName?: string,
+  isInvalid?: boolean,
+  isDisabled?: boolean,
+  isRequired?: boolean,
+  autoFocus?: boolean,
+  labels?: {
+    label?: string,
+    placeholder?: string,
+    invalidLength?: string,
+  },
+  variant?: 'minimal' | 'classic',
+};

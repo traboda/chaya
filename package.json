@@ -1,7 +1,7 @@
 {
   "name": "chaya-ui",
   "version": "1.0.0-beta.87",
-  "description": "Modern, Functional Design System & Components for React",
+  "description": "Modern, Data-First UI Components for React",
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.scss -o ./dist/style.css -c ./tailwind.config.cjs",
     "build-components": "rm -rf dist && rollup -c",
@@ -12,7 +12,8 @@
     "watch-tailwind": "npm run tailwind -- --watch",
     "dev": "concurrently \"npm run watch-tailwind\" \"storybook dev -p 6006\"",
     "build-storybook": "npm run build-tailwind && storybook build",
-    "type-check": "tsc --noEmit --emitDeclarationOnly false"
+    "type-check": "tsc --noEmit --emitDeclarationOnly false",
+    "storybook": "storybook dev -p 6006"
   },
   "contributors": [
     "Ashwin S Shenoy <aswinshenoy65@gmail.com>",
@@ -21,12 +22,12 @@
   ],
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/traboda/chaya/issues"
+    "url": "https://github.com/chaya-ui/chaya-ui/issues"
   },
-  "homepage": "https://github.com/traboda/chaya#readme",
+  "homepage": "https://github.com/chaya-ui/chaya-ui#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/traboda/chaya.git"
+    "url": "git+https://github.com/chaya-ui/chaya-ui.git"
   },
   "keywords": [
     "react",
@@ -36,7 +37,6 @@
     "components",
     "library",
     "design-system",
-    "traboda",
     "chaya-ui"
   ],
   "devDependencies": {
@@ -52,28 +52,26 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.3.0",
     "@rollup/plugin-typescript": "^11.0.0",
-    "@storybook/addon-a11y": "^7.6.4",
-    "@storybook/addon-actions": "^7.6.4",
-    "@storybook/addon-docs": "^7.6.5",
-    "@storybook/addon-essentials": "^7.6.4",
-    "@storybook/addon-interactions": "^7.6.4",
-    "@storybook/addon-links": "^7.6.4",
-    "@storybook/addon-mdx-gfm": "^7.6.4",
-    "@storybook/addon-storysource": "^7.6.4",
-    "@storybook/addon-viewport": "^7.6.4",
-    "@storybook/addons": "^7.6.4",
-    "@storybook/manager-api": "^7.6.4",
-    "@storybook/react": "^7.6.4",
-    "@storybook/react-webpack5": "^7.6.4",
-    "@storybook/testing-library": "^0.2.2",
-    "@storybook/theming": "^7.6.4",
+    "@storybook/addon-a11y": "^8.2.2",
+    "@storybook/addon-docs": "^8.2.2",
+    "@storybook/addon-essentials": "^8.2.2",
+    "@storybook/addon-interactions": "^8.2.2",
+    "@storybook/addon-links": "^8.2.2",
+    "@storybook/addon-storysource": "^8.2.2",
+    "@storybook/addon-themes": "^8.2.2",
+    "@storybook/blocks": "^8.2.2",
+    "@storybook/react": "^8.2.2",
+    "@storybook/react-vite": "^8.2.2",
+    "@storybook/test": "^8.2.2",
+    "@storybook/theming": "^8.2.2",
     "@types/color": "^3.0.3",
     "@types/papaparse": "^5.3.14",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/webappsec-credential-management": "^0.6.4",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "autoprefixer": "^10.4.19",
     "babel-loader": "^8.3.0",
     "clsx": "^1.2.1",
     "color": "^4.2.3",
@@ -84,12 +82,13 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.32.1",
-    "eslint-plugin-storybook": "^0.6.15",
+    "eslint-plugin-storybook": "^0.8.0",
     "flatten-anything": "^3.0.5",
     "immer": "^9.0.21",
     "loadash": "^1.0.0",
     "papaparse": "^5.4.1",
     "postcss": "^8.4.21",
+    "postcss-nesting": "^12.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-waypoint": "^10.3.0",
@@ -100,13 +99,14 @@
     "rollup-plugin-preserve-directives": "^0.2.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
-    "storybook": "^7.6.4",
-    "storybook-dark-mode": "^3.0.3",
+    "storybook": "^8.2.2",
     "style-loader": "^3.3.1",
     "tailwind-merge": "^2.1.0",
     "tailwindcss": "^3.2.4",
     "ts-deepmerge": ">=2.0.2",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "storybook-dark-mode": "^4.0.2",
+    "vite": "^5.3.3"
   },
   "peerDependencies": {
     "react": "^18.2.0",

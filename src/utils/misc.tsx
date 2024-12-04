@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DSRContext from '../contexts/DSRContext';
+import ChayaContext from '../contexts/ChayaContext';
 import Spinner from '../components/Spinner';
-import { ButtonSizesType } from '../components/Button/type';
- 
+import { ButtonSizesType } from '../components/Button';
+
 export type LinkTargetType = ('_blank' | '_self' | '_parent' | '_top');
 export type LinkRelType = (
     'noopener' | 'noreferrer' | 'noopener noreferrer' | 'alternate' | 'author' | 'bookmark' |
@@ -31,7 +31,7 @@ export type LinkOptions = {
 };
 
 export const LinkWrapper = (link: string, component: React.ReactNode, options?: LinkOptions) => (
-  <DSRContext.Consumer>
+  <ChayaContext.Consumer>
     {({ linkWrapper }) => {
       return linkWrapper ? linkWrapper(
         link,
@@ -61,5 +61,5 @@ export const LinkWrapper = (link: string, component: React.ReactNode, options?: 
         </a>,
       ) : null;
     }}
-  </DSRContext.Consumer>
+  </ChayaContext.Consumer>
 );

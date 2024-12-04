@@ -1,0 +1,98 @@
+import {Meta, Unstyled, } from "@storybook/blocks";
+import Tabs from "../../src/components/Tabs";
+import Card from "../../src/components/Card";
+import SingleLineCodeBlock from "../common/SingleLineCodeBlock";
+
+<Meta title="Getting Started/Installation"  />
+
+# Installation
+
+
+## Install Package
+
+To use ChayaUI in your project, run one of the following commands in your terminal:
+
+<Unstyled>
+    <div className="container w-[640px] max-w-full">
+        <Card>
+            <Tabs
+                variant="line"
+                color="primary"
+                bodyClassName="px-0 pt-3 pb-0"
+                items={[
+                    {
+                        key: 'npm',
+                        label: "NPM",
+                        icon: () => <img src="https://cdnlogo.com/logos/n/39/npm-square-red.svg" alt="npm version" />,
+                        renderer: <SingleLineCodeBlock text={`npm install chaya-ui`} />
+                    },
+                    {
+                        key: 'yarn',
+                        label: "Yarn",
+                        icon: () => <img src="https://cdnlogo.com/logos/y/61/yarn.svg" alt="yarn version" />,
+                        renderer: <SingleLineCodeBlock text={`yarn add chaya-ui`} />
+                    },
+                    {
+                        key: 'bun',
+                        label: "Bun",
+                        icon: () => <img src="https://bun.sh/logo.svg" alt="yarn version" />,
+                        renderer: <SingleLineCodeBlock text={`bun install chaya-ui`} />
+                    },
+                ]}
+            />
+        </Card>
+    </div>
+</Unstyled>
+
+
+## Configure Provider
+
+After installing ChayaUI, you need to set up the ChayaProvider at the root of your application. This can be either in
+your `index.tsx`, `App.tsx` etc. depending on the framework you use.
+
+```tsx
+import * as React from 'react'
+
+// 1. import `ChayaProvider` component
+import { ChayaProvider } from 'chaya-ui'
+
+function App() {
+  // 2. Wrap ChayaProvider at the root of your app
+  return (
+    <ChayaProvider>
+      <YourActualApplication />
+    </ChayaProvider>
+  )
+}
+```
+
+You can configure the ChayaProvider with the following props:
+- `theme` - The theme object to be used in the application
+- `linkWrapper` - A function that wraps the link components, useful for routing libraries like `react-router-dom`, `next/link` etc.
+- `iconWrapper` - A function that wraps the icon components, useful for icon libraries like `react-icons`, `react-feather` etc.
+
+
+## Add Tailwind Config
+
+ChayaUI uses TailwindCSS for styling, but does not compile or bundle the styles by default. You need to add the ChayaUI
+source files to your `tailwind.config.js` to process the styles. Further, you should extend the ChayaUI theme in your
+`tailwind.config.js` to customize the theme.
+
+```js
+// 1. import the chaya-ui theme
+const theme = require('chaya-ui/tailwind-theme');
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+ content: [
+     // 2. add the path to the chaya-ui source files
+     'node_modules/chaya-ui/**/*.js',
+     // rest of your content paths
+ ],
+ // ...
+ theme: {
+     extend: theme,
+ },
+ // ...
+};
+```

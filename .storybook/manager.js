@@ -1,4 +1,5 @@
 import { addons } from '@storybook/manager-api';
+import './manager.css';
 
 addons.setConfig({
     isFullscreen: false,
@@ -9,7 +10,7 @@ addons.setConfig({
     showToolbar: true,
     initialActive: 'sidebar',
     sidebar: {
-        showRoots: false,
+        showRoots: true,
         collapsedRoots: ['other'],
         filters: {
             patterns: (item) => {

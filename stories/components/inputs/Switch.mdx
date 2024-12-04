@@ -1,0 +1,24 @@
+import {Meta, Primary, Title, ArgTypes, Story} from '@storybook/blocks';
+import * as SwitchStories from "./Switch.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/Switch"
+    of={SwitchStories}
+/>
+
+<Title>Switch</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Switch } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Colors
+
+<Story of={SwitchStories.Colors} />
+
+## API
+
+<ArgTypes />

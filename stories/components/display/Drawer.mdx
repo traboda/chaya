@@ -1,0 +1,20 @@
+import {Meta, Title, ArgTypes, Primary} from '@storybook/blocks';
+import * as DrawerStories from "./Drawer.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/Drawer"
+    of={DrawerStories}
+/>
+
+<Title>Drawer</Title>
+
+<div className="w-[480px] max-w-full">
+    <SingleLineCodeBlock text={`import { Drawer } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## API
+
+<ArgTypes />

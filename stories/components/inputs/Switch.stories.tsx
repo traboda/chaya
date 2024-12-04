@@ -1,82 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { Switch } from '../../../src';
-import { SwitchProps } from '../../../src/components/Switch';
+import Switch, { SwitchProps } from '../../../src/components/Switch';
 
-const meta: Meta = {
+const meta: Meta<SwitchProps> = {
   title: 'Components/Inputs/Switch',
   component: Switch,
-  parameters: {
-    controls: { expanded: true },
-  },
 };
 
 export default meta;
 
-const Template: Story<SwitchProps> = args => {
-  const [value, setValue] = useState(args.value ?? false);
+export type Story = StoryObj<SwitchProps>;
 
-  useEffect(() => {
-    setValue(args.value);
-  }, [args.value]);
+const BaseSwitchTemplate = (props: Partial<SwitchProps>) => {
+  const [isChecked, setIsChecked] = React.useState(props.value || false);
 
   return (
-    <Switch {...args} value={value} onChange={setValue} />
+    <div>
+      <Switch {...props} value={isChecked} onChange={setIsChecked} />
+    </div>
   );
 };
 
-export const Default = Template.bind({});
-
-Default.args = {
-  value: false,
-  label: 'Do you want this?',
-  isRequired: true,
+export const Primary: Story = {
+  args: {
+    label: 'Should we send you notifications?',
+  },
+  render: (args) => (
+    <div>
+      <BaseSwitchTemplate {...args} />
+    </div>
+  ),
 };
 
-export const Disabled = Template.bind({});
 
-Disabled.args = {
-  value: true,
-  label: 'You cant change this. Want to try it?',
-  isDisabled: true,
-};
-
-const SwitchBox = (props: any) => {
-  const [value, setValue] = useState(props?.value ?? true);
-  return (
-    <Switch {...props} value={value} onChange={setValue} />
-  );
-};
-
-const SwitchVariants: Story<SwitchProps> = args => (
-  <div className="flex flex-wrap mx-0">
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="success" />
-    </div>
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="warning" />
-    </div>
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="danger" />
-    </div>
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="primary" />
-    </div>
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="secondary" />
-    </div>
-    <div className="w-1/3 p-2">
-      <SwitchBox {...args} variant="transparent" />
-    </div>
+const SwitchColors = () => (
+  <div
+    className="flex justify-center items-center border-dashed border gap-4"
+    style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+  >
+    <BaseSwitchTemplate value color="primary" label="Primary" />
+    <BaseSwitchTemplate value color="secondary" label="Secondary" />
+    <BaseSwitchTemplate value color="warning" label="Warning" />
+    <BaseSwitchTemplate value color="danger" label="Danger" />
+    <BaseSwitchTemplate value color="success" label="Success" />
+    <BaseSwitchTemplate value color="transparent" label="Transparent" />
   </div>
 );
 
-export const Variants = SwitchVariants.bind({});
-
-Variants.args = {
-  value: true,
-  label: 'Do you want this?',
+export const Colors: Story = {
+  name: 'Switch Colors',
+  tags: ['unlisted'],
+  render: () => <SwitchColors />,
 };
-
-

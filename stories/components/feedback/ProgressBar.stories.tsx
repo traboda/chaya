@@ -1,10 +1,9 @@
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
 
-import { ProgressBar } from '../../../src';
-import { ProgressBarProps } from '../../../src/components/ProgressBar';
+import ProgressBar, { ProgressBarProps } from '../../../src/components/ProgressBar';
 
-const meta: Meta = {
+const meta: Meta<ProgressBarProps> = {
   title: 'Components/Feedback/ProgressBar',
   component: ProgressBar,
   parameters: {
@@ -14,34 +13,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<ProgressBarProps> = args => (
-  <div style={{ width: '450px', maxWidth: '100%' }}>
-    <ProgressBar {...args} />
-  </div>
-);
+type Story = StoryObj<ProgressBarProps>;
 
-export const Default = Template.bind({});
-
-Default.args = {
-  value: 30,
-  minVal: 1,
-  maxVal: 100,
-};
-
-export const Striped = Template.bind({});
-
-Striped.args = {
-  value: 30,
-  minVal: 1,
-  maxVal: 100,
-  isStriped: true,
-};
-
-export const Loading = Template.bind({});
-
-Loading.args = {
-  isLoading: true,
-  value: 45,
-  minVal: 1,
-  maxVal: 100,
+export const Primary: Story = {
+  name: 'Story',
+  args: {
+    value: 65,
+  },
 };

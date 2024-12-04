@@ -1,5 +1,6 @@
-import { Meta, Primary, Title, Controls, Canvas } from '@storybook/blocks';
+import { Meta, Primary, Title, ArgTypes, Canvas } from '@storybook/blocks';
 import * as DropdownFilterStories from "./DropdownFilter.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Inputs/DropdownFilter"
@@ -8,14 +9,16 @@ import * as DropdownFilterStories from "./DropdownFilter.stories";
 
 <Title>DropdownFilter</Title>
 
-**`import { DropdownFilter } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { DropdownFilter } from 'chaya-ui';`} />
+</div>
 
 <Primary />
-
-## Props
-
-<Controls />
 
 ## Async Options
 
 <Canvas of={DropdownFilterStories.Async} withToolbar />
+
+## API
+
+<ArgTypes />

@@ -7,6 +7,8 @@ import mcs from '../utils/merge';
 
 import Label from './Label';
 
+export type SwitchColorType = 'success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent';
+
 export interface SwitchProps {
   value: boolean,
   onChange?: (v: boolean) => void,
@@ -16,10 +18,10 @@ export interface SwitchProps {
   className?: string,
   isRequired?: boolean,
   isDisabled?: boolean,
-  variant?: ('success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent'),
+  color?: SwitchColorType,
 }
 
-const borders = {
+const borderClassNames = {
   'primary': 'border-primary',
   'secondary': 'border-secondary',
   'success': 'border-green-500',
@@ -28,7 +30,7 @@ const borders = {
   'transparent': 'border-inherit',
 };
 
-const variants = {
+const bgClassNames = {
   'primary': 'bg-primary',
   'secondary': 'bg-secondary',
   'success': 'bg-green-500',
@@ -39,7 +41,7 @@ const variants = {
 
 const Switch = ({
   value, onChange = () => {},
-  id, className = '', size = 24, label, variant = 'success',
+  id, className = '', size = 24, label, color = 'success',
   isRequired = false, isDisabled = false,
 }: SwitchProps) => {
 
@@ -57,7 +59,7 @@ const Switch = ({
       <label
         className={mcs([
           'inline-block rounded-full shadow-inner border dark:border-gray-500/70 border-gray-500/10',
-          value && variants[variant],
+          value && bgClassNames[color],
           className,
           isDisabled && 'cursor-not-allowed',
           !value && 'dark:bg-gray-500/20 bg-gray-500/10',
@@ -85,7 +87,7 @@ const Switch = ({
         <div
           className={clsx([
             'rounded-full bg-white transition shadow-md border',
-            value && borders[variant],
+            value && borderClassNames[color],
             value && 'translate-x-full',
           ])}
           style={{ height: size - 2, width: size - 1 }}

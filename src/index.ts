@@ -1,5 +1,5 @@
 // contexts
-export { default as DSRContextProvider } from './components/DSRContextProvider';
+export { default as ChayaProvider } from './components/ChayaProvider';
 
 // components
 export { default as Accordion, AccordionProps } from './components/Accordion';
@@ -7,6 +7,8 @@ export { default as Alert, AlertProps } from './components/Alert';
 export { default as Icon } from './components/Icon';
 export { default as Card, CardProps } from './components/Card';
 export { default as Tabs, TabsProps } from './components/Tabs';
+export { default as DataTable, DataTableProps } from './components/DataTable';
+export { default as DataTableManager, DataTableManagerProps } from './components/DataTableManager';
 export { default as Modal, ModalProps } from './components/Modal';
 export { default as Badge, BadgeProps } from './components/Badge';
 export { default as Label, LabelProps } from './components/Label';
@@ -19,16 +21,13 @@ export { default as Avatar, AvatarProps } from './components/Avatar';
 export { default as Button, ButtonProps } from './components/Button';
 export { default as Tooltip, TooltipProps } from './components/Tooltip';
 export { default as PinInput, PinInputProps } from './components/PinInput';
-export { default as DataTable, DataTableProps } from './components/DataTable';
-export { default as DataTableManager, DataTableManagerProps } from './components/DataTableManager';
-export { default as DateTimePicker, DateTimePickerProps } from './components/DateTimePicker';
+export { default as DateTimeInput, DateTimeInputProps } from './components/DateTimeInput';
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
-export { default as HorizontalNavigator, HorizontalNavigatorProps } from './components/HorizontalNavigator';
-export { HorizontalNavigatorItemType } from './components/HorizontalNavigator/item';
+export { default as HorizontalNavigator, HorizontalNavigatorProps, HorizontalNavigatorItemType } from './components/HorizontalNavigator';
 
-export { default as HoverCard } from './components/HoverCard';
+export { default as Popover, PopoverProps } from './components/Popover';
 export { default as TextInput, TextInputProps } from './components/TextInput';
 export { default as SearchBox, SearchBoxProps } from './components/SearchBox';
 export { default as RadioGroup, RadioGroupProps } from './components/RadioGroup';
@@ -46,7 +45,8 @@ export { VerticalNavigatorItemType } from './components/VerticalNavigator/Item';
 
 export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';
-export { default as SearchResults, SearchResultsProps, SearchResultType, SearchResultGroupType } from './components/SearchResults';
+export { default as SearchResults, SearchResultsProps, SearchResultGroupType } from './components/SearchResults';
+export { SearchResultType } from './components/SearchResults/result';
 export { default as DropdownFilter, DropdownFilterProps } from './components/DropdownFilter';
 export { default as VisualPicker, VisualPickerProps } from './components/VisualPicker';
 export { default as CheckboxGroup, CheckboxGroupProps } from './components/CheckboxGroup';
@@ -65,3 +65,9 @@ export { default as useClipboard } from './hooks/useClipboard';
 export { default as useCountdown } from './hooks/useCountDown';
 export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
+
+
+// deprecated
+export { default as HoverCard } from './legacy/HoverCard';
+export { default as DateTimePicker, DateTimePickerProps } from './legacy/DateTimePicker';
+export { default as DSRContextProvider } from './legacy/DSRContextProvider';

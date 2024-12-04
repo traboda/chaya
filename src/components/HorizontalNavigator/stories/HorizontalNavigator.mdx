@@ -1,0 +1,50 @@
+import {Meta, Primary, Title, ArgTypes, Canvas, Story,  } from '@storybook/blocks';
+import * as HorizontalNavigatorStories from "./HorizontalNavigator.stories";
+import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Navigation/HorizontalNavigator"
+    of={HorizontalNavigatorStories}
+/>
+
+<Title>HorizontalNavigator</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { HorizontalNavigator } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Variants
+
+### Pill (Default)
+
+<Primary />
+
+### Boxed
+
+<Canvas of={HorizontalNavigatorStories.BoxedVariant} withToolbar />
+
+### Line
+
+<Canvas of={HorizontalNavigatorStories.LineVariant} withToolbar />
+
+### Minimal
+
+<Canvas of={HorizontalNavigatorStories.MinimalVariant} withToolbar />
+
+## Colors
+
+<Story of={HorizontalNavigatorStories.PillColors} />
+
+<Story of={HorizontalNavigatorStories.LineColors} />
+
+## Disabling Items
+
+<Canvas of={HorizontalNavigatorStories.DisabledItems} withToolbar />
+
+<Canvas of={HorizontalNavigatorStories.DisabledLineItems} withToolbar />
+
+## API
+
+<ArgTypes />

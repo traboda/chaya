@@ -2,7 +2,7 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { useContext } from 'react';
 
-import DSRContext from '../contexts/DSRContext';
+import ChayaContext from '../contexts/ChayaContext';
 
 export type Icons = 'chevron-down' | 'chevron-up' | 'chevron-right' | 'chevrons-right' | 'chevrons-left' | 'search' |
 'times' | 'home' | 'external-link' | 'info' | 'alert-triangle' | 'check' | string;
@@ -20,7 +20,7 @@ export type IconInputType = Icons | ((props: IconProps) => ReactElement) | (Icon
 type IconComponentProps = IconProps & { icon: IconInputType };
 
 const Icon = ({ icon, ...defaultProps }: IconComponentProps) => {
-  const { iconWrapper } = useContext(DSRContext);
+  const { iconWrapper } = useContext(ChayaContext);
   let props = { ...defaultProps };
   if (typeof icon === 'object') props = { ...props, ...icon };
   // 1rem = 16px by default

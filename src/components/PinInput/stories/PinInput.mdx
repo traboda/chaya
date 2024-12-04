@@ -1,0 +1,39 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/blocks';
+import * as PinInputStories from "./PinInput.stories";
+import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/PinInput"
+    of={PinInputStories}
+/>
+
+<Title>PinInput</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { PinInput } from 'chaya-ui';`} />
+</div>
+
+<Primary />
+
+## Variants
+
+### Minimal (Default)
+
+<Story of={PinInputStories.Primary} />
+
+### Classic
+
+<Story of={PinInputStories.ClassicVariant} />
+
+## Masked
+
+<Story of={PinInputStories.MaskedVariant} />
+
+## Inside Form
+
+<Story of={PinInputStories.InsideForm} />
+
+
+## API
+
+<ArgTypes />

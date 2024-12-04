@@ -1,0 +1,8 @@
+.sidebar-item svg {
+    color: inherit;
+}
+
+#storybook-preview-iframe {
+    background: var(--background);
+    color: var(--color);
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import clsx from 'clsx';
 
-import { RadioGroup, RadioGroupProps } from '../../../src';
+import RadioGroup, { RadioGroupProps } from '../../../src/components/RadioGroup';
 
 const meta: Meta<RadioGroupProps<any>> = {
   title: 'Components/Inputs/RadioGroup',

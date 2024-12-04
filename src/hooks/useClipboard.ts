@@ -14,7 +14,6 @@ const useClipboard = (): [CopiedValue, CopyFn, IsSupportedType] => {
       console.warn('Clipboard not supported');
       return false;
     } else {
-      console.warn('Clipboard is supported');
       return true;
     }
   };

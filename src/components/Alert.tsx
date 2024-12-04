@@ -8,8 +8,8 @@ import {
 } from '../utils/classMaps/colors';
 import mcs from '../utils/merge';
 
-import Button, { ButtonProps } from './Button';
 import Icon, { IconInputType } from './Icon';
+import Button, { ButtonProps } from './Button';
 
 export type AlertVariantsType = 'solid' | 'outline';
 

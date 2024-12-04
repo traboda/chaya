@@ -1,5 +1,6 @@
-import {Meta, Primary, Title, Controls, Canvas, Story} from '@storybook/blocks';
+import {Meta, Primary, Title, ArgTypes, Canvas, Story} from '@storybook/blocks';
 import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Meta
     title="Components/Navigation/VerticalNavigator"
@@ -8,13 +9,11 @@ import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
 
 <Title>VerticalNavigator</Title>
 
-**`import { VerticalNavigator } from 'chaya-ui';`**
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { VerticalNavigator } from 'chaya-ui';`} />
+</div>
 
 <Primary />
-
-## Props
-
-<Controls />
 
 ## Variants
 
@@ -41,3 +40,7 @@ import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
 <Canvas of={VerticalNavigatorStories.CollapsedVariant} withToolbar />
 
 <Canvas of={VerticalNavigatorStories.CollapsedLineVariant} withToolbar />
+
+## API
+
+<ArgTypes />

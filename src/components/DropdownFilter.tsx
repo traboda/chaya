@@ -18,6 +18,7 @@ const defaultLabels = {
   optionsTitle: 'Options',
   selectAll: 'Select All',
   clearAll: 'Clear All',
+  noResults: 'No results found',
 };
 
 export type DropdownFilterOptionType = {
@@ -37,6 +38,7 @@ type DropdownCommonProps = {
     optionsTitle?: string,
     selectAll?: string,
     clearAll?: string,
+    noResults?: string
   }
   options?: DropdownFilterOptionType[],
   isAsync?: boolean,
@@ -44,6 +46,7 @@ type DropdownCommonProps = {
   optionButtonClassName?: string;
   selections: null | any[];
   setSelections?: (selections: null | any[]) => void;
+  noResultsRenderer?: () => React.ReactNode;
 };
 
 export type DropdownFilterProps = DropdownCommonProps & {
@@ -62,8 +65,9 @@ type DropdownRenderProps = DropdownCommonProps & {
 };
 
 const DropdownRender = ({
-  labels: _labels, keyword, options, setKeyword, selections, setSelections = () => {}, onLoad = () => {},
-  optionButtonClassName, isFetching = false,
+  labels: _labels, keyword, options, setKeyword, selections,
+  setSelections = () => {}, onLoad = () => {},
+  optionButtonClassName, isFetching = false, noResultsRenderer,
 }: DropdownRenderProps) => {
 
   const labels = { ...defaultLabels, ..._labels };
@@ -163,11 +167,11 @@ const DropdownRender = ({
               </div>
             ))}
           </ul>
-        ) : (
+        ) : availableOptions?.length > 0 ? (
           <ul tabIndex={-1} role="listbox">
             {availableOptions.map((field, index) => (
               <DropdownMenu.Item
-                key={nanoid()}
+                key={`${field.value}_${index}`}
                 className="!outline-0"
                 ref={optionRefs.current[index]}
               >
@@ -203,6 +207,10 @@ const DropdownRender = ({
               </DropdownMenu.Item>
             ))}
           </ul>
+        ) : typeof noResultsRenderer === 'function' ? noResultsRenderer() : (
+          <div className="px-2 py-4 text-center opacity-80">
+            {labels?.noResults}
+          </div>
         )}
       </div>
       <div className="flex justify-between border-t dark:border-gray-500/70 border-gray-500/10 items-center">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import clsx from 'clsx';
 
-import style from './button.module.scss';
+import style from './Button.module.scss';
  
 const useDebouncedRippleCleanUp = (rippleCount: number, duration: number, cleanUpFunction: () => void) => {
   useEffect(() => {

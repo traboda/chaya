@@ -1,25 +1,24 @@
 <div align="center">
-    <img src="/.storybook/public/chaya-icon.svg" height="100" alt="ChayaUI" />
+    <img src="/public/chaya-icon.svg" height="100" alt="ChayaUI" />
     <h1 style="margin-top: 12px">Chaya UI</h1>
-    <p style="font-size: 110%">Chaya UI is a modern, functional design system & component library for React.</p>
+    <p style="font-size: 110%">Chaya UI is a modern, data-first component library for React.</p>
     <div align="center">
-      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
+      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/chaya-ui/chaya-ui?style=for-the-badge"/>
       <a href="https://www.npmjs.com/package/chaya-ui">
         <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/chaya-ui.svg?style=for-the-badge"/>
       </a>
       <a href="https://www.npmjs.com/package/chaya-ui">
         <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
       </a>
-      <a href="https://github.com/traboda/chaya/stargazers">
-        <img alt="Github Stars" src="https://img.shields.io/github/stars/traboda/chaya?style=for-the-badge" />
+      <a href="https://github.com/chaya-ui/chaya-ui/stargazers">
+        <img alt="Github Stars" src="https://img.shields.io/github/stars/chaya-ui/chaya-ui?style=for-the-badge" />
       </a>
     </div>
 </div>
 
-Chaya features a collection of reusable components, and other frontend utility functions for React, 
-that are used to design a consistent, modern and accessible frontend for Traboda platforms.
-Chaya makes it seamless to build a consistent and accessible frontend for your platforms made
-with React.
+Chaya UI provides a wide range of modern, data-first components that help you build your SaaS applications faster,
+and with less code. Our components are designed to be minimal, modern, and fully accessible, and are built on top
+of best-in-class tools/libraries like **TypeScript**,  **Tailwind CSS**,  **Radix Primitives**, etc.
 
 - 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
@@ -46,43 +45,18 @@ yarn add chaya-ui
 
 To start using the components, please follow the below steps:
 
-1. Wrap your Application in a `DSRContextProvider` provided by `chaya-ui`
+1. Wrap your Application in a `ChayaProvider` provided by `chaya-ui`
 
     ```tsx
     import { ReactNode } from "react";
-
-    // external libraries for example usecase
-    import Link from 'next/link';
-    import { Search, X } from 'react-feather';
-
-    import { DSRContextProvider } from 'chaya-ui';
+    import { ChayaProvider } from 'chaya-ui';
 
     const AppView = ({ children }: { children: ReactNode }) => (
-      <DSRContextProvider
-        linkWrapper={(link: string, component: ReactElement) => <Link href={link}>{component}</Link>}
-        theme={{
-          primary: '#019e4b',
-          secondary: '#019e4b',
-          background: '#fff',
-          color: '#333'
-        }}
-        iconWrapper={(icon, props) => ({
-          search: <Search {...props} />,
-          times: <X {...props} />,
-          // ...
-        })[icon] ?? <>n/a</>}
-      >
+      <ChayaProvider>
         {children}
-      </DSRContextProvider>
+      </ChayaProvider>
     );
     ```
-
-    - `linkWrapper` lets you wrap links with a custom component, for example, `next/link` or `react-router-dom/Link`
-    so that the links are handled by the router of your choice.
-    - `theme` lets you define the primary, secondary, background and color colors for the theme. These colors are used to
-    generate the CSS variables for the theme.
-    - `iconWrapper` lets you wrap icons with a custom component, for example, `react-feather` or `react-icons` so that the icons
-    are rendered by the icon library of your choice.
 
 2. Update your `tailwind.config.js` to process styles for components from `chaya-ui`
 
@@ -153,5 +127,3 @@ Contributions are welcome. Please open an issue or a PR.
 ## Licensing
 
 This project is licensed under the [GNU General Public License V3](LICENSE).
-
-Made by Traboda with ❤️ in India 🇮🇳.

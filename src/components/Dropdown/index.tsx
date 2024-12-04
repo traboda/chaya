@@ -7,7 +7,7 @@ import mcs from '../../utils/merge';
 import styles from './dropdown.module.scss';
 
 export type AlignOptions = 'start' | 'center' | 'end';
-export type SideOptions = 'top' | 'right' | 'bottom' | 'left';
+export type SideOptions = 'auto' | 'top' | 'right' | 'bottom' | 'left';
 
 export type DropdownProps = {
   children: ReactNode,
@@ -18,11 +18,12 @@ export type DropdownProps = {
   containerClassName?: string,
   align?: AlignOptions,
   side?: SideOptions
+  fillTriggerWidth?: boolean,
 };
 
 const Dropdown = ({
   children, buttonRenderer, isOpen = false, onClose = () => {},
-  containerClassName, align = 'center', side = 'bottom',
+  containerClassName, align = 'center', side = 'bottom', fillTriggerWidth = false,
 }: DropdownProps) => {
 
   const [open, setOpen] = useState(isOpen);
@@ -45,10 +46,10 @@ const Dropdown = ({
           ])}
           sideOffset={5}
           align={align}
-          side={side}
-          // style={{
-          //   width: 'var(--radix-dropdown-menu-trigger-width)',
-          // }}
+          side={side != 'auto' ? side : undefined}
+          style={fillTriggerWidth ? {
+            width: 'var(--radix-dropdown-menu-trigger-width)',
+          } : undefined}
         >
           {children}
         </DropdownMenu.Content>
