@@ -43,7 +43,7 @@ const alertClassName = cva({
     ...colorVariantMapper<AlertVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'solid'),
     ...colorVariantMapper<AlertVariantsType>([BORDER_COLOR_MAP, TEXT_COLOR_MAP], 'outline'),
     { variant: 'solid', color: 'black', className: 'dark:bg-neutral-800' },
-    { variant: 'solid', color: 'white', className: 'bg-white border border-neutral-200 border-opacity-100' },
+    { variant: 'solid', color: 'white', className: 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600 border-opacity-100' },
     { variant: 'outline', color: 'black', className: 'text-black dark:text-black' },
     { variant: 'outline', color: 'white', className: 'text-white dark:text-white border-white' },
     { variant: 'outline', color: 'contrast', className: 'text-neutral-800 dark:text-white' },

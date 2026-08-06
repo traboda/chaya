@@ -32,7 +32,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
       height={size}
       viewBox="0 0 75 75"
       preserveAspectRatio="xMinYMid meet"
-      style={{ backgroundColor: '#ddd' }}
+      style={{ backgroundColor: 'var(--background-darken-1, #ddd)' }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
@@ -41,7 +41,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        fill="#222"
+        fill="var(--color, #222)"
         fontSize="40"
         fontWeight="500"
       >
