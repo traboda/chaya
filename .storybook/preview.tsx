@@ -1,16 +1,11 @@
 import type { Preview } from "@storybook/react-vite";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { DocsContainer } from "@storybook/addon-docs/blocks";
 import { themes } from 'storybook/theming';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
-// @ts-expect-error - no type declarations for storybook/preview-api
-import { addons } from 'storybook/preview-api';
-import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
 
 import ThemeProvider from "./ThemeProvider";
 export { decorators } from "./decorators";
-
-const channel = addons.getChannel();
 
 const preview: Preview = {
   parameters: {
@@ -25,26 +20,6 @@ const preview: Preview = {
     backgrounds: {
       disabled: true,
     },
-    darkMode: {
-      stylePreview: true,
-      classTarget: 'body',
-      darkClass: ['dark'],
-      lightClass: [],
-      dark: {
-        ...themes.dark,
-        brandTitle: 'Chaya UI',
-        brandUrl: 'https://storybook.chaya-ui.com',
-        brandImage: 'chaya-white-logo.svg',
-        brandTarget: '_self',
-      },
-      light: {
-        ...themes.normal,
-        brandTitle: 'Chaya UI',
-        brandUrl: 'https://storybook.chaya-ui.com',
-        brandImage: 'chaya-black-logo.svg',
-        brandTarget: '_self',
-      }
-    },
     docs: {
       autodocs: 'tag',
       toc: {
@@ -56,20 +31,14 @@ const preview: Preview = {
           orderedList: false,
         },
       },
-      container: (context: any) => {
-        const [isDark, setDark] = useState();
-
-        useEffect(() => {
-          channel.on(DARK_MODE_EVENT_NAME, setDark);
-          return () => channel.removeListener(DARK_MODE_EVENT_NAME, setDark);
-        }, [channel, setDark]);
-
-        const props = { ...context, theme: isDark ? themes.dark : themes.normal }
+      container: ({ children, context, ...rest }: any) => {
+        const isDark = context?.store?.globals?.globals?.theme === 'dark';
+        const props = { ...rest, context, theme: isDark ? themes.dark : themes.normal };
 
         return (
-            <ThemeProvider isDarkTheme={isDark ?? false}>
-              <DocsContainer {...props} />
-            </ThemeProvider>
+          <ThemeProvider isDarkTheme={isDark}>
+            <DocsContainer {...props}>{children}</DocsContainer>
+          </ThemeProvider>
         );
       }
     },
