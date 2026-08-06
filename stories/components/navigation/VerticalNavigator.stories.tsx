@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import VerticalNavigator, { VerticalNavigatorProps } from '../../../src/components/VerticalNavigator';
 import { VerticalNavigatorItemType } from '../../../src/components/VerticalNavigator/Item';

@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 import Modal, { ModalProps } from '../../../src/components/Modal';
 import Button from '../../../src/components/Button';

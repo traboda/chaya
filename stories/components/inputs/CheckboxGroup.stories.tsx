@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import CheckboxGroup, { CheckboxGroupProps } from '../../../src/components/CheckboxGroup';
 

@@ -1,10 +1,10 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import React, {useEffect, useState} from "react";
-import { DocsContainer } from "@storybook/blocks";
-import { themes } from '@storybook/theming';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { DocsContainer } from "@storybook/addon-docs/blocks";
+import { themes } from 'storybook/theming';
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 // @ts-ignore
-import { addons } from '@storybook/preview-api';
+import { addons } from 'storybook/preview-api';
 import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
 
 import ThemeProvider from "./ThemeProvider";
@@ -23,7 +23,7 @@ const preview: Preview = {
     },
     viewMode: 'docs',
     backgrounds: {
-      disable: true,
+      disabled: true,
     },
     darkMode: {
       dark: {
@@ -70,7 +70,7 @@ const preview: Preview = {
       }
     },
     viewport: {
-      viewports: {
+      options: {
         ...MINIMAL_VIEWPORTS,
         iphoneSE: {
           name: 'iPhone SE',

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import PageNavigator, { PageNavigatorProps } from '../../../src/components/PageNavigator';
 
