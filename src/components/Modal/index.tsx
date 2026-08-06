@@ -73,9 +73,9 @@ const Modal = ({
         >
           <div
             className={mcs([
-              'modal-container relative rounded-t-lg sm:rounded-b-lg shadow-lg sm:w-auto w-full',
+              'modal-container relative rounded-t-lg sm:rounded-b-lg shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto w-full',
               'text-color max-w-screen max-h-[100dvh] overflow-auto',
-              'border dark:border-gray-500/70 border-gray-500/10',
+              'border dark:border-neutral-600/80 border-gray-200/80',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
               hideBg ? '' : 'bg-background',

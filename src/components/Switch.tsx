@@ -58,7 +58,7 @@ const Switch = ({
       {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
       <label
         className={mcs([
-          'inline-block rounded-full shadow-inner border dark:border-gray-500/70 border-gray-500/10',
+          'inline-block rounded-full shadow-inner border dark:border-neutral-500/70 border-neutral-300/80',
           value && bgClassNames[color],
           className,
           isDisabled && 'cursor-not-allowed',

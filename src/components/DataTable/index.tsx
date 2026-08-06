@@ -122,13 +122,13 @@ const DataTable = <Type extends { id: string }>({
           >
             <div
               ref={tableTopbarRef}
-              className="border-gray-200 text-color bg-background-lighten-1 dark:bg-background-darken-1 border-b border-neutral-100/10"
+              className="text-color bg-background-lighten-1 dark:bg-background-darken-1 border-b dark:border-neutral-600/70 border-neutral-200/60"
             >
               {customTopBarRenderer()}
             </div>
             <div
               style={{ maxHeight }}
-              className="table-container overflow-auto border dark:border-neutral-500/70 border-neutral-500/20"
+              className="table-container overflow-auto border dark:border-neutral-600/70 border-neutral-200/80 rounded-lg"
             >
               <table
                 className={clsx([
@@ -223,7 +223,7 @@ const DataTable = <Type extends { id: string }>({
             {enablePagination ? (
               <div
                 className={clsx([
-                  'dark:bg-gray-900 bg-neutral-500/10 border dark:border-neutral-500/70 border-neutral-500/10',
+                  'dark:bg-neutral-800/80 bg-neutral-500/10 border dark:border-neutral-600/70 border-neutral-200/80',
                   'shadow-inner rounded-b-lg p-3 flex justify-start',
                 ])}
               >
@@ -234,7 +234,7 @@ const DataTable = <Type extends { id: string }>({
                   page={page}
                   setPage={setPage}
                   hideItemsPerPage
-                  buttonClassName="bg-white dark:bg-neutral-900"
+                  buttonClassName="bg-background-lighten-1 dark:bg-background-darken-1"
                   {...paginatorProps}
                 />
               </div>

@@ -27,8 +27,8 @@ const Card = ({
     id={id}
     className={mcs([
       'card rounded-lg h-full border',
-      variant === 'outline' && 'dark:border-neutral-300/70 border-neutral-500/40',
-      variant === 'shaded' && 'dark:bg-gray-500/20 bg-gray-500/10 dark:border-neutral-500/70 border-neutral-500/10',
+      variant === 'outline' && 'dark:border-neutral-600/80 border-neutral-300/80',
+      variant === 'shaded' && 'dark:bg-gray-500/15 bg-gray-500/8 dark:border-neutral-600/70 border-neutral-200/80',
       className,
     ])}
   >
@@ -37,8 +37,8 @@ const Card = ({
         className={clsx([
           'card-header flex items-start justify-between gap-3 w-full',
           'px-3 py-2 rounded-t-lg border-b',
-          variant === 'shaded' && 'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
-          variant === 'outline' && 'dark:border-neutral-300/70 border-neutral-500/40',
+          variant === 'shaded' && 'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-600/70 border-neutral-200/60',
+          variant === 'outline' && 'dark:border-neutral-600/80 border-neutral-300/80',
         ])}
       >
         <div>

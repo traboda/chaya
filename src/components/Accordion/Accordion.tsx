@@ -19,16 +19,16 @@ const Accordion = ({
     <div
       id={id}
       className={mcs([
-        'accordion p-2 rounded-lg dark:bg-gray-500/20 bg-gray-500/10',
-        'border dark:border-neutral-500/70 border-neutral-500/10',
+        'accordion p-2 rounded-lg dark:bg-gray-500/15 bg-gray-500/8',
+        'border dark:border-neutral-600/70 border-neutral-200/80',
         className,
       ])}
     >
       <button
         className={mcs([
           'accordion-button w-full px-3 py-2 font-semibold flex rounded-lg text-lg',
-          'justify-between text-color items-center bg-white/90 dark:bg-black/20 shadow-sm',
-          'border dark:border-neutral-500/70 border-neutral-500/10',
+          'justify-between text-color items-center bg-white/90 dark:bg-white/5 shadow-sm',
+          'border dark:border-neutral-600/70 border-neutral-200/80',
           titleClassName,
           (isDisabled || isLocked) && 'cursor-not-allowed',
         ])}

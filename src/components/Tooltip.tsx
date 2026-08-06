@@ -30,15 +30,16 @@ const Tooltip = ({ children, overlay, side = 'auto', align = 'center', contentCl
           sideOffset={5}
           className={mcs([
             'tooltip-content z-9000 whitespace-nowrap rounded-lg',
-            'border border-gray-500/70 dark:bg-gray-500/20 bg-gray-500/10',
-            'px-2.5 py-1.5 backdrop-blur text-color text-sm',
+            'border dark:border-neutral-500/70 border-gray-300/80',
+            'dark:bg-neutral-800/95 bg-gray-100/95',
+            'px-2.5 py-1.5 backdrop-blur text-color text-sm shadow-md dark:shadow-lg dark:shadow-black/30',
             contentClassName,
           ])}
         >
           {overlay}
           {showArrow ? (
             <RadixTooltip.Arrow
-              className="stroke-gray-500 stroke-2 dark:fill-gray-500/20 fill-gray-500/10"
+              className="stroke-gray-300 dark:stroke-neutral-500 stroke-2 dark:fill-neutral-800/95 fill-gray-100/95"
             />
           ) : null}
         </RadixTooltip.Content>

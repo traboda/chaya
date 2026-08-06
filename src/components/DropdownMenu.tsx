@@ -86,7 +86,7 @@ const DropdownMenu = ({
     <RadixDropdownMenu.Group
       className={clsx([
         'pb-1',
-        'border-b dark:border-gray-500/70 border-gray-500/10',
+        'border-b dark:border-neutral-600/60 border-neutral-200/60',
       ])}
     >
       {g?.title && (
@@ -110,7 +110,7 @@ const DropdownMenu = ({
       id={id}
       containerClassName={mcs([
         'rounded-lg p-1 flex flex-col gap-1 background z-[5000]',
-        'border dark:border-gray-500/70 border-gray-500/10',
+        'border dark:border-neutral-600/80 border-neutral-200/80',
         containerClassName,
       ])}
       buttonRenderer={buttonRenderer}

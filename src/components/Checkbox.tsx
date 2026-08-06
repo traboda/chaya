@@ -87,8 +87,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps<string | number>>(
         <span
           className={clsx([
             'inline-flex items-center justify-center flex-shrink-0',
-            'rounded-sm border-2 dark:border-neutral-500/70 border-neutral-500/20', sizes[size]?.button,
-            isChecked ? colors[color] : 'dark:bg-background-lighten-1',
+            'rounded-sm border-2 dark:border-neutral-500/70 border-neutral-300/80', sizes[size]?.button,
+            isChecked ? colors[color] : 'dark:bg-white/10 bg-white',
             isFocused ? `!ring-2 ${focusColors[color]}` : '',
             (!isChecked && !isFocused && !isDisabled) ? '' : 'border-2 border-opacity-100',
           ])}
