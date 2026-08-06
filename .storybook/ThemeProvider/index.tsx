@@ -2,6 +2,7 @@ import React from "react";
 
 import ChayaProvider from "../../src/components/ChayaProvider";
 
+// @ts-expect-error Side-effect CSS import is handled by Storybook bundler.
 import './styles.css';
 
 const ThemeProvider = ({ children, isDarkTheme }: { children: React.ReactNode, isDarkTheme: boolean }) => (
