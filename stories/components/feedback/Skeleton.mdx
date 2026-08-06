@@ -1,0 +1,33 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as SkeletonStories from "./Skeleton.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/Skeleton"
+    of={SkeletonStories}
+/>
+
+<Title>Skeleton</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { SkeletonItem } from 'chaya-ui';`} />
+</div>
+
+A skeleton placeholder component for displaying loading states. Supports wave and pulse
+animation variants, custom dimensions, and circular shapes.
+
+<Primary />
+
+## Wave vs Pulse
+
+<Story of={SkeletonStories.Variants} />
+
+## Card Loading Skeleton
+
+Compose multiple skeleton items to create realistic loading placeholders.
+
+<Story of={SkeletonStories.CardSkeleton} />
+
+## API
+
+<ArgTypes />

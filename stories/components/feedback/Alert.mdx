@@ -1,0 +1,39 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as AlertStories from "./Alert.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/Alert"
+    of={AlertStories}
+/>
+
+<Title>Alert</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Alert } from 'chaya-ui';`} />
+</div>
+
+An alert component for displaying contextual feedback messages. Supports multiple color types,
+solid and outline variants, action buttons, and dismissal.
+
+<Primary />
+
+## Color Variants
+
+<Story of={AlertStories.Colors} />
+
+## Outline Variant
+
+<Story of={AlertStories.OutlineVariant} />
+
+## With Action Buttons
+
+<Story of={AlertStories.WithActions} />
+
+## Dismissible
+
+<Story of={AlertStories.Dismissible} />
+
+## API
+
+<ArgTypes />

@@ -1,0 +1,31 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as DropzoneStories from "./Dropzone.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/Dropzone"
+    of={DropzoneStories}
+/>
+
+<Title>Dropzone</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Dropzone } from 'chaya-ui';`} />
+</div>
+
+A drag-and-drop file upload area with click-to-upload support. Handles file type filtering,
+size limits, multiple file uploads, and upload progress indicators.
+
+<Primary />
+
+## Multiple Files
+
+<Story of={DropzoneStories.MultipleFiles} />
+
+## Disabled
+
+<Story of={DropzoneStories.Disabled} />
+
+## API
+
+<ArgTypes />

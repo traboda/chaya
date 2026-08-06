@@ -1,0 +1,32 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from "./Avatar.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/Avatar"
+    of={AvatarStories}
+/>
+
+<Title>Avatar</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Avatar } from 'chaya-ui';`} />
+</div>
+
+An avatar component for displaying user profile images with an automatic fallback to initials when no image is provided.
+
+<Primary />
+
+## Fallback
+
+When no `src` is provided, the avatar displays the user's initials derived from the `alt` text.
+
+<Story of={AvatarStories.Fallback} />
+
+## Sizes
+
+<Story of={AvatarStories.Sizes} />
+
+## API
+
+<ArgTypes />

@@ -1,0 +1,35 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as SimpleSelectStories from "./SimpleSelect.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/SimpleSelect"
+    of={SimpleSelectStories}
+/>
+
+<Title>SimpleSelect</Title>
+
+<div className="w-[400px] max-w-full">
+    <SingleLineCodeBlock text={`import { SimpleSelect } from 'chaya-ui';`} />
+</div>
+
+A searchable select dropdown supporting single and multi-select, pill and comma display variants,
+async option fetching, and creatable options.
+
+<Primary />
+
+## Multi Select
+
+<Story of={SimpleSelectStories.MultiSelect} />
+
+## Pill Variant
+
+<Story of={SimpleSelectStories.PillVariant} />
+
+## Disabled
+
+<Story of={SimpleSelectStories.Disabled} />
+
+## API
+
+<ArgTypes />

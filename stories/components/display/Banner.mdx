@@ -1,0 +1,35 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as BannerStories from "./Banner.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/Banner"
+    of={BannerStories}
+/>
+
+<Title>Banner</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { Banner } from 'chaya-ui';`} />
+</div>
+
+A banner component for displaying prominent messages, announcements, or notifications. Supports multiple
+color variants, dismissal, and learn more links.
+
+<Primary />
+
+## Dismissible
+
+<Story of={BannerStories.WithDismissal} />
+
+## Color Variants
+
+<Story of={BannerStories.Colors} />
+
+## With Learn More
+
+<Story of={BannerStories.WithLearnMore} />
+
+## API
+
+<ArgTypes />

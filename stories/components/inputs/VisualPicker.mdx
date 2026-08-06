@@ -1,0 +1,31 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as VisualPickerStories from "./VisualPicker.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/VisualPicker"
+    of={VisualPickerStories}
+/>
+
+<Title>VisualPicker</Title>
+
+<div className="w-[400px] max-w-full">
+    <SingleLineCodeBlock text={`import { VisualPicker } from 'chaya-ui';`} />
+</div>
+
+A visual option picker that displays selectable cards with icons, titles, and descriptions.
+Supports single and multi-select modes, horizontal and vertical layouts, and all color variants.
+
+<Primary />
+
+## Vertical Layout
+
+<Story of={VisualPickerStories.Vertical} />
+
+## Multi Select
+
+<Story of={VisualPickerStories.MultiSelect} />
+
+## API
+
+<ArgTypes />

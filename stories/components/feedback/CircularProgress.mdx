@@ -1,0 +1,37 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as CircularProgressStories from "./CircularProgress.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/CircularProgress"
+    of={CircularProgressStories}
+/>
+
+<Title>CircularProgress</Title>
+
+<div className="w-[420px] max-w-full">
+    <SingleLineCodeBlock text={`import { CircularProgress } from 'chaya-ui';`} />
+</div>
+
+A circular progress indicator for displaying completion status. Supports multiple sizes,
+thickness options, and an indeterminate loading state.
+
+<Primary />
+
+## Sizes
+
+<Story of={CircularProgressStories.Sizes} />
+
+## Different Values
+
+<Story of={CircularProgressStories.Values} />
+
+## Indeterminate
+
+Use the `isIndeterminate` prop for an animated loading state when progress is unknown.
+
+<Story of={CircularProgressStories.Indeterminate} />
+
+## API
+
+<ArgTypes />

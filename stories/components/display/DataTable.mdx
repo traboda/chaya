@@ -1,0 +1,35 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as DataTableStories from "./DataTable.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/DataTable"
+    of={DataTableStories}
+/>
+
+<Title>DataTable</Title>
+
+<div className="w-[360px] max-w-full">
+    <SingleLineCodeBlock text={`import { DataTable } from 'chaya-ui';`} />
+</div>
+
+A data table component for displaying structured tabular data with support for pagination, row selection, sorting,
+expandable rows, and sticky rows.
+
+<Primary />
+
+## With Pagination
+
+<Story of={DataTableStories.WithPagination} />
+
+## With Selection
+
+<Story of={DataTableStories.WithSelection} />
+
+## Empty State
+
+<Story of={DataTableStories.EmptyState} />
+
+## API
+
+<ArgTypes />
