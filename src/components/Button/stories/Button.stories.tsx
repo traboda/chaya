@@ -104,7 +104,6 @@ const ButtonSizesShowcase = ({ variant }: { variant: ButtonProps['variant'] }) =
 );
 
 export const ButtonSizes: Story = {
-  name: 'Button Sizes',
   tags: ['unlisted'],
   render: () => (
     <div className="flex flex-col gap-2">

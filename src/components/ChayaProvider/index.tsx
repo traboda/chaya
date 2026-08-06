@@ -74,7 +74,7 @@ const ThemeScript = memo(
 
       if (script) {
         const css = generateCSS();
-        var style = document.getElementById('theme-style');
+        let style = document.getElementById('theme-style');
         if (!style) {
           style = document.createElement('style');
           style.id = 'theme-style';

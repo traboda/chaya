@@ -85,7 +85,6 @@ const DataTableManager = ({
 
   const labels = { ...defaultLabels, ..._labels };
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_keyword, _setKeyword] = useState(keyword || '');
 
   const [showFilters, setShowFilters] = useState<boolean>(

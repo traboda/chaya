@@ -73,7 +73,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
       {isSelectEnabled && (
         <th
           className={clsx([thClasses, 'bg-background'])}
-          style={{ width: colsWidth[i++] }}
+          style={{ width: colsWidth[i] }}
         >
           <div className="flex justify-center h-full items-center text-center">
             <Checkbox
@@ -100,7 +100,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               key={p.id}
               style={{
                 textAlign: p.textAlign,
-                width: colsWidth[i++],
+                width: colsWidth[i],
                 boxShadow: p.stickRight ? 'inset 2px 0px 0px 0px rgba(50, 50, 50, 0.1)' : undefined,
               }}
             >

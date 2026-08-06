@@ -275,7 +275,8 @@ const DropdownFilter = ({
         const newOptions = options.filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
         return [...prev, ...newOptions];
       });
-    } catch (error) {
+    } catch {
+      // silently ignore fetch failures
     } finally {
       setIsFetching(false);
     }

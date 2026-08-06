@@ -82,7 +82,7 @@ const Dropzone = ({
   return (
     <div>
       {labels && <Label htmlFor={inputId} children={labels?.label} isRequired={isRequired} />}
-      {(allowMultiple || typeof value && value?.length == 0) ? (
+      {(allowMultiple || (typeof value !== 'undefined' && value?.length == 0)) ? (
         <button
           type="button"
           onDrop={drop}
