@@ -1,4 +1,4 @@
 import PinInput from './PinInput';
-export { PinInputProps } from './PinInput.types';
+export type { PinInputProps } from './PinInput.types';
 
 export default PinInput;
