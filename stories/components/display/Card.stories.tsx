@@ -61,7 +61,6 @@ export const AsPaper: Story = {
 };
 
 export const NestedCards: Story = {
-  name: 'Nested Cards',
   tags: ['unlisted'],
   args: {
     title: 'Appearance',
@@ -84,7 +83,6 @@ export const NestedCards: Story = {
 };
 
 export const NestedCardsWithCustomContent: Story = {
-  name: 'Nested Cards With Custom Content',
   tags: ['unlisted'],
   args: {
     children: (
@@ -103,7 +101,6 @@ export const NestedCardsWithCustomContent: Story = {
 };
 
 export const OutlineVariant: Story = {
-  name: 'Outline Variant',
   tags: ['unlisted'],
   args: {
     title: 'Add Members',

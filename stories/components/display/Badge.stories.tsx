@@ -57,19 +57,16 @@ const BadgeVariants = ({ variant }: { variant: BadgeProps['variant'] }) => (
 );
 
 export const SolidVariant: Story = {
-  name: 'Solid Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="solid" />,
 };
 
 export const MinimalVariant: Story = {
-  name: 'Minimal Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="minimal" />,
 };
 
 export const OutlineVariant: Story = {
-  name: 'Outline Variant',
   tags: ['unlisted'],
   render: () => <BadgeVariants variant="outline" />,
 };
@@ -98,7 +95,6 @@ const BadgeSizesShowcase = ({ variant }: { variant: BadgeProps['variant'] }) => 
 );
 
 export const BadgeSizes: Story = {
-  name: 'Badge Sizes',
   tags: ['unlisted'],
   render: () => (
     <div className="flex flex-col gap-2">
