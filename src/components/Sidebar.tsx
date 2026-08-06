@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import { Avatar, Button } from '../index';
 import mcs from '../utils/merge';
 
+import Avatar, { AvatarProps } from './Avatar';
+import Button from './Button';
 import Icon, { IconInputType } from './Icon';
 import VerticalNavigator, { VerticalNavigatorProps } from './VerticalNavigator';
 import { VerticalNavigatorItemType } from './VerticalNavigator/Item';
-import { AvatarProps } from './Avatar';
 
 export type SidebarProps = {
   id?: string,

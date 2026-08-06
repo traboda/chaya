@@ -14,9 +14,11 @@ export default [
     output: [
       {
         dir: 'dist',
+        format: 'esm',
         preserveModules: true,
         exports: 'named',
         entryFileNames: '[name].js',
+        sourcemap: true,
       },
     ],
     plugins: [
@@ -29,13 +31,19 @@ export default [
       postcss({
         modules: true,
         minimize: true,
+        use: {
+          sass: { silenceDeprecations: ['legacy-js-api'] },
+        },
       }),
       terser(),
       nodePolyfills(),
-      preserveDirectives({
-        supressPreserveModulesWarning: true,
-      }),
+      preserveDirectives(),
     ],
+    onwarn(warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+      if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('polyfill-node')) return;
+      warn(warning);
+    },
     external: ["react", "react-dom", "nanoid"]
   },
   {
