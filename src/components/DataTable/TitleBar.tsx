@@ -41,7 +41,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
 
   const thClasses = clsx([
     'h-full text-color py-3',
-    variant !== 'striped-column' && 'bg-background-lighten-1 dark:background-darken-2',
+    variant !== 'striped-column' && 'bg-background-lighten-1 dark:bg-background-darken-2',
     variant === 'grid' && 'border-x dark:border-neutral-500/70 border-neutral-500/20',
   ]);
 
@@ -94,7 +94,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
               className={clsx([
                 thClasses,
                 p.stickRight ? 'sticky right-0 z-[10]' : '',
-                i % 2 != 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : 'bg-white',
+                i % 2 != 0 && variant === 'striped-column' ? 'bg-neutral-200 dark:bg-neutral-900' : '',
                 'group',
               ])}
               key={p.id}
