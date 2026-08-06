@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import { DocsContainer } from "@storybook/addon-docs/blocks";
 import { themes } from 'storybook/theming';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
-// @ts-ignore
+// @ts-expect-error - no type declarations for storybook/preview-api
 import { addons } from 'storybook/preview-api';
 import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
 
@@ -26,6 +26,10 @@ const preview: Preview = {
       disabled: true,
     },
     darkMode: {
+      stylePreview: true,
+      classTarget: 'body',
+      darkClass: ['dark'],
+      lightClass: [],
       dark: {
         ...themes.dark,
         brandTitle: 'Chaya UI',

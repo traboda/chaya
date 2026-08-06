@@ -11,7 +11,7 @@ export const withTheme = () => {
     const isDarkMode = useDarkMode();
 
     return (
-      <div key={nanoid()} className="p-6 dark:text-white">
+      <div key={nanoid()} className="p-6 dark:text-white dark:bg-neutral-900">
         <ThemeProvider isDarkTheme={isDarkMode}>
           {story()}
         </ThemeProvider>
