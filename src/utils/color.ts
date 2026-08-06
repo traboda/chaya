@@ -1,6 +1,6 @@
-import Color from 'color';
+import { ColorInstance } from 'color';
 
-export const RGBAtoRGB = (color: Color, by: number) => {
+export const RGBAtoRGB = (color: ColorInstance, by: number) => {
   const a = color.alpha();
   return [
     Math.round(((1 - a) * by) + (a * color.red())),
