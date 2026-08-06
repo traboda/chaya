@@ -58,6 +58,12 @@ export default tseslint.config(
       }],
     },
   },
+  {
+    files: ['.storybook/**/*.{ts,tsx}', 'stories/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
   ...storybookPlugin.configs['flat/recommended'],
   {
     ignores: ['dist/', 'node_modules/', '*.config.*', '*.cjs'],
