@@ -3,12 +3,16 @@ import './manager.css';
 
 addons.setConfig({
     isFullscreen: false,
-    showNav: true,
-    showPanel: true,
-    panelPosition: 'right',
-    enableShortcuts: true,
-    showToolbar: true,
-    initialActive: 'sidebar',
+    layout: {
+        showNav: true,
+        showPanel: true,
+        panelPosition: 'right',
+        showToolbar: true,
+        initialActive: 'sidebar',
+    },
+    ui: {
+        enableShortcuts: true,
+    },
     sidebar: {
         showRoots: true,
         collapsedRoots: ['other'],
