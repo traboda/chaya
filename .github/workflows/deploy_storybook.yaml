@@ -13,22 +13,33 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+  
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
+
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
+          cache: npm
+
       - name: Install modules
         run: npm install --ignore-platform
+
       - name: Build storybook
         run: npm run build-storybook
+
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: storybook-static
+
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        id: deploy
+        uses: actions/deploy-pages@v5
         with:
           token: ${{ github.token }}
