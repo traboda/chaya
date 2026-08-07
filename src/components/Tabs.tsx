@@ -145,7 +145,11 @@ const Tabs = ({
           >
             {tabItems
               .filter((t) => t.key === currentTab)
-              .map((t) => (t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null))}
+              .map((t) => (
+                <React.Fragment key={t.key}>
+                  {t?.renderer ? t.renderer : t.rendererFunc ? t.rendererFunc() : null}
+                </React.Fragment>
+              ))}
           </div>
         ),
         [tabItems, currentTab, panelClassName]
