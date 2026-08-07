@@ -1,0 +1,38 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as LabelStories from "./Label.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Inputs/Label"
+    of={LabelStories}
+/>
+
+<Title>Label</Title>
+
+<div className="max-w-full">
+    <SingleLineCodeBlock text={`import { Label } from 'chaya-ui';`} />
+</div>
+
+A form label component with support for required indicators, tooltips, and sidebar content.
+
+<Primary />
+
+## Required
+
+<Story of={LabelStories.Required} />
+
+## With Tooltip
+
+<Story of={LabelStories.WithTooltip} />
+
+## With Sidebar
+
+<Story of={LabelStories.WithSidebar} />
+
+## With Input
+
+<Story of={LabelStories.WithInput} />
+
+## API
+
+<ArgTypes />
