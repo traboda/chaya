@@ -13,7 +13,7 @@ import { getTheme } from './themes';
 const ThemeScript = memo(
   ({ theme, isDarkTheme }: { theme: Theme; isDarkTheme: boolean }) => {
     const generateCSS = () => {
-      const cssProperties = [];
+      const cssProperties: string[] = [];
       Object.entries(theme).forEach(([key, value]) => {
         cssProperties.push(`--${key}: ${value};`);
       });
@@ -57,56 +57,29 @@ const ThemeScript = memo(
       return cssProperties.join('\n');
     };
 
-    const getScriptSrc = () => {
-      const css = generateCSS();
-      return `
-        var style = document.getElementById('theme-style');
-        if (!style) {
-          style = document.createElement('style');
-          style.id = 'theme-style';
-          document.head.appendChild(style);
-        }
-        style.innerHTML = \`:root { ${css} }\`;
-
-        if (${isDarkTheme}) {
-          document.body.classList.add("dark");
-        } else {
-          document.body.classList.remove("dark");
-        }
-      `;
-    };
-
     useEffect(() => {
-      const script = document.getElementById('theme-script');
-
-      if (script) {
-        const css = generateCSS();
-        let style = document.getElementById('theme-style');
-        if (!style) {
-          style = document.createElement('style');
-          style.id = 'theme-style';
-          document.head.appendChild(style);
-        }
-        style.innerHTML = `:root { ${css} }`;
-
-        if (isDarkTheme) {
-          document.body.classList.add('dark');
-        } else {
-          document.body.classList.remove('dark');
-        }
+      const css = generateCSS();
+      let style = document.getElementById('theme-style');
+      if (!style) {
+        style = document.createElement('style');
+        style.id = 'theme-style';
+        document.head.appendChild(style);
       }
-    }, [theme]);
+      style.innerHTML = `:root { ${css} }`;
 
-    return (
-      <script
-        id="theme-script"
-        dangerouslySetInnerHTML={{
-          __html: `!function(){${getScriptSrc()}}();`,
-        }}
-      />
-    );
+      if (isDarkTheme) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    }, [theme, isDarkTheme]);
+
+    const css = generateCSS();
+
+    return <style id="theme-style" dangerouslySetInnerHTML={{ __html: `:root { ${css} }` }} />;
   },
-  (prevProps, nextProps) => prevProps.theme === nextProps.theme
+  (prevProps, nextProps) =>
+    prevProps.theme === nextProps.theme && prevProps.isDarkTheme === nextProps.isDarkTheme
 );
 
 const defaultIconWrapper = (icon: Icons, props?: IconProps) => (
