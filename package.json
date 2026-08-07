@@ -14,6 +14,8 @@
     "build-storybook": "npm run build-tailwind && storybook build",
     "type-check": "tsc --noEmit --emitDeclarationOnly false",
     "storybook": "storybook dev -p 6006",
+    "format": "prettier --write .",
+    "format-check": "prettier --check .",
     "prepare": "husky"
   },
   "contributors": [
@@ -71,6 +73,7 @@
     "@storybook/addon-links": "^10.5.7",
     "@storybook/addon-themes": "^10.5.7",
     "@storybook/react-vite": "^10.5.7",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/webappsec-credential-management": "^0.6.4",
@@ -79,6 +82,7 @@
     "concurrently": "^10.0.4",
     "css-loader": "^6.7.3",
     "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^10.5.7",
@@ -87,6 +91,8 @@
     "lint-staged": "^17.3.0",
     "postcss": "^8.4.21",
     "postcss-nesting": "^12.1.5",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.10.0",
@@ -116,7 +122,8 @@
   "module": "dist/src/index.js",
   "types": "dist/types/index.d.ts",
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
       "eslint --fix"
     ]
   }
