@@ -47,7 +47,7 @@ const Dropdown = ({
           className={mcs([
             'w-[240px] rounded-lg text-color shadow-md dark:shadow-lg dark:shadow-black/30',
             'bg-background-lighten-3 dark:bg-background-darken-1',
-            'border border-neutral-200/80 dark:border-neutral-500/50',
+            'border border-neutral-300 dark:border-neutral-500/50',
             styles.animateEntry,
             containerClassName,
           ])}

@@ -140,13 +140,13 @@ const DataTable = <Type extends { id: string }>({
         >
           <div
             ref={tableTopbarRef}
-            className="border-b border-neutral-200/60 bg-background-lighten-1 text-color dark:border-neutral-600/70 dark:bg-background-darken-1"
+            className="border-b border-neutral-300 bg-background-lighten-1 text-color dark:border-neutral-600/70 dark:bg-background-darken-1"
           >
             {customTopBarRenderer()}
           </div>
           <div
             style={{ maxHeight }}
-            className="table-container overflow-auto rounded-lg border border-neutral-200/80 dark:border-neutral-600/70"
+            className="table-container overflow-auto rounded-lg border border-neutral-300 dark:border-neutral-600/70"
           >
             <table
               className={clsx([
@@ -245,7 +245,7 @@ const DataTable = <Type extends { id: string }>({
           {enablePagination ? (
             <div
               className={clsx([
-                'border border-neutral-200/80 bg-neutral-500/10 dark:border-neutral-600/70 dark:bg-neutral-800/80',
+                'border border-neutral-300 bg-neutral-500/10 dark:border-neutral-600/70 dark:bg-neutral-800/80',
                 'flex justify-start rounded-b-lg p-3 shadow-inner',
               ])}
             >

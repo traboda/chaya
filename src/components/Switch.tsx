@@ -62,7 +62,7 @@ const Switch = ({
       )}
       <label
         className={mcs([
-          'inline-block rounded-full border border-neutral-300/80 shadow-inner dark:border-neutral-500/70',
+          'inline-block rounded-full border border-neutral-300 shadow-inner dark:border-neutral-500/70',
           value && bgClassNames[color],
           className,
           isDisabled && 'cursor-not-allowed',

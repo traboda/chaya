@@ -30,7 +30,7 @@ const Accordion = ({
       id={id}
       className={mcs([
         'accordion bg-gray-500/8 rounded-lg p-2 dark:bg-gray-500/15',
-        'border border-neutral-200/80 dark:border-neutral-600/70',
+        'border border-neutral-300 dark:border-neutral-600/70',
         className,
       ])}
     >
@@ -38,7 +38,7 @@ const Accordion = ({
         className={mcs([
           'accordion-button flex w-full rounded-lg px-3 py-2 text-lg font-semibold',
           'items-center justify-between bg-white/90 text-color shadow-sm dark:bg-white/5',
-          'border border-neutral-200/80 dark:border-neutral-600/70',
+          'border border-neutral-300 dark:border-neutral-600/70',
           titleClassName,
           (isDisabled || isLocked) && 'cursor-not-allowed',
         ])}

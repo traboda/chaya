@@ -35,9 +35,9 @@ const Card = ({
     id={id}
     className={mcs([
       'card h-full rounded-lg border',
-      variant === 'outline' && 'border-neutral-300/80 dark:border-neutral-600/80',
+      variant === 'outline' && 'border-neutral-300 dark:border-neutral-600/80',
       variant === 'shaded' &&
-        'bg-gray-500/8 border-neutral-200/80 dark:border-neutral-600/70 dark:bg-gray-500/15',
+        'bg-gray-500/8 border-neutral-300 dark:border-neutral-600/70 dark:bg-gray-500/15',
       className,
     ])}
   >
@@ -47,8 +47,8 @@ const Card = ({
           'card-header flex w-full items-start justify-between gap-3',
           'rounded-t-lg border-b px-3 py-2',
           variant === 'shaded' &&
-            'border-neutral-200/60 bg-background-lighten-1 dark:border-neutral-600/70 dark:bg-background-darken-1',
-          variant === 'outline' && 'border-neutral-300/80 dark:border-neutral-600/80',
+            'border-neutral-300 bg-background-lighten-1 dark:border-neutral-600/70 dark:bg-background-darken-1',
+          variant === 'outline' && 'border-neutral-300 dark:border-neutral-600/80',
         ])}
       >
         <div>

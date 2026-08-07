@@ -349,7 +349,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 onKeyDown={handleKeyDown}
                 className={mcs([
                   'simple-select w-full appearance-none rounded-lg p-2 text-base text-color',
-                  'border-neutral-300/80 bg-background-lighten-1 shadow-inner dark:border-neutral-500/70',
+                  'border-neutral-300 bg-background-lighten-1 shadow-inner dark:border-neutral-500/70',
                   'border-y border-l focus:outline-none',
                   'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
                   'cursor-default bg-background bg-no-repeat text-left',
