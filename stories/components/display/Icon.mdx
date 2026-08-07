@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as IconStories from "./Icon.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Icon"
-    of={IconStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as IconStories from './Icon.stories';
+
+<Meta title="Components/Display/Icon" of={IconStories} />
 
 <Title>Icon</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Icon } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Icon } from 'chaya-ui';`} />
 </div>
 
 A flexible icon component that supports Remix Icon class names, custom render functions, and SVG icons.

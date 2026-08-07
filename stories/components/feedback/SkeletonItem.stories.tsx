@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import SkeletonItem, { SkeletonItemProps } from '../../../src/components/SkeletonItem';
@@ -40,10 +41,10 @@ export const Sizes: Story = {
 
 export const CardPlaceholder: Story = {
   render: () => (
-    <div className="border rounded-lg p-4 max-w-sm space-y-3">
+    <div className="max-w-sm space-y-3 rounded-lg border p-4">
       <div className="flex items-center gap-3">
         <SkeletonItem w="40px" h="40px" circular />
-        <div className="space-y-2 flex-1">
+        <div className="flex-1 space-y-2">
           <SkeletonItem w="60%" h="14px" />
           <SkeletonItem w="40%" h="12px" />
         </div>

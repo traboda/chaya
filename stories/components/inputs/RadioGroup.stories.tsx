@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 import clsx from 'clsx';
 
@@ -33,7 +34,12 @@ const StoryTemplate = (args: Partial<RadioGroupProps<string>>) => {
   }, [args.value]);
 
   return (
-    <RadioGroup {...args} options={args?.options || options} value={value ?? ''} onChange={setValue} />
+    <RadioGroup
+      {...args}
+      options={args?.options || options}
+      value={value ?? ''}
+      onChange={setValue}
+    />
   );
 };
 
@@ -68,7 +74,7 @@ export const Disabled: Story<string> = {
 export const OptionDisabled: Story<string> = {
   tags: ['unlisted'],
   args: {
-    options: options.map(option => ({ ...option, isDisabled: option.value === 'emirates' })),
+    options: options.map((option) => ({ ...option, isDisabled: option.value === 'emirates' })),
     label: 'Select your second favorite airline',
   },
   render: (args) => <StoryTemplate {...args} />,
@@ -76,24 +82,45 @@ export const OptionDisabled: Story<string> = {
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 
-const RadioGroupSizesShowcase = ({ alignment }: { alignment: RadioGroupProps<string>['alignment'] }) => (
+const RadioGroupSizesShowcase = ({
+  alignment,
+}: {
+  alignment: RadioGroupProps<string>['alignment'];
+}) => (
   <div
     className={clsx([
-      'flex border-dashed border',
+      'flex border border-dashed',
       alignment === 'vertical' ? 'flex-wrap justify-center' : 'flex-col gap-3',
     ])}
-    style={{ padding: '2.5vh 2.5vw', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    style={{
+      padding: '2.5vh 2.5vw',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     {sizes.map((size, index) => (
       <div
         className={clsx([
-          alignment === 'horizontal' ? 'flex flex-wrap mx-0' : 'flex flex-col gap-2',
+          alignment === 'horizontal' ? 'mx-0 flex flex-wrap' : 'flex flex-col gap-2',
         ])}
         style={{ width: alignment === 'horizontal' ? '100%' : '50%' }}
       >
-        <div style={{ width: '10%' }} className="p-3 opacity-80 flex justify-end text-sm">{size}</div>
-        <div style={{ width: '90%', background: 'rgba(200, 200, 200, 0.35)', borderColor: 'rgba(180, 180, 180, 0.8)' }} className="border-dashed flex items-center border p-1">
-          <StoryTemplate alignment={alignment} size={size as keyof RadioGroupProps<string>['size']} value={options[index].value} />
+        <div style={{ width: '10%' }} className="flex justify-end p-3 text-sm opacity-80">
+          {size}
+        </div>
+        <div
+          style={{
+            width: '90%',
+            background: 'rgba(200, 200, 200, 0.35)',
+            borderColor: 'rgba(180, 180, 180, 0.8)',
+          }}
+          className="flex items-center border border-dashed p-1"
+        >
+          <StoryTemplate
+            alignment={alignment}
+            size={size as keyof RadioGroupProps<string>['size']}
+            value={options[index].value}
+          />
         </div>
       </div>
     ))}
@@ -116,11 +143,10 @@ export const VerticalSizes: Story<string> = {
   render: () => <RadioGroupSizesShowcase alignment="vertical" />,
 };
 
-
 const colorVariants: {
-  color: RadioGroupProps<string>['color'],
-  label: string,
-  activeItem: RadioGroupProps<string>['value'],
+  color: RadioGroupProps<string>['color'];
+  label: string;
+  activeItem: RadioGroupProps<string>['value'];
 }[] = [
   { color: 'primary', label: 'Primary', activeItem: 'emirates' },
   { color: 'secondary', label: 'Secondary', activeItem: 'qantas' },
@@ -133,14 +159,24 @@ const colorVariants: {
   // { color: 'white', label: 'White', activeItem: 'ALL' },
 ];
 
-const RadioGroupColorShowcase = ({ alignment }: { alignment: RadioGroupProps<string>['alignment'] }) => (
+const RadioGroupColorShowcase = ({
+  alignment,
+}: {
+  alignment: RadioGroupProps<string>['alignment'];
+}) => (
   <table
-    className="flex flex-col items-start border-dashed border gap-2"
-    style={{ padding: '5vh 5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
+    className="flex flex-col items-start gap-2 border border-dashed"
+    style={{
+      padding: '5vh 5vw',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+      background: 'rgba(200, 200, 200, 0.15)',
+    }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <tr className="flex flex-wrap mx-0 w-full">
-        <td style={{ width: '10%' }} className="p-3 opacity-80 flex justify-end text-sm">{label}</td>
+      <tr className="mx-0 flex w-full flex-wrap">
+        <td style={{ width: '10%' }} className="flex justify-end p-3 text-sm opacity-80">
+          {label}
+        </td>
         <td style={{ width: '90%' }}>
           <StoryTemplate color={color} value={activeItem} alignment={alignment} />
         </td>
@@ -148,7 +184,6 @@ const RadioGroupColorShowcase = ({ alignment }: { alignment: RadioGroupProps<str
     ))}
   </table>
 );
-
 
 export const HorizontalColors: Story<string> = {
   tags: ['unlisted'],

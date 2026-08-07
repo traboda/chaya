@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import SearchResults, { SearchResultsProps } from '../../../src/components/SearchResults';
@@ -20,7 +21,10 @@ export const Primary: Story = {
     <SearchResults
       results={[
         { title: 'Button', description: 'A versatile button component with multiple variants.' },
-        { title: 'TextInput', description: 'A text input field with label and validation support.' },
+        {
+          title: 'TextInput',
+          description: 'A text input field with label and validation support.',
+        },
         { title: 'Modal', description: 'A dialog overlay for focused user interactions.' },
       ]}
     />

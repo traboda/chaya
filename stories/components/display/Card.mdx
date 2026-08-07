@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as CardStories from "./Card.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Card"
-    of={CardStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as CardStories from './Card.stories';
+
+<Meta title="Components/Display/Card" of={CardStories} />
 
 <Title>Card</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Card } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Card } from 'chaya-ui';`} />
 </div>
 
 <Primary />

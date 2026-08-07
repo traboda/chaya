@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Dropdown, { DropdownProps } from '../../../src/components/Dropdown';
@@ -16,7 +17,13 @@ export default meta;
 
 type Story = StoryObj<DropdownProps>;
 
-const DropdownTemplate = ({ align, side }: { align?: 'start' | 'center' | 'end', side?: 'top' | 'bottom' | 'left' | 'right' }) => {
+const DropdownTemplate = ({
+  align,
+  side,
+}: {
+  align?: 'start' | 'center' | 'end';
+  side?: 'top' | 'bottom' | 'left' | 'right';
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <Dropdown
@@ -26,17 +33,23 @@ const DropdownTemplate = ({ align, side }: { align?: 'start' | 'center' | 'end',
       side={side}
       buttonRenderer={
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+          className="rounded-lg bg-blue-500 px-4 py-2 text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           Toggle Dropdown
         </button>
       }
     >
-      <div className="p-2 min-w-[200px]">
-        <div className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">Profile</div>
-        <div className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">Settings</div>
-        <div className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">Logout</div>
+      <div className="min-w-[200px] p-2">
+        <div className="cursor-pointer rounded px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+          Profile
+        </div>
+        <div className="cursor-pointer rounded px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+          Settings
+        </div>
+        <div className="cursor-pointer rounded px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+          Logout
+        </div>
       </div>
     </Dropdown>
   );
@@ -73,7 +86,7 @@ export const FillTriggerWidth: Story = {
           fillTriggerWidth
           buttonRenderer={
             <button
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg"
+              className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white"
               onClick={() => setIsOpen(!isOpen)}
             >
               Full Width Dropdown
@@ -81,8 +94,12 @@ export const FillTriggerWidth: Story = {
           }
         >
           <div className="p-2">
-            <div className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">Option A</div>
-            <div className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer">Option B</div>
+            <div className="cursor-pointer rounded px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+              Option A
+            </div>
+            <div className="cursor-pointer rounded px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+              Option B
+            </div>
           </div>
         </Dropdown>
       </div>

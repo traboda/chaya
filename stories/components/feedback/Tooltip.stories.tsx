@@ -1,5 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Tooltip, { TooltipProps } from '../../../src/components/Tooltip';
 
@@ -21,16 +22,8 @@ type Story = StoryObj<TooltipProps>;
 
 export const Primary: Story = {
   args: {
-    overlay: (
-      <div>
-        Very Good
-      </div>
-    ),
-    children: (
-      <div>
-        Hover for Tooltip
-      </div>
-    ),
+    overlay: <div>Very Good</div>,
+    children: <div>Hover for Tooltip</div>,
   },
 };
 
@@ -38,15 +31,7 @@ export const WithArrow: Story = {
   tags: ['unlisted'],
   args: {
     showArrow: true,
-    overlay: (
-      <div>
-        Tooltip points to its trigger
-      </div>
-    ),
-    children: (
-      <div>
-        Hover for Tooltip with Arrow
-      </div>
-    ),
+    overlay: <div>Tooltip points to its trigger</div>,
+    children: <div>Hover for Tooltip with Arrow</div>,
   },
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Banner, { BannerProps } from '../../../src/components/Banner';

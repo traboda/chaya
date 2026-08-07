@@ -5,16 +5,24 @@ import mcs from '../../utils/merge';
 import skeletonItemStyles from './skeletonItem.module.scss';
 
 export type SkeletonItemProps = {
-  circular?: boolean
-  minWidth?: string
-  variant?: 'wave' | 'pulse'
-  w?: string | number
-  h?: string | number
-  className?: string,
-  children?: React.ReactNode,
+  circular?: boolean;
+  minWidth?: string;
+  variant?: 'wave' | 'pulse';
+  w?: string | number;
+  h?: string | number;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave', children } : SkeletonItemProps) => (
+const SkeletonItem = ({
+  circular,
+  minWidth,
+  w,
+  h,
+  className,
+  variant = 'wave',
+  children,
+}: SkeletonItemProps) => (
   <div
     className={mcs([
       circular ? 'rounded-full' : 'rounded-lg',
@@ -31,6 +39,5 @@ const SkeletonItem = ({ circular, minWidth, w, h, className, variant = 'wave', c
     {children}
   </div>
 );
-
 
 export default SkeletonItem;

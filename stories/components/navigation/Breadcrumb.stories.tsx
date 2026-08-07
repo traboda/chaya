@@ -17,9 +17,9 @@ type Story = StoryObj<BreadcrumbProps>;
 export const Primary: Story = {
   args: {
     items: [
-      { link:'#/components', title:'Components' },
-      { link:'#/components/navigation', title:'Navigation' },
-      { link:'#/components/navigation/breadcrumb', title:'Breadcrumb', isActive:true },
+      { link: '#/components', title: 'Components' },
+      { link: '#/components/navigation', title: 'Navigation' },
+      { link: '#/components/navigation/breadcrumb', title: 'Breadcrumb', isActive: true },
     ],
   },
 };

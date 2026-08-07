@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
+import Button from '../../Button/Button';
 import PinInput from '../PinInput';
 import { PinInputProps } from '../PinInput.types';
-import Button from '../../Button/Button';
 
 const meta: Meta<PinInputProps> = {
   title: 'Components/Inputs/PinInput',
@@ -18,18 +19,19 @@ export default meta;
 export type Story = StoryObj<PinInputProps>;
 
 const DefaultTemplate = (args: PinInputProps) => {
-
   const [value, setValue] = useState(args.value || '');
 
-  const render = useMemo(() => (
-    <div style={{ width: '300px', maxWidth: '100%' }}>
-      <PinInput {...args} value={value} onChange={setValue} />
-    </div>
-  ), [value]);
+  const render = useMemo(
+    () => (
+      <div style={{ width: '300px', maxWidth: '100%' }}>
+        <PinInput {...args} value={value} onChange={setValue} />
+      </div>
+    ),
+    [value]
+  );
 
   return render;
 };
-
 
 export const Primary: Story = {
   args: {
@@ -77,21 +79,28 @@ export const MaskedVariant: Story = {
   render: (args) => (
     <div className="flex flex-col gap-6">
       <div
-        className="flex justify-center items-center border-dashed border"
-        style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+        className="flex items-center justify-center border border-dashed"
+        style={{
+          padding: '2.5vh 0',
+          background: 'rgba(200, 200, 200, 0.25)',
+          borderColor: 'rgba(200, 200, 200, 0.8)',
+        }}
       >
         <DefaultTemplate {...args} />
       </div>
       <div
-        className="flex justify-center items-center border-dashed border mt-3"
-        style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+        className="mt-3 flex items-center justify-center border border-dashed"
+        style={{
+          padding: '2.5vh 0',
+          background: 'rgba(200, 200, 200, 0.25)',
+          borderColor: 'rgba(200, 200, 200, 0.8)',
+        }}
       >
         <DefaultTemplate {...args} variant="classic" />
       </div>
     </div>
   ),
 };
-
 
 const FormTemplate = (args: PinInputProps) => {
   const [value, setValue] = useState(args.value);
@@ -109,10 +118,13 @@ const FormTemplate = (args: PinInputProps) => {
           Value:
           {value}
         </div>
-        <PinInput {...args} labels={{ label: 'Enter Your Pin' }} value={value} onChange={setValue} />
-        <Button type="submit">
-          Submit
-        </Button>
+        <PinInput
+          {...args}
+          labels={{ label: 'Enter Your Pin' }}
+          value={value}
+          onChange={setValue}
+        />
+        <Button type="submit">Submit</Button>
       </div>
     </form>
   );

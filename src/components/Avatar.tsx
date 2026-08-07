@@ -4,16 +4,15 @@ import React, { useState } from 'react';
 import mcs from '../utils/merge';
 
 export type AvatarProps = {
-  alt: string,
-  src?: string | null,
-  size?: number | string,
-  id?: string,
-  className?: string,
-  title?: string,
+  alt: string;
+  src?: string | null;
+  size?: number | string;
+  id?: string;
+  className?: string;
+  title?: string;
 };
 
 const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps) => {
-
   const [show, setShow] = useState(false);
 
   const getName = () => {
@@ -50,9 +49,14 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
     </svg>
   );
 
-  return !(src?.length) || show ? renderPlaceholder() : (
+  return !src?.length || show ? (
+    renderPlaceholder()
+  ) : (
     <img
-      className={mcs('avatar rounded-lg border dark:border-gray-500/70 border-gray-500/10', className)}
+      className={mcs(
+        'avatar rounded-lg border border-gray-500/10 dark:border-gray-500/70',
+        className
+      )}
       height={size}
       width={size}
       title={title}

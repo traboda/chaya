@@ -3,15 +3,15 @@ import React from 'react';
 import mcs from '../utils/merge';
 
 export type CircularProgressProps = {
-  value: number,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  thickness?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  strokeColor?: string,
-  minVal?: number,
-  maxVal?: number,
-  height?: number,
-  className?: string,
-  isIndeterminate?: boolean,
+  value: number;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  thickness?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  strokeColor?: string;
+  minVal?: number;
+  maxVal?: number;
+  height?: number;
+  className?: string;
+  isIndeterminate?: boolean;
 };
 
 const sizes = {
@@ -47,10 +47,16 @@ const offsetOptions = {
 };
 
 const CircularProgress = ({
-  value = 0, size = 'md', thickness = 'md', minVal = 0, maxVal = 100, height, className, strokeColor,
+  value = 0,
+  size = 'md',
+  thickness = 'md',
+  minVal = 0,
+  maxVal = 100,
+  height,
+  className,
+  strokeColor,
   isIndeterminate = false,
 }: CircularProgressProps) => {
-
   return (
     <div
       role="progressbar"
@@ -69,7 +75,7 @@ const CircularProgress = ({
           cy={50}
           r={radiusOptions[thickness]}
           fill="transparent"
-          className="dark:stroke-[#EDEDED]/[0.1] stroke-[#EDEDED]/[0.75]"
+          className="stroke-[#EDEDED]/[0.75] dark:stroke-[#EDEDED]/[0.1]"
           strokeWidth={thicknesses[thickness]}
         />
         <circle
@@ -78,10 +84,10 @@ const CircularProgress = ({
           r={radiusOptions[thickness]}
           fill="transparent"
           stroke={strokeColor}
-          className={!(strokeColor?.length) ? 'stroke-primary' : undefined}
+          className={!strokeColor?.length ? 'stroke-primary' : undefined}
           strokeWidth={thicknesses[thickness]}
           strokeDashoffset={offsetOptions[thickness]}
-          strokeDasharray={`${value * 2.64} ${264 - (value * 2.64)}`}
+          strokeDasharray={`${value * 2.64} ${264 - value * 2.64}`}
         />
       </svg>
     </div>

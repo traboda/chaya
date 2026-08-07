@@ -1,68 +1,72 @@
 'use client';
 import React, { useMemo, useRef } from 'react';
-import { nanoid } from 'nanoid';
+
 import clsx from 'clsx';
+import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
 import Label from './Label';
 
-export type SwitchColorType = 'success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent';
+export type SwitchColorType =
+  'success' | 'primary' | 'secondary' | 'danger' | 'warning' | 'transparent';
 
 export interface SwitchProps {
-  value: boolean,
-  onChange?: (v: boolean) => void,
-  size?: number,
-  label?: string,
-  id?: string,
-  className?: string,
-  isRequired?: boolean,
-  isDisabled?: boolean,
-  color?: SwitchColorType,
+  value: boolean;
+  onChange?: (v: boolean) => void;
+  size?: number;
+  label?: string;
+  id?: string;
+  className?: string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  color?: SwitchColorType;
 }
 
 const borderClassNames = {
-  'primary': 'border-primary',
-  'secondary': 'border-secondary',
-  'success': 'border-green-500',
-  'danger': 'border-red-500',
-  'warning': 'border-yellow-400',
-  'transparent': 'border-inherit',
+  primary: 'border-primary',
+  secondary: 'border-secondary',
+  success: 'border-green-500',
+  danger: 'border-red-500',
+  warning: 'border-yellow-400',
+  transparent: 'border-inherit',
 };
 
 const bgClassNames = {
-  'primary': 'bg-primary',
-  'secondary': 'bg-secondary',
-  'success': 'bg-green-500',
-  'danger': 'bg-red-500',
-  'warning': 'bg-yellow-400',
-  'transparent': 'bg-inherit',
+  primary: 'bg-primary',
+  secondary: 'bg-secondary',
+  success: 'bg-green-500',
+  danger: 'bg-red-500',
+  warning: 'bg-yellow-400',
+  transparent: 'bg-inherit',
 };
 
 const Switch = ({
-  value, onChange = () => {},
-  id, className = '', size = 24, label, color = 'success',
-  isRequired = false, isDisabled = false,
+  value,
+  onChange = () => {},
+  id,
+  className = '',
+  size = 24,
+  label,
+  color = 'success',
+  isRequired = false,
+  isDisabled = false,
 }: SwitchProps) => {
-
   const checkbox = useRef(null);
   const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
 
   return (
-    <div
-      className={clsx([
-        'switch-container w-full flex flex-col',
-        isDisabled && 'opacity-70',
-      ])}
-    >
-      {label && <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />}
+    <div className={clsx(['switch-container flex w-full flex-col', isDisabled && 'opacity-70'])}>
+      {label && (
+        <Label htmlFor={inputID} id={`${inputID}-label`} children={label} isRequired={isRequired} />
+      )}
       <label
         className={mcs([
-          'inline-block rounded-full shadow-inner border dark:border-neutral-500/70 border-neutral-300/80',
+          'inline-block rounded-full border border-neutral-300/80 shadow-inner dark:border-neutral-500/70',
           value && bgClassNames[color],
           className,
           isDisabled && 'cursor-not-allowed',
-          !value && 'dark:bg-gray-500/20 bg-gray-500/10',
+          !value && 'bg-gray-500/10 dark:bg-gray-500/20',
         ])}
         style={{
           height: size,
@@ -86,7 +90,7 @@ const Switch = ({
         />
         <div
           className={clsx([
-            'rounded-full bg-white transition shadow-md border',
+            'rounded-full border bg-white shadow-md transition',
             value && borderClassNames[color],
             value && 'translate-x-full',
           ])}

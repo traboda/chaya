@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import SearchBox, { SearchBoxProps } from '../../../src/components/SearchBox';
@@ -27,9 +28,7 @@ export const Primary: Story = {
 
 export const WithCustomPlaceholder: Story = {
   render: () => (
-    <SearchBoxTemplate
-      labels={{ label: 'Find Components', placeholder: 'Search components...' }}
-    />
+    <SearchBoxTemplate labels={{ label: 'Find Components', placeholder: 'Search components...' }} />
   ),
 };
 

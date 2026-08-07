@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Sidebar from '../../../src/components/Sidebar';
@@ -32,9 +33,7 @@ export const Primary: Story = {
         topNavigationItems={navItems}
         bottomNavigationItems={bottomItems}
         topRenderer={({ isCollapsed }) => (
-          <div className="p-3 font-bold text-lg">
-            {isCollapsed ? 'A' : 'App'}
-          </div>
+          <div className="p-3 text-lg font-bold">{isCollapsed ? 'A' : 'App'}</div>
         )}
         userProfile={{
           name: 'John Doe',
@@ -61,9 +60,7 @@ export const WithGroups: Story = {
           },
         ]}
         topRenderer={({ isCollapsed }) => (
-          <div className="p-3 font-bold text-lg">
-            {isCollapsed ? 'A' : 'App Name'}
-          </div>
+          <div className="p-3 text-lg font-bold">{isCollapsed ? 'A' : 'App Name'}</div>
         )}
       />
     </div>
@@ -74,11 +71,7 @@ export const Collapsed: Story = {
   tags: ['unlisted'],
   render: () => (
     <div style={{ height: '500px' }}>
-      <Sidebar
-        isCollapsed
-        topNavigationItems={navItems}
-        bottomNavigationItems={bottomItems}
-      />
+      <Sidebar isCollapsed topNavigationItems={navItems} bottomNavigationItems={bottomItems} />
     </div>
   ),
 };

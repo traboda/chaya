@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Button from '../Button';
@@ -22,8 +23,12 @@ export const Primary: Story = {
 
 const ButtonVariants = ({ variant }: { variant: ButtonProps['variant'] }) => (
   <div
-    className="flex justify-center items-center border-dashed border gap-2"
-    style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-center justify-center gap-2 border border-dashed"
+    style={{
+      padding: '5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <Button variant={variant} color="primary">
       Primary
@@ -79,11 +84,14 @@ export const LinkVariant: Story = {
   render: () => <ButtonVariants variant="link" />,
 };
 
-
 const ButtonSizesShowcase = ({ variant }: { variant: ButtonProps['variant'] }) => (
   <div
-    className="flex justify-center items-end border-dashed border gap-2"
-    style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-end justify-center gap-2 border border-dashed"
+    style={{
+      padding: '2.5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <Button variant={variant} color="primary" size="xs">
       xs badge

@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SpinnerStories from "./Spinner.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Feedback/Spinner"
-    of={SpinnerStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SpinnerStories from './Spinner.stories';
+
+<Meta title="Components/Feedback/Spinner" of={SpinnerStories} />
 
 <Title>Spinner</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Spinner } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Spinner } from 'chaya-ui';`} />
 </div>
 
 A simple animated spinner for indicating loading states. Available in multiple sizes.

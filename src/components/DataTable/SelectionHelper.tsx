@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 
 import SelectionContext from './SelectionContext';
 
-
 export type SelectionType = {
-  selectedIDs?: string[],
-  excludedIDs?: string[],
+  selectedIDs?: string[];
+  excludedIDs?: string[];
 };
 
 type SelectionHelperProps = {
-  selections?: SelectionType,
-  isEnabled?: boolean,
-  children: React.ReactNode,
-  onSelect?: (args: SelectionType) => void
+  selections?: SelectionType;
+  isEnabled?: boolean;
+  children: React.ReactNode;
+  onSelect?: (args: SelectionType) => void;
 };
- 
+
 const SelectionHelper = ({
-  selections = { selectedIDs: [], excludedIDs: [] }, isEnabled = false, children,
+  selections = { selectedIDs: [], excludedIDs: [] },
+  isEnabled = false,
+  children,
   onSelect = () => {},
 }: SelectionHelperProps) => {
-
   const selectedIDs = selections?.selectedIDs || [];
   const excludedIDs = selections?.excludedIDs || [];
 
@@ -38,8 +38,7 @@ const SelectionHelper = ({
     if (isExcluded(id)) {
       return false;
     }
-    if (isAllSelected())
-      return true;
+    if (isAllSelected()) return true;
     return selectedIDs.filter((s) => s === id)?.length > 0;
   };
 
@@ -55,7 +54,8 @@ const SelectionHelper = ({
   const deselectItem = (id: string) => {
     if (isAllSelected()) {
       onSelect({
-        selectedIDs: ['-1'], excludedIDs: [...(excludedIDs || []), id],
+        selectedIDs: ['-1'],
+        excludedIDs: [...(excludedIDs || []), id],
       });
     } else {
       const newIDs = selectedIDs.filter((s) => s !== id);
@@ -74,14 +74,20 @@ const SelectionHelper = ({
   return (
     <SelectionContext.Provider
       value={{
-        isEnabled, selectedIDs, excludedIDs,
-        isSelected, isAllSelected, selectItem, deselectItem, deselectAll, selectAll,
+        isEnabled,
+        selectedIDs,
+        excludedIDs,
+        isSelected,
+        isAllSelected,
+        selectItem,
+        deselectItem,
+        deselectAll,
+        selectAll,
       }}
     >
       {children}
     </SelectionContext.Provider>
   );
-
 };
 
 export default SelectionHelper;

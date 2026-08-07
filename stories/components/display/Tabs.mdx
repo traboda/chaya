@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/addon-docs/blocks';
-import * as TabsStories from "./Tabs.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Tabs"
-    of={TabsStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as TabsStories from './Tabs.stories';
+
+<Meta title="Components/Display/Tabs" of={TabsStories} />
 
 <Title>Tabs</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Tabs } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Tabs } from 'chaya-ui';`} />
 </div>
 
 <Primary />

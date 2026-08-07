@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SkeletonItemStories from "./SkeletonItem.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Feedback/SkeletonItem"
-    of={SkeletonItemStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SkeletonItemStories from './SkeletonItem.stories';
+
+<Meta title="Components/Feedback/SkeletonItem" of={SkeletonItemStories} />
 
 <Title>SkeletonItem</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { SkeletonItem } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { SkeletonItem } from 'chaya-ui';`} />
 </div>
 
 A low-level skeleton placeholder element for building custom loading states. For a pre-built skeleton layout, see Skeleton.

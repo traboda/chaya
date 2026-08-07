@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Dropzone, { DropzoneProps } from '../../../src/components/Dropzone';
@@ -21,7 +22,11 @@ export const Primary: Story = {
         value={files}
         onChange={(f) => setFiles([...f])}
         accept={['image/*']}
-        labels={{ label: 'Upload Image', text: 'Drag and drop an image here or click to upload', hint: 'Max 5MB' }}
+        labels={{
+          label: 'Upload Image',
+          text: 'Drag and drop an image here or click to upload',
+          hint: 'Max 5MB',
+        }}
       />
     );
   },
@@ -38,7 +43,11 @@ export const MultipleFiles: Story = {
         accept={['image/*', 'application/pdf']}
         allowMultiple
         maxCount={5}
-        labels={{ label: 'Upload Files', text: 'Drag and drop files here', hint: 'Images and PDFs, max 5 files' }}
+        labels={{
+          label: 'Upload Files',
+          text: 'Drag and drop files here',
+          hint: 'Images and PDFs, max 5 files',
+        }}
       />
     );
   },

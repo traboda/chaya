@@ -25,7 +25,11 @@ export { default as DateTimeInput, DateTimeInputProps } from './components/DateT
 export { default as Dropzone, DropzoneProps } from './components/Dropzone';
 export { default as Dropdown, DropdownProps } from './components/Dropdown';
 export { default as Checkbox, CheckboxProps } from './components/Checkbox';
-export { default as HorizontalNavigator, HorizontalNavigatorProps, HorizontalNavigatorItemType } from './components/HorizontalNavigator';
+export {
+  default as HorizontalNavigator,
+  HorizontalNavigatorProps,
+  HorizontalNavigatorItemType,
+} from './components/HorizontalNavigator';
 
 export { default as Popover, PopoverProps } from './components/Popover';
 export { default as TextInput, TextInputProps } from './components/TextInput';
@@ -40,12 +44,19 @@ export { default as SettingCard, SettingCardProps } from './components/SettingCa
 export { default as SkeletonItem, SkeletonItemProps } from './components/SkeletonItem';
 export { default as SimpleSelect } from './components/SimpleSelect';
 
-export { default as VerticalNavigator, VerticalNavigatorProps } from './components/VerticalNavigator';
+export {
+  default as VerticalNavigator,
+  VerticalNavigatorProps,
+} from './components/VerticalNavigator';
 export { VerticalNavigatorItemType } from './components/VerticalNavigator/Item';
 
 export { default as Sidebar, SidebarProps } from './components/Sidebar';
 export { default as DropdownMenu, DropdownMenuProps } from './components/DropdownMenu';
-export { default as SearchResults, SearchResultsProps, SearchResultGroupType } from './components/SearchResults';
+export {
+  default as SearchResults,
+  SearchResultsProps,
+  SearchResultGroupType,
+} from './components/SearchResults';
 export { SearchResultType } from './components/SearchResults/result';
 export { default as DropdownFilter, DropdownFilterProps } from './components/DropdownFilter';
 export { default as VisualPicker, VisualPickerProps } from './components/VisualPicker';
@@ -54,8 +65,14 @@ export { default as PageNavigator, PageNavigatorProps } from './components/PageN
 export { default as AccordionGroup, AccordionGroupProps } from './components/AccordionGroup';
 export { default as InfiniteLoader } from './components/InfiniteLoader';
 export { default as CircularProgress, CircularProgressProps } from './components/CircularProgress';
-export { default as ConfirmationDialog, ConfirmationDialogProps } from './components/ConfirmationDialog';
-export { default as UploadStatusIndicator, UploadStatusIndicatorProps } from './components/UploadStatusIndicator';
+export {
+  default as ConfirmationDialog,
+  ConfirmationDialogProps,
+} from './components/ConfirmationDialog';
+export {
+  default as UploadStatusIndicator,
+  UploadStatusIndicatorProps,
+} from './components/UploadStatusIndicator';
 
 // hooks
 export { default as useCountUp } from './hooks/useCountUp';
@@ -65,7 +82,6 @@ export { default as useClipboard } from './hooks/useClipboard';
 export { default as useCountdown } from './hooks/useCountDown';
 export { default as useNumberFormatter } from './hooks/useNumberFormatter';
 export { default as useCurrencyFormatter } from './hooks/useCurrencyFormatter';
-
 
 // deprecated
 export { default as HoverCard } from './legacy/HoverCard';

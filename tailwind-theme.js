@@ -27,10 +27,10 @@ export default {
     color: 'var(--color)',
   },
   animation: {
-    'stripes': 'stripes 60s linear infinite',
+    stripes: 'stripes 60s linear infinite',
   },
   keyframes: {
-    'stripes': {
+    stripes: {
       '0%': { 'background-position': '-200% 0' },
       '100%': { 'background-position': '200% 0' },
     },

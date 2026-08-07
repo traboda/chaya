@@ -1,10 +1,16 @@
 import React from 'react';
+
 import { cva } from 'cva';
 
 import {
-  colorVariantMapper, ChayaColorType,
-  BORDER_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_BG_COLOR_MAP,
-  SOLID_TEXT_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
+  BORDER_COLOR_MAP,
+  ChayaColorType,
+  MINIMAL_BG_COLOR_MAP,
+  SOLID_BG_COLOR_MAP,
+  SOLID_TEXT_COLOR_MAP,
+  TEXT_COLOR_MAP,
+  TRANSPARENT_BG_TEXT_COLOR_MAP,
+  colorVariantMapper,
 } from '../utils/classMaps/colors';
 import mcs from '../utils/merge';
 
@@ -14,19 +20,19 @@ export type BadgeVariantsType = 'solid' | 'outline' | 'minimal';
 export type BadgeSizesType = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type BaseBadgeProps = {
-  variant?: BadgeVariantsType,
-  color?: ChayaColorType,
-  size?: BadgeSizesType,
-  style?: React.CSSProperties,
-  className?: string,
-  circular?: boolean,
-  id?: string,
-  leftIcon?: IconInputType
-  rightIcon?: IconInputType
+  variant?: BadgeVariantsType;
+  color?: ChayaColorType;
+  size?: BadgeSizesType;
+  style?: React.CSSProperties;
+  className?: string;
+  circular?: boolean;
+  id?: string;
+  leftIcon?: IconInputType;
+  rightIcon?: IconInputType;
 };
 
 export type BadgeProps = BaseBadgeProps & {
-  children: React.ReactNode,
+  children: React.ReactNode;
 };
 
 const iconSizes = {
@@ -61,16 +67,25 @@ const badgeStyling = cva({
   compoundVariants: [
     ...colorVariantMapper<BadgeVariantsType>([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
     ...colorVariantMapper<BadgeVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
-    ...colorVariantMapper<BadgeVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+    ...colorVariantMapper<BadgeVariantsType>(
+      [TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP],
+      'outline'
+    ),
   ],
 });
 
-
 const Badge = ({
-  children, variant = 'minimal', color = 'primary', size = 'sm',
-  id, className = '', style, circular = false, leftIcon, rightIcon,
+  children,
+  variant = 'minimal',
+  color = 'primary',
+  size = 'sm',
+  id,
+  className = '',
+  style,
+  circular = false,
+  leftIcon,
+  rightIcon,
 }: BadgeProps) => {
-
   const computedClassName = mcs([
     badgeStyling({ variant, size, color }),
     circular ? 'rounded-full' : 'rounded',
@@ -78,14 +93,14 @@ const Badge = ({
   ]);
 
   return (
-    <span
-      id={id}
-      className={computedClassName}
-      style={style}
-    >
-      {leftIcon && <Icon className={iconSizes[size][1]} icon={leftIcon} size={iconSizes[size][0]} />}
+    <span id={id} className={computedClassName} style={style}>
+      {leftIcon && (
+        <Icon className={iconSizes[size][1]} icon={leftIcon} size={iconSizes[size][0]} />
+      )}
       {children}
-      {rightIcon && <Icon className={iconSizes[size][2]} icon={rightIcon} size={iconSizes[size][0]} />}
+      {rightIcon && (
+        <Icon className={iconSizes[size][2]} icon={rightIcon} size={iconSizes[size][0]} />
+      )}
     </span>
   );
 };

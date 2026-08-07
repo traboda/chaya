@@ -1,5 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import DropdownMenu, { DropdownMenuProps } from '../../../src/components/DropdownMenu';
 
@@ -20,15 +21,11 @@ type Story = StoryObj<DropdownMenuProps>;
 
 export const Primary: Story = {
   args: {
-    children: (
-      <button type="button">
-        Open Menu
-      </button>
-    ),
+    children: <button type="button">Open Menu</button>,
     options: [
-      { link:'#/components', title:'Components' },
-      { link:'#/components/navigation', title:'Navigation' },
-      { link:'#/components/navigation/breadcrumb', title:'Breadcrumb' },
+      { link: '#/components', title: 'Components' },
+      { link: '#/components/navigation', title: 'Navigation' },
+      { link: '#/components/navigation/breadcrumb', title: 'Breadcrumb' },
     ],
   },
   render: (story) => (

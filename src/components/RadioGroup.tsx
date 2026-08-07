@@ -1,41 +1,48 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
+
 import clsx from 'clsx';
 
-import Radio, { RadioColor, RadioSize } from './Radio';
 import Label from './Label';
+import Radio, { RadioColor, RadioSize } from './Radio';
 
 export type RadioGroupProps<Type> = {
-  value: Type,
+  value: Type;
   options: {
-    value: Type,
-    label: string,
-    isDisabled?: boolean,
-  }[],
-  onChange?: (values: Type) => void,
-  color?: RadioColor, 
-  size?: RadioSize, 
-  isDisabled?: boolean,
-  alignment?: 'horizontal' | 'vertical',
-  isRequired?: boolean,
-  label?: string,
-  optionClassName?: string
+    value: Type;
+    label: string;
+    isDisabled?: boolean;
+  }[];
+  onChange?: (values: Type) => void;
+  color?: RadioColor;
+  size?: RadioSize;
+  isDisabled?: boolean;
+  alignment?: 'horizontal' | 'vertical';
+  isRequired?: boolean;
+  label?: string;
+  optionClassName?: string;
 };
 
 const RadioGroup = <Type extends string | number>({
-  value, options, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
-  isRequired = false, label, optionClassName, onChange = () => {},
+  value,
+  options,
+  color = 'primary',
+  size = 'md',
+  isDisabled = false,
+  alignment = 'vertical',
+  isRequired = false,
+  label,
+  optionClassName,
+  onChange = () => {},
 }: RadioGroupProps<Type>) => {
-
-  const radioRefs = useRef<(React.RefObject<HTMLInputElement>)[]>([]);
+  const radioRefs = useRef<React.RefObject<HTMLInputElement>[]>([]);
 
   useEffect(() => {
     radioRefs.current = options.map(() => React.createRef());
   }, [options]);
 
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (isDisabled)
-      return;
+    if (isDisabled) return;
     switch (event.key) {
       case 'ArrowDown':
       case 'ArrowRight':
@@ -80,11 +87,11 @@ const RadioGroup = <Type extends string | number>({
   return (
     <React.Fragment>
       {label && (
-      <Label
-        className={clsx([isDisabled && 'opacity-70', 'mb-2'])}
-        children={label}
-        isRequired={isRequired}
-      />
+        <Label
+          className={clsx([isDisabled && 'opacity-70', 'mb-2'])}
+          children={label}
+          isRequired={isRequired}
+        />
       )}
       <div
         role="group"

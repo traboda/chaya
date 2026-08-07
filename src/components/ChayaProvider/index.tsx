@@ -1,5 +1,6 @@
 'use client';
-import React, { memo, ReactElement, ReactNode, useEffect, useMemo } from 'react';
+import React, { ReactElement, ReactNode, memo, useEffect, useMemo } from 'react';
+
 import Color from 'color';
 
 import ChayaContext, { IconWrapperType, LinkWrapper } from '../../contexts/ChayaContext';
@@ -22,21 +23,27 @@ const ThemeScript = memo(
       cssProperties.push(`--primary50: ${primaryColor.alpha(0.5).toString()};`);
       cssProperties.push(`--primary10: ${primaryColor.alpha(0.1).toString()};`);
 
-      cssProperties.push(`--primary-bright: ${primaryColor.lighten(0.8).saturate(0.8).toString()};`);
+      cssProperties.push(
+        `--primary-bright: ${primaryColor.lighten(0.8).saturate(0.8).toString()};`
+      );
 
-      cssProperties.push(`--primary-minimal: ${Color(RGBAtoRGB(
-        primaryColor.fade(isDarkTheme ? 0.3 : 0.9),
-        isDarkTheme ? 5 : 255,
-      )).toString()};`);
+      cssProperties.push(
+        `--primary-minimal: ${Color(
+          RGBAtoRGB(primaryColor.fade(isDarkTheme ? 0.3 : 0.9), isDarkTheme ? 5 : 255)
+        ).toString()};`
+      );
 
       const secondaryColor = Color(theme.secondary);
       cssProperties.push(`--secondary50: ${secondaryColor.alpha(0.5).toString()};`);
       cssProperties.push(`--secondary10: ${secondaryColor.alpha(0.1).toString()};`);
-      cssProperties.push(`--secondary-bright: ${secondaryColor.lighten(0.8).saturate(0.8).toString()};`);
-      cssProperties.push(`--secondary-minimal: ${Color(RGBAtoRGB(
-        secondaryColor.fade(isDarkTheme ? 0.3 : 0.9),
-        isDarkTheme ? 5 : 255,
-      )).toString()};`);
+      cssProperties.push(
+        `--secondary-bright: ${secondaryColor.lighten(0.8).saturate(0.8).toString()};`
+      );
+      cssProperties.push(
+        `--secondary-minimal: ${Color(
+          RGBAtoRGB(secondaryColor.fade(isDarkTheme ? 0.3 : 0.9), isDarkTheme ? 5 : 255)
+        ).toString()};`
+      );
 
       const background = Color(theme.background);
       cssProperties.push(`--contrast: ${background.negate().toString()};`);
@@ -99,7 +106,7 @@ const ThemeScript = memo(
       />
     );
   },
-  (prevProps, nextProps) => prevProps.theme === nextProps.theme,
+  (prevProps, nextProps) => prevProps.theme === nextProps.theme
 );
 
 const defaultIconWrapper = (icon: Icons, props?: IconProps) => (
@@ -109,18 +116,20 @@ const defaultIconWrapper = (icon: Icons, props?: IconProps) => (
 const defaultLinkWrapper = (link: string, component: ReactElement) => component;
 
 export type ChayaProviderType = {
-  children: ReactNode,
-  linkWrapper?: LinkWrapper,
-  iconWrapper?: IconWrapperType,
-  theme?: Theme,
-  isDarkTheme?: boolean,
+  children: ReactNode;
+  linkWrapper?: LinkWrapper;
+  iconWrapper?: IconWrapperType;
+  theme?: Theme;
+  isDarkTheme?: boolean;
 };
 
 const ChayaProvider = ({
-  children, theme,
-  linkWrapper = defaultLinkWrapper, iconWrapper = defaultIconWrapper, isDarkTheme: _dark = false,
+  children,
+  theme,
+  linkWrapper = defaultLinkWrapper,
+  iconWrapper = defaultIconWrapper,
+  isDarkTheme: _dark = false,
 }: ChayaProviderType) => {
-
   const isDarkTheme = theme ? useMemo(() => Color(theme?.background).isDark(), [theme]) : _dark;
 
   const currentTheme = theme ? theme : getTheme('DEFAULT', _dark);

@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/addon-docs/blocks';
-import * as AccordionGroupStories from "./AccordionGroup.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/AccordionGroup"
-    of={AccordionGroupStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as AccordionGroupStories from './AccordionGroup.stories';
+
+<Meta title="Components/Display/AccordionGroup" of={AccordionGroupStories} />
 
 <Title>AccordionGroup</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { AccordionGroup } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { AccordionGroup } from 'chaya-ui';`} />
 </div>
 
 <Primary />

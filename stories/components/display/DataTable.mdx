@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as DataTableStories from "./DataTable.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/DataTable"
-    of={DataTableStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DataTableStories from './DataTable.stories';
+
+<Meta title="Components/Display/DataTable" of={DataTableStories} />
 
 <Title>DataTable</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { DataTable } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { DataTable } from 'chaya-ui';`} />
 </div>
 
 A data table component for displaying structured tabular data with support for pagination, row selection, sorting,

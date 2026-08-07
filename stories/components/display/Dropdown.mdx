@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as DropdownStories from "./Dropdown.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Dropdown"
-    of={DropdownStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DropdownStories from './Dropdown.stories';
+
+<Meta title="Components/Display/Dropdown" of={DropdownStories} />
 
 <Title>Dropdown</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Dropdown } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Dropdown } from 'chaya-ui';`} />
 </div>
 
 A generic dropdown container that renders arbitrary content below a trigger button. For menu-specific dropdowns, see DropdownMenu.

@@ -1,16 +1,15 @@
-import {Meta, Primary, Title, ArgTypes, Story} from '@storybook/addon-docs/blocks';
-import * as SwitchStories from "./Switch.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Switch"
-    of={SwitchStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SwitchStories from './Switch.stories';
+
+<Meta title="Components/Display/Switch" of={SwitchStories} />
 
 <Title>Switch</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Switch } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Switch } from 'chaya-ui';`} />
 </div>
 
 <Primary />

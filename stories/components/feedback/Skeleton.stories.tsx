@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import SkeletonItem from '../../../src/components/SkeletonItem';
@@ -26,11 +27,11 @@ export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div>
-        <p className="text-sm mb-2 opacity-60">Wave</p>
+        <p className="mb-2 text-sm opacity-60">Wave</p>
         <SkeletonItem variant="wave" w="100%" h="20px" />
       </div>
       <div>
-        <p className="text-sm mb-2 opacity-60">Pulse</p>
+        <p className="mb-2 text-sm opacity-60">Pulse</p>
         <SkeletonItem variant="pulse" w="100%" h="20px" />
       </div>
     </div>
@@ -42,12 +43,15 @@ export const CardSkeleton: Story = {
   tags: ['unlisted'],
   render: () => (
     <div className="flex gap-4">
-      {[1, 2, 3].map(i => (
-        <div key={i} className="flex flex-col gap-3 p-4 rounded-lg border border-gray-200 dark:border-neutral-700 w-64">
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          className="flex w-64 flex-col gap-3 rounded-lg border border-gray-200 p-4 dark:border-neutral-700"
+        >
           <SkeletonItem w="100%" h="120px" />
           <SkeletonItem w="80%" h="16px" />
           <SkeletonItem w="60%" h="14px" />
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <SkeletonItem circular w="32px" h="32px" />
             <SkeletonItem w="100px" h="14px" />
           </div>

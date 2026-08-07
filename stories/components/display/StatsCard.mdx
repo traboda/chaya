@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as StatsCardStories from "./StatsCard.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/StatsCard"
-    of={StatsCardStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as StatsCardStories from './StatsCard.stories';
+
+<Meta title="Components/Display/StatsCard" of={StatsCardStories} />
 
 <Title>StatsCard</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { StatsCard } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { StatsCard } from 'chaya-ui';`} />
 </div>
 
 A card component for displaying key metrics with animated count-up values, delta indicators, and optional icons.

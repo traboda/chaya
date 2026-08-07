@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { nanoid } from "nanoid";
-import { useGlobals } from "storybook/preview-api";
+import React, { useEffect } from 'react';
+
+import { nanoid } from 'nanoid';
+import { useGlobals } from 'storybook/preview-api';
 
 // @ts-expect-error Side-effect CSS import is handled by Storybook bundler.
 import '../dist/style.css';
 
-import ThemeProvider from "./ThemeProvider";
+import ThemeProvider from './ThemeProvider';
 
 const withChayaTheme = () => {
   return (story: any) => {
@@ -21,14 +22,10 @@ const withChayaTheme = () => {
 
     return (
       <div key={nanoid()} className="p-6">
-        <ThemeProvider isDarkTheme={isDarkMode}>
-          {story()}
-        </ThemeProvider>
+        <ThemeProvider isDarkTheme={isDarkMode}>{story()}</ThemeProvider>
       </div>
     );
   };
 };
 
-export const decorators = [
-  withChayaTheme(),
-];
+export const decorators = [withChayaTheme()];

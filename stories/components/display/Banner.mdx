@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as BannerStories from "./Banner.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Banner"
-    of={BannerStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as BannerStories from './Banner.stories';
+
+<Meta title="Components/Display/Banner" of={BannerStories} />
 
 <Title>Banner</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Banner } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Banner } from 'chaya-ui';`} />
 </div>
 
 A banner component for displaying prominent messages, announcements, or notifications. Supports multiple

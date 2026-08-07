@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Radio from '../Radio';
@@ -15,13 +16,7 @@ export type Story = StoryObj<RadioProps<string | number>>;
 
 const BaseCheckboxTemplate = (args: RadioProps<string | number>) => {
   const [isChecked, setIsChecked] = React.useState(false);
-  return (
-    <Radio
-      {...args}
-      isSelected={isChecked}
-      onChange={() => setIsChecked(!isChecked)}
-    />
-  );
+  return <Radio {...args} isSelected={isChecked} onChange={() => setIsChecked(!isChecked)} />;
 };
 
 export const Primary: Story = {

@@ -1,12 +1,13 @@
 'use client';
-import React, { useEffect, useMemo, useState, KeyboardEvent, ChangeEvent, FocusEvent } from 'react';
+import React, { ChangeEvent, FocusEvent, KeyboardEvent, useEffect, useMemo, useState } from 'react';
+
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 
-import Spinner from '../Spinner';
-import Label from '../Label';
-import Icon, { IconInputType } from '../Icon';
 import mcs from '../../utils/merge';
+import Icon, { IconInputType } from '../Icon';
+import Label from '../Label';
+import Spinner from '../Spinner';
 
 import textInputStyle from './textInput.module.scss';
 
@@ -16,61 +17,94 @@ type TextInputA = Omit<React.HTMLProps<HTMLInputElement | HTMLTextAreaElement>, 
 type TextInputBase = Omit<TextInputA, 'ref'>;
 
 export interface TextInputProps<Type extends string | number> extends TextInputBase {
-  label: string
-  name: string
-  id?: string
-  placeholder?: string
-  type?: ('email' | 'number' | 'password' | 'text' | 'textarea' | 'url' | 'tel' | 'search')
-  value: Type
-  isRequired?: boolean
-  isDisabled?: boolean
-  isInvalid?: boolean
-  isLoading?: boolean
-  inputClassName?: string
-  inputStyle?: React.CSSProperties
-  rows?: number
-  charLimit?: number | null
-  errorText?: string
-  description?: string
-  hideLabel?: boolean
-  min?: number
-  max?: number
-  spellCheck?: boolean,
-  autoComplete?: 'off' | 'on' | 'email' | 'current-password' | 'username'
-  autoCorrect?: 'off' | 'on'
-  autoCapitalize?: 'off' | 'on'
-  onFocus?: (event: FocusEvent) => void
-  onBlur?: (event: FocusEvent) => void
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
-  onChange?: (value: Type, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
-  className?: string
-  style?: React.CSSProperties
-  autoFocus?: boolean,
-  postfixRenderer?: React.ReactNode,
-  prefixRenderer?: React.ReactNode,
-  leftIcon?: IconInputType,
-  rightIcon?: IconInputType,
-  prefixClassName?: string,
-  postfixClassName?: string,
-  hideStepper?: boolean
+  label: string;
+  name: string;
+  id?: string;
+  placeholder?: string;
+  type?: 'email' | 'number' | 'password' | 'text' | 'textarea' | 'url' | 'tel' | 'search';
+  value: Type;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  isInvalid?: boolean;
+  isLoading?: boolean;
+  inputClassName?: string;
+  inputStyle?: React.CSSProperties;
+  rows?: number;
+  charLimit?: number | null;
+  errorText?: string;
+  description?: string;
+  hideLabel?: boolean;
+  min?: number;
+  max?: number;
+  spellCheck?: boolean;
+  autoComplete?: 'off' | 'on' | 'email' | 'current-password' | 'username';
+  autoCorrect?: 'off' | 'on';
+  autoCapitalize?: 'off' | 'on';
+  onFocus?: (event: FocusEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (value: Type, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  autoFocus?: boolean;
+  postfixRenderer?: React.ReactNode;
+  prefixRenderer?: React.ReactNode;
+  leftIcon?: IconInputType;
+  rightIcon?: IconInputType;
+  prefixClassName?: string;
+  postfixClassName?: string;
+  hideStepper?: boolean;
 }
 
 const TextInput = <Type extends string | number>({
-  id, label, name, placeholder, value: val, charLimit = null,
-  className, style, hideLabel = false, isLoading = false, leftIcon, rightIcon,
-  isRequired = false, isDisabled = false, isInvalid = false, autoFocus = false,
-  rows = 3, spellCheck, autoComplete, autoCorrect, autoCapitalize, min, max,
-  inputStyle, inputClassName, type, errorText, description, postfixRenderer, prefixRenderer,
-  onChange = emptyFunc, onFocus = emptyFunc, onBlur = emptyFunc, onKeyDown = emptyFunc,
-  prefixClassName, postfixClassName, hideStepper = false, ..._props
+  id,
+  label,
+  name,
+  placeholder,
+  value: val,
+  charLimit = null,
+  className,
+  style,
+  hideLabel = false,
+  isLoading = false,
+  leftIcon,
+  rightIcon,
+  isRequired = false,
+  isDisabled = false,
+  isInvalid = false,
+  autoFocus = false,
+  rows = 3,
+  spellCheck,
+  autoComplete,
+  autoCorrect,
+  autoCapitalize,
+  min,
+  max,
+  inputStyle,
+  inputClassName,
+  type,
+  errorText,
+  description,
+  postfixRenderer,
+  prefixRenderer,
+  onChange = emptyFunc,
+  onFocus = emptyFunc,
+  onBlur = emptyFunc,
+  onKeyDown = emptyFunc,
+  prefixClassName,
+  postfixClassName,
+  hideStepper = false,
+  ..._props
 }: TextInputProps<Type>) => {
-
-  const inputID = useMemo(() => id && id.length > 1 ? id : `${name}-input-${nanoid()}`, [id, name]);
+  const inputID = useMemo(
+    () => (id && id.length > 1 ? id : `${name}-input-${nanoid()}`),
+    [id, name]
+  );
 
   const [isTyping, setTyping] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  const [value, setValue] = useState<Type>(val !== null ? val : '' as Type);
+  const [value, setValue] = useState<Type>(val !== null ? val : ('' as Type));
   useEffect(() => {
     setValue(val);
   }, [val]);
@@ -81,7 +115,7 @@ const TextInput = <Type extends string | number>({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = event.target.value;
-    if (charLimit == null || (value.length <= charLimit)) {
+    if (charLimit == null || value.length <= charLimit) {
       if (typeof onChange === 'function')
         if (type === 'number') onChange(parseInt(value) as Type, event);
         else onChange(value as Type, event);
@@ -106,7 +140,7 @@ const TextInput = <Type extends string | number>({
     'aria-disabled': isDisabled || isLoading,
     id: inputID,
     name,
-    value: value as (string | number),
+    value: value as string | number,
     placeholder: placeholder || label,
     spellCheck,
     autoComplete,
@@ -125,7 +159,12 @@ const TextInput = <Type extends string | number>({
     ..._props,
   };
 
-  const showLimit = (typeof value !== 'number' && (value as string)?.length > 0) && isTyping && charLimit !== null && charLimit > 0;
+  const showLimit =
+    typeof value !== 'number' &&
+    (value as string)?.length > 0 &&
+    isTyping &&
+    charLimit !== null &&
+    charLimit > 0;
 
   const commonClasses = clsx([
     'text-color text-base',
@@ -144,25 +183,19 @@ const TextInput = <Type extends string | number>({
     postfixRenderer ? 'invalid:border-r' : 'rounded-r-lg border-r',
     inputClassName,
     leftIcon && 'pl-10',
-    (rightIcon && isLoading) ? 'pr-20' : (rightIcon || isLoading ? 'pr-10' : ''),
+    rightIcon && isLoading ? 'pr-20' : rightIcon || isLoading ? 'pr-10' : '',
     hideStepper && textInputStyle.hideStepper,
   ]);
 
-  const iconClassNameCalculated = clsx([
-    'border overflow-hidden items-center',
-    commonClasses,
-  ]);
+  const iconClassNameCalculated = clsx(['border overflow-hidden items-center', commonClasses]);
 
-  const innerIconClassNameCalculated = 'absolute top-1/2 -translate-y-1/2 text-color pointer-events-none';
+  const innerIconClassNameCalculated =
+    'absolute top-1/2 -translate-y-1/2 text-color pointer-events-none';
   const postPrefixClassName = 'dark:bg-background-darken-3 bg-background-lighten-1 shrink-0 flex';
 
   return (
     <div
-      className={mcs([
-        'text-input',
-        className,
-        (isDisabled || isLoading) && 'opacity-70',
-      ])}
+      className={mcs(['text-input', className, (isDisabled || isLoading) && 'opacity-70'])}
       style={style}
     >
       {!hideLabel && label && (
@@ -170,23 +203,24 @@ const TextInput = <Type extends string | number>({
           htmlFor={inputID}
           isRequired={isRequired}
           children={label}
-          sidebar={(showLimit && typeof value !== 'number') && (
-          <span className="text-input-char-limit opacity-80 px-1">
-            {(value as string)?.length}
-            /
-            {charLimit}
-          </span>
-          )}
+          sidebar={
+            showLimit &&
+            typeof value !== 'number' && (
+              <span className="text-input-char-limit px-1 opacity-80">
+                {(value as string)?.length}/{charLimit}
+              </span>
+            )
+          }
         />
       )}
-      <div className="relative group flex justify-between">
+      <div className="group relative flex justify-between">
         {prefixRenderer && (
           <div
             className={mcs([
               iconClassNameCalculated,
               prefixClassName,
               postPrefixClassName,
-              'left-0 rounded-tl-lg rounded-bl-lg shrink-0',
+              'left-0 shrink-0 rounded-bl-lg rounded-tl-lg',
             ])}
           >
             {prefixRenderer}
@@ -194,18 +228,19 @@ const TextInput = <Type extends string | number>({
         )}
         <div className="relative flex flex-grow">
           {leftIcon && (
-          <div className={clsx(['left-3', innerIconClassNameCalculated])}>
-            <Icon
-              icon={leftIcon}
-              size={18}
-            />
-          </div>
+            <div className={clsx(['left-3', innerIconClassNameCalculated])}>
+              <Icon icon={leftIcon} size={18} />
+            </div>
           )}
           {type === 'textarea' ? (
             <textarea rows={rows} className={inputClassNameCalculated} {...props} />
-          ) : <input type={type} className={inputClassNameCalculated} {...props} />}
+          ) : (
+            <input type={type} className={inputClassNameCalculated} {...props} />
+          )}
           {(rightIcon || isLoading) && (
-            <div className={clsx(['right-3 flex gap-3 items-center', innerIconClassNameCalculated])}>
+            <div
+              className={clsx(['right-3 flex items-center gap-3', innerIconClassNameCalculated])}
+            >
               {isLoading && <Spinner size="md" />}
               {rightIcon && <Icon icon={rightIcon} size={18} />}
             </div>
@@ -217,18 +252,17 @@ const TextInput = <Type extends string | number>({
               iconClassNameCalculated,
               postfixClassName,
               postPrefixClassName,
-              'right-0 rounded-tr-lg rounded-br-lg',
+              'right-0 rounded-br-lg rounded-tr-lg',
             ])}
           >
             {postfixRenderer}
           </div>
         )}
       </div>
-      {errorText && <div className="text-red-400 mt-1">{errorText}</div>}
-      {description && <div className="mt-2 opacity-75 text-sm">{description}</div>}
+      {errorText && <div className="mt-1 text-red-400">{errorText}</div>}
+      {description && <div className="mt-2 text-sm opacity-75">{description}</div>}
     </div>
   );
-
 };
 
 export default TextInput;

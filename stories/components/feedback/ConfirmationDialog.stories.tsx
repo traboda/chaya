@@ -1,9 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import React from 'react';
 
-import ConfirmationDialog, { ConfirmationDialogProps } from '../../../src/components/ConfirmationDialog';
+import { Meta, StoryObj } from '@storybook/react-vite';
+
 import Button from '../../../src/components/Button';
+import ConfirmationDialog, {
+  ConfirmationDialogProps,
+} from '../../../src/components/ConfirmationDialog';
 
 const meta: Meta<ConfirmationDialogProps> = {
   title: 'Components/Feedback/ConfirmationDialog',
@@ -30,7 +33,6 @@ export const Primary: Story = {
     },
   },
   render: (story) => {
-
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -46,6 +48,5 @@ export const Primary: Story = {
         />
       </div>
     );
-
   },
 };

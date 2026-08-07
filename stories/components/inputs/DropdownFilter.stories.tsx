@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import DropdownFilter, { DropdownFilterProps } from '../../../src/components/DropdownFilter';
 import Button from '../../../src/components/Button';
+import DropdownFilter, { DropdownFilterProps } from '../../../src/components/DropdownFilter';
 
 const meta: Meta<DropdownFilterProps> = {
   title: 'Components/Inputs/DropdownFilter',
@@ -29,14 +30,9 @@ const DEFAULT_OPTIONS: DropdownFilterProps['options'] = [
   { label: 'A Really Long Field Name That Cant Fit For Sure', value: 'address' },
 ];
 
-const DefaultChildButton = () => (
-  <Button>
-    Filter Button
-  </Button>
-);
+const DefaultChildButton = () => <Button>Filter Button</Button>;
 
 const DefaultDropdownFilterTemplate = (args: DropdownFilterProps) => {
-
   const [selections, setSelections] = useState<string[] | null>([]);
 
   return (
@@ -47,7 +43,6 @@ const DefaultDropdownFilterTemplate = (args: DropdownFilterProps) => {
       children={args.children}
     />
   );
-
 };
 
 export const Primary: Story = {
@@ -58,15 +53,19 @@ export const Primary: Story = {
   render: (args) => <DefaultDropdownFilterTemplate {...args} children={args.children} />,
 };
 
-
 const AsyncDropdownFilterTemplate = (args: DropdownFilterProps) => {
-
   const [selections, setSelections] = useState<string[] | null>([]);
 
   const fetchCompany = async (keyword: string) => {
-    const res = await fetch(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${keyword}`);
+    const res = await fetch(
+      `https://autocomplete.clearbit.com/v1/companies/suggest?query=${keyword}`
+    );
     const data = await res.json();
-    return data.map((d: { name: string, logo: string }) => ({ label: d.name, value: d.name, iconURL: d.logo }));
+    return data.map((d: { name: string; logo: string }) => ({
+      label: d.name,
+      value: d.name,
+      iconURL: d.logo,
+    }));
   };
 
   return (
@@ -80,7 +79,6 @@ const AsyncDropdownFilterTemplate = (args: DropdownFilterProps) => {
       children={args.children}
     />
   );
-
 };
 
 export const Async: Story = {

@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SearchResultsStories from "./SearchResults.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/SearchResults"
-    of={SearchResultsStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SearchResultsStories from './SearchResults.stories';
+
+<Meta title="Components/Display/SearchResults" of={SearchResultsStories} />
 
 <Title>SearchResults</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { SearchResults } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { SearchResults } from 'chaya-ui';`} />
 </div>
 
 A component for rendering search results as a list, with support for grouping, links, and custom icons.

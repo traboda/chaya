@@ -1,18 +1,21 @@
-import type { Preview } from "@storybook/react-vite";
-import React, { useState, useEffect } from "react";
-import { DocsContainer } from "@storybook/addon-docs/blocks";
+import React, { useEffect, useState } from 'react';
+
+import { DocsContainer } from '@storybook/addon-docs/blocks';
+import type { Preview } from '@storybook/react-vite';
+import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 import { themes } from 'storybook/theming';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
-import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 
-export { decorators } from "./decorators";
+export { decorators } from './decorators';
 
 const ThemedDocsContainer = ({ children, context, ...rest }: any) => {
   const [isDark, setIsDark] = useState(() => {
     try {
-      return context?.store?.globals?.globals?.theme === 'dark'
-        || context?.store?.userGlobals?.globals?.theme === 'dark'
-        || context?.globals?.theme === 'dark';
+      return (
+        context?.store?.globals?.globals?.theme === 'dark' ||
+        context?.store?.userGlobals?.globals?.theme === 'dark' ||
+        context?.globals?.theme === 'dark'
+      );
     } catch {
       return false;
     }
@@ -85,14 +88,14 @@ const preview: Preview = {
           styles: {
             width: '320px',
             height: '568px',
-          }
+          },
         },
         pixel7A: {
           name: 'Pixel 7A',
           styles: {
             width: '411px',
             height: '823px',
-          }
+          },
         },
       },
     },

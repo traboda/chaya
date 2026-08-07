@@ -1,6 +1,6 @@
-import {Meta} from "@storybook/addon-docs/blocks";
+import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Features/Overview"  />
+<Meta title="Features/Overview" />
 
 # Features
 
@@ -13,7 +13,8 @@ Our components are opinionated to be data-first, which means that they can consu
 extra components or mapping functions. This makes it easier to consume data from APIs, and reduces the amount of
 boilerplate code that you need to write (less composition, more flexible / powerful base components).
 
-For example, this is how you would normally create a select input with other popular libraries  -
+For example, this is how you would normally create a select input with other popular libraries -
+
 ```jsx
 <Label>Select Item</Label>
 <Select placeholder="Select">
@@ -24,19 +25,21 @@ For example, this is how you would normally create a select input with other pop
 ```
 
 In Chaya, the same code would look like this -
+
 ```jsx
 <SimpleSelect
-    label="Select Item"
-    placeholder="Select"
-    items={data.map((i) => ({ label: i.name, value: i.id }))}
+  label="Select Item"
+  placeholder="Select"
+  items={data.map((i) => ({ label: i.name, value: i.id }))}
 />
 ```
 
 This design choice and approach becomes even more obvious with more complex components like Tables, where you
 normally would -
+
 ```tsx
 <TableContainer>
-  <Table variant='simple'>
+  <Table variant="simple">
     <Thead>
       <Tr>
         <Th>To convert</Th>
@@ -59,14 +62,12 @@ With ChayaUI, this becomes -
 
 ```tsx
 <DataTable
-    properties={[
-        { label: 'To convert', key: 'from', value: (i) => i.from },
-        { label: 'into', key: 'to', value: (i) => i.to },
-        { label: 'multiply by', key: 'factor', textAlign: 'right', value: (i) => i.factor },
-    ]}
-    data={[
-        { id: '1', from: 'inches', to: 'millimetres (mm)', factor: 25.4 },
-    ]}
+  properties={[
+    { label: 'To convert', key: 'from', value: (i) => i.from },
+    { label: 'into', key: 'to', value: (i) => i.to },
+    { label: 'multiply by', key: 'factor', textAlign: 'right', value: (i) => i.factor },
+  ]}
+  data={[{ id: '1', from: 'inches', to: 'millimetres (mm)', factor: 25.4 }]}
 />
 ```
 
@@ -89,7 +90,6 @@ that data is passed into and out of the components correctly with type-safety.
 It can be often difficult to learn a new component library and understand its API. Thanks to TypeScript, and
 `react-docgen-typescript`, and our simple and consistent API, you can easily understand the API of each component.
 We also accept and use typescript generics for our components so that our callbacks and props are type-safe.
-
 
 ### Styling
 
@@ -121,7 +121,6 @@ the theme colors.
 
 If you need a switch to toggle dark mode in your application, simply switch the theme colors provided to the
 `ThemeProvider`, and the components will automatically switch to the appropriate mode.
-
 
 ### Accessibility
 

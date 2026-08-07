@@ -1,16 +1,15 @@
-import {Meta, Primary, Title, ArgTypes, Canvas, Story} from '@storybook/addon-docs/blocks';
-import * as VerticalNavigatorStories from "./VerticalNavigator.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Canvas, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Navigation/VerticalNavigator"
-    of={VerticalNavigatorStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as VerticalNavigatorStories from './VerticalNavigator.stories';
+
+<Meta title="Components/Navigation/VerticalNavigator" of={VerticalNavigatorStories} />
 
 <Title>VerticalNavigator</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { VerticalNavigator } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { VerticalNavigator } from 'chaya-ui';`} />
 </div>
 
 <Primary />

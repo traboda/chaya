@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Alert, { AlertProps } from '../../../src/components/Alert';
@@ -41,7 +42,12 @@ export const OutlineVariant: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       <Alert type="primary" variant="outline" title="Primary" description="Outline style alert." />
-      <Alert type="success" variant="outline" title="Success" description="Outline style success." />
+      <Alert
+        type="success"
+        variant="outline"
+        title="Success"
+        description="Outline style success."
+      />
       <Alert type="danger" variant="outline" title="Error" description="Outline style error." />
     </div>
   ),

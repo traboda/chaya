@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as DataTableManagerStories from "./DataTableManager.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/DataTableManager"
-    of={DataTableManagerStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DataTableManagerStories from './DataTableManager.stories';
+
+<Meta title="Components/Display/DataTableManager" of={DataTableManagerStories} />
 
 <Title>DataTableManager</Title>
 
 <div className="w-[420px] max-w-full">
-    <SingleLineCodeBlock text={`import { DataTableManager } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { DataTableManager } from 'chaya-ui';`} />
 </div>
 
 A toolbar companion for DataTable that provides search, column visibility toggling, filtering, CSV download,

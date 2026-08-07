@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as ButtonStories from "./Button.stories";
-import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/Button"
-    of={ButtonStories}
-/>
+import SingleLineCodeBlock from '../../../../stories/common/SingleLineCodeBlock';
+
+import * as ButtonStories from './Button.stories';
+
+<Meta title="Components/Inputs/Button" of={ButtonStories} />
 
 <Title>Button</Title>
 
 <div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { Button } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Button } from 'chaya-ui';`} />
 </div>
 
 <Primary />
@@ -30,7 +29,6 @@ Buttons component comes in 3 variants: `solid`, `minimal` and `outline`. The def
 ### Outline
 
 <Story of={ButtonStories.OutlineVariant} />
-
 
 ### Link
 

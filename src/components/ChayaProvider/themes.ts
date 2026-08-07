@@ -29,6 +29,4 @@ export const getTheme = (theme: THEMES, isDarkMode: boolean) => {
     default:
       return DEFAULT_LIGHT_THEME;
   }
-
 };
-

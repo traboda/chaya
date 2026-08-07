@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import Popover from '../../../src/components/Popover';
 import Button from '../../../src/components/Button';
+import Popover from '../../../src/components/Popover';
 
 const meta: Meta = {
   title: 'Components/Display/Popover',
@@ -19,8 +20,8 @@ export const Primary: Story = {
     <div className="flex justify-center py-20">
       <Popover
         cardRenderer={
-          <div className="p-4 w-64">
-            <h3 className="font-semibold mb-2">Popover Content</h3>
+          <div className="w-64 p-4">
+            <h3 className="mb-2 font-semibold">Popover Content</h3>
             <p className="text-sm opacity-80">This is a popover with some helpful information.</p>
           </div>
         }
@@ -34,14 +35,12 @@ export const Primary: Story = {
 export const Sides: Story = {
   tags: ['unlisted'],
   render: () => (
-    <div className="flex justify-center items-center gap-4 py-20">
-      {(['top', 'bottom', 'left', 'right'] as const).map(side => (
+    <div className="flex items-center justify-center gap-4 py-20">
+      {(['top', 'bottom', 'left', 'right'] as const).map((side) => (
         <Popover
           key={side}
           side={side}
-          cardRenderer={
-            <div className="p-3 text-sm">Popover on {side}</div>
-          }
+          cardRenderer={<div className="p-3 text-sm">Popover on {side}</div>}
         >
           <Button variant="minimal">{side}</Button>
         </Popover>

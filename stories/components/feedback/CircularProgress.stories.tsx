@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import CircularProgress, { CircularProgressProps } from '../../../src/components/CircularProgress';
@@ -24,7 +25,7 @@ export const Sizes: Story = {
   tags: ['unlisted'],
   render: () => (
     <div className="flex items-end gap-6">
-      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
         <div key={size} className="flex flex-col items-center gap-2">
           <CircularProgress value={70} size={size} />
           <span className="text-xs opacity-60">{size}</span>
@@ -47,7 +48,7 @@ export const Values: Story = {
   tags: ['unlisted'],
   render: () => (
     <div className="flex items-center gap-6">
-      {[0, 25, 50, 75, 100].map(value => (
+      {[0, 25, 50, 75, 100].map((value) => (
         <div key={value} className="flex flex-col items-center gap-2">
           <CircularProgress value={value} size="md" />
           <span className="text-xs opacity-60">{value}%</span>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import DataTable from '../../../src/components/DataTable';
@@ -14,19 +15,73 @@ const sampleProperties = [
     allowSort: true,
   },
   { id: 'category', label: 'Category', value: (r: SampleRow) => r.category, allowSort: true },
-  { id: 'difficulty', label: 'Difficulty', value: (r: SampleRow) => r.difficulty, textAlign: 'center' as const, allowSort: true },
-  { id: 'points', label: 'Points', value: (r: SampleRow) => r.points, textAlign: 'center' as const, allowSort: true },
+  {
+    id: 'difficulty',
+    label: 'Difficulty',
+    value: (r: SampleRow) => r.difficulty,
+    textAlign: 'center' as const,
+    allowSort: true,
+  },
+  {
+    id: 'points',
+    label: 'Points',
+    value: (r: SampleRow) => r.points,
+    textAlign: 'center' as const,
+    allowSort: true,
+  },
 ];
 
 const sampleItems: SampleRow[] = [
-  { id: '1', name: 'Attack matter ball budget pattern.', category: 'Hardware', difficulty: 'Beginner', points: 150 },
-  { id: '2', name: 'News recent third environment.', category: 'Programming', difficulty: 'Expert', points: 150 },
-  { id: '3', name: 'Support offer concern', category: 'Reversing', difficulty: 'Easy', points: 150 },
-  { id: '4', name: 'Final check system review', category: 'Forensics', difficulty: 'Medium', points: 250 },
-  { id: '5', name: 'Network packet analysis', category: 'Networking', difficulty: 'Hard', points: 300 },
-  { id: '6', name: 'Binary exploitation basics', category: 'Programming', difficulty: 'Beginner', points: 100 },
+  {
+    id: '1',
+    name: 'Attack matter ball budget pattern.',
+    category: 'Hardware',
+    difficulty: 'Beginner',
+    points: 150,
+  },
+  {
+    id: '2',
+    name: 'News recent third environment.',
+    category: 'Programming',
+    difficulty: 'Expert',
+    points: 150,
+  },
+  {
+    id: '3',
+    name: 'Support offer concern',
+    category: 'Reversing',
+    difficulty: 'Easy',
+    points: 150,
+  },
+  {
+    id: '4',
+    name: 'Final check system review',
+    category: 'Forensics',
+    difficulty: 'Medium',
+    points: 250,
+  },
+  {
+    id: '5',
+    name: 'Network packet analysis',
+    category: 'Networking',
+    difficulty: 'Hard',
+    points: 300,
+  },
+  {
+    id: '6',
+    name: 'Binary exploitation basics',
+    category: 'Programming',
+    difficulty: 'Beginner',
+    points: 100,
+  },
   { id: '7', name: 'Web application testing', category: 'Web', difficulty: 'Medium', points: 200 },
-  { id: '8', name: 'Cryptographic challenge', category: 'Crypto', difficulty: 'Expert', points: 400 },
+  {
+    id: '8',
+    name: 'Cryptographic challenge',
+    category: 'Crypto',
+    difficulty: 'Expert',
+    points: 400,
+  },
 ];
 
 const propertiesWithIcon = sampleProperties.map((p) => ({
@@ -45,23 +100,12 @@ export default meta;
 type Story = StoryObj;
 
 export const Primary: Story = {
-  render: () => (
-    <DataTable
-      properties={sampleProperties}
-      items={sampleItems}
-      maxHeight={400}
-    />
-  ),
+  render: () => <DataTable properties={sampleProperties} items={sampleItems} maxHeight={400} />,
 };
 
 export const Grid: Story = {
   render: () => (
-    <DataTable
-      properties={sampleProperties}
-      items={sampleItems}
-      variant="grid"
-      maxHeight={400}
-    />
+    <DataTable properties={sampleProperties} items={sampleItems} variant="grid" maxHeight={400} />
   ),
 };
 
@@ -88,25 +132,24 @@ export const StripedColumn: Story = {
 };
 
 export const WithTitleIcon: Story = {
-  render: () => (
-    <DataTable
-      properties={propertiesWithIcon}
-      items={sampleItems}
-      maxHeight={400}
-    />
-  ),
+  render: () => <DataTable properties={propertiesWithIcon} items={sampleItems} maxHeight={400} />,
 };
 
 export const SelectableTable: Story = {
   render: () => {
-    const [selections, setSelections] = React.useState({ selectedIDs: [] as string[], excludedIDs: [] as string[] });
+    const [selections, setSelections] = React.useState({
+      selectedIDs: [] as string[],
+      excludedIDs: [] as string[],
+    });
     return (
       <DataTable
         properties={sampleProperties}
         items={sampleItems}
         allowSelection
         selections={selections}
-        onSelect={(s) => setSelections({ selectedIDs: s.selectedIDs ?? [], excludedIDs: s.excludedIDs ?? [] })}
+        onSelect={(s) =>
+          setSelections({ selectedIDs: s.selectedIDs ?? [], excludedIDs: s.excludedIDs ?? [] })
+        }
         maxHeight={400}
       />
     );
@@ -122,7 +165,9 @@ export const AccordionTable: Story = {
       accordionRenderer={(item) => (
         <div className="p-4">
           <p className="font-medium">{item.name}</p>
-          <p className="opacity-70 mt-1">Category: {item.category} | Difficulty: {item.difficulty} | Points: {item.points}</p>
+          <p className="mt-1 opacity-70">
+            Category: {item.category} | Difficulty: {item.difficulty} | Points: {item.points}
+          </p>
         </div>
       )}
       maxHeight={500}
@@ -136,7 +181,7 @@ export const WithTopBar: Story = {
       properties={sampleProperties}
       items={sampleItems}
       customTopBarRenderer={() => (
-        <div className="flex items-center justify-between p-3 border-b">
+        <div className="flex items-center justify-between border-b p-3">
           <span className="font-semibold">Challenges</span>
           <span className="text-sm opacity-60">{sampleItems.length} records</span>
         </div>
@@ -163,7 +208,13 @@ export const StickyRowTemplate: Story = {
     <DataTable
       properties={sampleProperties}
       items={sampleItems}
-      stickyRow={{ id: 'sticky', name: 'Pinned Row (Total)', category: '-', difficulty: '-', points: sampleItems.reduce((s, r) => s + r.points, 0) }}
+      stickyRow={{
+        id: 'sticky',
+        name: 'Pinned Row (Total)',
+        category: '-',
+        difficulty: '-',
+        points: sampleItems.reduce((s, r) => s + r.points, 0),
+      }}
       maxHeight={400}
     />
   ),
@@ -173,18 +224,22 @@ export const OverflowTemplate: Story = {
   render: () => {
     const wideProperties = [
       ...sampleProperties,
-      { id: 'difficulty2', label: 'Difficulty', value: (r: SampleRow) => r.difficulty, allowSort: true },
+      {
+        id: 'difficulty2',
+        label: 'Difficulty',
+        value: (r: SampleRow) => r.difficulty,
+        allowSort: true,
+      },
       { id: 'points2', label: 'Points', value: (r: SampleRow) => r.points, allowSort: true },
-      { id: 'difficulty3', label: 'Difficulty', value: (r: SampleRow) => r.difficulty, allowSort: true },
+      {
+        id: 'difficulty3',
+        label: 'Difficulty',
+        value: (r: SampleRow) => r.difficulty,
+        allowSort: true,
+      },
       { id: 'points3', label: 'Points', value: (r: SampleRow) => r.points, allowSort: true },
     ];
-    return (
-      <DataTable
-        properties={wideProperties}
-        items={sampleItems}
-        maxHeight={400}
-      />
-    );
+    return <DataTable properties={wideProperties} items={sampleItems} maxHeight={400} />;
   },
 };
 
@@ -194,7 +249,7 @@ export const EmptyTableListing: Story = {
       properties={sampleProperties}
       items={[]}
       emptyListRenderer={() => (
-        <div className="text-center py-12 opacity-60">
+        <div className="py-12 text-center opacity-60">
           <p className="text-lg font-medium">No records found</p>
           <p className="mt-1 text-sm">Try adjusting your filters or create a new entry.</p>
         </div>
@@ -217,11 +272,7 @@ export const WithDataTableManager: Story = {
           totalCount={filtered.length}
           labels={{ label: 'Challenge', labelPlural: 'Challenges' }}
         />
-        <DataTable
-          properties={sampleProperties}
-          items={filtered}
-          maxHeight={400}
-        />
+        <DataTable properties={sampleProperties} items={filtered} maxHeight={400} />
       </div>
     );
   },

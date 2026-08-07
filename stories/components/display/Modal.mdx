@@ -1,16 +1,15 @@
-import {Meta, Title, ArgTypes, Primary} from '@storybook/addon-docs/blocks';
-import * as ModalStories from "./Modal.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Modal"
-    of={ModalStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as ModalStories from './Modal.stories';
+
+<Meta title="Components/Display/Modal" of={ModalStories} />
 
 <Title>Modal</Title>
 
 <div className="w-[480px] max-w-full">
-    <SingleLineCodeBlock text={`import { Modal } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Modal } from 'chaya-ui';`} />
 </div>
 
 <Primary />

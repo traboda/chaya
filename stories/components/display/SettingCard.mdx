@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SettingCardStories from "./SettingCard.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/SettingCard"
-    of={SettingCardStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SettingCardStories from './SettingCard.stories';
+
+<Meta title="Components/Display/SettingCard" of={SettingCardStories} />
 
 <Title>SettingCard</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { SettingCard } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { SettingCard } from 'chaya-ui';`} />
 </div>
 
 A settings card component for building settings pages with a title, description, and action slot layout.

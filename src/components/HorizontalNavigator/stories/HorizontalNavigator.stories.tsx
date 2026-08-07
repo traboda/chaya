@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import HorizontalNavigator from '../HorizontalNavigator';
-import { HorizontalNavigatorItemType } from '../HorizontalNavigatorItem.types';
 import { HorizontalNavigatorProps } from '../HorizontalNavigator.types';
+import { HorizontalNavigatorItemType } from '../HorizontalNavigatorItem.types';
 
 const meta: Meta<HorizontalNavigatorProps> = {
   title: 'Components/Navigation/HorizontalNavigator',
@@ -22,7 +23,6 @@ const defaultMenuItems: HorizontalNavigatorItemType[] = [
 ];
 
 const DefaultTemplate = ({ items, activeItem: _active, ...args }: HorizontalNavigatorProps) => {
-
   const [activeItem, setActiveItem] = React.useState(_active);
 
   return (
@@ -33,7 +33,6 @@ const DefaultTemplate = ({ items, activeItem: _active, ...args }: HorizontalNavi
       onClickItem={(key) => setActiveItem(key)}
     />
   );
-
 };
 
 export const Primary: Story = {
@@ -78,11 +77,10 @@ export const MinimalVariant: Story = {
   render: (args) => <DefaultTemplate {...args} />,
 };
 
-
 const colorVariants: {
-  color: HorizontalNavigatorProps['color'],
-  label: string,
-  activeItem: HorizontalNavigatorProps['activeItem'],
+  color: HorizontalNavigatorProps['color'];
+  label: string;
+  activeItem: HorizontalNavigatorProps['activeItem'];
 }[] = [
   { color: 'primary', label: 'Primary', activeItem: 'ALL' },
   { color: 'secondary', label: 'Secondary', activeItem: 'OPENED' },
@@ -97,14 +95,25 @@ const colorVariants: {
 
 const NavigatorVariants = ({ variant }: { variant: HorizontalNavigatorProps['variant'] }) => (
   <table
-    className="flex flex-col items-start border-dashed border gap-2"
-    style={{ padding: '5vh 5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
+    className="flex flex-col items-start gap-2 border border-dashed"
+    style={{
+      padding: '5vh 5vw',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+      background: 'rgba(200, 200, 200, 0.15)',
+    }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <tr className="flex flex-wrap mx-0 w-full">
-        <td style={{ width: '30%' }} className="p-3 opacity-80 flex justify-end text-sm">{label}</td>
+      <tr className="mx-0 flex w-full flex-wrap">
+        <td style={{ width: '30%' }} className="flex justify-end p-3 text-sm opacity-80">
+          {label}
+        </td>
         <td style={{ width: '70%' }}>
-          <DefaultTemplate items={defaultMenuItems} color={color} activeItem={activeItem} variant={variant} />
+          <DefaultTemplate
+            items={defaultMenuItems}
+            color={color}
+            activeItem={activeItem}
+            variant={variant}
+          />
         </td>
       </tr>
     ))}
@@ -122,8 +131,6 @@ export const LineColors: Story = {
   tags: ['unlisted'],
   render: () => <NavigatorVariants variant="line" />,
 };
-
-
 
 const MENU_WITH_DISABLED_ITEMS: HorizontalNavigatorItemType[] = [
   {
@@ -170,4 +177,3 @@ export const DisabledLineItems: Story = {
   },
   render: (args) => <DefaultTemplate {...args} />,
 };
-

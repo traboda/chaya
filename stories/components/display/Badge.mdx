@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as BadgeStories from "./Badge.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Badge"
-    of={BadgeStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as BadgeStories from './Badge.stories';
+
+<Meta title="Components/Display/Badge" of={BadgeStories} />
 
 <Title>Badge</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Badge } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Badge } from 'chaya-ui';`} />
 </div>
 
 <Primary />

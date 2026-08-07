@@ -1,4 +1,5 @@
 import React from 'react';
+
 import clsx from 'clsx';
 
 import mcs from '../utils/merge';
@@ -7,47 +8,51 @@ import Breadcrumb, { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 import Button, { ButtonProps } from './Button';
 
 export type PageHeaderProps = {
-  title?: string,
-  customTitle?: React.ReactElement,
-  description?: string,
-  id?: string,
-  size?: ('lg' | 'sm')
-  fill?: boolean,
-  className?: string,
-  headingClassName?: string,
-  breadcrumb?: BreadcrumbProps,
+  title?: string;
+  customTitle?: React.ReactElement;
+  description?: string;
+  id?: string;
+  size?: 'lg' | 'sm';
+  fill?: boolean;
+  className?: string;
+  headingClassName?: string;
+  breadcrumb?: BreadcrumbProps;
   homeLink?: BreadcrumbItemProps;
-  breadcrumbItems?: BreadcrumbItemProps[],
-  titleBottomRenderer?: () => (React.ReactNode),
-  sidebarRenderer?: () => (React.ReactNode)
-  customRender?: () => (React.ReactNode),
-  backButton?: ButtonProps
+  breadcrumbItems?: BreadcrumbItemProps[];
+  titleBottomRenderer?: () => React.ReactNode;
+  sidebarRenderer?: () => React.ReactNode;
+  customRender?: () => React.ReactNode;
+  backButton?: ButtonProps;
 };
 
 const PageHeader = ({
-  title, description, className = '', headingClassName = '', id, homeLink,
-  breadcrumbItems = [], size = 'sm', fill = false,
+  title,
+  description,
+  className = '',
+  headingClassName = '',
+  id,
+  homeLink,
+  breadcrumbItems = [],
+  size = 'sm',
+  fill = false,
   customRender = () => <div />,
   titleBottomRenderer = () => <div />,
   sidebarRenderer = () => <div />,
-  customTitle, breadcrumb, backButton,
-} : PageHeaderProps) => {
-
+  customTitle,
+  breadcrumb,
+  backButton,
+}: PageHeaderProps) => {
   return (
     <section
       id={id}
-      className={mcs([
-        'page-header',
-        fill ? 'p-2 md:p-4' : 'container mx-auto p-2',
-        className,
-      ])}
+      className={mcs(['page-header', fill ? 'p-2 md:p-4' : 'container mx-auto p-2', className])}
       style={{
         padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : '',
       }}
     >
       <div>
         <div className="flex flex-wrap">
-          <div className="w-full md:w-2/3 py-2">
+          <div className="w-full py-2 md:w-2/3">
             {backButton && (
               <Button
                 variant="link"
@@ -56,22 +61,24 @@ const PageHeader = ({
                 {...backButton}
                 size={size === 'lg' ? 'lg' : 'sm'}
                 className={mcs([
-                  '!no-underline px-1.5 py-1 !rounded-lg hover:bg-neutral-100 hover:dark:hover:bg-neutral-200',
+                  '!rounded-lg px-1.5 py-1 !no-underline hover:bg-neutral-100 hover:dark:hover:bg-neutral-200',
                   backButton?.className,
                 ])}
               />
             )}
             {breadcrumbItems?.length > 0 ? (
-              <div className={size === 'lg' ? 'px-2 mb-4' : 'mb-2'}>
+              <div className={size === 'lg' ? 'mb-4 px-2' : 'mb-2'}>
                 <Breadcrumb
                   homeLink={homeLink}
-                  className={size === 'sm' ? 'text-sm mb-0' : ''}
+                  className={size === 'sm' ? 'mb-0 text-sm' : ''}
                   {...breadcrumb}
                   items={breadcrumbItems}
                 />
               </div>
             ) : null}
-            {customTitle ? customTitle : (
+            {customTitle ? (
+              customTitle
+            ) : (
               <h1
                 aria-level={1}
                 className={mcs([
@@ -87,8 +94,8 @@ const PageHeader = ({
             {description && description?.length > 0 ? (
               <p
                 className={clsx([
-                  'opacity-80 max-w-full w-[600px]',
-                  size == 'lg' ? 'text-base mt-3' : 'text-sm mt-2',
+                  'w-[600px] max-w-full opacity-80',
+                  size == 'lg' ? 'mt-3 text-base' : 'mt-2 text-sm',
                 ])}
               >
                 {description}
@@ -96,7 +103,7 @@ const PageHeader = ({
             ) : null}
             {titleBottomRenderer()}
           </div>
-          <div className="w-full md:w-1/3 py-2 flex justify-end items-center">
+          <div className="flex w-full items-center justify-end py-2 md:w-1/3">
             {sidebarRenderer()}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Badge, { BadgeProps } from '../../../src/components/Badge';
@@ -23,8 +24,12 @@ export const Primary: Story = {
 
 const BadgeVariants = ({ variant }: { variant: BadgeProps['variant'] }) => (
   <div
-    className="flex justify-center items-center border-dashed border gap-2"
-    style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-center justify-center gap-2 border border-dashed"
+    style={{
+      padding: '5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <Badge variant={variant} color="primary">
       Primary
@@ -73,8 +78,12 @@ export const OutlineVariant: Story = {
 
 const BadgeSizesShowcase = ({ variant }: { variant: BadgeProps['variant'] }) => (
   <div
-    className="flex justify-center items-end border-dashed border gap-2"
-    style={{ padding: '2.5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-end justify-center gap-2 border border-dashed"
+    style={{
+      padding: '2.5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <Badge variant={variant} color="primary" size="xs">
       xs badge
@@ -109,7 +118,14 @@ export const BadgeWithIcon: Story = {
   name: 'Badge with Icon',
   tags: ['unlisted'],
   render: () => (
-    <div className="flex justify-center items-center border-dashed border gap-2" style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}>
+    <div
+      className="flex items-center justify-center gap-2 border border-dashed"
+      style={{
+        padding: '5vh 0',
+        background: 'rgba(200, 200, 200, 0.25)',
+        borderColor: 'rgba(200, 200, 200, 0.8)',
+      }}
+    >
       <Badge variant="solid" size="md" color="primary" leftIcon="info">
         Information
       </Badge>

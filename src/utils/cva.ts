@@ -10,4 +10,3 @@ export const { cva, cx, compose } = defineConfig({
     onComplete: (className) => merge(className),
   },
 });
-

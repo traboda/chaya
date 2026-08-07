@@ -6,22 +6,29 @@ import ListViewItem from '../ListView/item';
 import { SimpleSelectValue } from './index';
 
 export type SimpleSelectOptionProps = {
-
-  value: SimpleSelectValue,
-  label: string,
-  icon?: IconInputType,
-  iconRenderer?: React.ReactNode,
-  onSelect?: (v: SimpleSelectValue) => void,
-  className?: string,
-  isSelected?: boolean,
-  isDisabled?: boolean,
-  isMulti?: boolean
-  isHighlighted?: boolean,
+  value: SimpleSelectValue;
+  label: string;
+  icon?: IconInputType;
+  iconRenderer?: React.ReactNode;
+  onSelect?: (v: SimpleSelectValue) => void;
+  className?: string;
+  isSelected?: boolean;
+  isDisabled?: boolean;
+  isMulti?: boolean;
+  isHighlighted?: boolean;
 };
 
 const SimpleSelectOption = ({
-  value, label, onSelect = () => {}, isSelected, className = '', icon, iconRenderer,
-  isMulti = false, isHighlighted = false, isDisabled = false,
+  value,
+  label,
+  onSelect = () => {},
+  isSelected,
+  className = '',
+  icon,
+  iconRenderer,
+  isMulti = false,
+  isHighlighted = false,
+  isDisabled = false,
 }: SimpleSelectOptionProps) => {
   const onClick = (event: MouseEvent | ChangeEvent) => {
     if (isMulti) event.stopPropagation();
@@ -46,7 +53,6 @@ const SimpleSelectOption = ({
       onSelect={onClick}
     />
   );
-
 };
 
 export default SimpleSelectOption;

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Checkbox, { CheckboxProps } from '../../../src/components/Checkbox';
@@ -14,13 +15,7 @@ export type Story = StoryObj<CheckboxProps<string | number>>;
 
 const BaseCheckboxTemplate = (args: CheckboxProps<string | number>) => {
   const [isChecked, setIsChecked] = React.useState(false);
-  return (
-    <Checkbox
-      {...args}
-      isChecked={isChecked}
-      onChange={() => setIsChecked(!isChecked)}
-    />
-  );
+  return <Checkbox {...args} isChecked={isChecked} onChange={() => setIsChecked(!isChecked)} />;
 };
 
 export const Primary: Story = {

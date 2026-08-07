@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Switch, { SwitchProps } from '../../../src/components/Switch';
@@ -33,11 +34,14 @@ export const Primary: Story = {
   ),
 };
 
-
 const SwitchColors = () => (
   <div
-    className="flex justify-center items-center border-dashed border gap-4"
-    style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-center justify-center gap-4 border border-dashed"
+    style={{
+      padding: '5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <BaseSwitchTemplate value color="primary" label="Primary" />
     <BaseSwitchTemplate value color="secondary" label="Secondary" />

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import DataTableManager from '../../../src/components/DataTableManager';
@@ -23,7 +24,12 @@ const columns = [
 export const Primary: Story = {
   render: () => {
     const [keyword, setKeyword] = React.useState('');
-    const [selectedColumns, setSelectedColumns] = React.useState(['name', 'email', 'role', 'status']);
+    const [selectedColumns, setSelectedColumns] = React.useState([
+      'name',
+      'email',
+      'role',
+      'status',
+    ]);
     return (
       <DataTableManager
         keyword={keyword}

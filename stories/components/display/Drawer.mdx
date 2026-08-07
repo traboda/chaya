@@ -1,16 +1,15 @@
-import {Meta, Title, ArgTypes, Primary} from '@storybook/addon-docs/blocks';
-import * as DrawerStories from "./Drawer.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Drawer"
-    of={DrawerStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DrawerStories from './Drawer.stories';
+
+<Meta title="Components/Display/Drawer" of={DrawerStories} />
 
 <Title>Drawer</Title>
 
 <div className="w-[480px] max-w-full">
-    <SingleLineCodeBlock text={`import { Drawer } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Drawer } from 'chaya-ui';`} />
 </div>
 
 <Primary />

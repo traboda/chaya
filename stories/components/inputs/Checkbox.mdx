@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/addon-docs/blocks';
-import * as CheckboxStories from "./Checkbox.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/Checkbox"
-    of={CheckboxStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta title="Components/Inputs/Checkbox" of={CheckboxStories} />
 
 <Title>Checkbox</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Checkbox } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Checkbox } from 'chaya-ui';`} />
 </div>
 
 <Primary />

@@ -1,20 +1,30 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+
 import { nanoid } from 'nanoid';
 
-import Label from '../Label';
 import mcs from '../../utils/merge';
+import Label from '../Label';
 
 import PinDigit from './PinDigit';
 import { PinInputProps } from './PinInput.types';
 
-
 const PinInput = ({
-  value = '', onChange: onChangeProp = () => {}, digits = 6, type = 'text', mask = false, labels,
-  isInvalid: _isInvalid = false, isDisabled = false, isRequired = false, autoFocus = false, id,
-  className = '', digitClassName = '', variant = 'minimal',
+  value = '',
+  onChange: onChangeProp = () => {},
+  digits = 6,
+  type = 'text',
+  mask = false,
+  labels,
+  isInvalid: _isInvalid = false,
+  isDisabled = false,
+  isRequired = false,
+  autoFocus = false,
+  id,
+  className = '',
+  digitClassName = '',
+  variant = 'minimal',
 }: PinInputProps) => {
-
   const inputs = useRef<HTMLInputElement>(null);
   const [isInvalid, setInvalid] = useState(_isInvalid);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
@@ -32,13 +42,12 @@ const PinInput = ({
     elems[index].select();
   };
 
-  const onChangeVal = ({ val, index }: { val: string, index: number }) => {
+  const onChangeVal = ({ val, index }: { val: string; index: number }) => {
     if (val) {
       const newVal = value.split('');
-      newVal[index] = (index === digits - 1) ? val[val.length - 1] : val[0];
+      newVal[index] = index === digits - 1 ? val[val.length - 1] : val[0];
       onChange(newVal.join(''));
-      if (val && index !== digits - 1)
-        selectDigit(index + 1);
+      if (val && index !== digits - 1) selectDigit(index + 1);
     }
   };
 
@@ -83,12 +92,15 @@ const PinInput = ({
     if ('OTPCredential' in window) {
       abortController.current = new AbortController();
 
-      navigator.credentials.get({
-        otp: { transport: ['sms'] },
-        signal: abortController.current?.signal,
-      }).then(otp => {
-        if (otp) onChange(otp.code);
-      }).catch(() => {});
+      navigator.credentials
+        .get({
+          otp: { transport: ['sms'] },
+          signal: abortController.current?.signal,
+        })
+        .then((otp) => {
+          if (otp) onChange(otp.code);
+        })
+        .catch(() => {});
     }
 
     return () => {
@@ -99,34 +111,40 @@ const PinInput = ({
 
   return (
     <div className={isDisabled ? 'opacity-70' : ''}>
-      {labels?.label && <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />}
+      {labels?.label && (
+        <Label htmlFor={`${inputID}-label`} children={labels?.label} isRequired={isRequired} />
+      )}
       <div
         ref={inputs}
         className={mcs([
-          'pin-input grid pin-input gap-2 dark:border-neutral-500/70 border-neutral-500/20',
-          variant === 'minimal' ? 'bg-background-lighten-1 shadow-inner rounded-lg border px-2 py-1.5 focus-within:border-primary' : 'gap-2',
+          'pin-input pin-input grid gap-2 border-neutral-500/20 dark:border-neutral-500/70',
+          variant === 'minimal'
+            ? 'rounded-lg border bg-background-lighten-1 px-2 py-1.5 shadow-inner focus-within:border-primary'
+            : 'gap-2',
           className,
         ])}
         style={{ gridTemplateColumns: `repeat(${digits}, 1fr)` }}
       >
-        {Array(digits).fill(null).map((_, i) => (
-          <PinDigit
-            id={`${inputID}-${i}`}
-            key={i}
-            type={type}
-            mask={mask}
-            ariaLabelledBy={`${inputID}-label`}
-            value={value[i] ?? ''}
-            onChange={(value) => onChangeVal({ val: value, index: i })}
-            onKeyDown={(e) => onKeyDown(e, i)}
-            placeholder={labels?.placeholder?.[i] ?? ''}
-            isInvalid={isInvalid}
-            isDisabled={isDisabled}
-            isRequired={isRequired}
-            className={digitClassName}
-            variant={variant}
-          />
-        ))}
+        {Array(digits)
+          .fill(null)
+          .map((_, i) => (
+            <PinDigit
+              id={`${inputID}-${i}`}
+              key={i}
+              type={type}
+              mask={mask}
+              ariaLabelledBy={`${inputID}-label`}
+              value={value[i] ?? ''}
+              onChange={(value) => onChangeVal({ val: value, index: i })}
+              onKeyDown={(e) => onKeyDown(e, i)}
+              placeholder={labels?.placeholder?.[i] ?? ''}
+              isInvalid={isInvalid}
+              isDisabled={isDisabled}
+              isRequired={isRequired}
+              className={digitClassName}
+              variant={variant}
+            />
+          ))}
       </div>
     </div>
   );

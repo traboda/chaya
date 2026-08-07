@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SidebarStories from "./Sidebar.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Navigation/Sidebar"
-    of={SidebarStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SidebarStories from './Sidebar.stories';
+
+<Meta title="Components/Navigation/Sidebar" of={SidebarStories} />
 
 <Title>Sidebar</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Sidebar } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Sidebar } from 'chaya-ui';`} />
 </div>
 
 A sidebar navigation component with collapsible support, navigation groups, user profile display,

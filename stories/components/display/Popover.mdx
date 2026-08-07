@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as PopoverStories from "./Popover.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/Popover"
-    of={PopoverStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as PopoverStories from './Popover.stories';
+
+<Meta title="Components/Display/Popover" of={PopoverStories} />
 
 <Title>Popover</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Popover } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Popover } from 'chaya-ui';`} />
 </div>
 
 A popover component that displays floating content anchored to a trigger element. Supports configurable

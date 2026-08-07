@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Avatar, { AvatarProps } from '../../../src/components/Avatar';
@@ -35,7 +36,7 @@ export const Sizes: Story = {
   tags: ['unlisted'],
   render: () => (
     <div className="flex items-end gap-4">
-      {[24, 32, 48, 64, 96].map(size => (
+      {[24, 32, 48, 64, 96].map((size) => (
         <Avatar key={size} alt="User" src={`https://i.pravatar.cc/150?u=size${size}`} size={size} />
       ))}
     </div>

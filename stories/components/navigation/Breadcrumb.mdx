@@ -1,21 +1,19 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/addon-docs/blocks';
-import * as BreadcrumbStories from "./Breadcrumb.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Navigation/Breadcrumb"
-    of={BreadcrumbStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as BreadcrumbStories from './Breadcrumb.stories';
+
+<Meta title="Components/Navigation/Breadcrumb" of={BreadcrumbStories} />
 
 <Title>Breadcrumb</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { Breadcrumb } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { Breadcrumb } from 'chaya-ui';`} />
 </div>
 
 Breadcrumb is a component that allows users to navigate between pages and see where they are in the hierarchy of a website.
 It is usually placed at the top of the page.
-
 
 <Primary name="Primary" />
 

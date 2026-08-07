@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import StatsCard, { StatsCardProps } from '../../../src/components/StatsCard';
@@ -16,12 +17,7 @@ export default meta;
 type Story = StoryObj<StatsCardProps>;
 
 export const Primary: Story = {
-  render: () => (
-    <StatsCard
-      value={1245}
-      labels={{ title: 'Total Users' }}
-    />
-  ),
+  render: () => <StatsCard value={1245} labels={{ title: 'Total Users' }} />,
 };
 
 export const WithDelta: Story = {
@@ -89,8 +85,8 @@ export const WithBottomRenderer: Story = {
       value={78}
       labels={{ title: 'Completion Rate', description: 'Average task completion rate.' }}
       bottomRenderer={() => (
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-          <div className="bg-blue-500 h-2 rounded-full" style={{ width: '78%' }} />
+        <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+          <div className="h-2 rounded-full bg-blue-500" style={{ width: '78%' }} />
         </div>
       )}
     />
@@ -111,13 +107,8 @@ export const CurrencyValue: Story = {
 
 export const GridLayout: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <StatsCard
-        value={1245}
-        deltaValue={85}
-        icon="ri-user-line"
-        labels={{ title: 'Users' }}
-      />
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <StatsCard value={1245} deltaValue={85} icon="ri-user-line" labels={{ title: 'Users' }} />
       <StatsCard
         value={342}
         deltaValue={-12}

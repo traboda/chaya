@@ -7,6 +7,6 @@ interface OTPOptions {
 }
 
 interface CredentialType {
-  code: string
-  type: string
+  code: string;
+  type: string;
 }

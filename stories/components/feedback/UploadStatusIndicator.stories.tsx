@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import UploadStatusIndicator, { UploadStatusIndicatorProps } from '../../../src/components/UploadStatusIndicator';
+import UploadStatusIndicator, {
+  UploadStatusIndicatorProps,
+} from '../../../src/components/UploadStatusIndicator';
 
 const createMockFile = (name: string, size: number, type: string): File => {
   const file = new File(['x'.repeat(size)], name, { type });
@@ -28,12 +31,7 @@ export default meta;
 type Story = StoryObj<UploadStatusIndicatorProps>;
 
 export const Primary: Story = {
-  render: () => (
-    <UploadStatusIndicator
-      files={sampleFiles}
-      removeFile={() => {}}
-    />
-  ),
+  render: () => <UploadStatusIndicator files={sampleFiles} removeFile={() => {}} />,
 };
 
 export const WithProgress: Story = {
@@ -79,11 +77,5 @@ export const AllComplete: Story = {
 };
 
 export const HiddenTitle: Story = {
-  render: () => (
-    <UploadStatusIndicator
-      files={sampleFiles}
-      hideTitle
-      removeFile={() => {}}
-    />
-  ),
+  render: () => <UploadStatusIndicator files={sampleFiles} hideTitle removeFile={() => {}} />,
 };

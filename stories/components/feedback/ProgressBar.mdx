@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/addon-docs/blocks';
-import * as ProgressBarStories from "./ProgressBar.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Feedback/ProgressBar"
-    of={ProgressBarStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as ProgressBarStories from './ProgressBar.stories';
+
+<Meta title="Components/Feedback/ProgressBar" of={ProgressBarStories} />
 
 <Title>ProgressBar</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { ProgressBar } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { ProgressBar } from 'chaya-ui';`} />
 </div>
 
 <Primary />

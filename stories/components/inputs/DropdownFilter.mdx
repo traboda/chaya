@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
-import * as DropdownFilterStories from "./DropdownFilter.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Canvas, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/DropdownFilter"
-    of={DropdownFilterStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DropdownFilterStories from './DropdownFilter.stories';
+
+<Meta title="Components/Inputs/DropdownFilter" of={DropdownFilterStories} />
 
 <Title>DropdownFilter</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { DropdownFilter } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { DropdownFilter } from 'chaya-ui';`} />
 </div>
 
 <Primary />

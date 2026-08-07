@@ -1,5 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Tabs, { TabsProps } from '../../../src/components/Tabs';
 
@@ -21,31 +22,51 @@ const defaultItems = [
     key: 'overview',
     label: 'Overview',
     icon: 'ri-home-line',
-    renderer: <div className="py-4"><p>Overview content goes here.</p></div>,
+    renderer: (
+      <div className="py-4">
+        <p>Overview content goes here.</p>
+      </div>
+    ),
   },
   {
     key: 'activity',
     label: 'Activity',
     icon: 'ri-pulse-line',
-    renderer: <div className="py-4"><p>Recent activity and logs.</p></div>,
+    renderer: (
+      <div className="py-4">
+        <p>Recent activity and logs.</p>
+      </div>
+    ),
   },
   {
     key: 'settings',
     label: 'Settings',
     icon: 'ri-settings-3-line',
-    renderer: <div className="py-4"><p>Configuration and preferences.</p></div>,
+    renderer: (
+      <div className="py-4">
+        <p>Configuration and preferences.</p>
+      </div>
+    ),
   },
   {
     key: 'members',
     label: 'Members',
     icon: 'ri-team-line',
-    renderer: <div className="py-4"><p>Team members and roles.</p></div>,
+    renderer: (
+      <div className="py-4">
+        <p>Team members and roles.</p>
+      </div>
+    ),
   },
   {
     key: 'billing',
     label: 'Billing',
     icon: 'ri-bank-card-line',
-    renderer: <div className="py-4"><p>Billing and invoices.</p></div>,
+    renderer: (
+      <div className="py-4">
+        <p>Billing and invoices.</p>
+      </div>
+    ),
   },
 ];
 
@@ -70,28 +91,44 @@ export const WithBadges: Story = {
           key: 'all',
           label: 'All',
           badge: '128',
-          renderer: <div className="py-4"><p>All items.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>All items.</p>
+            </div>
+          ),
         },
         {
           key: 'active',
           label: 'Active',
           badge: '42',
           badgeProps: { color: 'success', variant: 'minimal' },
-          renderer: <div className="py-4"><p>Active items only.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Active items only.</p>
+            </div>
+          ),
         },
         {
           key: 'pending',
           label: 'Pending',
           badge: '7',
           badgeProps: { color: 'warning', variant: 'minimal' },
-          renderer: <div className="py-4"><p>Pending review.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Pending review.</p>
+            </div>
+          ),
         },
         {
           key: 'archived',
           label: 'Archived',
           badge: '79',
           badgeProps: { color: 'shade', variant: 'minimal' },
-          renderer: <div className="py-4"><p>Archived items.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Archived items.</p>
+            </div>
+          ),
         },
       ]}
     />
@@ -110,7 +147,11 @@ export const WithSolidBadges: Story = {
           icon: 'ri-inbox-line',
           badge: '12',
           badgeProps: { color: 'danger' },
-          renderer: <div className="py-4"><p>Unread messages.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Unread messages.</p>
+            </div>
+          ),
         },
         {
           key: 'sent',
@@ -118,7 +159,11 @@ export const WithSolidBadges: Story = {
           icon: 'ri-send-plane-line',
           badge: '5',
           badgeProps: { color: 'primary' },
-          renderer: <div className="py-4"><p>Sent messages.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Sent messages.</p>
+            </div>
+          ),
         },
         {
           key: 'drafts',
@@ -126,7 +171,11 @@ export const WithSolidBadges: Story = {
           icon: 'ri-draft-line',
           badge: '3',
           badgeProps: { color: 'warning' },
-          renderer: <div className="py-4"><p>Saved drafts.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Saved drafts.</p>
+            </div>
+          ),
         },
         {
           key: 'spam',
@@ -134,7 +183,11 @@ export const WithSolidBadges: Story = {
           icon: 'ri-spam-line',
           badge: '99+',
           badgeProps: { color: 'shade' },
-          renderer: <div className="py-4"><p>Spam folder.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Spam folder.</p>
+            </div>
+          ),
         },
       ]}
     />
@@ -152,21 +205,33 @@ export const WithOutlineBadges: Story = {
           label: 'Open',
           badge: '14',
           badgeProps: { color: 'success' },
-          renderer: <div className="py-4"><p>Open issues.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Open issues.</p>
+            </div>
+          ),
         },
         {
           key: 'in-progress',
           label: 'In Progress',
           badge: '6',
           badgeProps: { color: 'warning' },
-          renderer: <div className="py-4"><p>Work in progress.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Work in progress.</p>
+            </div>
+          ),
         },
         {
           key: 'closed',
           label: 'Closed',
           badge: '231',
           badgeProps: { color: 'shade' },
-          renderer: <div className="py-4"><p>Closed issues.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Closed issues.</p>
+            </div>
+          ),
         },
       ]}
     />
@@ -185,7 +250,11 @@ export const WithCircularBadges: Story = {
           icon: 'ri-notification-line',
           badge: '3',
           badgeProps: { color: 'danger' },
-          renderer: <div className="py-4"><p>New notifications.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>New notifications.</p>
+            </div>
+          ),
         },
         {
           key: 'updates',
@@ -193,7 +262,11 @@ export const WithCircularBadges: Story = {
           icon: 'ri-refresh-line',
           badge: '1',
           badgeProps: { color: 'primary' },
-          renderer: <div className="py-4"><p>System updates.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>System updates.</p>
+            </div>
+          ),
         },
         {
           key: 'alerts',
@@ -201,7 +274,11 @@ export const WithCircularBadges: Story = {
           icon: 'ri-alarm-warning-line',
           badge: '8',
           badgeProps: { color: 'warning' },
-          renderer: <div className="py-4"><p>Active alerts.</p></div>,
+          renderer: (
+            <div className="py-4">
+              <p>Active alerts.</p>
+            </div>
+          ),
         },
       ]}
     />
@@ -212,7 +289,7 @@ export const WithDisabledTab: Story = {
   render: () => (
     <Tabs
       items={defaultItems.map((item) =>
-        item.key === 'billing' ? { ...item, isDisabled: true } : item,
+        item.key === 'billing' ? { ...item, isDisabled: true } : item
       )}
     />
   ),

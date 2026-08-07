@@ -1,21 +1,17 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   stories: [
-    "../stories/introduction.mdx",
-    "../stories/getting-started/*.mdx",
-    "../stories/features/*.mdx",
-    "../stories/components/**/*.@(mdx|js|jsx|mjs|ts|tsx)",
-    "../src/components/**/**/stories/*.@(mdx|js|jsx|mjs|ts|tsx)",
-    "../stories/hooks/**/*.@(mdx|js|jsx|mjs|ts|tsx)",
+    '../stories/introduction.mdx',
+    '../stories/getting-started/*.mdx',
+    '../stories/features/*.mdx',
+    '../stories/components/**/*.@(mdx|js|jsx|mjs|ts|tsx)',
+    '../src/components/**/**/stories/*.@(mdx|js|jsx|mjs|ts|tsx)',
+    '../stories/hooks/**/*.@(mdx|js|jsx|mjs|ts|tsx)',
   ],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-a11y",
-    "@storybook/addon-docs",
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
   viteFinal: async (config) => {
@@ -25,7 +21,8 @@ const config: StorybookConfig = {
       rollupOptions: {
         ...config.build?.rollupOptions,
         onwarn(warning, warn) {
-          if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"')) return;
+          if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"'))
+            return;
           if (warning.code === 'SOURCEMAP_ERROR') return;
           warn(warning);
         },

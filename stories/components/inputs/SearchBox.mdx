@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
-import * as SearchBoxStories from "./SearchBox.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/SearchBox"
-    of={SearchBoxStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SearchBoxStories from './SearchBox.stories';
+
+<Meta title="Components/Inputs/SearchBox" of={SearchBoxStories} />
 
 <Title>SearchBox</Title>
 
 <div className="max-w-full">
-    <SingleLineCodeBlock text={`import { SearchBox } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { SearchBox } from 'chaya-ui';`} />
 </div>
 
 A search input component with built-in search button, loading state, and clear functionality.

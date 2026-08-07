@@ -1,16 +1,21 @@
 'use client';
 import React from 'react';
 
+import {
+  BORDER_COLOR_MAP,
+  EMPTY_COLOR_MAP,
+  MINIMAL_BG_COLOR_MAP,
+  SOLID_BG_COLOR_MAP,
+  SOLID_TEXT_COLOR_MAP,
+  TEXT_COLOR_MAP,
+  TRANSPARENT_BG_TEXT_COLOR_MAP,
+  colorVariantMapper,
+} from '../../utils/classMaps/colors';
 import { cva } from '../../utils/cva';
+import mcs from '../../utils/merge';
 import { LinkWrapper } from '../../utils/misc';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
-import {
-  colorVariantMapper,
-  BORDER_COLOR_MAP, TEXT_COLOR_MAP, TRANSPARENT_BG_TEXT_COLOR_MAP,
-  SOLID_BG_COLOR_MAP, MINIMAL_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
-} from '../../utils/classMaps/colors';
-import mcs from '../../utils/merge';
 
 import buttonStyle from './Button.module.scss';
 import { ButtonProps, ButtonVariantsType } from './Button.types';
@@ -54,16 +59,16 @@ const buttonStyling = cva({
       solid: '',
       outline: 'border',
       minimal: '',
-      link: [
-        'hover:underline',
-        'p-0 shadow-none rounded-none ring-transparent focus:ring-0',
-      ],
+      link: ['hover:underline', 'p-0 shadow-none rounded-none ring-transparent focus:ring-0'],
     },
   },
   compoundVariants: [
     ...colorVariantMapper<ButtonVariantsType>([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], 'solid'),
     ...colorVariantMapper<ButtonVariantsType>([MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP], 'minimal'),
-    ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP], 'outline'),
+    ...colorVariantMapper<ButtonVariantsType>(
+      [TRANSPARENT_BG_TEXT_COLOR_MAP, BORDER_COLOR_MAP],
+      'outline'
+    ),
     ...colorVariantMapper<ButtonVariantsType>([TRANSPARENT_BG_TEXT_COLOR_MAP], 'link'),
   ],
 });
@@ -81,15 +86,33 @@ const SpinnerWrapper = cva({
 });
 
 const Button = ({
-  variant = 'solid', color = 'primary', size = 'md',
-  children, link, onClick = () => {}, loadingText,
-  id, className = '', style, label, disableRipple = false, tabIndex, autoFocus, blurOnClick = true,
-  target, type, rel, isDisabled = false, leftIcon, rightIcon, isLoading = false, ...props
+  variant = 'solid',
+  color = 'primary',
+  size = 'md',
+  children,
+  link,
+  onClick = () => {},
+  loadingText,
+  id,
+  className = '',
+  style,
+  label,
+  disableRipple = false,
+  tabIndex,
+  autoFocus,
+  blurOnClick = true,
+  target,
+  type,
+  rel,
+  isDisabled = false,
+  leftIcon,
+  rightIcon,
+  isLoading = false,
+  ...props
 }: ButtonProps) => {
-
   const buttonContent = (
     <>
-      {(!disableRipple && !(isDisabled || isLoading)) && <Ripple />}
+      {!disableRipple && !(isDisabled || isLoading) && <Ripple />}
       {leftIcon && <Icon icon={leftIcon} size={iconSizes[size]} />}
       {children}
       {rightIcon && <Icon icon={rightIcon} size={iconSizes[size]} />}
@@ -112,7 +135,7 @@ const Button = ({
       type={type}
       tabIndex={tabIndex}
       autoFocus={autoFocus}
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
         if (blurOnClick) {
           e.currentTarget.blur();
@@ -127,7 +150,7 @@ const Button = ({
       {isLoading ? (
         <div
           className={mcs([
-            'w-full h-full z-5 absolute flex items-center gap-2 justify-center',
+            'z-5 absolute flex h-full w-full items-center justify-center gap-2',
             SpinnerWrapper({ color, variant }),
           ])}
         >
@@ -139,15 +162,21 @@ const Button = ({
     </button>
   );
 
-  return link ? LinkWrapper(link, buttonContent, {
-    target, rel, id, label, size,
-    className: computedClassName,
-    style,
-    isDisabled: isDisabled || isLoading,
-    isLoading,
-    tabIndex,
-    autoFocus,
-  }) : buttonRenderer();
+  return link
+    ? LinkWrapper(link, buttonContent, {
+        target,
+        rel,
+        id,
+        label,
+        size,
+        className: computedClassName,
+        style,
+        isDisabled: isDisabled || isLoading,
+        isLoading,
+        tabIndex,
+        autoFocus,
+      })
+    : buttonRenderer();
 };
 
 export default Button;
