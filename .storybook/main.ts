@@ -18,5 +18,20 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  viteFinal: async (config) => {
+    config.build = {
+      ...config.build,
+      chunkSizeWarningLimit: 2500,
+      rollupOptions: {
+        ...config.build?.rollupOptions,
+        onwarn(warning, warn) {
+          if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"')) return;
+          if (warning.code === 'SOURCEMAP_ERROR') return;
+          warn(warning);
+        },
+      },
+    };
+    return config;
+  },
 };
 export default config;
