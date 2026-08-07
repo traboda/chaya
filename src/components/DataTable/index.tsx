@@ -2,7 +2,6 @@
 import React, { ReactNode, useMemo, useRef, useState } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../../utils/merge';
 import InfiniteLoader from '../InfiniteLoader';
@@ -189,9 +188,8 @@ const DataTable = <Type extends { id: string }>({
                 {items?.length > 0 ? (
                   items.map((i, index) =>
                     canExpand ? (
-                      <>
+                      <React.Fragment key={i?.id ?? index}>
                         <ItemListerItem<Type>
-                          key={i?.id ?? nanoid()}
                           properties={activeProperties}
                           item={i}
                           itemIndex={index}
@@ -205,10 +203,10 @@ const DataTable = <Type extends { id: string }>({
                             <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                           </tr>
                         )}
-                      </>
+                      </React.Fragment>
                     ) : (
                       <ItemListerItem<Type>
-                        key={i.id ? i.id : nanoid()}
+                        key={i.id ?? index}
                         properties={activeProperties}
                         item={i}
                         itemIndex={index}
@@ -224,9 +222,9 @@ const DataTable = <Type extends { id: string }>({
                 {isLoading &&
                   Array(10)
                     .fill(0)
-                    .map(() => (
+                    .map((_, index) => (
                       <ItemListerItem<Type>
-                        key={nanoid()}
+                        key={`skeleton-${index}`}
                         properties={activeProperties}
                         isLoading
                         variant={variant}

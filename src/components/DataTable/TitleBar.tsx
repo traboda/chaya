@@ -46,7 +46,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   ]);
 
   return (
-    <React.Fragment>
+    <tr>
       {isAccordionsOpen != null && (
         <th style={{ width: colsWidth[i++] }} className={clsx(['relative px-2', thClasses])}>
           <button
@@ -125,7 +125,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
             </div>
           </th>
         ))}
-    </React.Fragment>
+    </tr>
   );
 };
 
