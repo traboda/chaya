@@ -1,0 +1,38 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as UploadStatusStories from "./UploadStatusIndicator.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/UploadStatusIndicator"
+    of={UploadStatusStories}
+/>
+
+<Title>UploadStatusIndicator</Title>
+
+<div className="max-w-full">
+    <SingleLineCodeBlock text={`import { UploadStatusIndicator } from 'chaya-ui';`} />
+</div>
+
+A component for displaying file upload progress with individual status indicators for each file.
+
+<Primary />
+
+## With Progress
+
+<Story of={UploadStatusStories.WithProgress} />
+
+## With Errors
+
+<Story of={UploadStatusStories.WithErrors} />
+
+## All Complete
+
+<Story of={UploadStatusStories.AllComplete} />
+
+## Hidden Title
+
+<Story of={UploadStatusStories.HiddenTitle} />
+
+## API
+
+<ArgTypes />

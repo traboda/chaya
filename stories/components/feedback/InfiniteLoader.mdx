@@ -1,0 +1,38 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as InfiniteLoaderStories from "./InfiniteLoader.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Feedback/InfiniteLoader"
+    of={InfiniteLoaderStories}
+/>
+
+<Title>InfiniteLoader</Title>
+
+<div className="max-w-full">
+    <SingleLineCodeBlock text={`import { InfiniteLoader } from 'chaya-ui';`} />
+</div>
+
+A component that triggers loading more items when scrolled into view, with end-of-list messaging.
+
+<Primary />
+
+## Loading
+
+<Story of={InfiniteLoaderStories.Loading} />
+
+## End of List
+
+<Story of={InfiniteLoaderStories.EndOfList} />
+
+## Custom End Message
+
+<Story of={InfiniteLoaderStories.CustomEndMessage} />
+
+## Custom Renderer
+
+<Story of={InfiniteLoaderStories.CustomRenderer} />
+
+## API
+
+<ArgTypes />
