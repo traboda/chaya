@@ -56,7 +56,6 @@ const preview: Preview = {
     theme: 'light',
   },
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
