@@ -92,7 +92,7 @@ const Modal = ({
             className={mcs([
               'modal-container relative w-full rounded-t-lg shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto sm:rounded-b-lg',
               'max-w-screen max-h-[100dvh] overflow-auto text-color',
-              'border border-gray-200/80 dark:border-neutral-600/80',
+              'border',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
               hideBg ? '' : 'bg-background',
@@ -122,7 +122,7 @@ const Modal = ({
                 className={mcs([
                   'modal-header flex w-full flex-col items-start justify-between gap-1',
                   'rounded-t-lg border-b px-3 py-2',
-                  'border-neutral-500/20 bg-background-lighten-1 dark:border-neutral-500/70 dark:bg-background-darken-1',
+                  'border-light bg-background-lighten-1 dark:bg-background-darken-1',
                   headerClassName,
                 ])}
               >
@@ -152,7 +152,7 @@ const Modal = ({
               <div
                 className={clsx([
                   'modal-footer rounded-b-lg border-t p-3',
-                  'border-neutral-500/20 bg-background-lighten-1 dark:border-neutral-500/70 dark:bg-background-darken-1',
+                  'border-light bg-background-lighten-1 dark:bg-background-darken-1',
                 ])}
               >
                 {primaryButton && secondaryButton ? (

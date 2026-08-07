@@ -139,14 +139,11 @@ const DataTable = <Type extends { id: string }>({
         >
           <div
             ref={tableTopbarRef}
-            className="border-b border-neutral-300 bg-background-lighten-1 text-color dark:border-neutral-600/70 dark:bg-background-darken-1"
+            className="border-b bg-background-lighten-1 text-color dark:bg-background-darken-1"
           >
             {customTopBarRenderer()}
           </div>
-          <div
-            style={{ maxHeight }}
-            className="table-container overflow-auto rounded-lg border border-neutral-300 dark:border-neutral-600/70"
-          >
+          <div style={{ maxHeight }} className="table-container overflow-auto rounded-lg border">
             <table
               className={clsx([
                 'data-table min-w-full border-spacing-0 transition-transform',
@@ -157,9 +154,7 @@ const DataTable = <Type extends { id: string }>({
               <thead
                 className={clsx([
                   'sticky top-0 z-50 mb-2 shadow-sm',
-                  variant === 'grid'
-                    ? 'border border-neutral-500/20 dark:border-neutral-500/70'
-                    : 'shadow-gray-500/50',
+                  variant === 'grid' ? 'border border-light' : 'shadow-gray-500/50',
                   classNames?.thead,
                 ])}
               >
@@ -199,7 +194,7 @@ const DataTable = <Type extends { id: string }>({
                           variant={variant}
                         />
                         {activeIndex?.includes(index) && (
-                          <tr className="accordion-content data-table-row group w-full border-y border-neutral-500/20 dark:border-neutral-500/70">
+                          <tr className="accordion-content data-table-row group w-full border-y border-light">
                             <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                           </tr>
                         )}
@@ -243,7 +238,7 @@ const DataTable = <Type extends { id: string }>({
           {enablePagination ? (
             <div
               className={clsx([
-                'border border-neutral-300 bg-neutral-500/10 dark:border-neutral-600/70 dark:bg-neutral-800/80',
+                'border bg-neutral-500/10 dark:bg-neutral-800/80',
                 'flex justify-start rounded-b-lg p-3 shadow-inner',
               ])}
             >

@@ -51,7 +51,7 @@ const Popover = ({
           sideOffset={sideOffset}
           className={clsx([
             'hover-card-content',
-            'border border-gray-200/80 dark:border-neutral-600/80',
+            'border',
             'transform-gpu rounded-lg text-color shadow-lg backdrop-blur-md dark:shadow-xl dark:shadow-black/30',
             'bg-background-darken-1 bg-opacity-80 dark:bg-background-lighten-1',
             className,

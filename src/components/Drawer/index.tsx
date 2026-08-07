@@ -109,7 +109,7 @@ const Drawer = ({
           <div
             className={mcs([
               'relative w-full bg-background text-color shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto',
-              'overflow-auto border border-gray-200/80 dark:border-neutral-600/80',
+              'overflow-auto border',
               getPositionAlignmentChild,
               getPositionAnimation,
               className,
@@ -144,7 +144,7 @@ const Drawer = ({
                 className={clsx([
                   'modal-header flex w-full flex-col items-start justify-between gap-1',
                   'rounded-t-lg border-b px-3 py-2',
-                  'border-neutral-500/20 bg-background-lighten-1 dark:border-neutral-500/70 dark:bg-background-darken-1',
+                  'border-light bg-background-lighten-1 dark:bg-background-darken-1',
                 ])}
               >
                 {title && (

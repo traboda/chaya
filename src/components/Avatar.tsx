@@ -53,10 +53,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
     renderPlaceholder()
   ) : (
     <img
-      className={mcs(
-        'avatar rounded-lg border border-gray-500/10 dark:border-gray-500/70',
-        className
-      )}
+      className={mcs('avatar rounded-lg border border-light', className)}
       height={size}
       width={size}
       title={title}

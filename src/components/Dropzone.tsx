@@ -110,7 +110,7 @@ const Dropzone = ({
           onDragEnter={dragEnter}
           onDragLeave={dragLeave}
           className={mcs([
-            'flex min-h-[10rem] w-full rounded-lg border-dashed border-gray-300 dark:border-neutral-500/70',
+            'flex min-h-[10rem] w-full rounded-lg border-dashed',
             'mt-1 flex-col items-center justify-center border-2 p-4 text-center',
             !isDisabled && isDragging
               ? 'bg-gray-500/30 dark:bg-gray-500/50'

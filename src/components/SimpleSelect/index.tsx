@@ -208,7 +208,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   }, []);
 
   const iconClassNameCalculated = clsx([
-    'border group-focus-within:border-primary border-gray-500/70 text-base',
+    'border group-focus-within:border-primary text-base',
     'text-color group-focus-within:border-primary overflow-hidden items-center',
     !isDisabled && 'group-[:not(:focus-within):hover]:border-gray-400/80',
   ]);
@@ -349,7 +349,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 onKeyDown={handleKeyDown}
                 className={mcs([
                   'simple-select w-full appearance-none rounded-lg p-2 text-base text-color',
-                  'border-neutral-300 bg-background-lighten-1 shadow-inner dark:border-neutral-500/70',
+                  'bg-background-lighten-1 shadow-inner',
                   'border-y border-l focus:outline-none',
                   'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
                   'cursor-default bg-background bg-no-repeat text-left',
@@ -380,9 +380,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           <div
                             key={val}
                             className={clsx([
-                              'border border-neutral-500/10 bg-black/10 dark:border-neutral-500/70 dark:bg-white/10',
+                              'border border-light bg-black/10 dark:bg-white/10',
                               'inline-flex items-center overflow-hidden rounded px-1',
-                              'hover:border-neutral-300 hover:shadow',
+                              'hover:shadow',
                             ])}
                           >
                             {option?.icon && <Icon icon={option?.icon} size={16} />}
@@ -493,7 +493,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             <div
               className={clsx([
                 'overflow-hidden rounded-lg bg-background-lighten-1',
-                isDropdownActive && 'border border-gray-200/50 shadow dark:border-neutral-500/70',
+                isDropdownActive && 'border border-light shadow',
               ])}
             >
               <div className="bg-black/10 dark:bg-white/10">

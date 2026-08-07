@@ -73,14 +73,14 @@ const Sidebar = ({
     <div
       id={id}
       className={mcs([
-        'sidebar relative flex h-full max-w-full flex-col justify-between border-r-2 border-neutral-500/10 dark:border-neutral-500/20',
+        'sidebar relative flex h-full max-w-full flex-col justify-between border-r-2 border-light',
         !isCollapsed ? 'w-[280px]' : '!w-fit items-center',
         'relative transition-all duration-300',
         className,
       ])}
     >
       {typeof topRenderer === 'function' || allowCollapseToggling ? (
-        <div className="mb-3 h-fit border-t border-neutral-500/10 px-1 dark:border-neutral-500/20">
+        <div className="mb-3 h-fit border-t border-light px-1">
           {typeof topRenderer === 'function' ? (
             <div className="flex justify-center py-2">{topRenderer({ isCollapsed })}</div>
           ) : null}
@@ -124,10 +124,7 @@ const Sidebar = ({
             {navigationGroups && navigationGroups.length > 0 ? (
               <React.Fragment>
                 {navigationGroups.map((group, index) => (
-                  <div
-                    key={index}
-                    className="border-t border-neutral-500/10 px-1 py-2 dark:border-neutral-500/20"
-                  >
+                  <div key={index} className="border-t border-light px-1 py-2">
                     {!isCollapsed && (
                       <div className="mb-2 px-2 text-sm font-semibold opacity-80">
                         {group.title}
@@ -153,7 +150,7 @@ const Sidebar = ({
       >
         {typeof bottomTopRenderer === 'function' ? bottomTopRenderer({ isCollapsed }) : null}
         {bottomNavigationItems && bottomNavigationItems.filter((i) => !i.isHidden).length > 0 ? (
-          <div className="mt-1 border-t border-neutral-500/10 px-1 py-2 dark:border-neutral-500/20">
+          <div className="mt-1 border-t border-light px-1 py-2">
             <VerticalNavigator
               {...navigationProps}
               items={bottomNavigationItems}
@@ -166,7 +163,7 @@ const Sidebar = ({
           <div
             className={clsx([
               'flex items-center gap-1 px-1 py-2',
-              'border-t border-neutral-500/10 dark:border-neutral-500/20',
+              'border-t border-light',
               isCollapsed ? 'flex-col' : 'flex-row justify-between',
             ])}
           >

@@ -69,7 +69,7 @@ const DateTimeInput = ({
 
   const inputClass = mcs([
     'px-2.5 py-2 block w-full bg-background placeholder:text-color focus:outline-none',
-    'text-color border dark:border-neutral-500/70 border-neutral-500/20 bg-background-lighten-1 shadow-inner rounded-lg placeholder:opacity-50 group-focus-within:border-primary text-base',
+    'text-color border border-light bg-background-lighten-1 shadow-inner rounded-lg placeholder:opacity-50 group-focus-within:border-primary text-base',
     inputClassName,
   ]);
 

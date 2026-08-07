@@ -35,7 +35,7 @@ const Tooltip = ({
           sideOffset={5}
           className={mcs([
             'tooltip-content z-9000 whitespace-nowrap rounded-lg',
-            'border border-gray-300/80 dark:border-neutral-500/70',
+            'border',
             'bg-gray-100/95 dark:bg-neutral-800/95',
             'px-2.5 py-1.5 text-sm text-color shadow-md backdrop-blur dark:shadow-lg dark:shadow-black/30',
             contentClassName,

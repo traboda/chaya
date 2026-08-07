@@ -40,7 +40,7 @@ const ProgressBar = ({
       id={id}
       className={mcs([
         'progress-bar w-full rounded-lg bg-gray-500/20',
-        'border border-gray-500/10 dark:border-gray-500/70',
+        'border border-light',
         className,
       ])}
       style={{ height: height ? height : sizes[size] }}

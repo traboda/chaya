@@ -20,7 +20,7 @@ const SearchResult = ({ result, className }: SearchResultProps) => {
     <Button
       className={mcs([
         '!rounded !p-2 hover:!bg-gray-500/30 focus:!bg-gray-500/50',
-        '!border-gray-500/10 dark:!border-gray-500/70',
+        '!border-light',
         '!block w-full',
         className,
       ])}

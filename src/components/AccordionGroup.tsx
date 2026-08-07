@@ -63,11 +63,9 @@ const AccordionGroup = ({
                 <div className="flex items-center gap-2">
                   <div
                     className={clsx([
-                      'h-[36px] w-[36px] rounded-full border border-neutral-300 p-1',
+                      'h-[36px] w-[36px] rounded-full border p-1',
                       'flex items-center justify-center text-base',
-                      activeIndex === index || item?.isCompleted
-                        ? ''
-                        : 'border border-neutral-500/20 dark:border-neutral-500/80',
+                      activeIndex === index || item?.isCompleted ? '' : 'border border-light',
                       activeIndex === index
                         ? 'bg-primary text-primaryTextColor'
                         : item.isCompleted

@@ -81,7 +81,7 @@ const DataTableManagerFilters = ({
   return (
     <div
       className={clsx([
-        'border border-neutral-500/10 bg-gray-500/10 dark:border-neutral-500/70 dark:bg-gray-500/20',
+        'border border-light bg-gray-500/10 dark:bg-gray-500/20',
         'rounded-lg p-2 shadow-inner',
       ])}
     >
@@ -129,7 +129,7 @@ const DataTableManagerFilters = ({
           })}
       </div>
       {isFilteredView ? (
-        <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-500/10 pt-2 dark:border-gray-500/70">
+        <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-light pt-2">
           {filterConfig
             .filter((f) => {
               const optionsLength = getOptions(f).length;

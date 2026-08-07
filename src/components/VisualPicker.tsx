@@ -137,8 +137,8 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
                 !(isDisabled || item.isDisabled) &&
                 'hover:border-gray-400/80',
               isDisabled || item.isDisabled
-                ? 'border-neutral-300 opacity-90 dark:border-neutral-600/50'
-                : 'border-neutral-300 bg-background-lighten-1 dark:border-neutral-600/70 dark:bg-background-lighten-2',
+                ? 'opacity-90'
+                : 'bg-background-lighten-1 dark:bg-background-lighten-2',
               itemClassName,
             ])}
             onClick={() => onSelect(item.value)}

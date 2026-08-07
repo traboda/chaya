@@ -156,9 +156,9 @@ const DropdownRender = ({
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="py-1 px-2 border-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
+          inputClassName="py-1 px-2 border-none rounded-b-none border-b border-light bg-transparent"
           buttonClassName="py-1 px-2 border-none outline-none rounded-b-none bg-transparent"
-          buttonWrapperClassName="border-none outline-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
+          buttonWrapperClassName="border-none outline-none rounded-b-none border-b border-light bg-transparent"
           onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
@@ -168,14 +168,13 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="w-full border-y border-gray-500/10 bg-background px-2 py-1 dark:border-gray-500/70">
+        <div className="w-full border-y border-light bg-background px-2 py-1">
           <span className="text-xs font-semibold uppercase opacity-80">{labels.optionsTitle}</span>
         </div>
       ) : null}
       <div
         className={clsx([
-          !(labels.optionsTitle?.length > 0) &&
-            'border-t border-gray-500/10 dark:border-gray-500/70',
+          !(labels.optionsTitle?.length > 0) && 'border-t border-light',
           'max-h-[30vh] overflow-y-auto',
         ])}
       >
@@ -237,13 +236,13 @@ const DropdownRender = ({
           <div className="px-2 py-4 text-center opacity-80">{labels?.noResults}</div>
         )}
       </div>
-      <div className="flex items-center justify-between border-t border-gray-500/10 dark:border-gray-500/70">
+      <div className="flex items-center justify-between border-t border-light">
         <button
           key={nanoid()}
           className={clsx([
             'flex items-center justify-center rounded-b-lg text-center font-semibold',
             'w-full gap-2 px-3 py-2 hover:bg-white/20',
-            'border-r border-gray-500/10 dark:border-gray-500/70',
+            'border-r border-light',
             'rounded-r-none hover:bg-neutral-500/10',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}
@@ -321,10 +320,7 @@ const DropdownFilter = ({
     <Dropdown
       align={align}
       side={side}
-      containerClassName={mcs([
-        'z-[100] border dark:border-gray-500/70 border-gray-500/10',
-        dropdownContainerClassName,
-      ])}
+      containerClassName={mcs(['z-[100] border border-light', dropdownContainerClassName])}
       buttonRenderer={<div className="w-fit">{children}</div>}
     >
       <DropdownRender

@@ -46,7 +46,7 @@ const PinDigit = ({
         ? 'border-b-2 bg-transparent focus:border-primary'
         : 'rounded-lg border bg-background-lighten-1 py-1.5 shadow-inner focus:border-primary',
       className,
-      isInvalid ? 'border-red-500' : 'border-neutral-500/20 dark:border-neutral-500/70',
+      isInvalid ? 'border-red-500' : 'border-light',
       type === 'number' && styles.hideStepper,
     ])}
     type={mask ? 'password' : type}

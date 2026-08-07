@@ -51,7 +51,7 @@ const alertClassName = cva({
     {
       variant: 'solid',
       color: 'white',
-      className: 'bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600',
+      className: 'bg-white dark:bg-neutral-800 border',
     },
     { variant: 'outline', color: 'black', className: 'text-black dark:text-black' },
     { variant: 'outline', color: 'white', className: 'text-white dark:text-white border-white' },

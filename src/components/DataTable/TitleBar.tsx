@@ -42,7 +42,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
   const thClasses = clsx([
     'h-full text-color py-3',
     variant !== 'striped-column' && 'bg-background-lighten-1 dark:bg-background-darken-2',
-    variant === 'grid' && 'border-x dark:border-neutral-500/70 border-neutral-500/20',
+    variant === 'grid' && 'border-x border-light',
   ]);
 
   return (
