@@ -26,6 +26,10 @@ export default {
     'contrast/50': 'var(--contrast50)',
     color: 'var(--color)',
   },
+  borderColor: {
+    DEFAULT: 'var(--border)',
+    light: 'var(--border-light)',
+  },
   animation: {
     stripes: 'stripes 60s linear infinite',
   },

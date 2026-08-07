@@ -46,8 +46,13 @@ const ThemeScript = memo(
       );
 
       const background = Color(theme.background);
-      cssProperties.push(`--contrast: ${background.negate().toString()};`);
-      cssProperties.push(`--contrast50: ${background.negate().alpha(0.5).toString()};`);
+      const contrastColor = background.negate();
+      cssProperties.push(`--contrast: ${contrastColor.toString()};`);
+      cssProperties.push(`--contrast50: ${contrastColor.alpha(0.5).toString()};`);
+      cssProperties.push(`--border: ${contrastColor.alpha(isDarkTheme ? 0.2 : 0.15).toString()};`);
+      cssProperties.push(
+        `--border-light: ${contrastColor.alpha(isDarkTheme ? 0.1 : 0.08).toString()};`
+      );
 
       [0.1, 0.2, 0.3].forEach((n) => {
         cssProperties.push(`--background-lighten-${n * 10}: ${background.lighten(n).toString()};`);
