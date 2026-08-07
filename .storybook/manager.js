@@ -1,7 +1,7 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming';
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
-import './manager.css';
+
 
 const lightTheme = create({
     base: 'light',
