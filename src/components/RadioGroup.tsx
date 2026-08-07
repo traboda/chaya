@@ -35,7 +35,7 @@ const RadioGroup = <Type extends string | number>({
   optionClassName,
   onChange = () => {},
 }: RadioGroupProps<Type>) => {
-  const radioRefs = useRef<React.RefObject<HTMLInputElement>[]>([]);
+  const radioRefs = useRef<React.RefObject<HTMLInputElement | null>[]>([]);
 
   useEffect(() => {
     radioRefs.current = options.map(() => React.createRef());

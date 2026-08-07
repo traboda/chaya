@@ -39,7 +39,7 @@ const CheckboxGroup = <Type extends string | number>({
   id,
   minSelections = 1,
 }: CheckboxGroupProps<Type>) => {
-  const checkboxRefs = useRef<React.RefObject<HTMLInputElement>[]>([]);
+  const checkboxRefs = useRef<React.RefObject<HTMLInputElement | null>[]>([]);
   const [hiddenInputValue, setHiddenInputValue] = React.useState<string>('');
 
   useEffect(() => {

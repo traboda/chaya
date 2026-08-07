@@ -28,7 +28,7 @@ const PinInput = ({
   const inputs = useRef<HTMLInputElement>(null);
   const [isInvalid, setInvalid] = useState(_isInvalid);
   const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
-  const abortController = useRef<AbortController>();
+  const abortController = useRef<AbortController>(null);
 
   const onChange = (val: string) => {
     onChangeProp(val.trim().slice(0, digits));
