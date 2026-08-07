@@ -5,10 +5,56 @@ import { themes } from 'storybook/theming';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 
-import ThemeProvider from "./ThemeProvider";
 export { decorators } from "./decorators";
 
+const ThemedDocsContainer = ({ children, context, ...rest }: any) => {
+  const [isDark, setIsDark] = useState(() => {
+    try {
+      return context?.store?.globals?.globals?.theme === 'dark'
+        || context?.store?.userGlobals?.globals?.theme === 'dark'
+        || context?.globals?.theme === 'dark';
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    const channel = context?.channel;
+    if (!channel) return;
+
+    const update = (event: any) => {
+      setIsDark(event?.globals?.theme === 'dark');
+    };
+
+    channel.on(GLOBALS_UPDATED, update);
+    return () => channel.off(GLOBALS_UPDATED, update);
+  }, [context]);
+
+  return (
+    <DocsContainer {...rest} context={context} theme={isDark ? themes.dark : themes.light}>
+      {children}
+    </DocsContainer>
+  );
+};
+
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      description: 'Global theme',
+      toolbar: {
+        title: 'Theme',
+        icon: 'paintbrush',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'light',
+  },
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -18,9 +64,7 @@ const preview: Preview = {
       },
     },
     viewMode: 'docs',
-    backgrounds: {
-      disabled: true,
-    },
+    backgrounds: { disable: true },
     docs: {
       autodocs: 'tag',
       toc: {
@@ -32,37 +76,7 @@ const preview: Preview = {
           orderedList: false,
         },
       },
-      container: ({ children, context, ...rest }: any) => {
-        const [isDark, setIsDark] = useState(false);
-
-        useEffect(() => {
-          const channel = context?.channel;
-          if (!channel) return;
-
-          const update = (event: any) => {
-            setIsDark(event?.globals?.theme === 'dark');
-          };
-
-          channel.on(GLOBALS_UPDATED, update);
-          try {
-            const initial = context?.store?.globals?.globals?.theme
-              ?? context?.store?.userGlobals?.globals?.theme;
-            setIsDark(initial === 'dark');
-          } catch (error) {
-            void error;
-          }
-
-          return () => channel.off(GLOBALS_UPDATED, update);
-        }, [context]);
-
-        const props = { ...rest, context, theme: isDark ? themes.dark : themes.normal };
-
-        return (
-          <ThemeProvider isDarkTheme={isDark}>
-            <DocsContainer {...props}>{children}</DocsContainer>
-          </ThemeProvider>
-        );
-      }
+      container: ThemedDocsContainer,
     },
     viewport: {
       options: {
