@@ -1,0 +1,54 @@
+import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as StatsCardStories from "./StatsCard.stories";
+import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+
+<Meta
+    title="Components/Display/StatsCard"
+    of={StatsCardStories}
+/>
+
+<Title>StatsCard</Title>
+
+<div className="max-w-full">
+    <SingleLineCodeBlock text={`import { StatsCard } from 'chaya-ui';`} />
+</div>
+
+A card component for displaying key metrics with animated count-up values, delta indicators, and optional icons.
+
+<Primary />
+
+## With Delta
+
+<Story of={StatsCardStories.WithDelta} />
+
+## Negative Change
+
+<Story of={StatsCardStories.NegativeChange} />
+
+## With Icon
+
+<Story of={StatsCardStories.WithIcon} />
+
+## With Description
+
+<Story of={StatsCardStories.WithDescription} />
+
+## With Side Renderer
+
+<Story of={StatsCardStories.WithSideRenderer} />
+
+## With Bottom Renderer
+
+<Story of={StatsCardStories.WithBottomRenderer} />
+
+## Currency Value
+
+<Story of={StatsCardStories.CurrencyValue} />
+
+## Grid Layout
+
+<Story of={StatsCardStories.GridLayout} />
+
+## API
+
+<ArgTypes />
