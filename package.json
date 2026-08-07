@@ -13,7 +13,8 @@
     "dev": "concurrently \"npm run watch-tailwind\" \"storybook dev -p 6006\"",
     "build-storybook": "npm run build-tailwind && storybook build",
     "type-check": "tsc --noEmit --emitDeclarationOnly false",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "prepare": "husky"
   },
   "contributors": [
     "Ashwin S Shenoy <aswinshenoy65@gmail.com>",
@@ -82,6 +83,8 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^10.5.7",
     "globals": "^17.9.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
     "postcss": "^8.4.21",
     "postcss-nesting": "^12.1.5",
     "react": "^18.2.0",
@@ -111,5 +114,10 @@
     "dist"
   ],
   "module": "dist/src/index.js",
-  "types": "dist/types/index.d.ts"
+  "types": "dist/types/index.d.ts",
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix"
+    ]
+  }
 }
