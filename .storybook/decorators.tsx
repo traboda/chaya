@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { nanoid } from 'nanoid';
 import { useGlobals } from 'storybook/preview-api';
 
 // @ts-expect-error Side-effect CSS import is handled by Storybook bundler.
@@ -21,7 +20,7 @@ const withChayaTheme = () => {
     }, [isDarkMode]);
 
     return (
-      <div key={nanoid()} className="p-6">
+      <div className="p-6">
         <ThemeProvider isDarkTheme={isDarkMode}>{story()}</ThemeProvider>
       </div>
     );
