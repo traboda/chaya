@@ -66,7 +66,7 @@ const preview: Preview = {
       },
     },
     viewMode: 'docs',
-    backgrounds: { disable: true },
+    backgrounds: { disabled: true },
     docs: {
       autodocs: 'tag',
       toc: {
