@@ -47,7 +47,7 @@ const PageHeader = ({
       id={id}
       className={mcs(['page-header', fill ? 'p-2 md:p-4' : 'container mx-auto p-2', className])}
       style={{
-        padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : '',
+        padding: size === 'lg' && !fill ? '3.5vh 3.5vw' : undefined,
       }}
     >
       <div>
