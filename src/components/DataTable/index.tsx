@@ -153,7 +153,7 @@ const DataTable = <Type extends { id: string }>({
             >
               <thead
                 className={clsx([
-                  'sticky top-0 z-50 mb-2 shadow-sm',
+                  'sticky top-0 z-50 mb-2 bg-background shadow-sm',
                   variant === 'grid' ? 'border border-light' : 'shadow-gray-500/50',
                   classNames?.thead,
                 ])}
