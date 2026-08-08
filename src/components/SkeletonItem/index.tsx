@@ -31,7 +31,7 @@ const SkeletonItem = ({
       className,
     ])}
     style={{
-      minWidth: minWidth ?? '',
+      minWidth: minWidth ?? undefined,
       width: w ?? '20px',
       height: h ?? '20px',
     }}
