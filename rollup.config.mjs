@@ -44,7 +44,7 @@ export default [
         return;
       warn(warning);
     },
-    external: ['react', 'react-dom', 'nanoid'],
+    external: [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, 'nanoid'],
   },
   {
     input: 'dist/types/index.d.ts',
