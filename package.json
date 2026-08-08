@@ -54,7 +54,7 @@
     "date-fns": "^4.4.0",
     "flatten-anything": "^4.0.2",
     "papaparse": "^5.5.4",
-    "react-waypoint": "^10.3.0",
+    "react-intersection-observer": "^11.0.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
