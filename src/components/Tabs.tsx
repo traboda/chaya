@@ -1,8 +1,7 @@
 'use client';
-import React, { lazy, useEffect, useMemo, useState } from 'react';
+import React, { lazy, useEffect, useId, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import { ChayaColorType } from '../utils/classMaps/colors';
 import mcs from '../utils/merge';
@@ -74,7 +73,8 @@ const Tabs = ({
   variant = 'pill',
   color = 'primary',
 }: TabsProps) => {
-  const tabID = useMemo(() => id ?? `tab-${nanoid()}`, [id]);
+  const reactId = useId();
+  const tabID = id ?? `tab-${reactId}`;
 
   const tabItems: TabItemWithKeys[] =
     items?.length > 0

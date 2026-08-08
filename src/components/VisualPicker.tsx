@@ -1,8 +1,7 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useId } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import {
   BORDER_COLOR_MAP,
@@ -86,7 +85,8 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
   isMulti = false,
   colMinWidth = 200,
 }: VisualPickerProps<Type>) => {
-  const generatedID = useMemo(() => id ?? `vp-${nanoid()}`, [id]);
+  const reactId = useId();
+  const generatedID = id ?? `vp-${reactId}`;
 
   const onSelect = (item: VisualPickerValueType) => {
     if (isMulti && Array.isArray(value)) {

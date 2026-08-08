@@ -1,7 +1,5 @@
 'use client';
-import React, { ChangeEvent, DragEvent, MouseEvent, useMemo, useRef, useState } from 'react';
-
-import { nanoid } from 'nanoid';
+import React, { ChangeEvent, DragEvent, MouseEvent, useId, useRef, useState } from 'react';
 
 import mcs from '../utils/merge';
 
@@ -50,7 +48,8 @@ const Dropzone = ({
   maxSize = 5 * 1024 * 1024,
   uploadIndicator,
 }: DropzoneProps) => {
-  const inputId = useMemo(() => id ?? nanoid(), [id]);
+  const reactId = useId();
+  const inputId = id ?? reactId;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const labels = { ...defaultLabels, ..._labels };
   const [isDragging, setIsDragging] = useState(false);

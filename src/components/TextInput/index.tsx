@@ -1,8 +1,7 @@
 'use client';
-import React, { ChangeEvent, FocusEvent, KeyboardEvent, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, FocusEvent, KeyboardEvent, useEffect, useId, useState } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../../utils/merge';
 import Icon, { IconInputType } from '../Icon';
@@ -96,10 +95,8 @@ const TextInput = <Type extends string | number>({
   hideStepper = false,
   ..._props
 }: TextInputProps<Type>) => {
-  const inputID = useMemo(
-    () => (id && id.length > 1 ? id : `${name}-input-${nanoid()}`),
-    [id, name]
-  );
+  const reactId = useId();
+  const inputID = id && id.length > 1 ? id : `${name}-input-${reactId}`;
 
   const [isTyping, setTyping] = useState(false);
   const [touched, setTouched] = useState(false);

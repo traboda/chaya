@@ -1,7 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-import { nanoid } from 'nanoid';
+import React, { useEffect, useId, useRef, useState } from 'react';
 
 import {
   BORDER_COLOR_MAP,
@@ -43,7 +41,8 @@ const HorizontalNavigator = ({
   activeItem,
   onClickItem = () => {},
 }: HorizontalNavigatorProps) => {
-  const navigatorID = useMemo(() => id || `horizontal-navigator-${nanoid()}`, [id]);
+  const reactId = useId();
+  const navigatorID = id || `horizontal-navigator-${reactId}`;
   const tabRef = useRef<HTMLUListElement>(null);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{

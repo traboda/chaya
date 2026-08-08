@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
@@ -114,9 +113,7 @@ const Sidebar = ({
                   {...navigationProps}
                   items={topNavigationItems}
                   isCollapsed={isCollapsed}
-                  key={
-                    isCollapsed ? `collapsed-sidebar-${nanoid()}` : `expanded-sidebar-${nanoid()}`
-                  }
+                  key={isCollapsed ? 'collapsed-sidebar' : 'expanded-sidebar'}
                   id={id ? `${id}-sidebar-navigator` : undefined}
                 />
               </div>

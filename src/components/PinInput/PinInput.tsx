@@ -1,7 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-import { nanoid } from 'nanoid';
+import React, { useEffect, useId, useRef, useState } from 'react';
 
 import mcs from '../../utils/merge';
 import Label from '../Label';
@@ -27,7 +25,8 @@ const PinInput = ({
 }: PinInputProps) => {
   const inputs = useRef<HTMLInputElement>(null);
   const [isInvalid, setInvalid] = useState(_isInvalid);
-  const inputID = useMemo(() => id ?? `pin-input-${nanoid()}`, [id]);
+  const reactId = useId();
+  const inputID = id ?? `pin-input-${reactId}`;
   const abortController = useRef<AbortController>(null);
 
   const onChange = (val: string) => {

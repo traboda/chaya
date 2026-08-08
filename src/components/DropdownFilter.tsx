@@ -3,7 +3,6 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
@@ -238,7 +237,6 @@ const DropdownRender = ({
       </div>
       <div className="flex items-center justify-between border-t border-light">
         <button
-          key={nanoid()}
           className={clsx([
             'flex items-center justify-center rounded-b-lg text-center font-semibold',
             'w-full gap-2 px-3 py-2 hover:bg-white/20',
@@ -250,7 +248,6 @@ const DropdownRender = ({
           {labels.selectAll}
         </button>
         <button
-          key={nanoid()}
           className={clsx([
             'flex items-center justify-center rounded-b-lg text-center font-semibold',
             'w-full gap-2 px-3 py-2 hover:bg-white/20',

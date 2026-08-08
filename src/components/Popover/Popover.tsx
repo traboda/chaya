@@ -1,9 +1,8 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import { PopoverProps } from './Popover.types';
 
@@ -26,7 +25,8 @@ const Popover = ({
 }: PopoverProps) => {
   const [open, setOpen] = useState(defaultOpen);
 
-  const popoverCardID = useMemo(() => (id && id.length > 1 ? id : `popover-${nanoid()}`), [id]);
+  const reactId = useId();
+  const popoverCardID = id && id.length > 1 ? id : `popover-${reactId}`;
 
   const isPopoverOpen = typeof isOpen === 'boolean' ? isOpen : open;
 

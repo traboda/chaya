@@ -1,7 +1,6 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import {
   EMPTY_COLOR_MAP,
@@ -136,7 +135,7 @@ const HorizontalNavigatorItem = ({
 
   return (
     <li
-      key={item?.key ? `tab_selector_${item?.key}` : nanoid()}
+      key={`tab_selector_${item.key}`}
       role="presentation"
       className={cx([liClassNames({ color, variant }), className, item.className])}
     >

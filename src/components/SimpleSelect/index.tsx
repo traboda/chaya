@@ -1,9 +1,8 @@
 'use client';
-import React, { ReactNode, RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, RefObject, useEffect, useId, useRef, useState } from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../../utils/merge';
 import Checkbox from '../Checkbox';
@@ -101,7 +100,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
   onBlur,
 }: SimpleSelectProps<Type>) => {
   const labels = { ...defaultLabels, ...propLabels };
-  const inputID = useMemo(() => (id ? id : `${name}-select-${nanoid()}`), [id, name]);
+  const reactId = useId();
+  const inputID = id ? id : `${name}-select-${reactId}`;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);

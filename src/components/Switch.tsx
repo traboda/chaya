@@ -1,8 +1,7 @@
 'use client';
-import React, { useMemo, useRef } from 'react';
+import React, { useId, useRef } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 
@@ -53,7 +52,8 @@ const Switch = ({
   isDisabled = false,
 }: SwitchProps) => {
   const checkbox = useRef(null);
-  const inputID = useMemo(() => id ?? `switch-input-${nanoid()}`, [id]);
+  const reactId = useId();
+  const inputID = id ?? `switch-input-${reactId}`;
 
   return (
     <div className={clsx(['switch-container flex w-full flex-col', isDisabled && 'opacity-70'])}>

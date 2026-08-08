@@ -2,7 +2,6 @@
 import React, { ReactNode } from 'react';
 
 import clsx from 'clsx';
-import { nanoid } from 'nanoid';
 
 import mcs from '../utils/merge';
 import { LinkWrapper } from '../utils/misc';
@@ -104,7 +103,7 @@ const Breadcrumb = ({
               (lastItemAsTitle && index < breadcrumbItems.length - 1) || !lastItemAsTitle
           )
           .map((item, index) => (
-            <li key={nanoid()} className={computedItemClassName}>
+            <li key={item?.link ?? index} className={computedItemClassName}>
               {index !== 0 ? <span className="px-0.5">/</span> : null}
               <BreadcrumItem item={item} index={index} length={breadcrumbItems.length} />
             </li>
