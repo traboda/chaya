@@ -4,6 +4,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 
 import DataTable from '../../../src/components/DataTable';
 import DataTableManager from '../../../src/components/DataTableManager';
+import DropdownFilter from '../../../src/components/DropdownFilter';
 
 type SampleRow = { id: string; name: string; category: string; difficulty: string; points: number };
 
@@ -256,6 +257,46 @@ export const EmptyTableListing: Story = {
       )}
     />
   ),
+};
+
+export const WithTopBarDropdown: Story = {
+  render: () => {
+    const allColumns = [
+      { id: 'name', label: 'Name' },
+      { id: 'category', label: 'Category' },
+      { id: 'difficulty', label: 'Difficulty' },
+      { id: 'points', label: 'Points' },
+    ];
+    const [selectedColumns, setSelectedColumns] = React.useState(allColumns.map((c) => c.id));
+
+    const filteredProperties = sampleProperties.filter((p) => selectedColumns.includes(p.id));
+
+    return (
+      <DataTable
+        properties={filteredProperties}
+        items={sampleItems}
+        maxHeight={400}
+        customTopBarRenderer={() => (
+          <div className="flex items-center justify-between">
+            <span className="font-semibold">Challenges</span>
+            <DropdownFilter
+              align="end"
+              options={allColumns.map((c) => ({ label: c.label, value: c.id }))}
+              labels={{
+                searchLabel: 'Search Columns',
+                optionsTitle: 'Columns',
+                searchPlaceholder: 'Search...',
+              }}
+              selections={selectedColumns}
+              setSelections={(cols) => setSelectedColumns(cols ?? [])}
+            >
+              <button className="rounded border px-3 py-1 text-sm">Columns</button>
+            </DropdownFilter>
+          </div>
+        )}
+      />
+    );
+  },
 };
 
 export const WithDataTableManager: Story = {
