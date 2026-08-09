@@ -57,3 +57,26 @@ export const Colors: Story = {
   tags: ['unlisted'],
   render: () => <SwitchColors />,
 };
+
+export const Disabled: Story = {
+  tags: ['unlisted'],
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Switch value={false} label="Disabled Off" isDisabled onChange={() => {}} />
+      <Switch value={true} label="Disabled On" isDisabled onChange={() => {}} />
+    </div>
+  ),
+};
+
+export const Variants: Story = {
+  tags: ['unlisted'],
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <BaseSwitchTemplate value={false} label="Default" />
+      <BaseSwitchTemplate value={true} color="success" label="Success" />
+      <BaseSwitchTemplate value={true} color="danger" label="Danger" />
+      <BaseSwitchTemplate value={true} color="warning" label="Warning" />
+      <Switch value={false} label="Disabled" isDisabled onChange={() => {}} />
+    </div>
+  ),
+};

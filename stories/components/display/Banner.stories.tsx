@@ -62,3 +62,21 @@ export const WithLearnMore: Story = {
     learnMore: { link: '#', text: 'Learn more' },
   },
 };
+
+export const CardVariant: Story = {
+  args: {
+    text: 'This is a card-style banner with rounded corners and shadow.',
+    color: 'primary',
+    variant: 'card',
+    position: 'inline',
+  },
+};
+
+export const FullWidthVariant: Story = {
+  args: {
+    text: 'This banner stretches to the full width of the container.',
+    color: 'warning',
+    variant: 'full-width',
+    position: 'inline',
+  },
+};

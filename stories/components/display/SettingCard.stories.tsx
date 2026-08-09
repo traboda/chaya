@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import SettingCard, { SettingCardProps } from '../../../src/components/SettingCard';
+import Switch from '../../../src/components/Switch';
+import TextInput from '../../../src/components/TextInput';
 
 const meta: Meta<SettingCardProps> = {
   title: 'Components/Display/SettingCard',
@@ -31,6 +33,38 @@ export const Primary: Story = {
       </label>
     </SettingCard>
   ),
+};
+
+export const WithSwitch: Story = {
+  render: () => {
+    const [value, setValue] = useState(true);
+    return (
+      <SettingCard
+        labels={{
+          title: 'Email Notifications',
+          description: 'Receive email notifications when someone mentions you.',
+        }}
+      >
+        <Switch value={value} onChange={setValue} />
+      </SettingCard>
+    );
+  },
+};
+
+export const WithTextInput: Story = {
+  render: () => {
+    const [value, setValue] = useState('John Doe');
+    return (
+      <SettingCard
+        labels={{
+          title: 'Display Name',
+          description: 'Your public display name visible to other users.',
+        }}
+      >
+        <TextInput label="Name" name="name" value={value} onChange={setValue} hideLabel />
+      </SettingCard>
+    );
+  },
 };
 
 export const WithButton: Story = {

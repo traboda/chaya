@@ -50,3 +50,53 @@ export const Primary: Story = {
     );
   },
 };
+
+export const RequirePassword: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <div>
+        <Button color="danger" onClick={() => setOpen(true)}>
+          Delete Account
+        </Button>
+        <ConfirmationDialog
+          labels={{
+            title: 'Delete Account',
+            description: 'Enter your password to confirm account deletion.',
+          }}
+          requirePassword
+          confirmButtonProps={{ color: 'danger' }}
+          isOpen={isOpen}
+          onConfirm={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+        />
+      </div>
+    );
+  },
+};
+
+export const RequireConfirmationText: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <div>
+        <Button color="danger" onClick={() => setOpen(true)}>
+          Delete Repository
+        </Button>
+        <ConfirmationDialog
+          labels={{
+            title: 'Delete Repository',
+            description: 'This action cannot be undone. Type CONFIRM to proceed.',
+          }}
+          requireConfirmationText
+          confirmButtonProps={{ color: 'danger' }}
+          isOpen={isOpen}
+          onConfirm={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+        />
+      </div>
+    );
+  },
+};

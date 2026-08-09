@@ -22,3 +22,33 @@ export const Primary: Story = {
     hideItemsPerPage: true,
   },
 };
+
+export const WithoutPages: Story = {
+  args: {
+    totalCount: 300,
+    page: 3,
+    itemsPerPage: 50,
+    hideItemsPerPage: true,
+    showPages: false,
+  },
+};
+
+export const WithoutEdges: Story = {
+  args: {
+    totalCount: 300,
+    page: 3,
+    itemsPerPage: 50,
+    hideItemsPerPage: true,
+    showEdges: false,
+  },
+};
+
+export const WithoutControls: Story = {
+  args: {
+    totalCount: 300,
+    page: 3,
+    itemsPerPage: 50,
+    hideItemsPerPage: true,
+    showControls: false,
+  },
+};
