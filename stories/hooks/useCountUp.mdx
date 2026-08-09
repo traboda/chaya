@@ -1,0 +1,70 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseCountUpStories from './useCountUp.stories';
+
+<Meta title="Hooks/useCountUp" of={UseCountUpStories} />
+
+# useCountUp
+
+<SingleLineCodeBlock text={`import { useCountUp } from 'chaya-ui';`} />
+
+A hook that animates a number counting up from a minimum to a maximum value over a given duration. Supports both number and currency formatting.
+
+## Usage
+
+```tsx
+const formattedValue = useCountUp(0, 1000, 2000, 'number');
+```
+
+## Parameters
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>min</code></td>
+      <td><code>number</code></td>
+      <td>required</td>
+      <td>Starting value</td>
+    </tr>
+    <tr>
+      <td><code>max</code></td>
+      <td><code>number</code></td>
+      <td>required</td>
+      <td>Target value</td>
+    </tr>
+    <tr>
+      <td><code>duration</code></td>
+      <td><code>number</code></td>
+      <td><code>2000</code></td>
+      <td>Animation duration in ms</td>
+    </tr>
+    <tr>
+      <td><code>numberType</code></td>
+      <td><code>{"'number' | 'currency'"}</code></td>
+      <td><code>'number'</code></td>
+      <td>Formatting type</td>
+    </tr>
+    <tr>
+      <td><code>roundFrom</code></td>
+      <td><code>{"number | null"}</code></td>
+      <td><code>undefined</code></td>
+      <td>Use compact notation above this value</td>
+    </tr>
+  </tbody>
+</table>
+
+## Returns
+
+`string` — the formatted current value during the animation.
+
+<Story of={UseCountUpStories.Default} />

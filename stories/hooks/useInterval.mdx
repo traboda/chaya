@@ -1,0 +1,50 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseIntervalStories from './useInterval.stories';
+
+<Meta title="Hooks/useInterval" of={UseIntervalStories} />
+
+# useInterval
+
+<SingleLineCodeBlock text={`import { useInterval } from 'chaya-ui';`} />
+
+A hook that runs a callback at a configurable interval. Pass `null` as the delay to pause the interval. Handles cleanup and callback updates automatically.
+
+## Usage
+
+```tsx
+useInterval(() => {
+  // runs every second
+}, 1000);
+
+// pass null to stop
+useInterval(callback, isRunning ? 1000 : null);
+```
+
+## Parameters
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>callback</code></td>
+      <td><code>{"() => void"}</code></td>
+      <td>Function to call on each tick</td>
+    </tr>
+    <tr>
+      <td><code>delay</code></td>
+      <td><code>{"number | null"}</code></td>
+      <td>Interval in ms, or <code>null</code> to pause</td>
+    </tr>
+  </tbody>
+</table>
+
+<Story of={UseIntervalStories.Default} />
