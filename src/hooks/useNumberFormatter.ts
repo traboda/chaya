@@ -1,13 +1,12 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 
 const useNumberFormatter = (roundFrom?: number | null) => {
-  const numberFormatter = useRef<(number: number, decimals?: number) => string>(
-    (number, decimals = 0) => number.toFixed(decimals)
-  );
-  useEffect(() => {
-    numberFormatter.current = (number, decimals = 0) =>
-      new Intl.NumberFormat(window?.navigator?.language ?? 'en-IN', {
+  const formatter = useCallback(
+    (number: number, decimals: number = 0) => {
+      const locale =
+        typeof window !== 'undefined' ? (window.navigator?.language ?? 'en-IN') : 'en-IN';
+      return new Intl.NumberFormat(locale, {
         notation: roundFrom ? (number >= roundFrom ? 'compact' : 'standard') : undefined,
         maximumFractionDigits: roundFrom
           ? number >= roundFrom
@@ -15,9 +14,11 @@ const useNumberFormatter = (roundFrom?: number | null) => {
             : decimals
           : decimals,
       }).format(number);
-  }, []);
+    },
+    [roundFrom]
+  );
 
-  return numberFormatter.current;
+  return formatter;
 };
 
 export default useNumberFormatter;
