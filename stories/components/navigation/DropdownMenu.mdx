@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -13,6 +13,14 @@ import * as DropdownMenuStories from './DropdownMenu.stories';
 </div>
 
 <Primary />
+
+## With Groups
+
+<Story of={DropdownMenuStories.WithGroups} />
+
+## Dynamic Position
+
+<Story of={DropdownMenuStories.DynamicPosition} />
 
 ## API
 

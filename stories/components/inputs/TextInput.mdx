@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -14,19 +14,17 @@ import * as TextInputStories from './TextInput.stories';
 
 <Primary />
 
-## Types
+## With Postfix
 
-### TextArea
+<Story of={TextInputStories.WithPostfix} />
 
-### Email
+## Invalid Inputs
 
-### Password
-
-## Usage Inside Form
+<Story of={TextInputStories.InvalidInputs} />
 
 ## With Icons
 
-## With Prefix & Postfix Elements
+<Story of={TextInputStories.WithIcons} />
 
 ## API
 
