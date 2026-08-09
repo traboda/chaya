@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -32,6 +32,71 @@ A generic dropdown container that renders arbitrary content below a trigger butt
 
 <Story of={DropdownStories.FillTriggerWidth} />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>children</code></td>
+      <td><code>ReactNode</code></td>
+      <td><code>required</code></td>
+      <td>Content rendered inside the dropdown panel</td>
+    </tr>
+    <tr>
+      <td><code>buttonRenderer</code></td>
+      <td><code>ReactElement</code></td>
+      <td><code>required</code></td>
+      <td>Element used as the dropdown trigger button</td>
+    </tr>
+    <tr>
+      <td><code>isOpen</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Controlled open state of the dropdown</td>
+    </tr>
+    <tr>
+      <td><code>onClose</code></td>
+      <td><code>{"() => void"}</code></td>
+      <td><code>{"() => {}"}</code></td>
+      <td>Callback fired when the dropdown closes</td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+      <td>HTML id attribute for the dropdown</td>
+    </tr>
+    <tr>
+      <td><code>containerClassName</code></td>
+      <td><code>string</code></td>
+      <td><code>-</code></td>
+      <td>Additional CSS class for the dropdown content container</td>
+    </tr>
+    <tr>
+      <td><code>align</code></td>
+      <td><code>{"'start' | 'center' | 'end'"}</code></td>
+      <td><code>'center'</code></td>
+      <td>Horizontal alignment of the dropdown relative to the trigger</td>
+    </tr>
+    <tr>
+      <td><code>side</code></td>
+      <td><code>{"'auto' | 'top' | 'right' | 'bottom' | 'left'"}</code></td>
+      <td><code>'bottom'</code></td>
+      <td>Preferred side of the trigger to render the dropdown</td>
+    </tr>
+    <tr>
+      <td><code>fillTriggerWidth</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the dropdown should match the trigger's width</td>
+    </tr>
+  </tbody>
+</table>

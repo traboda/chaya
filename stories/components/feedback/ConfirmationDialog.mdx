@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -22,6 +22,77 @@ import * as ConfirmationDialogStories from './ConfirmationDialog.stories';
 
 <Story of={ConfirmationDialogStories.RequireConfirmationText} />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>labels</code></td>
+      <td><code>{"{ title: string; description?: string; confirm?: string; cancel?: string; confirmationText?: string; confirmationTextLabel?: string; passwordLabel?: string; passwordPlaceholder?: string }"}</code></td>
+      <td>required</td>
+      <td>Labels for the dialog content and buttons</td>
+    </tr>
+    <tr>
+      <td><code>isOpen</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the dialog is open</td>
+    </tr>
+    <tr>
+      <td><code>requirePassword</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether a password input is required before confirming</td>
+    </tr>
+    <tr>
+      <td><code>requireConfirmationText</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether typing a confirmation text is required before confirming</td>
+    </tr>
+    <tr>
+      <td><code>onConfirm</code></td>
+      <td><code>{"(args: { password?: string }) => void"}</code></td>
+      <td>-</td>
+      <td>Callback when the confirm button is clicked</td>
+    </tr>
+    <tr>
+      <td><code>onCancel</code></td>
+      <td><code>{"() => void"}</code></td>
+      <td>-</td>
+      <td>Callback when the cancel button is clicked</td>
+    </tr>
+    <tr>
+      <td><code>className</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>Additional CSS class names</td>
+    </tr>
+    <tr>
+      <td><code>formID</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>HTML id for the form element</td>
+    </tr>
+    <tr>
+      <td><code>confirmButtonProps</code></td>
+      <td><code>ButtonProps</code></td>
+      <td>-</td>
+      <td>Additional props for the confirm button</td>
+    </tr>
+    <tr>
+      <td><code>cancelButtonProps</code></td>
+      <td><code>ButtonProps</code></td>
+      <td>-</td>
+      <td>Additional props for the cancel button</td>
+    </tr>
+  </tbody>
+</table>

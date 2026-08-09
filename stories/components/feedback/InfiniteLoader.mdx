@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -32,6 +32,53 @@ A component that triggers loading more items when scrolled into view, with end-o
 
 <Story of={InfiniteLoaderStories.CustomRenderer} />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>canLoadMore</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether more items can be loaded</td>
+    </tr>
+    <tr>
+      <td><code>isLoading</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether items are currently loading</td>
+    </tr>
+    <tr>
+      <td><code>onLoadMore</code></td>
+      <td><code>{"() => void"}</code></td>
+      <td>-</td>
+      <td>Callback triggered to load more items</td>
+    </tr>
+    <tr>
+      <td><code>labels</code></td>
+      <td><code>{"{ endOfList?: string }"}</code></td>
+      <td><code>{"{ endOfList: 'You have reached the end.' }"}</code></td>
+      <td>Labels for end-of-list messaging</td>
+    </tr>
+    <tr>
+      <td><code>renderer</code></td>
+      <td><code>{"() => ReactNode"}</code></td>
+      <td>-</td>
+      <td>Custom renderer for the loader content</td>
+    </tr>
+    <tr>
+      <td><code>showEndOfListMessage</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether to show the end-of-list message when there are no more items</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
+import { Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -14,6 +14,89 @@ import * as DateTimeInputStories from './DateTimeInput.stories';
 
 <Primary />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>value</code></td>
+      <td><code>{"string | null"}</code></td>
+      <td>required</td>
+      <td>Time in ISO timestamp format</td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>required</td>
+      <td>Name attribute for the input element</td>
+    </tr>
+    <tr>
+      <td><code>label</code></td>
+      <td><code>string</code></td>
+      <td>required</td>
+      <td>Label text for the input</td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>ID attribute for the input element</td>
+    </tr>
+    <tr>
+      <td><code>className</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>CSS class for the wrapper element</td>
+    </tr>
+    <tr>
+      <td><code>inputClassName</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>CSS class for the input element</td>
+    </tr>
+    <tr>
+      <td><code>hideLabel</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether to hide the label</td>
+    </tr>
+    <tr>
+      <td><code>min</code></td>
+      <td><code>Date</code></td>
+      <td>-</td>
+      <td>Minimum selectable date</td>
+    </tr>
+    <tr>
+      <td><code>max</code></td>
+      <td><code>Date</code></td>
+      <td>-</td>
+      <td>Maximum selectable date</td>
+    </tr>
+    <tr>
+      <td><code>isRequired</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the input is required</td>
+    </tr>
+    <tr>
+      <td><code>isDisabled</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Whether the input is disabled</td>
+    </tr>
+    <tr>
+      <td><code>onChange</code></td>
+      <td><code>{"(val: string | null) => void"}</code></td>
+      <td>-</td>
+      <td>Callback fired when the value changes</td>
+    </tr>
+  </tbody>
+</table>

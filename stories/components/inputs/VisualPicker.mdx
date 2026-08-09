@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -25,6 +25,101 @@ Supports single and multi-select modes, horizontal and vertical layouts, and all
 
 <Story of={VisualPickerStories.MultiSelect} />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>items</code></td>
+      <td><code>{"{ icon?: IconInputType; title?: string; description?: string; value: VisualPickerValueType; isDisabled?: boolean }[]"}</code></td>
+      <td>required</td>
+      <td>Array of selectable items to display as visual cards.</td>
+    </tr>
+    <tr>
+      <td><code>value</code></td>
+      <td><code>{"VisualPickerValueType | VisualPickerValueType[]"}</code></td>
+      <td>required</td>
+      <td>Currently selected value(s). Use an array when <code>isMulti</code> is true.</td>
+    </tr>
+    <tr>
+      <td><code>onChange</code></td>
+      <td><code>{"(value: Type) => void"}</code></td>
+      <td>required</td>
+      <td>Callback fired when a selection changes.</td>
+    </tr>
+    <tr>
+      <td><code>isVertical</code></td>
+      <td><code>boolean</code></td>
+      <td>-</td>
+      <td>Display items in a vertical (single-column) layout.</td>
+    </tr>
+    <tr>
+      <td><code>isMulti</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Enable multi-select mode. When true, <code>value</code> must be an array.</td>
+    </tr>
+    <tr>
+      <td><code>label</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>Label text displayed above the picker.</td>
+    </tr>
+    <tr>
+      <td><code>className</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>Additional CSS class for the grid container.</td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>Custom HTML id for the wrapper element.</td>
+    </tr>
+    <tr>
+      <td><code>itemClassName</code></td>
+      <td><code>string</code></td>
+      <td>-</td>
+      <td>Additional CSS class applied to each item button.</td>
+    </tr>
+    <tr>
+      <td><code>isRequired</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Marks the label as required.</td>
+    </tr>
+    <tr>
+      <td><code>isDisabled</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>Disables all items in the picker.</td>
+    </tr>
+    <tr>
+      <td><code>fitHorizontal</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>Whether to fit columns horizontally using flexible-fit grid.</td>
+    </tr>
+    <tr>
+      <td><code>color</code></td>
+      <td><code>ChayaColorType</code></td>
+      <td><code>{"'primary'"}</code></td>
+      <td>Color variant for selected items.</td>
+    </tr>
+    <tr>
+      <td><code>colMinWidth</code></td>
+      <td><code>number</code></td>
+      <td><code>200</code></td>
+      <td>Minimum width (in pixels) for each grid column.</td>
+    </tr>
+  </tbody>
+</table>
