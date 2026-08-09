@@ -66,7 +66,7 @@ const ItemListerTitleBar = <Type extends { id: string }>({
         </th>
       )}
       {isSelectEnabled && (
-        <th className={clsx([thClasses, 'bg-background'])} style={{ width: colsWidth[i] }}>
+        <th className={clsx([thClasses])} style={{ width: colsWidth[i] }}>
           <div className="flex h-full items-center justify-center text-center">
             <Checkbox
               label=""
