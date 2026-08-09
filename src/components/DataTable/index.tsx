@@ -135,25 +135,25 @@ const DataTable = <Type extends { id: string }>({
       ) : (
         <div
           ref={tableWrapperRef}
-          className={mcs(['flex flex-grow flex-col p-2', classNames?.wrapper])}
+          className={mcs([
+            'flex flex-grow flex-col overflow-hidden rounded-lg border',
+            classNames?.wrapper,
+          ])}
         >
-          <div
-            ref={tableTopbarRef}
-            className="border-b bg-background-lighten-1 text-color dark:bg-background-darken-1"
-          >
+          <div ref={tableTopbarRef} className="text-color">
             {customTopBarRenderer()}
           </div>
-          <div style={{ maxHeight }} className="table-container overflow-auto rounded-lg border">
+          <div style={{ maxHeight }} className="table-container overflow-auto">
             <table
               className={clsx([
                 'data-table min-w-full border-spacing-0 transition-transform',
-                'border-collapse bg-background text-color',
+                'border-collapse text-color',
                 classNames?.table,
               ])}
             >
               <thead
                 className={clsx([
-                  'sticky top-0 z-50 mb-2 bg-background shadow-sm',
+                  'sticky top-0 z-50 mb-2 shadow-sm',
                   variant === 'grid' ? 'border border-light' : 'shadow-gray-500/50',
                   classNames?.thead,
                 ])}
