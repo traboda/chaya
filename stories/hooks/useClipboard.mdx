@@ -30,18 +30,30 @@ const [copiedText, copy, isSupported] = useClipboard();
   </thead>
   <tbody>
     <tr>
-      <td><code>copiedText</code></td>
-      <td><code>{"string | null"}</code></td>
+      <td>
+        <code>copiedText</code>
+      </td>
+      <td>
+        <code>{'string | null'}</code>
+      </td>
       <td>The last successfully copied text</td>
     </tr>
     <tr>
-      <td><code>copy</code></td>
-      <td><code>{"(text: string) => Promise<boolean>"}</code></td>
+      <td>
+        <code>copy</code>
+      </td>
+      <td>
+        <code>{'(text: string) => Promise<boolean>'}</code>
+      </td>
       <td>Copy text to clipboard, returns success</td>
     </tr>
     <tr>
-      <td><code>isSupported</code></td>
-      <td><code>{"() => boolean"}</code></td>
+      <td>
+        <code>isSupported</code>
+      </td>
+      <td>
+        <code>{'() => boolean'}</code>
+      </td>
       <td>Check if clipboard API is available</td>
     </tr>
   </tbody>

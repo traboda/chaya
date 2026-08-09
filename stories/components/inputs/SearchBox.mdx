@@ -49,111 +49,195 @@ A search input component with built-in search button, loading state, and clear f
   </thead>
   <tbody>
     <tr>
-      <td><code>keyword</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>keyword</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>required</td>
       <td>The current search keyword value</td>
     </tr>
     <tr>
-      <td><code>setKeyword</code></td>
-      <td><code>{"(keyword: string) => void"}</code></td>
+      <td>
+        <code>setKeyword</code>
+      </td>
+      <td>
+        <code>{'(keyword: string) => void'}</code>
+      </td>
       <td>required</td>
       <td>Callback to update the search keyword</td>
     </tr>
     <tr>
-      <td><code>name</code></td>
-      <td><code>string</code></td>
-      <td><code>search</code></td>
+      <td>
+        <code>name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>search</code>
+      </td>
       <td>Name attribute for the search input</td>
     </tr>
     <tr>
-      <td><code>hideLabel</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>hideLabel</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Whether to hide the input label</td>
     </tr>
     <tr>
-      <td><code>autoFocus</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>autoFocus</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Whether the input should be focused on mount</td>
     </tr>
     <tr>
-      <td><code>id</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>-</td>
       <td>HTML id attribute for the form element</td>
     </tr>
     <tr>
-      <td><code>className</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>-</td>
       <td>Custom CSS class for the form wrapper</td>
     </tr>
     <tr>
-      <td><code>labels</code></td>
-      <td><code>{"{ label?: string; placeholder?: string }"}</code></td>
+      <td>
+        <code>labels</code>
+      </td>
+      <td>
+        <code>{'{ label?: string; placeholder?: string }'}</code>
+      </td>
       <td>-</td>
       <td>Custom labels and placeholder text</td>
     </tr>
     <tr>
-      <td><code>onClear</code></td>
-      <td><code>{"() => void"}</code></td>
+      <td>
+        <code>onClear</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
       <td>-</td>
       <td>Callback fired when the clear button is clicked</td>
     </tr>
     <tr>
-      <td><code>onSearch</code></td>
-      <td><code>{"(keyword: string) => void"}</code></td>
+      <td>
+        <code>onSearch</code>
+      </td>
+      <td>
+        <code>{'(keyword: string) => void'}</code>
+      </td>
       <td>-</td>
       <td>Callback fired when the search is submitted</td>
     </tr>
     <tr>
-      <td><code>onKeyDown</code></td>
-      <td><code>{"(e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void"}</code></td>
+      <td>
+        <code>onKeyDown</code>
+      </td>
+      <td>
+        <code>{'(e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void'}</code>
+      </td>
       <td>-</td>
       <td>Callback fired on key down in the input</td>
     </tr>
     <tr>
-      <td><code>inputStyle</code></td>
-      <td><code>React.CSSProperties</code></td>
+      <td>
+        <code>inputStyle</code>
+      </td>
+      <td>
+        <code>React.CSSProperties</code>
+      </td>
       <td>-</td>
       <td>Inline styles for the input element</td>
     </tr>
     <tr>
-      <td><code>isDisabled</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Whether the search box is disabled</td>
     </tr>
     <tr>
-      <td><code>isLoading</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>isLoading</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Whether to show the loading state</td>
     </tr>
     <tr>
-      <td><code>inputClassName</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>inputClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>-</td>
       <td>Custom CSS class for the input element</td>
     </tr>
     <tr>
-      <td><code>buttonClassName</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>buttonClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>-</td>
       <td>Custom CSS class for the action buttons</td>
     </tr>
     <tr>
-      <td><code>buttonWrapperClassName</code></td>
-      <td><code>string</code></td>
+      <td>
+        <code>buttonWrapperClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
       <td>-</td>
       <td>Custom CSS class for the button wrapper</td>
     </tr>
     <tr>
-      <td><code>hideButton</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>hideButton</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Whether to hide the search submit button</td>
     </tr>
   </tbody>

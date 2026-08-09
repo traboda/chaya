@@ -31,21 +31,37 @@ const [countdown, { setDate }] = useCountDown({ date: targetDate });
   </thead>
   <tbody>
     <tr>
-      <td><code>date</code></td>
-      <td><code>Date</code></td>
+      <td>
+        <code>date</code>
+      </td>
+      <td>
+        <code>Date</code>
+      </td>
       <td>required</td>
       <td>The target date to count down to</td>
     </tr>
     <tr>
-      <td><code>allowNegative</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td>
+        <code>allowNegative</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
       <td>Allow negative values after completion</td>
     </tr>
     <tr>
-      <td><code>interval</code></td>
-      <td><code>number</code></td>
-      <td><code>1000</code></td>
+      <td>
+        <code>interval</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>1000</code>
+      </td>
       <td>Update interval in milliseconds</td>
     </tr>
   </tbody>
@@ -63,38 +79,66 @@ const [countdown, { setDate }] = useCountDown({ date: targetDate });
   </thead>
   <tbody>
     <tr>
-      <td><code>total</code></td>
-      <td><code>number</code></td>
+      <td>
+        <code>total</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
       <td>Total milliseconds remaining</td>
     </tr>
     <tr>
-      <td><code>days</code></td>
-      <td><code>number</code></td>
+      <td>
+        <code>days</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
       <td>Days remaining</td>
     </tr>
     <tr>
-      <td><code>hours</code></td>
-      <td><code>number</code></td>
+      <td>
+        <code>hours</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
       <td>Hours remaining</td>
     </tr>
     <tr>
-      <td><code>minutes</code></td>
-      <td><code>number</code></td>
+      <td>
+        <code>minutes</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
       <td>Minutes remaining</td>
     </tr>
     <tr>
-      <td><code>seconds</code></td>
-      <td><code>number</code></td>
+      <td>
+        <code>seconds</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
       <td>Seconds remaining</td>
     </tr>
     <tr>
-      <td><code>completed</code></td>
-      <td><code>boolean</code></td>
+      <td>
+        <code>completed</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
       <td>Whether the countdown has completed</td>
     </tr>
     <tr>
-      <td><code>setDate</code></td>
-      <td><code>{"(date: Date) => void"}</code></td>
+      <td>
+        <code>setDate</code>
+      </td>
+      <td>
+        <code>{'(date: Date) => void'}</code>
+      </td>
       <td>Update the target date</td>
     </tr>
   </tbody>
