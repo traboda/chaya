@@ -1,9 +1,9 @@
 import React from 'react';
 
 export type SpinnerProps = {
-  className?: string,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  id?: string,
+  className?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  id?: string;
 };
 
 const sizes = {
@@ -22,7 +22,14 @@ const Spinner = ({ size = 'md', className, id }: SpinnerProps) => (
       fill="none"
       viewBox="0 0 24 24"
     >
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      ></circle>
       <path
         className="opacity-75"
         fill="currentColor"

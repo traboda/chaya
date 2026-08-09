@@ -11,12 +11,10 @@
     "declarationDir": "dist/types",
     "sourceMap": true,
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
-    "typeRoots": [
-      "src/types",
-      "node_modules/@types"
-    ]
-  }
+    "typeRoots": ["src/types", "node_modules/@types"]
+  },
+  "include": ["src", ".storybook", "stories"]
 }

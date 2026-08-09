@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import CheckboxGroup, { CheckboxGroupProps } from '../../../src/components/CheckboxGroup';
-
 
 const meta: Meta<CheckboxGroupProps<string>> = {
   title: 'Components/Inputs/CheckboxGroup',
@@ -14,7 +14,6 @@ const meta: Meta<CheckboxGroupProps<string>> = {
 export default meta;
 
 type Story<Type> = StoryObj<CheckboxGroupProps<Type>>;
-
 
 const options = [
   { label: 'Emirates', value: 'emirates' },
@@ -33,7 +32,12 @@ const StoryTemplate = (args: Partial<CheckboxGroupProps<string>>) => {
   }, [args.value]);
 
   return (
-    <CheckboxGroup {...args} options={args?.options || options} value={value ?? []} onChange={setValue} />
+    <CheckboxGroup
+      {...args}
+      options={args?.options || options}
+      value={value ?? []}
+      onChange={setValue}
+    />
   );
 };
 
@@ -68,7 +72,7 @@ export const Disabled: Story<string> = {
 export const OptionDisabled: Story<string> = {
   tags: ['unlisted'],
   args: {
-    options: options.map(option => ({ ...option, isDisabled: option.value === 'emirates' })),
+    options: options.map((option) => ({ ...option, isDisabled: option.value === 'emirates' })),
     label: 'Which airlines do you dislike?',
   },
   render: (args) => <StoryTemplate {...args} />,

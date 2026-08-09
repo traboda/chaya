@@ -26,11 +26,15 @@ export default {
     'contrast/50': 'var(--contrast50)',
     color: 'var(--color)',
   },
+  borderColor: {
+    DEFAULT: 'var(--border)',
+    light: 'var(--border-light)',
+  },
   animation: {
-    'stripes': 'stripes 60s linear infinite',
+    stripes: 'stripes 60s linear infinite',
   },
   keyframes: {
-    'stripes': {
+    stripes: {
       '0%': { 'background-position': '-200% 0' },
       '100%': { 'background-position': '200% 0' },
     },

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import Switch, { SwitchProps } from '../../../src/components/Switch';
 
@@ -33,11 +34,14 @@ export const Primary: Story = {
   ),
 };
 
-
 const SwitchColors = () => (
   <div
-    className="flex justify-center items-center border-dashed border gap-4"
-    style={{ padding: '5vh 0', background: 'rgba(200, 200, 200, 0.25)', borderColor: 'rgba(200, 200, 200, 0.8)' }}
+    className="flex items-center justify-center gap-4 border border-dashed"
+    style={{
+      padding: '5vh 0',
+      background: 'rgba(200, 200, 200, 0.25)',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+    }}
   >
     <BaseSwitchTemplate value color="primary" label="Primary" />
     <BaseSwitchTemplate value color="secondary" label="Secondary" />
@@ -52,4 +56,27 @@ export const Colors: Story = {
   name: 'Switch Colors',
   tags: ['unlisted'],
   render: () => <SwitchColors />,
+};
+
+export const Disabled: Story = {
+  tags: ['unlisted'],
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Switch value={false} label="Disabled Off" isDisabled onChange={() => {}} />
+      <Switch value={true} label="Disabled On" isDisabled onChange={() => {}} />
+    </div>
+  ),
+};
+
+export const Variants: Story = {
+  tags: ['unlisted'],
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <BaseSwitchTemplate value={false} label="Default" />
+      <BaseSwitchTemplate value={true} color="success" label="Success" />
+      <BaseSwitchTemplate value={true} color="danger" label="Danger" />
+      <BaseSwitchTemplate value={true} color="warning" label="Warning" />
+      <Switch value={false} label="Disabled" isDisabled onChange={() => {}} />
+    </div>
+  ),
 };

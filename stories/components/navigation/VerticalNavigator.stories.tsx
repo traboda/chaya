@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
 
-import VerticalNavigator, { VerticalNavigatorProps } from '../../../src/components/VerticalNavigator';
+import { Meta, StoryObj } from '@storybook/react-vite';
+
+import VerticalNavigator, {
+  VerticalNavigatorProps,
+} from '../../../src/components/VerticalNavigator';
 import { VerticalNavigatorItemType } from '../../../src/components/VerticalNavigator/Item';
 
 const meta: Meta<VerticalNavigatorProps> = {
@@ -49,7 +52,6 @@ const defaultMenuItems: VerticalNavigatorItemType[] = [
 ];
 
 const DefaultTemplate = ({ items, activeItem: _active, ...args }: VerticalNavigatorProps) => {
-
   const [activeItem, setActiveItem] = React.useState(_active);
 
   useEffect(() => {
@@ -65,7 +67,6 @@ const DefaultTemplate = ({ items, activeItem: _active, ...args }: VerticalNaviga
       variant={args.variant}
     />
   );
-
 };
 
 export const Primary: Story = {
@@ -102,9 +103,9 @@ export const LineVariant: Story = {
 };
 
 const colorVariants: {
-  color: VerticalNavigatorProps['color'],
-  label: string,
-  activeItem: VerticalNavigatorProps['activeItem'],
+  color: VerticalNavigatorProps['color'];
+  label: string;
+  activeItem: VerticalNavigatorProps['activeItem'];
 }[] = [
   { color: 'primary', label: 'Primary', activeItem: 'DASHBOARD' },
   { color: 'secondary', label: 'Secondary', activeItem: 'CHALLENGES' },
@@ -119,19 +120,28 @@ const colorVariants: {
 
 const NavigatorVariants = ({ variant }: { variant: VerticalNavigatorProps['variant'] }) => (
   <div
-    className="flex flex-wrap mx-0 items-start justify-center border-dashed border"
-    style={{ padding: '5vh 2.5vw', borderColor: 'rgba(200, 200, 200, 0.8)', background: 'rgba(200, 200, 200, 0.15)' }}
+    className="mx-0 flex flex-wrap items-start justify-center border border-dashed"
+    style={{
+      padding: '5vh 2.5vw',
+      borderColor: 'rgba(200, 200, 200, 0.8)',
+      background: 'rgba(200, 200, 200, 0.15)',
+    }}
   >
     {colorVariants.map(({ color, label, activeItem }) => (
-      <div className="w-1/3 text-left p-4">
-        <div className="p-3 opacity-80 text-sm">{label}</div>
+      <div className="w-1/3 p-4 text-left">
+        <div className="p-3 text-sm opacity-80">{label}</div>
         <div
           className="border-2 border-dashed p-2"
           style={{
             background: 'rgba(200, 200, 200, 0.2)',
           }}
         >
-          <DefaultTemplate items={defaultMenuItems} color={color} activeItem={activeItem} variant={variant} />
+          <DefaultTemplate
+            items={defaultMenuItems}
+            color={color}
+            activeItem={activeItem}
+            variant={variant}
+          />
         </div>
       </div>
     ))}
@@ -149,7 +159,6 @@ export const NavigatorLineColors: Story = {
   name: 'Vertical Navigator Line Colors',
   render: () => <NavigatorVariants variant="line" />,
 };
-
 
 export const CollapsedVariant: Story = {
   tags: ['unlisted'],

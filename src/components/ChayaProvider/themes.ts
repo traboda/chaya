@@ -8,12 +8,12 @@ export const DEFAULT_LIGHT_THEME = {
 };
 
 export const DEFAULT_DARK_THEME = {
-  primary: '#1d66e5',
+  primary: '#4B8BF5',
   primaryTextColor: '#fff',
-  secondary: '#b64fd7',
+  secondary: '#c571e0',
   secondaryTextColor: '#fff',
-  color: '#FAFAFA',
-  background: '#212121',
+  color: '#F0F0F0',
+  background: '#1A1A1A',
 };
 
 type THEMES = 'DEFAULT' | 'SOLARIZED';
@@ -29,6 +29,4 @@ export const getTheme = (theme: THEMES, isDarkMode: boolean) => {
     default:
       return DEFAULT_LIGHT_THEME;
   }
-
 };
-

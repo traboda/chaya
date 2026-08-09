@@ -1,0 +1,68 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SpinnerStories from './Spinner.stories';
+
+<Meta title="Components/Feedback/Spinner" of={SpinnerStories} />
+
+<Title>Spinner</Title>
+
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { Spinner } from 'chaya-ui';`} />
+</div>
+
+A simple animated spinner for indicating loading states. Available in multiple sizes.
+
+<Primary />
+
+## Sizes
+
+<Story of={SpinnerStories.Sizes} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class names</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>{"'xs' | 'sm' | 'md' | 'lg' | 'xl'"}</code>
+      </td>
+      <td>
+        <code>'md'</code>
+      </td>
+      <td>Size of the spinner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>HTML id attribute</td>
+    </tr>
+  </tbody>
+</table>

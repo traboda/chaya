@@ -1,15 +1,16 @@
 'use client';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { nanoid } from 'nanoid';
-import clsx from 'clsx';
+
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import clsx from 'clsx';
 
 import mcs from '../utils/merge';
 
-import SearchBox from './SearchBox';
-import Dropdown from './Dropdown';
 import ListViewItem from './ListView/item';
+
+import Dropdown from './Dropdown';
 import { IconInputType } from './Icon';
+import SearchBox from './SearchBox';
 import SkeletonItem from './SkeletonItem';
 
 const defaultLabels = {
@@ -22,27 +23,27 @@ const defaultLabels = {
 };
 
 export type DropdownFilterOptionType = {
-  label: string,
-  value: any,
-  iconRenderer?: React.ReactNode,
-  iconURL?: string,
-  icon?: IconInputType,
-  isDisabled?: boolean,
-  description?: string,
+  label: string;
+  value: any;
+  iconRenderer?: React.ReactNode;
+  iconURL?: string;
+  icon?: IconInputType;
+  isDisabled?: boolean;
+  description?: string;
 };
 
 type DropdownCommonProps = {
   labels?: {
-    searchPlaceholder?: string,
-    searchLabel?: string,
-    optionsTitle?: string,
-    selectAll?: string,
-    clearAll?: string,
-    noResults?: string
-  }
-  options?: DropdownFilterOptionType[],
-  isAsync?: boolean,
-  onFetch?: (keyword: string) => Promise<DropdownFilterOptionType[]>,
+    searchPlaceholder?: string;
+    searchLabel?: string;
+    optionsTitle?: string;
+    selectAll?: string;
+    clearAll?: string;
+    noResults?: string;
+  };
+  options?: DropdownFilterOptionType[];
+  isAsync?: boolean;
+  onFetch?: (keyword: string) => Promise<DropdownFilterOptionType[]>;
   optionButtonClassName?: string;
   selections: null | any[];
   setSelections?: (selections: null | any[]) => void;
@@ -65,26 +66,34 @@ type DropdownRenderProps = DropdownCommonProps & {
 };
 
 const DropdownRender = ({
-  labels: _labels, keyword, options, setKeyword, selections,
-  setSelections = () => {}, onLoad = () => {},
-  optionButtonClassName, isFetching = false, noResultsRenderer,
+  labels: _labels,
+  keyword,
+  options,
+  setKeyword,
+  selections,
+  setSelections = () => {},
+  onLoad = () => {},
+  optionButtonClassName,
+  isFetching = false,
+  noResultsRenderer,
 }: DropdownRenderProps) => {
-
   const labels = { ...defaultLabels, ..._labels };
   const [highlightedIndex, setHighlightedIndex] = useState<number>(0);
   const optionRefs = React.useRef<Array<React.RefObject<any>>>([]);
 
   useEffect(onLoad, []);
 
-  const availableOptions =
-  options ?
-    options.filter((f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase()))
+  const availableOptions = options
+    ? options.filter(
+        (f) => keyword.length == 0 || f.label.toLowerCase().startsWith(keyword.toLowerCase())
+      )
     : [];
 
   useEffect(() => {
-    optionRefs.current = Array(availableOptions.length).fill(null).map(() => React.createRef());
+    optionRefs.current = Array(availableOptions.length)
+      .fill(null)
+      .map(() => React.createRef());
   }, [availableOptions.length]);
-
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key == 'ArrowDown' || e.key == 'ArrowUp') e.preventDefault();
@@ -92,7 +101,10 @@ const DropdownRender = ({
       case 'ArrowDown':
         if (highlightedIndex < availableOptions.length - 1) {
           setHighlightedIndex(highlightedIndex + 1);
-          optionRefs.current[highlightedIndex + 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          optionRefs.current[highlightedIndex + 1].current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+          });
         } else {
           setHighlightedIndex(0);
           optionRefs.current[0].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -101,10 +113,16 @@ const DropdownRender = ({
       case 'ArrowUp':
         if (highlightedIndex > 0) {
           setHighlightedIndex(highlightedIndex - 1);
-          optionRefs.current[highlightedIndex - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          optionRefs.current[highlightedIndex - 1].current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+          });
         } else {
           setHighlightedIndex(availableOptions.length - 1);
-          optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+          });
         }
         break;
       case 'Home':
@@ -113,7 +131,10 @@ const DropdownRender = ({
         break;
       case 'End':
         setHighlightedIndex(availableOptions.length - 1);
-        optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        optionRefs.current[availableOptions.length - 1].current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
         break;
       case 'Enter':
         if (highlightedIndex != null) {
@@ -134,9 +155,9 @@ const DropdownRender = ({
           hideLabel
           autoFocus
           keyword={keyword}
-          inputClassName="py-1 px-2 border-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
+          inputClassName="py-1 px-2 border-none rounded-b-none border-b border-light bg-transparent"
           buttonClassName="py-1 px-2 border-none outline-none rounded-b-none bg-transparent"
-          buttonWrapperClassName="border-none outline-none rounded-b-none border-b bg-transparent dark:border-gray-500/70 border-gray-500/10"
+          buttonWrapperClassName="border-none outline-none rounded-b-none border-b border-light bg-transparent"
           onKeyDown={handleKeyDown}
           labels={{
             placeholder: labels.searchPlaceholder,
@@ -146,22 +167,20 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="w-full px-2 py-1 bg-background border-y dark:border-gray-500/70 border-gray-500/10">
-          <span className="opacity-80 uppercase font-semibold text-xs">
-            {labels.optionsTitle}
-          </span>
+        <div className="w-full border-y border-light bg-background px-2 py-1">
+          <span className="text-xs font-semibold uppercase opacity-80">{labels.optionsTitle}</span>
         </div>
       ) : null}
       <div
         className={clsx([
-          !(labels.optionsTitle?.length > 0) && 'border-t dark:border-gray-500/70 border-gray-500/10',
+          !(labels.optionsTitle?.length > 0) && 'border-t border-light',
           'max-h-[30vh] overflow-y-auto',
         ])}
       >
         {isFetching ? (
           <ul>
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="flex items-center p-2 gap-2">
+              <div key={index} className="flex items-center gap-2 p-2">
                 <SkeletonItem variant="wave" w={24} h={24} />
                 <SkeletonItem variant="wave" w="80%" h={24} />
               </div>
@@ -188,50 +207,51 @@ const DropdownRender = ({
                     icon: field.icon,
                     iconURL: field.iconURL,
                     isDisabled: field.isDisabled,
-                    onClick: () => setSelections(
-                      selections ? (
-                        selections.includes(field.value) ?
-                          [...selections.filter((selection) => selection !== field.value)] :
-                          [...selections, field.value]
-                      ) : [field.value],
-                    ),
+                    onClick: () =>
+                      setSelections(
+                        selections
+                          ? selections.includes(field.value)
+                            ? [...selections.filter((selection) => selection !== field.value)]
+                            : [...selections, field.value]
+                          : [field.value]
+                      ),
                   }}
-                  onSelect={() => setSelections(
-                    selections ? (
-                      selections.includes(field.value) ?
-                        [...selections.filter((selection) => selection !== field.value)] :
-                        [...selections, field.value]
-                    ) : [field.value],
-                  )}
+                  onSelect={() =>
+                    setSelections(
+                      selections
+                        ? selections.includes(field.value)
+                          ? [...selections.filter((selection) => selection !== field.value)]
+                          : [...selections, field.value]
+                        : [field.value]
+                    )
+                  }
                 />
               </DropdownMenu.Item>
             ))}
           </ul>
-        ) : typeof noResultsRenderer === 'function' ? noResultsRenderer() : (
-          <div className="px-2 py-4 text-center opacity-80">
-            {labels?.noResults}
-          </div>
+        ) : typeof noResultsRenderer === 'function' ? (
+          noResultsRenderer()
+        ) : (
+          <div className="px-2 py-4 text-center opacity-80">{labels?.noResults}</div>
         )}
       </div>
-      <div className="flex justify-between border-t dark:border-gray-500/70 border-gray-500/10 items-center">
+      <div className="flex items-center justify-between border-t border-light">
         <button
-          key={nanoid()}
           className={clsx([
-            'flex items-center text-center rounded-b-lg font-semibold justify-center',
-            'gap-2 px-3 py-2 hover:bg-white/20 w-full',
-            'border-r dark:border-gray-500/70 border-gray-500/10',
-            'hover:bg-neutral-500/10 rounded-r-none',
+            'flex items-center justify-center rounded-b-lg text-center font-semibold',
+            'w-full gap-2 px-3 py-2 hover:bg-white/20',
+            'border-r border-light',
+            'rounded-r-none hover:bg-neutral-500/10',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}
         >
           {labels.selectAll}
         </button>
         <button
-          key={nanoid()}
           className={clsx([
-            'flex items-center text-center rounded-b-lg font-semibold justify-center',
-            'gap-2 px-3 py-2 hover:bg-white/20 w-full',
-            'hover:bg-neutral-500/10 rounded-l-none',
+            'flex items-center justify-center rounded-b-lg text-center font-semibold',
+            'w-full gap-2 px-3 py-2 hover:bg-white/20',
+            'rounded-l-none hover:bg-neutral-500/10',
           ])}
           onClick={() => setSelections([])}
         >
@@ -243,26 +263,27 @@ const DropdownRender = ({
 };
 
 const DropdownFilter = ({
-  children, selections, options: _options = [], labels: _labels,
+  children,
+  selections,
+  options: _options = [],
+  labels: _labels,
   dropdownContainerClassName,
-  optionButtonClassName, align = 'start', side = 'bottom',
+  optionButtonClassName,
+  align = 'start',
+  side = 'bottom',
   setSelections = () => {},
   onChangeKeyword = () => {},
   isAsync = false,
   onFetch = async () => [],
-} : DropdownFilterProps) => {
-
+}: DropdownFilterProps) => {
   const [keyword, setKeyword] = useState<string>('');
   const initialRender = useRef(true);
   const labels = { ...defaultLabels, ..._labels };
 
   useEffect(() => {
-    if (initialRender.current)
-      initialRender.current = false;
-    else
-      onChangeKeyword(keyword);
+    if (initialRender.current) initialRender.current = false;
+    else onChangeKeyword(keyword);
   }, [keyword]);
-
 
   const [isFetching, setIsFetching] = useState(false);
   const [options, setOptions] = useState<DropdownFilterOptionType[]>(_options ?? []);
@@ -270,12 +291,16 @@ const DropdownFilter = ({
   const fetchOptions = async (searchKeyword: string) => {
     try {
       const fetchedOptions = await onFetch(searchKeyword);
-      const options = typeof fetchedOptions === 'object' && fetchedOptions.length ? fetchedOptions : [];
+      const options =
+        typeof fetchedOptions === 'object' && fetchedOptions.length ? fetchedOptions : [];
       setOptions((prev) => {
-        const newOptions = options.filter((option) => !prev.find((prevOption) => prevOption.value === option.value));
+        const newOptions = options.filter(
+          (option) => !prev.find((prevOption) => prevOption.value === option.value)
+        );
         return [...prev, ...newOptions];
       });
-    } catch (error) {
+    } catch {
+      // silently ignore fetch failures
     } finally {
       setIsFetching(false);
     }
@@ -292,15 +317,8 @@ const DropdownFilter = ({
     <Dropdown
       align={align}
       side={side}
-      containerClassName={mcs([
-        'z-[100] border dark:border-gray-500/70 border-gray-500/10',
-        dropdownContainerClassName,
-      ])}
-      buttonRenderer={(
-        <div className="w-fit">
-          {children}
-        </div>
-      )}
+      containerClassName={mcs(['z-[100] border border-light', dropdownContainerClassName])}
+      buttonRenderer={<div className="w-fit">{children}</div>}
     >
       <DropdownRender
         onLoad={() => onChangeKeyword(keyword)}

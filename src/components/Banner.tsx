@@ -1,30 +1,34 @@
 import React from 'react';
+
 import clsx from 'clsx';
 
-import { cva } from '../utils/cva';
 import {
-  colorVariantMapper, ChayaColorType,
-  SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP, EMPTY_COLOR_MAP,
+  ChayaColorType,
+  EMPTY_COLOR_MAP,
+  SOLID_BG_COLOR_MAP,
+  SOLID_TEXT_COLOR_MAP,
+  colorVariantMapper,
 } from '../utils/classMaps/colors';
+import { cva } from '../utils/cva';
 import mcs from '../utils/merge';
 
 import Icon, { IconInputType } from './Icon';
 
 export type BannerProps = {
-  id?: string,
-  className?: string,
-  variant?: 'full-width' | 'float' | 'card',
-  color?: ChayaColorType,
-  position?: 'top' | 'bottom' | 'inline',
-  text?: string,
-  icon?: IconInputType,
-  allowDismissal?: boolean,
-  children?: React.ReactNode,
+  id?: string;
+  className?: string;
+  variant?: 'full-width' | 'float' | 'card';
+  color?: ChayaColorType;
+  position?: 'top' | 'bottom' | 'inline';
+  text?: string;
+  icon?: IconInputType;
+  allowDismissal?: boolean;
+  children?: React.ReactNode;
   learnMore?: {
-    link: string,
-    text: string,
-  }
-  onClose?: () => void,
+    link: string;
+    text: string;
+  };
+  onClose?: () => void;
 };
 
 const wrapperClassName = cva({
@@ -32,13 +36,13 @@ const wrapperClassName = cva({
   variants: {
     variant: {
       'full-width': '',
-      'float': 'p-4',
-      'card': 'max-w-[700px]',
+      float: 'p-4',
+      card: 'max-w-[700px]',
     },
     position: {
-      'top': 'absolute top-0',
-      'bottom': 'absolute bottom-0',
-      'inline': '',
+      top: 'absolute top-0',
+      bottom: 'absolute bottom-0',
+      inline: '',
     },
   },
   compoundVariants: [
@@ -57,31 +61,46 @@ const containerClassName = cva({
   variants: {
     variant: {
       'full-width': '',
-      'float': '',
-      'card': '',
+      float: '',
+      card: '',
     },
     color: EMPTY_COLOR_MAP,
   },
   compoundVariants: [
-    ...colorVariantMapper([SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP], ['float', 'card', 'full-width']),
+    ...colorVariantMapper(
+      [SOLID_BG_COLOR_MAP, SOLID_TEXT_COLOR_MAP],
+      ['float', 'card', 'full-width']
+    ),
   ],
 });
 
 const Banner = ({
-  id, className, variant, onClose, position = 'top', text, color = 'primary', icon,
-  allowDismissal, children, learnMore,
+  id,
+  className,
+  variant,
+  onClose,
+  position = 'top',
+  text,
+  color = 'primary',
+  icon,
+  allowDismissal,
+  children,
+  learnMore,
 }: BannerProps) => {
-
   const contentRenderer = (
     <React.Fragment>
-      <div className="w-full flex gap-4 place-items-center">
+      <div className="flex w-full place-items-center gap-4">
         {icon && <Icon icon={icon} size={20} />}
         <p>
           {text}
-          {learnMore && <a href={learnMore.link} className="whitespace-nowrap  hover:underline inline">{learnMore.text}</a>}
+          {learnMore && (
+            <a href={learnMore.link} className="inline whitespace-nowrap hover:underline">
+              {learnMore.text}
+            </a>
+          )}
         </p>
       </div>
-      <div className="flex gap-4 items-center flex-shrink-0">
+      <div className="flex flex-shrink-0 items-center gap-4">
         {children}
         {allowDismissal && (
           <button type="button" className="flex place-items-center" onClick={onClose}>
@@ -95,7 +114,7 @@ const Banner = ({
   const cardRenderer = (
     <div
       className={clsx([
-        'p-5 flex flex-col gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between',
+        'flex flex-col flex-wrap items-center justify-center gap-4 p-5 text-center md:flex-nowrap md:justify-between md:text-left',
       ])}
     >
       {contentRenderer}
@@ -105,7 +124,7 @@ const Banner = ({
   const bannerRenderer = (
     <div
       className={clsx([
-        'w-full p-5 flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between',
+        'flex w-full flex-wrap items-center justify-center gap-4 p-5 text-center md:flex-nowrap md:justify-between md:text-left',
       ])}
     >
       {contentRenderer}
@@ -113,23 +132,12 @@ const Banner = ({
   );
 
   return (
-    <div
-      className={clsx([
-        wrapperClassName({ variant, position }),
-      ])}
-    >
-      <div
-        id={id}
-        className={mcs([
-          containerClassName({ variant, color }),
-          className,
-        ])}
-      >
-        {(variant === 'card') ? cardRenderer : bannerRenderer}
+    <div className={clsx([wrapperClassName({ variant, position })])}>
+      <div id={id} className={mcs([containerClassName({ variant, color }), className])}>
+        {variant === 'card' ? cardRenderer : bannerRenderer}
       </div>
     </div>
   );
-
 };
 
 export default Banner;

@@ -1,35 +1,45 @@
 'use client';
-import React, { useEffect, useRef, KeyboardEvent } from 'react';
+import React, { KeyboardEvent, useEffect, useRef } from 'react';
+
 import clsx from 'clsx';
 
 import Checkbox, { CheckboxColor, CheckboxSize } from './Checkbox';
 import Label from './Label';
 
 export type CheckboxGroupProps<Type> = {
-  value: Type[],
+  value: Type[];
   options: {
-    value: Type,
-    label: string,
-    isDisabled?: boolean,
-  }[],
-  onChange?: (values: Type[]) => void,
-  color?: CheckboxColor,
-  size?: CheckboxSize,
-  isDisabled?: boolean,
-  id?: string,
-  alignment?: 'horizontal' | 'vertical',
-  isRequired?: boolean,
-  label?: string,
-  optionClassName?: string,
-  minSelections?: number,
+    value: Type;
+    label: string;
+    isDisabled?: boolean;
+  }[];
+  onChange?: (values: Type[]) => void;
+  color?: CheckboxColor;
+  size?: CheckboxSize;
+  isDisabled?: boolean;
+  id?: string;
+  alignment?: 'horizontal' | 'vertical';
+  isRequired?: boolean;
+  label?: string;
+  optionClassName?: string;
+  minSelections?: number;
 };
 
 const CheckboxGroup = <Type extends string | number>({
-  value, options, onChange = () => {}, color = 'primary', size = 'md', isDisabled = false, alignment = 'vertical',
-  isRequired = false, label, optionClassName, id, minSelections = 1,
+  value,
+  options,
+  onChange = () => {},
+  color = 'primary',
+  size = 'md',
+  isDisabled = false,
+  alignment = 'vertical',
+  isRequired = false,
+  label,
+  optionClassName,
+  id,
+  minSelections = 1,
 }: CheckboxGroupProps<Type>) => {
-
-  const checkboxRefs = useRef<(React.RefObject<HTMLInputElement>)[]>([]);
+  const checkboxRefs = useRef<React.RefObject<HTMLInputElement | null>[]>([]);
   const [hiddenInputValue, setHiddenInputValue] = React.useState<string>('');
 
   useEffect(() => {
@@ -41,8 +51,7 @@ const CheckboxGroup = <Type extends string | number>({
   }, [options]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLLabelElement>, index: number) => {
-    if (isDisabled)
-      return;
+    if (isDisabled) return;
     switch (event.key) {
       case 'ArrowDown':
       case 'ArrowRight':
@@ -65,9 +74,11 @@ const CheckboxGroup = <Type extends string | number>({
       case 'Enter':
         event.preventDefault();
         const option = options[index];
-        onChange(value && value.includes(option.value) ?
-          value.filter(value => value !== option.value) :
-          [...value, option.value]);
+        onChange(
+          value && value.includes(option.value)
+            ? value.filter((value) => value !== option.value)
+            : [...value, option.value]
+        );
         break;
       case 'Home':
         event.preventDefault();
@@ -115,27 +126,38 @@ const CheckboxGroup = <Type extends string | number>({
           alignment === 'vertical' ? 'flex-col gap-2' : 'flex-row flex-wrap gap-4',
         ])}
       >
-        {options?.length > 0 && options.map((option, index) => (
-          <Checkbox
-            tabIndex={0}
-            ref={checkboxRefs.current[index]}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            className={optionClassName}
-            key={index}
-            value={option.value}
-            label={option.label}
-            isChecked={value && value.includes(option.value)}
-            isDisabled={isDisabled || option.isDisabled}
-            color={color}
-            size={size}
-            onChange={() => {
-              onChange(value && value.includes(option.value) ?
-                value.filter(value => value !== option.value) :
-                [...value, option.value]);
-            }}
+        {options?.length > 0 &&
+          options.map((option, index) => (
+            <Checkbox
+              tabIndex={0}
+              ref={checkboxRefs.current[index]}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={optionClassName}
+              key={index}
+              value={option.value}
+              label={option.label}
+              isChecked={value && value.includes(option.value)}
+              isDisabled={isDisabled || option.isDisabled}
+              color={color}
+              size={size}
+              onChange={() => {
+                onChange(
+                  value && value.includes(option.value)
+                    ? value.filter((value) => value !== option.value)
+                    : [...value, option.value]
+                );
+              }}
+            />
+          ))}
+        {isRequired && (
+          <input
+            type="text"
+            tabIndex={-1}
+            className="absolute left-0 top-0 h-1 opacity-0"
+            required
+            value={hiddenInputValue}
           />
-        ))}
-        {isRequired && <input type="text" tabIndex={-1} className="absolute top-0 left-0 h-1 opacity-0" required value={hiddenInputValue} />}
+        )}
       </div>
     </React.Fragment>
   );

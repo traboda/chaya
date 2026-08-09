@@ -1,9 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import React from 'react';
 
-import ConfirmationDialog, { ConfirmationDialogProps } from '../../../src/components/ConfirmationDialog';
+import { Meta, StoryObj } from '@storybook/react-vite';
+
 import Button from '../../../src/components/Button';
+import ConfirmationDialog, {
+  ConfirmationDialogProps,
+} from '../../../src/components/ConfirmationDialog';
 
 const meta: Meta<ConfirmationDialogProps> = {
   title: 'Components/Feedback/ConfirmationDialog',
@@ -30,7 +33,6 @@ export const Primary: Story = {
     },
   },
   render: (story) => {
-
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -46,6 +48,55 @@ export const Primary: Story = {
         />
       </div>
     );
+  },
+};
 
+export const RequirePassword: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <div>
+        <Button color="danger" onClick={() => setOpen(true)}>
+          Delete Account
+        </Button>
+        <ConfirmationDialog
+          labels={{
+            title: 'Delete Account',
+            description: 'Enter your password to confirm account deletion.',
+          }}
+          requirePassword
+          confirmButtonProps={{ color: 'danger' }}
+          isOpen={isOpen}
+          onConfirm={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+        />
+      </div>
+    );
+  },
+};
+
+export const RequireConfirmationText: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <div>
+        <Button color="danger" onClick={() => setOpen(true)}>
+          Delete Repository
+        </Button>
+        <ConfirmationDialog
+          labels={{
+            title: 'Delete Repository',
+            description: 'This action cannot be undone. Type CONFIRM to proceed.',
+          }}
+          requireConfirmationText
+          confirmButtonProps={{ color: 'danger' }}
+          isOpen={isOpen}
+          onConfirm={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+        />
+      </div>
+    );
   },
 };

@@ -1,0 +1,140 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SettingCardStories from './SettingCard.stories';
+
+<Meta title="Components/Display/SettingCard" of={SettingCardStories} />
+
+<Title>SettingCard</Title>
+
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { SettingCard } from 'chaya-ui';`} />
+</div>
+
+A settings card component for building settings pages with a title, description, and action slot layout.
+
+<Primary />
+
+## With Switch
+
+<Story of={SettingCardStories.WithSwitch} />
+
+## With Text Input
+
+<Story of={SettingCardStories.WithTextInput} />
+
+## With Button
+
+<Story of={SettingCardStories.WithButton} />
+
+## Vertical Layout
+
+<Story of={SettingCardStories.VerticalLayout} />
+
+## With Sub Settings
+
+<Story of={SettingCardStories.WithSubSettings} />
+
+## Settings Page
+
+<Story of={SettingCardStories.SettingsPage} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>labels</code>
+      </td>
+      <td>
+        <code>{'{ title: string; description?: string | ReactElement }'}</code>
+      </td>
+      <td>
+        <code>required</code>
+      </td>
+      <td>Title and optional description for the setting card</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>
+        <code>required</code>
+      </td>
+      <td>Action content rendered in the right (or bottom) slot</td>
+    </tr>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>HTML id attribute for the card element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Additional CSS class for the card container</td>
+    </tr>
+    <tr>
+      <td>
+        <code>titleClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>CSS class for the title element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isVertical</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to stack the label and action vertically</td>
+    </tr>
+    <tr>
+      <td>
+        <code>subSettingRenderer</code>
+      </td>
+      <td>
+        <code>{'() => ReactNode'}</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Render function for sub-settings displayed below the card</td>
+    </tr>
+  </tbody>
+</table>

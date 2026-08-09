@@ -1,16 +1,15 @@
-import { Meta, Primary, Title, ArgTypes, Story } from '@storybook/blocks';
-import * as PinInputStories from "./PinInput.stories";
-import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock";
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/PinInput"
-    of={PinInputStories}
-/>
+import SingleLineCodeBlock from '../../../../stories/common/SingleLineCodeBlock';
+
+import * as PinInputStories from './PinInput.stories';
+
+<Meta title="Components/Inputs/PinInput" of={PinInputStories} />
 
 <Title>PinInput</Title>
 
 <div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { PinInput } from 'chaya-ui';`} />
+  <SingleLineCodeBlock text={`import { PinInput } from 'chaya-ui';`} />
 </div>
 
 <Primary />
@@ -32,7 +31,6 @@ import SingleLineCodeBlock from "../../../../stories/common/SingleLineCodeBlock"
 ## Inside Form
 
 <Story of={PinInputStories.InsideForm} />
-
 
 ## API
 

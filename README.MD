@@ -18,7 +18,7 @@
 
 Chaya UI provides a wide range of modern, data-first components that help you build your SaaS applications faster,
 and with less code. Our components are designed to be minimal, modern, and fully accessible, and are built on top
-of best-in-class tools/libraries like **TypeScript**,  **Tailwind CSS**,  **Radix Primitives**, etc.
+of best-in-class tools/libraries like **TypeScript**, **Tailwind CSS**, **Radix Primitives**, etc.
 
 - 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
@@ -31,15 +31,17 @@ Checkout examples from our Storybook: [chaya.traboda.com](https://chaya.traboda.
 
 ## Installing Chaya
 
-1. Install the package by running - 
+1. Install the package by running -
+
 ```bash
 npm install chaya-ui
 ```
-or with yarn, as 
+
+or with yarn, as
+
 ```bash
 yarn add chaya-ui
 ```
-
 
 ## Setting Up & Usage
 
@@ -47,51 +49,46 @@ To start using the components, please follow the below steps:
 
 1. Wrap your Application in a `ChayaProvider` provided by `chaya-ui`
 
-    ```tsx
-    import { ReactNode } from "react";
-    import { ChayaProvider } from 'chaya-ui';
+   ```tsx
+   import { ReactNode } from 'react';
 
-    const AppView = ({ children }: { children: ReactNode }) => (
-      <ChayaProvider>
-        {children}
-      </ChayaProvider>
-    );
-    ```
+   import { ChayaProvider } from 'chaya-ui';
+
+   const AppView = ({ children }: { children: ReactNode }) => (
+     <ChayaProvider>{children}</ChayaProvider>
+   );
+   ```
 
 2. Update your `tailwind.config.js` to process styles for components from `chaya-ui`
 
-    ```js
-    const theme = require('chaya-ui/tailwind-theme');
-    
-    /** @type {import('tailwindcss').Config} */
-    module.exports = {
+   ```js
+   const theme = require('chaya-ui/tailwind-theme');
+
+   /** @type {import('tailwindcss').Config} */
+   module.exports = {
      content: [
-         'node_modules/chaya-ui/**/*.js',
-         // ...
+       'node_modules/chaya-ui/**/*.js',
+       // ...
      ],
      // ...
      theme: {
-         extend: theme,
+       extend: theme,
      },
      // ...
-    };
-    ```
+   };
+   ```
 
 3. Import the components from `chaya-ui` and use them in your application.
 
-    ```tsx
-    import { Button } from 'chaya-ui';
+   ```tsx
+   import { Button } from 'chaya-ui';
 
-    const App = () => (
-      <Button 
-        onClick={() => console.log('I was clicked')} 
-        variant="outline" 
-        color="danger"
-      >
-          Click Me
-      </Button>
-    );
-    ```
+   const App = () => (
+     <Button onClick={() => console.log('I was clicked')} variant="outline" color="danger">
+       Click Me
+     </Button>
+   );
+   ```
 
 ## Development Guide
 

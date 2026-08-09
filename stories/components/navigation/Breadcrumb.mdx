@@ -1,24 +1,101 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/blocks';
-import * as BreadcrumbStories from "./Breadcrumb.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Navigation/Breadcrumb"
-    of={BreadcrumbStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as BreadcrumbStories from './Breadcrumb.stories';
+
+<Meta title="Components/Navigation/Breadcrumb" of={BreadcrumbStories} />
 
 <Title>Breadcrumb</Title>
 
-<div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { Breadcrumb } from 'chaya-ui';`} />
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { Breadcrumb } from 'chaya-ui';`} />
 </div>
 
 Breadcrumb is a component that allows users to navigate between pages and see where they are in the hierarchy of a website.
 It is usually placed at the top of the page.
 
-
 <Primary name="Primary" />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>items</code>
+      </td>
+      <td>
+        <code>{'BreadcrumbItemProps[]'}</code>
+      </td>
+      <td>required</td>
+      <td>Array of breadcrumb items to display</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>{"''"}</code>
+      </td>
+      <td>Additional CSS class for the breadcrumb container</td>
+    </tr>
+    <tr>
+      <td>
+        <code>itemClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>{"''"}</code>
+      </td>
+      <td>Additional CSS class for each breadcrumb item</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideHomeLink</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to hide the home link at the beginning</td>
+    </tr>
+    <tr>
+      <td>
+        <code>homeLink</code>
+      </td>
+      <td>
+        <code>BreadcrumbItemProps</code>
+      </td>
+      <td>-</td>
+      <td>Custom home link configuration</td>
+    </tr>
+    <tr>
+      <td>
+        <code>lastItemAsTitle</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to render the last breadcrumb item as a page title</td>
+    </tr>
+  </tbody>
+</table>

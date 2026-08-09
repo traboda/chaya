@@ -1,5 +1,6 @@
 'use client';
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import mcs from '../../utils/merge';
@@ -10,22 +11,27 @@ export type AlignOptions = 'start' | 'center' | 'end';
 export type SideOptions = 'auto' | 'top' | 'right' | 'bottom' | 'left';
 
 export type DropdownProps = {
-  children: ReactNode,
-  buttonRenderer: ReactElement,
-  isOpen?: boolean,
-  onClose?: () => void,
-  id?: string,
-  containerClassName?: string,
-  align?: AlignOptions,
-  side?: SideOptions
-  fillTriggerWidth?: boolean,
+  children: ReactNode;
+  buttonRenderer: ReactElement;
+  isOpen?: boolean;
+  onClose?: () => void;
+  id?: string;
+  containerClassName?: string;
+  align?: AlignOptions;
+  side?: SideOptions;
+  fillTriggerWidth?: boolean;
 };
 
 const Dropdown = ({
-  children, buttonRenderer, isOpen = false, onClose = () => {},
-  containerClassName, align = 'center', side = 'bottom', fillTriggerWidth = false,
+  children,
+  buttonRenderer,
+  isOpen = false,
+  onClose = () => {},
+  containerClassName,
+  align = 'center',
+  side = 'bottom',
+  fillTriggerWidth = false,
 }: DropdownProps) => {
-
   const [open, setOpen] = useState(isOpen);
 
   useEffect(() => setOpen(isOpen), [isOpen]);
@@ -39,17 +45,22 @@ const Dropdown = ({
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={mcs([
-            'w-[240px] rounded-lg text-color shadow-md',
+            'z-[100] w-[240px] rounded-lg text-color shadow-md dark:shadow-lg dark:shadow-black/30',
             'bg-background-lighten-3 dark:bg-background-darken-1',
+            'border',
             styles.animateEntry,
             containerClassName,
           ])}
           sideOffset={5}
           align={align}
           side={side != 'auto' ? side : undefined}
-          style={fillTriggerWidth ? {
-            width: 'var(--radix-dropdown-menu-trigger-width)',
-          } : undefined}
+          style={
+            fillTriggerWidth
+              ? {
+                  width: 'var(--radix-dropdown-menu-trigger-width)',
+                }
+              : undefined
+          }
         >
           {children}
         </DropdownMenu.Content>

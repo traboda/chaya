@@ -1,11 +1,23 @@
 @keyframes translate {
-    from { transform: translate(var(--drawer-position-from-x) , var(--drawer-position-from-y)); overflow: auto; }
-    to { transform: translate(var(--drawer-position-to-x) , var(--drawer-position-to-y)); overflow: auto; }
+  from {
+    transform: translate(var(--drawer-position-from-x), var(--drawer-position-from-y));
+    overflow: auto;
+  }
+  to {
+    transform: translate(var(--drawer-position-to-x), var(--drawer-position-to-y));
+    overflow: auto;
+  }
 }
 
 @keyframes translate-reverse {
-    from { transform: translate(var(--drawer-position-from-x) , var(--drawer-position-from-y)); overflow: auto; }
-    to { transform: translate(var(--drawer-position-to-x) , var(--drawer-position-to-y)); overflow: auto; }
+  from {
+    transform: translate(var(--drawer-position-from-x), var(--drawer-position-from-y));
+    overflow: auto;
+  }
+  to {
+    transform: translate(var(--drawer-position-to-x), var(--drawer-position-to-y));
+    overflow: auto;
+  }
 }
 
 .animateTranslateInX,
@@ -19,19 +31,18 @@
 }
 
 .animateTranslateInX {
-    --drawer-position-to-x: var(--drawer-position-direction);
-    animation: 350ms translate ease-in forwards;
+  --drawer-position-to-x: var(--drawer-position-direction);
+  animation: 350ms translate ease-in forwards;
 }
 .animateTranslateOutX {
-    --drawer-position-from-x: var(--drawer-position-direction);
-    animation: 350ms translate-reverse ease-out forwards;
+  --drawer-position-from-x: var(--drawer-position-direction);
+  animation: 350ms translate-reverse ease-out forwards;
 }
 .animateTranslateInY {
-    --drawer-position-to-y: var(--drawer-position-direction);
-    animation: 350ms translate ease-in forwards;
+  --drawer-position-to-y: var(--drawer-position-direction);
+  animation: 350ms translate ease-in forwards;
 }
 .animateTranslateOutY {
-    --drawer-position-from-y: var(--drawer-position-direction);
-    animation: 350ms translate-reverse ease-out forwards;
+  --drawer-position-from-y: var(--drawer-position-direction);
+  animation: 350ms translate-reverse ease-out forwards;
 }
-

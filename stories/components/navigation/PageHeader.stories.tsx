@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import PageHeader, { PageHeaderProps } from '../../../src/components/PageHeader';
 
@@ -17,11 +17,12 @@ type Story = StoryObj<PageHeaderProps>;
 export const Primary: Story = {
   args: {
     title: 'Breadcrumb',
-    description: 'A breadcrumb is a secondary navigation scheme that reveals the user’s location in a website or web application.',
+    description:
+      'A breadcrumb is a secondary navigation scheme that reveals the user’s location in a website or web application.',
     breadcrumbItems: [
-      { link:'#/components', title:'Components' },
-      { link:'#/components/navigation', title:'Navigation' },
-      { link:'#/components/navigation/breadcrumb', title:'Breadcrumb', isActive:true },
+      { link: '#/components', title: 'Components' },
+      { link: '#/components/navigation', title: 'Navigation' },
+      { link: '#/components/navigation/breadcrumb', title: 'Breadcrumb', isActive: true },
     ],
   },
 };

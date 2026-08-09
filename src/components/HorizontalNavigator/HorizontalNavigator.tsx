@@ -1,22 +1,21 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { nanoid } from 'nanoid';
+import React, { useEffect, useId, useRef, useState } from 'react';
 
-import { cva } from '../../utils/cva';
 import {
-  colorVariantMapper, EMPTY_COLOR_MAP, BORDER_COLOR_MAP, SOLID_BG_COLOR_MAP,
+  BORDER_COLOR_MAP,
+  EMPTY_COLOR_MAP,
+  SOLID_BG_COLOR_MAP,
+  colorVariantMapper,
 } from '../../utils/classMaps/colors';
+import { cva } from '../../utils/cva';
 import mcs from '../../utils/merge';
 
-import HorizontalNavigatorItem from './HorizontalNavigatorItem';
 import { HorizontalNavigatorProps } from './HorizontalNavigator.types';
+import HorizontalNavigatorItem from './HorizontalNavigatorItem';
 import { HorizontalNavigatorVariantType } from './HorizontalNavigatorItem.types';
 
 const activeMarkerClassName = cva({
-  base: [
-    'absolute left-0 rounded-lg',
-    'transition-all ease-in-out',
-  ],
+  base: ['absolute left-0 rounded-lg', 'transition-all ease-in-out'],
   variants: {
     variant: {
       line: 'horizontal-navigator-underline border-2 w-full bottom-0',
@@ -33,19 +32,25 @@ const activeMarkerClassName = cva({
 });
 
 const HorizontalNavigator = ({
-  id, items, variant = 'pill', color = 'primary',
-  className, itemClassName, activeItem, onClickItem = () => {},
+  id,
+  items,
+  variant = 'pill',
+  color = 'primary',
+  className,
+  itemClassName,
+  activeItem,
+  onClickItem = () => {},
 }: HorizontalNavigatorProps) => {
-
-  const navigatorID = useMemo(() => id || `horizontal-navigator-${nanoid()}`, [id]);
+  const reactId = useId();
+  const navigatorID = id || `horizontal-navigator-${reactId}`;
   const tabRef = useRef<HTMLUListElement>(null);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
-    width: number | null,
-    height: number | null,
-    translateX: number | null,
-    translateY: number | null,
-  }>(({ width: null, height: null, translateX: null, translateY: null }));
+    width: number | null;
+    height: number | null;
+    translateX: number | null;
+    translateY: number | null;
+  }>({ width: null, height: null, translateX: null, translateY: null });
 
   const updateIndicator = () => {
     if (tabRef.current) {
@@ -55,8 +60,8 @@ const HorizontalNavigator = ({
         const { left: containerLeft, top: containerTop } = tabRef.current.getBoundingClientRect();
         setIndicatorStyle({
           height: variant == 'line' ? 0 : height,
-          translateX: (left - containerLeft),
-          translateY: variant == 'line' ? null : (top - containerTop),
+          translateX: left - containerLeft,
+          translateY: variant == 'line' ? null : top - containerTop,
           width,
         });
       }
@@ -76,29 +81,34 @@ const HorizontalNavigator = ({
       aria-orientation="horizontal"
       ref={tabRef}
       className={mcs([
-        'list-none tab-selector horizontal-tabs relative inline-flex',
+        'tab-selector horizontal-tabs relative inline-flex list-none',
         'items-center rounded-lg',
         (variant === 'pill' || variant === 'boxed') && 'z-[1000] gap-x-0.5',
-        variant === 'boxed' && 'bg-neutral-400/20 dark:bg-neutral-600/20 p-1.5',
+        variant === 'boxed' && 'bg-neutral-400/20 p-1.5 dark:bg-neutral-600/20',
         variant === 'line' && 'gap-1',
         className,
       ])}
     >
-      {items.filter((item) => !item.isHidden).map(item => (
-        <HorizontalNavigatorItem
-          key={item.key}
-          item={item}
-          activeItem={activeItem}
-          navigatorID={navigatorID}
-          variant={variant == 'boxed' ? 'pill' : variant}
-          color={color}
-          className={itemClassName}
-          onClickItem={onClickItem}
-        />
-      ))}
+      {items
+        .filter((item) => !item.isHidden)
+        .map((item) => (
+          <HorizontalNavigatorItem
+            key={item.key}
+            item={item}
+            activeItem={activeItem}
+            navigatorID={navigatorID}
+            variant={variant == 'boxed' ? 'pill' : variant}
+            color={color}
+            className={itemClassName}
+            onClickItem={onClickItem}
+          />
+        ))}
       {activeItem ? (
         <div
-          className={activeMarkerClassName({ variant: variant === 'boxed' ? 'pill' : variant, color: color })}
+          className={activeMarkerClassName({
+            variant: variant === 'boxed' ? 'pill' : variant,
+            color: color,
+          })}
           style={{
             transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
             width: indicatorStyle?.width || 0,
@@ -108,7 +118,6 @@ const HorizontalNavigator = ({
       ) : null}
     </ul>
   );
-
 };
 
 export default HorizontalNavigator;

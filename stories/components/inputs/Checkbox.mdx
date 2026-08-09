@@ -1,20 +1,160 @@
-import { Meta, Primary, Title, ArgTypes } from '@storybook/blocks';
-import * as CheckboxStories from "./Checkbox.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/Checkbox"
-    of={CheckboxStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta title="Components/Inputs/Checkbox" of={CheckboxStories} />
 
 <Title>Checkbox</Title>
 
-<div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { Checkbox } from 'chaya-ui';`} />
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { Checkbox } from 'chaya-ui';`} />
 </div>
 
 <Primary />
 
-## API
+## Props
 
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>label</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>required</td>
+      <td>Text label displayed next to the checkbox</td>
+    </tr>
+    <tr>
+      <td>
+        <code>value</code>
+      </td>
+      <td>{'<code>string | number</code>'}</td>
+      <td>required</td>
+      <td>Value of the checkbox</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isChecked</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the checkbox is checked</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onChange</code>
+      </td>
+      <td>{'<code>(value: ChangeEvent<HTMLInputElement>) => void</code>'}</td>
+      <td>-</td>
+      <td>Callback fired when the checkbox value changes</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onClick</code>
+      </td>
+      <td>{'<code>(event: MouseEvent<HTMLLabelElement>) => void</code>'}</td>
+      <td>-</td>
+      <td>Callback fired when the label is clicked</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onKeyDown</code>
+      </td>
+      <td>{'<code>(event: KeyboardEvent<HTMLLabelElement>) => void</code>'}</td>
+      <td>-</td>
+      <td>Callback fired on key down events</td>
+    </tr>
+    <tr>
+      <td>
+        <code>color</code>
+      </td>
+      <td>
+        {"<code>'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default'</code>"}
+      </td>
+      <td>
+        <code>'primary'</code>
+      </td>
+      <td>Color theme of the checkbox</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>{"<code>'xs' | 'sm' | 'md' | 'lg' | 'xl'</code>"}</td>
+      <td>
+        <code>'md'</code>
+      </td>
+      <td>Size of the checkbox</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the checkbox is disabled</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isHalf</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to show an indeterminate (half) state</td>
+    </tr>
+    <tr>
+      <td>
+        <code>tabIndex</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>-</td>
+      <td>Tab index for keyboard navigation</td>
+    </tr>
+    <tr>
+      <td>
+        <code>spacing</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Custom spacing class</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the checkbox container</td>
+    </tr>
+  </tbody>
+</table>

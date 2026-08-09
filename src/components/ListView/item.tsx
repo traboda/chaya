@@ -1,38 +1,42 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 
-import Icon, { IconInputType } from '../Icon';
-import Checkbox from '../Checkbox';
+import mcs from '../../utils/merge';
 import { LinkWrapper } from '../../utils/misc';
 import Avatar from '../Avatar';
-import mcs from '../../utils/merge';
+import Checkbox from '../Checkbox';
+import Icon, { IconInputType } from '../Icon';
 
 export type ListViewItem = {
-  id: string,
-  title?: string,
-  description?: string,
-  onClick?: (event: MouseEvent | ChangeEvent) => void,
-  href?: string,
-  iconRenderer?: React.ReactNode,
-  iconURL?: string,
-  icon?: IconInputType,
-  isDisabled?: boolean,
+  id: string;
+  title?: string;
+  description?: string;
+  onClick?: (event: MouseEvent | ChangeEvent) => void;
+  href?: string;
+  iconRenderer?: React.ReactNode;
+  iconURL?: string;
+  icon?: IconInputType;
+  isDisabled?: boolean;
 };
 
 export type ListViewItemProps = {
-  className?: string,
-  item: ListViewItem,
-  role?: string,
-  isHighlighted?: boolean,
-  isSelectable?: boolean,
-  isSelected?: boolean,
-  onSelect?: (value: ChangeEvent<HTMLInputElement>) => void,
+  className?: string;
+  item: ListViewItem;
+  role?: string;
+  isHighlighted?: boolean;
+  isSelectable?: boolean;
+  isSelected?: boolean;
+  onSelect?: (value: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const ListViewItem = ({
-  className, item, role,
-  isSelectable = false, isSelected = false, onSelect = () => {}, isHighlighted = false,
+  className,
+  item,
+  role,
+  isSelectable = false,
+  isSelected = false,
+  onSelect = () => {},
+  isHighlighted = false,
 }: ListViewItemProps) => {
-
   const hasDescription = item?.description && item?.description?.length > 0;
 
   const itemBody = (
@@ -40,42 +44,32 @@ const ListViewItem = ({
       <div className="flex gap-2">
         {isSelectable && (
           <Checkbox
-            onClick={event => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             value={(item.id ?? '').toString()}
             label=""
             isChecked={isSelected}
             onChange={onSelect}
           />
         )}
-        {item?.icon && (<Icon icon={item?.icon} size={16} />)}
+        {item?.icon && <Icon icon={item?.icon} size={16} />}
         {item?.iconRenderer && (
-          <div className="flex items-center justify-center h-full">
-            <div className="w-[24px] h-[24px]">
-              {item?.iconRenderer}
-            </div>
+          <div className="flex h-full items-center justify-center">
+            <div className="h-[24px] w-[24px]">{item?.iconRenderer}</div>
           </div>
         )}
         {item?.iconURL && (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex h-full items-center justify-center">
             <Avatar alt={item?.title || item?.id} src={item?.iconURL} size={24} />
           </div>
         )}
         <div>
           {item?.title && item?.title?.length > 0 ? (
-            <div className={hasDescription ? 'text-lg' : ''}>
-              {item.title}
-            </div>
+            <div className={hasDescription ? 'text-lg' : ''}>{item.title}</div>
           ) : null}
-          {hasDescription ? (
-            <div className="text-sm opacity-80">
-              {item.description}
-            </div>
-          ) : null}
+          {hasDescription ? <div className="text-sm opacity-80">{item.description}</div> : null}
         </div>
       </div>
-      <div>
-            
-      </div>
+      <div></div>
     </React.Fragment>
   );
 
@@ -88,11 +82,13 @@ const ListViewItem = ({
 
   return (
     <li role={role}>
-      {typeof item?.href === 'string' && item?.href?.length > 0 ? LinkWrapper(item.href, itemBody, {
-        className: wrapperClassName,
-        onClick: item?.onClick,
-        isDisabled: item?.isDisabled,
-      }) : (
+      {typeof item?.href === 'string' && item?.href?.length > 0 ? (
+        LinkWrapper(item.href, itemBody, {
+          className: wrapperClassName,
+          onClick: item?.onClick,
+          isDisabled: item?.isDisabled,
+        })
+      ) : (
         <button
           type="button"
           aria-disabled={item?.isDisabled}
@@ -105,7 +101,6 @@ const ListViewItem = ({
       )}
     </li>
   );
-
 };
 
 export default ListViewItem;

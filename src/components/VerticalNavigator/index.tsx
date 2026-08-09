@@ -1,28 +1,34 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+
 import clsx from 'clsx';
 
-import { cva } from '../../utils/cva';
 import {
-  colorVariantMapper, ChayaColorType,
-  EMPTY_COLOR_MAP, SOLID_BG_COLOR_MAP, BORDER_COLOR_MAP,
+  BORDER_COLOR_MAP,
+  ChayaColorType,
+  EMPTY_COLOR_MAP,
+  SOLID_BG_COLOR_MAP,
+  colorVariantMapper,
 } from '../../utils/classMaps/colors';
+import { cva } from '../../utils/cva';
 
-import VerticalNavigatorItem, { VerticalNavigatorItemType, VerticalNavigatorVariantType } from './Item';
-
+import VerticalNavigatorItem, {
+  VerticalNavigatorItemType,
+  VerticalNavigatorVariantType,
+} from './Item';
 
 export type VerticalNavigatorProps = {
-  items: VerticalNavigatorItemType[],
-  variant?: VerticalNavigatorVariantType,
-  color?: ChayaColorType,
-  activeItem?: string | null,
-  className?: string,
-  itemClassName?: string,
-  isCollapsed?: boolean,
-  id?: string,
-  role?: string,
-  itemRole?: string,
-  onClickItem?: (key: string, item: VerticalNavigatorItemType) => void,
+  items: VerticalNavigatorItemType[];
+  variant?: VerticalNavigatorVariantType;
+  color?: ChayaColorType;
+  activeItem?: string | null;
+  className?: string;
+  itemClassName?: string;
+  isCollapsed?: boolean;
+  id?: string;
+  role?: string;
+  itemRole?: string;
+  onClickItem?: (key: string, item: VerticalNavigatorItemType) => void;
 };
 
 const activeMarkerClassNames = cva({
@@ -48,27 +54,37 @@ const activeMarkerClassNames = cva({
 });
 
 const VerticalNavigator = ({
-  items, className, itemClassName, variant = 'pill', color = 'primary', role = 'tablist', itemRole, id, isCollapsed, activeItem, onClickItem = () => {},
+  items,
+  className,
+  itemClassName,
+  variant = 'pill',
+  color = 'primary',
+  role = 'tablist',
+  itemRole,
+  id,
+  isCollapsed,
+  activeItem,
+  onClickItem = () => {},
 }: VerticalNavigatorProps) => {
-
   const wrapperRef = useRef<HTMLUListElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState<{
-    width: number | null,
-    height: number | null,
-    translateX: number | null,
-    translateY: number | null,
-  }>(({ width: null, height: null, translateX: null, translateY: null }));
+    width: number | null;
+    height: number | null;
+    translateX: number | null;
+    translateY: number | null;
+  }>({ width: null, height: null, translateX: null, translateY: null });
 
   const updateIndicator = () => {
     if (wrapperRef.current) {
       const tab = wrapperRef.current.querySelector('.active');
       if (tab) {
         const { height, top, left, width } = tab.getBoundingClientRect();
-        const { top: containerTop, left: containerLeft } = wrapperRef.current.getBoundingClientRect();
+        const { top: containerTop, left: containerLeft } =
+          wrapperRef.current.getBoundingClientRect();
         setIndicatorStyle({
           height,
-          translateY: (top - containerTop),
-          translateX: variant == 'line' ? null : (left - containerLeft),
+          translateY: top - containerTop,
+          translateX: variant == 'line' ? null : left - containerLeft,
           width: variant == 'line' ? 0 : width,
         });
       } else {
@@ -95,61 +111,58 @@ const VerticalNavigator = ({
       role={role}
       aria-orientation="vertical"
       className={clsx([
-        'flex flex-col gap-1 items-center overflow-hidden transition-all w-full',
+        'flex w-full flex-col items-center gap-1 overflow-hidden transition-all',
         className,
       ])}
       style={{ width: isCollapsed ? 50 : undefined }}
     >
-      {items.filter((item) => !item.isHidden).map(item => (
-        <VerticalNavigatorItem
-          key={item.key}
-          item={item}
-          variant={variant}
-          color={color}
-          role={itemRole ?? 'presentation'}
-          className={itemClassName}
-          activeItem={activeItem}
-          isCollapsed={isCollapsed}
-          defaultExpansion={!!item.items?.find(item => item.key === activeItem)}
-          onChangeExpansion={updateIndicator}
-          onClickItem={onClickItem}
-        />
-      ))}
+      {items
+        .filter((item) => !item.isHidden)
+        .map((item) => (
+          <VerticalNavigatorItem
+            key={item.key}
+            item={item}
+            variant={variant}
+            color={color}
+            role={itemRole ?? 'presentation'}
+            className={itemClassName}
+            activeItem={activeItem}
+            isCollapsed={isCollapsed}
+            defaultExpansion={!!item.items?.find((item) => item.key === activeItem)}
+            onChangeExpansion={updateIndicator}
+            onClickItem={onClickItem}
+          />
+        ))}
     </ul>
   );
 
   return (
     <div
       className={clsx([
-        variant === 'boxed' && 'bg-neutral-400/20 dark:bg-neutral-600/20 rounded-lg p-1.5',
+        variant === 'boxed' && 'rounded-lg bg-neutral-400/20 p-1.5 dark:bg-neutral-600/20',
       ])}
     >
       <div className="relative">
         {listRenderer}
-        {(
-          (indicatorStyle?.width || indicatorStyle?.height) &&
-          (
-            ((variant === 'pill' || variant === 'boxed') &&
-              items.some((item) =>
-                item.key === activeItem || item.items?.some((subItem) => subItem.key === activeItem),
-              )
-            ) ||
-            (variant === 'line' && items.some((item) => item.key === activeItem))
-          )
-        ) && (
-          <div
-            className={activeMarkerClassNames({ variant, color: color })}
-            style={{
-              transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
-              width: indicatorStyle?.width || 0,
-              height: indicatorStyle?.height || 0,
-            }}
-          />
-        )}
+        {(indicatorStyle?.width || indicatorStyle?.height) &&
+          (((variant === 'pill' || variant === 'boxed') &&
+            items.some(
+              (item) =>
+                item.key === activeItem || item.items?.some((subItem) => subItem.key === activeItem)
+            )) ||
+            (variant === 'line' && items.some((item) => item.key === activeItem))) && (
+            <div
+              className={activeMarkerClassNames({ variant, color: color })}
+              style={{
+                transform: `${indicatorStyle?.translateY ? `translateY(${indicatorStyle?.translateY}px)` : ''} ${indicatorStyle?.translateX ? `translateX(${indicatorStyle?.translateX}px)` : ''}`,
+                width: indicatorStyle?.width || 0,
+                height: indicatorStyle?.height || 0,
+              }}
+            />
+          )}
       </div>
     </div>
   );
-
 };
 
 export default VerticalNavigator;

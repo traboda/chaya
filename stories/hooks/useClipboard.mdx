@@ -1,0 +1,62 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseClipboardStories from './useClipboard.stories';
+
+<Meta title="Hooks/useClipboard" of={UseClipboardStories} />
+
+# useClipboard
+
+<SingleLineCodeBlock text={`import { useClipboard } from 'chaya-ui';`} />
+
+A hook for copying text to the clipboard. Returns the last copied value, a copy function, and a function to check if the clipboard API is supported.
+
+## Usage
+
+```tsx
+const [copiedText, copy, isSupported] = useClipboard();
+```
+
+## Returns
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>copiedText</code>
+      </td>
+      <td>
+        <code>{'string | null'}</code>
+      </td>
+      <td>The last successfully copied text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>copy</code>
+      </td>
+      <td>
+        <code>{'(text: string) => Promise<boolean>'}</code>
+      </td>
+      <td>Copy text to clipboard, returns success</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isSupported</code>
+      </td>
+      <td>
+        <code>{'() => boolean'}</code>
+      </td>
+      <td>Check if clipboard API is available</td>
+    </tr>
+  </tbody>
+</table>
+
+<Story of={UseClipboardStories.Default} />

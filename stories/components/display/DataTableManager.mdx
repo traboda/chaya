@@ -1,0 +1,279 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DataTableManagerStories from './DataTableManager.stories';
+
+<Meta title="Components/Display/DataTableManager" of={DataTableManagerStories} />
+
+<Title>DataTableManager</Title>
+
+<div className="w-[420px] max-w-full">
+  <SingleLineCodeBlock text={`import { DataTableManager } from 'chaya-ui';`} />
+</div>
+
+A toolbar companion for DataTable that provides search, column visibility toggling, filtering, CSV download,
+creation actions, bulk selection actions, and tab navigation.
+
+<Primary />
+
+## With Create Button
+
+<Story of={DataTableManagerStories.WithCreate} />
+
+## Loading State
+
+<Story of={DataTableManagerStories.Loading} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>keyword</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Current search keyword</td>
+    </tr>
+    <tr>
+      <td>
+        <code>setKeyword</code>
+      </td>
+      <td>
+        <code>{'(keyword: string) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback to update the search keyword</td>
+    </tr>
+    <tr>
+      <td>
+        <code>totalCount</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>-</td>
+      <td>Total number of records to display in the count</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isLoading</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the table data is loading</td>
+    </tr>
+    <tr>
+      <td>
+        <code>labels</code>
+      </td>
+      <td>
+        <code>
+          {
+            '{ searchLabel?: string; searchPlaceholder?: string; label?: string; labelPlural?: string; create?: string }'
+          }
+        </code>
+      </td>
+      <td>-</td>
+      <td>Custom labels for search, count, and create button</td>
+    </tr>
+    <tr>
+      <td>
+        <code>columns</code>
+      </td>
+      <td>
+        <code>{'{ label: string; value: string }[]'}</code>
+      </td>
+      <td>-</td>
+      <td>Available columns for the column visibility picker</td>
+    </tr>
+    <tr>
+      <td>
+        <code>selectedColumns</code>
+      </td>
+      <td>
+        <code>{'string[]'}</code>
+      </td>
+      <td>
+        <code>{'[]'}</code>
+      </td>
+      <td>IDs of currently visible columns</td>
+    </tr>
+    <tr>
+      <td>
+        <code>setColumns</code>
+      </td>
+      <td>
+        <code>{'(columns: string[]) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback to update visible columns</td>
+    </tr>
+    <tr>
+      <td>
+        <code>filterConfig</code>
+      </td>
+      <td>
+        <code>{'DataTableFilterConfig[]'}</code>
+      </td>
+      <td>-</td>
+      <td>Configuration for filter controls</td>
+    </tr>
+    <tr>
+      <td>
+        <code>filters</code>
+      </td>
+      <td>
+        <code>FilterInputs</code>
+      </td>
+      <td>-</td>
+      <td>Current filter values</td>
+    </tr>
+    <tr>
+      <td>
+        <code>setFilters</code>
+      </td>
+      <td>
+        <code>{'(filters: FilterInputs) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback to update filter values</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onDownload</code>
+      </td>
+      <td>
+        <code>{'() => Promise<object[]> | object[]'}</code>
+      </td>
+      <td>-</td>
+      <td>Async function that returns data for CSV download</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onDownloadClick</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Custom click handler for the download button</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDownloadLoading</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Shows loading state on the download button</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onCreate</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback when the create button is clicked</td>
+    </tr>
+    <tr>
+      <td>
+        <code>creatorPopupRenderer</code>
+      </td>
+      <td>
+        <code>
+          {'(isCreating: boolean, setCreating: (isCreating: boolean) => void) => ReactNode'}
+        </code>
+      </td>
+      <td>-</td>
+      <td>Renderer for a creation popup/modal</td>
+    </tr>
+    <tr>
+      <td>
+        <code>selections</code>
+      </td>
+      <td>
+        <code>{'{ selectedIDs: string[]; excludedIDs: string[] }'}</code>
+      </td>
+      <td>-</td>
+      <td>Current row selection state</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onCancelSelections</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback to clear all selections</td>
+    </tr>
+    <tr>
+      <td>
+        <code>selectionActions</code>
+      </td>
+      <td>
+        <code>
+          {
+            '{ label: string; onClick: () => void; isDisabled?: boolean; isHidden?: boolean; leftIcon?: IconInputType; rightIcon?: IconInputType }[]'
+          }
+        </code>
+      </td>
+      <td>
+        <code>{'[]'}</code>
+      </td>
+      <td>Actions available for selected rows</td>
+    </tr>
+    <tr>
+      <td>
+        <code>tabs</code>
+      </td>
+      <td>
+        <code>{'HorizontalNavigatorItemType[]'}</code>
+      </td>
+      <td>-</td>
+      <td>Tab items for horizontal navigation</td>
+    </tr>
+    <tr>
+      <td>
+        <code>currentTab</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Key of the currently active tab</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onTabChange</code>
+      </td>
+      <td>
+        <code>{'(key: string, item: HorizontalNavigatorItemType) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback when the active tab changes</td>
+    </tr>
+  </tbody>
+</table>

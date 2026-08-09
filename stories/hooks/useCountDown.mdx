@@ -1,0 +1,147 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseCountDownStories from './useCountDown.stories';
+
+<Meta title="Hooks/useCountDown" of={UseCountDownStories} />
+
+# useCountDown
+
+<SingleLineCodeBlock text={`import { useCountDown } from 'chaya-ui';`} />
+
+A hook that counts down to a target date, updating at a configurable interval.
+
+## Usage
+
+```tsx
+const [countdown, { setDate }] = useCountDown({ date: targetDate });
+```
+
+## Options
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>date</code>
+      </td>
+      <td>
+        <code>Date</code>
+      </td>
+      <td>required</td>
+      <td>The target date to count down to</td>
+    </tr>
+    <tr>
+      <td>
+        <code>allowNegative</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Allow negative values after completion</td>
+    </tr>
+    <tr>
+      <td>
+        <code>interval</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>1000</code>
+      </td>
+      <td>Update interval in milliseconds</td>
+    </tr>
+  </tbody>
+</table>
+
+## Returns
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>total</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Total milliseconds remaining</td>
+    </tr>
+    <tr>
+      <td>
+        <code>days</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Days remaining</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hours</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Hours remaining</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minutes</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Minutes remaining</td>
+    </tr>
+    <tr>
+      <td>
+        <code>seconds</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Seconds remaining</td>
+    </tr>
+    <tr>
+      <td>
+        <code>completed</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>Whether the countdown has completed</td>
+    </tr>
+    <tr>
+      <td>
+        <code>setDate</code>
+      </td>
+      <td>
+        <code>{'(date: Date) => void'}</code>
+      </td>
+      <td>Update the target date</td>
+    </tr>
+  </tbody>
+</table>
+
+<Story of={UseCountDownStories.Default} />

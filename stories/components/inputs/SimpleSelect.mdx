@@ -1,0 +1,347 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SimpleSelectStories from './SimpleSelect.stories';
+
+<Meta title="Components/Inputs/SimpleSelect" of={SimpleSelectStories} />
+
+<Title>SimpleSelect</Title>
+
+<div className="w-[400px] max-w-full">
+  <SingleLineCodeBlock text={`import { SimpleSelect } from 'chaya-ui';`} />
+</div>
+
+A searchable select dropdown supporting single and multi-select, pill and comma display variants,
+async option fetching, and creatable options.
+
+<Primary />
+
+## Multi Select
+
+<Story of={SimpleSelectStories.MultiSelect} />
+
+## Pill Variant
+
+<Story of={SimpleSelectStories.PillVariant} />
+
+## Disabled
+
+<Story of={SimpleSelectStories.Disabled} />
+
+## Custom Icon
+
+<Story of={SimpleSelectStories.CustomIcon} />
+
+## Async Search
+
+<Story of={SimpleSelectStories.WithAsync} />
+
+## Async Multi Select
+
+<Story of={SimpleSelectStories.WithAsyncMulti} />
+
+## Async Multi Tags
+
+<Story of={SimpleSelectStories.WithAsyncMultiTags} />
+
+## Grouped Options
+
+<Story of={SimpleSelectStories.WithGroups} />
+
+## Variants
+
+<Story of={SimpleSelectStories.Variants} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>value</code>
+      </td>
+      <td>
+        <code>{'SimpleSelectValue | SimpleSelectValue[]'}</code>
+      </td>
+      <td>required</td>
+      <td>Current selected value(s)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>required</td>
+      <td>Name identifier for the select</td>
+    </tr>
+    <tr>
+      <td>
+        <code>labels</code>
+      </td>
+      <td>
+        <code>
+          {
+            '{ label: string; placeholder?: string; noOptionsFound?: string; selectAll?: string; create?: string }'
+          }
+        </code>
+      </td>
+      <td>required</td>
+      <td>Label and placeholder text configuration</td>
+    </tr>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>{"'comma' | 'pill'"}</code>
+      </td>
+      <td>
+        <code>{"'comma'"}</code>
+      </td>
+      <td>Display variant for multi-select values</td>
+    </tr>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Custom ID for the input element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>{"''"}</code>
+      </td>
+      <td>Additional CSS class for the select trigger</td>
+    </tr>
+    <tr>
+      <td>
+        <code>listBoxClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the listbox container</td>
+    </tr>
+    <tr>
+      <td>
+        <code>options</code>
+      </td>
+      <td>
+        <code>{'SimpleSelectOptionType[]'}</code>
+      </td>
+      <td>
+        <code>{'[]'}</code>
+      </td>
+      <td>Array of selectable options or option groups</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onChange</code>
+      </td>
+      <td>
+        <code>{'(v: Type, op: SimpleSelectOptionData<Type>) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the selection changes</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isRequired</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether a selection is required</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the select is disabled</td>
+    </tr>
+    <tr>
+      <td>
+        <code>leftIcon</code>
+      </td>
+      <td>
+        <code>IconInputType</code>
+      </td>
+      <td>-</td>
+      <td>Icon displayed on the left side of the select</td>
+    </tr>
+    <tr>
+      <td>
+        <code>rightIcon</code>
+      </td>
+      <td>
+        <code>IconInputType</code>
+      </td>
+      <td>-</td>
+      <td>Icon displayed on the right side of the select</td>
+    </tr>
+    <tr>
+      <td>
+        <code>postfixRenderer</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Custom content rendered after the select trigger</td>
+    </tr>
+    <tr>
+      <td>
+        <code>dropdownClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>{"''"}</code>
+      </td>
+      <td>Additional CSS class for the dropdown container</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isMulti</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Enable multi-select mode</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isAsync</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Enable async option fetching on search</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isCreatable</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Allow creating new options from the search input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideArrow</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Hide the dropdown arrow indicator</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideLabel</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Hide the label above the select</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideSelectAll</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Hide the "Select all" option in multi-select mode</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onCreate</code>
+      </td>
+      <td>
+        <code>{'(keyword: string) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when a new option is created</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onFetch</code>
+      </td>
+      <td>
+        <code>{'(keyword: string) => Promise<SimpleSelectOptionType[]> | undefined'}</code>
+      </td>
+      <td>-</td>
+      <td>Async function to fetch options based on search keyword</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onBlur</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the select loses focus</td>
+    </tr>
+    <tr>
+      <td>
+        <code>side</code>
+      </td>
+      <td>
+        <code>{"'left' | 'right' | 'top' | 'bottom'"}</code>
+      </td>
+      <td>-</td>
+      <td>Preferred side for the dropdown to open</td>
+    </tr>
+  </tbody>
+</table>

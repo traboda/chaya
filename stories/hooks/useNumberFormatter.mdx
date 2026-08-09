@@ -1,0 +1,89 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseNumberFormatterStories from './useNumberFormatter.stories';
+
+<Meta title="Hooks/useNumberFormatter" of={UseNumberFormatterStories} />
+
+# useNumberFormatter
+
+<SingleLineCodeBlock text={`import { useNumberFormatter } from 'chaya-ui';`} />
+
+A hook that returns a function to format numbers using `Intl.NumberFormat` with the user's locale. Supports compact notation for large numbers.
+
+## Usage
+
+```tsx
+const format = useNumberFormatter();
+format(1234); // "1,234"
+
+const formatCompact = useNumberFormatter(10000);
+formatCompact(50000); // "50K"
+```
+
+## Parameters
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>roundFrom</code>
+      </td>
+      <td>
+        <code>{'number | null'}</code>
+      </td>
+      <td>
+        <code>undefined</code>
+      </td>
+      <td>Use compact notation above this value</td>
+    </tr>
+  </tbody>
+</table>
+
+## Formatter Parameters
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>required</td>
+      <td>The number to format</td>
+    </tr>
+    <tr>
+      <td>
+        <code>decimals</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>0</code>
+      </td>
+      <td>Maximum fraction digits</td>
+    </tr>
+  </tbody>
+</table>
+
+<Story of={UseNumberFormatterStories.Default} />

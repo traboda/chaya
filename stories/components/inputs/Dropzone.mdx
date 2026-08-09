@@ -1,0 +1,175 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as DropzoneStories from './Dropzone.stories';
+
+<Meta title="Components/Inputs/Dropzone" of={DropzoneStories} />
+
+<Title>Dropzone</Title>
+
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { Dropzone } from 'chaya-ui';`} />
+</div>
+
+A drag-and-drop file upload area with click-to-upload support. Handles file type filtering,
+size limits, multiple file uploads, and upload progress indicators.
+
+<Primary />
+
+## Multiple Files
+
+<Story of={DropzoneStories.MultipleFiles} />
+
+## Disabled
+
+<Story of={DropzoneStories.Disabled} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>value</code>
+      </td>
+      <td>
+        <code>{'File[] | FileList'}</code>
+      </td>
+      <td>required</td>
+      <td>The currently selected files.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onChange</code>
+      </td>
+      <td>
+        <code>{'(files: File[] | FileList) => void'}</code>
+      </td>
+      <td>required</td>
+      <td>Callback fired when files are added or removed.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>accept</code>
+      </td>
+      <td>
+        <code>{'string[]'}</code>
+      </td>
+      <td>-</td>
+      <td>
+        Accepted MIME types (e.g. <code>{"['image/*', 'application/pdf']"}</code>).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>allowMultiple</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether multiple files can be uploaded.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>HTML id for the hidden file input.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>labels</code>
+      </td>
+      <td>
+        <code>{'{ label: string; text: string; hint: string }'}</code>
+      </td>
+      <td>-</td>
+      <td>Custom labels for the dropzone label, text, and hint.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isRequired</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Marks the field as required.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>-</td>
+      <td>Disables the dropzone.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the dropzone button.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>maxCount</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>-1</code>
+      </td>
+      <td>
+        Maximum number of files allowed. <code>-1</code> means unlimited.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>maxSize</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>{'5 * 1024 * 1024'}</code>
+      </td>
+      <td>Maximum file size in bytes (default 5 MB).</td>
+    </tr>
+    <tr>
+      <td>
+        <code>uploadIndicator</code>
+      </td>
+      <td>
+        <code>
+          {'{ loading?: boolean; progress?: number; error?: boolean; success?: boolean }[]'}
+        </code>
+      </td>
+      <td>-</td>
+      <td>Upload status indicators for each file.</td>
+    </tr>
+  </tbody>
+</table>

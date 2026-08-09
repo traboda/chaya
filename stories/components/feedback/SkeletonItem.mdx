@@ -1,0 +1,124 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as SkeletonItemStories from './SkeletonItem.stories';
+
+<Meta title="Components/Feedback/SkeletonItem" of={SkeletonItemStories} />
+
+<Title>SkeletonItem</Title>
+
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { SkeletonItem } from 'chaya-ui';`} />
+</div>
+
+A low-level skeleton placeholder element for building custom loading states. For a pre-built skeleton layout, see Skeleton.
+
+<Primary />
+
+## Circular
+
+<Story of={SkeletonItemStories.Circular} />
+
+## Pulse Variant
+
+<Story of={SkeletonItemStories.PulseVariant} />
+
+## Sizes
+
+<Story of={SkeletonItemStories.Sizes} />
+
+## Card Placeholder
+
+<Story of={SkeletonItemStories.CardPlaceholder} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>circular</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>-</td>
+      <td>Whether the skeleton item is circular (rounded-full) instead of rectangular</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minWidth</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Minimum width of the skeleton item</td>
+    </tr>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>{"'wave' | 'pulse'"}</code>
+      </td>
+      <td>
+        <code>'wave'</code>
+      </td>
+      <td>Animation variant</td>
+    </tr>
+    <tr>
+      <td>
+        <code>w</code>
+      </td>
+      <td>
+        <code>{'string | number'}</code>
+      </td>
+      <td>
+        <code>'20px'</code>
+      </td>
+      <td>Width of the skeleton item</td>
+    </tr>
+    <tr>
+      <td>
+        <code>h</code>
+      </td>
+      <td>
+        <code>{'string | number'}</code>
+      </td>
+      <td>
+        <code>'20px'</code>
+      </td>
+      <td>Height of the skeleton item</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class names</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>React.ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Content to render inside the skeleton item</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,138 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+import * as UseCounterStories from './useCounter.stories';
+
+<Meta title="Hooks/useCounter" of={UseCounterStories} />
+
+# useCounter
+
+<SingleLineCodeBlock text={`import { useCounter } from 'chaya-ui';`} />
+
+A hook that provides a counter with start, stop, and reset controls. Can increment or decrement at a configurable interval.
+
+## Usage
+
+```tsx
+const [count, { start, stop, reset }] = useCounter({
+  initialValue: 0,
+  interval: 1000,
+  isIncrement: true,
+});
+```
+
+## Options
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>initialValue</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>0</code>
+      </td>
+      <td>Starting value</td>
+    </tr>
+    <tr>
+      <td>
+        <code>interval</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>1000</code>
+      </td>
+      <td>Interval in milliseconds</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isIncrement</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Increment or decrement</td>
+    </tr>
+    <tr>
+      <td>
+        <code>allowNegative</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>true</code>
+      </td>
+      <td>Allow negative values</td>
+    </tr>
+  </tbody>
+</table>
+
+## Returns
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>count</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>Current counter value</td>
+    </tr>
+    <tr>
+      <td>
+        <code>start</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>Start counting</td>
+    </tr>
+    <tr>
+      <td>
+        <code>stop</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>Stop counting</td>
+    </tr>
+    <tr>
+      <td>
+        <code>reset</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>Reset to initial value and stop</td>
+    </tr>
+  </tbody>
+</table>
+
+<Story of={UseCounterStories.Default} />

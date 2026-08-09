@@ -1,40 +1,52 @@
 'use client';
 import React, { CSSProperties, ReactNode, useEffect, useMemo } from 'react';
-import clsx from 'clsx';
+
 import * as Dialog from '@radix-ui/react-dialog';
+import clsx from 'clsx';
 
 import useDelayUnmount from '../../hooks/useDelayUnmount';
-import Icon, { IconInputType } from '../Icon';
 import mcs from '../../utils/merge';
+import Icon, { IconInputType } from '../Icon';
 
 import drawerStyles from './drawer.module.scss';
 
-
 export type DrawerProps = {
-  children: ReactNode,
-  isOpen?: boolean,
-  onClose?: () => void,
-  overlayClassName?: string,
-  contentClassName?: string,
-  className?: string,
-  position?: 'top' | 'right' | 'bottom' | 'left',
-  minWidth?: string | number,
-  minHeight?: string | number,
-  maxWidth?: string | number,
-  maxHeight?: string | number,
-  closable?: boolean,
-  overlayContent?: ReactNode,
-  title?: string,
-  description?: string,
-  titleIcon?: IconInputType,
+  children: ReactNode;
+  isOpen?: boolean;
+  onClose?: () => void;
+  overlayClassName?: string;
+  contentClassName?: string;
+  className?: string;
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  minWidth?: string | number;
+  minHeight?: string | number;
+  maxWidth?: string | number;
+  maxHeight?: string | number;
+  closable?: boolean;
+  overlayContent?: ReactNode;
+  title?: string;
+  description?: string;
+  titleIcon?: IconInputType;
 };
 
 const Drawer = ({
-  isOpen = true, onClose = () => {}, position = 'right', children, overlayClassName = '', className = '',
-  minWidth = '15vh', maxWidth = '100%', minHeight = '15vh', maxHeight = '100%', closable = true, overlayContent,
-  title, description, titleIcon, contentClassName,
+  isOpen = true,
+  onClose = () => {},
+  position = 'right',
+  children,
+  overlayClassName = '',
+  className = '',
+  minWidth = '15vh',
+  maxWidth = '100%',
+  minHeight = '15vh',
+  maxHeight = '100%',
+  closable = true,
+  overlayContent,
+  title,
+  description,
+  titleIcon,
+  contentClassName,
 }: DrawerProps) => {
-
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
 
   const getPositionAlignmentParent = {
@@ -67,7 +79,9 @@ const Drawer = ({
   useEffect(() => {
     if (shouldRenderChild) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'auto';
-    return () => {document.body.style.overflow = 'auto';};
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [shouldRenderChild]);
 
   const onKeyDown = ({ key }: KeyboardEvent) => {
@@ -80,15 +94,13 @@ const Drawer = ({
   }, []);
 
   return shouldRenderChild ? (
-    <Dialog.Root open={isOpen} onOpenChange={() => closable ? onClose() : null} modal>
+    <Dialog.Root open={isOpen} onOpenChange={() => (closable ? onClose() : null)} modal>
       <Dialog.Portal>
-        <Dialog.Overlay>
-          {overlayContent}
-        </Dialog.Overlay>
+        <Dialog.Overlay>{overlayContent}</Dialog.Overlay>
         <Dialog.Content
           className={mcs([
-            'fixed top-0 left-0 w-screen h-[100dvh] z-[7200] flex p-2',
-            'backdrop-filter backdrop-blur-sm bg-black bg-opacity-30',
+            'fixed left-0 top-0 z-[7200] flex h-[100dvh] w-screen p-2',
+            'bg-black bg-opacity-30 backdrop-blur-sm backdrop-filter',
             getPositionAlignmentParent,
             overlayClassName,
           ])}
@@ -96,27 +108,29 @@ const Drawer = ({
         >
           <div
             className={mcs([
-              'relative shadow-lg sm:w-auto w-full bg-background text-color',
-              'border dark:border-gray-500/70 border-gray-500/10 overflow-auto',
+              'relative w-full bg-background text-color shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto',
+              'overflow-auto border',
               getPositionAlignmentChild,
               getPositionAnimation,
               className,
             ])}
-            style={{
-              maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
-              '--drawer-position-direction': positionDirection,
-            } as CSSProperties}
-            onClick={e => e.stopPropagation()}
+            style={
+              {
+                maxWidth: position === 'right' || position === 'left' ? maxWidth : '100%',
+                '--drawer-position-direction': positionDirection,
+              } as CSSProperties
+            }
+            onClick={(e) => e.stopPropagation()}
           >
             {closable && (
-              <div className="absolute top-0 right-0 pr-2 pt-2">
+              <div className="absolute right-0 top-0 pr-2 pt-2">
                 <Dialog.Close asChild>
                   <button
                     tabIndex={-1}
                     type="button"
                     title="close"
                     className={clsx([
-                      'font-mono rounded outline-none font-bold text-2xl p-0',
+                      'rounded p-0 font-mono text-2xl font-bold outline-none',
                       'focus:ring-2',
                     ])}
                   >
@@ -125,31 +139,23 @@ const Drawer = ({
                 </Dialog.Close>
               </div>
             )}
-            {(title?.length || description?.length) ? (
+            {title?.length || description?.length ? (
               <div
                 className={clsx([
-                  'modal-header flex flex-col items-start justify-between gap-1 w-full',
-                  'px-3 py-2 rounded-t-lg border-b',
-                  'bg-background-lighten-1 dark:bg-background-darken-1 dark:border-neutral-500/70 border-neutral-500/20',
+                  'modal-header flex w-full flex-col items-start justify-between gap-1',
+                  'rounded-t-lg border-b px-3 py-2',
+                  'border-light bg-background-lighten-1 dark:bg-background-darken-1',
                 ])}
               >
                 {title && (
                   <Dialog.Title asChild>
-                    <h3
-                      className={clsx([
-                        'text-xl font-semibold flex items-center gap-2',
-                      ])}
-                    >
+                    <h3 className={clsx(['flex items-center gap-2 text-xl font-semibold'])}>
                       {titleIcon ? <Icon icon={titleIcon} /> : null}
                       {title}
                     </h3>
                   </Dialog.Title>
                 )}
-                {description && (
-                  <p className="opacity-80 text-sm">
-                    {description}
-                  </p>
-                )}
+                {description && <p className="text-sm opacity-80">{description}</p>}
               </div>
             ) : null}
             <div
@@ -162,9 +168,9 @@ const Drawer = ({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  ) :
+  ) : (
     <div />
-  ;
+  );
 };
 
 export default Drawer;

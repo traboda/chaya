@@ -1,20 +1,64 @@
-import type { Preview } from "@storybook/react";
-import React, {useEffect, useState} from "react";
-import { DocsContainer } from "@storybook/blocks";
-import { themes } from '@storybook/theming';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
-// @ts-ignore
-import { addons } from '@storybook/preview-api';
-import { DARK_MODE_EVENT_NAME, } from 'storybook-dark-mode';
+import React, { useEffect, useState } from 'react';
 
-import ThemeProvider from "./ThemeProvider";
-export { decorators } from "./decorators";
+import { DocsContainer } from '@storybook/addon-docs/blocks';
+import type { Preview } from '@storybook/react-vite';
+import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
+import { themes } from 'storybook/theming';
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 
-const channel = addons.getChannel();
+export { decorators } from './decorators';
+
+const ThemedDocsContainer = ({ children, context, ...rest }: any) => {
+  const [isDark, setIsDark] = useState(() => {
+    try {
+      return (
+        context?.store?.globals?.globals?.theme === 'dark' ||
+        context?.store?.userGlobals?.globals?.theme === 'dark' ||
+        context?.globals?.theme === 'dark'
+      );
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    const channel = context?.channel;
+    if (!channel) return;
+
+    const update = (event: any) => {
+      setIsDark(event?.globals?.theme === 'dark');
+    };
+
+    channel.on(GLOBALS_UPDATED, update);
+    return () => channel.off(GLOBALS_UPDATED, update);
+  }, [context]);
+
+  return (
+    <DocsContainer {...rest} context={context} theme={isDark ? themes.dark : themes.light}>
+      {children}
+    </DocsContainer>
+  );
+};
 
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      description: 'Global theme',
+      toolbar: {
+        title: 'Theme',
+        icon: 'paintbrush',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'light',
+  },
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -22,25 +66,7 @@ const preview: Preview = {
       },
     },
     viewMode: 'docs',
-    backgrounds: {
-      disable: true,
-    },
-    darkMode: {
-      dark: {
-        ...themes.dark,
-        brandTitle: 'Chaya UI',
-        brandUrl: 'https://storybook.chaya-ui.com',
-        brandImage: 'chaya-white-logo.svg',
-        brandTarget: '_self',
-      },
-      light: {
-        ...themes.normal,
-        brandTitle: 'Chaya UI',
-        brandUrl: 'https://storybook.chaya-ui.com',
-        brandImage: 'chaya-black-logo.svg',
-        brandTarget: '_self',
-      }
-    },
+    backgrounds: { disabled: true },
     docs: {
       autodocs: 'tag',
       toc: {
@@ -52,39 +78,24 @@ const preview: Preview = {
           orderedList: false,
         },
       },
-      container: (context: any) => {
-        const [isDark, setDark] = useState();
-
-        useEffect(() => {
-          channel.on(DARK_MODE_EVENT_NAME, setDark);
-          return () => channel.removeListener(DARK_MODE_EVENT_NAME, setDark);
-        }, [channel, setDark]);
-
-        const props = { ...context, theme: isDark ? themes.dark : themes.normal }
-
-        return (
-            <ThemeProvider isDarkTheme={isDark ?? false}>
-              <DocsContainer {...props} />
-            </ThemeProvider>
-        );
-      }
+      container: ThemedDocsContainer,
     },
     viewport: {
-      viewports: {
+      options: {
         ...MINIMAL_VIEWPORTS,
         iphoneSE: {
           name: 'iPhone SE',
           styles: {
             width: '320px',
             height: '568px',
-          }
+          },
         },
         pixel7A: {
           name: 'Pixel 7A',
           styles: {
             width: '411px',
             height: '823px',
-          }
+          },
         },
       },
     },

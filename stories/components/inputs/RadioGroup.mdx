@@ -1,16 +1,15 @@
-import {Meta, Primary, Title, ArgTypes, Canvas, Story} from '@storybook/blocks';
-import * as RadioGroupStories from "./RadioGroup.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { Canvas, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Inputs/RadioGroup"
-    of={RadioGroupStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as RadioGroupStories from './RadioGroup.stories';
+
+<Meta title="Components/Inputs/RadioGroup" of={RadioGroupStories} />
 
 <Title>RadioGroup</Title>
 
-<div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { RadioGroup } from 'chaya-ui';`} />
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { RadioGroup } from 'chaya-ui';`} />
 </div>
 
 <Primary />
@@ -45,7 +44,127 @@ import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
 
 <Canvas of={RadioGroupStories.OptionDisabled} withToolbar />
 
+## Props
 
-## API
-
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>value</code>
+      </td>
+      <td>
+        <code>Type</code>
+      </td>
+      <td>required</td>
+      <td>The currently selected value</td>
+    </tr>
+    <tr>
+      <td>
+        <code>options</code>
+      </td>
+      <td>
+        <code>{'{ value: Type; label: string; isDisabled?: boolean }[]'}</code>
+      </td>
+      <td>required</td>
+      <td>Array of radio options to display</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onChange</code>
+      </td>
+      <td>
+        <code>{'(values: Type) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the selected value changes</td>
+    </tr>
+    <tr>
+      <td>
+        <code>color</code>
+      </td>
+      <td>
+        <code>{"'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default'"}</code>
+      </td>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>Color theme of the radio buttons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>size</code>
+      </td>
+      <td>
+        <code>{"'xs' | 'sm' | 'md' | 'lg' | 'xl'"}</code>
+      </td>
+      <td>
+        <code>md</code>
+      </td>
+      <td>Size of the radio buttons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the entire radio group is disabled</td>
+    </tr>
+    <tr>
+      <td>
+        <code>alignment</code>
+      </td>
+      <td>
+        <code>{"'horizontal' | 'vertical'"}</code>
+      </td>
+      <td>
+        <code>vertical</code>
+      </td>
+      <td>Layout direction of the radio options</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isRequired</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the field is required</td>
+    </tr>
+    <tr>
+      <td>
+        <code>label</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Label displayed above the radio group</td>
+    </tr>
+    <tr>
+      <td>
+        <code>optionClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Custom CSS class applied to each radio option</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,33 +1,34 @@
 'use client';
 import React, { FormEvent, useEffect, useState } from 'react';
+
 import clsx from 'clsx';
 
 import mcs from '../utils/merge';
 
-import Modal from './Modal';
 import Button, { ButtonProps } from './Button';
+import Modal from './Modal';
 import TextInput from './TextInput';
 
 export type ConfirmationDialogProps = {
   labels: {
-    title: string,
-    description?: string,
-    confirm?: string,
-    cancel?: string,
-    confirmationText?: string,
-    confirmationTextLabel?: string,
-    passwordLabel?: string,
-    passwordPlaceholder?: string,
-  },
-  isOpen?: boolean,
-  requirePassword?: boolean,
-  requireConfirmationText?: boolean,
-  onConfirm?: (args: { password?: string, }) => void,
-  onCancel?: () => void,
-  className?: string
-  formID?: string,
-  confirmButtonProps?: ButtonProps,
-  cancelButtonProps?: ButtonProps,
+    title: string;
+    description?: string;
+    confirm?: string;
+    cancel?: string;
+    confirmationText?: string;
+    confirmationTextLabel?: string;
+    passwordLabel?: string;
+    passwordPlaceholder?: string;
+  };
+  isOpen?: boolean;
+  requirePassword?: boolean;
+  requireConfirmationText?: boolean;
+  onConfirm?: (args: { password?: string }) => void;
+  onCancel?: () => void;
+  className?: string;
+  formID?: string;
+  confirmButtonProps?: ButtonProps;
+  cancelButtonProps?: ButtonProps;
 };
 
 const defaultLabels = {
@@ -40,11 +41,17 @@ const defaultLabels = {
 };
 
 const ConfirmationDialog = ({
-  labels: initialLabels, isOpen = false, requireConfirmationText = false, requirePassword = false,
-  onConfirm = () => {}, onCancel = () => {}, className, formID,
-  confirmButtonProps, cancelButtonProps,
+  labels: initialLabels,
+  isOpen = false,
+  requireConfirmationText = false,
+  requirePassword = false,
+  onConfirm = () => {},
+  onCancel = () => {},
+  className,
+  formID,
+  confirmButtonProps,
+  cancelButtonProps,
 }: ConfirmationDialogProps) => {
-
   const labels = { ...defaultLabels, ...initialLabels };
 
   const [confirmText, setConfirmText] = useState('');
@@ -70,7 +77,7 @@ const ConfirmationDialog = ({
     >
       <form id={formID} onSubmit={confirmAction}>
         {(requireConfirmationText || requirePassword) && (
-          <div className="p-1 my-4">
+          <div className="my-4 p-1">
             {requireConfirmationText && (
               <TextInput
                 className="mb-3"
@@ -109,7 +116,10 @@ const ConfirmationDialog = ({
           <Button
             autoFocus
             type="submit"
-            isDisabled={(requireConfirmationText && confirmText !== labels.confirmationText) || (requirePassword && password?.length === 0)}
+            isDisabled={
+              (requireConfirmationText && confirmText !== labels.confirmationText) ||
+              (requirePassword && password?.length === 0)
+            }
             {...confirmButtonProps}
             className={clsx(['confirm-button', confirmButtonProps?.className])}
           >

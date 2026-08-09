@@ -6,7 +6,6 @@ type CopyFn = (text: string) => Promise<boolean>; // Return success
 type IsSupportedType = () => boolean;
 
 const useClipboard = (): [CopiedValue, CopyFn, IsSupportedType] => {
- 
   const [copiedText, setCopiedText] = useState<CopiedValue>(null);
 
   const isSupported: IsSupportedType = () => {
@@ -18,7 +17,7 @@ const useClipboard = (): [CopiedValue, CopyFn, IsSupportedType] => {
     }
   };
 
-  const copy: CopyFn = async text => {
+  const copy: CopyFn = async (text) => {
     if (!navigator?.clipboard) {
       console.warn('Clipboard not supported');
       return false;
@@ -37,7 +36,6 @@ const useClipboard = (): [CopiedValue, CopyFn, IsSupportedType] => {
   };
 
   return [copiedText, copy, isSupported];
-
 };
 
 export default useClipboard;

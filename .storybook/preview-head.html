@@ -1,32 +1,9 @@
 <style>
-    body,
-    .sbdocs p,
-    .sbdocs li,
-    .sbdocs {
-        -webkit-font-smoothing: initial !important;
-        font-family: 'IBM Plex Sans', sans-serif;
-    }
-
-    .sbdocs h1,
-    .sbdocs h2,
-    .sbdocs h3,
-    .sbdocs h4,
-    .sbdocs h5,
-    .sbdocs h6,
-    .sbdocs-title {
-        -webkit-font-smoothing: initial !important;
-        font-family: 'Poppins', sans-serif;
-    }
-    .sbdocs p {
-        text-align: justify;
-    }
-    .toc-list-item {
-        font-size: 12px!important;
-    }
-    .sbdocs p,
-    .sbdocs li,
-    .sbdocs .sbdocs-a {
-        font-size: 16px;
-        line-height: 1.5;
-    }
+  /* Darker striped table rows in dark mode docs */
+  .dark .sbdocs-content table tbody tr:nth-child(2n) {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+  .dark .sbdocs-content table tbody tr:nth-child(2n + 1) {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
 </style>

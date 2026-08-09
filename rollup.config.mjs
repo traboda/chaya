@@ -1,12 +1,11 @@
-import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
+import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
-import preserveDirectives from "rollup-plugin-preserve-directives";
-
+import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
-import postcss from 'rollup-plugin-postcss';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
+import postcss from 'rollup-plugin-postcss';
+import preserveDirectives from 'rollup-plugin-preserve-directives';
 
 export default [
   {
@@ -14,9 +13,11 @@ export default [
     output: [
       {
         dir: 'dist',
+        format: 'esm',
         preserveModules: true,
         exports: 'named',
         entryFileNames: '[name].js',
+        sourcemap: true,
       },
     ],
     plugins: [
@@ -29,14 +30,21 @@ export default [
       postcss({
         modules: true,
         minimize: true,
+        use: {
+          sass: { silenceDeprecations: ['legacy-js-api'] },
+        },
       }),
       terser(),
       nodePolyfills(),
-      preserveDirectives({
-        supressPreserveModulesWarning: true,
-      }),
+      preserveDirectives(),
     ],
-    external: ["react", "react-dom", "nanoid"]
+    onwarn(warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+      if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('polyfill-node'))
+        return;
+      warn(warning);
+    },
+    external: [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, 'nanoid'],
   },
   {
     input: 'dist/types/index.d.ts',
@@ -51,5 +59,5 @@ export default [
         format: 'esm',
       },
     ],
-  }
+  },
 ];

@@ -4,16 +4,15 @@ import React, { useState } from 'react';
 import mcs from '../utils/merge';
 
 export type AvatarProps = {
-  alt: string,
-  src?: string | null,
-  size?: number | string,
-  id?: string,
-  className?: string,
-  title?: string,
+  alt: string;
+  src?: string | null;
+  size?: number | string;
+  id?: string;
+  className?: string;
+  title?: string;
 };
 
 const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps) => {
-
   const [show, setShow] = useState(false);
 
   const getName = () => {
@@ -32,7 +31,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
       height={size}
       viewBox="0 0 75 75"
       preserveAspectRatio="xMinYMid meet"
-      style={{ backgroundColor: '#ddd' }}
+      style={{ backgroundColor: 'var(--background-darken-1, #ddd)' }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
@@ -41,7 +40,7 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        fill="#222"
+        fill="var(--color, #222)"
         fontSize="40"
         fontWeight="500"
       >
@@ -50,9 +49,11 @@ const Avatar = ({ alt, src, size = 64, id, className = '', title }: AvatarProps)
     </svg>
   );
 
-  return !(src?.length) || show ? renderPlaceholder() : (
+  return !src?.length || show ? (
+    renderPlaceholder()
+  ) : (
     <img
-      className={mcs('avatar rounded-lg border dark:border-gray-500/70 border-gray-500/10', className)}
+      className={mcs('avatar rounded-lg border border-light', className)}
       height={size}
       width={size}
       title={title}

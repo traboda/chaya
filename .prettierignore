@@ -1,0 +1,10 @@
+# Don't format these folders
+node_modules
+build
+dist
+storybook-static
+# Don't format these files
+package-lock.json
+yarn.lock
+.env
+.env.local

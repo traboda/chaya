@@ -1,41 +1,432 @@
-import {Meta, Primary, Title, ArgTypes} from '@storybook/blocks';
-import * as TextInputStories from "./TextInput.stories";
-import SingleLineCodeBlock from "../../common/SingleLineCodeBlock";
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
-<Meta
-    title="Components/Display/TextInput"
-    of={TextInputStories}
-/>
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as TextInputStories from './TextInput.stories';
+
+<Meta title="Components/Display/TextInput" of={TextInputStories} />
 
 <Title>TextInput</Title>
 
-<div className="w-[360px] max-w-full">
-    <SingleLineCodeBlock text={`import { TextInput } from 'chaya-ui';`} />
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { TextInput } from 'chaya-ui';`} />
 </div>
 
 <Primary />
 
+## With Postfix
 
-## Types
+<Story of={TextInputStories.WithPostfix} />
 
-### TextArea
+## Invalid Inputs
 
-
-### Email
-
-
-### Password
-
-
-## Usage Inside Form
-
+<Story of={TextInputStories.InvalidInputs} />
 
 ## With Icons
 
+<Story of={TextInputStories.WithIcons} />
 
-## With Prefix & Postfix Elements
+## Props
 
-
-## API
-
-<ArgTypes />
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>label</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>required</td>
+      <td>Label text for the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>required</td>
+      <td>Name attribute for the input element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>value</code>
+      </td>
+      <td>
+        <code>{'string | number'}</code>
+      </td>
+      <td>required</td>
+      <td>Current value of the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onChange</code>
+      </td>
+      <td>
+        <code>{'(value: Type, event: ChangeEvent) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the input value changes</td>
+    </tr>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>HTML id attribute for the input element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>placeholder</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Placeholder text shown when input is empty</td>
+    </tr>
+    <tr>
+      <td>
+        <code>type</code>
+      </td>
+      <td>
+        <code>
+          {"'email' | 'number' | 'password' | 'text' | 'textarea' | 'url' | 'tel' | 'search'"}
+        </code>
+      </td>
+      <td>-</td>
+      <td>Type of input to render</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isRequired</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the input is required</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isDisabled</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the input is disabled</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isInvalid</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the input is in an invalid state</td>
+    </tr>
+    <tr>
+      <td>
+        <code>isLoading</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to show a loading spinner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideLabel</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to visually hide the label</td>
+    </tr>
+    <tr>
+      <td>
+        <code>autoFocus</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether the input should be focused on mount</td>
+    </tr>
+    <tr>
+      <td>
+        <code>hideStepper</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>false</code>
+      </td>
+      <td>Whether to hide the number input stepper buttons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>rows</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>
+        <code>3</code>
+      </td>
+      <td>Number of rows for textarea type</td>
+    </tr>
+    <tr>
+      <td>
+        <code>charLimit</code>
+      </td>
+      <td>
+        <code>{'number | null'}</code>
+      </td>
+      <td>
+        <code>null</code>
+      </td>
+      <td>Maximum character limit for the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>errorText</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Error message displayed below the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>description</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Description text displayed below the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>min</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>-</td>
+      <td>Minimum value for number inputs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>max</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+      <td>-</td>
+      <td>Maximum value for number inputs</td>
+    </tr>
+    <tr>
+      <td>
+        <code>spellCheck</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>-</td>
+      <td>Whether to enable spell checking</td>
+    </tr>
+    <tr>
+      <td>
+        <code>autoComplete</code>
+      </td>
+      <td>
+        <code>{"'off' | 'on' | 'email' | 'current-password' | 'username'"}</code>
+      </td>
+      <td>-</td>
+      <td>Autocomplete hint for the browser</td>
+    </tr>
+    <tr>
+      <td>
+        <code>autoCorrect</code>
+      </td>
+      <td>
+        <code>{"'off' | 'on'"}</code>
+      </td>
+      <td>-</td>
+      <td>Whether to enable auto-correction</td>
+    </tr>
+    <tr>
+      <td>
+        <code>autoCapitalize</code>
+      </td>
+      <td>
+        <code>{"'off' | 'on'"}</code>
+      </td>
+      <td>-</td>
+      <td>Whether to enable auto-capitalization</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the wrapper element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>style</code>
+      </td>
+      <td>
+        <code>React.CSSProperties</code>
+      </td>
+      <td>-</td>
+      <td>Inline styles for the wrapper element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>inputClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the input element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>inputStyle</code>
+      </td>
+      <td>
+        <code>React.CSSProperties</code>
+      </td>
+      <td>-</td>
+      <td>Inline styles for the input element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>leftIcon</code>
+      </td>
+      <td>
+        <code>IconInputType</code>
+      </td>
+      <td>-</td>
+      <td>Icon displayed on the left side of the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>rightIcon</code>
+      </td>
+      <td>
+        <code>IconInputType</code>
+      </td>
+      <td>-</td>
+      <td>Icon displayed on the right side of the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>prefixRenderer</code>
+      </td>
+      <td>
+        <code>React.ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Content rendered as a prefix section before the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>postfixRenderer</code>
+      </td>
+      <td>
+        <code>React.ReactNode</code>
+      </td>
+      <td>-</td>
+      <td>Content rendered as a postfix section after the input</td>
+    </tr>
+    <tr>
+      <td>
+        <code>prefixClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the prefix section</td>
+    </tr>
+    <tr>
+      <td>
+        <code>postfixClassName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>-</td>
+      <td>Additional CSS class for the postfix section</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onFocus</code>
+      </td>
+      <td>
+        <code>{'(event: FocusEvent) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the input receives focus</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onBlur</code>
+      </td>
+      <td>
+        <code>{'(event: FocusEvent) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired when the input loses focus</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onKeyDown</code>
+      </td>
+      <td>
+        <code>{'(event: KeyboardEvent) => void'}</code>
+      </td>
+      <td>-</td>
+      <td>Callback fired on key down events</td>
+    </tr>
+  </tbody>
+</table>

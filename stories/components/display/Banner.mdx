@@ -1,0 +1,185 @@
+import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+
+import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
+
+import * as BannerStories from './Banner.stories';
+
+<Meta title="Components/Display/Banner" of={BannerStories} />
+
+<Title>Banner</Title>
+
+<div className="max-w-full">
+  <SingleLineCodeBlock text={`import { Banner } from 'chaya-ui';`} />
+</div>
+
+A banner component for displaying prominent messages, announcements, or notifications. Supports multiple
+color variants, dismissal, and learn more links.
+
+<Primary />
+
+## Dismissible
+
+<Story of={BannerStories.WithDismissal} />
+
+## Color Variants
+
+<Story of={BannerStories.Colors} />
+
+## With Learn More
+
+<Story of={BannerStories.WithLearnMore} />
+
+## Card Variant
+
+<Story of={BannerStories.CardVariant} />
+
+## Full Width Variant
+
+<Story of={BannerStories.FullWidthVariant} />
+
+## Props
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>HTML id attribute for the banner element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>className</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>CSS class for the banner element</td>
+    </tr>
+    <tr>
+      <td>
+        <code>variant</code>
+      </td>
+      <td>
+        <code>{"'full-width' | 'float' | 'card'"}</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Layout variant of the banner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>color</code>
+      </td>
+      <td>
+        <code>ChayaColorType</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Color theme for the banner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>position</code>
+      </td>
+      <td>
+        <code>{"'top' | 'bottom' | 'inline'"}</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Position of the banner on the page</td>
+    </tr>
+    <tr>
+      <td>
+        <code>text</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Text content to display in the banner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>icon</code>
+      </td>
+      <td>
+        <code>IconInputType</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Icon to display alongside the banner text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>allowDismissal</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Whether to show a close button to dismiss the banner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>children</code>
+      </td>
+      <td>
+        <code>ReactNode</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Custom content to render inside the banner</td>
+    </tr>
+    <tr>
+      <td>
+        <code>learnMore</code>
+      </td>
+      <td>
+        <code>{'{ link: string; text: string }'}</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Configuration for a learn more link</td>
+    </tr>
+    <tr>
+      <td>
+        <code>onClose</code>
+      </td>
+      <td>
+        <code>{'() => void'}</code>
+      </td>
+      <td>
+        <code>-</code>
+      </td>
+      <td>Callback fired when the banner is dismissed</td>
+    </tr>
+  </tbody>
+</table>

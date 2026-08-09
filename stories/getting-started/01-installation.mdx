@@ -1,49 +1,83 @@
-import {Meta, Unstyled, } from "@storybook/blocks";
-import Tabs from "../../src/components/Tabs";
-import Card from "../../src/components/Card";
-import SingleLineCodeBlock from "../common/SingleLineCodeBlock";
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
 
-<Meta title="Getting Started/Installation"  />
+import Card from '../../src/components/Card';
+import Tabs from '../../src/components/Tabs';
+import SingleLineCodeBlock from '../common/SingleLineCodeBlock';
+
+<Meta title="Getting Started/Installation" />
 
 # Installation
-
 
 ## Install Package
 
 To use ChayaUI in your project, run one of the following commands in your terminal:
 
 <Unstyled>
-    <div className="container w-[640px] max-w-full">
-        <Card>
-            <Tabs
-                variant="line"
-                color="primary"
-                bodyClassName="px-0 pt-3 pb-0"
-                items={[
-                    {
-                        key: 'npm',
-                        label: "NPM",
-                        icon: () => <img src="https://cdnlogo.com/logos/n/39/npm-square-red.svg" alt="npm version" />,
-                        renderer: <SingleLineCodeBlock text={`npm install chaya-ui`} />
-                    },
-                    {
-                        key: 'yarn',
-                        label: "Yarn",
-                        icon: () => <img src="https://cdnlogo.com/logos/y/61/yarn.svg" alt="yarn version" />,
-                        renderer: <SingleLineCodeBlock text={`yarn add chaya-ui`} />
-                    },
-                    {
-                        key: 'bun',
-                        label: "Bun",
-                        icon: () => <img src="https://bun.sh/logo.svg" alt="yarn version" />,
-                        renderer: <SingleLineCodeBlock text={`bun install chaya-ui`} />
-                    },
-                ]}
-            />
-        </Card>
-    </div>
+  <div className="container w-[640px] max-w-full">
+    <Card>
+      <Tabs
+        variant="line"
+        color="primary"
+        bodyClassName="px-0 pt-3 pb-0"
+        items={[
+          {
+            key: 'npm',
+            label: 'NPM',
+            icon: () => (
+              <svg viewBox="0 0 780 250" width="20" height="20">
+                <path
+                  fill="currentColor"
+                  d="M240 250h100V125h50v125h50V0H240zM0 0v250h120V125h60v125h60V0zM480 0v250h120V50h60v200h60V50h60v200h60V0z"
+                />
+              </svg>
+            ),
+            renderer: <SingleLineCodeBlock text={`npm install chaya-ui`} />,
+          },
+          {
+            key: 'yarn',
+            label: 'Yarn',
+            icon: () => (
+              <svg viewBox="0 0 256 256" width="20" height="20">
+                <path
+                  fill="#2C8EBB"
+                  d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm0 234.7c-58.9 0-106.7-47.8-106.7-106.7S69.1 21.3 128 21.3 234.7 69.1 234.7 128 186.9 234.7 128 234.7z"
+                />
+                <path
+                  fill="#2C8EBB"
+                  d="M189.6 122.8c-4.2-7.9-11.8-12.2-11.8-12.2s1.7-7.1-.4-12.5c-2.5-6.3-9.6-7.5-9.6-7.5s-7.5-9.2-13.8-10.8c-3.8-1-6.7.4-8.8 2.1-2.8-5.5-6.5-11.1-8.8-13.8-5-5.8-10-6.3-12.9-5.4-3.8 1.3-5 5.4-5 5.4s-5.4 14.2-6.3 18.8c-1.3 7.1-.4 11.7-.4 11.7s-3.3 5-5 11.7c-1.7 5.8-1.3 10 .8 14.2 0 0-1.7 5.8-2.1 8.3-.4 2.9.4 5.4.4 5.4s-4.2 5.8-5.4 12.1c-1.3 5.8.4 9.6.4 9.6s-2.5 4.2-2.5 7.1c0 3.3 2.1 5.4 2.1 5.4s-.8 3.8 2.1 7.5c2.9 3.8 7.1 2.9 7.1 2.9s5 5.4 16.7 5.4h7.9c7.5 0 17.5-2.5 25.4-7.5 0 0 5.4-.4 10.8-5 4.6-4.2 5-7.9 5-7.9s5.4-2.1 8.3-7.9c2.5-5 1.3-10 1.3-10s5.8-5.4 6.7-13.3c.4-4.6-.8-7.5-.8-7.5s4.6-5.4 3.8-14.2c-.5-4.9-3-8.3-5.5-11.9z"
+                />
+              </svg>
+            ),
+            renderer: <SingleLineCodeBlock text={`yarn add chaya-ui`} />,
+          },
+          {
+            key: 'bun',
+            label: 'Bun',
+            icon: () => (
+              <svg viewBox="0 0 80 80" width="20" height="20">
+                <circle cx="40" cy="40" r="40" fill="#fbf0df" />
+                <path
+                  fill="#f6dece"
+                  d="M22.4 57.6c3.2 5.6 13.6 12 17.6 12s14.4-6.4 17.6-12c1.6-3.2 2.4-8 2.4-12 0-6.4-1.6-12-4.8-16.8C52 24.8 46.4 20 40 20s-12 4.8-15.2 8.8C21.6 33.6 20 39.2 20 45.6c0 4 .8 8.8 2.4 12z"
+                />
+                <ellipse cx="30" cy="44" rx="2.4" ry="3.2" fill="#946263" />
+                <ellipse cx="50" cy="44" rx="2.4" ry="3.2" fill="#946263" />
+                <path
+                  fill="none"
+                  stroke="#946263"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  d="M36 52c1.2 1.2 2.4 1.6 4 1.6s2.8-.4 4-1.6"
+                />
+              </svg>
+            ),
+            renderer: <SingleLineCodeBlock text={`bun install chaya-ui`} />,
+          },
+        ]}
+      />
+    </Card>
+  </div>
 </Unstyled>
-
 
 ## Configure Provider
 
@@ -51,10 +85,10 @@ After installing ChayaUI, you need to set up the ChayaProvider at the root of yo
 your `index.tsx`, `App.tsx` etc. depending on the framework you use.
 
 ```tsx
-import * as React from 'react'
+import * as React from 'react';
 
 // 1. import `ChayaProvider` component
-import { ChayaProvider } from 'chaya-ui'
+import { ChayaProvider } from 'chaya-ui';
 
 function App() {
   // 2. Wrap ChayaProvider at the root of your app
@@ -62,15 +96,15 @@ function App() {
     <ChayaProvider>
       <YourActualApplication />
     </ChayaProvider>
-  )
+  );
 }
 ```
 
 You can configure the ChayaProvider with the following props:
+
 - `theme` - The theme object to be used in the application
 - `linkWrapper` - A function that wraps the link components, useful for routing libraries like `react-router-dom`, `next/link` etc.
 - `iconWrapper` - A function that wraps the icon components, useful for icon libraries like `react-icons`, `react-feather` etc.
-
 
 ## Add Tailwind Config
 
@@ -84,15 +118,15 @@ const theme = require('chaya-ui/tailwind-theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
- content: [
-     // 2. add the path to the chaya-ui source files
-     'node_modules/chaya-ui/**/*.js',
-     // rest of your content paths
- ],
- // ...
- theme: {
-     extend: theme,
- },
- // ...
+  content: [
+    // 2. add the path to the chaya-ui source files
+    'node_modules/chaya-ui/**/*.js',
+    // rest of your content paths
+  ],
+  // ...
+  theme: {
+    extend: theme,
+  },
+  // ...
 };
 ```

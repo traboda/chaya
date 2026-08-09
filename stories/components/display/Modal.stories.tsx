@@ -1,9 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { fn } from '@storybook/test';
 
-import Modal, { ModalProps } from '../../../src/components/Modal';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
+
 import Button from '../../../src/components/Button';
+import Modal, { ModalProps } from '../../../src/components/Modal';
 import TextInput from '../../../src/components/TextInput';
 
 const meta: Meta<ModalProps> = {
@@ -26,7 +27,7 @@ const IssueReportForm = () => {
   });
 
   return (
-    <form className="py-4 px-2">
+    <form className="px-2 py-4">
       <div className="flex flex-col gap-4">
         <div>
           <TextInput
@@ -62,7 +63,8 @@ export const Primary: Story = {
   args: {
     isOpen: false,
     title: 'Report an Error',
-    description: 'We are sorry to hear that you are facing an issue. Please fill out the form below to report the error.',
+    description:
+      'We are sorry to hear that you are facing an issue. Please fill out the form below to report the error.',
     maxWidth: 480,
     primaryButton: {
       children: 'Submit',
@@ -79,17 +81,16 @@ export const Primary: Story = {
 
     return (
       <div>
-        <Button
-          onClick={() => setIsOpen(true)}
-        >
-          Open Modal
-        </Button>
-        {Story({ ...context, args: {
-          ...context.args,
-          isOpen,
-          onClose: () => setIsOpen(false),
-          children: <IssueReportForm />,
-        } })}
+        <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+        {Story({
+          ...context,
+          args: {
+            ...context.args,
+            isOpen,
+            onClose: () => setIsOpen(false),
+            children: <IssueReportForm />,
+          },
+        })}
       </div>
     );
   },
