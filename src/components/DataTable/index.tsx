@@ -78,7 +78,7 @@ const DataTable = <Type extends { id: string }>({
   currentSortAttribute,
   sortOrder,
   onSort = () => null,
-  customTopBarRenderer = () => <div />,
+  customTopBarRenderer,
   canExpand = false,
   accordionRenderer = () => <div />,
   stickyRow,
@@ -140,9 +140,11 @@ const DataTable = <Type extends { id: string }>({
             classNames?.wrapper,
           ])}
         >
-          <div ref={tableTopbarRef} className="text-color">
-            {customTopBarRenderer()}
-          </div>
+          {customTopBarRenderer !== undefined && (
+            <div ref={tableTopbarRef} className="p-2 text-color">
+              {customTopBarRenderer()}
+            </div>
+          )}
           <div style={{ maxHeight }} className="table-container overflow-auto">
             <table
               className={clsx([

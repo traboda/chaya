@@ -265,15 +265,19 @@ export const WithDataTableManager: Story = {
       r.name.toLowerCase().includes(keyword.toLowerCase())
     );
     return (
-      <div>
-        <DataTableManager
-          keyword={keyword}
-          setKeyword={setKeyword}
-          totalCount={filtered.length}
-          labels={{ label: 'Challenge', labelPlural: 'Challenges' }}
-        />
-        <DataTable properties={sampleProperties} items={filtered} maxHeight={400} />
-      </div>
+      <DataTable
+        properties={sampleProperties}
+        items={filtered}
+        maxHeight={400}
+        customTopBarRenderer={() => (
+          <DataTableManager
+            keyword={keyword}
+            setKeyword={setKeyword}
+            totalCount={filtered.length}
+            labels={{ label: 'Challenge', labelPlural: 'Challenges' }}
+          />
+        )}
+      />
     );
   },
 };
@@ -288,24 +292,24 @@ export const WithDataTableManagerPagination: Story = {
     );
     const paged = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
     return (
-      <div>
-        <DataTableManager
-          keyword={keyword}
-          setKeyword={setKeyword}
-          totalCount={filtered.length}
-          labels={{ label: 'Challenge', labelPlural: 'Challenges' }}
-        />
-        <DataTable
-          properties={sampleProperties}
-          items={paged}
-          enablePagination
-          itemsPerPage={itemsPerPage}
-          page={page}
-          setPage={setPage}
-          totalCount={filtered.length}
-          maxHeight={400}
-        />
-      </div>
+      <DataTable
+        properties={sampleProperties}
+        items={paged}
+        enablePagination
+        itemsPerPage={itemsPerPage}
+        page={page}
+        setPage={setPage}
+        totalCount={filtered.length}
+        maxHeight={400}
+        customTopBarRenderer={() => (
+          <DataTableManager
+            keyword={keyword}
+            setKeyword={setKeyword}
+            totalCount={filtered.length}
+            labels={{ label: 'Challenge', labelPlural: 'Challenges' }}
+          />
+        )}
+      />
     );
   },
 };
