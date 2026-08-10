@@ -99,8 +99,8 @@ const Drawer = ({
         <Dialog.Overlay>{overlayContent}</Dialog.Overlay>
         <Dialog.Content
           className={mcs([
-            'fixed left-0 top-0 z-[7200] flex h-[100dvh] w-screen p-2',
-            'bg-black bg-opacity-30 backdrop-blur-sm backdrop-filter',
+            'fixed top-0 left-0 z-[7200] flex h-[100dvh] w-screen p-2',
+            'bg-black/30 backdrop-blur-sm backdrop-filter',
             getPositionAlignmentParent,
             overlayClassName,
           ])}
@@ -108,7 +108,7 @@ const Drawer = ({
         >
           <div
             className={mcs([
-              'relative w-full bg-background text-color shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto',
+              'bg-background text-color relative w-full shadow-lg sm:w-auto dark:shadow-xl dark:shadow-black/40',
               'overflow-auto border',
               getPositionAlignmentChild,
               getPositionAnimation,
@@ -123,7 +123,7 @@ const Drawer = ({
             onClick={(e) => e.stopPropagation()}
           >
             {closable && (
-              <div className="absolute right-0 top-0 pr-2 pt-2">
+              <div className="absolute top-0 right-0 pt-2 pr-2">
                 <Dialog.Close asChild>
                   <button
                     tabIndex={-1}

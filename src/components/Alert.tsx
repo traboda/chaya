@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 
 import {
-  BORDER_COLOR_MAP,
+  BORDER_COLOR_OUTLINE_MAP,
+  BORDER_COLOR_SOLID_MAP,
   ChayaColorType,
   EMPTY_COLOR_MAP,
   MINIMAL_BG_COLOR_MAP,
@@ -36,17 +37,17 @@ const alertClassName = cva({
   base: ['alert relative rounded-lg px-3 flex flex-col gap-0.5 border'],
   variants: {
     variant: {
-      solid: 'dark:border-opacity-70 border-opacity-20',
-      outline: 'dark:border-opacity-80 border-opacity-60',
+      solid: '',
+      outline: '',
     },
     color: EMPTY_COLOR_MAP,
   },
   compoundVariants: [
     ...colorVariantMapper<AlertVariantsType>(
-      [MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, BORDER_COLOR_MAP],
+      [MINIMAL_BG_COLOR_MAP, TEXT_COLOR_MAP, BORDER_COLOR_SOLID_MAP],
       'solid'
     ),
-    ...colorVariantMapper<AlertVariantsType>([BORDER_COLOR_MAP, TEXT_COLOR_MAP], 'outline'),
+    ...colorVariantMapper<AlertVariantsType>([BORDER_COLOR_OUTLINE_MAP, TEXT_COLOR_MAP], 'outline'),
     { variant: 'solid', color: 'black', className: 'dark:bg-neutral-800' },
     {
       variant: 'solid',
@@ -85,7 +86,7 @@ const Alert = ({
       ])}
     >
       {allowDismissal && (
-        <div className="absolute right-0 top-0 pr-3 pt-2">
+        <div className="absolute top-0 right-0 pt-2 pr-3">
           <button
             title="dismiss"
             className="alert-dismiss-button font-mono text-lg font-bold outline-none"

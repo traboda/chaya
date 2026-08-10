@@ -31,8 +31,8 @@ const HorizontalNavigatorItem = ({
 }: HorizontalNavigatorItemProps) => {
   const liClassNames = cva({
     base: [
-      'outline-1 focus-visible:outline duration-200 transition text-color',
-      'rounded-lg transition-background outline-2 no-underline',
+      'focus-visible:outline focus-visible:outline-2 duration-200 transition text-color',
+      'rounded-lg transition-background no-underline',
       item?.isDisabled && 'opacity-60 cursor-not-allowed',
       activeItem === item.key && 'active font-semibold',
     ],
@@ -48,7 +48,7 @@ const HorizontalNavigatorItem = ({
           activeItem === item.key && 'bg-neutral-300/20 dark:bg-neutral-500/20 mx-1',
         ],
         pill: [
-          'px-5 py-2',
+          'px-5 py-2 border-0',
           activeItem === item.key && 'text-primaryTextColor z-[1000]',
           activeItem !== item.key &&
             !item?.isDisabled &&

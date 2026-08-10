@@ -89,6 +89,30 @@ export const BORDER_COLOR_MAP: ColorClassMap = {
   black: 'border-black dark:border-neutral-700',
 };
 
+export const BORDER_COLOR_SOLID_MAP: ColorClassMap = {
+  primary: 'border-primary/20 dark:border-primary/70',
+  secondary: 'border-secondary/20 dark:border-secondary/70',
+  success: 'border-green-600/20 dark:border-green-500/70',
+  danger: 'border-red-500/20 dark:border-red-500/70',
+  warning: 'border-yellow-500/20 dark:border-yellow-400/70',
+  contrast: 'border-contrast/20 dark:border-contrast/70',
+  shade: 'border-neutral-400/20 dark:border-neutral-500/70',
+  white: 'border-neutral-200/20 dark:border-neutral-600/70',
+  black: 'border-black/20 dark:border-neutral-700/70',
+};
+
+export const BORDER_COLOR_OUTLINE_MAP: ColorClassMap = {
+  primary: 'border-primary/60 dark:border-primary/80',
+  secondary: 'border-secondary/60 dark:border-secondary/80',
+  success: 'border-green-600/60 dark:border-green-500/80',
+  danger: 'border-red-500/60 dark:border-red-500/80',
+  warning: 'border-yellow-500/60 dark:border-yellow-400/80',
+  contrast: 'border-contrast/60 dark:border-contrast/80',
+  shade: 'border-neutral-400/60 dark:border-neutral-500/80',
+  white: 'border-neutral-200/60 dark:border-neutral-600/80',
+  black: 'border-black/60 dark:border-neutral-700/80',
+};
+
 export const colorMapper = <Type extends { [key: string]: string | string[] }>(
   maps: ColorClassMap[],
   object: Type

@@ -2,6 +2,15 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--default-border);
+  }
+}
+
 @theme {
   --color-primary: var(--primary);
   --color-primary\/50: var(--primary50);
@@ -52,5 +61,10 @@
   --color: #333;
   --border: rgba(0, 0, 0, 0.15);
   --border-light: rgba(0, 0, 0, 0.08);
+  --default-border: #e5e7eb;
   --flexible-cols-min-width: 200px;
+}
+
+:is(.dark, .dark *) {
+  --default-border: rgba(255, 255, 255, 0.05);
 }
