@@ -105,10 +105,10 @@ const Tabs = ({
   }, [currentTab]);
 
   const renderOption = (t: TabItemObject) => (
-    <div className={clsx(['flex w-full items-center justify-between gap-2'])}>
+    <div className={clsx(['flex w-full items-center justify-center gap-2'])}>
       <div className="flex items-center gap-2 text-left">
         {t.icon && (
-          <span className="w-[16px]">
+          <span className="inline-flex shrink-0">
             <Icon icon={t.icon} size={16} />
           </span>
         )}

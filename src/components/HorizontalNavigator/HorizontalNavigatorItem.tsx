@@ -88,10 +88,10 @@ const HorizontalNavigatorItem = ({
   });
 
   const renderOption = (item: HorizontalNavigatorItemType) => (
-    <div className={clsx(['flex w-full items-center justify-between gap-2'])}>
+    <div className={clsx(['flex w-full items-center justify-center gap-2'])}>
       <div className="flex items-center gap-2 text-left">
         {item.icon && (
-          <span className="w-[16px]">
+          <span className="inline-flex shrink-0">
             <Icon icon={item.icon} size={16} />
           </span>
         )}
@@ -115,6 +115,7 @@ const HorizontalNavigatorItem = ({
 
   const renderButton = (item: HorizontalNavigatorItemType) => (
     <button
+      className="w-full text-center"
       onClick={() =>
         item?.onClick && typeof item.onClick === 'function'
           ? item.onClick()
