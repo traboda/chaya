@@ -167,13 +167,13 @@ const DropdownRender = ({
         />
       </div>
       {labels.optionsTitle?.length > 0 ? (
-        <div className="w-full border-y border-light bg-background px-2 py-1">
+        <div className="border-light bg-background w-full border-y px-2 py-1">
           <span className="text-xs font-semibold uppercase opacity-80">{labels.optionsTitle}</span>
         </div>
       ) : null}
       <div
         className={clsx([
-          !(labels.optionsTitle?.length > 0) && 'border-t border-light',
+          !(labels.optionsTitle?.length > 0) && 'border-light border-t',
           'max-h-[30vh] overflow-y-auto',
         ])}
       >
@@ -235,12 +235,12 @@ const DropdownRender = ({
           <div className="px-2 py-4 text-center opacity-80">{labels?.noResults}</div>
         )}
       </div>
-      <div className="flex items-center justify-between border-t border-light">
+      <div className="border-light flex items-center justify-between border-t">
         <button
           className={clsx([
             'flex items-center justify-center rounded-b-lg text-center font-semibold',
             'w-full gap-2 px-3 py-2 hover:bg-white/20',
-            'border-r border-light',
+            'border-light border-r',
             'rounded-r-none hover:bg-neutral-500/10',
           ])}
           onClick={() => setSelections(availableOptions.map((f) => f.value))}

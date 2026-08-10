@@ -1,4 +1,4 @@
-import { Canvas, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Canvas, Meta, Primary, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -22,83 +22,6 @@ You can use the `showArrow` prop to give your tooltip an arrow indicating which 
 
 <Canvas of={TooltipStories.WithArrow} />
 
-## Props
+## API
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>children</code>
-      </td>
-      <td>
-        <code>ReactElement</code>
-      </td>
-      <td>required</td>
-      <td>The trigger element that the tooltip is attached to</td>
-    </tr>
-    <tr>
-      <td>
-        <code>overlay</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>required</td>
-      <td>Content to display inside the tooltip</td>
-    </tr>
-    <tr>
-      <td>
-        <code>side</code>
-      </td>
-      <td>
-        <code>{"'auto' | 'top' | 'right' | 'bottom' | 'left'"}</code>
-      </td>
-      <td>
-        <code>'auto'</code>
-      </td>
-      <td>Preferred side of the trigger to render the tooltip</td>
-    </tr>
-    <tr>
-      <td>
-        <code>align</code>
-      </td>
-      <td>
-        <code>{"'start' | 'center' | 'end'"}</code>
-      </td>
-      <td>
-        <code>'center'</code>
-      </td>
-      <td>Alignment of the tooltip relative to the trigger</td>
-    </tr>
-    <tr>
-      <td>
-        <code>contentClassName</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>-</td>
-      <td>Additional CSS class names for the tooltip content</td>
-    </tr>
-    <tr>
-      <td>
-        <code>showArrow</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>
-        <code>false</code>
-      </td>
-      <td>Whether to show an arrow pointing to the trigger element</td>
-    </tr>
-  </tbody>
-</table>
+<ArgTypes />

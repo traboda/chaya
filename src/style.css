@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--default-border);
+  }
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary\/50: var(--primary50);
+  --color-primary\/10: var(--primary10);
+  --color-primary-minimal: var(--primary-minimal);
+  --color-primary-bright: var(--primary-bright);
+  --color-primaryTextColor: var(--primaryTextColor);
+
+  --color-secondary: var(--secondary);
+  --color-secondary\/50: var(--secondary50);
+  --color-secondary\/10: var(--secondary10);
+  --color-secondary-minimal: var(--secondary-minimal);
+  --color-secondary-bright: var(--secondary-bright);
+  --color-secondaryTextColor: var(--secondaryTextColor);
+
+  --color-background: var(--background);
+  --color-background-darken-1: var(--background-darken-1);
+  --color-background-darken-2: var(--background-darken-2);
+  --color-background-darken-3: var(--background-darken-3);
+  --color-background-lighten-1: var(--background-lighten-1);
+  --color-background-lighten-2: var(--background-lighten-2);
+  --color-background-lighten-3: var(--background-lighten-3);
+
+  --color-contrast: var(--contrast);
+  --color-contrast\/50: var(--contrast50);
+  --color-color: var(--color);
+
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+
+  --animate-stripes: stripes 60s linear infinite;
+
+  @keyframes stripes {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  --grid-template-columns-flexible-fit: repeat(
+    auto-fit,
+    minmax(var(--flexible-cols-min-width), 1fr)
+  );
+  --grid-template-columns-flexible-fill: repeat(
+    auto-fill,
+    minmax(var(--flexible-cols-min-width), 1fr)
+  );
+}
+
+:root {
+  --primary: #1d66e5;
+  --primaryTextColor: #fff;
+  --secondary: #b64fd7;
+  --secondaryTextColor: #fff;
+  --background: #fff;
+  --color: #333;
+  --border: rgba(0, 0, 0, 0.15);
+  --border-light: rgba(0, 0, 0, 0.08);
+  --default-border: #e5e7eb;
+  --flexible-cols-min-width: 200px;
+}
+
+:is(.dark, .dark *) {
+  --default-border: rgba(255, 255, 255, 0.05);
+}

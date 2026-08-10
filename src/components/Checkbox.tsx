@@ -91,7 +91,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps<string | number>>(
           checked={isChecked}
           disabled={isDisabled}
           className={clsx([
-            'checkbox h-px w-px whitespace-nowrap border-0 border-none p-0',
+            'checkbox h-px w-px border-0 border-none p-0 whitespace-nowrap',
             'absolute -m-1 overflow-hidden',
           ])}
           style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}
@@ -105,7 +105,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps<string | number>>(
             sizes[size]?.button,
             isChecked ? colors[color] : 'bg-white dark:bg-white/10',
             isFocused ? `!ring-2 ${focusColors[color]}` : '',
-            !isChecked && !isFocused && !isDisabled ? '' : 'border-2 border-opacity-100',
+            !isChecked && !isFocused && !isDisabled ? '' : 'border-2',
           ])}
         >
           <span

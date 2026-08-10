@@ -22,7 +22,7 @@ of best-in-class tools/libraries like **TypeScript**, **Tailwind CSS**, **Radix 
 
 - 40+ UI components, 4+ hooks, and even more to come
 - Built with TypeScript, fully typed
-- Styled with Tailwind CSS (v3)
+- Styled with Tailwind CSS (v4)
 - Supports Dark Mode & Custom Theming
 
 ## Looking to Explore?
@@ -59,23 +59,17 @@ To start using the components, please follow the below steps:
    );
    ```
 
-2. Update your `tailwind.config.js` to process styles for components from `chaya-ui`
+2. Update your CSS to include Tailwind and scan `chaya-ui` components
+
+   ```css
+   @import 'tailwindcss';
+   @source '../../node_modules/chaya-ui';
+   ```
+
+   If you need the Chaya theme tokens in your Tailwind config, you can import them:
 
    ```js
-   const theme = require('chaya-ui/tailwind-theme');
-
-   /** @type {import('tailwindcss').Config} */
-   module.exports = {
-     content: [
-       'node_modules/chaya-ui/**/*.js',
-       // ...
-     ],
-     // ...
-     theme: {
-       extend: theme,
-     },
-     // ...
-   };
+   import theme from 'chaya-ui/tailwind-theme';
    ```
 
 3. Import the components from `chaya-ui` and use them in your application.

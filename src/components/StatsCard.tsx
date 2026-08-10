@@ -84,12 +84,12 @@ const StatsCard = ({
             </div>
           </div>
           {labels?.description ? (
-            <p className="break-all text-sm opacity-90">{labels.description}</p>
+            <p className="text-sm break-all opacity-90">{labels.description}</p>
           ) : null}
           <div className="mt-2 flex flex-col gap-1">
             <div
               className={mcs([
-                'flex gap-1 text-2xl font-bold text-color md:text-3xl lg:text-4xl',
+                'text-color flex gap-1 text-2xl font-bold md:text-3xl lg:text-4xl',
                 valueClassName,
               ])}
             >

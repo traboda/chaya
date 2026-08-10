@@ -62,7 +62,7 @@ const Switch = ({
       )}
       <label
         className={mcs([
-          'inline-block rounded-full border shadow-inner',
+          'inline-block rounded-full border',
           value && bgClassNames[color],
           className,
           isDisabled && 'cursor-not-allowed',
@@ -90,7 +90,7 @@ const Switch = ({
         />
         <div
           className={clsx([
-            'rounded-full border bg-white shadow-md transition',
+            'rounded-full border bg-white transition',
             value && borderClassNames[color],
             value && 'translate-x-full',
           ])}

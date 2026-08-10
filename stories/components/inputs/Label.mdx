@@ -1,4 +1,4 @@
-import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -32,87 +32,6 @@ A form label component with support for required indicators, tooltips, and sideb
 
 <Story of={LabelStories.WithInput} />
 
-## Props
+## API
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>children</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>required</td>
-      <td>The label content.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>isRequired</code>
-      </td>
-      <td>
-        <code>boolean</code>
-      </td>
-      <td>-</td>
-      <td>Shows a red asterisk to indicate a required field.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>htmlFor</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>-</td>
-      <td>The id of the form element the label is associated with.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>id</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>-</td>
-      <td>HTML id for the label element.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>sidebar</code>
-      </td>
-      <td>
-        <code>ReactNode</code>
-      </td>
-      <td>-</td>
-      <td>Content rendered on the right side of the label.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>tooltip</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>-</td>
-      <td>Tooltip text shown next to the label via an info icon.</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>-</td>
-      <td>Additional CSS class for the label element.</td>
-    </tr>
-  </tbody>
-</table>
+<ArgTypes />

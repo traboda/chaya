@@ -231,7 +231,7 @@ const VerticalNavigatorItem = ({
             {!isCollapsed && (
               <span
                 className={clsx([
-                  'mr-2 transform text-color opacity-80 transition-transform',
+                  'text-color mr-2 transform opacity-80 transition-transform',
                   !dropdownVisibility ? 'rotate-180' : '',
                 ])}
               >
@@ -249,7 +249,7 @@ const VerticalNavigatorItem = ({
           ])}
           style={{ height: dropdownVisibility ? height : 0 }}
         >
-          <ul className={clsx(['flex flex-col pb-1 pr-1', variant == 'line' ? 'gap-0' : 'gap-1'])}>
+          <ul className={clsx(['flex flex-col pr-1 pb-1', variant == 'line' ? 'gap-0' : 'gap-1'])}>
             {item.items.map((subItem) => (
               <li
                 className={clsx([

@@ -81,7 +81,7 @@ const Modal = ({
         <Dialog.Overlay>{overlayContent}</Dialog.Overlay>
         <Dialog.Content
           className={mcs([
-            'modal-wrapper fixed left-0 top-0 flex h-[100dvh] w-screen justify-center',
+            'modal-wrapper fixed top-0 left-0 flex h-[100dvh] w-screen justify-center',
             'z-[7200] items-end backdrop-blur sm:items-center',
             hideBg ? 'bg-white/75 dark:bg-black/75' : 'bg-white/50 dark:bg-black/50',
             overlayClassName,
@@ -90,8 +90,8 @@ const Modal = ({
         >
           <div
             className={mcs([
-              'modal-container relative w-full rounded-t-lg shadow-lg dark:shadow-xl dark:shadow-black/40 sm:w-auto sm:rounded-b-lg',
-              'max-w-screen max-h-[100dvh] overflow-auto text-color',
+              'modal-container relative w-full rounded-t-lg sm:w-auto sm:rounded-b-lg',
+              'text-color max-h-[100dvh] max-w-screen overflow-auto',
               'border',
               containerClassName,
               isOpen ? modalStyles.animateIn : modalStyles.animateOut,
@@ -101,7 +101,7 @@ const Modal = ({
             onClick={(e) => e.stopPropagation()}
           >
             {closable && (
-              <div className="absolute right-0 top-0 pr-2 pt-2">
+              <div className="absolute top-0 right-0 pt-2 pr-2">
                 <Dialog.Close asChild>
                   <button
                     tabIndex={-1}

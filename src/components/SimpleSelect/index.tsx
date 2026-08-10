@@ -348,11 +348,11 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 aria-controls={`${inputID}-listbox`}
                 onKeyDown={handleKeyDown}
                 className={mcs([
-                  'simple-select w-full appearance-none rounded-lg p-2 text-base text-color',
-                  'bg-background-lighten-1 shadow-inner',
+                  'simple-select text-color w-full appearance-none rounded-lg p-2 text-base',
+                  'bg-background-lighten-1',
                   'border-y border-l focus:outline-none',
                   'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
-                  'cursor-default bg-background bg-no-repeat text-left',
+                  'bg-background cursor-default bg-no-repeat text-left',
                   'flex items-center justify-between gap-2',
                   !isDisabled && 'group-[:not(:focus-within):hover]:border-gray-400/80',
                   !postfixRenderer ? 'border-r' : 'rounded-r-none !border-r-0',
@@ -380,9 +380,9 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                           <div
                             key={val}
                             className={clsx([
-                              'border border-light bg-black/10 dark:bg-white/10',
+                              'border-light border bg-black/10 dark:bg-white/10',
                               'inline-flex items-center overflow-hidden rounded px-1',
-                              'hover:shadow',
+                              '',
                             ])}
                           >
                             {option?.icon && <Icon icon={option?.icon} size={16} />}
@@ -465,7 +465,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 <div
                   className={clsx([
                     iconClassNameCalculated,
-                    'right-0 flex shrink-0 rounded-br-lg rounded-tr-lg',
+                    'right-0 flex shrink-0 rounded-tr-lg rounded-br-lg',
                   ])}
                 >
                   {postfixRenderer}
@@ -479,7 +479,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             forceMount
             side={side}
             className={mcs([
-              'z-[8000] grid text-color',
+              'text-color z-[8000] grid',
               'transition-[grid-template-rows]',
               isDropdownActive ? 'grid-rows-[1fr]' : 'pointer-events-none grid-rows-[0fr]',
               dropdownClassName,
@@ -492,8 +492,8 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
           >
             <div
               className={clsx([
-                'overflow-hidden rounded-lg bg-background-lighten-1',
-                isDropdownActive && 'border border-light shadow',
+                'bg-background-lighten-1 overflow-hidden rounded-lg',
+                isDropdownActive && 'border-light border',
               ])}
             >
               <div className="bg-black/10 dark:bg-white/10">
@@ -541,7 +541,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                         <React.Fragment key={`${option.group}_og_${index}`}>
                           <div
                             className={clsx([
-                              'text-sm font-semibold uppercase tracking-wider opacity-60',
+                              'text-sm font-semibold tracking-wider uppercase opacity-60',
                               'flex gap-2 px-3 py-2',
                             ])}
                           >

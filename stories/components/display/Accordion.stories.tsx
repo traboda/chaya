@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import Accordion from '../Accordion';
-import { AccordionProps } from '../Accordion.types';
+import Accordion from '../../../src/components/Accordion/Accordion';
+import { AccordionProps } from '../../../src/components/Accordion/Accordion.types';
 
 const meta: Meta<AccordionProps> = {
   title: 'Components/Display/Accordion',

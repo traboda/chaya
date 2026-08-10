@@ -41,10 +41,10 @@ const PinDigit = ({
     aria-labelledby={ariaLabelledBy}
     aria-disabled={isDisabled}
     className={mcs([
-      'pin-digit w-full text-center text-lg text-color outline-none placeholder:text-slate-400/40',
+      'pin-digit text-color w-full text-center text-lg outline-none placeholder:text-slate-400/40',
       variant === 'minimal'
-        ? 'border-b-2 bg-transparent focus:border-primary'
-        : 'rounded-lg border bg-background-lighten-1 py-1.5 shadow-inner focus:border-primary',
+        ? 'focus:border-primary border-b-2 bg-transparent'
+        : 'bg-background-lighten-1 focus:border-primary rounded-lg border py-1.5',
       className,
       isInvalid ? 'border-red-500' : 'border-light',
       type === 'number' && styles.hideStepper,

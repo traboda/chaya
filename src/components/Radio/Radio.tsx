@@ -63,7 +63,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps<string | number>>(
           checked={isSelected}
           disabled={isDisabled}
           className={clsx([
-            'radio-input h-px w-px whitespace-nowrap border-0 border-none p-0',
+            'radio-input h-px w-px border-0 border-none p-0 whitespace-nowrap',
             'absolute -m-1 overflow-hidden',
           ])}
           style={{ clip: 'rect(0px, 0px, 0px, 0px)' }}

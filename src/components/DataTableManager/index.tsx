@@ -262,7 +262,7 @@ const DataTableManager = ({
         />
       ) : null}
       {selections && (selections?.selectedIDs?.length || selections.excludedIDs?.length) ? (
-        <div className="mx-0 flex flex-wrap rounded-t-lg border border-light bg-gray-500/10 px-2 py-1 shadow dark:bg-gray-500/20">
+        <div className="border-light mx-0 flex flex-wrap rounded-t-lg border bg-gray-500/10 px-2 py-1 dark:bg-gray-500/20">
           <div className="flex w-full items-center gap-2 px-3 py-2 md:w-1/2 lg:w-1/3">
             {selections?.selectedIDs?.length == 1 && selections?.selectedIDs?.[0] === '-1' ? (
               <span>

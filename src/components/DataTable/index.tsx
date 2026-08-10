@@ -141,7 +141,7 @@ const DataTable = <Type extends { id: string }>({
           ])}
         >
           {customTopBarRenderer !== undefined && (
-            <div ref={tableTopbarRef} className="p-2 text-color">
+            <div ref={tableTopbarRef} className="text-color p-2">
               {customTopBarRenderer()}
             </div>
           )}
@@ -149,17 +149,11 @@ const DataTable = <Type extends { id: string }>({
             <table
               className={clsx([
                 'data-table min-w-full border-spacing-0 transition-transform',
-                'border-collapse text-color',
+                'text-color border-collapse',
                 classNames?.table,
               ])}
             >
-              <thead
-                className={clsx([
-                  'sticky top-0 z-50 mb-2 shadow-sm',
-                  variant === 'grid' ? 'border border-light' : 'shadow-gray-500/50',
-                  classNames?.thead,
-                ])}
-              >
+              <thead className={clsx(['sticky top-0 z-50 mb-2 shadow-sm', classNames?.thead])}>
                 <ItemListerTitleBar<Type>
                   properties={activeProperties}
                   onSort={onSort}
@@ -196,7 +190,7 @@ const DataTable = <Type extends { id: string }>({
                           variant={variant}
                         />
                         {activeIndex?.includes(index) && (
-                          <tr className="accordion-content data-table-row group w-full border-y border-light">
+                          <tr className="accordion-content data-table-row group border-light w-full border-y">
                             <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                           </tr>
                         )}
@@ -241,7 +235,7 @@ const DataTable = <Type extends { id: string }>({
             <div
               className={clsx([
                 'border bg-neutral-500/10 dark:bg-neutral-800/80',
-                'flex justify-start rounded-b-lg p-3 shadow-inner',
+                'flex justify-start rounded-b-lg p-3',
               ])}
             >
               <PageNavigator

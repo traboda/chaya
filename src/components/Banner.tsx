@@ -52,7 +52,7 @@ const wrapperClassName = cva({
     },
     {
       variant: ['float', 'card'],
-      className: 'rounded-lg shadow-lg',
+      className: 'rounded-lg',
     },
   ],
 });

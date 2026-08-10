@@ -173,7 +173,7 @@ const TextInput = <Type extends string | number>({
 
   const inputClassNameCalculated = mcs([
     'px-2.5 py-2 block w-full bg-background-lighten-1 placeholder:text-color focus:outline-none',
-    'text-color border-y placeholder:opacity-50 shadow-inner ',
+    'text-color border-y placeholder:opacity-50 ',
     commonClasses,
     touched ? 'invalid:border-red-500' : '',
     prefixRenderer ? 'invalid:border-l' : 'rounded-l-lg border-l',
@@ -217,7 +217,7 @@ const TextInput = <Type extends string | number>({
               iconClassNameCalculated,
               prefixClassName,
               postPrefixClassName,
-              'left-0 shrink-0 rounded-bl-lg rounded-tl-lg',
+              'left-0 shrink-0 rounded-tl-lg rounded-bl-lg',
             ])}
           >
             {prefixRenderer}
@@ -249,7 +249,7 @@ const TextInput = <Type extends string | number>({
               iconClassNameCalculated,
               postfixClassName,
               postPrefixClassName,
-              'right-0 rounded-br-lg rounded-tr-lg',
+              'right-0 rounded-tr-lg rounded-br-lg',
             ])}
           >
             {postfixRenderer}

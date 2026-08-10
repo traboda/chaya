@@ -1,5 +1,5 @@
 'use client';
-import React, { lazy, useEffect, useId, useMemo, useState } from 'react';
+import React, { useEffect, useId, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 
@@ -8,10 +8,9 @@ import mcs from '../utils/merge';
 
 import AccordionGroup from './AccordionGroup';
 import Badge, { BaseBadgeProps } from './Badge';
+import HorizontalNavigator from './HorizontalNavigator';
 import Icon, { IconInputType } from './Icon';
-
-const HorizontalNavigator = lazy(() => import('./HorizontalNavigator'));
-const VerticalNavigator = lazy(() => import('./VerticalNavigator'));
+import VerticalNavigator from './VerticalNavigator';
 
 export type TabItemObject = {
   key?: string;
@@ -106,10 +105,10 @@ const Tabs = ({
   }, [currentTab]);
 
   const renderOption = (t: TabItemObject) => (
-    <div className={clsx(['flex w-full items-center justify-between gap-2'])}>
+    <div className={clsx(['flex w-full items-center justify-center gap-2'])}>
       <div className="flex items-center gap-2 text-left">
         {t.icon && (
-          <span className="w-[16px]">
+          <span className="inline-flex shrink-0">
             <Icon icon={t.icon} size={16} />
           </span>
         )}
@@ -269,7 +268,7 @@ const Tabs = ({
         </div>
         <div
           className={mcs([
-            isVertical ? 'w-full pl-0 pr-0 md:w-4/5 md:pl-4 md:pr-4' : 'py-3',
+            isVertical ? 'w-full pr-0 pl-0 md:w-4/5 md:pr-4 md:pl-4' : 'py-3',
             bodyClassName,
           ])}
         >

@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import Button from '../Button';
-import { ButtonProps } from '../Button.types';
+import Button, { ButtonProps } from '../../../src/components/Button';
 
 const meta: Meta<ButtonProps> = {
   title: 'Components/Inputs/Button',

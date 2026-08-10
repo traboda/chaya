@@ -45,7 +45,7 @@ const Dropdown = ({
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={mcs([
-            'z-[100] w-[240px] rounded-lg text-color shadow-md dark:shadow-lg dark:shadow-black/30',
+            'text-color z-[100] w-[240px] rounded-lg',
             'bg-background-lighten-3 dark:bg-background-darken-1',
             'border',
             styles.animateEntry,
