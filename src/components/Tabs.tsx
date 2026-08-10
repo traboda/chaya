@@ -1,5 +1,5 @@
 'use client';
-import React, { lazy, useEffect, useId, useMemo, useState } from 'react';
+import React, { useEffect, useId, useMemo, useState } from 'react';
 
 import clsx from 'clsx';
 
@@ -8,10 +8,9 @@ import mcs from '../utils/merge';
 
 import AccordionGroup from './AccordionGroup';
 import Badge, { BaseBadgeProps } from './Badge';
+import HorizontalNavigator from './HorizontalNavigator';
 import Icon, { IconInputType } from './Icon';
-
-const HorizontalNavigator = lazy(() => import('./HorizontalNavigator'));
-const VerticalNavigator = lazy(() => import('./VerticalNavigator'));
+import VerticalNavigator from './VerticalNavigator';
 
 export type TabItemObject = {
   key?: string;
