@@ -269,7 +269,7 @@ const Tabs = ({
         </div>
         <div
           className={mcs([
-            isVertical ? 'w-full pl-0 pr-0 md:w-4/5 md:pl-4 md:pr-4' : 'py-3',
+            isVertical ? 'w-full pr-0 pl-0 md:w-4/5 md:pr-4 md:pl-4' : 'py-3',
             bodyClassName,
           ])}
         >

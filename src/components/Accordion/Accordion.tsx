@@ -29,7 +29,7 @@ const Accordion = ({
     <div
       id={id}
       className={mcs([
-        'accordion bg-gray-500/8 rounded-lg p-2 dark:bg-gray-500/15',
+        'accordion rounded-lg bg-gray-500/8 p-2 dark:bg-gray-500/15',
         'border',
         className,
       ])}
@@ -37,7 +37,7 @@ const Accordion = ({
       <button
         className={mcs([
           'accordion-button flex w-full rounded-lg px-3 py-2 text-lg font-semibold',
-          'items-center justify-between bg-white/90 text-color shadow-sm dark:bg-white/5',
+          'text-color items-center justify-between bg-white/90 shadow-sm dark:bg-white/5',
           'border',
           titleClassName,
           (isDisabled || isLocked) && 'cursor-not-allowed',
@@ -62,7 +62,7 @@ const Accordion = ({
         id={`${id}_content`}
         aria-hidden={!isOpen}
         className={clsx([
-          'accordion-content h-0 px-3 text-color opacity-0 transition-all',
+          'accordion-content text-color h-0 px-3 opacity-0 transition-all',
           isOpen ? mcs(['h-auto py-3 opacity-100', bodyClassName]) : '',
         ])}
       >

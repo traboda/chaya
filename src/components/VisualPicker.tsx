@@ -155,7 +155,7 @@ const VisualPicker = <Type extends VisualPickerValueType | VisualPickerValueType
               ])}
             >
               {item.title && (
-                <div className="text-lg font-semibold leading-6 md:text-xl">{item.title}</div>
+                <div className="text-lg leading-6 font-semibold md:text-xl">{item.title}</div>
               )}
               {item.description && (
                 <div className={clsx(['text-sm', !isVertical && 'mx-auto w-[80%]'])}>

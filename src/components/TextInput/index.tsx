@@ -217,7 +217,7 @@ const TextInput = <Type extends string | number>({
               iconClassNameCalculated,
               prefixClassName,
               postPrefixClassName,
-              'left-0 shrink-0 rounded-bl-lg rounded-tl-lg',
+              'left-0 shrink-0 rounded-tl-lg rounded-bl-lg',
             ])}
           >
             {prefixRenderer}
@@ -249,7 +249,7 @@ const TextInput = <Type extends string | number>({
               iconClassNameCalculated,
               postfixClassName,
               postPrefixClassName,
-              'right-0 rounded-br-lg rounded-tr-lg',
+              'right-0 rounded-tr-lg rounded-br-lg',
             ])}
           >
             {postfixRenderer}

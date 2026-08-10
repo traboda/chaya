@@ -141,7 +141,7 @@ const DataTable = <Type extends { id: string }>({
           ])}
         >
           {customTopBarRenderer !== undefined && (
-            <div ref={tableTopbarRef} className="p-2 text-color">
+            <div ref={tableTopbarRef} className="text-color p-2">
               {customTopBarRenderer()}
             </div>
           )}
@@ -149,14 +149,14 @@ const DataTable = <Type extends { id: string }>({
             <table
               className={clsx([
                 'data-table min-w-full border-spacing-0 transition-transform',
-                'border-collapse text-color',
+                'text-color border-collapse',
                 classNames?.table,
               ])}
             >
               <thead
                 className={clsx([
                   'sticky top-0 z-50 mb-2 shadow-sm',
-                  variant === 'grid' ? 'border border-light' : 'shadow-gray-500/50',
+                  variant === 'grid' ? 'border-light border' : 'shadow-gray-500/50',
                   classNames?.thead,
                 ])}
               >
@@ -196,7 +196,7 @@ const DataTable = <Type extends { id: string }>({
                           variant={variant}
                         />
                         {activeIndex?.includes(index) && (
-                          <tr className="accordion-content data-table-row group w-full border-y border-light">
+                          <tr className="accordion-content data-table-row group border-light w-full border-y">
                             <td colSpan={colSpan}>{accordionRenderer(i)}</td>
                           </tr>
                         )}

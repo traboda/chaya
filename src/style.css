@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @variant dark (&:where(.dark, .dark *));
 
@@ -44,12 +44,22 @@
   --animate-stripes: stripes 60s linear infinite;
 
   @keyframes stripes {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 
-  --grid-template-columns-flexible-fit: repeat(auto-fit, minmax(var(--flexible-cols-min-width), 1fr));
-  --grid-template-columns-flexible-fill: repeat(auto-fill, minmax(var(--flexible-cols-min-width), 1fr));
+  --grid-template-columns-flexible-fit: repeat(
+    auto-fit,
+    minmax(var(--flexible-cols-min-width), 1fr)
+  );
+  --grid-template-columns-flexible-fill: repeat(
+    auto-fill,
+    minmax(var(--flexible-cols-min-width), 1fr)
+  );
 }
 
 :root {

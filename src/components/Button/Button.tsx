@@ -150,7 +150,7 @@ const Button = ({
       {isLoading ? (
         <div
           className={mcs([
-            'z-5 absolute flex h-full w-full items-center justify-center gap-2',
+            'absolute z-5 flex h-full w-full items-center justify-center gap-2',
             SpinnerWrapper({ color, variant }),
           ])}
         >

@@ -81,7 +81,7 @@ const DataTableManagerFilters = ({
   return (
     <div
       className={clsx([
-        'border border-light bg-gray-500/10 dark:bg-gray-500/20',
+        'border-light border bg-gray-500/10 dark:bg-gray-500/20',
         'rounded-lg p-2 shadow-inner',
       ])}
     >
@@ -129,7 +129,7 @@ const DataTableManagerFilters = ({
           })}
       </div>
       {isFilteredView ? (
-        <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-light pt-2">
+        <div className="border-light mt-2 flex flex-wrap items-center gap-2 border-t pt-2">
           {filterConfig
             .filter((f) => {
               const optionsLength = getOptions(f).length;
@@ -141,9 +141,9 @@ const DataTableManagerFilters = ({
               );
             })
             .map((f) => (
-              <div className="items-center px-1 pb-3 pt-1 md:flex" key={f.key}>
+              <div className="items-center px-1 pt-1 pb-3 md:flex" key={f.key}>
                 {f.labels && f.labels.label && f.labels.label?.length > 0 ? (
-                  <div className="mb-1 text-sm font-semibold md:mb-0 md:mr-2">
+                  <div className="mb-1 text-sm font-semibold md:mr-2 md:mb-0">
                     {`${f.labels?.label}:`}
                   </div>
                 ) : null}

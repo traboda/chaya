@@ -72,14 +72,14 @@ const Sidebar = ({
     <div
       id={id}
       className={mcs([
-        'sidebar relative flex h-full max-w-full flex-col justify-between border-r-2 border-light',
+        'sidebar border-light relative flex h-full max-w-full flex-col justify-between border-r-2',
         !isCollapsed ? 'w-[280px]' : '!w-fit items-center',
         'relative transition-all duration-300',
         className,
       ])}
     >
       {typeof topRenderer === 'function' || allowCollapseToggling ? (
-        <div className="mb-3 h-fit border-t border-light px-1">
+        <div className="border-light mb-3 h-fit border-t px-1">
           {typeof topRenderer === 'function' ? (
             <div className="flex justify-center py-2">{topRenderer({ isCollapsed })}</div>
           ) : null}
@@ -87,7 +87,7 @@ const Sidebar = ({
             <div
               className={clsx([
                 !isCollapsed && typeof topRenderer === 'function'
-                  ? 'absolute right-0 top-0 px-2'
+                  ? 'absolute top-0 right-0 px-2'
                   : null,
                 isCollapsed && 'flex justify-center',
                 'md:py-2',
@@ -121,7 +121,7 @@ const Sidebar = ({
             {navigationGroups && navigationGroups.length > 0 ? (
               <React.Fragment>
                 {navigationGroups.map((group, index) => (
-                  <div key={index} className="border-t border-light px-1 py-2">
+                  <div key={index} className="border-light border-t px-1 py-2">
                     {!isCollapsed && (
                       <div className="mb-2 px-2 text-sm font-semibold opacity-80">
                         {group.title}
@@ -143,11 +143,11 @@ const Sidebar = ({
       </div>
       <div
         ref={footerRef}
-        className="sidebar-bottom-area absolute bottom-0 left-0 w-full bg-background"
+        className="sidebar-bottom-area bg-background absolute bottom-0 left-0 w-full"
       >
         {typeof bottomTopRenderer === 'function' ? bottomTopRenderer({ isCollapsed }) : null}
         {bottomNavigationItems && bottomNavigationItems.filter((i) => !i.isHidden).length > 0 ? (
-          <div className="mt-1 border-t border-light px-1 py-2">
+          <div className="border-light mt-1 border-t px-1 py-2">
             <VerticalNavigator
               {...navigationProps}
               items={bottomNavigationItems}
@@ -160,7 +160,7 @@ const Sidebar = ({
           <div
             className={clsx([
               'flex items-center gap-1 px-1 py-2',
-              'border-t border-light',
+              'border-light border-t',
               isCollapsed ? 'flex-col' : 'flex-row justify-between',
             ])}
           >

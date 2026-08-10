@@ -40,7 +40,7 @@ const ProgressBar = ({
       id={id}
       className={mcs([
         'progress-bar w-full rounded-lg bg-gray-500/20',
-        'border border-light',
+        'border-light border',
         className,
       ])}
       style={{ height: height ? height : sizes[size] }}
@@ -48,7 +48,7 @@ const ProgressBar = ({
       <div
         role="progressbar"
         className={clsx([
-          'progress-bar-progress h-full rounded-lg bg-primary',
+          'progress-bar-progress bg-primary h-full rounded-lg',
           isLoading && 'animate-stripes',
         ])}
         style={{

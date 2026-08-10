@@ -153,7 +153,7 @@ const CheckboxGroup = <Type extends string | number>({
           <input
             type="text"
             tabIndex={-1}
-            className="absolute left-0 top-0 h-1 opacity-0"
+            className="absolute top-0 left-0 h-1 opacity-0"
             required
             value={hiddenInputValue}
           />

@@ -29,7 +29,7 @@ export const Primary: Story = {
     >
       <label className="inline-flex cursor-pointer items-center">
         <input type="checkbox" className="peer sr-only" defaultChecked />
-        <div className="peer relative h-6 w-11 rounded-full bg-gray-300 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-full" />
+        <div className="peer relative h-6 w-11 rounded-full bg-gray-300 peer-checked:bg-blue-500 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full" />
       </label>
     </SettingCard>
   ),
@@ -154,7 +154,7 @@ export const SettingsPage: Story = {
       >
         <label className="inline-flex cursor-pointer items-center">
           <input type="checkbox" className="peer sr-only" defaultChecked />
-          <div className="peer relative h-6 w-11 rounded-full bg-gray-300 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-full" />
+          <div className="peer relative h-6 w-11 rounded-full bg-gray-300 peer-checked:bg-blue-500 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full" />
         </label>
       </SettingCard>
       <SettingCard
