@@ -1,4 +1,4 @@
-import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -28,65 +28,5 @@ A component for rendering search results as a list, with support for grouping, l
 
 <Story of={SearchResultsStories.WithIcons} />
 
-## Props
-
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>results</code>
-      </td>
-      <td>
-        <code>{'(SearchResultType | SearchResultGroupType)[]'}</code>
-      </td>
-      <td>
-        <code>required</code>
-      </td>
-      <td>Array of search results or grouped results to display</td>
-    </tr>
-    <tr>
-      <td>
-        <code>id</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>HTML id attribute for the container element</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Additional CSS class for the container element</td>
-    </tr>
-    <tr>
-      <td>
-        <code>resultClassName</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>CSS class applied to each individual search result</td>
-    </tr>
-  </tbody>
-</table>
+## API
+<ArgTypes />

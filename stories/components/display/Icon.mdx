@@ -1,4 +1,4 @@
-import { Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
+import { ArgTypes, Meta, Primary, Story, Title } from '@storybook/addon-docs/blocks';
 
 import SingleLineCodeBlock from '../../common/SingleLineCodeBlock';
 
@@ -24,93 +24,5 @@ A flexible icon component that supports Remix Icon class names, custom render fu
 
 <Story of={IconStories.RemixIcons} />
 
-## Props
-
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>icon</code>
-      </td>
-      <td>
-        <code>
-          {'Icons | ((props: IconProps) => ReactElement) | (IconProps & { icon: Icons })'}
-        </code>
-      </td>
-      <td>
-        <code>required</code>
-      </td>
-      <td>
-        Icon to render: a Remix Icon name, a render function, or an object with icon name and props
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>size</code>
-      </td>
-      <td>
-        <code>{'number | string'}</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Size of the icon. Numbers are converted from px to rem</td>
-    </tr>
-    <tr>
-      <td>
-        <code>width</code>
-      </td>
-      <td>
-        <code>{'number | string'}</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Width of the icon</td>
-    </tr>
-    <tr>
-      <td>
-        <code>height</code>
-      </td>
-      <td>
-        <code>{'number | string'}</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Height of the icon</td>
-    </tr>
-    <tr>
-      <td>
-        <code>className</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Additional CSS class for the icon element</td>
-    </tr>
-    <tr>
-      <td>
-        <code>style</code>
-      </td>
-      <td>
-        <code>CSSProperties</code>
-      </td>
-      <td>
-        <code>-</code>
-      </td>
-      <td>Inline styles for the icon element</td>
-    </tr>
-  </tbody>
-</table>
+## API
+<ArgTypes />
