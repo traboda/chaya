@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import Button from '../../Button/Button';
-import PinInput from '../PinInput';
-import { PinInputProps } from '../PinInput.types';
+import Button from '../../../src/components/Button';
+import PinInput from '../../../src/components/PinInput/PinInput';
+import { PinInputProps } from '../../../src/components/PinInput/PinInput.types';
 
 const meta: Meta<PinInputProps> = {
   title: 'Components/Inputs/PinInput',

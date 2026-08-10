@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import Radio from '../Radio';
-import { RadioProps } from '../Radio.types';
+import Radio, { RadioProps } from '../../../src/components/Radio';
 
 const meta: Meta<RadioProps<string | number>> = {
   title: 'Components/Inputs/Radio',

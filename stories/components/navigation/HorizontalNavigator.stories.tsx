@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import HorizontalNavigator from '../HorizontalNavigator';
-import { HorizontalNavigatorProps } from '../HorizontalNavigator.types';
-import { HorizontalNavigatorItemType } from '../HorizontalNavigatorItem.types';
+import HorizontalNavigator from '../../../src/components/HorizontalNavigator/HorizontalNavigator';
+import { HorizontalNavigatorProps } from '../../../src/components/HorizontalNavigator/HorizontalNavigator.types';
+import { HorizontalNavigatorItemType } from '../../../src/components/HorizontalNavigator/HorizontalNavigatorItem.types';
 
 const meta: Meta<HorizontalNavigatorProps> = {
   title: 'Components/Navigation/HorizontalNavigator',
