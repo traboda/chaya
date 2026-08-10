@@ -1,9 +1,44 @@
 <style>
-  /* Darker striped table rows in dark mode docs */
-  .dark .sbdocs-content table tbody tr:nth-child(2n) {
-    background-color: rgba(255, 255, 255, 0.02);
+  /* Striped table rows in docs */
+  .sbdocs-content table,
+  .docblock-argstable table {
+    width: 100% !important;
+    border-collapse: collapse !important;
   }
-  .dark .sbdocs-content table tbody tr:nth-child(2n + 1) {
-    background-color: rgba(255, 255, 255, 0.04);
+  .sbdocs-content table thead tr,
+  .docblock-argstable table thead tr {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15) !important;
+  }
+  .sbdocs-content table th,
+  .docblock-argstable table th {
+    text-align: left !important;
+    padding: 10px 12px !important;
+    font-weight: 600 !important;
+  }
+  .sbdocs-content table td,
+  .docblock-argstable table td {
+    padding: 10px 12px !important;
+  }
+  .sbdocs-content table tbody tr:nth-child(odd),
+  .docblock-argstable table tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+  }
+  .sbdocs-content table tbody tr:nth-child(even),
+  .docblock-argstable table tbody tr:nth-child(even) {
+    background-color: transparent !important;
+  }
+
+  /* Dark mode overrides */
+  .dark .sbdocs-content table thead tr,
+  .dark .docblock-argstable table thead tr {
+    border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  .dark .sbdocs-content table tbody tr:nth-child(odd),
+  .dark .docblock-argstable table tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+  }
+  .dark .sbdocs-content table tbody tr:nth-child(even),
+  .dark .docblock-argstable table tbody tr:nth-child(even) {
+    background-color: transparent !important;
   }
 </style>
