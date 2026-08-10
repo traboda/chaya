@@ -44,7 +44,7 @@ const PinDigit = ({
       'pin-digit text-color w-full text-center text-lg outline-none placeholder:text-slate-400/40',
       variant === 'minimal'
         ? 'focus:border-primary border-b-2 bg-transparent'
-        : 'bg-background-lighten-1 focus:border-primary rounded-lg border py-1.5 shadow-inner',
+        : 'bg-background-lighten-1 focus:border-primary rounded-lg border py-1.5',
       className,
       isInvalid ? 'border-red-500' : 'border-light',
       type === 'number' && styles.hideStepper,

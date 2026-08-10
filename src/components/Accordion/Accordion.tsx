@@ -37,7 +37,7 @@ const Accordion = ({
       <button
         className={mcs([
           'accordion-button flex w-full rounded-lg px-3 py-2 text-lg font-semibold',
-          'text-color items-center justify-between bg-white/90 shadow-sm dark:bg-white/5',
+          'text-color items-center justify-between bg-white/90 dark:bg-white/5',
           'border',
           titleClassName,
           (isDisabled || isLocked) && 'cursor-not-allowed',

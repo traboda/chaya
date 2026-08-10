@@ -83,7 +83,7 @@ const SearchBox = ({
         isDisabled={isDisabled}
         isLoading={isLoading}
         inputClassName={inputClassName}
-        postfixClassName={mcs([hideButton && 'border-l-0 shadow-inner', buttonWrapperClassName])}
+        postfixClassName={mcs([hideButton && 'border-l-0', buttonWrapperClassName])}
         leftIcon={hideButton ? 'search' : undefined}
         postfixRenderer={
           (!hideButton || keyword?.length > 0) && (

@@ -118,7 +118,7 @@ const PinInput = ({
         className={mcs([
           'pin-input pin-input border-light grid gap-2',
           variant === 'minimal'
-            ? 'bg-background-lighten-1 focus-within:border-primary rounded-lg border px-2 py-1.5 shadow-inner'
+            ? 'bg-background-lighten-1 focus-within:border-primary rounded-lg border px-2 py-1.5'
             : 'gap-2',
           className,
         ])}

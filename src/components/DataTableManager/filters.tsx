@@ -80,10 +80,7 @@ const DataTableManagerFilters = ({
 
   return (
     <div
-      className={clsx([
-        'border-light border bg-gray-500/10 dark:bg-gray-500/20',
-        'rounded-lg p-2 shadow-inner',
-      ])}
+      className={clsx(['border-light border bg-gray-500/10 dark:bg-gray-500/20', 'rounded-lg p-2'])}
     >
       <div className="flex w-full flex-wrap items-center gap-1">
         {filterConfig

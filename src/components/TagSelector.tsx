@@ -90,7 +90,7 @@ const TagSelector = <Type extends SingleValueType | SingleValueType[]>(
             type="button"
             className={mcs([
               'tag-option flex items-center gap-2 rounded-lg px-3 py-2 text-base',
-              'duration-200ms ease border shadow transition-all hover:shadow-none',
+              'duration-200ms ease border transition-all',
               generateClassName(o.value),
               props?.tagClassName,
             ])}

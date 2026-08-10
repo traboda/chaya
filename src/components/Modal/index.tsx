@@ -90,7 +90,7 @@ const Modal = ({
         >
           <div
             className={mcs([
-              'modal-container relative w-full rounded-t-lg shadow-lg sm:w-auto sm:rounded-b-lg dark:shadow-xl dark:shadow-black/40',
+              'modal-container relative w-full rounded-t-lg sm:w-auto sm:rounded-b-lg',
               'text-color max-h-[100dvh] max-w-screen overflow-auto',
               'border',
               containerClassName,

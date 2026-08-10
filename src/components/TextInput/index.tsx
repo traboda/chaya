@@ -173,7 +173,7 @@ const TextInput = <Type extends string | number>({
 
   const inputClassNameCalculated = mcs([
     'px-2.5 py-2 block w-full bg-background-lighten-1 placeholder:text-color focus:outline-none',
-    'text-color border-y placeholder:opacity-50 shadow-inner ',
+    'text-color border-y placeholder:opacity-50 ',
     commonClasses,
     touched ? 'invalid:border-red-500' : '',
     prefixRenderer ? 'invalid:border-l' : 'rounded-l-lg border-l',

@@ -33,7 +33,7 @@ const buttonStyling = cva({
   base: [
     'button relative overflow-hidden text-center border-transparent transition',
     'outline-0 inline-flex items-center justify-center',
-    'border shadow hover:shadow-none gap-2',
+    'border gap-2',
     'focus:ring-1 focus:ring-offset-2 focus:ring-offset-transparent',
   ],
   variants: {
@@ -59,7 +59,7 @@ const buttonStyling = cva({
       solid: '',
       outline: 'border',
       minimal: '',
-      link: ['hover:underline', 'p-0 shadow-none rounded-none ring-transparent focus:ring-0'],
+      link: ['hover:underline', 'p-0 rounded-none ring-transparent focus:ring-0'],
     },
   },
   compoundVariants: [

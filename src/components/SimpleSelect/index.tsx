@@ -349,7 +349,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                 onKeyDown={handleKeyDown}
                 className={mcs([
                   'simple-select text-color w-full appearance-none rounded-lg p-2 text-base',
-                  'bg-background-lighten-1 shadow-inner',
+                  'bg-background-lighten-1',
                   'border-y border-l focus:outline-none',
                   'group-focus-within:border-gray-500/60 dark:group-focus-within:border-gray-300/60',
                   'bg-background cursor-default bg-no-repeat text-left',
@@ -382,7 +382,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
                             className={clsx([
                               'border-light border bg-black/10 dark:bg-white/10',
                               'inline-flex items-center overflow-hidden rounded px-1',
-                              'hover:shadow',
+                              '',
                             ])}
                           >
                             {option?.icon && <Icon icon={option?.icon} size={16} />}
@@ -493,7 +493,7 @@ const SimpleSelect = <Type extends SimpleSelectValue | SimpleSelectValue[]>({
             <div
               className={clsx([
                 'bg-background-lighten-1 overflow-hidden rounded-lg',
-                isDropdownActive && 'border-light border shadow',
+                isDropdownActive && 'border-light border',
               ])}
             >
               <div className="bg-black/10 dark:bg-white/10">

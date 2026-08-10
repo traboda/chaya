@@ -153,13 +153,7 @@ const DataTable = <Type extends { id: string }>({
                 classNames?.table,
               ])}
             >
-              <thead
-                className={clsx([
-                  'sticky top-0 z-50 mb-2 shadow-sm',
-                  variant === 'grid' ? 'border-light border' : 'shadow-gray-500/50',
-                  classNames?.thead,
-                ])}
-              >
+              <thead className={clsx(['sticky top-0 z-50 mb-2 shadow-sm', classNames?.thead])}>
                 <ItemListerTitleBar<Type>
                   properties={activeProperties}
                   onSort={onSort}
@@ -241,7 +235,7 @@ const DataTable = <Type extends { id: string }>({
             <div
               className={clsx([
                 'border bg-neutral-500/10 dark:bg-neutral-800/80',
-                'flex justify-start rounded-b-lg p-3 shadow-inner',
+                'flex justify-start rounded-b-lg p-3',
               ])}
             >
               <PageNavigator

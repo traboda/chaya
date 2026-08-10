@@ -108,7 +108,7 @@ const Drawer = ({
         >
           <div
             className={mcs([
-              'bg-background text-color relative w-full shadow-lg sm:w-auto dark:shadow-xl dark:shadow-black/40',
+              'bg-background text-color relative w-full sm:w-auto',
               'overflow-auto border',
               getPositionAlignmentChild,
               getPositionAnimation,

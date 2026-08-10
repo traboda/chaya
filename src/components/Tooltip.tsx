@@ -13,7 +13,7 @@ export type TooltipProps = {
   side?: SideOptions;
   align?: AlignOptions;
   contentClassName?: string;
-  /** Whether to show an arrow element alongside the tooltip.  */
+  /** Whether to show an arrow element alongside the tooltip. */
   showArrow?: boolean;
 };
 
@@ -37,7 +37,7 @@ const Tooltip = ({
             'tooltip-content z-9000 rounded-lg whitespace-nowrap',
             'border',
             'bg-gray-100/95 dark:bg-neutral-800/95',
-            'text-color px-2.5 py-1.5 text-sm shadow-md backdrop-blur dark:shadow-lg dark:shadow-black/30',
+            'text-color px-2.5 py-1.5 text-sm backdrop-blur',
             contentClassName,
           ])}
         >
