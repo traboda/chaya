@@ -3,15 +3,15 @@
     <h1 style="margin-top: 12px">Chaya UI</h1>
     <p style="font-size: 110%">Chaya UI is a modern, data-first component library for React.</p>
     <div align="center">
-      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/chaya-ui/chaya-ui?style=for-the-badge"/>
-      <a href="https://www.npmjs.com/package/chaya-ui">
-        <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/chaya-ui.svg?style=for-the-badge"/>
+      <img alt="GNU GPL v3 License" src="https://img.shields.io/github/license/traboda/chaya?style=for-the-badge"/>
+      <a href="https://www.npmjs.com/package/traboda-chaya-ui">
+        <img alt="Latest Version on NPM" src="https://img.shields.io/npm/v/traboda-chaya-ui.svg?style=for-the-badge"/>
       </a>
-      <a href="https://www.npmjs.com/package/chaya-ui">
-        <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/chaya-ui.svg?style=for-the-badge"/>
+      <a href="https://www.npmjs.com/package/traboda-chaya-ui">
+        <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/traboda-chaya-ui.svg?style=for-the-badge"/>
       </a>
-      <a href="https://github.com/chaya-ui/chaya-ui/stargazers">
-        <img alt="Github Stars" src="https://img.shields.io/github/stars/chaya-ui/chaya-ui?style=for-the-badge" />
+      <a href="https://github.com/traboda/chaya/stargazers">
+        <img alt="Github Stars" src="https://img.shields.io/github/stars/traboda/chaya?style=for-the-badge" />
       </a>
     </div>
 </div>
@@ -34,48 +34,48 @@ Checkout examples from our Storybook: [chaya.traboda.com](https://chaya.traboda.
 1. Install the package by running -
 
 ```bash
-npm install chaya-ui
+npm install traboda-chaya-ui
 ```
 
 or with yarn, as
 
 ```bash
-yarn add chaya-ui
+yarn add traboda-chaya-ui
 ```
 
 ## Setting Up & Usage
 
 To start using the components, please follow the below steps:
 
-1. Wrap your Application in a `ChayaProvider` provided by `chaya-ui`
+1. Wrap your Application in a `ChayaProvider` provided by `traboda-chaya-ui`
 
    ```tsx
    import { ReactNode } from 'react';
 
-   import { ChayaProvider } from 'chaya-ui';
+   import { ChayaProvider } from 'traboda-chaya-ui';
 
    const AppView = ({ children }: { children: ReactNode }) => (
      <ChayaProvider>{children}</ChayaProvider>
    );
    ```
 
-2. Update your CSS to include Tailwind and scan `chaya-ui` components
+2. Update your CSS to include Tailwind and scan `traboda-chaya-ui` components
 
    ```css
    @import 'tailwindcss';
-   @source '../../node_modules/chaya-ui';
+   @source '../../node_modules/traboda-chaya-ui';
    ```
 
    If you need the Chaya theme tokens in your Tailwind config, you can import them:
 
    ```js
-   import theme from 'chaya-ui/tailwind-theme';
+   import theme from 'traboda-chaya-ui/tailwind-theme';
    ```
 
-3. Import the components from `chaya-ui` and use them in your application.
+3. Import the components from `traboda-chaya-ui` and use them in your application.
 
    ```tsx
-   import { Button } from 'chaya-ui';
+   import { Button } from 'traboda-chaya-ui';
 
    const App = () => (
      <Button onClick={() => console.log('I was clicked')} variant="outline" color="danger">
