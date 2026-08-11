@@ -1,7 +1,51 @@
 {
-  "name": "chaya-ui",
-  "version": "1.0.0-beta.90",
+  "name": "chaya",
+  "version": "1.0.1",
   "description": "Modern, Data-First UI Components for React",
+  "keywords": [
+    "react",
+    "react-components",
+    "uikit",
+    "accessible",
+    "components",
+    "library",
+    "design-system",
+    "chaya-ui"
+  ],
+  "homepage": "https://github.com/chaya-ui/chaya-ui#readme",
+  "bugs": {
+    "url": "https://github.com/chaya-ui/chaya-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaya-ui/chaya-ui.git"
+  },
+  "license": "GPL-3.0-only",
+  "author": "Traboda",
+  "contributors": [
+    {
+      "name": "Ashwin S Shenoy",
+      "email": "aswinshenoy65@gmail.com"
+    },
+    {
+      "name": "Advaith A J",
+      "email": "advaitharunjeena@gmail.com"
+    },
+    {
+      "name": "Abhiram Krishna",
+      "email": "abhikrishnaram88@gmail.com"
+    },
+    {
+      "name": "Seshagiri Prabhu",
+      "email": "seshagiriprabhu@gmail.com"
+    }
+  ],
+  "type": "commonjs",
+  "main": "tailwind-theme.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "tailwind": "tailwindcss -i ./src/style.css -o ./dist/style.css",
     "build-components": "rm -rf dist && rollup -c",
@@ -18,30 +62,6 @@
     "format-check": "prettier --check .",
     "prepare": "husky"
   },
-  "contributors": [
-    "Ashwin S Shenoy <aswinshenoy65@gmail.com>",
-    "Advaith A J <advaitharunjeena@gmail.com>",
-    "Abhiram Krishna <abhikrishnaram88@gmail.com>"
-  ],
-  "license": "GPL-3.0-only",
-  "bugs": {
-    "url": "https://github.com/chaya-ui/chaya-ui/issues"
-  },
-  "homepage": "https://github.com/chaya-ui/chaya-ui#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chaya-ui/chaya-ui.git"
-  },
-  "keywords": [
-    "react",
-    "react-components",
-    "uikit",
-    "accessible",
-    "components",
-    "library",
-    "design-system",
-    "chaya-ui"
-  ],
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
     "@radix-ui/react-dropdown-menu": "^2.1.24",
@@ -115,11 +135,7 @@
   "overrides": {
     "uuid": "^11.1.1"
   },
-  "files": [
-    "dist"
-  ],
   "module": "dist/src/index.js",
-  "types": "dist/types/index.d.ts",
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
