@@ -40,7 +40,7 @@
       "email": "seshagiriprabhu@gmail.com"
     }
   ],
-  "type": "commonjs",
+  "type": "module",
   "main": "tailwind-theme.js",
   "types": "dist/types/index.d.ts",
   "files": [
