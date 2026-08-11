@@ -1,5 +1,5 @@
 {
-  "name": "chaya",
+  "name": "traboda-chaya-ui",
   "version": "1.0.1",
   "description": "Modern, Data-First UI Components for React",
   "keywords": [
@@ -12,13 +12,13 @@
     "design-system",
     "chaya-ui"
   ],
-  "homepage": "https://github.com/chaya-ui/chaya-ui#readme",
+  "homepage": "https://github.com/traboda/chaya#readme",
   "bugs": {
-    "url": "https://github.com/chaya-ui/chaya-ui/issues"
+    "url": "https://github.com/traboda/chaya/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chaya-ui/chaya-ui.git"
+    "url": "git+https://github.com/traboda/chaya.git"
   },
   "license": "GPL-3.0-only",
   "author": "Traboda",
