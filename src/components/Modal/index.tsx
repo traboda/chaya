@@ -42,7 +42,7 @@ const Modal = ({
   containerClassName,
   overlayClassName = '',
   titleClassName = '',
-  headerClassName = '',
+  headerClassName = '!bg-transparent',
   overlayContent,
   contentClassName = '',
   titleIcon,
