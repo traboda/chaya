@@ -58,6 +58,34 @@ const IssueReportForm = () => {
   );
 };
 
+export const CustomHeaderBackground: Story = {
+  args: {
+    isOpen: false,
+    title: 'Report an Error',
+    description:
+      'We are sorry to hear that you are facing an issue. Please fill out the form below to report the error.',
+    headerClassName: 'bg-blue-500 text-white',
+  },
+  decorators: (Story, context) => {
+    const [isOpen, setIsOpen] = React.useState(context.args.isOpen);
+
+    return (
+      <div>
+        <Button onClick={() => setIsOpen(true)}>Open Drawer</Button>
+        {Story({
+          ...context,
+          args: {
+            ...context.args,
+            isOpen,
+            onClose: () => setIsOpen(false),
+            children: <IssueReportForm />,
+          },
+        })}
+      </div>
+    );
+  },
+};
+
 export const Primary: Story = {
   args: {
     isOpen: false,
