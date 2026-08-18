@@ -27,6 +27,7 @@ export type DrawerProps = {
   title?: string;
   description?: string;
   titleIcon?: IconInputType;
+  headerClassName?: string;
 };
 
 const Drawer = ({
@@ -46,6 +47,7 @@ const Drawer = ({
   description,
   titleIcon,
   contentClassName,
+  headerClassName = '!bg-transparent',
 }: DrawerProps) => {
   const shouldRenderChild = useDelayUnmount(isOpen, 400);
 
@@ -145,6 +147,7 @@ const Drawer = ({
                   'modal-header flex w-full flex-col items-start justify-between gap-1',
                   'rounded-t-lg border-b px-3 py-2',
                   'border-light bg-background-lighten-1 dark:bg-background-darken-1',
+                  headerClassName,
                 ])}
               >
                 {title && (
