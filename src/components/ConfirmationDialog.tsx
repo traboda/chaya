@@ -26,6 +26,7 @@ export type ConfirmationDialogProps = {
   onConfirm?: (args: { password?: string }) => void;
   onCancel?: () => void;
   className?: string;
+  headerClassName?: string;
   formID?: string;
   confirmButtonProps?: ButtonProps;
   cancelButtonProps?: ButtonProps;
@@ -48,6 +49,7 @@ const ConfirmationDialog = ({
   onConfirm = () => {},
   onCancel = () => {},
   className,
+  headerClassName,
   formID,
   confirmButtonProps,
   cancelButtonProps,
@@ -70,7 +72,7 @@ const ConfirmationDialog = ({
     <Modal
       isOpen={isOpen}
       onClose={onCancel}
-      headerClassName="w-[450px]"
+      headerClassName={mcs(['!bg-transparent w-[450px]', headerClassName])}
       contentClassName={mcs('confirmation-dialog w-[450px] max-w-full', className)}
       title={labels?.title}
       description={labels.description}

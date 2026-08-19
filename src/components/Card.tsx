@@ -12,6 +12,7 @@ export type CardProps = {
   title?: string;
   description?: string;
   titleClassName?: string;
+  headerClassName?: string;
   bodyClassName?: string;
   titleIcon?: IconInputType;
   id?: string;
@@ -28,6 +29,7 @@ const Card = ({
   className,
   bodyClassName,
   titleClassName,
+  headerClassName = '!bg-transparent',
   titleIcon,
   sidebarRenderer,
 }: CardProps) => (
@@ -45,6 +47,7 @@ const Card = ({
           'card-header flex w-full items-start justify-between gap-3',
           'rounded-t-lg border-b px-3 py-2',
           variant === 'shaded' && 'bg-background-lighten-1 dark:bg-background-darken-1',
+          headerClassName,
         ])}
       >
         <div>

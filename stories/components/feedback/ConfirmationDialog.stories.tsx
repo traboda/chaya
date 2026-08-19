@@ -51,6 +51,31 @@ export const Primary: Story = {
   },
 };
 
+export const CustomHeaderBackground: Story = {
+  render: () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <div>
+        <Button color="danger" onClick={() => setOpen(true)}>
+          Delete
+        </Button>
+        <ConfirmationDialog
+          labels={{
+            title: 'Delete All Photos',
+            description: 'Are you sure you want to delete all photos? This is permanent action.',
+          }}
+          headerClassName="bg-blue-500 text-white"
+          confirmButtonProps={{ color: 'danger' }}
+          isOpen={isOpen}
+          onConfirm={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
+        />
+      </div>
+    );
+  },
+};
+
 export const RequirePassword: Story = {
   render: () => {
     const [isOpen, setOpen] = useState(false);

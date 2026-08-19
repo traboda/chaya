@@ -104,6 +104,16 @@ export const NestedCardsWithCustomContent: Story = {
   },
 };
 
+export const CustomHeaderBackground: Story = {
+  args: {
+    title: 'Add Members',
+    description: 'Add members to your team, and collaborate with them on projects.',
+    children:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nunc vitae nisl',
+    headerClassName: 'bg-blue-500 text-white',
+  },
+};
+
 export const OutlineVariant: Story = {
   tags: ['unlisted'],
   args: {

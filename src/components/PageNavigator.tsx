@@ -73,9 +73,9 @@ const PageNavigator = ({
     base: ['flex items-center justify-center'],
     variants: {
       size: {
-        sm: 'w-6 h-6 text-sm',
-        md: 'w-8 h-8 text-base',
-        lg: 'w-10 h-10 text-lg',
+        sm: 'min-w-6 h-6 px-1 text-sm',
+        md: 'min-w-8 h-8 px-1.5 text-base',
+        lg: 'min-w-10 h-10 px-2 text-lg',
       },
     },
   });
